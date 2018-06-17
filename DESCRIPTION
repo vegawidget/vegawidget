@@ -17,3 +17,5 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
+URL: https://github.com/vegawidget/vegawidget
+BugReports: https://github.com/vegawidget/vegawidget/issues

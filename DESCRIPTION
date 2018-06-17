@@ -19,3 +19,10 @@ LazyData: true
 ByteCompile: true
 URL: https://github.com/vegawidget/vegawidget
 BugReports: https://github.com/vegawidget/vegawidget/issues
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
+Suggests: 
+    httr,
+    glue
+Imports: 
+    jsonlite

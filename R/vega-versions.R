@@ -5,8 +5,11 @@
 #' @param vega_lite_version `character` version of Vega-Lite, e.g. `"2.5.0"`
 #'
 #' @return `list` with elements `vega_lite`, `vega`, `vega_embed`
+#'
+#' @keywords internal
 #' @examples
-#'   vega_versions
+#'   vega_versions(vega_lite_version = "2.5.0")
+#' @export
 #'
 vega_versions <- function(vega_lite_version) {
 

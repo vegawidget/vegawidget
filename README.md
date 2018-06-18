@@ -1,6 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![Travis build
+status](https://travis-ci.org/ijlyttle/vegawidget.svg?branch=master)](https://travis-ci.org/ijlyttle/vegawidget)
+
 # vegawidget
 
 The goal of vegawidget is to handle the rendering into htmlwidgets for
@@ -22,13 +25,16 @@ provide methods for:
 
   - list
   - character
-  - JSON
+  - `jsonlite` `json` object
 
 For a package such as **altair**, it becomes that packge’s
 responsibility to provide generics for its objects.
 
 In the future, challenges will include:
 
+  - using `gistr` to create a block.
+  - when knitting to a non-interactive format, e.g. `github_document`
+    getting the “right” thing to happen
   - offering **crosstalk** compatibility
   - offering reactive **shiny** behavior, like **ggvis** provides for
     its Vega specifications

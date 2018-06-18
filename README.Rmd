@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+[![Travis build status](https://travis-ci.org/ijlyttle/vegawidget.svg?branch=master)](https://travis-ci.org/ijlyttle/vegawidget)
+
 # vegawidget
 
 The goal of vegawidget is to handle the rendering into htmlwidgets for Vega-Lite and Vega specifications.

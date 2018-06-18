@@ -18,7 +18,7 @@ library("conflicted")
 library("fs")
 library("glue")
 library("httr")
-library("rprojroot")
+library("here")
 library("tibble")
 library("purrr")
 library("readr")
@@ -29,7 +29,11 @@ library("vegawidget")
 dir_htmlwidgets <- here("inst", "htmlwidgets")
 dir_templates <- here("data-raw", "templates")
 
-vega_versions_long <- vegawidget::vega_versions()
+vega_versions_long <- vega_versions(params$vega_lite_version)
+
+# we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
+# "-\\w.*$"   hyphen, followed by a letter, followed by anything, then end 
+vega_versions_short <- map(vega_versions_long, ~sub("-\\w.*$", "", .x))
 ```
 
 ## Clean and create
@@ -50,5 +54,20 @@ dir_create(params$dir_htmlwidgets)
 
 ## Vegawidget files
 
+We have a couple of files to copy from our templates directory.
+
+```{r vegawidget-js}
+file_copy(
+  path(dir_templates, "vegawidget.js"), 
+  path(dir_htmlwidgets, "vegawidget.js")
+)
+```
+
+```{r vegawidget-yml}
+path(dir_templates, "vegawidget.yaml") %>%
+  read_lines() %>%
+  map_chr(~glue_data(vega_versions_short, .x)) %>%
+  write_lines(path(dir_htmlwidgets, "vegawidget.yaml"))
+```
 
 ## Lib directory

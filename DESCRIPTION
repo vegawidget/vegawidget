@@ -24,6 +24,8 @@ RoxygenNote: 6.0.1
 Suggests: 
     httr,
     glue,
-    testthat
+    testthat,
+    conflicted,
+    fs
 Imports: 
     jsonlite

@@ -1,0 +1,54 @@
+---
+title: htmlwidgets lib files
+output: github_document
+params:
+  vega_lite_version: "2.5.0"
+---
+
+The purpose of this document is to assemble the files for the `inst/htmlwidgets` directory.
+
+To construct the `inst/htmlwidgets` directory, we have two "sources of truth": this file and the contents of the directory `data-raw/templates/vegawidget`.
+
+The **only** way to put anything in the `inst/htmlwidgets` directory is to run this file.
+
+## Configure
+
+```{r packages}
+library("conflicted")
+library("fs")
+library("glue")
+library("httr")
+library("rprojroot")
+library("tibble")
+library("purrr")
+library("readr")
+library("vegawidget")
+```
+
+```{r}
+dir_htmlwidgets <- here("inst", "htmlwidgets")
+dir_templates <- here("data-raw", "templates")
+
+vega_versions_long <- vegawidget::vega_versions()
+```
+
+## Clean and create
+
+Our first task is to create a clean directory `inst/htmlwidgets`.
+
+```{r}
+params$dir_htmlwidgets
+```
+
+```{r clean-create}
+if (dir_exists(params$dir_htmlwidgets)) {
+  dir_delete(params$dir_htmlwidgets)
+}
+
+dir_create(params$dir_htmlwidgets)
+```
+
+## Vegawidget files
+
+
+## Lib directory

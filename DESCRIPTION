@@ -27,6 +27,8 @@ Suggests:
     testthat,
     conflicted,
     fs,
-    readr
+    readr,
+    dplyr,
+    stringr
 Imports:
     jsonlite

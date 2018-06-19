@@ -1,24 +1,29 @@
----
-title: htmlwidgets lib files
-output: github_document
-params:
-  vega_lite_version: "2.5.0"
----
+htmlwidgets lib files
+================
 
-The purpose of this document is to assemble the files for the `inst/htmlwidgets` directory.
+The purpose of this document is to assemble the files for the
+`inst/htmlwidgets` directory.
 
-To construct the `inst/htmlwidgets` directory, we have two "sources of truth": this file and the contents of the directory `data-raw/templates/vegawidget`.
+To construct the `inst/htmlwidgets` directory, we have two “sources of
+truth”: this file and the contents of the directory
+`data-raw/templates/vegawidget`.
 
-The **only** way to put anything in the `inst/htmlwidgets` directory is to run this file.
+The **only** way to put anything in the `inst/htmlwidgets` directory is
+to run this file.
 
 ## Configure
 
-```{r packages}
+``` r
 library("conflicted")
 library("fs")
 library("glue")
 library("httr")
 library("here")
+```
+
+    ## here() starts at /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget
+
+``` r
 library("tibble")
 library("purrr")
 library("readr")
@@ -26,7 +31,7 @@ library("dplyr")
 library("vegawidget")
 ```
 
-```{r}
+``` r
 dir_htmlwidgets <- here("inst", "htmlwidgets")
 dir_templates <- here("data-raw", "templates")
 
@@ -41,11 +46,13 @@ vega_versions_short <- map(vega_versions_long, ~sub("-\\w.*$", "", .x))
 
 Our first task is to create a clean directory `inst/htmlwidgets`.
 
-```{r}
+``` r
 params$dir_htmlwidgets
 ```
 
-```{r clean-create}
+    ## NULL
+
+``` r
 if (dir_exists(dir_htmlwidgets)) {
   dir_delete(dir_htmlwidgets)
 }
@@ -57,14 +64,14 @@ dir_create(dir_htmlwidgets)
 
 We have a couple of files to copy from our templates directory.
 
-```{r vegawidget-js}
+``` r
 file_copy(
   path(dir_templates, "vegawidget.js"), 
   path(dir_htmlwidgets, "vegawidget.js")
 )
 ```
 
-```{r vegawidget-yml}
+``` r
 path(dir_templates, "vegawidget.yaml") %>%
   read_lines() %>%
   map_chr(~glue_data(vega_versions_short, .x)) %>%
@@ -73,7 +80,7 @@ path(dir_templates, "vegawidget.yaml") %>%
 
 ## Lib directory
 
-```{r}
+``` r
 downloads <-
   tribble(
     ~path_local,                         ~path_remote,
@@ -92,7 +99,7 @@ downloads <-
   identity()
 ```
 
-```{r}
+``` r
 get_file <- function(path_local, path_remote, lib_dir) {
   
   path_local <- fs::path(lib_dir, path_local)
@@ -114,16 +121,16 @@ get_file <- function(path_local, path_remote, lib_dir) {
 }
 ```
 
-```{r}
+``` r
 dir_lib <- path(dir_htmlwidgets, "lib")
 dir_create(dir_lib)
 
 pwalk(downloads, get_file, lib_dir = dir_lib)
 ```
 
-## Patch 
+## Patch
 
-```{r}
+``` r
 vega_embed_path <- path(dir_lib, "vega-embed/vega-embed.js")
 vega_embed <- readr::read_file(vega_embed_path)
 

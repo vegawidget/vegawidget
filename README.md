@@ -12,6 +12,9 @@ status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project
 The goal of vegawidget is to handle the rendering into htmlwidgets for
 Vega-Lite and Vega specifications.
 
+**NOTE: This package is not yet functional - once something is actually
+working, this note will be removed.**
+
 For now, this document will serve a manifesto for what we might hope for
 the package.
 

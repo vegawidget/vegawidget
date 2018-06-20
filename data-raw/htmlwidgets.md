@@ -1,17 +1,29 @@
 htmlwidgets lib files
 ================
 
-The purpose of this document is to assemble the files for the
-`inst/htmlwidgets` directory.
+This document is run **only** if you want to reassemble the vegawidget
+htmlwidget. This would be done to update this package in whenever the
+**Vega-Lite** version is upgraded.
 
-To construct the `inst/htmlwidgets` directory, we have two “sources of
-truth”: this file and the contents of the directory
-`data-raw/templates/vegawidget`.
+In concrete terms, this document will construct the `inst/htmlwidgets`
+directory; the **only** way to put anything in the `inst/htmlwidgets`
+directory is to run this file.
 
-The **only** way to put anything in the `inst/htmlwidgets` directory is
-to run this file.
+We have two “sources of truth”: this file and the contents of the
+directory `data-raw/templates`.
+
+As long as the vega-embed framework remains the same, all we should need
+to do to update the **Vega-Lite** libraries is to change the parameter
+`vega_lite_version` in the yaml-header to this file.
+
+If you want to update the workings of the htmlwidget, you will have to
+do so in the files `data-raw/templates` directory. It may be useful to
+note this in a “contributing” document for this package.
 
 ## Configure
+
+These packages are not listed in the `Suggests` section of the
+`DESCRIPTION` file. It’s on you to make sure they are all up-to-date.
 
 ``` r
 library("conflicted")
@@ -31,12 +43,36 @@ library("dplyr")
 library("vegawidget")
 ```
 
-``` r
-dir_htmlwidgets <- here("inst", "htmlwidgets")
-dir_templates <- here("data-raw", "templates")
+For this document, there is a source-directory, `dir_templates`, and a
+target-directory, `dir_htmlwidgets`. We will read information from the
+source-directory and write it to the target-directory.
 
+``` r
+dir_templates <- here("data-raw", "templates")
+dir_htmlwidgets <- here("inst", "htmlwidgets")
+```
+
+Finally, we need to know which versions of the libraries (vega,
+vega-lite, and vega-embed) to download. We do this by inspecting the
+manifest of a specific version of the vega-lite library. This package
+has an internal function, `vega_version()` to help us do this:
+
+``` r
 vega_versions_long <- vega_versions(params$vega_lite_version)
 
+vega_versions_long
+```
+
+    ## $vega_lite
+    ## [1] "2.5.0"
+    ## 
+    ## $vega
+    ## [1] "4.0.0-rc.2"
+    ## 
+    ## $vega_embed
+    ## [1] "3.14.0"
+
+``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
 # "-\\w.*$"   hyphen, followed by a letter, followed by anything, then end 
 vega_versions_short <- map(vega_versions_long, ~sub("-\\w.*$", "", .x))
@@ -44,13 +80,8 @@ vega_versions_short <- map(vega_versions_long, ~sub("-\\w.*$", "", .x))
 
 ## Clean and create
 
-Our first task is to create a clean directory `inst/htmlwidgets`.
-
-``` r
-params$dir_htmlwidgets
-```
-
-    ## NULL
+Our first task is to create a clean directory `inst/htmlwidgets`. If it
+exists, we delete it and create it anew.
 
 ``` r
 if (dir_exists(dir_htmlwidgets)) {
@@ -62,7 +93,7 @@ dir_create(dir_htmlwidgets)
 
 ## Vegawidget files
 
-We have a couple of files to copy from our templates directory.
+Here, we have copy some files from our templates directory.
 
 ``` r
 file_copy(
@@ -70,6 +101,9 @@ file_copy(
   path(dir_htmlwidgets, "vegawidget.js")
 )
 ```
+
+The file `vegawidget.yaml` requires the versions the JavaScript
+libraries; we interpolate these from `vega_versions_short`.
 
 ``` r
 path(dir_templates, "vegawidget.yaml") %>%
@@ -79,6 +113,9 @@ path(dir_templates, "vegawidget.yaml") %>%
 ```
 
 ## Lib directory
+
+Here’s where we download the libraries themselves, along with the
+licences; the versions are interpolated from `vega_versions_long`.
 
 ``` r
 downloads <-
@@ -95,8 +132,7 @@ downloads <-
   ) %>%
   mutate(
     path_remote = map_chr(path_remote, ~glue_data(vega_versions_long, .x))
-  ) %>%
-  identity()
+  ) 
 ```
 
 ``` r
@@ -121,6 +157,9 @@ get_file <- function(path_local, path_remote, lib_dir) {
 }
 ```
 
+Here, we create the `lib` directory, then “walk” through each row of the
+`downloads` data frame to get each of the files and put it into place.
+
 ``` r
 dir_lib <- path(dir_htmlwidgets, "lib")
 dir_create(dir_lib)
@@ -129,6 +168,11 @@ pwalk(downloads, get_file, lib_dir = dir_lib)
 ```
 
 ## Patch
+
+Here, Alicia Schep noticed that there was a problem to render vega
+charts within the RStudio IDE, and she figured out a workaround (as well
+as a [PR]() for the RStudio IDE to fix the problem). Here’s her patch
+for older versions of the IDE:
 
 ``` r
 vega_embed_path <- path(dir_lib, "vega-embed/vega-embed.js")

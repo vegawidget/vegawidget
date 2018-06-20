@@ -1,0 +1,6 @@
+template:
+  params:
+    bootswatch: sandstone
+
+development:
+  mode: unreleased

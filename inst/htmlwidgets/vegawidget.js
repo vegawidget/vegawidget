@@ -10,7 +10,7 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
 
-        var chart_spec = JSON.parse(x.chart_spec);
+        var chart_spec = x.chart_spec;
         var embed_options = x.embed_options;
 
         vegaEmbed(el, chart_spec, opt = embed_options).then(function(result) {

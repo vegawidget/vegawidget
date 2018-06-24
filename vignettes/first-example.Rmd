@@ -13,6 +13,9 @@ knitr::opts_chunk$set(
 
 ```{r}
 library("vegawidget")
+library("magrittr")
+library("tibble")
+library("readr")
 ```
 
 Let's write a vega-lite spec!
@@ -39,9 +42,89 @@ Here's a JSON spec
 ```
 
 ```{r}
+data_values <-
+  list(
+    list(a = "A", b = 28),
+    list(a = "B", b = 55),
+    list(a = "C", b = 43),
+    list(a = "D", b = 91),
+    list(a = "E", b = 81),
+    list(a = "F", b = 53),
+    list(a = "G", b = 19),
+    list(a = "H", b = 87),
+    list(a = "I", b = 52)
+  )
+
 spec <- 
   list(
     `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
-    description = ""
+    description = "A simple bar chart with embedded data.",
+    data = list(values = data_values),
+    mark = "bar",
+    encoding = list(
+      x = list(field = "a", type = "ordinal"),
+      y = list(field = "b", type = "quantitative")
+    )
+  )
+
+vegawidget::vegawidget(spec)
+```
+
+```{r}
+spec_named <- 
+  list(
+    `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
+    description = "A simple bar chart with embedded data.",
+    datasets = 
+      list(
+        sample = data_values
+      ),
+    data = list(name = "sample"),
+    mark = "bar",
+    encoding = list(
+      x = list(field = "a", type = "ordinal"),
+      y = list(field = "b", type = "quantitative")
+    )
+  )
+
+vegawidget::vegawidget(spec_named)
+```
+
+```{r}
+csv <- 
+  tibble(
+    a = c("A", "B", "C", "D", "E", "F", "G", "H", "I"),
+    b = c(28, 55, 43, 91, 81, 53, 19, 87, 52)
+  ) %>%
+  format_csv()
+
+data_csv <-
+  list(
+    values = csv,
+    format = list(
+      type = "csv"   
+    )
   )
 ```
+
+```{r}
+spec_csv <- spec
+
+spec_csv$data <- data_csv
+
+vegawidget::vegawidget(spec_csv)  
+```
+
+```{r}
+spec_named_csv <- spec_named
+
+spec_named_csv$datasets$sample <- csv
+spec_named_csv$data <- list(
+  name = "sample",
+  format = list(type = "csv")
+)
+
+vegawidget::vegawidget(spec_named_csv)
+```
+
+

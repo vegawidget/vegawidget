@@ -4,3 +4,6 @@
 ^README-.*\.png$
 ^data-raw$
 ^\.travis\.yml$
+^docs$
+^pkgdown$
+^vignettes/first-example.Rmd$

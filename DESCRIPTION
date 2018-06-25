@@ -22,7 +22,15 @@ BugReports: https://github.com/vegawidget/vegawidget/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 Imports:
-    jsonlite
-Suggests: knitr,
-    rmarkdown
+    jsonlite,
+    htmlwidgets,
+    assertthat,
+    rlang
+Suggests: 
+    knitr,
+    rmarkdown,
+    listviewer,
+    glue,
+    httr,
+    testthat
 VignetteBuilder: knitr

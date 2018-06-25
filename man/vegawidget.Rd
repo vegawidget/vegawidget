@@ -4,9 +4,11 @@
 \alias{vegawidget}
 \title{Create a Vega/Vega-Lite htmlwidget}
 \usage{
-vegawidget(x, embed = NULL, width = NULL, height = NULL, ...)
+vegawidget(spec, embed = NULL, width = NULL, height = NULL, ...)
 }
 \arguments{
+\item{spec}{chart_specification}
+
 \item{embed}{\code{vega_embed} object to specify embedding options -
 the default is an empty call to \code{\link[=vega_embed]{vega_embed()}},
 which will result in a canvas-rendering and action-links included for
@@ -21,8 +23,6 @@ of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification}
 
 \item{...}{other arguments}
-
-\item{spec}{chart_specification}
 }
 \description{
 Renders a chart as an htmlwidget.
@@ -65,12 +65,5 @@ including axes, labels, etc.
 \item Keep in mind that the action-links are not a part of the rendered chart,
 so you may have to account for them yourself. You might expect
 the height of the action-links to be 15-20 pixels.
-}
-}
-\seealso{
-\link{alt}, \code{\link[=vega_embed]{vega_embed()}},
-\href{https://vegawidget.github.io/altair/field-guide-rendering.html}{altair: Field Guide to Rendering Charts}
-
-\dontrun{
 }
 }

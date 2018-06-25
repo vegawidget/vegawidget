@@ -8,7 +8,10 @@
 #'
 #' @keywords internal
 #' @examples
+#' \dontrun{
 #'   vega_versions(vega_lite_version = "2.5.0")
+#' }
+#'
 #' @export
 #'
 vega_versions <- function(vega_lite_version) {

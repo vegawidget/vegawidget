@@ -54,18 +54,14 @@
 #'   of the chart - valid only for single-view charts and layered charts;
 #'   the default is to use the height in the chart specification
 #' @param ... other arguments
-#' @seealso [alt], [vega_embed()],
-#'   [altair: Field Guide to Rendering Charts](https://vegawidget.github.io/altair/field-guide-rendering.html)
 #'
-#' \dontrun{
-#' }
 #' @export
 #'
-vegawidget <- function(x, embed = NULL, width = NULL, height = NULL, ...) {
+vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
 
   x <-
     list(
-      chart_spec = x,
+      chart_spec = spec,
       embed_options = unclass(embed)
     )
 

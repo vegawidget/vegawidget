@@ -16,6 +16,9 @@ vega_versions(vega_lite_version)
 This is an internal function for updating this package.
 }
 \examples{
+\dontrun{
   vega_versions(vega_lite_version = "2.5.0")
+}
+
 }
 \keyword{internal}

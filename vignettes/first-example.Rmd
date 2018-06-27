@@ -16,6 +16,7 @@ library("vegawidget")
 library("magrittr")
 library("tibble")
 library("readr")
+library("purrr")
 ```
 
 Let's write a vega-lite spec!
@@ -91,16 +92,15 @@ vegawidget::vegawidget(spec_named)
 ```
 
 ```{r}
-csv <- 
+data <- 
   tibble(
     a = c("A", "B", "C", "D", "E", "F", "G", "H", "I"),
     b = c(28, 55, 43, 91, 81, 53, 19, 87, 52)
-  ) %>%
-  format_csv()
+  )
 
 data_csv <-
   list(
-    values = csv,
+    values = format_csv(data),
     format = list(
       type = "csv"   
     )
@@ -127,4 +127,46 @@ spec_named_csv$data <- list(
 vegawidget::vegawidget(spec_named_csv)
 ```
 
+Let's try to modify a spec that we create using a data-frame:
 
+```{r}
+spec_data_frame <- spec
+
+spec_data_frame$data <- data
+
+to_csv <- function(x) {
+  list(
+    values = readr::format_csv(x),
+    format = list(
+      type = "csv"   
+    )
+  )
+}
+
+wrap_recursive <- function(x) {
+  
+  if (is.data.frame(x)) {
+    x_new <- to_csv(x)
+  } else if (is.list(x)) {
+    x_new <- map(x, wrap_recursive)
+  } else {
+    x_new <- x
+  }
+  
+  x_new
+}
+
+spec_data_frame_new <- map(spec_data_frame, wrap_recursive)
+
+vegawidget(spec_data_frame_new)
+```
+
+```{r}
+spec_test <- 
+  list(
+    a = spec_data_frame,
+    b = spec_data_frame
+  )
+
+spec_test_new <- map(spec_test, wrap_recursive)
+```

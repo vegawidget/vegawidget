@@ -1,0 +1,12 @@
+.vega-embed .vega-actions > a {
+  color: #757575;
+  font-family: sans-serif;
+  font-weight: normal;
+  font-size: 13px;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+.vega-embed .vega-actions > a:hover {
+  cursor: pointer;
+}

@@ -25,12 +25,15 @@ Imports:
     jsonlite,
     htmlwidgets,
     assertthat,
-    rlang
+    rlang,
+    glue,
+    fs
 Suggests: 
     knitr,
     rmarkdown,
     listviewer,
-    glue,
     httr,
-    testthat
+    testthat,
+    yaml,
+    gistr
 VignetteBuilder: knitr

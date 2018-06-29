@@ -25,3 +25,4 @@ Create a yaml string for a block
 \seealso{
 \href{https://bl.ocks.org/-/about}{Blocks documentation}
 }
+\keyword{internal}

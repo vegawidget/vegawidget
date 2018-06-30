@@ -4,19 +4,19 @@
 \alias{as_vegaspec}
 \title{Coerce to a Vega/Vega-Lite specification}
 \usage{
-as_vegaspec(spec, validate_spec = TRUE, convert_data = TRUE,
-  consolidate_data = TRUE)
+as_vegaspec(spec, validate = TRUE, consolidate = TRUE)
 }
 \arguments{
 \item{spec}{object to be coerced to Vega/Vega-Lite specification}
 
-\item{validate_spec}{\code{logical} indicates to validate_spec the specification}
+\item{validate}{\code{logical} indicates to validate the specification}
 
-\item{convert_data}{\code{logical} indicates to convert any \code{data.frame} to JSON}
-
-\item{consolidate_data}{\code{logical} indicates to consolidate data into
+\item{consolidate}{\code{logical} indicates to consolidate data into
 top-level \code{datasets}}
 }
+\value{
+S3 object of class \code{vegaspec}
+}
 \description{
-Coerce to a Vega/Vega-Lite specification
+Talk about how \code{vegaspec} is a thin wrapper to \code{list}.
 }

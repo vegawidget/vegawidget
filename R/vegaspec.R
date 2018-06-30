@@ -1,61 +1,55 @@
 #' Coerce to a Vega/Vega-Lite specification
 #'
-#' @param spec             object to be coerced to Vega/Vega-Lite specification
-#' @param validate_spec    `logical` indicates to validate_spec the specification
-#' @param consolidate_data `logical` indicates to consolidate data into
+#' Talk about how `vegaspec` is a thin wrapper to `list`.
+#'
+#' Talk about this is the chance to validate the spec and to consolidate the
+#' datasets.
+#'
+#' @param spec        object to be coerced to Vega/Vega-Lite specification
+#' @param validate    `logical` indicates to validate the specification
+#' @param consolidate `logical` indicates to consolidate data into
 #'   top-level `datasets`
 #'
-#' @return `json`
+#' @return S3 object of class `vegaspec`
 #'
-as_vegaspec <- function(spec, validate_spec = TRUE, convert_data = TRUE,
-                        consolidate_data = TRUE) {
+as_vegaspec <- function(spec, validate = TRUE, consolidate = TRUE) {
   UseMethod("as_vegaspec")
 }
 
-as_vegaspec.default <- function(spec, validate_spec = TRUE, convert_data = TRUE,
-                        consolidate_data = TRUE) {
+as_vegaspec.default <- function(spec, validate = TRUE, consolidate = TRUE) {
 
   warning("as_vegaspec(): no method for class ", class(spec), call. = FALSE)
 
   spec
 }
 
-as_vegaspec.json <- function(spec, validate_spec = TRUE,
-                             consolidate_data = TRUE) {
+as_vegaspec.list <- function(spec, validate = TRUE, consolidate = TRUE) {
+
+  # print("list")
+
+  if (consolidate) {
+    spec <- vegaspec_consolidate(spec)
+  }
+
+  # validate
+  if (validate) {
+    spec <- vegaspec_validate(spec)
+  }
+
+  spec <- structure(spec, class = c("vegaspec", class(spec)))
+}
+
+as_vegaspec.json <- function(spec, validate = TRUE, consolidate = TRUE) {
 
   # print("json")
 
   # convert to list, process
   spec <- as_list(spec)
 
-  as_vegaspec(
-    spec,
-    validate_spec = validate_spec,
-    consolidate_data = consolidate_data
-  )
+  as_vegaspec(spec, validate = validate, consolidate = consolidate)
 }
 
-as_vegaspec.list <- function(spec, validate_spec = TRUE,
-                             consolidate_data = TRUE) {
-
-  # print("list")
-
-  if (consolidate_data) {
-    spec <- vegaspec_consolidate_data(spec)
-  }
-
-  spec <- as_json(spec)
-
-  # validate
-  if (validate_spec) {
-    spec <- vegaspec_validate(spec)
-  }
-
-  spec
-}
-
-as_vegaspec.character <- function(spec, validate_spec = TRUE,
-                                  consolidate_data = TRUE) {
+as_vegaspec.character <- function(spec, validate = TRUE, consolidate = TRUE) {
 
   # print("character")
 
@@ -68,10 +62,6 @@ as_vegaspec.character <- function(spec, validate_spec = TRUE,
   # convert to list, process
   spec <- as_list(spec)
 
-  as_vegaspec(
-    spec,
-    validate_spec = validate_spec,
-    consolidate_data = consolidate_data
-  )
+  as_vegaspec(spec, validate = validate, consolidate = consolidate)
 }
 

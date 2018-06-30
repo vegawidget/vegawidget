@@ -9,22 +9,21 @@ data_test <-
 
 test_that("as_vegaspec translates", {
 
-  spec_list <- list(a = 1, b = "foo")
+  spec_list <- list(a = 1L, b = "foo")
+  spec_vegaspec <-
+    structure(spec_list, class = c("vegaspec", class(spec_list)))
+
+  spec_json <- as_json(spec_list)
   spec_char <- '{"a": 1, "b": "foo"}'
-  spec_json <-
-'{
-  "a": 1,
-  "b": "foo"
-}'
 
-  spec_list_json <- as_vegaspec(spec_list, validate_spec = FALSE)
-  spec_char_json <- as_vegaspec(spec_char, validate_spec = FALSE)
+  spec_list_vegaspec <- as_vegaspec(spec_list, validate = FALSE)
+  spec_json_vegaspec <- as_vegaspec(spec_json, validate = FALSE)
+  spec_char_vegaspec <- as_vegaspec(spec_char, validate = FALSE)
 
-  expect_identical(as.character(spec_list_json), spec_json)
-  expect_identical(as.character(spec_char_json), spec_json)
+  expect_identical(spec_list_vegaspec, spec_vegaspec)
+  expect_identical(spec_json_vegaspec, spec_vegaspec)
+  expect_identical(spec_char_vegaspec, spec_vegaspec)
 
-  expect_s3_class(spec_list_json, "json")
-  expect_s3_class(spec_char_json, "json")
 })
 
 test_that("data-frame serialization works", {

@@ -14,7 +14,7 @@ as_list <- function(spec) {
   jsonlite::fromJSON(spec)
 }
 
-vegaspec_consolidate_data <- function(spec) {
+vegaspec_consolidate <- function(spec) {
 
   message("vegaspec_consolidate_data() is not yet active")
 

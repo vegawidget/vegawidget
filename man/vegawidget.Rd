@@ -4,7 +4,8 @@
 \alias{vegawidget}
 \title{Create a Vega/Vega-Lite htmlwidget}
 \usage{
-vegawidget(spec, embed = NULL, width = NULL, height = NULL, ...)
+vegawidget(spec, embed = NULL, width = NULL, height = NULL,
+  validate = TRUE, consolidate = TRUE, ...)
 }
 \arguments{
 \item{spec}{chart_specification}
@@ -22,6 +23,11 @@ the default is to use the width in the chart specification}
 of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification}
 
+\item{validate}{\code{logical} indicates to validate the specification}
+
+\item{consolidate}{\code{logical} indicates to consolidate data into
+top-level \code{datasets}}
+
 \item{...}{other arguments}
 }
 \description{
@@ -29,8 +35,7 @@ Renders a chart as an htmlwidget.
 }
 \details{
 This function is called \code{vegawidget()} is because it returns an htmlwidget
-that uses Vega-Lite and Vega JavaScript libraries, rather than the
-Altair Python package.
+that uses Vega-Lite and Vega JavaScript libraries.
 
 To specify embedding-options, use the \code{\link[=vega_embed]{vega_embed()}} function with the
 \code{embed} argument. Its most-important options are:

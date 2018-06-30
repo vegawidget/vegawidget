@@ -1,6 +1,6 @@
 #' Coerce to a Vega/Vega-Lite specification
 #'
-#' Talk about how `vegaspec` is a thin wrapper to `list`.
+#' Talk about how `vegaspec` is a thin wrapper to `list`. Implemented as JSON.
 #'
 #' Talk about this is the chance to validate the spec and to consolidate the
 #' datasets.
@@ -11,6 +11,7 @@
 #'   top-level `datasets`
 #'
 #' @return S3 object of class `vegaspec`
+#' @export
 #'
 as_vegaspec <- function(spec, validate = TRUE, consolidate = TRUE) {
   UseMethod("as_vegaspec")
@@ -23,6 +24,10 @@ as_vegaspec.default <- function(spec, validate = TRUE, consolidate = TRUE) {
   spec
 }
 
+as_vegaspec.vegaspec <- function(spec, validate = TRUE, consolidate = TRUE) {
+  NextMethod()
+}
+
 as_vegaspec.list <- function(spec, validate = TRUE, consolidate = TRUE) {
 
   # print("list")
@@ -31,12 +36,13 @@ as_vegaspec.list <- function(spec, validate = TRUE, consolidate = TRUE) {
     spec <- vegaspec_consolidate(spec)
   }
 
-  # validate
   if (validate) {
     spec <- vegaspec_validate(spec)
   }
 
-  spec <- structure(spec, class = c("vegaspec", class(spec)))
+  # fix data with data frames
+
+  spec <- structure(spec, class = unique(c("vegaspec", class(spec))))
 }
 
 as_vegaspec.json <- function(spec, validate = TRUE, consolidate = TRUE) {

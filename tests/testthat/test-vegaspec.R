@@ -19,10 +19,12 @@ test_that("as_vegaspec translates", {
   spec_list_vegaspec <- as_vegaspec(spec_list, validate = FALSE)
   spec_json_vegaspec <- as_vegaspec(spec_json, validate = FALSE)
   spec_char_vegaspec <- as_vegaspec(spec_char, validate = FALSE)
+  spec_vegaspec_vegaspec <- as_vegaspec(spec_vegaspec, validate = FALSE)
 
   expect_identical(spec_list_vegaspec, spec_vegaspec)
   expect_identical(spec_json_vegaspec, spec_vegaspec)
   expect_identical(spec_char_vegaspec, spec_vegaspec)
+  expect_identical(spec_vegaspec_vegaspec, spec_vegaspec)
 
 })
 

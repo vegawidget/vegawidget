@@ -3,8 +3,7 @@
 #' Renders a chart as an htmlwidget.
 #'
 #' This function is called `vegawidget()` is because it returns an htmlwidget
-#' that uses Vega-Lite and Vega JavaScript libraries, rather than the
-#' Altair Python package.
+#' that uses Vega-Lite and Vega JavaScript libraries.
 #'
 #' To specify embedding-options, use the [vega_embed()] function with the
 #' `embed` argument. Its most-important options are:
@@ -42,6 +41,7 @@
 #' so you may have to account for them yourself. You might expect
 #' the height of the action-links to be 15-20 pixels.
 #'
+#' @inheritParams as_vegaspec
 #' @param spec   chart_specification
 #' @param embed   `vega_embed` object to specify embedding options -
 #'   the default is an empty call to [vega_embed()],
@@ -57,13 +57,25 @@
 #'
 #' @export
 #'
-vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
+vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
+                       validate = TRUE, consolidate = TRUE, ...) {
 
-  x <-
-    list(
-      chart_spec = spec,
-      embed_options = unclass(embed)
-    )
+  # if `embed` is NULL, check for option
+  if (is.null(embed)) {
+    embed <- getOption("vegawidget.embed_options")
+  }
+
+  # if `embed` is still NULL, set using empty call to vega_embed()
+  if (is.null(embed)) {
+    embed <- vega_embed()
+  }
+
+  spec <- as_vegaspec(spec, validate = validate, consolidate = consolidate)
+  spec <- as_json(spec)
+
+  embed <- unclass(embed)
+
+  x <- list(chart_spec = spec, embed_options = embed)
 
   vegawidget <-
     htmlwidgets::createWidget(

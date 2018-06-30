@@ -128,38 +128,11 @@ Let's try to modify a spec that we create using a data-frame:
 ```{r}
 spec_data_frame <- spec
 
-spec_data_frame$data <- data
+spec_data_frame$data <- list(values = data)
 
-to_json <- function(x) {
-  list(
-    values = readr::format_csv(x),
-  )
-}
-
-wrap_recursive <- function(x) {
-  
-  if (is.data.frame(x)) {
-    x_new <- to_csv(x)
-  } else if (is.list(x)) {
-    x_new <- map(x, wrap_recursive)
-  } else {
-    x_new <- x
-  }
-  
-  x_new
-}
-
-spec_data_frame_new <- map(spec_data_frame, wrap_recursive)
-
-vegawidget(spec_data_frame_new)
+vegawidget::vegawidget(spec_data_frame)
 ```
 
 ```{r}
-spec_test <- 
-  list(
-    a = spec_data_frame,
-    b = spec_data_frame
-  )
 
-spec_test_new <- map(spec_test, wrap_recursive)
 ```

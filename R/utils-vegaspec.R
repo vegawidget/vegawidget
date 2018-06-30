@@ -21,14 +21,6 @@ vegaspec_consolidate_data <- function(spec) {
   spec
 }
 
-
-vegaspec_convert_data <- function(spec) {
-
-  message("vegaspec_convert_data() is not yet active")
-
-  spec
-}
-
 # could we impose on Alicia Schep to contribute this?
 vegaspec_validate <- function(spec) {
 

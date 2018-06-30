@@ -98,33 +98,29 @@ data <-
     b = c(28, 55, 43, 91, 81, 53, 19, 87, 52)
   )
 
-data_csv <-
+data_json <-
   list(
-    values = format_csv(data),
-    format = list(
-      type = "csv"   
-    )
+    values = jsonlite::toJSON(data, auto_unbox = TRUE, pretty = TRUE)
   )
 ```
 
 ```{r}
-spec_csv <- spec
+spec_json <- spec
 
-spec_csv$data <- data_csv
+spec_json$data <- data_json
 
-vegawidget::vegawidget(spec_csv)  
+vegawidget::vegawidget(spec_json)  
 ```
 
 ```{r}
-spec_named_csv <- spec_named
+spec_named_json <- spec_named
 
-spec_named_csv$datasets$sample <- csv
-spec_named_csv$data <- list(
-  name = "sample",
-  format = list(type = "csv")
+spec_named_json$datasets$sample <- jsonlite::toJSON(data, auto_unbox = TRUE, pretty = TRUE)
+spec_named_json$data <- list(
+  name = "sample"
 )
 
-vegawidget::vegawidget(spec_named_csv)
+vegawidget::vegawidget(spec_named_json)
 ```
 
 Let's try to modify a spec that we create using a data-frame:
@@ -134,12 +130,9 @@ spec_data_frame <- spec
 
 spec_data_frame$data <- data
 
-to_csv <- function(x) {
+to_json <- function(x) {
   list(
     values = readr::format_csv(x),
-    format = list(
-      type = "csv"   
-    )
   )
 }
 

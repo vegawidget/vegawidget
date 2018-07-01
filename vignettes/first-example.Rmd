@@ -91,44 +91,12 @@ spec_named <-
 vegawidget::vegawidget(spec_named)
 ```
 
-```{r}
-data <- 
-  tibble(
-    a = c("A", "B", "C", "D", "E", "F", "G", "H", "I"),
-    b = c(28, 55, 43, 91, 81, 53, 19, 87, 52)
-  )
-
-data_json <-
-  list(
-    values = jsonlite::toJSON(data, auto_unbox = TRUE, pretty = TRUE)
-  )
-```
-
-```{r}
-spec_json <- spec
-
-spec_json$data <- data_json
-
-vegawidget::vegawidget(spec_json)  
-```
-
-```{r}
-spec_named_json <- spec_named
-
-spec_named_json$datasets$sample <- jsonlite::toJSON(data, auto_unbox = TRUE, pretty = TRUE)
-spec_named_json$data <- list(
-  name = "sample"
-)
-
-vegawidget::vegawidget(spec_named_json)
-```
-
 Let's try to modify a spec that we create using a data-frame:
 
 ```{r}
 spec_data_frame <- spec
 
-spec_data_frame$data <- list(values = data)
+spec_data_frame$data <- data
 
 vegawidget::vegawidget(spec_data_frame)
 ```

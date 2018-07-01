@@ -32,6 +32,9 @@ as_vegaspec.list <- function(spec, validate = TRUE, consolidate = TRUE) {
 
   # print("list")
 
+  # take care of data-frames specified as data, rather than as data$values
+  spec <- vegaspec_data_to_values(spec)
+
   if (consolidate) {
     spec <- vegaspec_consolidate(spec)
   }

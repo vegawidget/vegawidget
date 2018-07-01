@@ -49,3 +49,43 @@ test_that("data-frame serialization works", {
   expect_identical(as.character(as_json(data_test)), json_test)
 
 })
+
+test_that("data-replacement works", {
+
+  # here, data should be replaced by a list
+  spec_a <-
+    list(
+      data = data_test,
+      a = "foo"
+    )
+
+  spec_a_ref <- spec_a
+  spec_a_ref$data <- list(values = data_test)
+
+  # here, data should *not* be replaced by a list
+  spec_b <-
+    list(
+      datasets = list(data = data_test),
+      a = "foo"
+    )
+
+  spec_b_ref <- spec_b
+
+  # make sure we are finding `data` at depth
+  spec_c <-
+    list(
+      a = list(
+        data = data_test,
+        b = "foo"
+      )
+    )
+
+  spec_c_ref <- spec_c
+  spec_c_ref$a$data = list(values = data_test)
+
+  expect_identical(vegaspec_data_to_values(spec_a), spec_a_ref)
+  expect_identical(vegaspec_data_to_values(spec_b), spec_b_ref)
+  expect_identical(vegaspec_data_to_values(spec_c), spec_c_ref)
+
+})
+

@@ -18,7 +18,7 @@ top-level \code{datasets}}
 S3 object of class \code{vegaspec}
 }
 \description{
-Talk about how \code{vegaspec} is a thin wrapper to \code{list}.
+Talk about how \code{vegaspec} is a thin wrapper to \code{list}. Implemented as JSON.
 }
 \details{
 Talk about this is the chance to validate the spec and to consolidate the

@@ -101,7 +101,7 @@ vegawidgetOutput <- function(outputId, width = "100%", height = "400px") {
     "vegawidget",
     width,
     height,
-    package = "altair"
+    package = "vegawidget"
   )
 }
 

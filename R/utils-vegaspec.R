@@ -54,13 +54,6 @@ data_to_values <- function(.x, .name) {
   .x
 }
 
-vegaspec_consolidate <- function(spec) {
-
-  message("vegaspec_consolidate_data() is not yet active")
-
-  spec
-}
-
 # could we impose on Alicia Schep to contribute this?
 vegaspec_validate <- function(spec) {
 

@@ -28,8 +28,7 @@ Imports:
     htmlwidgets,
     assertthat,
     rlang,
-    glue,
-    ajv
+    glue
 Suggests:
     knitr,
     rmarkdown,

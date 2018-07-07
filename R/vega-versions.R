@@ -62,6 +62,7 @@ get_vega_versions <- function(vega_lite_version) {
 #' @examples
 #'   vega_versions()
 #'   vega_versions(use_major = TRUE)
+#' @export
 #'
 vega_versions <- function(use_major = FALSE) {
 

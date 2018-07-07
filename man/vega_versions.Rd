@@ -19,5 +19,4 @@ Get versions of supported Vega/Vega-Lite libraries
 \examples{
   vega_versions()
   vega_versions(use_major = TRUE)
-
 }

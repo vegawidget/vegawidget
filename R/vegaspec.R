@@ -5,55 +5,54 @@
 #' Talk about this is the chance to validate the spec.
 #'
 #' @param spec        object to be coerced to Vega/Vega-Lite specification
-#' @param validate    `logical` indicates to validate the specification
-#'   top-level `datasets`
+#' @param ...         other args (attempt to future-proof)
 #'
 #' @return S3 object of class `vegaspec`
 #' @export
 #'
-as_vegaspec <- function(spec, validate = TRUE) {
+as_vegaspec <- function(spec, ...) {
   UseMethod("as_vegaspec")
 }
 
-as_vegaspec.default <- function(spec, validate = TRUE) {
+#' @rdname as_vegaspec
+#' @export
+#'
+as_vegaspec.default <- function(spec, ...) {
 
   warning("as_vegaspec(): no method for class ", class(spec), call. = FALSE)
 
   spec
 }
 
-as_vegaspec.vegaspec <- function(spec, validate = TRUE) {
-  NextMethod()
+#' @rdname as_vegaspec
+#' @export
+#'
+as_vegaspec.vegaspec <- function(spec, ...) {
+  spec
 }
 
-as_vegaspec.list <- function(spec, validate = TRUE) {
-
-  # print("list")
-
-  # take care of data-frames specified as data, rather than as data$values
-  # perhaps move to altair
-  spec <- vegaspec_data_to_values(spec)
-
-  if (validate) {
-    spec <- vegaspec_validate(spec)
-  }
-
+#' @rdname as_vegaspec
+#' @export
+#'
+as_vegaspec.list <- function(spec, ...) {
   spec <- structure(spec, class = unique(c("vegaspec", class(spec))))
 }
 
-as_vegaspec.json <- function(spec, validate = TRUE) {
-
-  # print("json")
+#' @rdname as_vegaspec
+#' @export
+#'
+as_vegaspec.json <- function(spec, ...) {
 
   # convert to list, process
   spec <- as_list(spec)
 
-  as_vegaspec(spec, validate = validate)
+  as_vegaspec(spec)
 }
 
-as_vegaspec.character <- function(spec, validate = TRUE) {
-
-  # print("character")
+#' @rdname as_vegaspec
+#' @export
+#'
+as_vegaspec.character <- function(spec, ...) {
 
   # validate the input
   assertthat::assert_that(
@@ -64,6 +63,6 @@ as_vegaspec.character <- function(spec, validate = TRUE) {
   # convert to list, process
   spec <- as_list(spec)
 
-  as_vegaspec(spec, validate = validate)
+  as_vegaspec(spec)
 }
 

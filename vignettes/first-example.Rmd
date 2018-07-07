@@ -56,6 +56,13 @@ data_values <-
     list(a = "I", b = 52)
   )
 
+data <- 
+  data.frame(
+    a = c("A", "B", "C", "D", "E", "F", "G", "H", "I"),
+    b = c(28, 55, 43, 91, 81, 53, 19, 87, 52),
+    stringsAsFactors = FALSE
+  )
+
 spec <- 
   list(
     `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
@@ -96,7 +103,7 @@ Let's try to modify a spec that we create using a data-frame:
 ```{r}
 spec_data_frame <- spec
 
-spec_data_frame$data <- data
+spec_data_frame$data <- list(values = data)
 
 vegawidget::vegawidget(spec_data_frame)
 ```

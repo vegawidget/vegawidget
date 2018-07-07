@@ -4,14 +4,11 @@
 \alias{examine}
 \title{Examine a specification}
 \usage{
-examine(listdata = NULL, mode = "tree", modes = c("code", "form", "text",
-  "tree", "view"), ..., width = NULL, height = NULL, elementId = NULL)
+examine(spec, mode = "tree", modes = c("code", "form", "text", "tree",
+  "view"), ..., width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
-\item{listdata}{\code{list} or \code{String} data to view.  Although designed for \code{lists}, \code{listdata} can
-be any data source that can be rendered into \code{JSON} with \code{jsonlite}.  Alternately,
-\code{listdata} could be a \code{String} of valid \code{JSON}.  This might be helpful
-when dealing with an API response.}
+\item{spec}{object to be coerced to Vega/Vega-Lite specification}
 
 \item{mode}{\code{string} for the initial view from \code{modes}.  \code{'tree'} is the default.}
 

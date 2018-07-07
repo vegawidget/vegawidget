@@ -4,8 +4,7 @@
 \alias{vegawidget}
 \title{Create a Vega/Vega-Lite htmlwidget}
 \usage{
-vegawidget(spec, embed = NULL, width = NULL, height = NULL,
-  validate = TRUE, consolidate = TRUE, ...)
+vegawidget(spec, embed = NULL, width = NULL, height = NULL, ...)
 }
 \arguments{
 \item{spec}{chart_specification}
@@ -22,11 +21,6 @@ the default is to use the width in the chart specification}
 \item{height}{\code{integer}, if specified, the total rendered height (in pixels)
 of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification}
-
-\item{validate}{\code{logical} indicates to validate the specification}
-
-\item{consolidate}{\code{logical} indicates to consolidate data into
-top-level \code{datasets}}
 
 \item{...}{other arguments}
 }

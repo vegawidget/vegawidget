@@ -21,19 +21,22 @@ URL: https://github.com/vegawidget/vegawidget
 BugReports: https://github.com/vegawidget/vegawidget/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
+Depends:
+    R (>= 2.10)
 Imports:
     jsonlite,
     htmlwidgets,
     assertthat,
     rlang,
     glue,
-    fs
-Suggests: 
+    ajv
+Suggests:
     knitr,
     rmarkdown,
     listviewer,
     httr,
     testthat,
     yaml,
+    fs,
     gistr
 VignetteBuilder: knitr

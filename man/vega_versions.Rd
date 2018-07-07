@@ -2,23 +2,22 @@
 % Please edit documentation in R/vega-versions.R
 \name{vega_versions}
 \alias{vega_versions}
-\title{Get versions of Vega JS libraries}
+\title{Get versions of supported Vega/Vega-Lite libraries}
 \usage{
-vega_versions(vega_lite_version)
+vega_versions(use_major = FALSE)
 }
 \arguments{
-\item{vega_lite_version}{\code{character} version of Vega-Lite, e.g. \code{"2.5.0"}}
+\item{use_major}{\code{logical} return major, rather than current, versions}
 }
 \value{
-\code{list} with elements \code{vega_lite}, \code{vega}, \code{vega_embed}
+\code{list} with \code{character} elements
+named \code{vega_lite}, \code{vega}, \code{vega_embed}
 }
 \description{
-This is an internal function for updating this package.
+Get versions of supported Vega/Vega-Lite libraries
 }
 \examples{
-\dontrun{
-  vega_versions(vega_lite_version = "2.5.0")
-}
+  vega_versions()
+  vega_versions(use_major = TRUE)
 
 }
-\keyword{internal}

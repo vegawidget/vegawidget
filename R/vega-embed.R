@@ -174,7 +174,7 @@ vega_embed <- function(renderer = c("canvas", "svg"),
   embed_options <-
     structure(
       list_remove_null(options),
-      class = "vega_embed"
+      class = c("vega_embed", "list")
     )
 
   embed_options

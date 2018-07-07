@@ -1,4 +1,4 @@
-htmlwidgets lib files
+Inst files
 ================
 
 This document is run **only** if you want to reassemble the vegawidget
@@ -26,7 +26,6 @@ These packages are not listed in the `Suggests` section of the
 `DESCRIPTION` file. It’s on you to make sure they are all up-to-date.
 
 ``` r
-library("conflicted")
 library("fs")
 library("glue")
 library("httr")
@@ -36,10 +35,30 @@ library("here")
     ## here() starts at /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget
 
 ``` r
-library("tibble")
 library("purrr")
 library("readr")
 library("dplyr")
+```
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following object is masked from 'package:glue':
+    ## 
+    ##     collapse
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
+library("tibble")
+library("stringr")
+library("conflicted")
 library("vegawidget")
 ```
 
@@ -58,7 +77,7 @@ manifest of a specific version of the vega-lite library. This package
 has an internal function, `vega_version()` to help us do this:
 
 ``` r
-vega_versions_long <- vega_versions(params$vega_lite_version)
+vega_versions_long <- get_vega_versions(params$vega_lite_version)
 
 vega_versions_long
 ```
@@ -136,9 +155,9 @@ downloads <-
 ```
 
 ``` r
-get_file <- function(path_local, path_remote, lib_dir) {
+get_file <- function(path_local, path_remote, path_local_root) {
   
-  path_local <- fs::path(lib_dir, path_local)
+  path_local <- fs::path(path_local_root, path_local)
   
   # if directory does not yet exist, create it
   dir_local <- fs::path_dir(path_local)
@@ -164,7 +183,16 @@ Here, we create the `lib` directory, then “walk” through each row of the
 dir_lib <- path(dir_htmlwidgets, "lib")
 dir_create(dir_lib)
 
-pwalk(downloads, get_file, lib_dir = dir_lib)
+pwalk(downloads, get_file, path_local_root = dir_lib)
+```
+
+We need to add a command to include our copy of `vega-embed.css`:
+
+``` r
+fs::file_copy(
+  fs::path(dir_templates, "vega-embed.css"), 
+  fs::path(dir_lib, "vega-embed/vega-embed.css")
+)
 ```
 
 ## Patch
@@ -184,3 +212,55 @@ vega_mod <- stringr::str_replace_all(vega_mod, '"<\\/head>','"</he"+"ad>')
 readr::write_file(vega_mod, path(dir_lib, "vega-embed/vega-embed-modified.js"))
 fs::file_delete(vega_embed_path)
 ```
+
+## Blocks
+
+## Schema
+
+One of the purposes of this package is to provide a means to validate a
+spec.
+
+Having thought about this (perhaps too much), the only reasonable way to
+go for a given release to support only a single version of the
+javascript libraries and the schema.
+
+``` r
+data_schema <- vega_versions_long[c("vega", "vega_lite")]
+
+data_schema_major <- map(data_schema, ~str_extract(.x, "^\\d+"))
+names(data_schema_major) <- 
+  map(names(data_schema), ~paste(.x , "major", sep = "_"))
+
+
+schema <- 
+  tribble(
+    ~path_local,                         ~path_remote,
+    "vega/v{vega_major}.json",           "https://vega.github.io/schema/vega/v{vega}.json",
+    "vega-lite/v{vega_lite_major}.json", "https://vega.github.io/schema/vega-lite/v{vega_lite}.json"
+  ) %>%
+  mutate(
+    path_local = map_chr(path_local, ~glue_data(data_schema_major, .x)),
+    path_remote = map_chr(path_remote, ~glue_data(data_schema, .x))
+  )
+```
+
+``` r
+dir_schema <- here("inst","schema")
+
+if (dir_exists(dir_schema)) {
+  dir_delete(dir_schema)
+}
+dir_create(dir_schema)
+
+pwalk(schema, get_file, path_local_root = dir_schema)
+```
+
+## Internal data
+
+``` r
+.vega_versions <- vega_versions_long
+
+devtools::use_data(.vega_versions, internal = TRUE, overwrite = TRUE)
+```
+
+    ## Saving .vega_versions as sysdata.rda to /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget/R

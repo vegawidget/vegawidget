@@ -2,17 +2,29 @@
 % Please edit documentation in R/vegaspec.R
 \name{as_vegaspec}
 \alias{as_vegaspec}
+\alias{as_vegaspec.default}
+\alias{as_vegaspec.vegaspec}
+\alias{as_vegaspec.list}
+\alias{as_vegaspec.json}
+\alias{as_vegaspec.character}
 \title{Coerce to a Vega/Vega-Lite specification}
 \usage{
-as_vegaspec(spec, validate = TRUE, consolidate = TRUE)
+as_vegaspec(spec, ...)
+
+\method{as_vegaspec}{default}(spec, ...)
+
+\method{as_vegaspec}{vegaspec}(spec, ...)
+
+\method{as_vegaspec}{list}(spec, ...)
+
+\method{as_vegaspec}{json}(spec, ...)
+
+\method{as_vegaspec}{character}(spec, ...)
 }
 \arguments{
 \item{spec}{object to be coerced to Vega/Vega-Lite specification}
 
-\item{validate}{\code{logical} indicates to validate the specification}
-
-\item{consolidate}{\code{logical} indicates to consolidate data into
-top-level \code{datasets}}
+\item{...}{other args (attempt to future-proof)}
 }
 \value{
 S3 object of class \code{vegaspec}
@@ -21,6 +33,5 @@ S3 object of class \code{vegaspec}
 Talk about how \code{vegaspec} is a thin wrapper to \code{list}. Implemented as JSON.
 }
 \details{
-Talk about this is the chance to validate the spec and to consolidate the
-datasets.
+Talk about this is the chance to validate the spec.
 }

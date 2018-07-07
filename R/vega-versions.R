@@ -14,7 +14,7 @@
 #'
 #' @export
 #'
-vega_versions <- function(vega_lite_version) {
+get_vega_versions <- function(vega_lite_version) {
 
   if (!requireNamespace("glue", quietly = TRUE)) {
     stop("Package \"glue\" needed for this function to work. Please install it.",
@@ -52,3 +52,30 @@ vega_versions <- function(vega_lite_version) {
 
   vega_versions
 }
+
+#' Get versions of supported Vega/Vega-Lite libraries
+#'
+#' @param use_major `logical` return major, rather than current, versions
+#'
+#' @return `list` with `character` elements
+#'   named `vega_lite`, `vega`, `vega_embed`
+#' @examples
+#'   vega_versions()
+#'   vega_versions(use_major = TRUE)
+#'
+vega_versions <- function(use_major = FALSE) {
+
+  x <- .vega_versions
+
+  if (use_major) {
+    x <- lapply(x, get_major)
+  }
+
+  x
+}
+
+# function to return the major component
+get_major <- function(x) {
+  regmatches(x, regexpr("^\\d+", x))
+}
+

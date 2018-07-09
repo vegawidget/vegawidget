@@ -18,29 +18,74 @@ knitr::opts_chunk$set(
 
 # vegawidget
 
-The goal of vegawidget is to handle the rendering into htmlwidgets for Vega-Lite and Vega specifications.
+The goal of vegawidget is to render Vega-Lite and Vega specifications into htmlwidgets. For now, this document serves as a manifesto for what we might hope for the package.
 
-**NOTE: This package is not yet functional - once something is actually working, this note will be removed.**
+```{r vegawidget}
+library("vegawidget")
 
-For now, this document will serve a manifesto for what we might hope for the package.
+spec_mtcars <-
+  list(
+    `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
+    description = "An mtcars example.",
+    data = list(values = mtcars),
+    mark = "point",
+    encoding = list(
+      x = list(field = "wt", type = "quantitative"),
+      y = list(field = "mpg", type = "quantitative"),
+      color = list(field = "cyl", type = "nominal")
+    )
+  )  
+
+vegawidget(spec_mtcars)
+```
+
+```{r}
+examine(spec_mtcars)
+```
 
 ## Specifications
 
-The beautiful thing about Vega and Vega-Lite specifications is that they are just text, formatted as JSON.
+Vega and Vega-Lite specifications are just text, formatted as JSON. It is this package's responsibiity to render such specifications; allowing you to develop packages that *build* specifications. To take advantage of this package, it will be easiest if your specification built by your package is an S3 class based on lists or JSON.
 
-The central function here will be `vegawidget()`. Its supporting function will be `examine()`.
+For example, consider the **altair** package, which uses **reticulate** to work with the **Altair** Python package to build Vega-Lite specifications.
 
-I think each of these functions should be S3 generics for which we provide methods for:
+```r
+class(altair::alt$Chart())
+```
 
-- list
-- character 
-- `jsonlite` `json` object 
+```
+[1] "altair.vegalite.v2.api.Chart"                          
+[2] "altair.vegalite.v2.api.TopLevelMixin"                  
+[3] "altair.vegalite.v2.schema.mixins.ConfigMethodMixin"    
+[4] "altair.vegalite.v2.api.EncodingMixin"                  
+[5] "altair.vegalite.v2.schema.mixins.MarkMethodMixin"      
+[6] "altair.vegalite.v2.schema.core.TopLevelFacetedUnitSpec"
+[7] "altair.vegalite.v2.schema.core.VegaLiteSchema"         
+[8] "altair.utils.schemapi.SchemaBase"                      
+[9] "python.builtin.object" 
+```
 
-For a package such as **altair**, it becomes that packge's responsibility to provide generics for its objects.
+The 
+
+The central function here will be `vegawidget()`, to render an htmlwidget from a Vega/Vega-Lite specification. Supporting functions will include:
+
+- `examine()` 
+- `create_block()`
+
+Behind the scenes, the workhorse function is `as_vegaspec()`. To implement the `vegawidget()` functions for "your" S3 object that implements a Vega or Vega-Lite specification, you may have to implement a method for your class for the `as_vegaspec()` generic, as well as methods for `print()` and `knit_print()`.
+
+The vegawidget 
+
+- `list`
+- `character` 
+- **jsonlite** `json` object 
+
+Note about webshot and phantomJS.
+
+For a package such as **altair**, it becomes that pacakge's responsibility to provide methods for its objects.
 
 In the future, challenges will include:
 
-- using `gistr` to create a block.
 - when knitting to a non-interactive format, e.g. `github_document` getting the "right" thing to happen
 - offering **crosstalk** compatibility
 - offering reactive **shiny** behavior, like **ggvis** provides for its Vega specifications

@@ -109,5 +109,18 @@ vegawidget::vegawidget(spec_data_frame)
 ```
 
 ```{r}
+spec_mtcars <-
+  list(
+    `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
+    description = "An mtcars example.",
+    data = list(values = mtcars),
+    mark = "point",
+    encoding = list(
+      x = list(field = "wt", type = "quantitative"),
+      y = list(field = "mpg", type = "quantitative"),
+      color = list(field = "cyl", type = "nominal")
+    )
+  )  
 
+vegawidget(spec_mtcars)
 ```

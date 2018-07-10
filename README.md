@@ -37,6 +37,11 @@ it is further rendered into a PNG:
 
 ``` r
 library("vegawidget")
+#> 
+#> Attaching package: 'vegawidget'
+#> The following object is masked _by_ '.GlobalEnv':
+#> 
+#>     spec_mtcars
 
 vegawidget(spec_mtcars)
 ```
@@ -84,11 +89,11 @@ For example, let’s convert `spec_mtcars` to an S3 object with class
 ``` r
 spec_mtcars_s3 <- structure(
   spec_mtcars,
-  class = c("my_class_name", class(spec_mtcars))
+  class = c("my_class_name")
 )
 
 class(spec_mtcars_s3)
-#> [1] "my_class_name" "list"
+#> [1] "my_class_name"
 ```
 
 To take full advantage of these rendering functions, we have to define a
@@ -97,20 +102,24 @@ method, `as_vegaspec()` for this class, and also define `print()` and
 
 ``` r
 as_vegaspec.my_class_name <- function(spec, ...) {
-  # revert to vegawidget.list, defined in vegawidget
-  NextMethod()
+  
+  spec <- unclass(spec)
+
+  vegawidget::as_vegaspec(spec, ...)
 }
 
 print.my_class_name <- function(x, ...) {
   
-  print(vegawidget::vegawidget(x, ...))
-
-  invisible(x)
+  x <- vegawidget::as_vegaspec(x)
+  
+  print(x, ...)
 }
 
 knit_print.my_class_name <- function(x, ..., options = NULL){
-  # in reality, more stuff here
-  knitr::knit_print(vegawidget::vegawidget(x))
+  
+  x <- vegawidget::as_vegaspec(x)
+
+  knitr::knit_print(x, ..., options = options)
 }
 ```
 

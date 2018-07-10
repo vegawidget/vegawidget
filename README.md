@@ -13,9 +13,10 @@ The goal of vegawidget is to render Vega-Lite and Vega specifications
 into htmlwidgets. For now, this document serves as a manifesto for what
 we might hope for the package.
 
-``` r
-library("vegawidget")
+Vega and Vega-Lite specifications are just text, formatted as JSON.
+Let’s build a modest Vega-Lite specification using lists:
 
+``` r
 spec_mtcars <-
   list(
     `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
@@ -28,11 +29,23 @@ spec_mtcars <-
       color = list(field = "cyl", type = "nominal")
     )
   )  
+```
+
+The `vegawidget()` function is used to render specifications into
+htmlwidgets. If you are reading this document on the GitHub code site,
+it is further rendered into a PNG:
+
+``` r
+library("vegawidget")
 
 vegawidget(spec_mtcars)
 ```
 
 ![](README-vegawidget-1.png)<!-- -->
+
+If you wish to examine a specification, you may use the `examine()`
+function, which is a thin wrapper around the `jsonedit()` function from
+the **listviewer** package.
 
 ``` r
 examine(spec_mtcars)
@@ -40,65 +53,13 @@ examine(spec_mtcars)
 
 ![](README-unnamed-chunk-2-1.png)<!-- -->
 
-## Specifications
-
-Vega and Vega-Lite specifications are just text, formatted as JSON. It
-is this package’s responsibiity to render such specifications; allowing
-you to develop packages that *build* specifications. To take advantage
-of this package, it will be easiest if your specification built by your
-package is an S3 class based on lists or JSON.
-
-For example, consider the **altair** package, which uses **reticulate**
-to work with the **Altair** Python package to build Vega-Lite
-specifications.
+If you wish to deploy a specification to be rendered on bl.ocks.org, you
+can do that too (provied you have a GutHub account).
 
 ``` r
-class(altair::alt$Chart())
+# not yet fully implemented
+create_block(spec_mtcars)
 ```
-
-    [1] "altair.vegalite.v2.api.Chart"                          
-    [2] "altair.vegalite.v2.api.TopLevelMixin"                  
-    [3] "altair.vegalite.v2.schema.mixins.ConfigMethodMixin"    
-    [4] "altair.vegalite.v2.api.EncodingMixin"                  
-    [5] "altair.vegalite.v2.schema.mixins.MarkMethodMixin"      
-    [6] "altair.vegalite.v2.schema.core.TopLevelFacetedUnitSpec"
-    [7] "altair.vegalite.v2.schema.core.VegaLiteSchema"         
-    [8] "altair.utils.schemapi.SchemaBase"                      
-    [9] "python.builtin.object" 
-
-The
-
-The central function here will be `vegawidget()`, to render an
-htmlwidget from a Vega/Vega-Lite specification. Supporting functions
-will include:
-
-  - `examine()`
-  - `create_block()`
-
-Behind the scenes, the workhorse function is `as_vegaspec()`. To
-implement the `vegawidget()` functions for “your” S3 object that
-implements a Vega or Vega-Lite specification, you may have to implement
-a method for your class for the `as_vegaspec()` generic, as well as
-methods for `print()` and `knit_print()`.
-
-The vegawidget
-
-  - `list`
-  - `character`
-  - **jsonlite** `json` object
-
-Note about webshot and phantomJS.
-
-For a package such as **altair**, it becomes that pacakge’s
-responsibility to provide methods for its objects.
-
-In the future, challenges will include:
-
-  - when knitting to a non-interactive format, e.g. `github_document`
-    getting the “right” thing to happen
-  - offering **crosstalk** compatibility
-  - offering reactive **shiny** behavior, like **ggvis** provides for
-    its Vega specifications
 
 ## Installation
 
@@ -108,3 +69,67 @@ You can install vegawidget from github with:
 # install.packages("devtools")
 devtools::install_github("vegawidget/vegawidget")
 ```
+
+## Usage
+
+This package provides functions to render Vega and Vega-Lite
+specifications; it does not help you build specifications. This is left
+to other packages. Further, this package is designed *not* to be loaded
+directly; rather its purpose is to make rendering-functions available
+for such other packages to use.
+
+For example, let’s convert `spec_mtcars` to an S3 object with class
+`"my_class_name"`:
+
+``` r
+spec_mtcars_s3 <- structure(
+  spec_mtcars,
+  class = c("my_class_name", class(spec_mtcars))
+)
+
+class(spec_mtcars_s3)
+#> [1] "my_class_name" "list"
+```
+
+To take full advantage of these rendering functions, we have to define a
+method, `as_vegaspec()` for this class, and also define `print()` and
+`knit_print()` methods.
+
+``` r
+as_vegaspec.my_class_name <- function(spec, ...) {
+  # revert to vegawidget.list, defined in vegawidget
+  NextMethod()
+}
+
+print.my_class_name <- function(x, ...) {
+  
+  print(vegawidget::vegawidget(x, ...))
+
+  invisible(x)
+}
+
+knit_print.my_class_name <- function(x, ..., options = NULL){
+  # in reality, more stuff here
+  knitr::knit_print(vegawidget::vegawidget(x))
+}
+```
+
+With these defined, you can render your specification by printing:
+
+``` r
+spec_mtcars_s3
+```
+
+![](README-unnamed-chunk-3-1.png)<!-- -->
+
+Accordingly, this package offers a templating function,
+`use_vegawidget(class)` (not yet implemented), to help you integrate
+vegawidget functions into your package.
+
+## Future work
+
+In the future, challenges will include:
+
+  - offering **crosstalk** compatibility
+  - offering reactive **shiny** behavior, like **ggvis** provides for
+    its Vega specifications

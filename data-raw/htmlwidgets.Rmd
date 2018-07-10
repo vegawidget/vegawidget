@@ -38,6 +38,7 @@ For this document, there is a source-directory, `dir_templates`, and a target-di
 ```{r directories}
 dir_templates <- here("data-raw", "templates")
 dir_htmlwidgets <- here("inst", "htmlwidgets")
+dir_block <- here("inst", "block")
 ```
 
 Finally, we need to know which versions of the libraries (vega, vega-lite, and vega-embed) to download. We do this by inspecting the manifest of a specific version of the vega-lite library. This package has an internal function, `vega_version()` to help us do this:  
@@ -161,8 +162,28 @@ readr::write_file(vega_mod, path(dir_lib, "vega-embed/vega-embed-modified.js"))
 fs::file_delete(vega_embed_path)
 ```
 
+## Block
 
-## Blocks
+
+```{r}
+if (dir_exists(dir_block)) {
+  dir_delete(dir_block)
+}
+
+dir_create(dir_block)
+```
+
+```{r}
+fs::file_copy(
+  fs::path(dir_templates, "vega-embed.css"), 
+  fs::path(dir_block, "vega-embed.css")
+)
+
+fs::file_copy(
+  fs::path(dir_templates, "index.html"), 
+  fs::path(dir_block, "index.html")
+)
+```
 
 ## Schema
 

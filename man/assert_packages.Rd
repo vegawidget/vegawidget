@@ -19,8 +19,11 @@ are available, and throws an informative error for those packages
 that are not.
 }
 \examples{
+\dontrun{
   assert_packages(c("base", "utils"))
+}
 }
 \seealso{
 \href{http://r-pkgs.had.co.nz/description.html#dependencies}{R Packages book}
 }
+\keyword{internal}

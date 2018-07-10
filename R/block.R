@@ -104,12 +104,12 @@ create_block <- function(spec, embed = vega_embed(), description = NULL,
   # .block file
   file_block <- writeLines(block, manifest$block)
 
+  # index.html file
   text_index <-
     readLines(
       system.file("templates", "index.html", package = "vegawidget")
     )
 
-  # index.html file
   fn_glue <- function(text) {
     glue::glue_data(.x = list(spec = spec), text, .open = "{{", .close = "}}")
   }

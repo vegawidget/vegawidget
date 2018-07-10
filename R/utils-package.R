@@ -9,10 +9,12 @@
 #'
 #' @return `logical` indicating success
 #' @examples
+#' \dontrun{
 #'   assert_packages(c("base", "utils"))
+#' }
 #' @seealso [R Packages book](http://r-pkgs.had.co.nz/description.html#dependencies)
+#' @keywords internal
 #'
-#' @export
 #'
 assert_packages <- function(packages) {
 

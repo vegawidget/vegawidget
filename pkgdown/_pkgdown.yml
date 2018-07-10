@@ -4,3 +4,31 @@ template:
 
 development:
   mode: unreleased
+
+reference:
+  - title: Rendering
+    desc: >
+      Rendering functions
+    contents:
+    - as_vegaspec
+    - vegawidget
+    - vega_embed
+    - only_actions
+  - title: Debugging and sharing
+    desc: >
+      Helps you figure out and share
+    contents:
+    - examine
+    - create_block
+    - block_yaml
+  - title: Shiny
+    desc: >
+      Functions to work with Shiny
+    contents:
+    - renderVegawidget
+    - vegawidgetOutput
+  - title: Utilities
+    desc: >
+      Other functions
+    contents:
+    - vega_versions

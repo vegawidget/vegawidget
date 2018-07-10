@@ -7,7 +7,6 @@
 #' @param border    `logical` indicates to put a border on the `iframe`
 #'
 #' @return `character` yaml string for `.block` file
-#' @keywords internal
 #' @seealso [Blocks documentation](https://bl.ocks.org/-/about)
 #' @export
 #'
@@ -53,27 +52,84 @@ block_yaml <- function(license = "mit", height = 500, scrolling = TRUE, border =
   yaml::as.yaml(config)
 }
 
-#' Create a gist that can be used as a block
+#' Create text for block index.html
 #'
-#' idea: function to validate the spec
+#' @inheritParams create_block
+#'
+#' @return `character` text of `index.html`
+#' @keywords internal
+#' @export
+#'
+block_index <- function(spec, embed = vega_embed(),
+                        versions = vega_versions(major = FALSE)) {
+
+  text_index <-
+    readLines(
+      system.file("block", "index.html", package = "vegawidget")
+    )
+
+  spec <- as_vegaspec(spec)
+  spec <- as_json(spec, pretty = TRUE)
+  # add further indentation
+  spec <- gsub("\n", "\n  ", spec)
+
+  embed <- as_json(embed, pretty = TRUE)
+  # add further indentation
+  embed <- gsub("\n", "\n  ", embed)
+
+  data <- c(list(spec = spec, vega_embed_options = embed), versions)
+
+  fn_glue <- function(text) {
+    glue::glue_data(.x = data, text, .open = "{{", .close = "}}")
+  }
+
+  # iterate over each line in the text to interpolate
+  text_index <- vapply(text_index, fn_glue, "", USE.NAMES = FALSE)
+
+  # preserve empty lines
+  my_strsplit <- function(x) {
+    if (nchar(x) > 0){
+      x <- strsplit(x, split = "\n")
+    }
+
+    x
+  }
+
+  text_index <- lapply(text_index, my_strsplit)
+
+  text_index <- unlist(text_index)
+
+  text_index
+}
+
+#' Create a gist that can be used as a block
 #'
 #' @param spec          `json`, `list`, or `character` Vega-Lite or Vega specification
 #' @param embed         `vega_embed` object
-#' @param description   `character` description for the gist
+#'   (not yet implemented)
 #' @param block         `character` YAML text for the `.block` file
+#' @param versions       named `list` of `character`:
+#'   names refer to JavaScript libraries `vega`, `vega_lite`, `vega_embed`,
+#'   values are the tags for the versions to use in the block - use the
+#'   helper function [vega_versions()] with `major = TRUE` to use the current
+#'   major versions rather than the versions supported in this package.
+#' @param description   `character` description for the gist
 #' @param readme        `character` single line, path to a markdown file;
 #'   multiple lines, markdown text
+#'   (not yet implemented)
 #' @param use_thumbnail `logical` indicates to include a thumbnail image
+#'   (not yet implemented)
 #' @param use_preview   `logical` indicates to include a preview image
-#' @param use_current   `logical` or named `list` of `logical`,
-#'   for names of JavaScript libraries `vega`, `vega_lite`, `vega_embed`:
-#'   - `TRUE`: use the current major version
-#'   - `FALSE`: use the version use in the htmlwidget for this package
+#'   (not yet implemented)
 #' @param git_method    `character` use `"ssh"` or `"https"`
-#' @param host          `character` host address,
-#'   defaults to `"gist.github.com"`
-#' @param auth_token    `character` GitHub PAT,
-#'   defaults to `Sys.getenv("GITHUB_PAT")`
+#' @param host `character`` Base endpoint for GitHub API, defaults to
+#'   \code{"https://api.github.com"}. Useful to specify with GitHub Enterprise,
+#'   e.g. \code{"https://github.acme.com/api/v3"}.
+#'   (not yet implemented)
+#' @param env_pat (character) Name of environment variable that contains
+#'   a GitHub PAT (Personal Access Token), defaults to \code{"GITHUB_PAT"}.
+#'   Useful to specify with GitHub Enterprise, e.g. \code{"GITHUB_ACME_PAT"}.
+#'   (not yet implemented)
 #'
 #' @return called for side effects
 #'
@@ -81,11 +137,12 @@ block_yaml <- function(license = "mit", height = 500, scrolling = TRUE, border =
 #'  [gistr::gist_create_git()]
 #' @export
 #'
-create_block <- function(spec, embed = vega_embed(), description = NULL,
-                         block = block_yaml(), readme = NULL,
+create_block <- function(spec, embed = vega_embed(), block = block_yaml(),
+                         versions = vega_versions(major = FALSE),
+                         description = NULL, readme = NULL,
                          use_thumbnail = TRUE, use_preview = TRUE,
-                         use_current = FALSE, git_method = c("ssh", "https"),
-                         host = NULL, auth_token = NULL) {
+                         git_method = c("ssh", "https"),
+                         host = NULL, env_pat = NULL) {
 
   # validate packages and inputs
   assert_packages(c("gistr", "fs"))
@@ -105,19 +162,11 @@ create_block <- function(spec, embed = vega_embed(), description = NULL,
   file_block <- writeLines(block, manifest$block)
 
   # index.html file
-  text_index <-
-    readLines(
-      system.file("templates", "index.html", package = "vegawidget")
+  file_index <-
+    writeLines(
+      block_index(spec, embed = embed, versions = versions),
+      manifest$index
     )
-
-  fn_glue <- function(text) {
-    glue::glue_data(.x = list(spec = spec), text, .open = "{{", .close = "}}")
-  }
-
-  # iterate over each line in the text to interpolate
-  text_index <- vapply(text_index, fn_glue, "")
-
-  file_index <- writeLines(text_index, manifest$index)
 
   # vega-embed.css file
   fs::file_copy(

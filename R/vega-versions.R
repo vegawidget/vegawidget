@@ -53,22 +53,23 @@ get_vega_versions <- function(vega_lite_version) {
   vega_versions
 }
 
-#' Get versions of supported Vega/Vega-Lite libraries
+#' Get version-tags of supported Vega/Vega-Lite libraries
 #'
-#' @param use_major `logical` return major, rather than current, versions
+#' @param major `logical` return major version-tags rather than the
+#'   tags for the specific versions supported by this package
 #'
 #' @return `list` with `character` elements
 #'   named `vega_lite`, `vega`, `vega_embed`
 #' @examples
 #'   vega_versions()
-#'   vega_versions(use_major = TRUE)
+#'   vega_versions(major = TRUE)
 #' @export
 #'
-vega_versions <- function(use_major = FALSE) {
+vega_versions <- function(major = FALSE) {
 
   x <- .vega_versions
 
-  if (use_major) {
+  if (major) {
     x <- lapply(x, get_major)
   }
 

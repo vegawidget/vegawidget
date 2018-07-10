@@ -7,3 +7,17 @@ test_that("block yaml works", {
     "license: mit\nheight: 500\nscrolling: yes\nborder: yes\n"
   )
 })
+
+test_that("block index works", {
+
+  index_ref <-
+    readLines("../block/index.html")
+  index <- block_index(
+    spec = spec_mtcars,
+    embed = vega_embed(actions = FALSE),
+    version = vega_versions(major = TRUE)
+  )
+
+  expect_identical(index, index_ref)
+
+})

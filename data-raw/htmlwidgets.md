@@ -69,6 +69,7 @@ source-directory and write it to the target-directory.
 ``` r
 dir_templates <- here("data-raw", "templates")
 dir_htmlwidgets <- here("inst", "htmlwidgets")
+dir_block <- here("inst", "block")
 ```
 
 Finally, we need to know which versions of the libraries (vega,
@@ -213,7 +214,27 @@ readr::write_file(vega_mod, path(dir_lib, "vega-embed/vega-embed-modified.js"))
 fs::file_delete(vega_embed_path)
 ```
 
-## Blocks
+## Block
+
+``` r
+if (dir_exists(dir_block)) {
+  dir_delete(dir_block)
+}
+
+dir_create(dir_block)
+```
+
+``` r
+fs::file_copy(
+  fs::path(dir_templates, "vega-embed.css"), 
+  fs::path(dir_block, "vega-embed.css")
+)
+
+fs::file_copy(
+  fs::path(dir_templates, "index.html"), 
+  fs::path(dir_block, "index.html")
+)
+```
 
 ## Schema
 

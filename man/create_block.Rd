@@ -4,47 +4,54 @@
 \alias{create_block}
 \title{Create a gist that can be used as a block}
 \usage{
-create_block(spec, embed = vega_embed(), description = NULL,
-  block = block_yaml(), readme = NULL, use_thumbnail = TRUE,
-  use_preview = TRUE, use_current = FALSE, git_method = c("ssh", "https"),
-  host = NULL, auth_token = NULL)
+create_block(spec, embed = vega_embed(), block = block_yaml(),
+  versions = vega_versions(major = FALSE), description = NULL,
+  readme = NULL, use_thumbnail = TRUE, use_preview = TRUE,
+  git_method = c("ssh", "https"), host = NULL, env_pat = NULL)
 }
 \arguments{
 \item{spec}{\code{json}, \code{list}, or \code{character} Vega-Lite or Vega specification}
 
-\item{embed}{\code{vega_embed} object}
-
-\item{description}{\code{character} description for the gist}
+\item{embed}{\code{vega_embed} object
+(not yet implemented)}
 
 \item{block}{\code{character} YAML text for the \code{.block} file}
 
+\item{versions}{named \code{list} of \code{character}:
+names refer to JavaScript libraries \code{vega}, \code{vega_lite}, \code{vega_embed},
+values are the tags for the versions to use in the block - use the
+helper function \code{\link[=vega_versions]{vega_versions()}} with \code{major = TRUE} to use the current
+major versions rather than the versions supported in this package.}
+
+\item{description}{\code{character} description for the gist}
+
 \item{readme}{\code{character} single line, path to a markdown file;
-multiple lines, markdown text}
+multiple lines, markdown text
+(not yet implemented)}
 
-\item{use_thumbnail}{\code{logical} indicates to include a thumbnail image}
+\item{use_thumbnail}{\code{logical} indicates to include a thumbnail image
+(not yet implemented)}
 
-\item{use_preview}{\code{logical} indicates to include a preview image}
-
-\item{use_current}{\code{logical} or named \code{list} of \code{logical},
-for names of JavaScript libraries \code{vega}, \code{vega_lite}, \code{vega_embed}:
-\itemize{
-\item \code{TRUE}: use the current major version
-\item \code{FALSE}: use the version use in the htmlwidget for this package
-}}
+\item{use_preview}{\code{logical} indicates to include a preview image
+(not yet implemented)}
 
 \item{git_method}{\code{character} use \code{"ssh"} or \code{"https"}}
 
-\item{host}{\code{character} host address,
-defaults to \code{"gist.github.com"}}
+\item{host}{`character`` Base endpoint for GitHub API, defaults to
+\code{"https://api.github.com"}. Useful to specify with GitHub Enterprise,
+e.g. \code{"https://github.acme.com/api/v3"}.
+(not yet implemented)}
 
-\item{auth_token}{\code{character} GitHub PAT,
-defaults to \code{Sys.getenv("GITHUB_PAT")}}
+\item{env_pat}{(character) Name of environment variable that contains
+a GitHub PAT (Personal Access Token), defaults to \code{"GITHUB_PAT"}.
+Useful to specify with GitHub Enterprise, e.g. \code{"GITHUB_ACME_PAT"}.
+(not yet implemented)}
 }
 \value{
 called for side effects
 }
 \description{
-idea: function to validate the spec
+Create a gist that can be used as a block
 }
 \seealso{
 \href{https://bl.ocks.org/-/about}{Blocks documentation},

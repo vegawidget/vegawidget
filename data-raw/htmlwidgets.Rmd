@@ -222,6 +222,31 @@ dir_create(dir_schema)
 pwalk(schema, get_file, path_local_root = dir_schema)
 ```
 
+## External data
+
+This is a sample spec.
+
+```{r}
+spec_mtcars <-
+  as_vegaspec(
+    list(
+      `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
+      description = "An mtcars example.",
+      data = list(values = mtcars),
+      mark = "point",
+      encoding = list(
+        x = list(field = "wt", type = "quantitative"),
+        y = list(field = "mpg", type = "quantitative"),
+        color = list(field = "cyl", type = "nominal")
+      )
+    )     
+  )
+```
+
+```{r}
+use_data(spec_mtcars, overwrite = TRUE)
+```
+
 ## Internal data
 
 ```{r}

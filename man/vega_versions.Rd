@@ -2,21 +2,22 @@
 % Please edit documentation in R/vega-versions.R
 \name{vega_versions}
 \alias{vega_versions}
-\title{Get versions of supported Vega/Vega-Lite libraries}
+\title{Get version-tags of supported Vega/Vega-Lite libraries}
 \usage{
-vega_versions(use_major = FALSE)
+vega_versions(major = FALSE)
 }
 \arguments{
-\item{use_major}{\code{logical} return major, rather than current, versions}
+\item{major}{\code{logical} return major version-tags rather than the
+tags for the specific versions supported by this package}
 }
 \value{
 \code{list} with \code{character} elements
 named \code{vega_lite}, \code{vega}, \code{vega_embed}
 }
 \description{
-Get versions of supported Vega/Vega-Lite libraries
+Get version-tags of supported Vega/Vega-Lite libraries
 }
 \examples{
   vega_versions()
-  vega_versions(use_major = TRUE)
+  vega_versions(major = TRUE)
 }

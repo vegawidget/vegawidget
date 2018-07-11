@@ -36,6 +36,8 @@ as_vegaspec.vegaspec <- function(spec, ...) {
 #'
 as_vegaspec.list <- function(spec, ...) {
   spec <- structure(spec, class = unique(c("vegaspec", class(spec))))
+
+  spec
 }
 
 #' @rdname as_vegaspec
@@ -53,6 +55,14 @@ as_vegaspec.json <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.character <- function(spec, ...) {
+
+  is_url <- rlang::is_string(spec) && grepl("^http(s?)://", spec)
+
+  if (is_url) {
+    spec <- httr::GET(spec)
+    spec <- httr::stop_for_status(spec)
+    spec <- httr::content(spec, as = "text", encoding = "UTF-8")
+  }
 
   # validate the input
   assertthat::assert_that(

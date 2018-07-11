@@ -1,6 +1,16 @@
 # these are the internal functions used to support vegaspec operations
 
+#' Write out a vegaspec as JSON
+#'
+#' @inheritParams as_vegaspec
+#' @param pretty `logical` indicates to use pretty (vs. minified) formatting
+#'
+#' @return `vegaspec` object
+#' @export
+#'
 as_json <- function(spec, pretty = TRUE) {
+
+  spec <- as_vegaspec(spec)
 
   assert_packages("jsonlite")
 
@@ -11,6 +21,6 @@ as_list <- function(spec) {
 
   assert_packages("jsonlite")
 
-  jsonlite::fromJSON(spec)
+  jsonlite::fromJSON(spec, simplifyVector = FALSE)
 }
 

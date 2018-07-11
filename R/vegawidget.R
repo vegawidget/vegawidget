@@ -61,7 +61,7 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
 
   # if `embed` is NULL, check for option
   if (is.null(embed)) {
-    embed <- getOption("vegawidget.embed_options")
+    embed <- getOption("vegawidget.embed")
   }
 
   # if `embed` is still NULL, set using empty call to vega_embed()
@@ -101,7 +101,7 @@ vegawidgetOutput <- function(outputId, width = "100%", height = "400px") {
     "vegawidget",
     width,
     height,
-    package = "altair"
+    package = "vegawidget"
   )
 }
 

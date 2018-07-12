@@ -57,11 +57,19 @@ as_vegaspec.json <- function(spec, ...) {
 as_vegaspec.character <- function(spec, ...) {
 
   is_url <- rlang::is_string(spec) && grepl("^http(s?)://", spec)
+  is_con <- rlang::is_string(spec) && file.exists(spec)
 
+  # remote file
   if (is_url) {
+    assert_packages("httr")
     spec <- httr::GET(spec)
     spec <- httr::stop_for_status(spec)
     spec <- httr::content(spec, as = "text", encoding = "UTF-8")
+  }
+
+  # local file
+  if (is_con) {
+    spec <- readLines(spec, warn = FALSE)
   }
 
   # validate the input

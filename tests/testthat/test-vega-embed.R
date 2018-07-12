@@ -28,9 +28,6 @@ test_that("constructor works", {
   test_embed_default <- vega_embed()
   test_embed <- vega_embed(renderer = "svg", actions = list(source = FALSE))
 
-  expect_s3_class(vega_embed(), "vega_embed")
-  expect_s3_class(test_embed, "vega_embed")
-
   expect_identical(test_embed_default$renderer, "canvas")
   expect_null(test_embed_default$actions)
 

@@ -1,12 +1,5 @@
 context("test-vegaspec.R")
 
-data_test <-
-  data.frame(
-    a = c(1, 2, 3),
-    b = c("A", "B", "C"),
-    stringsAsFactors = FALSE
-  )
-
 test_that("as_vegaspec translates", {
 
   spec_list <- list(a = 1L, b = "foo")
@@ -28,26 +21,6 @@ test_that("as_vegaspec translates", {
 
 })
 
-test_that("data-frame serialization works", {
 
-  json_test <-
-'[
-  {
-    "a": 1,
-    "b": "A"
-  },
-  {
-    "a": 2,
-    "b": "B"
-  },
-  {
-    "a": 3,
-    "b": "C"
-  }
-]'
-
-  expect_identical(as.character(as_json(data_test)), json_test)
-
-})
 
 

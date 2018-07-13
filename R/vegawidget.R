@@ -57,12 +57,11 @@
 #'
 #' @export
 #'
-vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
-                       validate = TRUE, consolidate = TRUE, ...) {
+vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
 
   # if `embed` is NULL, check for option
   if (is.null(embed)) {
-    embed <- getOption("vegawidget.embed_options")
+    embed <- getOption("vegawidget.embed")
   }
 
   # if `embed` is still NULL, set using empty call to vega_embed()
@@ -70,12 +69,13 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
     embed <- vega_embed()
   }
 
-  spec <- as_vegaspec(spec, validate = validate, consolidate = consolidate)
-  spec <- as_json(spec)
-
-  embed <- unclass(embed)
-
-  x <- list(chart_spec = spec, embed_options = embed)
+  x <-
+    as_json(
+      list(
+        chart_spec = as_vegaspec(spec),
+        embed_options = embed
+      )
+    )
 
   vegawidget <-
     htmlwidgets::createWidget(

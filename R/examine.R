@@ -4,29 +4,23 @@
 #' use it to interactvely examine a Vega or Vega-Lite specification.
 #'
 #' @inheritParams listviewer::jsonedit
+#' @inheritParams as_vegaspec
 #' @export
 #'
-examine <- function(listdata = NULL, mode = "tree",
+examine <- function(spec, mode = "tree",
                     modes = c("code", "form", "text", "tree", "view"),
                     ..., width = NULL, height = NULL,
                     elementId = NULL) {
-  UseMethod("examine")
-}
-
-#' @export
-#'
-examine.default <- function(listdata = NULL, mode = "tree",
-                            modes = c("code", "form", "text", "tree", "view"),
-                            ..., width = NULL, height = NULL,
-                            elementId = NULL) {
 
   if (!requireNamespace("listviewer", quietly = TRUE)) {
     stop("Package \"listviewer\" needed for this function to work. Please install it.",
          call. = FALSE)
   }
 
+  spec <- as_json(as_vegaspec(spec))
+
   listviewer::jsonedit(
-    listdata = listdata,
+    listdata = spec,
     mode = mode,
     modes = modes,
     ...,
@@ -35,3 +29,5 @@ examine.default <- function(listdata = NULL, mode = "tree",
     elementId = elementId
   )
 }
+
+

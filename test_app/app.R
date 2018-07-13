@@ -12,16 +12,16 @@ library(vegawidget)
 
 data_values <-
   list(
-    list(a = "A", b = 28),
-    list(a = "A", b = 27),
-    list(a = "B", b = 55),
-    list(a = "C", b = 43),
-    list(a = "D", b = 91),
-    list(a = "E", b = 81),
-    list(a = "F", b = 53),
-    list(a = "G", b = 19),
-    list(a = "H", b = 87),
-    list(a = "I", b = 52)
+    list(a = "A", b = 28, c = 3),
+    list(a = "A", b = 27, c = 4),
+    list(a = "B", b = 55, c = 5),
+    list(a = "C", b = 43, c = 6),
+    list(a = "D", b = 91, c = 7),
+    list(a = "E", b = 81, c = 8),
+    list(a = "F", b = 53, c = 9),
+    list(a = "G", b = 19, c = 10),
+    list(a = "H", b = 87, c = 11),
+    list(a = "I", b = 52, c = 12)
   )
 
 spec <-
@@ -30,7 +30,8 @@ spec <-
     description = "A simple bar chart with embedded data.",
     data = list(values = data_values),
     mark = "point",
-    selection = list(brush = list(type = "interval")),
+    selection = list(brush = list(type = "interval"),
+                     click = list(type = "single")),
     encoding = list(
       x = list(field = "a", type = "ordinal"),
       y = list(field = "b", type = "quantitative")
@@ -57,7 +58,7 @@ server <- function(input, output) {
   })
 
   output$cl <- shiny::renderPrint({
-    input$chart_clicked
+    input$chart_click
   })
 
 }

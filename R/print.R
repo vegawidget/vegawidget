@@ -1,10 +1,15 @@
 # see zzz.R for "creation" of the alt object
 
 #' @export
-print.vegaspec <- function(x, ...){
+print.vegaspec <- function(x, ...) {
   print(vegawidget(x, ...))
 
   invisible(x)
+}
+
+#' @export
+format.vegaspec <- function(x, ...) {
+  as_json(x)
 }
 
 #' Knit-print method

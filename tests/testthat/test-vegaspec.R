@@ -2,22 +2,25 @@ context("test-vegaspec.R")
 
 test_that("as_vegaspec translates", {
 
-  spec_list <- list(a = 1L, b = "foo")
-  spec_vegaspec <-
-    structure(spec_list, class = c("vegaspec", class(spec_list)))
+  spec_list <- unclass(spec_mtcars)
+  spec_json <- .as_json(spec_list)
+  spec_char <- unclass(.as_json(spec_list))
 
-  spec_json <- as_json(spec_list)
-  spec_char <- '{"a": 1, "b": "foo"}'
+  expect_identical(as_vegaspec(spec_mtcars), spec_mtcars)
+  expect_identical(as_vegaspec(spec_list), spec_mtcars)
 
-  spec_list_vegaspec <- as_vegaspec(spec_list)
-  spec_json_vegaspec <- as_vegaspec(spec_json)
-  spec_char_vegaspec <- as_vegaspec(spec_char)
-  spec_vegaspec_vegaspec <- as_vegaspec(spec_vegaspec)
+  # using equivalent because of integer/double translation
+  expect_equivalent(as_vegaspec(spec_json), spec_mtcars)
+  expect_equivalent(as_vegaspec(spec_char), spec_mtcars)
 
-  expect_identical(spec_list_vegaspec, spec_vegaspec)
-  expect_identical(spec_json_vegaspec, spec_vegaspec)
-  expect_identical(spec_char_vegaspec, spec_vegaspec)
-  expect_identical(spec_vegaspec_vegaspec, spec_vegaspec)
+})
+
+test_that("class is correct", {
+
+  expect_is(
+    as_vegaspec(unclass(spec_mtcars)),
+    c("vegaspec_vegalite", "vegaspec")
+  )
 
 })
 

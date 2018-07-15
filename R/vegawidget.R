@@ -67,9 +67,9 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
   spec <- autosize(spec, width = width, height = height)
 
   x <-
-    as_json(
+    .as_json(
       list(
-        chart_spec = as_vegaspec(spec),
+        chart_spec = unclass(spec),
         embed_options = embed
       )
     )

@@ -36,6 +36,20 @@ autosize <- function(spec, width = NULL, height = NULL) {
 
   spec <- as_vegaspec(spec)
 
+  # fake S3 implementation
+  if (inherits(spec, "vegaspec_vegalite")) {
+    spec <- .autosize_vegalite(spec, width, height)
+  }
+
+  if (inherits(spec, "vegaspec_vega")) {
+    spec <- .autosize_vegalite(spec, width, height)
+  }
+
+  spec
+}
+
+.autosize_vegalite <- function(spec, width = NULL, height = NULL) {
+
   if (is.null(c(width, height))) {
     # nothing to do here
     return(spec)
@@ -64,6 +78,16 @@ autosize <- function(spec, width = NULL, height = NULL) {
   spec$config$view <- spec$config$view %||% list()
   spec$config$view$width <- width
   spec$config$view$height <- height
+
+  spec
+}
+
+.autosize_vega <- function(spec, width = NULL, height = NULL) {
+
+  warning(
+    "autosize not yet implemented for Vega specs; ",
+    "returning spec unchanged",
+    call. = FALSE)
 
   spec
 }

@@ -12,15 +12,17 @@ as_json <- function(spec, pretty = TRUE) {
 
   spec <- as_vegaspec(spec)
 
-  assert_packages("jsonlite")
+  .as_json(unclass(spec), pretty = pretty)
+}
 
-  jsonlite::toJSON(spec, auto_unbox = TRUE, pretty = pretty)
+.as_json <- function(un_spec, pretty = TRUE) {
+  jsonlite::toJSON(un_spec, auto_unbox = TRUE, pretty = pretty)
 }
 
 as_list <- function(spec) {
 
   assert_packages("jsonlite")
 
-  jsonlite::fromJSON(spec, simplifyVector = FALSE)
+  jsonlite::fromJSON(spec, simplifyVector = FALSE, simplifyDataFrame = TRUE)
 }
 

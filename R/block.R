@@ -69,11 +69,11 @@ block_index <- function(spec, embed = vega_embed(),
     )
 
   spec <- as_vegaspec(spec)
-  spec <- as_json(spec, pretty = TRUE)
+  spec <- .as_json(unclass(spec), pretty = TRUE)
   # add further indentation
   spec <- gsub("\n", "\n  ", spec)
 
-  embed <- as_json(embed, pretty = TRUE)
+  embed <- .as_json(embed, pretty = TRUE)
   # add further indentation
   embed <- gsub("\n", "\n  ", embed)
 

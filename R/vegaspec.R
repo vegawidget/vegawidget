@@ -35,7 +35,11 @@ as_vegaspec.vegaspec <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.list <- function(spec, ...) {
-  spec <- structure(spec, class = unique(c("vegaspec", class(spec))))
+
+  # determine if this is a vega or vegalite spec
+  class_library <- paste0("vegaspec_", .spec_type(spec)$library)
+
+  spec <- structure(spec, class = c(class_library, "vegaspec"))
 
   spec
 }
@@ -83,4 +87,7 @@ as_vegaspec.character <- function(spec, ...) {
 
   as_vegaspec(spec)
 }
+
+
+
 

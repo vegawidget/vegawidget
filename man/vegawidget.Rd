@@ -7,7 +7,7 @@
 vegawidget(spec, embed = NULL, width = NULL, height = NULL, ...)
 }
 \arguments{
-\item{spec}{chart_specification}
+\item{spec}{object to be coerced to Vega/Vega-Lite specification}
 
 \item{embed}{\code{vega_embed} object to specify embedding options -
 the default is an empty call to \code{\link[=vega_embed]{vega_embed()}},

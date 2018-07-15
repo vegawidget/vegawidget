@@ -11,7 +11,7 @@ hconcat_elem <-
     encoding = spec_mtcars_hconcat$encoding
   )
 
-spec_mtcars_hconcat$hconcat <-list(hconcat_elem, hconcat_elem)
+spec_mtcars_hconcat$hconcat <- list(hconcat_elem, hconcat_elem)
 
 spec_mtcars_hconcat$data <- NULL
 spec_mtcars_hconcat$mark <- NULL

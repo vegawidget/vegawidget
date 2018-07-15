@@ -42,17 +42,11 @@
 #' the height of the action-links to be 15-20 pixels.
 #'
 #' @inheritParams as_vegaspec
-#' @param spec   chart_specification
+#' @inheritParams autosize
 #' @param embed   `vega_embed` object to specify embedding options -
 #'   the default is an empty call to [vega_embed()],
 #'   which will result in a canvas-rendering and action-links included for
 #'   exporting, viewing the Vega-Lite source, and opening the Vega editor.
-#' @param width   `integer`, if specified, the total rendered width (in pixels)
-#'   of the chart - valid only for single-view charts and layered charts;
-#'   the default is to use the width in the chart specification
-#' @param height  `integer`, if specified, the total rendered height (in pixels)
-#'   of the chart - valid only for single-view charts and layered charts;
-#'   the default is to use the height in the chart specification
 #' @param ... other arguments
 #'
 #' @export
@@ -68,6 +62,9 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
   if (is.null(embed)) {
     embed <- vega_embed()
   }
+
+  # autosize (if needed)
+  spec <- autosize(spec, width = width, height = height)
 
   x <-
     as_json(

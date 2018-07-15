@@ -1,8 +1,31 @@
 #' Autosize a vegaspec
 #'
+#' The arguments `width` and `height` can be used to override the width and height
+#' of the provided `spec`.
+#'
+#' There are some important limitations:
+#'
+#' - Specifying `width` and `height` is
+#' [effective only for single-view and layered specifications](
+#' https://vega.github.io/vega-lite/docs/size.html#limitations).
+#' It will not work for specifications with multiple views
+#' (e.g. `hconcat`, `vconcat`, `facet`, `repeat`); this will issue a
+#' warning that there will be no effect on the specification when rendered.
+#'
+#' - In the specification, the default interpretation of width and height
+#' is to describe the dimensions of the
+#' **plotting rectangle**, not including the space used by the axes, labels,
+#' etc. When `width` and `height` are specified,
+#' the meanings change to describe the dimensions of the **entire** rendered chart,
+#' including axes, labels, etc.
+#'
 #' @inheritParams as_vegaspec
-#' @param width, `integer` total width (pixels)
-#' @param height, `integer` total height (pixels)
+#' @param width   `integer`, if specified, the total rendered width (in pixels)
+#'   of the chart - valid only for single-view charts and layered charts;
+#'   the default is to use the width in the chart specification
+#' @param height  `integer`, if specified, the total rendered height (in pixels)
+#'   of the chart - valid only for single-view charts and layered charts;
+#'   the default is to use the height in the chart specification
 #'
 #' @return object with S3 class `vegaspec`
 #' @examples
@@ -27,8 +50,7 @@ autosize <- function(spec, width = NULL, height = NULL) {
   }
 
   `%||%` <- rlang::`%||%`
-  # using this notation:
-  #  spec$config <- spec$config %||% list()
+  # using this notation: spec$config <- spec$config %||% list()
   #
   # to create a new list only if needed, so as not to
   # wipe out any parameters in an existing list

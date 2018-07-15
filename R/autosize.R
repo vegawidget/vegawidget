@@ -22,7 +22,7 @@ autosize <- function(spec, width = NULL, height = NULL) {
   if (is_multiple_view(spec)) {
     warning(
       "Specifying the width or height of a ",
-      "vegaspec with multiple views has no effect."
+      "vegaspec with multiple views has no effect on rendering."
     )
   }
 

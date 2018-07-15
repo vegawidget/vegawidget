@@ -1,0 +1,50 @@
+context("test-autosize.R")
+
+# create a multiple-view spec
+# ===
+spec_mtcars_hconcat <- spec_mtcars
+
+hconcat_elem <-
+  list(
+    data = spec_mtcars_hconcat$data,
+    mark = spec_mtcars_hconcat$mark,
+    encoding = spec_mtcars_hconcat$encoding
+  )
+
+spec_mtcars_hconcat$hconcat <-list(hconcat_elem, hconcat_elem)
+
+spec_mtcars_hconcat$data <- NULL
+spec_mtcars_hconcat$mark <- NULL
+spec_mtcars_hconcat$encoding <- NULL
+# ===
+
+# create an autosize spec
+# ===
+spec_mtcars_autosize <- spec_mtcars
+
+spec_mtcars_autosize$config <-
+  list(
+    autosize = list(contains = "padding", type = "fit"),
+    view = list(width = 300, height = 300)
+  )
+# ===
+
+test_that("is_multiple_view works", {
+  expect_false(is_multiple_view(spec_mtcars))
+  expect_true(is_multiple_view(spec_mtcars_hconcat))
+})
+
+test_that("autosize warns", {
+  expect_warning(
+    autosize(spec_mtcars_hconcat, width = 300),
+    "no effect on rendering\\.$"
+  )
+})
+
+test_that("autosize works", {
+  expect_identical(
+    autosize(spec_mtcars, width = 300, height = 300),
+    spec_mtcars_autosize
+  )
+})
+

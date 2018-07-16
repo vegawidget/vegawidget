@@ -18,10 +18,7 @@ as_vegaspec <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.default <- function(spec, ...) {
-
-  warning("as_vegaspec(): no method for class ", class(spec), call. = FALSE)
-
-  spec
+  stop("as_vegaspec(): no method for class ", class(spec), call. = FALSE)
 }
 
 #' @rdname as_vegaspec
@@ -35,12 +32,7 @@ as_vegaspec.vegaspec <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.list <- function(spec, ...) {
-
-  # determine if this is a vega or vegalite spec
-  class_library <- paste0("vegaspec_", .spec_type(spec)$library)
-
-  spec <- structure(spec, class = c(class_library, "vegaspec"))
-
+  spec <- .as_vegaspec(spec)
   spec
 }
 
@@ -48,11 +40,9 @@ as_vegaspec.list <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.json <- function(spec, ...) {
-
-  # convert to list, process
-  spec <- as_list(spec)
-
-  as_vegaspec(spec)
+  spec <- .as_list(spec)
+  spec <- .as_vegaspec(spec)
+  spec
 }
 
 #' @rdname as_vegaspec
@@ -76,16 +66,10 @@ as_vegaspec.character <- function(spec, ...) {
     spec <- readLines(spec, warn = FALSE)
   }
 
-  # validate the input
-  assertthat::assert_that(
-    jsonlite::validate(spec),
-    msg = "spec is not valid JSON"
-  )
-
-  # convert to list, process
-  spec <- as_list(spec)
-
-  as_vegaspec(spec)
+  spec <- .as_json(spec)
+  spec <- .as_list(spec)
+  spec <- .as_vegaspec(spec)
+  spec
 }
 
 

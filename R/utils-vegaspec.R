@@ -1,5 +1,86 @@
 # these are the internal functions used to support vegaspec operations
 
+.as_vegaspec <- function(x, ...) {
+  UseMethod(".as_vegaspec")
+}
+
+.as_vegaspec.default <- function(x, ...) {
+  stop("as_vegaspec(): no method for class ", class(x), call. = FALSE)
+}
+
+.as_vegaspec.list <- function(x, ...) {
+
+  # TODO: see if we can keep the list class!
+
+  # determine if this is a vega or vegalite spec
+  class_library <- paste0("vegaspec_", .spec_type(x)$library)
+
+  spec <- structure(x, class = c(class_library, "vegaspec"))
+
+  spec
+}
+
+.as_list <- function(x, ...) {
+  UseMethod(".as_list")
+}
+
+.as_list.default <- function(x, ...) {
+  stop(".as_list(): no method for class ", class(x), call. = FALSE)
+}
+
+.as_list.vegaspec <- function(x, ...) {
+  # revert to list
+  unclass(x)
+}
+
+.as_list.json <- function(x, ...) {
+  # convert from JSON to list
+  x <- jsonlite::fromJSON(x, simplifyVector = FALSE, simplifyDataFrame = TRUE)
+
+  x
+}
+
+
+.as_json <- function(x, pretty, ...) {
+  UseMethod(".as_json")
+}
+
+.as_json.default <- function(x, pretty, ...) {
+  stop(".as_json(): no method for class ", class(x), call. = FALSE)
+}
+
+.as_json.list <- function(x, pretty = TRUE, ...) {
+  # convert from list to JSON
+  jsonlite::toJSON(x, auto_unbox = TRUE, pretty = pretty)
+}
+
+.as_json.character <- function(x, pretty = TRUE, ...) {
+
+  # validate that this is JSON
+  success <- jsonlite::validate(x)
+  assertthat::assert_that(
+    success,
+    msg = attr(success, "err")
+  )
+
+  # add json class to character
+  class(x) <- unique(c("json", class(x)))
+
+  x
+}
+
+.as_character <- function(x, ...) {
+  UseMethod(".as_character")
+}
+
+.as_character.default <- function(x, ...) {
+  stop(".as_character(): no method for class ", class(x), call. = FALSE)
+}
+
+.as_character.json <- function(x, ...) {
+  unclass(x)
+}
+
 #' Write out a vegaspec as JSON
 #'
 #' @inheritParams as_vegaspec
@@ -12,11 +93,11 @@ as_json <- function(spec, pretty = TRUE) {
 
   spec <- as_vegaspec(spec)
 
-  .as_json(unclass(spec), pretty = pretty)
-}
+  .as_json <- function(un_spec, pretty = TRUE) {
+    jsonlite::toJSON(un_spec, auto_unbox = TRUE, pretty = pretty)
+  }
 
-.as_json <- function(un_spec, pretty = TRUE) {
-  jsonlite::toJSON(un_spec, auto_unbox = TRUE, pretty = pretty)
+  .as_json(unclass(spec), pretty = pretty)
 }
 
 as_list <- function(spec) {

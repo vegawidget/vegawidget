@@ -17,6 +17,8 @@
 
   spec <- structure(x, class = c(class_library, "vegaspec"))
 
+  # TODO: call to .validate() would go here
+
   spec
 }
 

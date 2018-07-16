@@ -17,7 +17,7 @@ examine <- function(spec, mode = "tree",
          call. = FALSE)
   }
 
-  spec <- as_json(as_vegaspec(spec))
+  spec <- as_json(spec)
 
   listviewer::jsonedit(
     listdata = spec,

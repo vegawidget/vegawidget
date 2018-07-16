@@ -68,11 +68,12 @@ block_index <- function(spec, embed = vega_embed(),
       system.file("block", "index.html", package = "vegawidget")
     )
 
-  spec <- as_vegaspec(spec)
-  spec <- .as_json(unclass(spec), pretty = TRUE)
+  # use public method to validate spec
+  spec <- as_json(spec, pretty = TRUE)
   # add further indentation
   spec <- gsub("\n", "\n  ", spec)
 
+  # use internal method because we this is not a spec
   embed <- .as_json(embed, pretty = TRUE)
   # add further indentation
   embed <- gsub("\n", "\n  ", embed)

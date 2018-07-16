@@ -63,13 +63,14 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
     embed <- vega_embed()
   }
 
-  # autosize (if needed)
+  # autosize (if needed) - validation would happen here
   spec <- autosize(spec, width = width, height = height)
 
+  # use internal methods here because spec has already been validated
   x <-
     .as_json(
       list(
-        chart_spec = unclass(spec),
+        chart_spec = .as_list(spec),
         embed_options = embed
       )
     )

@@ -72,6 +72,58 @@ as_vegaspec.character <- function(spec, ...) {
   spec
 }
 
+#' Convert vegaspec to list
+#'
+#' @inheritParams as_vegaspec
+#'
+#' @return `jsonlite::json` object
+#' @examples
+#'   as_list(spec_mtcars)
+#' @export
+#'
+as_list <- function(spec) {
+
+  spec <- as_vegaspec(spec)
+  spec <- .as_list(spec)
+
+  spec
+}
+
+#' Convert vegaspec to JSON
+#'
+#' @inheritParams as_vegaspec
+#' @param pretty `logical` indicates to use pretty (vs. minified) formatting
+#'
+#' @return `jsonlite::json` object
+#' @examples
+#'   as_json(spec_mtcars)
+#' @export
+#'
+as_json <- function(spec, pretty = TRUE) {
+
+  spec <- as_list(spec)
+  spec <- .as_json(spec, pretty = pretty)
+
+  spec
+}
+
+#' Convert vegaspec to character
+#'
+#' @inheritParams as_vegaspec
+#' @param pretty `logical` indicates to use pretty (vs. minified) formatting
+#'
+#' @return `character`
+#' @examples
+#'   as_character(spec_mtcars)
+#' @export
+#'
+as_character <-  function(spec, pretty = TRUE) {
+
+  spec <- as_json(spec, pretty = pretty)
+  spec <- .as_character(spec)
+
+  spec
+}
 
 
 

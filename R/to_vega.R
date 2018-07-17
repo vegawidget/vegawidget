@@ -23,6 +23,8 @@ to_vega <- function(spec) {
   # It is easy to do the wgong thing, converting between JSON and R objects.
   # Instead of using the V8 conversion, we use our functions for
   # the conversion: as_character() and as_vegaspec().
+  #
+  # hence this tweet: https://twitter.com/ijlyttle/status/1019290316195627008
 
   assert_packages("V8")
   JS <- V8::JS

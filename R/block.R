@@ -140,7 +140,7 @@ block_index <- function(spec, embed = vega_embed(),
 #'
 create_block <- function(spec, embed = vega_embed(), block = block_yaml(),
                          versions = vega_versions(major = FALSE),
-                         description = NULL, readme = NULL,
+                         description = "", readme = NULL,
                          use_thumbnail = TRUE, use_preview = TRUE,
                          git_method = c("ssh", "https"),
                          host = NULL, env_pat = NULL) {
@@ -171,7 +171,7 @@ create_block <- function(spec, embed = vega_embed(), block = block_yaml(),
 
   # vega-embed.css file
   fs::file_copy(
-    system.file("templates", "vega-embed.css", package = "vegawidget"),
+    system.file("block", "vega-embed.css", package = "vegawidget"),
     manifest$css
   )
 

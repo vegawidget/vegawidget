@@ -46,7 +46,7 @@ autosize <- function(spec, width = NULL, height = NULL) {
 }
 
 .autosize.default <- function(spec, ...) {
-  stop(".autosize(): no method for class ", class(x), call. = FALSE)
+  stop(".autosize(): no method for class ", class(spec), call. = FALSE)
 }
 
 .autosize.vegaspec_vegalite <- function(spec, width = NULL, height = NULL) {
@@ -84,6 +84,11 @@ autosize <- function(spec, width = NULL, height = NULL) {
 }
 
 .autosize.vegaspec_vega <- function(spec, width = NULL, height = NULL) {
+
+  if (is.null(c(width, height))) {
+    # nothing to do here
+    return(spec)
+  }
 
   warning(
     "autosize not yet implemented for Vega specs; ",

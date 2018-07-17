@@ -29,6 +29,7 @@ library("readr")
 library("dplyr")
 library("tibble")
 library("stringr")
+library("usethis")
 library("conflicted")
 library("vegawidget")
 ```
@@ -249,9 +250,43 @@ use_data(spec_mtcars, overwrite = TRUE)
 
 ## Internal data
 
+We want to keep copies of the Vega and Vega-Lite specs so that we can use them with V8
+
+```{r}
+url_vega <- 
+  downloads %>%
+  dplyr::filter(str_detect(path_local, "^vega/vega.*.js$")) %>%
+  dplyr::pull(path_remote) 
+
+url_vegalite <- 
+  downloads %>%
+  dplyr::filter(str_detect(path_local, "^vega-lite/vega.*.js$")) %>%
+  dplyr::pull(path_remote) 
+
+.vega_js <-
+  httr::GET(url_vega) %>%
+  httr::stop_for_status() %>%
+  httr::content(as = "text")
+
+.vegalite_js <- 
+  httr::GET(url_vegalite) %>%
+  httr::stop_for_status() %>%
+  httr::content(as = "text")
+```
+
+We want the versions.
+
 ```{r}
 .vega_versions <- vega_versions_long
+```
 
-devtools::use_data(.vega_versions, internal = TRUE, overwrite = TRUE)
+```{r}
+devtools::use_data(
+  .vega_versions, 
+  .vega_js,
+  .vegalite_js,
+  internal = TRUE, 
+  overwrite = TRUE
+)
 ```
 

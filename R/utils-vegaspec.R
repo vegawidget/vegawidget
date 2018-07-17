@@ -37,7 +37,7 @@
 
 .as_list.json <- function(x, ...) {
   # convert from JSON to list
-  x <- jsonlite::fromJSON(x, simplifyVector = FALSE, simplifyDataFrame = TRUE)
+  x <- jsonlite::fromJSON(x, simplifyVector = FALSE, simplifyDataFrame = FALSE)
 
   x
 }

@@ -58,6 +58,7 @@ library("dplyr")
 ``` r
 library("tibble")
 library("stringr")
+library("usethis")
 library("conflicted")
 library("vegawidget")
 ```
@@ -276,12 +277,74 @@ dir_create(dir_schema)
 pwalk(schema, get_file, path_local_root = dir_schema)
 ```
 
+## External data
+
+This is a sample spec.
+
+``` r
+spec_mtcars <-
+  as_vegaspec(
+    list(
+      `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
+      description = "An mtcars example.",
+      data = list(values = mtcars),
+      mark = "point",
+      encoding = list(
+        x = list(field = "wt", type = "quantitative"),
+        y = list(field = "mpg", type = "quantitative"),
+        color = list(field = "cyl", type = "nominal")
+      )
+    )     
+  )
+```
+
+``` r
+use_data(spec_mtcars, overwrite = TRUE)
+```
+
+    ## ✔ Saving spec_mtcars to data/spec_mtcars.rda
+
 ## Internal data
+
+We want to keep copies of the Vega and Vega-Lite specs so that we can
+use them with V8
+
+``` r
+url_vega <- 
+  downloads %>%
+  dplyr::filter(str_detect(path_local, "^vega/vega.*.js$")) %>%
+  dplyr::pull(path_remote) 
+
+url_vegalite <- 
+  downloads %>%
+  dplyr::filter(str_detect(path_local, "^vega-lite/vega.*.js$")) %>%
+  dplyr::pull(path_remote) 
+
+.vega_js <-
+  httr::GET(url_vega) %>%
+  httr::stop_for_status() %>%
+  httr::content(as = "text")
+
+.vegalite_js <- 
+  httr::GET(url_vegalite) %>%
+  httr::stop_for_status() %>%
+  httr::content(as = "text")
+```
+
+We want the versions.
 
 ``` r
 .vega_versions <- vega_versions_long
-
-devtools::use_data(.vega_versions, internal = TRUE, overwrite = TRUE)
 ```
 
-    ## Saving .vega_versions as sysdata.rda to /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget/R
+``` r
+devtools::use_data(
+  .vega_versions, 
+  .vega_js,
+  .vegalite_js,
+  internal = TRUE, 
+  overwrite = TRUE
+)
+```
+
+    ## Saving .vega_versions, .vega_js, .vegalite_js as sysdata.rda to /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget/R

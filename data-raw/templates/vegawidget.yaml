@@ -10,7 +10,7 @@ dependencies:
     version: "{vega_lite}"
     src: htmlwidgets/lib/vega-lite
     script:
-      - vega-lite-min.js
+      - vega-lite.min.js
   - name: vega-embed
     version: "{vega_embed}"
     src: htmlwidgets/lib/vega-embed

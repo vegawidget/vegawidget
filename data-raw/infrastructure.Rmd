@@ -1,5 +1,5 @@
 ---
-title: Inst files
+title: Package infrastrucure
 output: github_document
 params:
   vega_lite_version: "2.5.0"
@@ -34,12 +34,34 @@ library("conflicted")
 library("vegawidget")
 ```
 
+The purpose of this document is to have a unified process to build:
+
+- an htmlwidget named "vegawidget"
+- internal package data: 
+  - list of version numbers: `.vega_versions`
+  - strings of minified javascript libraries: `.vega_js`, `.vega_polyfill_symbol_js`, `.vega_polyfill_promise_js`, `.vegalite_js` (perhaps the js libraries could use the htmldependency and memoise)
+- public package data:
+  - `spec_mtcars` vegaspec for an mtcars scatterplot
+- files to create a [block](https://bl.ocks.org)
+- files to validate the schema
+
+Perhaps this could be a series of documents - I will have to see what can be cleaved away.
+
 For this document, there is a source-directory, `dir_templates`, and a target-directory, `dir_htmlwidgets`. We will read information from the source-directory and write it to the target-directory. 
 
 ```{r directories}
 dir_templates <- here("data-raw", "templates")
-dir_htmlwidgets <- here("inst", "htmlwidgets")
-dir_block <- here("inst", "block")
+
+# create a create a clean directory
+create_clean <- function(path) {
+  
+  if (fs::dir_exists(path)) {
+    fs::dir_delete(path)
+  }
+  
+  fs::dir_create(path)
+  
+}
 ```
 
 Finally, we need to know which versions of the libraries (vega, vega-lite, and vega-embed) to download. We do this by inspecting the manifest of a specific version of the vega-lite library. This package has an internal function, `vega_version()` to help us do this:  
@@ -54,19 +76,12 @@ vega_versions_long
 vega_versions_short <- map(vega_versions_long, ~sub("-\\w.*$", "", .x))
 ```
 
-## Clean and create
+## vegawidget 
 
-Our first task is to create a clean directory `inst/htmlwidgets`. If it exists, we delete it and create it anew.
-
-```{r clean-create}
-if (dir_exists(dir_htmlwidgets)) {
-  dir_delete(dir_htmlwidgets)
-}
-
-dir_create(dir_htmlwidgets)
+```{r vegawidget-dir}
+dir_htmlwidgets <- here("inst", "htmlwidgets")
+clean_create(dir_htmlwidgets)
 ```
-
-## Vegawidget files
 
 Here, we have copy some files from our templates directory.
 
@@ -86,18 +101,17 @@ path(dir_templates, "vegawidget.yaml") %>%
   write_lines(path(dir_htmlwidgets, "vegawidget.yaml"))
 ```
 
-## Lib directory
-
 Here's where we download the libraries themselves, along with the licences; the versions are interpolated from `vega_versions_long`.
 
 ```{r}
 downloads <-
   tribble(
     ~path_local,                         ~path_remote,
-    "vega-lite/vega-lite-min.js",        "https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite}",
+    "vega-lite/vega-lite.min.js",        "https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite}",
     "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/master/LICENSE",
     "vega/promise.min.js",               "https://vega.github.io/vega/assets/promise.min.js",
     "vega/symbol.min.js",                "https://vega.github.io/vega/assets/symbol.min.js",
+    "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
     "vega/vega.js",                      "https://cdn.jsdelivr.net/npm/vega@{vega}/build/vega.js",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
     "vega-embed/vega-embed.js",          "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
@@ -148,7 +162,7 @@ fs::file_copy(
 )
 ```
 
-## Patch 
+### Patch 
 
 Here, Alicia Schep noticed that there was a problem to render vega charts within the RStudio IDE, and she figured out a workaround (as well as a [PR]() for the RStudio IDE to fix the problem). Here's her patch for older versions of the IDE: 
 
@@ -166,12 +180,9 @@ fs::file_delete(vega_embed_path)
 ## Block
 
 
-```{r}
-if (dir_exists(dir_block)) {
-  dir_delete(dir_block)
-}
-
-dir_create(dir_block)
+```{r vegawidget-dir}
+dir_block <- here("inst", "block")
+clean_create(dir_htmlwidgets)
 ```
 
 ```{r}

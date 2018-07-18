@@ -323,7 +323,7 @@ url_vegalite <-
 .vega_js <-
   httr::GET(url_vega) %>%
   httr::stop_for_status() %>%
-  httr::content(as = "text")
+  httr::content(as = "text") 
 
 .vegalite_js <- 
   httr::GET(url_vegalite) %>%

@@ -32,7 +32,7 @@
   
 <meta property="og:title" content="Create a gist that can be used as a block — create_block" />
 
-<meta property="og:description" content="idea: function to validate the spec" />
+<meta property="og:description" content="Create a gist that can be used as a block" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -116,14 +116,14 @@
 
     <div class="ref-description">
     
-    <p>idea: function to validate the spec</p>
+    <p>Create a gist that can be used as a block</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>create_block</span>(<span class='no'>spec</span>, <span class='kw'>embed</span> <span class='kw'>=</span> <span class='fu'><a href='vega_embed.html'>vega_embed</a></span>(), <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>block</span> <span class='kw'>=</span> <span class='fu'><a href='block_yaml.html'>block_yaml</a></span>(), <span class='kw'>readme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>use_thumbnail</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>use_preview</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>use_current</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>git_method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ssh"</span>, <span class='st'>"https"</span>),
-  <span class='kw'>host</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>auth_token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>create_block</span>(<span class='no'>spec</span>, <span class='kw'>embed</span> <span class='kw'>=</span> <span class='fu'><a href='vega_embed.html'>vega_embed</a></span>(), <span class='kw'>block</span> <span class='kw'>=</span> <span class='fu'><a href='block_yaml.html'>block_yaml</a></span>(),
+  <span class='kw'>versions</span> <span class='kw'>=</span> <span class='fu'><a href='vega_versions.html'>vega_versions</a></span>(<span class='kw'>major</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>), <span class='kw'>description</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>readme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>use_thumbnail</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>use_preview</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>git_method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ssh"</span>, <span class='st'>"https"</span>), <span class='kw'>host</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>env_pat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,36 +134,40 @@
     </tr>
     <tr>
       <th>embed</th>
-      <td><p><code>vega_embed</code> object</p></td>
-    </tr>
-    <tr>
-      <th>description</th>
-      <td><p><code>character</code> description for the gist</p></td>
+      <td><p><code>vega_embed</code> object
+(not yet implemented)</p></td>
     </tr>
     <tr>
       <th>block</th>
       <td><p><code>character</code> YAML text for the <code>.block</code> file</p></td>
     </tr>
     <tr>
+      <th>versions</th>
+      <td><p>named <code>list</code> of <code>character</code>:
+names refer to JavaScript libraries <code>vega</code>, <code>vega_lite</code>, <code>vega_embed</code>,
+values are the tags for the versions to use in the block - use the
+helper function <code><a href='vega_versions.html'>vega_versions()</a></code> with <code>major = TRUE</code> to use the current
+major versions rather than the versions supported in this package.</p></td>
+    </tr>
+    <tr>
+      <th>description</th>
+      <td><p><code>character</code> description for the gist</p></td>
+    </tr>
+    <tr>
       <th>readme</th>
       <td><p><code>character</code> single line, path to a markdown file;
-multiple lines, markdown text</p></td>
+multiple lines, markdown text
+(not yet implemented)</p></td>
     </tr>
     <tr>
       <th>use_thumbnail</th>
-      <td><p><code>logical</code> indicates to include a thumbnail image</p></td>
+      <td><p><code>logical</code> indicates to include a thumbnail image
+(not yet implemented)</p></td>
     </tr>
     <tr>
       <th>use_preview</th>
-      <td><p><code>logical</code> indicates to include a preview image</p></td>
-    </tr>
-    <tr>
-      <th>use_current</th>
-      <td><p><code>logical</code> or named <code>list</code> of <code>logical</code>,
-for names of JavaScript libraries <code>vega</code>, <code>vega_lite</code>, <code>vega_embed</code>:</p><ul>
-<li><p><code>TRUE</code>: use the current major version</p></li>
-<li><p><code>FALSE</code>: use the version use in the htmlwidget for this package</p></li>
-</ul></td>
+      <td><p><code>logical</code> indicates to include a preview image
+(not yet implemented)</p></td>
     </tr>
     <tr>
       <th>git_method</th>
@@ -171,13 +175,17 @@ for names of JavaScript libraries <code>vega</code>, <code>vega_lite</code>, <co
     </tr>
     <tr>
       <th>host</th>
-      <td><p><code>character</code> host address,
-defaults to <code>"gist.github.com"</code></p></td>
+      <td><p>`character`` Base endpoint for GitHub API, defaults to
+<code>"https://api.github.com"</code>. Useful to specify with GitHub Enterprise,
+e.g. <code>"https://github.acme.com/api/v3"</code>.
+(not yet implemented)</p></td>
     </tr>
     <tr>
-      <th>auth_token</th>
-      <td><p><code>character</code> GitHub PAT,
-defaults to <code>Sys.getenv("GITHUB_PAT")</code></p></td>
+      <th>env_pat</th>
+      <td><p>(character) Name of environment variable that contains
+a GitHub PAT (Personal Access Token), defaults to <code>"GITHUB_PAT"</code>.
+Useful to specify with GitHub Enterprise, e.g. <code>"GITHUB_ACME_PAT"</code>.
+(not yet implemented)</p></td>
     </tr>
     </table>
     

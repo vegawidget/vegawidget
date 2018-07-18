@@ -134,10 +134,12 @@ and <code>editor</code> links. This documentation is adapted from the
     
     </div>
 
-    <pre class="usage"><span class='fu'>vega_embed</span>(<span class='kw'>renderer</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"canvas"</span>, <span class='st'>"svg"</span>), <span class='kw'>actions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>logLevel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>loader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>onBeforeParse</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>editorUrl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sourceHeader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sourceFooter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>runAsync</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>vega_embed</span>(<span class='kw'>renderer</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"canvas"</span>, <span class='st'>"svg"</span>), <span class='kw'>actions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>defaultStyle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>logLevel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>loader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>onBeforeParse</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scaleFactor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>editorUrl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sourceHeader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sourceFooter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>hover</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>runAsync</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,6 +167,11 @@ can be overridden. For example, if <code>actions</code> is
 have two links – "View Source" and "Open in Vega Editor".</p></td>
     </tr>
     <tr>
+      <th>defaultStyle</th>
+      <td><p><code>logical</code> or <code>character</code>
+default stylesheet for embed actions</p></td>
+    </tr>
+    <tr>
       <th>mode</th>
       <td><p><code>character</code> if specified, tells Vega-Embed to parse the spec
 as vega or vega-lite. Vega-Embed will parse the <code>$schema</code> url if the mode
@@ -172,10 +179,23 @@ is not specified. Vega-Embed will default to vega if neither mode,
 nor $schema are specified.</p></td>
     </tr>
     <tr>
+      <th>theme</th>
+      <td><p><code>character</code> if specified, tells Vega-Embed use the theme from
+<a href='https://github.com/vega/vega-themes'>Vega Themes</a>;
+this is an experimental feature.</p></td>
+    </tr>
+    <tr>
       <th>logLevel</th>
       <td><p>sets the current log level.
 See <a href='https://vega.github.io/vega/docs/api/view/#view_logLevel'>Vega docs</a>
 for details.</p></td>
+    </tr>
+    <tr>
+      <th>tooltip</th>
+      <td><p><code>JS</code>, <code>logical</code>, or object
+to provide a <a href='https://vega.github.io/vega/docs/api/view/#view_tooltip'>tooltip handler</a>,
+customize the default <a href='https://github.com/vega/vega-tooltip'>Vega Tooltip handler</a>,
+or disable the default handler.</p></td>
     </tr>
     <tr>
       <th>loader</th>
@@ -208,6 +228,11 @@ See <a href='https://vega.github.io/vega/docs/api/view/#view_padding'>Vega docs<
 for details.</p></td>
     </tr>
     <tr>
+      <th>scaleFactor</th>
+      <td><p><code>numeric</code> the number by which to multiply the width and
+height (default 1) of an exported PNG or SVG image.</p></td>
+    </tr>
+    <tr>
       <th>config</th>
       <td><p><code>character</code> or <code>list</code> a URL string** from which to load
 a Vega/Vega-Lite or Vega-Lite configuration file, or a <code>list</code> of
@@ -237,6 +262,10 @@ page generated by the "View Source" action link. The text will be added
 immediately before the closing `` tag.</p></td>
     </tr>
     <tr>
+      <th>hover</th>
+      <td><p><code>logical</code>, enable <a href='https://vega.github.io/vega/docs/api/view/#view_hover'>hover event processing</a></p></td>
+    </tr>
+    <tr>
       <th>runAsync</th>
       <td><p><code>logical</code>, indicating to use
 <a href='https://vega.github.io/vega/docs/api/view/#view_runAsync'>runAsync</a>
@@ -246,7 +275,7 @@ instead of <a href='https://vega.github.io/vega/docs/api/view/#view_run'>run</a>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>S3 object with class <code>vega_embed</code></p>
+    <p><code>list</code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 

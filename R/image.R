@@ -8,7 +8,7 @@ to_svg <- function(spec, scale = 1) {
 
   # convert to vega
   vgspec <- to_vega(spec)
-  str_vgspec <- as_character(vgspec, pretty = FALSE)
+  str_vgspec <- as_json(vgspec, pretty = FALSE)
 
   # call V8 to return svg
   # ref: https://vega.github.io/vega/docs/api/view/#view_toSVG

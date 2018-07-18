@@ -10,14 +10,12 @@
 
 .as_vegaspec.list <- function(x, ...) {
 
-  # TODO: see if we can keep the list class!
-
   # determine if this is a vega or vegalite spec
   class_library <- paste0("vegaspec_", .spec_type(x)$library)
 
-  spec <- structure(x, class = c(class_library, "vegaspec"))
+  class_new <- unique(c(class_library, "vegaspec", class(x)))
 
-  # TODO: call to .validate() would go here
+  spec <- structure(x, class = class_new)
 
   spec
 }
@@ -71,17 +69,7 @@
   x
 }
 
-.as_character <- function(x, ...) {
-  UseMethod(".as_character")
-}
 
-.as_character.default <- function(x, ...) {
-  stop(".as_character(): no method for class ", class(x), call. = FALSE)
-}
-
-.as_character.json <- function(x, ...) {
-  unclass(x)
-}
 
 
 

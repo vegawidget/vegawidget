@@ -232,6 +232,8 @@ spec_mtcars <-
   as_vegaspec(
     list(
       `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
+      width = 300,
+      height = 300,
       description = "An mtcars example.",
       data = list(values = mtcars),
       mark = "point",
@@ -245,7 +247,7 @@ spec_mtcars <-
 ```
 
 ```{r}
-use_data(spec_mtcars, overwrite = TRUE)
+usethis::use_data(spec_mtcars, overwrite = TRUE)
 ```
 
 ## Internal data

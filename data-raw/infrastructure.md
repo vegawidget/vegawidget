@@ -1,29 +1,52 @@
----
-title: Package infrastrucure
-output: github_document
-params:
-  vega_lite_version: "2.5.0"
----
+Package infrastrucure
+================
 
-This purpose of this document is to build the package infrastucture. 
+This purpose of this document is to build the package infrastucture.
 
 To upgrade the version of **Vega-Lite** that we support:
 
-1. Modify the parameter `vega_lite_version` in the yaml-header to this file.
-2. Render (knit) this document.
-3. Build-and-install this package on your local computer.
-4. Run the tests (`testthat::test()`).
-5. Rebuild the pkgdown website (`pkgdown::build_site()`), verify the visual-regression article (still to be built).
-6. Commit, push, and make PR.
+1.  Modify the parameter `vega_lite_version` in the yaml-header to this
+    file.
+2.  Render (knit) this document.
+3.  Build-and-install this package on your local computer.
+4.  Run the tests (`testthat::test()`).
+5.  Rebuild the pkgdown website (`pkgdown::build_site()`), verify the
+    visual-regression article (still to be built).
+6.  Commit, push, and make PR.
 
-```{r packages}
+<!-- end list -->
+
+``` r
 library("fs")
 library("glue")
 library("httr")
 library("here")
+```
+
+    ## here() starts at /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget
+
+``` r
 library("purrr")
 library("readr")
 library("dplyr")
+```
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following object is masked from 'package:glue':
+    ## 
+    ##     collapse
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
 library("tibble")
 library("stringr")
 library("usethis")
@@ -31,27 +54,36 @@ library("conflicted")
 library("vegawidget")
 ```
 
-## Infrastructure
+## Infrastucture
 
 Package infrastucture incudes:
 
-- an htmlwidget named "vegawidget"
-- internal package data: 
-  - list of version numbers: `.vega_versions`
-  - strings of minified javascript libraries: `.vega_js`, `.vega_polyfill_symbol_js`, `.vega_polyfill_promise_js`, `.vegalite_js` (perhaps the js libraries could use the htmldependency and memoise)
-- public package data:
-  - `spec_mtcars` vegaspec for an mtcars scatterplot
-- files to create a [block](https://bl.ocks.org)
-- files to validate the schema
+  - an htmlwidget named “vegawidget”
+  - internal package data:
+      - list of version numbers: `.vega_versions`
+      - strings of minified javascript libraries: `.vega_js`,
+        `.vega_polyfill_symbol_js`, `.vega_polyfill_promise_js`,
+        `.vegalite_js` (perhaps the js libraries could use the
+        htmldependency and memoise)
+  - public package data:
+      - `spec_mtcars` vegaspec for an mtcars scatterplot
+  - files to create a [block](https://bl.ocks.org)
+  - files to validate the schema
 
-Perhaps this could be a series of documents - it remains as an exercise to see what can be cleaved away.
+Perhaps this could be a series of documents - it remains as an exercise
+to see what can be cleaved away.
 
-There are two source of "truth" for this process: this document, and the contents of the directory `data-raw/templates`. (It may be useful to note this in a "contributing" document for this package.)
-Each of the infrastructure elements is created anew when this document is run; so, between this document and `data-raw/templates`, we need to be able to construct completely each element infrastructure.
+There are two source of “truth” for this process: this document, and the
+contents of the directory `data-raw/templates`. (It may be useful to
+note this in a “contributing” document for this package.) Each of the
+infrastructure elements is created anew when this document is run; so,
+between this document and `data-raw/templates`, we need to be able to
+construct completely each element infrastructure.
 
-Thus, we define this template directory and a function to delete and create 
+Thus, we define this template directory and a function to delete and
+create
 
-```{r directories}
+``` r
 dir_templates <- here("data-raw", "templates")
 
 # create a create a clean directory, with a safety
@@ -84,25 +116,40 @@ create_clean <- function(path, path_safe = here::here()) {
 
 ## Configure
 
-These packages are not listed in the `Suggests` section of the `DESCRIPTION` file. It's on you to make sure they are all up-to-date.
+These packages are not listed in the `Suggests` section of the
+`DESCRIPTION` file. It’s on you to make sure they are all up-to-date.
 
-We need to know which versions of the libraries (vega, vega-lite, and vega-embed) to download. We do this by inspecting the manifest of a specific version of the vega-lite library. This package has an internal function, `vega_version()` to help us do this:  
+We need to know which versions of the libraries (vega, vega-lite, and
+vega-embed) to download. We do this by inspecting the manifest of a
+specific version of the vega-lite library. This package has an internal
+function, `vega_version()` to help us do this:
 
-```{r versions}
+``` r
 vega_versions_long <- get_vega_versions(params$vega_lite_version)
 
 vega_versions_long
+```
 
+    ## $vega_lite
+    ## [1] "2.5.0"
+    ## 
+    ## $vega
+    ## [1] "4.0.0-rc.2"
+    ## 
+    ## $vega_embed
+    ## [1] "3.14.0"
+
+``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
 # "-\\w.*$"   hyphen, followed by a letter, followed by anything, then end 
 vega_versions_short <- map(vega_versions_long, ~sub("-\\w.*$", "", .x))
 ```
 
-## htmlwidgets 
+## htmlwidgets
 
-First, let's create a clean directory for the htmlwidget
+First, let’s create a clean directory for the htmlwidget
 
-```{r vegawidget-dir}
+``` r
 dir_htmlwidgets <- here("inst", "htmlwidgets")
 dir_lib <- path(dir_htmlwidgets, "lib")
 dir_vegaembed <- path(dir_lib, "vega-embed")
@@ -116,34 +163,37 @@ dir_create(dir_vegaembed)
 
 First, copy some files from our templates directory.
 
-```{r vegawidget-js}
+``` r
 file_copy(
   path(dir_templates, "vegawidget.js"), 
   path(dir_htmlwidgets, "vegawidget.js")
 )
 ```
 
-The file `vegawidget.yaml` requires the versions the JavaScript libraries; we interpolate these from `vega_versions_short`.
+The file `vegawidget.yaml` requires the versions the JavaScript
+libraries; we interpolate these from `vega_versions_short`.
 
-```{r vegawidget-yml}
+``` r
 path(dir_templates, "vegawidget.yaml") %>%
   read_lines() %>%
   map_chr(~glue_data(vega_versions_short, .x)) %>%
   write_lines(path(dir_htmlwidgets, "vegawidget.yaml"))
 ```
 
-The file `vega-embed.css` adds some css for the (old-style) links that appeared below a rendered spec:
+The file `vega-embed.css` adds some css for the (old-style) links that
+appeared below a rendered spec:
 
-```{r}
+``` r
 fs::file_copy(
   fs::path(dir_templates, "vega-embed.css"), 
   fs::path(dir_vegaembed, "vega-embed.css")
 )
 ```
 
-Here's where we download the libraries themselves, along with the licences; the versions are interpolated from `vega_versions_long`.
+Here’s where we download the libraries themselves, along with the
+licences; the versions are interpolated from `vega_versions_long`.
 
-```{r}
+``` r
 htmlwidgets_downloads <-
   tribble(
     ~path_local,                         ~path_remote,
@@ -164,7 +214,20 @@ htmlwidgets_downloads <-
 htmlwidgets_downloads
 ```
 
-```{r}
+    ## # A tibble: 9 x 2
+    ##   path_local                 path_remote                                  
+    ##   <chr>                      <chr>                                        
+    ## 1 vega-lite/vega-lite.min.js https://cdn.jsdelivr.net/npm/vega-lite@2.5.0 
+    ## 2 vega-lite/LICENSE          https://raw.githubusercontent.com/vega/vega-…
+    ## 3 vega/promise.min.js        https://vega.github.io/vega/assets/promise.m…
+    ## 4 vega/symbol.min.js         https://vega.github.io/vega/assets/symbol.mi…
+    ## 5 vega/vega.min.js           https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.2 
+    ## 6 vega/vega.js               https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.2…
+    ## 7 vega/LICENSE               https://raw.githubusercontent.com/vega/vega/…
+    ## 8 vega-embed/vega-embed.js   https://cdn.jsdelivr.net/npm/vega-embed@3.14…
+    ## 9 vega-embed/LICENSE         https://raw.githubusercontent.com/vega/vega-…
+
+``` r
 get_file <- function(path_local, path_remote, path_local_root) {
   
   path_local <- fs::path(path_local_root, path_local)
@@ -187,17 +250,21 @@ get_file <- function(path_local, path_remote, path_local_root) {
 }
 ```
 
-Here, we create the `lib` directory, then "walk" through each row of the `downloads` data frame to get each of the files and put it into place.
+Here, we create the `lib` directory, then “walk” through each row of the
+`downloads` data frame to get each of the files and put it into place.
 
-```{r}
+``` r
 pwalk(htmlwidgets_downloads, get_file, path_local_root = dir_lib)
 ```
 
-### Patch 
+### Patch
 
-Here, Alicia Schep noticed that there was a problem to render vega charts within the RStudio IDE, and she figured out a workaround (as well as a PR for the RStudio IDE to fix the problem). Here's her patch for older versions of the IDE: 
+Here, Alicia Schep noticed that there was a problem to render vega
+charts within the RStudio IDE, and she figured out a workaround (as well
+as a PR for the RStudio IDE to fix the problem). Here’s her patch for
+older versions of the IDE:
 
-```{r}
+``` r
 vega_embed_path <- path(dir_lib, "vega-embed/vega-embed.js")
 vega_embed <- readr::read_file(vega_embed_path)
 
@@ -210,15 +277,14 @@ fs::file_delete(vega_embed_path)
 
 ## Block
 
-
 These are the files used with `create_block()`
 
-```{r vegawidget-block}
+``` r
 dir_block <- here("inst", "block")
 create_clean(dir_block)
 ```
 
-```{r}
+``` r
 fs::file_copy(
   fs::path(dir_templates, "vega-embed.css"), 
   fs::path(dir_block, "vega-embed.css")
@@ -232,16 +298,19 @@ fs::file_copy(
 
 ## Schema
 
-One of the purposes of this package is to provide a means to validate a spec. 
+One of the purposes of this package is to provide a means to validate a
+spec.
 
-```{r vegawidget-schema}
+``` r
 dir_schema <- here("inst", "schema")
 create_clean(dir_schema)
 ```
 
-Having thought about this (perhaps too much), the only reasonable way to go for a given release to support only a single version of the javascript libraries and the schema.
+Having thought about this (perhaps too much), the only reasonable way to
+go for a given release to support only a single version of the
+javascript libraries and the schema.
 
-```{r}
+``` r
 schema <- 
   tribble(
     ~path_local,                   ~path_remote,
@@ -256,7 +325,13 @@ schema <-
 schema
 ```
 
-```{r}
+    ## # A tibble: 2 x 2
+    ##   path_local            path_remote                                       
+    ##   <chr>                 <chr>                                             
+    ## 1 vega/v4.0.0-rc.2.json https://vega.github.io/schema/vega/v4.0.0-rc.2.js…
+    ## 2 vega-lite/v2.5.0.json https://vega.github.io/schema/vega-lite/v2.5.0.js…
+
+``` r
 pwalk(schema, get_file, path_local_root = dir_schema)
 ```
 
@@ -264,7 +339,7 @@ pwalk(schema, get_file, path_local_root = dir_schema)
 
 The data are documented in `R/data.R`.
 
-```{r}
+``` r
 spec_mtcars <-
   as_vegaspec(
     list(
@@ -283,9 +358,11 @@ spec_mtcars <-
   )
 ```
 
-```{r}
+``` r
 usethis::use_data(spec_mtcars, overwrite = TRUE)
 ```
+
+    ## ✔ Saving spec_mtcars to data/spec_mtcars.rda
 
 ## Internal data
 
@@ -293,19 +370,22 @@ usethis::use_data(spec_mtcars, overwrite = TRUE)
 
 We use this to support the `vega_versions()` function.
 
-```{r}
+``` r
 .vega_versions <- vega_versions_long
 ```
 
 ### JavaScript Libraries
 
-We want to keep copies of the Vega and Vega-Lite specs so that we can use them with V8.
+We want to keep copies of the Vega and Vega-Lite specs so that we can
+use them with V8.
 
-Another way to do this may be to keep memoised functions that read the files kept in the htmlwidgets directory. This seems potentially cleaner to execute, but more-complicated to implement.
+Another way to do this may be to keep memoised functions that read the
+files kept in the htmlwidgets directory. This seems potentially cleaner
+to execute, but more-complicated to implement.
 
 Let look at `htmlwidgets_downloads`
 
-```{r}
+``` r
 regex <- "vega(-lite)?/(.*)\\.min.js$"
 
 htmlwidgets_vegajs <-
@@ -319,9 +399,18 @@ htmlwidgets_vegajs <-
 htmlwidgets_vegajs  
 ```
 
-We need to put these into the local environment. This smells like a side-effect.
+    ## # A tibble: 4 x 2
+    ##   name         path_local                
+    ##   <chr>        <chr>                     
+    ## 1 .vegalite_js vega-lite/vega-lite.min.js
+    ## 2 .promise_js  vega/promise.min.js       
+    ## 3 .symbol_js   vega/symbol.min.js        
+    ## 4 .vega_js     vega/vega.min.js
 
-```{r}
+We need to put these into the local environment. This smells like a
+side-effect.
+
+``` r
 assign_js <- function(name, path_local, path_root) {
   
   js <- readr::read_file(fs::path(path_root, path_local))
@@ -333,8 +422,7 @@ assign_js <- function(name, path_local, path_root) {
 pwalk(htmlwidgets_vegajs, assign_js, path_root = dir_lib)
 ```
 
-
-```{r}
+``` r
 devtools::use_data(
   .vega_versions, 
   .vega_js,
@@ -346,3 +434,4 @@ devtools::use_data(
 )
 ```
 
+    ## Saving .vega_versions, .vega_js, .vegalite_js, .promise_js, .symbol_js as sysdata.rda to /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget/R

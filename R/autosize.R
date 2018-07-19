@@ -90,11 +90,10 @@ autosize <- function(spec, width = NULL, height = NULL) {
     return(spec)
   }
 
-  warning(
-    "autosize not yet implemented for Vega specs; ",
-    "returning spec unchanged",
-    call. = FALSE
-  )
+  spec$autosize <- list(contains = "padding", type = "fit")
+
+  spec$width <- width
+  spec$height <- height
 
   spec
 }

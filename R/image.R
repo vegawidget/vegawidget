@@ -38,5 +38,9 @@ to_svg <- function(spec, scale = 1) {
 
 }
 
+write_png <- function(spec) {
+
+}
+
 
 

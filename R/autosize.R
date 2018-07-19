@@ -91,7 +91,6 @@ autosize <- function(spec, width = NULL, height = NULL) {
   }
 
   spec$autosize <- list(contains = "padding", type = "fit")
-
   spec$width <- width
   spec$height <- height
 

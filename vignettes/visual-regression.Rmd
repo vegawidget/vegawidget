@@ -1,0 +1,80 @@
+---
+title: "Visual Regression"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+---
+
+The purpose of this document is to use our eyeballs to vaildate the rendering.
+
+```{r}
+library("magrittr")
+library("vegawidget")
+
+options(
+  vegawidget.embed = vegawidget::vega_embed(defaultStyle = TRUE)
+)
+```
+
+## Reference 
+
+Our first test is the standard mtcars scatterplot, where the plotting area is 300 * 300.
+
+```{r}
+spec_mtcars
+```
+
+## Vega-Lite 
+
+Let's convert this spec to JSON, then back to a vegaspec, then render it:
+
+```{r}
+spec_mtcars %>%
+  as_json() %>%
+  as_vegaspec()
+```
+
+Next, we test using `autosize()`. The size of the div will be 300 * 300; the plotting area will be smaller.
+
+```{r}
+autosize(spec_mtcars, width = 300, height = 300)
+```
+
+We can do the same thing using the `vegawidget()` function:
+
+```{r}
+vegawidget(spec_mtcars, width = 300, height = 300)
+```
+
+Or by setting `vega.width` and `vega.height` as knitr options, like so:
+
+    ```{r vega.width=300, vega.height=300}
+    spec_mtcars
+    ```
+
+```{r vega.width=300, vega.height=300}
+spec_mtcars
+```
+
+## Vega
+
+There should no difference from the first case when we use the `to_vega()` function to compile to a Vega specification, then render:
+
+```{r}
+spec_vega_mtcars <- to_vega(spec_mtcars) %>% print()
+```
+
+```{r}
+autosize(spec_vega_mtcars, width = 300, height = 300)
+```
+
+```{r}
+vegawidget(spec_vega_mtcars, width = 300, height = 300)
+```
+
+    ```{r vega.width=300, vega.height=300}
+    spec_vega_mtcars
+    ```
+
+```{r vega.width=300, vega.height=300}
+spec_vega_mtcars
+```

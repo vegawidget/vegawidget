@@ -1,11 +1,10 @@
 #' Examine a specification
 #'
-#' This function is a thin wrapper to [listviewer::jsonedit()];
-#' use it to interactvely examine a Vega or Vega-Lite specification.
-#'
-#' This works a little differently than calling [listviewer::jsonedit()]
-#' directly; it prints a copy of the spec then returns invisibly a copy of
-#' `spec`. This is done to support piping
+#' This is a thin wrapper to [listviewer::jsonedit()],
+#' used to interactvely examine a Vega or Vega-Lite specification.
+#' It works a little differently than calling [listviewer::jsonedit()]
+#' directly; it returns invisibly a copy of
+#' `spec`, to support piping.
 #'
 #' @inheritParams listviewer::jsonedit
 #' @inheritParams as_vegaspec

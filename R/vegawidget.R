@@ -47,7 +47,7 @@
 #'   the default is an empty call to [vega_embed()],
 #'   which will result in a canvas-rendering and action-links included for
 #'   exporting, viewing the Vega-Lite source, and opening the Vega editor.
-#' @param ... other arguments
+#' @param ... other arguments passed to [htmlwidgets::createWidget()]
 #'
 #' @export
 #'
@@ -81,7 +81,8 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
       x,
       width = width,
       height = height,
-      package = "vegawidget"
+      package = "vegawidget",
+      ...
     )
 
   vegawidget

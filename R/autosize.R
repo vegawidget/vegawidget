@@ -64,7 +64,6 @@ autosize <- function(spec, width = NULL, height = NULL) {
     )
   }
 
-  `%||%` <- rlang::`%||%`
   # using this notation: spec$config <- spec$config %||% list()
   #
   # to create a new list only if needed, so as not to
@@ -73,12 +72,12 @@ autosize <- function(spec, width = NULL, height = NULL) {
   spec$config <- spec$config %||% list()
 
   spec$config$autosize <- spec$config$autosize %||% list()
-  spec$config$autosize$contains <- "padding"
   spec$config$autosize$type <- "fit"
+  spec$config$autosize$contains <- "padding"
 
   spec$config$view <- spec$config$view %||% list()
-  spec$config$view$width <- width
-  spec$config$view$height <- height
+  spec$config$view$width <- as.integer(width)
+  spec$config$view$height <- as.integer(height)
 
   spec
 }
@@ -90,9 +89,12 @@ autosize <- function(spec, width = NULL, height = NULL) {
     return(spec)
   }
 
-  spec$autosize <- list(contains = "padding", type = "fit")
-  spec$width <- width
-  spec$height <- height
+  spec$autosize <- list(type = "fit", contains = "padding")
+  spec$width <- as.integer(width)
+  spec$height <- as.integer(height)
+
+  spec$config <- spec$config %||% list()
+  spec$config$autosize <- spec$autosize
 
   spec
 }

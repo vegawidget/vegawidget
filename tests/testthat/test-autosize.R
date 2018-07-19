@@ -24,8 +24,8 @@ spec_mtcars_autosize <- spec_mtcars
 
 spec_mtcars_autosize$config <-
   list(
-    autosize = list(contains = "padding", type = "fit"),
-    view = list(width = 300, height = 300)
+    autosize = list(type = "fit", contains = "padding"),
+    view = list(width = 300L, height = 300L)
   )
 # ===
 
@@ -42,9 +42,18 @@ test_that("autosize warns", {
 })
 
 test_that("autosize works", {
+
+  vgspec_mtcars <- to_vega(spec_mtcars)
+
   expect_identical(
     autosize(spec_mtcars, width = 300, height = 300),
     spec_mtcars_autosize
+  )
+
+  # autosize works on Vega (vs Vega-Lite)
+  expect_identical(
+    autosize(vgspec_mtcars, width = 300, height = 300),
+    to_vega(spec_mtcars_autosize)
   )
 })
 

@@ -63,18 +63,10 @@ There should no difference from the first case when we use the `to_vega()` funct
 spec_vega_mtcars <- to_vega(spec_mtcars) %>% print()
 ```
 
+Should only need to confirm in one way that autosize works for Vega specs.
+
 ```{r}
 autosize(spec_vega_mtcars, width = 300, height = 300)
 ```
 
-```{r}
-vegawidget(spec_vega_mtcars, width = 300, height = 300)
-```
 
-    ```{r vega.width=300, vega.height=300}
-    spec_vega_mtcars
-    ```
-
-```{r vega.width=300, vega.height=300}
-spec_vega_mtcars
-```

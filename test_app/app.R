@@ -56,6 +56,24 @@ addShinyEventListener <- function(x, event){
   htmlwidgets::onRender(x, "function(el, x, data) {this.addShinyEventListener(data)}", event)
 }
 
+addEventListener <- function(x, event, handler){
+  htmlwidgets::onRender(x,
+                        paste0("function(el, x) {this.addEventListener('",
+                              event, "', ",handler,")}"))
+}
+
+callViewAPI <- function(id, params) {
+
+  session <- shiny::getDefaultReactiveDomain()
+
+  # prepare a message using the function arguments
+  message <- list(id = id, params = params)
+
+  # send a custom message to JavaScript
+  session$sendCustomMessage("callView", message)
+
+}
+
 ui <- shiny::fluidPage(
 
   shiny::titlePanel("vegawidget event example"),
@@ -72,9 +90,9 @@ library(magrittr)
 server <- function(input, output) {
 
   output$chart <- renderVegawidget({
-    vegawidget(spec) %>% addShinyEventListener("click")
+    vegawidget(spec) %>% addShinyEventListener("click") %>%
+      addEventListener("dblclick", "function(event, item) {console.log(item);}")
   })
-
 
   # shiny::observe({
   #   shiny::invalidateLater(5000)
@@ -91,6 +109,10 @@ server <- function(input, output) {
 
   output$cl <- shiny::renderPrint({
     input$chart_click
+  })
+
+  shiny::observeEvent(input$chart_click, {
+    callViewAPI("remove")
   })
 
 }

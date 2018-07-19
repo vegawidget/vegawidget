@@ -7,12 +7,8 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
 
     var view = null;
-
-    if (HTMLWidgets.shinyMode) {
-          Shiny.onInputChange(el.id + "_view", null);
-    }
-
     var event_listeners = {};
+    var signal_listeners = {};
 
     return {
 
@@ -31,51 +27,12 @@ HTMLWidgets.widget({
 
           view = result.view;
 
-          for (var event_name in event_listeners){
-            console.log(event_listeners[event_name]);
+          for (var event_name in event_listeners) {
             result.view.addEventListener(event_name, event_listeners[event_name]);
           }
 
-          if (HTMLWidgets.shinyMode) {
-            //Shiny.onInputChange(el.id + "_view", null);
-
-            /*result.view.addEventListener('mousemove', function(event, item) {
-              d = view.getState();
-              if (d !== null && d!== undefined && d.data !== undefined){
-                Shiny.onInputChange(el.id + "_data", d.data);
-              } else {
-               Shiny.onInputChange(el.id + "_data",null);
-              }
-            });*/
-
-            //result.view.addSignalListener('brush_tuple', function(name, value){
-            //  console.log(value);
-            //  Shiny.onInputChange("brush_selected", value);
-            //});
-            /*result.view.addEventListener('dragover', function(event, item) {
-             console.log(item)
-            });
-            result.view.addEventListener('click', function(event, item) {
-             if (item !== null && item !== undefined && item.datum !== undefined){
-               Shiny.onInputChange(el.id + "_click",item.datum);
-             } else {
-               Shiny.onInputChange(el.id + "_click",null);
-             }
-            });
-            result.view.addEventListener('mouseover', function(event, item) {
-             if (item !== null && item !== undefined && item.datum !== undefined){
-               Shiny.onInputChange(el.id + "_hover",item.datum);
-             } else {
-               Shiny.onInputChange(el.id + "_hover",null);
-             }
-            });
-            result.view.addEventListener('dblclick', function(event, item) {
-             if (item !== null && item !== undefined && item.datum !== undefined){
-               Shiny.onInputChange(el.id + "_dblclick",item.datum);
-             } else {
-               Shiny.onInputChange(el.id + "_dblclick",null);
-             }
-            });*/
+          for (var signal_name in signal_listeners) {
+            result.view.addSignalListener(signal_name, signal_listeners[signal_name]);
           }
 
         }).catch(console.error);
@@ -96,7 +53,9 @@ HTMLWidgets.widget({
         }
       },
 
-      addEventListener: function(event, handler) {
+      addEventListener: function(event_name, handler) {
+         console.log(event_name);
+         console.log(handler);
          event_listeners[event_name] = handler;
       },
 
@@ -111,7 +70,11 @@ HTMLWidgets.widget({
               }
             };
          }
-      }
+      },
+
+      addSignalListener: function(signal_name, handler) {
+         signal_listeners[signal_name] = handler;
+      },
 
     };
 
@@ -137,14 +100,13 @@ function getVegaView(id){
 }
 
 if (HTMLWidgets.shinyMode) {
-Shiny.addCustomMessageHandler('addEventListener', function(message){
+Shiny.addCustomMessageHandler('callView', function(message){
 
     // get the correct HTMLWidget instance
-    var view = getVegaView(message.id);
+    var htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
     if (view !== null) {
-      console.log(message.handler);
-      eval("callback = " + message.handler + ";");
-      view.addEventListener(message.event, callback);
+      console.log(message.params);
+      htmlWidgetsObj.callView(message.params);
     }
 
 });

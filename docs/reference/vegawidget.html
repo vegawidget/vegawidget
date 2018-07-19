@@ -86,6 +86,9 @@
     <li>
       <a href="../articles/first-example.html">First Example</a>
     </li>
+    <li>
+      <a href="../articles/visual-regression.html">Visual Regression</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -168,7 +171,7 @@ for <code>export</code>, <code>source</code>, <code>compiled</code>, and <code>e
 are shown (or not). Use a named list to be more specific, see
 <code><a href='vega_embed.html'>vega_embed()</a></code> and <code><a href='only_actions.html'>only_actions()</a></code>.</p>
 <p>If <code>embed</code> is <code>NULL</code>, <code>vegawidget()</code> sets <code>embed</code> to the value of
-<code>getOption("altair.embed_options")</code>. Then, if this option is <code>NULL</code>, the
+<code>getOption("vega.embed")</code>. Then, if this option is <code>NULL</code>, the
 <a href='https://github.com/vega/vega-embed#api-reference'>vega-embed</a>
 defaults are used.</p>
 <p>The arguments <code>width</code> and <code>height</code> are used to override the width and height

@@ -17,7 +17,7 @@
 #' [vega_embed()] and [only_actions()].
 #'
 #' If `embed` is `NULL`, `vegawidget()` sets `embed` to the value of
-#' `getOption("altair.embed_options")`. Then, if this option is `NULL`, the
+#' `getOption("vega.embed")`. Then, if this option is `NULL`, the
 #' [vega-embed](https://github.com/vega/vega-embed#api-reference)
 #' defaults are used.
 #'
@@ -55,7 +55,7 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
 
   # if `embed` is NULL, check for option
   if (is.null(embed)) {
-    embed <- getOption("vegawidget.embed")
+    embed <- getOption("vega.embed")
   }
 
   # if `embed` is still NULL, set using empty call to vega_embed()

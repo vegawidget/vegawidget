@@ -7,4 +7,5 @@
 ^docs$
 ^pkgdown$
 ^vignettes/first-example.Rmd$
+^vignettes/visual-regression.Rmd$
 ^.V8history$

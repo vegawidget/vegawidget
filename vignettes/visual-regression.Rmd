@@ -11,7 +11,7 @@ library("magrittr")
 library("vegawidget")
 
 options(
-  vegawidget.embed = vegawidget::vega_embed(defaultStyle = TRUE)
+  vega.embed = vegawidget::vega_embed(defaultStyle = TRUE)
 )
 ```
 

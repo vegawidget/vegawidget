@@ -44,7 +44,7 @@ are shown (or not). Use a named list to be more specific, see
 \code{\link[=vega_embed]{vega_embed()}} and \code{\link[=only_actions]{only_actions()}}.
 
 If \code{embed} is \code{NULL}, \code{vegawidget()} sets \code{embed} to the value of
-\code{getOption("altair.embed_options")}. Then, if this option is \code{NULL}, the
+\code{getOption("vega.embed")}. Then, if this option is \code{NULL}, the
 \href{https://github.com/vega/vega-embed#api-reference}{vega-embed}
 defaults are used.
 

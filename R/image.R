@@ -18,9 +18,9 @@ to_svg <- function(spec, scale = 1) {
   # load the vega library (.vega_js is internal package data)
 
   ct$eval('function setTimeout(){}') # hacky
-  ct$eval(JS(vegawidget:::.promise_js))
-  ct$eval(JS(vegawidget:::.symbol_js))
-  ct$eval(JS(vegawidget:::.vega_js))
+  ct$eval(JS(.promise_js))
+  ct$eval(JS(.symbol_js))
+  ct$eval(JS(.vega_js))
 
   # import the vegalite JSON string, parse into JSON
   ct$assign('str_vgspec', str_vgspec)

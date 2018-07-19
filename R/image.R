@@ -1,3 +1,5 @@
+
+# this does *NOT* work
 to_svg <- function(spec, scale = 1) {
 
   assert_packages("V8")
@@ -14,11 +16,11 @@ to_svg <- function(spec, scale = 1) {
   # ref: https://vega.github.io/vega/docs/api/view/#view_toSVG
 
   # load the vega library (.vega_js is internal package data)
-  ct$eval(JS(.vega_js))
 
-  ct$source("https://vega.github.io/vega/assets/symbol.min.js")
-  ct$source("https://vega.github.io/vega/assets/promise.min.js")
-  ct$source("https://vega.github.io/vega/vega.js")
+  ct$eval('function setTimeout(){}') # hacky
+  ct$eval(JS(vegawidget:::.promise_js))
+  ct$eval(JS(vegawidget:::.symbol_js))
+  ct$eval(JS(vegawidget:::.vega_js))
 
   # import the vegalite JSON string, parse into JSON
   ct$assign('str_vgspec', str_vgspec)
@@ -26,8 +28,13 @@ to_svg <- function(spec, scale = 1) {
 
   ct$assign(
     'view',
-    JS('new vega.View(vg.parse(vgspec)).renderer("none").initialize()')
+    JS('new vega.View(vega.parse(vgspec))
+                .renderer("none")
+                .initialize()
+                .finalize()')
   )
+
+  ct$assign('svg', JS('view.toSVG().then(function(svg){svg})'))
 
 }
 

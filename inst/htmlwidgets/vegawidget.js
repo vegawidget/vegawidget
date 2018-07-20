@@ -7,9 +7,6 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
 
     var view = null;
-    var event_listeners = {};
-    var signal_listeners = {};
-    var svg_result = null;
 
     return {
 
@@ -28,14 +25,6 @@ HTMLWidgets.widget({
 
           view = result.view;
 
-          for (var event_name in event_listeners) {
-            result.view.addEventListener(event_name, event_listeners[event_name]);
-          }
-
-          for (var signal_name in signal_listeners) {
-            result.view.addSignalListener(signal_name, signal_listeners[signal_name]);
-          }
-
         }).catch(console.error);
 
       },
@@ -46,40 +35,9 @@ HTMLWidgets.widget({
 
       getView: function() {
         return view;
-      },
-
-
-      callView: function(fn, params) {
-        if (view !== null){
-          view[fn].apply(this, params);
-        }
-      },
-
-      addEventListener: function(event_name, handler) {
-         console.log(event_name);
-         console.log(handler);
-         event_listeners[event_name] = handler;
-      },
-
-      addShinyEventListener: function(event_name) {
-        if (HTMLWidgets.shinyMode) {
-          event_listeners[event_name] =
-            function(event, item) {
-              if (item !== null && item !== undefined && item.datum !== undefined){
-                Shiny.onInputChange(el.id + "_" + event_name, item.datum);
-              } else {
-                Shiny.onInputChange(el.id + "_" + event_name,null);
-              }
-            };
-         }
-      },
-
-      addSignalListener: function(signal_name, handler) {
-         signal_listeners[signal_name] = handler;
-      },
+      }
 
     };
-
 
   }
 });
@@ -100,40 +58,3 @@ function getVegaView(id){
 
   return(view_obj);
 }
-
-if (HTMLWidgets.shinyMode) {
-Shiny.addCustomMessageHandler('callView', function(message){
-
-    // get the correct HTMLWidget instance
-    var htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
-    if (view !== null) {
-      console.log(message.params);
-      htmlWidgetsObj.callView(message.params);
-    }
-
-});
-}
-
-
-/*if (HTMLWidgets.shinyMode) {
-  var fxns = ['vegawidget_event_listener'];
-
-  var addShinyHandler = function(fxn) {
-    return function() {
-      Shiny.addCustomMessageHandler(
-        "vegawidget:" + fxn, function(message) {
-          var el = document.getElementById(message.id);
-          console.log(message.id);
-          console.log(el.widget);
-          if (el) {
-            el.widget[fxn](message);
-          }
-        }
-      );
-    };
-  };
-
-  for (var i = 0; i < fxns.length; i++) {
-    addShinyHandler(fxns[i])();
-  }
-}*/

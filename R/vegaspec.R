@@ -18,10 +18,7 @@ as_vegaspec <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.default <- function(spec, ...) {
-
-  warning("as_vegaspec(): no method for class ", class(spec), call. = FALSE)
-
-  spec
+  stop("as_vegaspec(): no method for class ", class(spec), call. = FALSE)
 }
 
 #' @rdname as_vegaspec
@@ -35,8 +32,7 @@ as_vegaspec.vegaspec <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.list <- function(spec, ...) {
-  spec <- structure(spec, class = unique(c("vegaspec", class(spec))))
-
+  spec <- .as_vegaspec(spec)
   spec
 }
 
@@ -44,11 +40,9 @@ as_vegaspec.list <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.json <- function(spec, ...) {
-
-  # convert to list, process
-  spec <- as_list(spec)
-
-  as_vegaspec(spec)
+  spec <- .as_list(spec)
+  spec <- .as_vegaspec(spec)
+  spec
 }
 
 #' @rdname as_vegaspec
@@ -72,15 +66,31 @@ as_vegaspec.character <- function(spec, ...) {
     spec <- readLines(spec, warn = FALSE)
   }
 
-  # validate the input
-  assertthat::assert_that(
-    jsonlite::validate(spec),
-    msg = "spec is not valid JSON"
-  )
-
-  # convert to list, process
-  spec <- as_list(spec)
-
-  as_vegaspec(spec)
+  spec <- .as_json(spec)
+  spec <- .as_list(spec)
+  spec <- .as_vegaspec(spec)
+  spec
 }
+
+#' Convert vegaspec to JSON
+#'
+#' @inheritParams as_vegaspec
+#' @param pretty `logical` indicates to use pretty (vs. minified) formatting
+#'
+#' @return `jsonlite::json` object
+#' @examples
+#'   as_json(spec_mtcars)
+#' @export
+#'
+as_json <- function(spec, pretty = TRUE) {
+
+  spec <- as_vegaspec(spec)
+  spec <- .as_json(spec, pretty = pretty)
+
+  spec
+}
+
+
+
+
 

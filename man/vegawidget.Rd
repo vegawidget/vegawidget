@@ -7,7 +7,7 @@
 vegawidget(spec, embed = NULL, width = NULL, height = NULL, ...)
 }
 \arguments{
-\item{spec}{chart_specification}
+\item{spec}{object to be coerced to Vega/Vega-Lite specification}
 
 \item{embed}{\code{vega_embed} object to specify embedding options -
 the default is an empty call to \code{\link[=vega_embed]{vega_embed()}},
@@ -22,7 +22,7 @@ the default is to use the width in the chart specification}
 of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification}
 
-\item{...}{other arguments}
+\item{...}{other arguments passed to \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}}
 }
 \description{
 Renders a chart as an htmlwidget.
@@ -44,7 +44,7 @@ are shown (or not). Use a named list to be more specific, see
 \code{\link[=vega_embed]{vega_embed()}} and \code{\link[=only_actions]{only_actions()}}.
 
 If \code{embed} is \code{NULL}, \code{vegawidget()} sets \code{embed} to the value of
-\code{getOption("altair.embed_options")}. Then, if this option is \code{NULL}, the
+\code{getOption("vega.embed")}. Then, if this option is \code{NULL}, the
 \href{https://github.com/vega/vega-embed#api-reference}{vega-embed}
 defaults are used.
 

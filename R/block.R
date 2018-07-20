@@ -68,12 +68,13 @@ block_index <- function(spec, embed = vega_embed(),
       system.file("block", "index.html", package = "vegawidget")
     )
 
-  spec <- as_vegaspec(spec)
+  # use public method to validate spec
   spec <- as_json(spec, pretty = TRUE)
   # add further indentation
   spec <- gsub("\n", "\n  ", spec)
 
-  embed <- as_json(embed, pretty = TRUE)
+  # use internal method because we this is not a spec
+  embed <- .as_json(embed, pretty = TRUE)
   # add further indentation
   embed <- gsub("\n", "\n  ", embed)
 
@@ -139,7 +140,7 @@ block_index <- function(spec, embed = vega_embed(),
 #'
 create_block <- function(spec, embed = vega_embed(), block = block_yaml(),
                          versions = vega_versions(major = FALSE),
-                         description = NULL, readme = NULL,
+                         description = "", readme = NULL,
                          use_thumbnail = TRUE, use_preview = TRUE,
                          git_method = c("ssh", "https"),
                          host = NULL, env_pat = NULL) {
@@ -170,7 +171,7 @@ create_block <- function(spec, embed = vega_embed(), block = block_yaml(),
 
   # vega-embed.css file
   fs::file_copy(
-    system.file("templates", "vega-embed.css", package = "vegawidget"),
+    system.file("block", "vega-embed.css", package = "vegawidget"),
     manifest$css
   )
 

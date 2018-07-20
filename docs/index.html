@@ -57,6 +57,9 @@
 <li>
       <a href="articles/first-example.html">First Example</a>
     </li>
+    <li>
+      <a href="articles/visual-regression.html">Visual Regression</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -76,7 +79,7 @@
 <!--/.navbar -->
 
       
-      </header><script src="index_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="index_files/vega-4.0.0/promise.min.js"></script><script src="index_files/vega-4.0.0/symbol.min.js"></script><script src="index_files/vega-4.0.0/vega.js"></script><script src="index_files/vega-lite-2.5.0/vega-lite-min.js"></script><link href="index_files/vega-embed-3.14.0/vega-embed.css" rel="stylesheet">
+      </header><script src="index_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="index_files/vega-4.0.0/promise.min.js"></script><script src="index_files/vega-4.0.0/symbol.min.js"></script><script src="index_files/vega-4.0.0/vega.js"></script><script src="index_files/vega-lite-2.5.0/vega-lite.min.js"></script><link href="index_files/vega-embed-3.14.0/vega-embed.css" rel="stylesheet">
 <script src="index_files/vega-embed-3.14.0/vega-embed-modified.js"></script><script src="index_files/vegawidget-binding-0.0.1/vegawidget.js"></script><link href="index_files/jsoneditor-5.5.5/jsoneditor.min.css" rel="stylesheet">
 <script src="index_files/jsoneditor-5.5.5/jsoneditor.min.js"></script><script src="index_files/jsonedit-binding-2.0.0/jsonedit.js"></script><div class="row">
   <div class="col-md-9 contents">
@@ -105,10 +108,15 @@
 <a class="sourceLine" id="cb1-12" data-line-number="12">  )  </a></code></pre></div>
 <p>The <code><a href="reference/vegawidget.html">vegawidget()</a></code> function is used to render specifications into htmlwidgets. If you are reading this document on the GitHub code site, it is further rendered into a PNG:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="reference/vegawidget.html">vegawidget</a></span>(spec_mtcars)</a></code></pre></div>
-<div id="htmlwidget-17314876b07dc45a988b" style="width:700px;height:432.632880098888px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-17314876b07dc45a988b">{"x":{
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; Attaching package: 'vegawidget'</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; The following object is masked _by_ '.GlobalEnv':</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;     spec_mtcars</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="kw"><a href="reference/vegawidget.html">vegawidget</a></span>(spec_mtcars)</a></code></pre></div>
+<div id="htmlwidget-ef0f83c8128b1a492f4f" style="width:700px;height:432.632880098888px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ef0f83c8128b1a492f4f">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "description": "An mtcars example.",
@@ -585,8 +593,8 @@
   }
 },"evals":[],"jsHooks":[]}</script><p>If you wish to examine a specification, you may use the <code><a href="reference/examine.html">examine()</a></code> function, which is a thin wrapper around the <code>jsonedit()</code> function from the <strong>listviewer</strong> package.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="reference/examine.html">examine</a></span>(spec_mtcars)</a></code></pre></div>
-<div id="htmlwidget-05a5da9d9f1940268543" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-05a5da9d9f1940268543">{"x":{"data":{
+<div id="htmlwidget-978dca678cc2e0e5caba" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-978dca678cc2e0e5caba">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
   "description": "An mtcars example.",
   "data": {
@@ -1073,32 +1081,38 @@
 <p>For example, let’s convert <code>spec_mtcars</code> to an S3 object with class <code>"my_class_name"</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">spec_mtcars_s3 &lt;-<span class="st"> </span><span class="kw">structure</span>(</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  spec_mtcars,</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">class =</span> <span class="kw">c</span>(<span class="st">"my_class_name"</span>, <span class="kw">class</span>(spec_mtcars))</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">class =</span> <span class="kw">c</span>(<span class="st">"my_class_name"</span>)</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">)</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="kw">class</span>(spec_mtcars_s3)</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; [1] "my_class_name" "list"</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; [1] "my_class_name"</span></a></code></pre></div>
 <p>To take full advantage of these rendering functions, we have to define a method, <code><a href="reference/as_vegaspec.html">as_vegaspec()</a></code> for this class, and also define <code>print()</code> and <code>knit_print()</code> methods.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">as_vegaspec.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(spec, ...) {</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="co"># revert to vegawidget.list, defined in vegawidget</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="kw">NextMethod</span>()</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="co"># reverts to list</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">  spec &lt;-<span class="st"> </span><span class="kw">unclass</span>(spec)</a>
 <a class="sourceLine" id="cb7-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">print.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) {</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">  </a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">  <span class="kw">print</span>(vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/vegawidget">vegawidget</a></span>(x, ...))</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">  <span class="co"># as_vegaspec has a list method</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">  vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(spec, ...)</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">}</a>
 <a class="sourceLine" id="cb7-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10">  <span class="kw">invisible</span>(x)</a>
-<a class="sourceLine" id="cb7-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13">knit_print.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(x, ..., <span class="dt">options =</span> <span class="ot">NULL</span>){</a>
-<a class="sourceLine" id="cb7-14" data-line-number="14">  <span class="co"># in reality, more stuff here</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15">  knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/knit_print">knit_print</a></span>(vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/vegawidget">vegawidget</a></span>(x))</a>
-<a class="sourceLine" id="cb7-16" data-line-number="16">}</a></code></pre></div>
+<a class="sourceLine" id="cb7-10" data-line-number="10">print.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) {</a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">  </a>
+<a class="sourceLine" id="cb7-12" data-line-number="12">  x &lt;-<span class="st"> </span>vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(x)</a>
+<a class="sourceLine" id="cb7-13" data-line-number="13">  </a>
+<a class="sourceLine" id="cb7-14" data-line-number="14">  <span class="kw">print</span>(x, ...)</a>
+<a class="sourceLine" id="cb7-15" data-line-number="15">}</a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17">knit_print.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(x, ..., <span class="dt">options =</span> <span class="ot">NULL</span>){</a>
+<a class="sourceLine" id="cb7-18" data-line-number="18">  </a>
+<a class="sourceLine" id="cb7-19" data-line-number="19">  x &lt;-<span class="st"> </span>vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(x)</a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21">  knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/knit_print">knit_print</a></span>(x, ..., <span class="dt">options =</span> options)</a>
+<a class="sourceLine" id="cb7-22" data-line-number="22">}</a></code></pre></div>
 <p>With these defined, you can render your specification by printing:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">spec_mtcars_s3</a></code></pre></div>
-<div id="htmlwidget-aa3de42120d1a128793a" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-aa3de42120d1a128793a">{"x":{
+<div id="htmlwidget-3ca2e6c9d55344549258" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3ca2e6c9d55344549258">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "description": "An mtcars example.",

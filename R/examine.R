@@ -1,10 +1,21 @@
 #' Examine a specification
 #'
-#' This function is a thin wrapper to [listviewer::jsonedit()];
-#' use it to interactvely examine a Vega or Vega-Lite specification.
+#' This is a thin wrapper to [listviewer::jsonedit()],
+#' used to interactvely examine a Vega or Vega-Lite specification.
+#' It works a little differently than calling [listviewer::jsonedit()]
+#' directly; it returns invisibly a copy of
+#' `spec`, to support piping.
 #'
 #' @inheritParams listviewer::jsonedit
 #' @inheritParams as_vegaspec
+#'
+#' @return invisible copy of `spec`, called for side-effect.
+#' @examples
+#'   spec_mtcars_autosize <-
+#'     spec_mtcars %>%
+#'     examine() %>%
+#'     autosize(width = 300, height = 300) %>%
+#'     examine()
 #' @export
 #'
 examine <- function(spec, mode = "tree",
@@ -17,17 +28,21 @@ examine <- function(spec, mode = "tree",
          call. = FALSE)
   }
 
-  spec <- as_json(as_vegaspec(spec))
+  # spec_json <- as_json(spec)
 
-  listviewer::jsonedit(
-    listdata = spec,
-    mode = mode,
-    modes = modes,
-    ...,
-    width = width,
-    height = height,
-    elementId = elementId
+  print(
+    listviewer::jsonedit(
+      listdata = spec,
+      mode = mode,
+      modes = modes,
+      ...,
+      width = width,
+      height = height,
+      elementId = elementId
+    )
   )
+
+  invisible(spec)
 }
 
 

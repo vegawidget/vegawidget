@@ -5,7 +5,7 @@
 \title{Create a gist that can be used as a block}
 \usage{
 create_block(spec, embed = vega_embed(), block = block_yaml(),
-  versions = vega_versions(major = FALSE), description = NULL,
+  versions = vega_versions(major = FALSE), description = "",
   readme = NULL, use_thumbnail = TRUE, use_preview = TRUE,
   git_method = c("ssh", "https"), host = NULL, env_pat = NULL)
 }

@@ -28,7 +28,8 @@ Imports:
     htmlwidgets,
     assertthat,
     rlang,
-    glue
+    glue,
+    magrittr
 Suggests:
     knitr,
     rmarkdown,
@@ -37,5 +38,7 @@ Suggests:
     testthat,
     yaml,
     fs,
-    gistr
+    gistr,
+    V8,
+    webshot
 VignetteBuilder: knitr

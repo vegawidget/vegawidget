@@ -27,7 +27,20 @@ in favor of specific, more self-documenting and helpful arguments.}
 htmlwidget for special situations in which you want a non-random
 identifier.}
 }
+\value{
+invisible copy of \code{spec}, called for side-effect.
+}
 \description{
-This function is a thin wrapper to \code{\link[listviewer:jsonedit]{listviewer::jsonedit()}};
-use it to interactvely examine a Vega or Vega-Lite specification.
+This is a thin wrapper to \code{\link[listviewer:jsonedit]{listviewer::jsonedit()}},
+used to interactvely examine a Vega or Vega-Lite specification.
+It works a little differently than calling \code{\link[listviewer:jsonedit]{listviewer::jsonedit()}}
+directly; it returns invisibly a copy of
+\code{spec}, to support piping.
+}
+\examples{
+  spec_mtcars_autosize <-
+    spec_mtcars \%>\%
+    examine() \%>\%
+    autosize(width = 300, height = 300) \%>\%
+    examine()
 }

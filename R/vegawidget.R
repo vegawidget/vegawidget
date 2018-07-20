@@ -17,7 +17,7 @@
 #' [vega_embed()] and [only_actions()].
 #'
 #' If `embed` is `NULL`, `vegawidget()` sets `embed` to the value of
-#' `getOption("altair.embed_options")`. Then, if this option is `NULL`, the
+#' `getOption("vega.embed")`. Then, if this option is `NULL`, the
 #' [vega-embed](https://github.com/vega/vega-embed#api-reference)
 #' defaults are used.
 #'
@@ -42,37 +42,31 @@
 #' the height of the action-links to be 15-20 pixels.
 #'
 #' @inheritParams as_vegaspec
-#' @param spec   chart_specification
+#' @inheritParams autosize
 #' @param embed   `vega_embed` object to specify embedding options -
 #'   the default is an empty call to [vega_embed()],
 #'   which will result in a canvas-rendering and action-links included for
 #'   exporting, viewing the Vega-Lite source, and opening the Vega editor.
-#' @param width   `integer`, if specified, the total rendered width (in pixels)
-#'   of the chart - valid only for single-view charts and layered charts;
-#'   the default is to use the width in the chart specification
-#' @param height  `integer`, if specified, the total rendered height (in pixels)
-#'   of the chart - valid only for single-view charts and layered charts;
-#'   the default is to use the height in the chart specification
-#' @param ... other arguments
+#' @param ... other arguments passed to [htmlwidgets::createWidget()]
 #'
 #' @export
 #'
 vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
 
   # if `embed` is NULL, check for option
-  if (is.null(embed)) {
-    embed <- getOption("vegawidget.embed")
-  }
+  embed <- embed %||% getOption("vega.embed")
 
   # if `embed` is still NULL, set using empty call to vega_embed()
-  if (is.null(embed)) {
-    embed <- vega_embed()
-  }
+  embed <- embed %||% vega_embed()
 
+  # autosize (if needed)
+  spec <- autosize(spec, width = width, height = height)
+
+  # use internal methods here because spec has already been validated
   x <-
-    as_json(
+    .as_json(
       list(
-        chart_spec = as_vegaspec(spec),
+        chart_spec = .as_list(spec),
         embed_options = embed
       )
     )
@@ -83,7 +77,8 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
       x,
       width = width,
       height = height,
-      package = "vegawidget"
+      package = "vegawidget",
+      ...
     )
 
   vegawidget

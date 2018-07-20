@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get versions of supported Vega/Vega-Lite libraries — vega_versions • vegawidget</title>
+<title>Get version-tags of supported Vega/Vega-Lite libraries — vega_versions • vegawidget</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Get versions of supported Vega/Vega-Lite libraries — vega_versions" />
+<meta property="og:title" content="Get version-tags of supported Vega/Vega-Lite libraries — vega_versions" />
 
-<meta property="og:description" content="Get versions of supported Vega/Vega-Lite libraries" />
+<meta property="og:description" content="Get version-tags of supported Vega/Vega-Lite libraries" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -86,6 +86,9 @@
     <li>
       <a href="../articles/first-example.html">First Example</a>
     </li>
+    <li>
+      <a href="../articles/visual-regression.html">Visual Regression</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -109,25 +112,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get versions of supported Vega/Vega-Lite libraries</h1>
+    <h1>Get version-tags of supported Vega/Vega-Lite libraries</h1>
     <small class="dont-index">Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/R/vega-versions.R'><code>R/vega-versions.R</code></a></small>
     <div class="hidden name"><code>vega_versions.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get versions of supported Vega/Vega-Lite libraries</p>
+    <p>Get version-tags of supported Vega/Vega-Lite libraries</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>vega_versions</span>(<span class='kw'>use_major</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>vega_versions</span>(<span class='kw'>major</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>use_major</th>
-      <td><p><code>logical</code> return major, rather than current, versions</p></td>
+      <th>major</th>
+      <td><p><code>logical</code> return major version-tags rather than the
+tags for the specific versions supported by this package</p></td>
     </tr>
     </table>
     
@@ -146,7 +150,7 @@ named <code>vega_lite</code>, <code>vega</code>, <code>vega_embed</code></p>
 #&gt; 
 #&gt; $vega_embed
 #&gt; [1] "3.14.0"
-#&gt; </div><div class='input'>  <span class='fu'>vega_versions</span>(<span class='kw'>use_major</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; $vega_lite
+#&gt; </div><div class='input'>  <span class='fu'>vega_versions</span>(<span class='kw'>major</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; $vega_lite
 #&gt; [1] "2"
 #&gt; 
 #&gt; $vega

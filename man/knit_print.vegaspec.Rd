@@ -4,10 +4,10 @@
 \alias{knit_print.vegaspec}
 \title{Knit-print method}
 \usage{
-knit_print.vegaspec(x, ..., options = NULL)
+knit_print.vegaspec(spec, ..., options = NULL)
 }
 \arguments{
-\item{x}{Altair chart object}
+\item{spec}{object to be coerced to Vega/Vega-Lite specification}
 
 \item{...}{other arguments}
 
@@ -19,6 +19,9 @@ these are passed to \code{\link[=vegawidget]{vegawidget()}} as \code{width} and 
 respectively.
 }
 \details{
+Embedding options can be passed by setting the option \code{vega.embed} using
+\code{\link[=vega_embed]{vega_embed()}}.
+
 \code{vega.width} and \code{vega.height} are
 coerced to numeric, so it is ineffective to specify a percentage.
 }

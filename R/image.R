@@ -48,43 +48,35 @@ write_png <- function(spec, path, embed = NULL, width = NULL, height = NULL, ...
   invisible(spec)
 }
 
-# this does *NOT* work
-to_svg <- function(spec, scale = 1) {
+#' to_svg
+#'
+#' Turn a spec into an svg
+#' @inheritParams vegawidget
+#' @param scale scaleFactor
+#' @export
+to_svg <- function(spec, scale = 1, embed = NULL, width = NULL, height = NULL, ...){
 
-  assert_packages("V8")
-  JS <- V8::JS
-  ct <- V8::v8()
+  widget <-
+    vegawidget(
+      spec,
+      embed = embed,
+      width = width,
+      height = height,
+      elementId = "write-svg",
+      ...
+    )
 
-  assertthat::assert_that(assertthat::is.number(scale))
+  html_file <- tempfile(pattern = "vegawidget-", fileext = ".html")
+  htmlwidgets::saveWidget(widget, html_file)
+  on.exit(unlink(html_file))
 
-  # convert to vega
-  vgspec <- to_vega(spec)
-  str_vgspec <- as_json(vgspec, pretty = FALSE)
-
-  # call V8 to return svg
-  # ref: https://vega.github.io/vega/docs/api/view/#view_toSVG
-
-  # load the vega library (.vega_js is internal package data)
-
-  ct$eval('function setTimeout(){}') # hacky
-  ct$eval(JS(.promise_js))
-  ct$eval(JS(.symbol_js))
-  ct$eval(JS(.vega_js))
-
-  # import the vegalite JSON string, parse into JSON
-  ct$assign('str_vgspec', str_vgspec)
-  ct$assign('vgspec', JS('JSON.parse(str_vgspec)'))
-
-  ct$assign(
-    'view',
-    JS('new vega.View(vega.parse(vgspec))
-                .renderer("none")
-                .initialize()
-                .finalize()')
-  )
-
-  ct$assign('svg', JS('view.toSVG().then(function(svg){svg})'))
-
+  pjs <- webdriver::run_phantomjs()
+  ses <- webdriver::Session$new(port = pjs$port)
+  ses$go(html_file)
+  ses$setTimeout(500)
+  svg <- ses$executeScriptAsync(paste0("var done = arguments[0];
+                                getVegaView('write-svg').toSVG(",scale,").then(function(svg){done(svg)}).catch(function(err) {console.error(err)});"))
+  return(svg)
 }
 
 

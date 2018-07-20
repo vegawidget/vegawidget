@@ -14,7 +14,6 @@ test_that("block index works", {
     readLines("../block/index.html")
   index <- block_index(
     spec = spec_mtcars,
-    embed = vega_embed(actions = FALSE),
     version = vega_versions(major = TRUE)
   )
 

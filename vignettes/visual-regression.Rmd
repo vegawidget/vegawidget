@@ -27,6 +27,10 @@ spec_mtcars
 print(spec_mtcars)
 ```
 
+```{r}
+print(2)
+```
+
 ## Vega-Lite 
 
 Let's convert this spec to JSON, then back to a vegaspec, then render it:

@@ -1,10 +1,8 @@
 # see zzz.R for "creation" of the alt object
 
-#' @inheritParams vegawidget
-#' @seealso [vegawidget()]
 #' @export
-print.vegaspec <- function(x, embed = NULL, width = NULL, height = NULL, ...) {
-  print(vegawidget(x, embed = NULL, width = NULL, height = NULL, ...))
+print.vegaspec <- function(x, ...) {
+  print(vegawidget(x, ...))
 
   invisible(x)
 }
@@ -35,26 +33,26 @@ format.vegaspec <- function(x, ...) {
 knit_print.vegaspec <- function(spec, ..., options = NULL){
 
   # it is ineffective to set out.width or out.height as a percentage
-  to_num <- function(x) {
+  to_int <- function(x) {
 
     if (is.null(x)) {
       return(NULL)
     }
 
     suppressWarnings({
-      x_num <- as.numeric(x)
+      x_int <- as.integer(x)
     })
 
-    if (is.na(x_num)) {
+    if (is.na(x_int)) {
       return(NULL)
     }
 
-    x_num
+    x_int
   }
 
   embed <- options$vega.embed
-  width <- to_num(options$vega.width)
-  height <- to_num(options$vega.height)
+  width <- to_int(options$vega.width)
+  height <- to_int(options$vega.height)
 
   knitr::knit_print(
     vegawidget(spec, embed = embed, width = width, height = height)

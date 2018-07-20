@@ -9,6 +9,7 @@ HTMLWidgets.widget({
     var view = null;
     var event_listeners = {};
     var signal_listeners = {};
+    var svg_result = null;
 
     return {
 
@@ -46,6 +47,7 @@ HTMLWidgets.widget({
       getView: function() {
         return view;
       },
+
 
       callView: function(fn, params) {
         if (view !== null){

@@ -31,13 +31,11 @@ identifier.}
 invisible copy of \code{spec}, called for side-effect.
 }
 \description{
-This function is a thin wrapper to \code{\link[listviewer:jsonedit]{listviewer::jsonedit()}};
-use it to interactvely examine a Vega or Vega-Lite specification.
-}
-\details{
-This works a little differently than calling \code{\link[listviewer:jsonedit]{listviewer::jsonedit()}}
-directly; it prints a copy of the spec then returns invisibly a copy of
-\code{spec}. This is done to support piping
+This is a thin wrapper to \code{\link[listviewer:jsonedit]{listviewer::jsonedit()}},
+used to interactvely examine a Vega or Vega-Lite specification.
+It works a little differently than calling \code{\link[listviewer:jsonedit]{listviewer::jsonedit()}}
+directly; it returns invisibly a copy of
+\code{spec}, to support piping.
 }
 \examples{
   spec_mtcars_autosize <-

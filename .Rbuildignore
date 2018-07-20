@@ -8,4 +8,5 @@
 ^pkgdown$
 ^vignettes/first-example.Rmd$
 ^vignettes/visual-regression.Rmd$
+^vignettes/.*\.png$
 ^.V8history$

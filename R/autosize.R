@@ -69,15 +69,17 @@ autosize <- function(spec, width = NULL, height = NULL) {
   # to create a new list only if needed, so as not to
   # wipe out any parameters in an existing list
 
-  spec$config <- spec$config %||% list()
+  spec$width <- as.integer(width %||% spec$width)
+  spec$height <- as.integer(height %||% spec$height)
 
+  spec$config <- spec$config %||% list()
   spec$config$autosize <- spec$config$autosize %||% list()
   spec$config$autosize$type <- "fit"
   spec$config$autosize$contains <- "padding"
 
   spec$config$view <- spec$config$view %||% list()
-  spec$config$view$width <- as.integer(width)
-  spec$config$view$height <- as.integer(height)
+  spec$config$view$width <- spec$width
+  spec$config$view$height <- spec$height
 
   spec
 }
@@ -89,9 +91,10 @@ autosize <- function(spec, width = NULL, height = NULL) {
     return(spec)
   }
 
+  spec$width <- as.integer(width %||% spec$width)
+  spec$height <- as.integer(height %||% spec$height)
+
   spec$autosize <- list(type = "fit", contains = "padding")
-  spec$width <- as.integer(width)
-  spec$height <- as.integer(height)
 
   spec$config <- spec$config %||% list()
   spec$config$autosize <- spec$autosize

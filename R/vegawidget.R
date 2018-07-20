@@ -54,16 +54,12 @@
 vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
 
   # if `embed` is NULL, check for option
-  if (is.null(embed)) {
-    embed <- getOption("vega.embed")
-  }
+  embed <- embed %||% getOption("vega.embed")
 
   # if `embed` is still NULL, set using empty call to vega_embed()
-  if (is.null(embed)) {
-    embed <- vega_embed()
-  }
+  embed <- embed %||% vega_embed()
 
-  # autosize (if needed) - validation would happen here
+  # autosize (if needed)
   spec <- autosize(spec, width = width, height = height)
 
   # use internal methods here because spec has already been validated

@@ -269,8 +269,8 @@ spec_mtcars <-
   as_vegaspec(
     list(
       `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
-      width = 300,
-      height = 300,
+      width = 300L,
+      height = 300L,
       description = "An mtcars example.",
       data = list(values = mtcars),
       mark = "point",

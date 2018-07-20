@@ -22,7 +22,7 @@ the default is to use the width in the chart specification}
 of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification}
 
-\item{...}{other arguments}
+\item{...}{other arguments passed to \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}}
 }
 \description{
 Renders a chart as an htmlwidget.

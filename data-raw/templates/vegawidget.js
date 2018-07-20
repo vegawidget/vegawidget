@@ -6,6 +6,8 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
+    var view = null;
+
     return {
 
       renderValue: function(x) {
@@ -21,13 +23,38 @@ HTMLWidgets.widget({
           //
           el.removeAttribute("style");
 
+          view = result.view;
+
         }).catch(console.error);
+
       },
 
       resize: function(width, height) {
 
+      },
+
+      getView: function() {
+        return view;
       }
 
     };
+
   }
 });
+
+
+// Helper function to get view object via the htmlWidgets object
+function getVegaView(selector){
+
+  // Get the HTMLWidgets object
+  var htmlWidgetsObj = HTMLWidgets.find(selector);
+
+  console.log(htmlWidgetsObj);
+  var view_obj = null;
+
+  if (typeof(htmlWidgetsObj) !== "undefined"){
+    view_obj = htmlWidgetsObj.getView();
+  }
+
+  return(view_obj);
+}

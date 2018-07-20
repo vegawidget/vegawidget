@@ -119,7 +119,8 @@ First, copy some files from our templates directory.
 ```{r vegawidget-js}
 file_copy(
   path(dir_templates, "vegawidget.js"), 
-  path(dir_htmlwidgets, "vegawidget.js")
+  path(dir_htmlwidgets, "vegawidget.js"),
+  overwrite = TRUE # take this out when done
 )
 ```
 

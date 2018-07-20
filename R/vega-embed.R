@@ -114,7 +114,7 @@
 #'
 vega_embed <- function(renderer = c("canvas", "svg"),
                        actions = NULL,
-                       defaultStyle = NULL,
+                       defaultStyle = TRUE,
                        mode = NULL,
                        theme = NULL,
                        logLevel = NULL,

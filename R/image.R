@@ -56,6 +56,8 @@ write_png <- function(spec, path, embed = NULL, width = NULL, height = NULL, ...
 #' @export
 to_svg <- function(spec, scale = 1, embed = NULL, width = NULL, height = NULL, ...){
 
+  assert_packages("webdriver")
+
   widget <-
     vegawidget(
       spec,
@@ -74,9 +76,17 @@ to_svg <- function(spec, scale = 1, embed = NULL, width = NULL, height = NULL, .
   ses <- webdriver::Session$new(port = pjs$port)
   ses$go(html_file)
   ses$setTimeout(500)
-  svg <- ses$executeScriptAsync(paste0("var done = arguments[0];
-                                getVegaView('#write-svg').toSVG(",scale,").then(function(svg){done(svg)}).catch(function(err) {console.error(err)});"))
-  return(svg)
+  svg <- ses$executeScriptAsync(
+    paste0("
+      var done = arguments[0];
+      getVegaView('#write-svg').toSVG(", scale, ")
+        .then(function(svg) {
+           done(svg)
+        })
+        .catch(function(err) {console.error(err)});")
+    )
+
+  svg
 }
 
 

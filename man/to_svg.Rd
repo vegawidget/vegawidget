@@ -2,11 +2,20 @@
 % Please edit documentation in R/image.R
 \name{to_svg}
 \alias{to_svg}
+\alias{to_svg.default}
+\alias{to_svg.vegawidget}
 \title{to_svg}
 \usage{
-to_svg(spec, scale = 1, embed = NULL, width = NULL, height = NULL, ...)
+to_svg(...)
+
+\method{to_svg}{default}(spec, scale = 1, embed = NULL, width = NULL,
+  height = NULL, ...)
+
+\method{to_svg}{vegawidget}(widget, scale = 1, ...)
 }
 \arguments{
+\item{...}{other arguments passed to \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}}
+
 \item{spec}{object to be coerced to Vega/Vega-Lite specification}
 
 \item{scale}{scaleFactor}
@@ -24,7 +33,7 @@ the default is to use the width in the chart specification}
 of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification}
 
-\item{...}{other arguments passed to \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}}
+\item{widget}{object created using \code{\link[=vegawidget]{vegawidget()}}}
 }
 \description{
 Turn a spec into an svg

@@ -53,10 +53,18 @@ write_png <- function(spec, path, embed = NULL, width = NULL, height = NULL, ...
 #' Turn a spec into an svg
 #' @inheritParams vegawidget
 #' @param scale scaleFactor
+#' @param widget object created using [vegawidget()]
 #' @export
-to_svg <- function(spec, scale = 1, embed = NULL, width = NULL, height = NULL, ...){
+#'
+to_svg <- function(...) {
+  UseMethod("to_svg")
+}
 
-  assert_packages("webdriver")
+#' @rdname to_svg
+#' @export
+#'
+to_svg.default <-
+  function(spec, scale = 1, embed = NULL, width = NULL, height = NULL, ...){
 
   widget <-
     vegawidget(
@@ -64,9 +72,23 @@ to_svg <- function(spec, scale = 1, embed = NULL, width = NULL, height = NULL, .
       embed = embed,
       width = width,
       height = height,
-      elementId = "write-svg",
       ...
     )
+
+  svg <- to_svg(widget)
+
+  svg
+}
+
+#' @rdname to_svg
+#' @export
+#'
+to_svg.vegawidget <- function(widget, scale = 1, ...) {
+
+  assert_packages("webdriver")
+
+  # just to be safe
+  scale <- as.numeric(scale)
 
   html_file <- tempfile(pattern = "vegawidget-", fileext = ".html")
   htmlwidgets::saveWidget(widget, html_file)
@@ -77,18 +99,17 @@ to_svg <- function(spec, scale = 1, embed = NULL, width = NULL, height = NULL, .
   ses$go(html_file)
   ses$setTimeout(500)
   svg <- ses$executeScriptAsync(
-    paste0("
-      var done = arguments[0];
-      getVegaView('#write-svg').toSVG(", scale, ")
+    paste0(
+     "var done = arguments[0];
+      getVegaView('.vegawidget').toSVG(", scale, ")
         .then(function(svg) {
            done(svg)
         })
-        .catch(function(err) {console.error(err)});")
+        .catch(function(err) {console.error(err)});"
     )
+  )
 
   svg
 }
-
-
 
 

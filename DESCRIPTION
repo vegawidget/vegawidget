@@ -40,5 +40,6 @@ Suggests:
     fs,
     gistr,
     V8,
-    webshot
+    webshot,
+    webdriver
 VignetteBuilder: knitr

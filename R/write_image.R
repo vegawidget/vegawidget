@@ -31,7 +31,7 @@ write_svg.default <- function(spec, path, scale = 1, embed = NULL,
 
   writeLines(svg, fs::path_expand(path))
 
-  spec
+  invisible(spec)
 }
 
 #' @rdname write_svg
@@ -43,4 +43,5 @@ write_svg.vegawidget <- function(widget, path, scale = 1, ...) {
 
   writeLines(svg, fs::path_expand(path))
 
+  invisible(vegawidget)
 }

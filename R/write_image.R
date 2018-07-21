@@ -85,7 +85,7 @@ write_png.vegawidget <- function(widget, path, scale = 1, ...) {
 
   png <- .as_bin(png)
 
-  writeLines(png, fs::path_expand(path))
+  writeBin(png, fs::path_expand(path), endian = "big")
 
   invisible(vegawidget)
 }

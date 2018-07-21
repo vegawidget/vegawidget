@@ -4,56 +4,48 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 ---
 
-The purpose of this document is to use our eyeballs to vaildate the rendering.
+The purpose of this document is to use our eyeballs to vaildate the rendering of vegaspecs as vegawidgets and images. This will be a very boring document, as we are going to see the same specification rendered ad-naseum.
+
+For the image tests, we use explicity test the functions `write_png()` and `write_svg()`. We note the complimentary functions `to_png()` and `to_svg()`; these are implicitly tested as they are the used by the `write_png()` and `write_svg()` functions.
 
 ```{r}
-library("magrittr")
+library("conflicted")
 library("vegawidget")
+```
 
-options(
-  vega.embed = vegawidget::vega_embed(defaultStyle = TRUE)
-)
+```{r}
+dir_img <- "visual-regression-files"
+
+if (fs::dir_exists(dir_img)) {
+  fs::dir_delete(dir_img)
+}
+
+fs::dir_create(dir_img)
 ```
 
 ## Reference 
 
-Our first test is the standard mtcars scatterplot, where the plotting area is 300 * 300.
+Our reference is this `mtcars` scatterplot. We expect it to be rendered with a plotting area with `width = 300` and `height = 300`.
 
 ```{r}
 spec_mtcars
 ```
 
-```{r}
-print(spec_mtcars)
-```
+## Autosize 
 
-```{r}
-print(2)
-```
-
-## Vega-Lite 
-
-Let's convert this spec to JSON, then back to a vegaspec, then render it:
-
-```{r}
-spec_mtcars %>%
-  as_json() %>%
-  as_vegaspec()
-```
-
-Next, we test using `autosize()`. The size of the div will be 300 * 300; the plotting area will be smaller.
+Next, we test using `autosize()`. We expect that the rendered spec will have a *total* size of `width = 600` and `height = 300`.
 
 ```{r}
 autosize(spec_mtcars, width = 600, height = 300)
 ```
 
-We can do the same thing using the `vegawidget()` function:
+We exepct the same result using the `vegawidget()` function:
 
 ```{r}
 vegawidget(spec_mtcars, width = 600, height = 300)
 ```
 
-Or by setting `vega.width` and `vega.height` as knitr options, like so:
+We expect the same result by setting `vega.width` and `vega.height` as knitr options, like so:
 
     ```{r vega.width=600, vega.height=300}
     spec_mtcars
@@ -65,23 +57,92 @@ spec_mtcars
 
 ## Vega
 
-There should no difference from the first case when we use the `to_vega()` function to compile to a Vega specification, then render:
+We expect this to be identical to the **reference** case, using the `to_vega()` function to compile to a Vega specification:
 
 ```{r}
-spec_vega_mtcars <- to_vega(spec_mtcars) %>% print()
-```
-
-Should only need to confirm in one way that autosize works for Vega specs.
-
-```{r}
-autosize(spec_vega_mtcars, width = 600, height = 300)
+to_vega(spec_mtcars)
 ```
 
 ## PNG
 
-We should see this at regular size, then at expanded size:
+The function `to_png()` generates an image at 96 DPI. We expect this to appear at the same size as the **reference**. However, we not using retina resolution so it will appear a bit fuzzy on non-retina monitors.
 
-<img src=`r to_png(spec_mtcars, scale = 2)`>
+```{r}
+file_png <- fs::path(dir_img, "mtcars-refrence.png")
 
+write_png(spec_mtcars, path = file_png)
 
+knitr::include_graphics(file_png, dpi = 96)
+```
 
+To get retina resolution, we use the `scale` argument in `write_png()`, then adjust the `dpi` argument in `include_graphics()`. Thus, we expect this to appear indentical to the **reference**. 
+
+```{r}
+file_png <- fs::path(dir_img, "mtcars-retina.png")
+
+write_png(spec_mtcars, path = file_png, scale = 2)
+
+knitr::include_graphics(file_png, dpi = 96 * 2)
+```
+
+We expect that the rendered image will have a *total* size of `width = 600` and `height = 300`, but at non-retina resolution:
+
+```{r}
+file_png <- fs::path(dir_img, "mtcars-wide.png")
+
+write_png(spec_mtcars, path = file_png, width = 600, height = 300)
+
+knitr::include_graphics(file_png, dpi = 96)
+```
+
+Finally, we expect to be able to use `write_png()` with vegawidgets; we expect this to appear at the same size as the **reference**, but at non-retina resolution:
+
+```{r}
+file_png <- fs::path(dir_img, "mtcars-widget.png")
+
+write_png(vegawidget(spec_mtcars), path = file_png)
+
+knitr::include_graphics(file_png, dpi = 96)
+```
+
+## SVG
+
+The function `to_svg()` generates a vector-image. We expect this to appear identical to the **reference**: 
+
+```{r}
+file_svg <- fs::path(dir_img, "mtcars-refrence.svg")
+
+write_svg(spec_mtcars, path = file_svg)
+
+knitr::include_graphics(file_svg)
+```
+
+We expect that the rendered image will have a *total* size of `width = 600` and `height = 300`, and to appear at retina resolution.
+
+```{r}
+file_svg <- fs::path(dir_img, "mtcars-wide.svg")
+
+write_svg(spec_mtcars, path = file_svg, width = 600, height = 300)
+
+knitr::include_graphics(file_svg)
+```
+
+The `scale` argument in `write_svg()` may not be useful becuse the SVG itself is scalable. We expect this appear at double-size to **reference**, with retina resolution: 
+
+```{r}
+file_svg <- fs::path(dir_img, "mtcars-retina.svg")
+
+write_svg(spec_mtcars, path = file_svg, scale = 2)
+
+knitr::include_graphics(file_svg)
+```
+
+Finally, we expect to be able to use `write_svg()` with vegawidgets; we expect this to appear identical to the **reference**:
+
+```{r}
+file_svg <- fs::path(dir_img, "mtcars-widget.svg")
+
+write_svg(vegawidget(spec_mtcars), path = file_svg)
+
+knitr::include_graphics(file_svg)
+```

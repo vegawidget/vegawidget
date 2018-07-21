@@ -54,5 +54,6 @@ Suggests:
     gistr,
     V8,
     webshot,
-    webdriver
+    webdriver,
+    base64enc
 VignetteBuilder: knitr

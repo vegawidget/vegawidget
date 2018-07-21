@@ -4,7 +4,7 @@
 \alias{write_svg}
 \alias{write_svg.default}
 \alias{write_svg.vegawidget}
-\title{write_svg}
+\title{Write a vegaspec to an SVG file}
 \usage{
 write_svg(...)
 
@@ -41,7 +41,7 @@ the default is to use the height in the chart specification}
 copy of whatever was sent to it
 }
 \description{
-Convert a vegaspec or a vegawidget into an SVG string
+Write a vegaspec to an SVG file
 }
 \examples{
 \dontrun{

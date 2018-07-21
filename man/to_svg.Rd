@@ -4,7 +4,7 @@
 \alias{to_svg}
 \alias{to_svg.default}
 \alias{to_svg.vegawidget}
-\title{to_svg}
+\title{Convert a vegaspec or a vegawidget into an SVG string}
 \usage{
 to_svg(...)
 

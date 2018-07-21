@@ -81,14 +81,7 @@ autosize(spec_vega_mtcars, width = 600, height = 300)
 
 We should see this at regular size, then at expanded size:
 
-```{r}
-write_png(spec_mtcars, "regular.png", width = 300, height = 300)
-knitr::include_graphics("regular.png", dpi = NA)
-```
+<img src=`r to_png(spec_mtcars, scale = 2)`>
 
-```{r}
-write_png(spec_mtcars, "wide.png", width = 600, height = 300)
-knitr::include_graphics("wide.png", dpi = NA)
-```
 
 

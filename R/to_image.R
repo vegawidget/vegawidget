@@ -1,5 +1,3 @@
-#' to_svg
-#'
 #' Convert a vegaspec or a vegawidget into an SVG string
 #'
 #' @inheritParams vegawidget
@@ -33,7 +31,7 @@ to_svg.default <-
       ...
     )
 
-  svg <- to_svg(widget, scale)
+  svg <- to_svg(widget, scale = scale)
 
   svg
 }
@@ -63,15 +61,11 @@ to_svg.vegawidget <- function(widget, scale = 1, ...) {
   svg
 }
 
-#' to_png
-#'
 #' Convert a vegaspec or a vegawidget into PNG data
 #'
-#' @inheritParams vegawidget
-#' @param scale scaleFactor for the image
-#' @param widget object created using [vegawidget()]
+#' @inheritParams to_svg
 #'
-#' @return `raw` PNG data
+#' @return `character` base-64 encoded string
 #' @examples
 #' \dontrun{
 #'   to_png(spec_mtcars)
@@ -98,7 +92,7 @@ to_png.default <-
         ...
       )
 
-    png <- to_png(widget)
+    png <- to_png(widget, scale = scale)
 
     png
 }
@@ -111,12 +105,31 @@ to_png.vegawidget <- function(widget, scale = 1, ...) {
   # just to be safe
   scale <- as.numeric(scale)
 
+  # NOTE
+  #
+  # We are supplying a "quality" argument to `toDataURL()`,
+  # which is not defined for image/png in the HTML5 standard.
+  #
+  # However, not supplying a value results in a large, uncompressed
+  # PNG string.
+  #
+  # This is noted here: https://github.com/ariya/phantomjs/issues/10455
+  #
+  # For the version of phantomJS that comes with webdriver/webshot,
+  # the workaround of supplying a value for PNG works.
+  #
+  # In the issue, the problem is claimed to be fixed, but I don't know
+  # if that fix is implemented in the packaged version of phantomJS,
+  # or, if not, if the fix will mean that this workaround will stop working.
+  #
+  # If we start to get some large PNG files, this will be a place to look.
+
   js_string <-
     paste0(
       "var done = arguments[0];
       getVegaView('.vegawidget').toCanvas(", scale, ")
         .then(function(canvas) {
-           return canvas.toDataURL('image/png');
+           return canvas.toDataURL('image/png', 0);
         })
         .then(done)
         .catch(function(err) {

@@ -18,9 +18,7 @@
 #' @param readme        `character`, single line, path to a markdown file;
 #'   multiple lines, markdown text
 #' @param use_thumbnail `logical`, indicates to include a thumbnail image
-#'   (not yet implemented)
 #' @param use_preview   `logical`, indicates to include a preview image
-#'   (not yet implemented)
 #' @param endpoint      `character`, base endpoint for GitHub API, defaults to
 #'   `"https://api.github.com"`; useful to specify with GitHub Enterprise,
 #'   e.g. `"https://github.acme.com/api/v3"`

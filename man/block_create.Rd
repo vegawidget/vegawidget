@@ -39,11 +39,9 @@ major versions rather than the versions supported in this package}
 \item{readme}{\code{character}, single line, path to a markdown file;
 multiple lines, markdown text}
 
-\item{use_thumbnail}{\code{logical}, indicates to include a thumbnail image
-(not yet implemented)}
+\item{use_thumbnail}{\code{logical}, indicates to include a thumbnail image}
 
-\item{use_preview}{\code{logical}, indicates to include a preview image
-(not yet implemented)}
+\item{use_preview}{\code{logical}, indicates to include a preview image}
 
 \item{git_method}{\code{character}, use \code{"ssh"} or \code{"https"}}
 

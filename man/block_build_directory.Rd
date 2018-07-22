@@ -30,11 +30,9 @@ use the helper function \code{\link[=block_config]{block_config()}} to specify b
 \item{readme}{\code{character}, single line, path to a markdown file;
 multiple lines, markdown text}
 
-\item{use_thumbnail}{\code{logical}, indicates to include a thumbnail image
-(not yet implemented)}
+\item{use_thumbnail}{\code{logical}, indicates to include a thumbnail image}
 
-\item{use_preview}{\code{logical}, indicates to include a preview image
-(not yet implemented)}
+\item{use_preview}{\code{logical}, indicates to include a preview image}
 }
 \value{
 \code{character} path, called for side effects

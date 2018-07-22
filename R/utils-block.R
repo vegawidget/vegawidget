@@ -58,21 +58,21 @@ block_build_directory <-
   if (use_thumbnail || use_preview) {
     assert_packages("magick")
 
-    png <- to_png(spec)
-    png <- png_bin(png)
-    png <- magick::image_read(png)
-
-    # print(magick::image_info(png))
+    img <- to_png(spec, scale = 2)
+    img <- png_bin(img)
+    img <- magick::image_read(img)
   }
 
   # thumbnail
   if (use_thumbnail) {
-
+    tmb <- magick::image_resize(img, geometry = "230x120")
+    magick::image_write(tmb, fs::path(path, "thumbnail.png"), format = "png")
   }
 
   # preview
   if (use_preview) {
-
+    pvw <- magick::image_resize(img, geometry = "960x500")
+    magick::image_write(pvw, fs::path(path, "preview.png"), format = "png")
   }
 
   path

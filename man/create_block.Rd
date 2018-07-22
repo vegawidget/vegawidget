@@ -4,24 +4,28 @@
 \alias{create_block}
 \title{Create a gist that can be used as a block}
 \usage{
-create_block(spec, embed = vega_embed(), block = block_yaml(),
-  versions = vega_versions(major = FALSE), description = "",
+create_block(spec, embed = vega_embed(), .block = block_config(),
+  versions = vega_versions(major = FALSE), description = NULL,
   readme = NULL, use_thumbnail = TRUE, use_preview = TRUE,
-  git_method = c("ssh", "https"), host = NULL, env_pat = NULL)
+  git_method = c("ssh", "https"), endpoint = NULL, env_pat = NULL,
+  block_host = NULL, message = TRUE, browse = TRUE)
 }
 \arguments{
-\item{spec}{\code{json}, \code{list}, or \code{character} Vega-Lite or Vega specification}
+\item{spec}{object to be coerced to Vega/Vega-Lite specification}
 
-\item{embed}{\code{vega_embed} object
-(not yet implemented)}
+\item{embed}{\code{vega_embed} object to specify embedding options -
+the default is an empty call to \code{\link[=vega_embed]{vega_embed()}},
+which will result in a canvas-rendering and action-links included for
+exporting, viewing the Vega-Lite source, and opening the Vega editor.}
 
-\item{block}{\code{character} YAML text for the \code{.block} file}
+\item{.block}{\code{character} YAML text for the \code{.block} file -
+use the helper function \code{\link[=block_config]{block_config()}} to specify block-configuration}
 
 \item{versions}{named \code{list} of \code{character}:
 names refer to JavaScript libraries \code{vega}, \code{vega_lite}, \code{vega_embed},
 values are the tags for the versions to use in the block - use the
 helper function \code{\link[=vega_versions]{vega_versions()}} with \code{major = TRUE} to use the current
-major versions rather than the versions supported in this package.}
+major versions rather than the versions supported in this package}
 
 \item{description}{\code{character} description for the gist}
 
@@ -37,18 +41,26 @@ multiple lines, markdown text
 
 \item{git_method}{\code{character} use \code{"ssh"} or \code{"https"}}
 
-\item{host}{`character`` Base endpoint for GitHub API, defaults to
-\code{"https://api.github.com"}. Useful to specify with GitHub Enterprise,
-e.g. \code{"https://github.acme.com/api/v3"}.
+\item{endpoint}{\code{character} base endpoint for GitHub API, defaults to
+\code{"https://api.github.com"}; useful to specify with GitHub Enterprise,
+e.g. \code{"https://github.acme.com/api/v3"}
 (not yet implemented)}
 
-\item{env_pat}{(character) Name of environment variable that contains
-a GitHub PAT (Personal Access Token), defaults to \code{"GITHUB_PAT"}.
-Useful to specify with GitHub Enterprise, e.g. \code{"GITHUB_ACME_PAT"}.
+\item{env_pat}{\code{character} name of environment variable that contains
+a GitHub PAT (Personal Access Token), defaults to \code{"GITHUB_PAT"};
+Useful to specify with GitHub Enterprise, e.g. \code{"GITHUB_ACME_PAT"}
 (not yet implemented)}
+
+\item{block_host}{\code{character} hostname of blocks server,
+defaults to \code{bl.ocks.org}}
+
+\item{message}{\code{logical} indicates to print messages}
+
+\item{browse}{\code{logical} indicates to open browser to blocks web-page
+when complete}
 }
 \value{
-called for side effects
+copy of \code{spec}, called for side effects
 }
 \description{
 Create a gist that can be used as a block

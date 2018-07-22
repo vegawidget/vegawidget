@@ -4,10 +4,12 @@
 \alias{assert_packages}
 \title{Assert that packages are loaded}
 \usage{
-assert_packages(packages)
+assert_packages(packages, ...)
 }
 \arguments{
 \item{packages}{\code{character} vector of package names to check}
+
+\item{...}{\code{character} package names to check}
 }
 \value{
 \code{logical} indicating success
@@ -20,7 +22,12 @@ that are not.
 }
 \examples{
 \dontrun{
+  # put packages in a character vector
   assert_packages(c("base", "utils"))
+
+  # or by themselves
+  assert_packages("base", "utils")
+
 }
 }
 \seealso{

@@ -54,7 +54,7 @@ library("conflicted")
 library("vegawidget")
 ```
 
-## Infrastucture
+## Infrastructure
 
 Package infrastucture incudes:
 
@@ -166,7 +166,8 @@ First, copy some files from our templates directory.
 ``` r
 file_copy(
   path(dir_templates, "vegawidget.js"), 
-  path(dir_htmlwidgets, "vegawidget.js")
+  path(dir_htmlwidgets, "vegawidget.js"),
+  overwrite = TRUE # take this out when done
 )
 ```
 
@@ -286,11 +287,6 @@ create_clean(dir_block)
 
 ``` r
 fs::file_copy(
-  fs::path(dir_templates, "vega-embed.css"), 
-  fs::path(dir_block, "vega-embed.css")
-)
-
-fs::file_copy(
   fs::path(dir_templates, "index.html"), 
   fs::path(dir_block, "index.html")
 )
@@ -344,8 +340,8 @@ spec_mtcars <-
   as_vegaspec(
     list(
       `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
-      width = 300,
-      height = 300,
+      width = 300L,
+      height = 300L,
       description = "An mtcars example.",
       data = list(values = mtcars),
       mark = "point",

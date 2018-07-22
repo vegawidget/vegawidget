@@ -6,17 +6,25 @@
 #' that are not.
 #'
 #' @param packages `character` vector of package names to check
+#' @param ...      `character` package names to check
 #'
 #' @return `logical` indicating success
 #' @examples
 #' \dontrun{
+#'   # put packages in a character vector
 #'   assert_packages(c("base", "utils"))
+#'
+#'   # or by themselves
+#'   assert_packages("base", "utils")
+#'
 #' }
 #' @seealso [R Packages book](http://r-pkgs.had.co.nz/description.html#dependencies)
 #' @keywords internal
 #'
 #'
-assert_packages <- function(packages) {
+assert_packages <- function(packages, ...) {
+
+  packages <- c(packages, ...)
 
   is_missing <-
     vapply(packages, function(x) {!requireNamespace(x, quietly = TRUE)}, TRUE)

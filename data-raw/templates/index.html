@@ -12,8 +12,8 @@
 <div id="vis"></div>
 
 <script type="text/javascript">
-  var spec = {{spec}};
-  var opt = {{vega_embed_options}};
+  const spec = "spec.json";
+  const opt = {{vega_embed_options}};
   vegaEmbed('#vis', spec, opt).then(function(result) {
     // access view as result.view
   }).catch(console.error);

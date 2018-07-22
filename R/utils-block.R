@@ -54,9 +54,26 @@ block_build_directory <-
     writeLines(readme, fs::path(path, "README.md"))
   }
 
+  # image
+  if (use_thumbnail || use_preview) {
+    assert_packages("magick")
+
+    png <- to_png(spec)
+    png <- png_bin(png)
+    png <- magick::image_read(png)
+
+    # print(magick::image_info(png))
+  }
+
   # thumbnail
+  if (use_thumbnail) {
+
+  }
 
   # preview
+  if (use_preview) {
+
+  }
 
   path
 }

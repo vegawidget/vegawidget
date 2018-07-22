@@ -28,8 +28,7 @@ major versions rather than the versions supported in this package}
 use the helper function \code{\link[=block_config]{block_config()}} to specify block-configuration}
 
 \item{readme}{\code{character}, single line, path to a markdown file;
-multiple lines, markdown text
-(not yet implemented)}
+multiple lines, markdown text}
 
 \item{use_thumbnail}{\code{logical}, indicates to include a thumbnail image
 (not yet implemented)}

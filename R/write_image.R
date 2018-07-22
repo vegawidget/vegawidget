@@ -68,8 +68,7 @@ write_png.default <- function(spec, path, scale = 1, embed = NULL,
 
   png <-
     to_png(spec, scale = scale, embed = embed, width = width, height = height)
-
-  png <- .as_bin(png)
+  png <- png_bin(png)
 
   writeBin(png, fs::path_expand(path), endian = "big")
 
@@ -82,25 +81,32 @@ write_png.default <- function(spec, path, scale = 1, embed = NULL,
 write_png.vegawidget <- function(widget, path, scale = 1, ...) {
 
   png <- to_png(widget, scale = scale)
-
-  png <- .as_bin(png)
+  png <- png_bin(png)
 
   writeBin(png, fs::path_expand(path), endian = "big")
 
   invisible(vegawidget)
 }
 
-.as_bin <- function(x) {
+#' Translate PNG from dataURI string to binary
+#'
+#' @param png `character`, dataURI string describing PNG
+#'
+#' @return `raw` PNG
+#' @keywords internal
+#' @export
+#'
+png_bin <- function(png) {
 
   # this should come along with webdriver
   assert_packages("base64enc")
 
   # strip the preamble
-  x <- gsub("^.*,(.*)", "\\1", x)
+  png <- gsub("^.*,(.*)", "\\1", png)
 
   # convert to binary
-  x <- base64enc::base64decode(x)
+  bin <- base64enc::base64decode(png)
 
-  x
+  bin
 }
 

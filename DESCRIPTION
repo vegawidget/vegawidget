@@ -55,5 +55,6 @@ Suggests:
     V8,
     webshot,
     webdriver,
-    base64enc
+    base64enc,
+    magick
 VignetteBuilder: knitr

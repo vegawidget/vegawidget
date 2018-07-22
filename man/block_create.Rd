@@ -37,8 +37,7 @@ major versions rather than the versions supported in this package}
 \item{description}{\code{character}, description for the gist}
 
 \item{readme}{\code{character}, single line, path to a markdown file;
-multiple lines, markdown text
-(not yet implemented)}
+multiple lines, markdown text}
 
 \item{use_thumbnail}{\code{logical}, indicates to include a thumbnail image
 (not yet implemented)}

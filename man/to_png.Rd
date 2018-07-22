@@ -4,7 +4,7 @@
 \alias{to_png}
 \alias{to_png.default}
 \alias{to_png.vegawidget}
-\title{Convert a vegaspec or a vegawidget into PNG data}
+\title{Convert to PNG data}
 \usage{
 to_png(...)
 
@@ -39,7 +39,7 @@ the default is to use the height in the chart specification}
 \code{character} base-64 encoded string
 }
 \description{
-Convert a vegaspec or a vegawidget into PNG data
+Convert to PNG data
 }
 \examples{
 \dontrun{

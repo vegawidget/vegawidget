@@ -1,4 +1,4 @@
-#' Convert a vegaspec or a vegawidget into an SVG string
+#' Convert to an SVG string
 #'
 #' @inheritParams vegawidget
 #' @param scale scaleFactor for the image
@@ -61,7 +61,7 @@ to_svg.vegawidget <- function(widget, scale = 1, ...) {
   svg
 }
 
-#' Convert a vegaspec or a vegawidget into PNG data
+#' Convert to PNG data
 #'
 #' @inheritParams to_svg
 #'

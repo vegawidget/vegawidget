@@ -4,7 +4,7 @@
 \alias{to_svg}
 \alias{to_svg.default}
 \alias{to_svg.vegawidget}
-\title{Convert a vegaspec or a vegawidget into an SVG string}
+\title{Convert to an SVG string}
 \usage{
 to_svg(...)
 
@@ -39,7 +39,7 @@ the default is to use the height in the chart specification}
 \code{character} SVG string
 }
 \description{
-Convert a vegaspec or a vegawidget into an SVG string
+Convert to an SVG string
 }
 \examples{
 \dontrun{

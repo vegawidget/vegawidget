@@ -17,7 +17,6 @@
 #' @param description   `character`, description for the gist
 #' @param readme        `character`, single line, path to a markdown file;
 #'   multiple lines, markdown text
-#'   (not yet implemented)
 #' @param use_thumbnail `logical`, indicates to include a thumbnail image
 #'   (not yet implemented)
 #' @param use_preview   `logical`, indicates to include a preview image

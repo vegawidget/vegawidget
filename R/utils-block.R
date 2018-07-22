@@ -43,6 +43,16 @@ block_build_directory <-
   )
 
   # readme
+  if (!is.null(readme)) {
+
+    # if this is a file, read it
+    is_con <- rlang::is_string(readme) && file.exists(readme)
+    if (is_con) {
+      readme <- readLines(readme)
+    }
+
+    writeLines(readme, fs::path(path, "README.md"))
+  }
 
   # thumbnail
 

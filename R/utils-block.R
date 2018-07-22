@@ -1,7 +1,7 @@
 #' Build a block directory
 #'
 #' @param path   `character`  path to an empty directory
-#' @inheritParams create_block
+#' @inheritParams block_create
 #'
 #' @return `character` path, called for side effects
 #' @keywords internal
@@ -41,6 +41,12 @@ block_build_directory <-
     block_index(embed = embed, versions = versions),
     fs::path(path, "index.html")
   )
+
+  # readme
+
+  # thumbnail
+
+  # preview
 
   path
 }
@@ -101,7 +107,7 @@ block_config <- function(license = "mit", height = 500, scrolling = TRUE, border
 
 #' Create text for block index.html
 #'
-#' @inheritParams create_block
+#' @inheritParams block_create
 #'
 #' @return `character` text of `index.html`
 #' @keywords internal

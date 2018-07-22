@@ -24,17 +24,17 @@ values are the tags for the versions to use in the block - use the
 helper function \code{\link[=vega_versions]{vega_versions()}} with \code{major = TRUE} to use the current
 major versions rather than the versions supported in this package}
 
-\item{.block}{\code{character} YAML text for the \code{.block} file -
+\item{.block}{\code{character}, YAML text for the \code{.block} file -
 use the helper function \code{\link[=block_config]{block_config()}} to specify block-configuration}
 
-\item{readme}{\code{character} single line, path to a markdown file;
+\item{readme}{\code{character}, single line, path to a markdown file;
 multiple lines, markdown text
 (not yet implemented)}
 
-\item{use_thumbnail}{\code{logical} indicates to include a thumbnail image
+\item{use_thumbnail}{\code{logical}, indicates to include a thumbnail image
 (not yet implemented)}
 
-\item{use_preview}{\code{logical} indicates to include a preview image
+\item{use_preview}{\code{logical}, indicates to include a preview image
 (not yet implemented)}
 }
 \value{

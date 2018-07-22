@@ -11,5 +11,6 @@ cache: packages
 addons:
   apt:
     packages:
-      - libv8-dev # for V8
-      - valgrind  # for V8
+      - libv8-dev       # for V8
+      - valgrind        # for V8
+      - libmagick++-dev # magick

@@ -167,14 +167,15 @@ block_retrieve <- function(id, file = NULL, endpoint = NULL, env_pat = NULL) {
   endpoint <- endpoint %||% "https://api.github.com"
   file <- file %||% "\\.json$"
 
+  # get gist
   gist <- gistr::gist(id)
 
+  # get gist files - determine what matches the regex
   gist_files <- names(gist$files)
-
   match <- grepl(file, gist_files, ignore.case = TRUE)
-
   gist_files_match <- gist_files[match]
 
+  # no matches
   assertthat::assert_that(
     length(gist_files_match) > 0,
     msg = paste(
@@ -184,9 +185,7 @@ block_retrieve <- function(id, file = NULL, endpoint = NULL, env_pat = NULL) {
     )
   )
 
-  # take first match
-  gist_file <- gist_files_match[1]
-
+  # more than one match
   if (length(gist_files_match) > 1) {
     warning(
       paste(
@@ -198,18 +197,23 @@ block_retrieve <- function(id, file = NULL, endpoint = NULL, env_pat = NULL) {
     )
   }
 
+  # take first match
+  gist_file <- gist_files_match[1]
+
   message(
     glue::glue("retrieving `{gist_file}` from gist {id}")
   )
 
-  info <- gist$files[[gist_file]]
+  # extract file information for the "chosen" file
+  file_info <- gist$files[[gist_file]]
 
   # get result
-  result <- info$content
-  if (info$truncated) {
-    result <- info$raw_url
+  result <- file_info$content
+  if (file_info$truncated) {
+    result <- file_info$raw_url
   }
 
+  # coerce to vegaspec
   spec <- as_vegaspec(result)
 
   spec

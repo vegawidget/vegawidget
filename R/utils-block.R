@@ -158,3 +158,5 @@ block_index <- function(embed = vega_embed(),
 
   text
 }
+
+

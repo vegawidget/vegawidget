@@ -147,5 +147,73 @@ block_create_gistid <- function(spec, embed = vega_embed(), .block = block_confi
   invisible(result)
 }
 
+#' Retrieve spec from a block
+#'
+#' Need a github PAT in envvar `GITHUB_PAT`
+#'
+#' @param id      `character` block id
+#' @param file    `character` filename within block,
+#'   `NULL` will retrieve first JSON file
+#' @inheritParams block_create
+#'
+#' @return `vegaspec`
+#' @export
+#'
+block_retrieve <- function(id, file = NULL, endpoint = NULL, env_pat = NULL) {
+
+  assert_packages("gistr")
+
+  # defaults
+  endpoint <- endpoint %||% "https://api.github.com"
+  file <- file %||% "\\.json$"
+
+  gist <- gistr::gist(id)
+
+  gist_files <- names(gist$files)
+
+  match <- grepl(file, gist_files, ignore.case = TRUE)
+
+  gist_files_match <- gist_files[match]
+
+  assertthat::assert_that(
+    length(gist_files_match) > 0,
+    msg = paste(
+      glue::glue("no matching files in gist {id}:"),
+      paste(" ", gist_files, collapse = "\n"),
+      sep = "\n"
+    )
+  )
+
+  # take first match
+  gist_file <- gist_files_match[1]
+
+  if (length(gist_files_match) > 1) {
+    warning(
+      paste(
+        glue::glue("mutiple matching files in gist {id}:"),
+        paste(" ", gist_files, collapse = "\n"),
+        sep = "\n"
+      ),
+      call. = FALSE
+    )
+  }
+
+  message(
+    glue::glue("retrieving `{gist_file}` from gist {id}")
+  )
+
+  info <- gist$files[[gist_file]]
+
+  # get result
+  result <- info$content
+  if (info$truncated) {
+    result <- info$raw_url
+  }
+
+  spec <- as_vegaspec(result)
+
+  spec
+}
+
 
 

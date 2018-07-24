@@ -4,7 +4,7 @@
 \alias{to_svg}
 \alias{to_svg.default}
 \alias{to_svg.vegawidget}
-\title{Convert to an SVG string}
+\title{Convert to SVG string}
 \usage{
 to_svg(...)
 
@@ -18,7 +18,7 @@ to_svg(...)
 
 \item{spec}{object to be coerced to Vega/Vega-Lite specification}
 
-\item{scale}{scaleFactor for the image}
+\item{scale}{scale factor for the image}
 
 \item{embed}{\code{vega_embed} object to specify embedding options -
 the default is an empty call to \code{\link[=vega_embed]{vega_embed()}},
@@ -39,7 +39,7 @@ the default is to use the height in the chart specification}
 \code{character} SVG string
 }
 \description{
-Convert to an SVG string
+Convert to SVG string
 }
 \examples{
 \dontrun{

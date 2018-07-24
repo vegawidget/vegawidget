@@ -2,7 +2,7 @@
 % Please edit documentation in R/vegaspec.R
 \name{as_json}
 \alias{as_json}
-\title{Convert vegaspec to JSON}
+\title{Coerce vegaspec to JSON}
 \usage{
 as_json(spec, pretty = TRUE)
 }
@@ -15,7 +15,7 @@ as_json(spec, pretty = TRUE)
 \code{jsonlite::json} object
 }
 \description{
-Convert vegaspec to JSON
+Coerce vegaspec to JSON
 }
 \examples{
   as_json(spec_mtcars)

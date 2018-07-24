@@ -10,7 +10,7 @@
 
 .as_vegaspec.list <- function(x, ...) {
 
-  # determine if this is a vega or vegalite spec
+  # determine if this is a vega or vega_lite spec
   library <- .schema_type(x[["$schema"]])$library
 
   class_library <- paste0("vegaspec_", library)

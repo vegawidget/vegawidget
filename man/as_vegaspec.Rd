@@ -7,7 +7,7 @@
 \alias{as_vegaspec.list}
 \alias{as_vegaspec.json}
 \alias{as_vegaspec.character}
-\title{Coerce to a Vega/Vega-Lite specification}
+\title{Coerce to vegaspec}
 \usage{
 as_vegaspec(spec, ...)
 

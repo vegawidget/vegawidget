@@ -63,7 +63,7 @@ Package infrastucture incudes:
       - list of version numbers: `.vega_version`
       - strings of minified javascript libraries: `.vega_js`,
         `.vega_polyfill_symbol_js`, `.vega_polyfill_promise_js`,
-        `.vegalite_js` (perhaps the js libraries could use the
+        `.vega_lite_js` (perhaps the js libraries could use the
         htmldependency and memoise)
   - public package data:
       - `spec_mtcars` vegaspec for an mtcars scatterplot
@@ -388,7 +388,7 @@ htmlwidgets_vegajs <-
   htmlwidgets_downloads %>%
   dplyr::filter(str_detect(path_local, regex)) %>%
   dplyr::mutate(
-    name = str_replace(path_local, regex, ".\\2_js") %>% str_replace("-", "")
+    name = str_replace(path_local, regex, ".\\2_js") %>% str_replace("-", "_")
   ) %>%
   dplyr::select(name, path_local)
 
@@ -396,12 +396,12 @@ htmlwidgets_vegajs
 ```
 
     ## # A tibble: 4 x 2
-    ##   name         path_local                
-    ##   <chr>        <chr>                     
-    ## 1 .vegalite_js vega-lite/vega-lite.min.js
-    ## 2 .promise_js  vega/promise.min.js       
-    ## 3 .symbol_js   vega/symbol.min.js        
-    ## 4 .vega_js     vega/vega.min.js
+    ##   name          path_local                
+    ##   <chr>         <chr>                     
+    ## 1 .vega_lite_js vega-lite/vega-lite.min.js
+    ## 2 .promise_js   vega/promise.min.js       
+    ## 3 .symbol_js    vega/symbol.min.js        
+    ## 4 .vega_js      vega/vega.min.js
 
 We need to put these into the local environment. This smells like a
 side-effect.
@@ -422,7 +422,7 @@ pwalk(htmlwidgets_vegajs, assign_js, path_root = dir_lib)
 devtools::use_data(
   .vega_version, 
   .vega_js,
-  .vegalite_js,
+  .vega_lite_js,
   .promise_js,
   .symbol_js,
   internal = TRUE, 
@@ -430,4 +430,4 @@ devtools::use_data(
 )
 ```
 
-    ## Saving .vega_version, .vega_js, .vegalite_js, .promise_js, .symbol_js as sysdata.rda to /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget/R
+    ## Saving .vega_version, .vega_js, .vega_lite_js, .promise_js, .symbol_js as sysdata.rda to /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget/R

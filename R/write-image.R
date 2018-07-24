@@ -1,4 +1,4 @@
-#' Write a vegaspec to an SVG file
+#' Write to SVG file
 #'
 #' @inheritParams to_svg
 #' @param path path to which to write image-file
@@ -43,7 +43,7 @@ write_svg.vegawidget <- function(widget, path, scale = 1, ...) {
 }
 
 
-#' Write a vegaspec to a PNG file
+#' Write to PNG file
 #'
 #' @inheritParams write_svg
 #'

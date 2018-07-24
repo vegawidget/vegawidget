@@ -2,7 +2,7 @@
 % Please edit documentation in R/autosize.R
 \name{autosize}
 \alias{autosize}
-\title{Autosize a vegaspec}
+\title{Autosize vegaspec}
 \usage{
 autosize(spec, width = NULL, height = NULL)
 }

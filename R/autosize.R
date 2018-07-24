@@ -1,4 +1,4 @@
-#' Autosize a vegaspec
+#' Autosize vegaspec
 #'
 #' The arguments `width` and `height` can be used to override the width and height
 #' of the provided `spec`.
@@ -46,10 +46,13 @@ autosize <- function(spec, width = NULL, height = NULL) {
 }
 
 .autosize.default <- function(spec, ...) {
-  stop(".autosize(): no method for class ", class(spec), call. = FALSE)
+  stop(
+    ".autosize(): no method for class ",
+    paste(class(spec), collapse = " "),
+    call. = FALSE)
 }
 
-.autosize.vegaspec_vegalite <- function(spec, width = NULL, height = NULL) {
+.autosize.vegaspec_vega_lite <- function(spec, width = NULL, height = NULL) {
 
   if (is.null(c(width, height))) {
     # nothing to do here

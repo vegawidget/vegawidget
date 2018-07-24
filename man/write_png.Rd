@@ -4,7 +4,7 @@
 \alias{write_png}
 \alias{write_png.default}
 \alias{write_png.vegawidget}
-\title{Write a vegaspec to a PNG file}
+\title{Write to PNG file}
 \usage{
 write_png(...)
 
@@ -20,7 +20,7 @@ write_png(...)
 
 \item{path}{path to which to write image-file}
 
-\item{scale}{scaleFactor for the image}
+\item{scale}{scale factor for the image}
 
 \item{embed}{\code{vega_embed} object to specify embedding options -
 the default is an empty call to \code{\link[=vega_embed]{vega_embed()}},
@@ -41,7 +41,7 @@ the default is to use the height in the chart specification}
 copy of whatever was sent to it
 }
 \description{
-Write a vegaspec to a PNG file
+Write to PNG file
 }
 \examples{
 \dontrun{

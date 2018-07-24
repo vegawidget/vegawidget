@@ -53,7 +53,7 @@ get_vega_version <- function(vega_lite_version) {
   vega_version
 }
 
-#' Get version-tags of supported Vega/Vega-Lite libraries
+#' Determine Vega JavaScript versions
 #'
 #' @param major `logical` return major version-tags rather than the
 #'   tags for the specific versions supported by this package

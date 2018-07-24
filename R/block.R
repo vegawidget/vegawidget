@@ -1,5 +1,4 @@
-
-#' Create a gist that can be used as a block
+#' Create gist to use as block
 #'
 #' These functions do the same thing: create a gist; they differ only in what
 #' they return. `block_create()` returns a copy of `spec` so that it can be
@@ -147,7 +146,7 @@ block_create_gistid <- function(spec, embed = vega_embed(), .block = block_confi
   invisible(result)
 }
 
-#' Retrieve spec from a block
+#' Retrieve vegaspec from block
 #'
 #' Need a github PAT in envvar `GITHUB_PAT`
 #'

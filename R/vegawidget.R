@@ -84,7 +84,7 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
   vegawidget
 }
 
-#' Shiny output for Vega-Lite
+#' Shiny-output for vegawidget
 #'
 #' @inheritParams htmlwidgets::shinyWidgetOutput
 #'
@@ -100,7 +100,7 @@ vegawidgetOutput <- function(outputId, width = "100%", height = "400px") {
   )
 }
 
-#' Render a shiny output for Vega-Lite
+#' Render shiny-output for vegawidget
 #'
 #' @inheritParams htmlwidgets::shinyRenderWidget
 #'

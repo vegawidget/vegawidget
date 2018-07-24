@@ -1,7 +1,7 @@
-#' Convert to an SVG string
+#' Convert to SVG string
 #'
 #' @inheritParams vegawidget
-#' @param scale scaleFactor for the image
+#' @param scale scale factor for the image
 #' @param widget object created using [vegawidget()]
 #'
 #' @return `character` SVG string
@@ -61,11 +61,12 @@ to_svg.vegawidget <- function(widget, scale = 1, ...) {
   svg
 }
 
-#' Convert to PNG data
+#' Convert to PNG encoded-string
 #'
 #' @inheritParams to_svg
 #'
 #' @return `character` base-64 encoded string
+#' @seealso [png_bin()]
 #' @examples
 #' \dontrun{
 #'   to_png(spec_mtcars)

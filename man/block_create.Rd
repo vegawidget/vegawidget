@@ -3,7 +3,7 @@
 \name{block_create}
 \alias{block_create}
 \alias{block_create_gistid}
-\title{Create a gist that can be used as a block}
+\title{Create gist to use as block}
 \usage{
 block_create(spec, embed = vega_embed(), .block = block_config(),
   version = vega_version(major = FALSE), description = "", readme = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/examine.R
 \name{examine}
 \alias{examine}
-\title{Examine a specification}
+\title{Examine vegaspec}
 \usage{
 examine(spec, mode = "tree", modes = c("code", "form", "text", "tree",
   "view"), ..., width = NULL, height = NULL, elementId = NULL)

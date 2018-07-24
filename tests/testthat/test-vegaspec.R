@@ -15,15 +15,13 @@ test_that("as_vegaspec translates", {
 
 test_that("class is correct", {
 
-  expect_is(
-    as_vegaspec(unclass(spec_mtcars)),
-    c("vegaspec_vegalite", "vegaspec")
-  )
+  expect_is(as_vegaspec(unclass(spec_mtcars)), "list")
+  expect_is(as_vegaspec(unclass(spec_mtcars)), "vegaspec")
+  expect_is(as_vegaspec(unclass(spec_mtcars)), "vegaspec_vega_lite")
 
-  expect_is(
-    to_vega(spec_mtcars),
-    c("vegaspec_vega", "vegaspec")
-  )
+  expect_is(to_vega(spec_mtcars), "list")
+  expect_is(to_vega(spec_mtcars), "vegaspec")
+  expect_is(to_vega(spec_mtcars), "vegaspec_vega")
 
 })
 

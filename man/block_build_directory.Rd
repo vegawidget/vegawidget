@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-block.R
 \name{block_build_directory}
 \alias{block_build_directory}
-\title{Build a block directory}
+\title{Build block-directory}
 \usage{
 block_build_directory(path, spec, embed = vega_embed(),
   version = vega_version(major = FALSE), .block = block_config(),
@@ -38,6 +38,6 @@ multiple lines, markdown text}
 \code{character} path, called for side effects
 }
 \description{
-Build a block directory
+Build block-directory
 }
 \keyword{internal}

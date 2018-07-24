@@ -2,7 +2,7 @@
 % Please edit documentation in R/block.R
 \name{block_retrieve}
 \alias{block_retrieve}
-\title{Retrieve spec from a block}
+\title{Retrieve vegaspec from block}
 \usage{
 block_retrieve(id, file = NULL, endpoint = NULL, env_pat = NULL,
   quiet = FALSE)

@@ -1,4 +1,4 @@
-#' Convert to a Vega specification
+#' Convert to Vega specification
 #'
 #' @inheritParams as_vegaspec
 #'
@@ -18,7 +18,7 @@ to_vega <- function(spec) {
   stop(".autosize(): no method for class ", class(spec), call. = FALSE)
 }
 
-.to_vega.vegaspec_vegalite <- function(spec, ...) {
+.to_vega.vegaspec_vega_lite <- function(spec, ...) {
 
   # It is easy to do the wgong thing, converting between JSON and R objects.
   # Instead of using the V8 conversion, we use our functions for
@@ -32,14 +32,14 @@ to_vega <- function(spec) {
 
   str_vlspec <- as_json(spec, pretty = FALSE)
 
-  # load the vega-lite library (.vegalite_js is internal package data)
-  ct$eval(.vegalite_js)
+  # load the vega-lite library (.vega_lite_js is internal package data)
+  ct$eval(.vega_lite_js)
 
-  # import the vegalite JSON string, parse into JSON
+  # import the vega-lite JSON string, parse into JSON
   ct$assign('str_vlspec', str_vlspec)
   ct$assign('vlspec', JS('JSON.parse(str_vlspec)'))
 
-  # compile into vegalite, convert to JSON string
+  # compile into vega-lite, convert to JSON string
   ct$assign('vgspec', JS('vl.compile(vlspec).spec'))
   ct$assign('str_vgspec', JS('JSON.stringify(vgspec)'))
 

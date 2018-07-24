@@ -1,4 +1,4 @@
-#' Build a block directory
+#' Build block-directory
 #'
 #' @param path   `character`  path to an empty directory
 #' @inheritParams block_create
@@ -78,7 +78,7 @@ block_build_directory <-
   path
 }
 
-#' Specify the block configuration
+#' Specify block-configuration
 #'
 #'
 #' @param license   `character` specifies the license

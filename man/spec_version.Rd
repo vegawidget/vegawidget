@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec-version.R
 \name{spec_version}
 \alias{spec_version}
-\title{Determine version of a vegaspec}
+\title{Determine vegaspec version}
 \usage{
 spec_version(spec)
 }

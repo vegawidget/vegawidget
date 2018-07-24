@@ -38,7 +38,7 @@ Package infrastucture incudes:
 - an htmlwidget named "vegawidget"
 - internal package data: 
   - list of version numbers: `.vega_version`
-  - strings of minified javascript libraries: `.vega_js`, `.vega_polyfill_symbol_js`, `.vega_polyfill_promise_js`, `.vegalite_js` (perhaps the js libraries could use the htmldependency and memoise)
+  - strings of minified javascript libraries: `.vega_js`, `.vega_polyfill_symbol_js`, `.vega_polyfill_promise_js`, `.vega_lite_js` (perhaps the js libraries could use the htmldependency and memoise)
 - public package data:
   - `spec_mtcars` vegaspec for an mtcars scatterplot
 - files to create a [block](https://bl.ocks.org)
@@ -308,7 +308,7 @@ htmlwidgets_vegajs <-
   htmlwidgets_downloads %>%
   dplyr::filter(str_detect(path_local, regex)) %>%
   dplyr::mutate(
-    name = str_replace(path_local, regex, ".\\2_js") %>% str_replace("-", "")
+    name = str_replace(path_local, regex, ".\\2_js") %>% str_replace("-", "_")
   ) %>%
   dplyr::select(name, path_local)
 
@@ -334,7 +334,7 @@ pwalk(htmlwidgets_vegajs, assign_js, path_root = dir_lib)
 devtools::use_data(
   .vega_version, 
   .vega_js,
-  .vegalite_js,
+  .vega_lite_js,
   .promise_js,
   .symbol_js,
   internal = TRUE, 

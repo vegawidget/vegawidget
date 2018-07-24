@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-block.R
 \name{block_config}
 \alias{block_config}
-\title{Specify the block configuration}
+\title{Specify block-configuration}
 \usage{
 block_config(license = "mit", height = 500, scrolling = TRUE,
   border = TRUE)
@@ -20,7 +20,7 @@ block_config(license = "mit", height = 500, scrolling = TRUE,
 \code{character} yaml string for \code{.block} file
 }
 \description{
-Specify the block configuration
+Specify block-configuration
 }
 \seealso{
 \href{https://bl.ocks.org/-/about}{Blocks documentation}

@@ -1,4 +1,4 @@
-#' Coerce to a Vega/Vega-Lite specification
+#' Coerce to vegaspec
 #'
 #' Talk about how `vegaspec` is a thin wrapper to `list`. Implemented as JSON.
 #'
@@ -72,7 +72,7 @@ as_vegaspec.character <- function(spec, ...) {
   spec
 }
 
-#' Convert vegaspec to JSON
+#' Coerce vegaspec to JSON
 #'
 #' @inheritParams as_vegaspec
 #' @param pretty `logical` indicates to use pretty (vs. minified) formatting

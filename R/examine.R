@@ -1,4 +1,4 @@
-#' Examine a specification
+#' Examine vegaspec
 #'
 #' This is a thin wrapper to [listviewer::jsonedit()],
 #' used to interactvely examine a Vega or Vega-Lite specification.

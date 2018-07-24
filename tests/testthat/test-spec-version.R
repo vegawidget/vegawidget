@@ -1,7 +1,10 @@
 context("test-spec_type.R")
 
 schema_vega <- "https://vega.github.io/schema/vega/v3.json"
-schema_vegalite <- "https://vega.github.io/schema/vega-lite/v2.json"
+schema_vega_lite <- "https://vega.github.io/schema/vega-lite/v2.json"
+
+vega <- list(library = "vega", version = "3")
+vega_lite <- list(library = "vega_lite", version = "2")
 
 test_that(".schema_type warns", {
 
@@ -21,18 +24,13 @@ test_that(".schema_type warns", {
 
 test_that(".schema_type works", {
 
-  vega <- list(library = "vega", version = "3")
-  vegalite <- list(library = "vegalite", version = "2")
-
   expect_identical(.schema_type(schema_vega), vega)
-  expect_identical(.schema_type(schema_vegalite), vegalite)
+  expect_identical(.schema_type(schema_vega_lite), vega_lite)
 
 })
 
 test_that("spec_version works", {
 
-  vegalite <- list(library = "vegalite", version = "2")
-
-  expect_identical(spec_version(spec_mtcars), vegalite)
+  expect_identical(spec_version(spec_mtcars), vega_lite)
 
 })

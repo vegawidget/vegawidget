@@ -1,11 +1,11 @@
-#' Determine version of a vegaspec
+#' Determine vegaspec version
 #'
 #' Examines the `$schema` element of a vegaspec.
 #'
 #' Returns a list with two elements:
 #'
 #' \describe{
-#'   \item{`library`}{`character`, either `"vega"` or `"vegalite"`}
+#'   \item{`library`}{`character`, either `"vega"` or `"vega_lite"`}
 #'   \item{`version`}{`character`, version tag}
 #' }
 #'
@@ -44,7 +44,7 @@ spec_version <- function(spec) {
     return(result)
   }
 
-  result$library <- gsub("-", "", gsub(regex, "\\1", schema))
+  result$library <- gsub("-", "_", gsub(regex, "\\1", schema))
   result$version <- gsub(regex, "\\2", schema)
 
   result

@@ -2,7 +2,7 @@
 % Please edit documentation in R/to-vega.R
 \name{to_vega}
 \alias{to_vega}
-\title{Convert to a Vega specification}
+\title{Convert to Vega specification}
 \usage{
 to_vega(spec)
 }
@@ -13,5 +13,5 @@ to_vega(spec)
 a vegaspec for Vega
 }
 \description{
-Convert to a Vega specification
+Convert to Vega specification
 }

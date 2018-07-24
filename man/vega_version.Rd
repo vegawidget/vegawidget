@@ -2,7 +2,7 @@
 % Please edit documentation in R/vega-version.R
 \name{vega_version}
 \alias{vega_version}
-\title{Get version-tags of supported Vega/Vega-Lite libraries}
+\title{Determine Vega JavaScript versions}
 \usage{
 vega_version(major = FALSE)
 }
@@ -15,7 +15,7 @@ tags for the specific versions supported by this package}
 named \code{vega_lite}, \code{vega}, \code{vega_embed}
 }
 \description{
-Get version-tags of supported Vega/Vega-Lite libraries
+Determine Vega JavaScript versions
 }
 \examples{
   vega_version()

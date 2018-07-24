@@ -4,7 +4,7 @@
 \alias{to_png}
 \alias{to_png.default}
 \alias{to_png.vegawidget}
-\title{Convert to PNG data}
+\title{Convert to PNG encoded-string}
 \usage{
 to_png(...)
 
@@ -18,7 +18,7 @@ to_png(...)
 
 \item{spec}{object to be coerced to Vega/Vega-Lite specification}
 
-\item{scale}{scaleFactor for the image}
+\item{scale}{scale factor for the image}
 
 \item{embed}{\code{vega_embed} object to specify embedding options -
 the default is an empty call to \code{\link[=vega_embed]{vega_embed()}},
@@ -39,11 +39,14 @@ the default is to use the height in the chart specification}
 \code{character} base-64 encoded string
 }
 \description{
-Convert to PNG data
+Convert to PNG encoded-string
 }
 \examples{
 \dontrun{
   to_png(spec_mtcars)
   to_png(vegawidget(spec_mtcars))
 }
+}
+\seealso{
+\code{\link[=png_bin]{png_bin()}}
 }

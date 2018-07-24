@@ -2,7 +2,7 @@
 % Please edit documentation in R/vegawidget.R
 \name{renderVegawidget}
 \alias{renderVegawidget}
-\title{Render a shiny output for Vega-Lite}
+\title{Render shiny-output for vegawidget}
 \usage{
 renderVegawidget(expr, env = parent.frame(), quoted = FALSE)
 }
@@ -15,5 +15,5 @@ renderVegawidget(expr, env = parent.frame(), quoted = FALSE)
 is useful if you want to save an expression in a variable.}
 }
 \description{
-Render a shiny output for Vega-Lite
+Render shiny-output for vegawidget
 }

@@ -18,8 +18,6 @@
 #' - To suppress all action links, call with `actions = FALSE`.
 #' - To change from the default for a given action link, call with a list:
 #'   `actions = list(editor = FALSE)`.
-#' - To specify which link(s) to include, call using the `only_actions()`
-#'   function: `actions = only_actions(export = TRUE)`.
 #'
 #' It is ineffective to set the `width` and `height` parameters here, as they
 #' will be overridden by the values in the chart specification.
@@ -96,18 +94,13 @@
 #'   [`runAsync`](https://vega.github.io/vega/docs/api/view/#view_runAsync)
 #'   instead of [`run`](https://vega.github.io/vega/docs/api/view/#view_run).
 #'
-#' @seealso [vegawidget()], [only_actions()],
+#' @seealso [vegawidget()],
 #'   [altair: Field Guide to Rendering Charts](https://vegawidget.github.io/altair/field-guide-rendering.html),
 #'   [`vega-embed` library](https://github.com/vega/vega-embed)
 #'
 #' @examples
 #' # Set renderer
 #' embed_options <- vega_embed(renderer = "svg")
-#'
-#' # Specify  action links
-#' embed_options <- vega_embed(actions = FALSE)
-#' embed_options <- vega_embed(actions = list(editor = FALSE))
-#' embed_options <- vega_embed(actions = only_actions(export = TRUE))
 #'
 #' @return `list`
 #' @export
@@ -196,34 +189,6 @@ vega_embed <- function(renderer = c("canvas", "svg"),
   embed_options <- list_remove_null(options)
 
   embed_options
-}
-
-#' Helper function for vega_embed actions
-#'
-#' This function can be useful if you want to specify only one
-#' of the links include in the embedding-options.
-#'
-#' @param export `logical`, include "Export As ..." link
-#' @param source `logical`, include "View Source" link
-#' @param compiled `logical`, include "Compiled" link
-#' @param editor `logical`, include "Open in Vega Editor" link
-#'
-#' @return `list`
-#' @seealso [vega_embed()]
-#' @examples
-#' embed_options <- vega_embed(actions = only_actions(export = TRUE))
-#' @export
-#'
-#'
-only_actions = function(export = FALSE, source = FALSE, compiled = FALSE,
-                        editor = FALSE) {
-  list(
-    export = as.logical(export),
-    source = as.logical(source),
-    compiled = as.logical(compiled),
-    editor = as.logical(editor)
-  )
-
 }
 
 list_remove_null <- function(x) {

@@ -41,7 +41,7 @@ for \code{export}, \code{source}, \code{compiled}, and \code{editor}
 
 If \code{actions} is \code{TRUE} (or \code{FALSE}), all the links
 are shown (or not). Use a named list to be more specific, see
-\code{\link[=vega_embed]{vega_embed()}} and \code{\link[=only_actions]{only_actions()}}.
+\code{\link[=vega_embed]{vega_embed()}}.
 
 If \code{embed} is \code{NULL}, \code{vegawidget()} sets \code{embed} to the value of
 \code{getOption("vega.embed")}. Then, if this option is \code{NULL}, the

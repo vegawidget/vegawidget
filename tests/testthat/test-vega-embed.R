@@ -12,17 +12,6 @@ test_that("validation works", {
 
 })
 
-test_that("helper works", {
-
-  all_false <-
-    list(export = FALSE, source = FALSE, compiled = FALSE, editor = FALSE)
-  source_true <-
-    list(export = FALSE, source = TRUE, compiled = FALSE, editor = FALSE)
-
-  expect_identical(only_actions(), all_false)
-  expect_identical(only_actions(source = TRUE), source_true)
-})
-
 test_that("constructor works", {
 
   test_embed_default <- vega_embed()

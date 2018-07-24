@@ -14,7 +14,7 @@
 #'
 #' If `actions` is `TRUE` (or `FALSE`), all the links
 #' are shown (or not). Use a named list to be more specific, see
-#' [vega_embed()] and [only_actions()].
+#' [vega_embed()].
 #'
 #' If `embed` is `NULL`, `vegawidget()` sets `embed` to the value of
 #' `getOption("vega.embed")`. Then, if this option is `NULL`, the

@@ -124,8 +124,6 @@ not shown.
 \item To suppress all action links, call with \code{actions = FALSE}.
 \item To change from the default for a given action link, call with a list:
 \code{actions = list(editor = FALSE)}.
-\item To specify which link(s) to include, call using the \code{only_actions()}
-function: \code{actions = only_actions(export = TRUE)}.
 }
 
 It is ineffective to set the \code{width} and \code{height} parameters here, as they
@@ -135,14 +133,9 @@ will be overridden by the values in the chart specification.
 # Set renderer
 embed_options <- vega_embed(renderer = "svg")
 
-# Specify  action links
-embed_options <- vega_embed(actions = FALSE)
-embed_options <- vega_embed(actions = list(editor = FALSE))
-embed_options <- vega_embed(actions = only_actions(export = TRUE))
-
 }
 \seealso{
-\code{\link[=vegawidget]{vegawidget()}}, \code{\link[=only_actions]{only_actions()}},
+\code{\link[=vegawidget]{vegawidget()}},
 \href{https://vegawidget.github.io/altair/field-guide-rendering.html}{altair: Field Guide to Rendering Charts},
 \href{https://github.com/vega/vega-embed}{vega-embed library}
 }

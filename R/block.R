@@ -159,7 +159,8 @@ block_create_gistid <- function(spec, embed = vega_embed(), .block = block_confi
 #' @return `vegaspec`
 #' @export
 #'
-block_retrieve <- function(id, file = NULL, endpoint = NULL, env_pat = NULL) {
+block_retrieve <- function(id, file = NULL, endpoint = NULL, env_pat = NULL,
+                           quiet = FALSE) {
 
   assert_packages("gistr")
 
@@ -200,9 +201,9 @@ block_retrieve <- function(id, file = NULL, endpoint = NULL, env_pat = NULL) {
   # take first match
   gist_file <- gist_files_match[1]
 
-  message(
-    glue::glue("retrieving `{gist_file}` from gist {id}")
-  )
+  if (!quiet) {
+    message(glue::glue("retrieving `{gist_file}` from gist {id}"))
+  }
 
   # extract file information for the "chosen" file
   file_info <- gist$files[[gist_file]]

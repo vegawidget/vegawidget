@@ -4,7 +4,8 @@
 \alias{block_retrieve}
 \title{Retrieve spec from a block}
 \usage{
-block_retrieve(id, file = NULL, endpoint = NULL, env_pat = NULL)
+block_retrieve(id, file = NULL, endpoint = NULL, env_pat = NULL,
+  quiet = FALSE)
 }
 \arguments{
 \item{id}{\code{character} block id}
@@ -21,6 +22,8 @@ e.g. \code{"https://github.acme.com/api/v3"}
 a GitHub PAT (Personal Access Token), defaults to \code{"GITHUB_PAT"};
 Useful to specify with GitHub Enterprise, e.g. \code{"GITHUB_ACME_PAT"}
 (not yet implemented)}
+
+\item{quiet}{\code{logical}, indicates to supress messages}
 }
 \value{
 \code{vegaspec}

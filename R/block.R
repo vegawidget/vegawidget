@@ -9,10 +9,10 @@
 #' @inheritParams vegawidget
 #' @param .block       `character`, YAML text for the `.block` file -
 #'   use the helper function [block_config()] to specify block-configuration
-#' @param versions       named `list` of `character`:
+#' @param version       named `list` of `character`:
 #'   names refer to JavaScript libraries `vega`, `vega_lite`, `vega_embed`,
 #'   values are the tags for the versions to use in the block - use the
-#'   helper function [vega_versions()] with `major = TRUE` to use the current
+#'   helper function [vega_version()] with `major = TRUE` to use the current
 #'   major versions rather than the versions supported in this package
 #' @param description   `character`, description for the gist
 #' @param readme        `character`, single line, path to a markdown file;
@@ -50,7 +50,7 @@
 #' @export
 #'
 block_create <- function(spec, embed = vega_embed(), .block = block_config(),
-                         versions = vega_versions(major = FALSE),
+                         version = vega_version(major = FALSE),
                          description = "", readme = NULL,
                          use_thumbnail = TRUE, use_preview = TRUE,
                          git_method = c("ssh", "https"), endpoint = NULL,
@@ -67,7 +67,7 @@ block_create <- function(spec, embed = vega_embed(), .block = block_config(),
 #' @export
 #'
 block_create_gistid <- function(spec, embed = vega_embed(), .block = block_config(),
-                                versions = vega_versions(major = FALSE),
+                                version = vega_version(major = FALSE),
                                 description = "", readme = NULL,
                                 use_thumbnail = TRUE, use_preview = TRUE,
                                 git_method = c("ssh", "https"), endpoint = NULL,
@@ -81,7 +81,7 @@ block_create_gistid <- function(spec, embed = vega_embed(), .block = block_confi
 }
 
 .block_create <- function(spec, embed = vega_embed(), .block = block_config(),
-                          versions = vega_versions(major = FALSE),
+                          version = vega_version(major = FALSE),
                           description = "", readme = NULL,
                           use_thumbnail = TRUE, use_preview = TRUE,
                           git_method = c("ssh", "https"), endpoint = NULL,
@@ -100,7 +100,7 @@ block_create_gistid <- function(spec, embed = vega_embed(), .block = block_confi
     dir_temp,
     spec = spec,
     embed = embed,
-    versions = versions,
+    version = version,
     .block = .block,
     readme = readme,
     use_thumbnail = use_thumbnail,

@@ -4,7 +4,7 @@
 \alias{block_index}
 \title{Create text for block index.html}
 \usage{
-block_index(embed = vega_embed(), versions = vega_versions(major = FALSE))
+block_index(embed = vega_embed(), version = vega_version(major = FALSE))
 }
 \arguments{
 \item{embed}{\code{vega_embed} object to specify embedding options -
@@ -12,10 +12,10 @@ the default is an empty call to \code{\link[=vega_embed]{vega_embed()}},
 which will result in a canvas-rendering and action-links included for
 exporting, viewing the Vega-Lite source, and opening the Vega editor.}
 
-\item{versions}{named \code{list} of \code{character}:
+\item{version}{named \code{list} of \code{character}:
 names refer to JavaScript libraries \code{vega}, \code{vega_lite}, \code{vega_embed},
 values are the tags for the versions to use in the block - use the
-helper function \code{\link[=vega_versions]{vega_versions()}} with \code{major = TRUE} to use the current
+helper function \code{\link[=vega_version]{vega_version()}} with \code{major = TRUE} to use the current
 major versions rather than the versions supported in this package}
 }
 \value{

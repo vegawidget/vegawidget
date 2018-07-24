@@ -9,12 +9,12 @@
 #' @keywords internal
 #' @examples
 #' \dontrun{
-#'   vega_versions(vega_lite_version = "2.5.0")
+#'   get_vega_version(vega_lite_version = "2.5.0")
 #' }
 #'
 #' @export
 #'
-get_vega_versions <- function(vega_lite_version) {
+get_vega_version <- function(vega_lite_version) {
 
   if (!requireNamespace("glue", quietly = TRUE)) {
     stop("Package \"glue\" needed for this function to work. Please install it.",
@@ -44,13 +44,13 @@ get_vega_versions <- function(vega_lite_version) {
   vega_version <- sub("\\^", "", package$devDependencies$vega)
   vega_embed_version <- sub("\\^", "", package$devDependencies$`vega-embed`)
 
-  vega_versions <- list(
+  vega_version <- list(
     vega_lite = vega_lite_version,
     vega = vega_version,
     vega_embed = vega_embed_version
   )
 
-  vega_versions
+  vega_version
 }
 
 #' Get version-tags of supported Vega/Vega-Lite libraries
@@ -61,13 +61,13 @@ get_vega_versions <- function(vega_lite_version) {
 #' @return `list` with `character` elements
 #'   named `vega_lite`, `vega`, `vega_embed`
 #' @examples
-#'   vega_versions()
-#'   vega_versions(major = TRUE)
+#'   vega_version()
+#'   vega_version(major = TRUE)
 #' @export
 #'
-vega_versions <- function(major = FALSE) {
+vega_version <- function(major = FALSE) {
 
-  x <- .vega_versions
+  x <- .vega_version
 
   if (major) {
     x <- lapply(x, get_major)

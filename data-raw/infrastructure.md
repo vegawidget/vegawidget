@@ -60,7 +60,7 @@ Package infrastucture incudes:
 
   - an htmlwidget named “vegawidget”
   - internal package data:
-      - list of version numbers: `.vega_versions`
+      - list of version numbers: `.vega_version`
       - strings of minified javascript libraries: `.vega_js`,
         `.vega_polyfill_symbol_js`, `.vega_polyfill_promise_js`,
         `.vegalite_js` (perhaps the js libraries could use the
@@ -125,9 +125,9 @@ specific version of the vega-lite library. This package has an internal
 function, `vega_version()` to help us do this:
 
 ``` r
-vega_versions_long <- get_vega_versions(params$vega_lite_version)
+vega_version_long <- get_vega_version(params$vega_lite_version)
 
-vega_versions_long
+vega_version_long
 ```
 
     ## $vega_lite
@@ -142,7 +142,7 @@ vega_versions_long
 ``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
 # "-\\w.*$"   hyphen, followed by a letter, followed by anything, then end 
-vega_versions_short <- map(vega_versions_long, ~sub("-\\w.*$", "", .x))
+vega_version_short <- map(vega_version_long, ~sub("-\\w.*$", "", .x))
 ```
 
 ## htmlwidgets
@@ -172,12 +172,12 @@ file_copy(
 ```
 
 The file `vegawidget.yaml` requires the versions the JavaScript
-libraries; we interpolate these from `vega_versions_short`.
+libraries; we interpolate these from `vega_version_short`.
 
 ``` r
 path(dir_templates, "vegawidget.yaml") %>%
   read_lines() %>%
-  map_chr(~glue_data(vega_versions_short, .x)) %>%
+  map_chr(~glue_data(vega_version_short, .x)) %>%
   write_lines(path(dir_htmlwidgets, "vegawidget.yaml"))
 ```
 
@@ -192,7 +192,7 @@ fs::file_copy(
 ```
 
 Here’s where we download the libraries themselves, along with the
-licences; the versions are interpolated from `vega_versions_long`.
+licences; the versions are interpolated from `vega_version_long`.
 
 ``` r
 htmlwidgets_downloads <-
@@ -209,7 +209,7 @@ htmlwidgets_downloads <-
     "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
   ) %>%
   mutate(
-    path_remote = map_chr(path_remote, ~glue_data(vega_versions_long, .x))
+    path_remote = map_chr(path_remote, ~glue_data(vega_version_long, .x))
   )
 
 htmlwidgets_downloads
@@ -314,8 +314,8 @@ schema <-
     "vega-lite/v{vega_lite}.json", "https://vega.github.io/schema/vega-lite/v{vega_lite}.json"
   ) %>%
   mutate(
-    path_local = map_chr(path_local, ~glue_data(vega_versions_long, .x)),
-    path_remote = map_chr(path_remote, ~glue_data(vega_versions_long, .x))
+    path_local = map_chr(path_local, ~glue_data(vega_version_long, .x)),
+    path_remote = map_chr(path_remote, ~glue_data(vega_version_long, .x))
   )
 
 schema
@@ -364,10 +364,10 @@ usethis::use_data(spec_mtcars, overwrite = TRUE)
 
 ### Versions
 
-We use this to support the `vega_versions()` function.
+We use this to support the `vega_version()` function.
 
 ``` r
-.vega_versions <- vega_versions_long
+.vega_version <- vega_version_long
 ```
 
 ### JavaScript Libraries
@@ -420,7 +420,7 @@ pwalk(htmlwidgets_vegajs, assign_js, path_root = dir_lib)
 
 ``` r
 devtools::use_data(
-  .vega_versions, 
+  .vega_version, 
   .vega_js,
   .vegalite_js,
   .promise_js,
@@ -430,4 +430,4 @@ devtools::use_data(
 )
 ```
 
-    ## Saving .vega_versions, .vega_js, .vegalite_js, .promise_js, .symbol_js as sysdata.rda to /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget/R
+    ## Saving .vega_version, .vega_js, .vegalite_js, .promise_js, .symbol_js as sysdata.rda to /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget/R

@@ -6,16 +6,16 @@
 \title{Create a gist that can be used as a block}
 \usage{
 block_create(spec, embed = vega_embed(), .block = block_config(),
-  versions = vega_versions(major = FALSE), description = "",
-  readme = NULL, use_thumbnail = TRUE, use_preview = TRUE,
-  git_method = c("ssh", "https"), endpoint = NULL, env_pat = NULL,
-  block_host = NULL, quiet = FALSE, browse = TRUE)
+  version = vega_version(major = FALSE), description = "", readme = NULL,
+  use_thumbnail = TRUE, use_preview = TRUE, git_method = c("ssh",
+  "https"), endpoint = NULL, env_pat = NULL, block_host = NULL,
+  quiet = FALSE, browse = TRUE)
 
 block_create_gistid(spec, embed = vega_embed(), .block = block_config(),
-  versions = vega_versions(major = FALSE), description = "",
-  readme = NULL, use_thumbnail = TRUE, use_preview = TRUE,
-  git_method = c("ssh", "https"), endpoint = NULL, env_pat = NULL,
-  block_host = NULL, quiet = FALSE, browse = TRUE)
+  version = vega_version(major = FALSE), description = "", readme = NULL,
+  use_thumbnail = TRUE, use_preview = TRUE, git_method = c("ssh",
+  "https"), endpoint = NULL, env_pat = NULL, block_host = NULL,
+  quiet = FALSE, browse = TRUE)
 }
 \arguments{
 \item{spec}{object to be coerced to Vega/Vega-Lite specification}
@@ -28,10 +28,10 @@ exporting, viewing the Vega-Lite source, and opening the Vega editor.}
 \item{.block}{\code{character}, YAML text for the \code{.block} file -
 use the helper function \code{\link[=block_config]{block_config()}} to specify block-configuration}
 
-\item{versions}{named \code{list} of \code{character}:
+\item{version}{named \code{list} of \code{character}:
 names refer to JavaScript libraries \code{vega}, \code{vega_lite}, \code{vega_embed},
 values are the tags for the versions to use in the block - use the
-helper function \code{\link[=vega_versions]{vega_versions()}} with \code{major = TRUE} to use the current
+helper function \code{\link[=vega_version]{vega_version()}} with \code{major = TRUE} to use the current
 major versions rather than the versions supported in this package}
 
 \item{description}{\code{character}, description for the gist}

@@ -9,7 +9,7 @@
 #'
 block_build_directory <-
   function(path, spec, embed = vega_embed(),
-           versions = vega_versions(major = FALSE),
+           version = vega_version(major = FALSE),
            .block = block_config(), readme = NULL,
            use_thumbnail = TRUE, use_preview = TRUE) {
 
@@ -38,7 +38,7 @@ block_build_directory <-
 
   # index
   writeLines(
-    block_index(embed = embed, versions = versions),
+    block_index(embed = embed, version = version),
     fs::path(path, "index.html")
   )
 
@@ -141,13 +141,13 @@ block_config <- function(license = "mit", height = 500, scrolling = TRUE, border
 #' @export
 #'
 block_index <- function(embed = vega_embed(),
-                        versions = vega_versions(major = FALSE)) {
+                        version = vega_version(major = FALSE)) {
 
   # use internal method because we this is not a spec
   embed <- .as_json(embed, pretty = FALSE)
 
   # data to interpolate into index.html
-  data <- c(list(vega_embed_options = embed), versions)
+  data <- c(list(vega_embed_options = embed), version)
 
   file <- system.file("block", "index.html", package = "vegawidget")
 

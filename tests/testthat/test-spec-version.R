@@ -29,10 +29,10 @@ test_that(".schema_type works", {
 
 })
 
-test_that("vegaspec_type works", {
+test_that("spec_version works", {
 
   vegalite <- list(library = "vegalite", version = "2")
 
-  expect_identical(vegaspec_type(spec_mtcars), vegalite)
+  expect_identical(spec_version(spec_mtcars), vegalite)
 
 })

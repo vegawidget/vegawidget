@@ -1,4 +1,4 @@
-#' Determine library and version of a vegaspec
+#' Determine version of a vegaspec
 #'
 #' Examines the `$schema` element of a vegaspec.
 #'
@@ -11,29 +11,17 @@
 #'
 #' @inheritParams as_vegaspec
 #'
-#' @return named `list`
+#' @return `list` with elements `library`, `version`
 #' @examples
-#'   vegaspec_type(spec_mtcars)
+#'   spec_version(spec_mtcars)
 #' @export
 #'
-vegaspec_type <- function(spec) {
+spec_version <- function(spec) {
 
   spec <- as_vegaspec(spec)
-  type <- .spec_type(unclass(spec))
+  version <- .schema_type(spec[["$schema"]])
 
-  type
-}
-
-#' Determine library and version of spec
-#'
-#' @noRd
-#'
-#' @param spec vegaspec - has to be in list form
-#'
-.spec_type <- function(list_spec) {
-
-  .schema_type(list_spec[["$schema"]])
-
+  version
 }
 
 .schema_type <- function(schema) {
@@ -44,7 +32,6 @@ vegaspec_type <- function(spec) {
 
   if (is.null(schema)) {
     stop("cannot determine schema type, input string is NULL", call. = FALSE)
-    return(result)
   }
 
   has_schema <- grepl(regex, schema)

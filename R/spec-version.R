@@ -13,10 +13,10 @@
 #'
 #' @return `list` with elements `library`, `version`
 #' @examples
-#'   spec_version(vw_ex_mtcars)
+#'   vw_spec_version(vw_ex_mtcars)
 #' @export
 #'
-spec_version <- function(spec) {
+vw_spec_version <- function(spec) {
 
   spec <- as_vegaspec(spec)
   version <- .schema_type(spec[["$schema"]])

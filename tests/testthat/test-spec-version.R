@@ -29,8 +29,8 @@ test_that(".schema_type works", {
 
 })
 
-test_that("spec_version works", {
+test_that("vw_spec_version works", {
 
-  expect_identical(spec_version(vw_ex_mtcars), vega_lite)
+  expect_identical(vw_spec_version(vw_ex_mtcars), vega_lite)
 
 })

@@ -13,15 +13,15 @@
 #' @examples
 #'   vw_ex_mtcars_autosize <-
 #'     vw_ex_mtcars %>%
-#'     examine() %>%
+#'     vw_examine() %>%
 #'     vw_autosize(width = 300, height = 300) %>%
-#'     examine()
+#'     vw_examine()
 #' @export
 #'
-examine <- function(spec, mode = "tree",
-                    modes = c("code", "form", "text", "tree", "view"),
-                    ..., width = NULL, height = NULL,
-                    elementId = NULL) {
+vw_examine <- function(spec, mode = "tree",
+                       modes = c("code", "form", "text", "tree", "view"),
+                       ..., width = NULL, height = NULL,
+                       elementId = NULL) {
 
   if (!requireNamespace("listviewer", quietly = TRUE)) {
     stop("Package \"listviewer\" needed for this function to work. Please install it.",

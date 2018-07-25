@@ -161,7 +161,7 @@ vw_create_block_gistid <- function(spec, embed = vega_embed(),
 #' @return `vegaspec`
 #' @export
 #'
-block_retrieve <- function(id, file = NULL, endpoint = NULL, env_pat = NULL,
+vw_retrieve_block <- function(id, file = NULL, endpoint = NULL, env_pat = NULL,
                            quiet = FALSE) {
 
   assert_packages("gistr")

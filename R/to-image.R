@@ -69,19 +69,19 @@ to_svg.vegawidget <- function(widget, scale = 1, ...) {
 #' @seealso [vw_png_bin()]
 #' @examples
 #' \dontrun{
-#'   to_png(vw_ex_mtcars)
-#'   to_png(vegawidget(vw_ex_mtcars))
+#'   vw_to_png(vw_ex_mtcars)
+#'   vw_to_png(vegawidget(vw_ex_mtcars))
 #' }
 #' @export
 #'
-to_png <- function(...) {
-  UseMethod("to_png")
+vw_to_png <- function(...) {
+  UseMethod("vw_to_png")
 }
 
-#' @rdname to_png
+#' @rdname vw_to_png
 #' @export
 #'
-to_png.default <-
+vw_to_png.default <-
   function(spec, scale = 1, embed = NULL, width = NULL, height = NULL, ...){
 
     widget <-
@@ -93,15 +93,15 @@ to_png.default <-
         ...
       )
 
-    png <- to_png(widget, scale = scale)
+    png <- vw_to_png(widget, scale = scale)
 
     png
 }
 
-#' @rdname to_png
+#' @rdname vw_to_png
 #' @export
 #'
-to_png.vegawidget <- function(widget, scale = 1, ...) {
+vw_to_png.vegawidget <- function(widget, scale = 1, ...) {
 
   # just to be safe
   scale <- as.numeric(scale)

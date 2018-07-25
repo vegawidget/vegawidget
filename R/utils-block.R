@@ -58,7 +58,7 @@ vw_block_build_directory <-
   if (use_thumbnail || use_preview) {
     assert_packages("magick")
 
-    img <- to_png(spec, scale = 2)
+    img <- vw_to_png(spec, scale = 2)
     img <- vw_png_bin(img)
     img <- magick::image_read(img)
   }

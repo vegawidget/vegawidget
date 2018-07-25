@@ -67,7 +67,13 @@ write_png.default <- function(spec, path, scale = 1, embed = NULL,
                               width = NULL, height = NULL, ...) {
 
   png <-
-    to_png(spec, scale = scale, embed = embed, width = width, height = height)
+    vw_to_png(
+      spec,
+      scale = scale,
+      embed = embed,
+      width = width,
+      height = height
+    )
   png <- vw_png_bin(png)
 
   writeBin(png, fs::path_expand(path), endian = "big")
@@ -80,7 +86,7 @@ write_png.default <- function(spec, path, scale = 1, embed = NULL,
 #'
 write_png.vegawidget <- function(widget, path, scale = 1, ...) {
 
-  png <- to_png(widget, scale = scale)
+  png <- vw_to_png(widget, scale = scale)
   png <- vw_png_bin(png)
 
   writeBin(png, fs::path_expand(path), endian = "big")

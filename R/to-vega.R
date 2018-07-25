@@ -5,20 +5,20 @@
 #' @return a vegaspec for Vega
 #' @export
 #'
-to_vega <- function(spec) {
-  .to_vega(as_vegaspec(spec))
+vw_to_vega <- function(spec) {
+  .vw_to_vega(as_vegaspec(spec))
 }
 
 # use internal S3 generic
-.to_vega <- function(spec, ...) {
-  UseMethod(".to_vega")
+.vw_to_vega <- function(spec, ...) {
+  UseMethod(".vw_to_vega")
 }
 
-.to_vega.default <- function(spec, ...) {
+.vw_to_vega.default <- function(spec, ...) {
   stop(".autosize(): no method for class ", class(spec), call. = FALSE)
 }
 
-.to_vega.vegaspec_vega_lite <- function(spec, ...) {
+.vw_to_vega.vegaspec_vega_lite <- function(spec, ...) {
 
   # It is easy to do the wrong thing, converting between JSON and R objects.
   # Instead of using the V8 conversion, we use our functions for
@@ -50,7 +50,7 @@ to_vega <- function(spec) {
   vgspec
 }
 
-.to_vega.vegaspec_vega <- function(spec, ...) {
+.vw_to_vega.vegaspec_vega <- function(spec, ...) {
    # do nothing, already a Vega spec
    spec
 }

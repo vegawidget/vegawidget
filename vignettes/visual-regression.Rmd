@@ -57,15 +57,15 @@ vw_ex_mtcars
 
 ## Vega
 
-We expect this to be identical to the **reference** case, using the `to_vega()` function to compile to a Vega specification:
+We expect this to be identical to the **reference** case, using the `vw_to_vega()` function to compile to a Vega specification:
 
 ```{r}
-to_vega(vw_ex_mtcars)
+vw_to_vega(vw_ex_mtcars)
 ```
 
 ## PNG
 
-The function `to_png()` generates an image at 96 DPI. We expect this to appear at the same size as the **reference**. However, we not using retina resolution so it will appear a bit fuzzy on non-retina monitors.
+The function `vw_to_png()` generates an image at 96 DPI. We expect this to appear at the same size as the **reference**. However, we not using retina resolution so it will appear a bit fuzzy on non-retina monitors.
 
 ```{r}
 file_png <- fs::path(dir_img, "mtcars-refrence.png")
@@ -107,7 +107,7 @@ knitr::include_graphics(file_png, dpi = 96)
 
 ## SVG
 
-The function `to_svg()` generates a vector-image. We expect this to appear identical to the **reference**: 
+The function `vw_to_svg()` generates a vector-image. We expect this to appear identical to the **reference**: 
 
 ```{r}
 file_svg <- fs::path(dir_img, "mtcars-refrence.svg")

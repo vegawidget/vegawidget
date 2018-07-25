@@ -43,7 +43,7 @@ test_that("autosize warns", {
 
 test_that("autosize works", {
 
-  vg_vw_ex_mtcars <- to_vega(vw_ex_mtcars)
+  vg_vw_ex_mtcars <- vw_to_vega(vw_ex_mtcars)
 
   expect_identical(
     vw_autosize(vw_ex_mtcars, width = 300, height = 300),
@@ -53,7 +53,7 @@ test_that("autosize works", {
   # autosize works on Vega (vs Vega-Lite)
   expect_identical(
     vw_autosize(vg_vw_ex_mtcars, width = 300, height = 300),
-    to_vega(vw_ex_mtcars_autosize)
+    vw_to_vega(vw_ex_mtcars_autosize)
   )
 })
 

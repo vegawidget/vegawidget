@@ -19,9 +19,9 @@ test_that("class is correct", {
   expect_is(as_vegaspec(unclass(vw_ex_mtcars)), "vegaspec")
   expect_is(as_vegaspec(unclass(vw_ex_mtcars)), "vegaspec_vega_lite")
 
-  expect_is(to_vega(vw_ex_mtcars), "list")
-  expect_is(to_vega(vw_ex_mtcars), "vegaspec")
-  expect_is(to_vega(vw_ex_mtcars), "vegaspec_vega")
+  expect_is(vw_to_vega(vw_ex_mtcars), "list")
+  expect_is(vw_to_vega(vw_ex_mtcars), "vegaspec")
+  expect_is(vw_to_vega(vw_ex_mtcars), "vegaspec_vega")
 
 })
 

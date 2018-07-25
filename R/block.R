@@ -1,8 +1,8 @@
 #' Create gist to use as block
 #'
 #' These functions do the same thing: create a gist; they differ only in what
-#' they return. `block_create()` returns a copy of `spec` so that it can be
-#' used in a pipe; `block_create_gistid()` returns a list of information
+#' they return. `vw_create_block()` returns a copy of `spec` so that it can be
+#' used in a pipe; `vw_create_block_gistid()` returns a list of information
 #' about the newly-created gist.
 #'
 #' @inheritParams vegawidget
@@ -48,7 +48,7 @@
 #'  [gistr::gist_create_git()]
 #' @export
 #'
-block_create <- function(spec, embed = vega_embed(),
+vw_create_block <- function(spec, embed = vega_embed(),
                          .block = vw_block_config(),
                          version = vega_version(major = FALSE),
                          description = "", readme = NULL,
@@ -58,15 +58,15 @@ block_create <- function(spec, embed = vega_embed(),
                          quiet = FALSE, browse = TRUE) {
 
   # pass along everything to .create_block()
-  result <- do.call(.block_create, args = as.list(environment()))
+  result <- do.call(.vw_create_block, args = as.list(environment()))
 
   invisible(result$spec)
 }
 
-#' @rdname block_create
+#' @rdname vw_create_block
 #' @export
 #'
-block_create_gistid <- function(spec, embed = vega_embed(),
+vw_create_block_gistid <- function(spec, embed = vega_embed(),
                                 .block = vw_block_config(),
                                 version = vega_version(major = FALSE),
                                 description = "", readme = NULL,
@@ -76,12 +76,12 @@ block_create_gistid <- function(spec, embed = vega_embed(),
                                 quiet = FALSE, browse = TRUE) {
 
   # pass along everything to .create_block()
-  result <- do.call(.block_create, args = as.list(environment()))
+  result <- do.call(.vw_create_block, args = as.list(environment()))
 
   result[c("endpoint", "id")]
 }
 
-.block_create <- function(spec, embed = vega_embed(),
+.vw_create_block <- function(spec, embed = vega_embed(),
                           .block = vw_block_config(),
                           version = vega_version(major = FALSE),
                           description = "", readme = NULL,
@@ -98,7 +98,7 @@ block_create_gistid <- function(spec, embed = vega_embed(),
   fs::dir_create(dir_temp)
 
   # compose a temp directory to contain the gist files
-  block_build_directory(
+  vw_block_build_directory(
     dir_temp,
     spec = spec,
     embed = embed,
@@ -156,7 +156,7 @@ block_create_gistid <- function(spec, embed = vega_embed(),
 #' @param id      `character` block id
 #' @param file    `character` filename within block,
 #'   `NULL` will retrieve first JSON file
-#' @inheritParams block_create
+#' @inheritParams vw_create_block
 #'
 #' @return `vegaspec`
 #' @export

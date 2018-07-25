@@ -1,13 +1,13 @@
 #' Build block-directory
 #'
 #' @param path   `character`  path to an empty directory
-#' @inheritParams block_create
+#' @inheritParams vw_create_block
 #'
 #' @return `character` path, called for side effects
 #' @keywords internal
 #' @export
 #'
-block_build_directory <-
+vw_block_build_directory <-
   function(path, spec, embed = vega_embed(),
            version = vega_version(major = FALSE),
            .block = vw_block_config(), readme = NULL,
@@ -38,7 +38,7 @@ block_build_directory <-
 
   # index
   writeLines(
-    block_index(embed = embed, version = version),
+    vw_block_index(embed = embed, version = version),
     fs::path(path, "index.html")
   )
 
@@ -134,14 +134,14 @@ vw_block_config <- function(license = "mit", height = 500, scrolling = TRUE, bor
 
 #' Create text for block index.html
 #'
-#' @inheritParams block_create
+#' @inheritParams vw_create_block
 #'
 #' @return `character` text of `index.html`
 #' @keywords internal
 #' @export
 #'
-block_index <- function(embed = vega_embed(),
-                        version = vega_version(major = FALSE)) {
+vw_block_index <- function(embed = vega_embed(),
+                           version = vega_version(major = FALSE)) {
 
   # use internal method because we this is not a spec
   embed <- .as_json(embed, pretty = FALSE)

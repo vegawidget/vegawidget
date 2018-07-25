@@ -3,7 +3,7 @@
 \docType{data}
 \name{vw_ex_mtcars}
 \alias{vw_ex_mtcars}
-\title{Example Vega-Lite specification: mtcars scatterplot}
+\title{Example vegaspec: mtcars scatterplot}
 \format{A \code{vegaspec}, see \code{\link[=as_vegaspec]{as_vegaspec()}}}
 \usage{
 vw_ex_mtcars

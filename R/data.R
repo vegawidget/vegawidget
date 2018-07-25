@@ -1,4 +1,4 @@
-#' Example Vega-Lite specification: mtcars scatterplot
+#' Example vegaspec: mtcars scatterplot
 #'
 #' A Vega-Lite specification to create a scatterplot for `mtcars`.
 #'

@@ -48,5 +48,5 @@ Convert to PNG encoded-string
 }
 }
 \seealso{
-\code{\link[=png_bin]{png_bin()}}
+\code{\link[=vw_png_bin]{vw_png_bin()}}
 }

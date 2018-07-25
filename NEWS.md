@@ -2,6 +2,7 @@
 
 * overhauls the API (#15, with @AliciaSchep)
 
+  * changes `png_bin()` -> `vw_png_bin()`
   * changes `spec_version()` -> `vw_spec_version()`
   * changes `examine()` -> `vw_examine()`
   * changes `block_retrieve()` -> `vw_retrieve_block()`

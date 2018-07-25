@@ -66,7 +66,7 @@ to_svg.vegawidget <- function(widget, scale = 1, ...) {
 #' @inheritParams to_svg
 #'
 #' @return `character` base-64 encoded string
-#' @seealso [png_bin()]
+#' @seealso [vw_png_bin()]
 #' @examples
 #' \dontrun{
 #'   to_png(vw_ex_mtcars)

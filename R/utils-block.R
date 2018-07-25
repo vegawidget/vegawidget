@@ -59,7 +59,7 @@ vw_block_build_directory <-
     assert_packages("magick")
 
     img <- to_png(spec, scale = 2)
-    img <- png_bin(img)
+    img <- vw_png_bin(img)
     img <- magick::image_read(img)
   }
 

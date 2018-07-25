@@ -68,7 +68,7 @@ write_png.default <- function(spec, path, scale = 1, embed = NULL,
 
   png <-
     to_png(spec, scale = scale, embed = embed, width = width, height = height)
-  png <- png_bin(png)
+  png <- vw_png_bin(png)
 
   writeBin(png, fs::path_expand(path), endian = "big")
 
@@ -81,7 +81,7 @@ write_png.default <- function(spec, path, scale = 1, embed = NULL,
 write_png.vegawidget <- function(widget, path, scale = 1, ...) {
 
   png <- to_png(widget, scale = scale)
-  png <- png_bin(png)
+  png <- vw_png_bin(png)
 
   writeBin(png, fs::path_expand(path), endian = "big")
 
@@ -96,7 +96,7 @@ write_png.vegawidget <- function(widget, path, scale = 1, ...) {
 #' @keywords internal
 #' @export
 #'
-png_bin <- function(png) {
+vw_png_bin <- function(png) {
 
   # this should come along with webdriver
   assert_packages("base64enc")

@@ -36,6 +36,7 @@ HTMLWidgets.widget({
             result.view.addSignalListener(signal_name, signal_listeners[signal_name]);
           }
 
+
         }).catch(console.error);
 
       },
@@ -50,8 +51,10 @@ HTMLWidgets.widget({
 
 
       callView: function(fn, params) {
-        if (view !== null){
-          view[fn].apply(this, params);
+        if (view !== null && view !== undefined){
+          var method = view[fn];
+          method.apply(view, params);
+          view.run();
         }
       },
 
@@ -77,6 +80,15 @@ HTMLWidgets.widget({
       addSignalListener: function(signal_name, handler) {
          signal_listeners[signal_name] = handler;
       },
+
+      addShinySignalListener: function(signal_name) {
+        if (HTMLWidgets.shinyMode) {
+          signal_listeners[signal_name] =
+            function(name, value) {
+              Shiny.onInputChange(el.id + "_" + signal_name, value);
+            };
+         }
+      }
 
     };
 
@@ -106,9 +118,8 @@ Shiny.addCustomMessageHandler('callView', function(message){
 
     // get the correct HTMLWidget instance
     var htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
-    if (view !== null) {
-      console.log(message.params);
-      htmlWidgetsObj.callView(message.params);
+    if( typeof(htmlWidgetsObj) !== "undefined"){
+      htmlWidgetsObj.callView(message.fn, message.params);
     }
 
 });

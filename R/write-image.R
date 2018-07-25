@@ -7,19 +7,19 @@
 #'
 #' @examples
 #' \dontrun{
-#'   write_svg(vw_ex_mtcars)
-#'   write_svg(vegawidget(vw_ex_mtcars))
+#'   vw_write_svg(vw_ex_mtcars)
+#'   vw_write_svg(vegawidget(vw_ex_mtcars))
 #' }
 #' @export
 #'
-write_svg <- function(...) {
-  UseMethod("write_svg")
+vw_write_svg <- function(...) {
+  UseMethod("vw_write_svg")
 }
 
-#' @rdname write_svg
+#' @rdname vw_write_svg
 #' @export
 #'
-write_svg.default <- function(spec, path, scale = 1, embed = NULL,
+vw_write_svg.default <- function(spec, path, scale = 1, embed = NULL,
                               width = NULL, height = NULL, ...) {
 
   svg <-
@@ -36,10 +36,10 @@ write_svg.default <- function(spec, path, scale = 1, embed = NULL,
   invisible(spec)
 }
 
-#' @rdname write_svg
+#' @rdname vw_write_svg
 #' @export
 #'
-write_svg.vegawidget <- function(widget, path, scale = 1, ...) {
+vw_write_svg.vegawidget <- function(widget, path, scale = 1, ...) {
 
   svg <- vw_to_svg(widget, scale = scale)
 
@@ -51,14 +51,14 @@ write_svg.vegawidget <- function(widget, path, scale = 1, ...) {
 
 #' Write to PNG file
 #'
-#' @inheritParams write_svg
+#' @inheritParams vw_write_svg
 #'
 #' @return copy of whatever was sent to it
 #'
 #' @examples
 #' \dontrun{
-#'   write_svg(vw_ex_mtcars)
-#'   write_svg(vegawidget(vw_ex_mtcars))
+#'   vw_write_svg(vw_ex_mtcars)
+#'   vw_write_svg(vegawidget(vw_ex_mtcars))
 #' }
 #' @export
 #'

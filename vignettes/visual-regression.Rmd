@@ -6,7 +6,7 @@ output: rmarkdown::html_document
 
 The purpose of this document is to use our eyeballs to vaildate the rendering of vegaspecs as vegawidgets and images. This will be a very boring document, as we are going to see the same specification rendered ad-naseum.
 
-For the image tests, we use explicity test the functions `vw_write_png()` and `write_svg()`. We note the complimentary functions `to_png()` and `to_svg()`; these are implicitly tested as they are the used by the `vw_write_png()` and `write_svg()` functions.
+For the image tests, we use explicity test the functions `vw_write_png()` and `vw_write_svg()`. We note the complimentary functions `to_png()` and `to_svg()`; these are implicitly tested as they are the used by the `vw_write_png()` and `vw_write_svg()` functions.
 
 ```{r}
 library("conflicted")
@@ -112,7 +112,7 @@ The function `vw_to_svg()` generates a vector-image. We expect this to appear id
 ```{r}
 file_svg <- fs::path(dir_img, "mtcars-refrence.svg")
 
-write_svg(vw_ex_mtcars, path = file_svg)
+vw_write_svg(vw_ex_mtcars, path = file_svg)
 
 knitr::include_graphics(file_svg)
 ```
@@ -122,27 +122,27 @@ We expect that the rendered image will have a *total* size of `width = 600` and 
 ```{r}
 file_svg <- fs::path(dir_img, "mtcars-wide.svg")
 
-write_svg(vw_ex_mtcars, path = file_svg, width = 600, height = 300)
+vw_write_svg(vw_ex_mtcars, path = file_svg, width = 600, height = 300)
 
 knitr::include_graphics(file_svg)
 ```
 
-The `scale` argument in `write_svg()` may not be useful becuse the SVG itself is scalable. We expect this appear at double-size to **reference**, with retina resolution: 
+The `scale` argument in `vw_write_svg()` may not be useful becuse the SVG itself is scalable. We expect this appear at double-size to **reference**, with retina resolution: 
 
 ```{r}
 file_svg <- fs::path(dir_img, "mtcars-retina.svg")
 
-write_svg(vw_ex_mtcars, path = file_svg, scale = 2)
+vw_write_svg(vw_ex_mtcars, path = file_svg, scale = 2)
 
 knitr::include_graphics(file_svg)
 ```
 
-Finally, we expect to be able to use `write_svg()` with vegawidgets; we expect this to appear identical to the **reference**:
+Finally, we expect to be able to use `vw_write_svg()` with vegawidgets; we expect this to appear identical to the **reference**:
 
 ```{r}
 file_svg <- fs::path(dir_img, "mtcars-widget.svg")
 
-write_svg(vegawidget(vw_ex_mtcars), path = file_svg)
+vw_write_svg(vegawidget(vw_ex_mtcars), path = file_svg)
 
 knitr::include_graphics(file_svg)
 ```

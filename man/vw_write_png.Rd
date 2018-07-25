@@ -45,7 +45,7 @@ Write to PNG file
 }
 \examples{
 \dontrun{
-  write_svg(vw_ex_mtcars)
-  write_svg(vegawidget(vw_ex_mtcars))
+  vw_write_svg(vw_ex_mtcars)
+  vw_write_svg(vegawidget(vw_ex_mtcars))
 }
 }

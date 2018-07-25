@@ -1,6 +1,6 @@
 #' Write to SVG file
 #'
-#' @inheritParams to_svg
+#' @inheritParams vw_to_svg
 #' @param path path to which to write image-file
 #'
 #' @return copy of whatever was sent to it
@@ -23,7 +23,13 @@ write_svg.default <- function(spec, path, scale = 1, embed = NULL,
                               width = NULL, height = NULL, ...) {
 
   svg <-
-    to_svg(spec, scale = scale, embed = embed, width = width, height = height)
+    vw_to_svg(
+      spec,
+      scale = scale,
+      embed = embed,
+      width = width,
+      height = height
+    )
 
   writeLines(svg, fs::path_expand(path))
 
@@ -35,7 +41,7 @@ write_svg.default <- function(spec, path, scale = 1, embed = NULL,
 #'
 write_svg.vegawidget <- function(widget, path, scale = 1, ...) {
 
-  svg <- to_svg(widget, scale = scale)
+  svg <- vw_to_svg(widget, scale = scale)
 
   writeLines(svg, fs::path_expand(path))
 

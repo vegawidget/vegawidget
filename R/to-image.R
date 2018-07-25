@@ -7,19 +7,19 @@
 #' @return `character` SVG string
 #' @examples
 #' \dontrun{
-#'   to_svg(vw_ex_mtcars)
-#'   to_svg(vegawidget(vw_ex_mtcars))
+#'   vw_to_svg(vw_ex_mtcars)
+#'   vw_to_svg(vegawidget(vw_ex_mtcars))
 #' }
 #' @export
 #'
-to_svg <- function(...) {
-  UseMethod("to_svg")
+vw_to_svg <- function(...) {
+  UseMethod("vw_to_svg")
 }
 
-#' @rdname to_svg
+#' @rdname vw_to_svg
 #' @export
 #'
-to_svg.default <-
+vw_to_svg.default <-
   function(spec, scale = 1, embed = NULL, width = NULL, height = NULL, ...) {
 
   widget <-
@@ -31,15 +31,15 @@ to_svg.default <-
       ...
     )
 
-  svg <- to_svg(widget, scale = scale)
+  svg <- vw_to_svg(widget, scale = scale)
 
   svg
 }
 
-#' @rdname to_svg
+#' @rdname vw_to_svg
 #' @export
 #'
-to_svg.vegawidget <- function(widget, scale = 1, ...) {
+vw_to_svg.vegawidget <- function(widget, scale = 1, ...) {
 
   # just to be safe
   scale <- as.numeric(scale)
@@ -63,7 +63,7 @@ to_svg.vegawidget <- function(widget, scale = 1, ...) {
 
 #' Convert to PNG encoded-string
 #'
-#' @inheritParams to_svg
+#' @inheritParams vw_to_svg
 #'
 #' @return `character` base-64 encoded string
 #' @seealso [vw_png_bin()]

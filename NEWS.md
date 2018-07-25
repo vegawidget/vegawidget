@@ -2,6 +2,7 @@
 
 * overhauls the API (#15, with @AliciaSchep)
 
+  * changes `to_svg()` -> `vw_to_svg()`
   * changes `to_png()` -> `vw_to_png()`
   * changes `png_bin()` -> `vw_png_bin()`
   * changes `spec_version()` -> `vw_spec_version()`

@@ -14,7 +14,7 @@
 #'   vw_ex_mtcars_autosize <-
 #'     vw_ex_mtcars %>%
 #'     examine() %>%
-#'     autosize(width = 300, height = 300) %>%
+#'     vw_autosize(width = 300, height = 300) %>%
 #'     examine()
 #' @export
 #'

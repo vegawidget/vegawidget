@@ -36,23 +36,23 @@ test_that("is_multiple_view works", {
 
 test_that("autosize warns", {
   expect_warning(
-    autosize(vw_ex_mtcars_hconcat, width = 300),
+    vw_autosize(vw_ex_mtcars_hconcat, width = 300),
     "no effect on rendering\\.$"
   )
 })
 
 test_that("autosize works", {
 
-  vgvw_ex_mtcars <- to_vega(vw_ex_mtcars)
+  vg_vw_ex_mtcars <- to_vega(vw_ex_mtcars)
 
   expect_identical(
-    autosize(vw_ex_mtcars, width = 300, height = 300),
+    vw_autosize(vw_ex_mtcars, width = 300, height = 300),
     vw_ex_mtcars_autosize
   )
 
   # autosize works on Vega (vs Vega-Lite)
   expect_identical(
-    autosize(vgvw_ex_mtcars, width = 300, height = 300),
+    vw_autosize(vg_vw_ex_mtcars, width = 300, height = 300),
     to_vega(vw_ex_mtcars_autosize)
   )
 })

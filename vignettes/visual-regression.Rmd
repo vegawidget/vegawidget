@@ -33,10 +33,10 @@ vw_ex_mtcars
 
 ## Autosize 
 
-Next, we test using `autosize()`. We expect that the rendered spec will have a *total* size of `width = 600` and `height = 300`.
+Next, we test using `vw_autosize()`. We expect that the rendered spec will have a *total* size of `width = 600` and `height = 300`.
 
 ```{r}
-autosize(vw_ex_mtcars, width = 600, height = 300)
+vw_autosize(vw_ex_mtcars, width = 600, height = 300)
 ```
 
 We exepct the same result using the `vegawidget()` function:

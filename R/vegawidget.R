@@ -42,7 +42,7 @@
 #' the height of the action-links to be 15-20 pixels.
 #'
 #' @inheritParams as_vegaspec
-#' @inheritParams autosize
+#' @inheritParams vw_autosize
 #' @param embed   `vega_embed` object to specify embedding options -
 #'   the default is an empty call to [vega_embed()],
 #'   which will result in a canvas-rendering and action-links included for
@@ -60,7 +60,7 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
   embed <- embed %||% vega_embed()
 
   # autosize (if needed)
-  spec <- autosize(spec, width = width, height = height)
+  spec <- vw_autosize(spec, width = width, height = height)
 
   # use internal methods here because spec has already been validated
   x <-

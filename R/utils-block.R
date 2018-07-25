@@ -33,7 +33,7 @@ block_build_directory <-
   writeLines(.block, fs::path(path, ".block"))
 
   # spec
-  spec <- as_json(spec, pretty = TRUE)
+  spec <- vw_as_json(spec, pretty = TRUE)
   writeLines(spec, fs::path(path, "spec.json"))
 
   # index

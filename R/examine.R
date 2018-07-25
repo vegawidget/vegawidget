@@ -28,8 +28,6 @@ examine <- function(spec, mode = "tree",
          call. = FALSE)
   }
 
-  # spec_json <- as_json(spec)
-
   print(
     listviewer::jsonedit(
       listdata = spec,

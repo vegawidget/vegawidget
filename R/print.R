@@ -9,7 +9,7 @@ print.vegaspec <- function(x, ...) {
 
 #' @export
 format.vegaspec <- function(x, ...) {
-  as_json(x)
+  vw_as_json(x)
 }
 
 #' Knit-print method

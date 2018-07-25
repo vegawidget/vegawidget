@@ -20,9 +20,9 @@ to_vega <- function(spec) {
 
 .to_vega.vegaspec_vega_lite <- function(spec, ...) {
 
-  # It is easy to do the wgong thing, converting between JSON and R objects.
+  # It is easy to do the wrong thing, converting between JSON and R objects.
   # Instead of using the V8 conversion, we use our functions for
-  # the conversion: as_json() and as_vegaspec().
+  # the conversion: vw_as_json() and as_vegaspec().
   #
   # hence this tweet: https://twitter.com/ijlyttle/status/1019290316195627008
 
@@ -30,7 +30,7 @@ to_vega <- function(spec) {
   JS <- V8::JS
   ct <- V8::v8()
 
-  str_vlspec <- as_json(spec, pretty = FALSE)
+  str_vlspec <- vw_as_json(spec, pretty = FALSE)
 
   # load the vega-lite library (.vega_lite_js is internal package data)
   ct$eval(.vega_lite_js)

@@ -79,10 +79,10 @@ as_vegaspec.character <- function(spec, ...) {
 #'
 #' @return `jsonlite::json` object
 #' @examples
-#'   as_json(vw_ex_mtcars)
+#'   vw_as_json(vw_ex_mtcars)
 #' @export
 #'
-as_json <- function(spec, pretty = TRUE) {
+vw_as_json <- function(spec, pretty = TRUE) {
 
   spec <- as_vegaspec(spec)
   spec <- .as_json(spec, pretty = pretty)

@@ -1,3 +1,9 @@
+# vegawidget 0.0.3
+
+* overhauls the API (#15, with @AliciaSchep)
+
+  * changes `spec_mtcars` -> `vw_ex_mtcars`
+
 # vegawidget 0.0.2
 
-* Added a `NEWS.md` file to track changes to the package.
+* Adds a `NEWS.md` file to track changes to the package.

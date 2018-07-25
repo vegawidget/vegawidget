@@ -43,7 +43,7 @@ Convert to SVG string
 }
 \examples{
 \dontrun{
-  to_svg(spec_mtcars)
-  to_svg(vegawidget(spec_mtcars))
+  to_svg(vw_ex_mtcars)
+  to_svg(vegawidget(vw_ex_mtcars))
 }
 }

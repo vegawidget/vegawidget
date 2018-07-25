@@ -111,7 +111,7 @@ vegawidget::vegawidget(spec_data_frame)
 ```
 
 ```{r}
-spec_mtcars <-
+vw_ex_mtcars <-
   list(
     `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
     description = "An mtcars example.",
@@ -124,5 +124,5 @@ spec_mtcars <-
     )
   )  
 
-vegawidget(spec_mtcars)
+vegawidget(vw_ex_mtcars)
 ```

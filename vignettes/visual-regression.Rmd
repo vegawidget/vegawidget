@@ -28,7 +28,7 @@ fs::dir_create(dir_img)
 Our reference is this `mtcars` scatterplot. We expect it to be rendered with a plotting area with `width = 300` and `height = 300`.
 
 ```{r}
-spec_mtcars
+vw_ex_mtcars
 ```
 
 ## Autosize 
@@ -36,23 +36,23 @@ spec_mtcars
 Next, we test using `autosize()`. We expect that the rendered spec will have a *total* size of `width = 600` and `height = 300`.
 
 ```{r}
-autosize(spec_mtcars, width = 600, height = 300)
+autosize(vw_ex_mtcars, width = 600, height = 300)
 ```
 
 We exepct the same result using the `vegawidget()` function:
 
 ```{r}
-vegawidget(spec_mtcars, width = 600, height = 300)
+vegawidget(vw_ex_mtcars, width = 600, height = 300)
 ```
 
 We expect the same result by setting `vega.width` and `vega.height` as knitr options, like so:
 
     ```{r vega.width=600, vega.height=300}
-    spec_mtcars
+    vw_ex_mtcars
     ```
 
 ```{r vega.width=600, vega.height=300}
-spec_mtcars
+vw_ex_mtcars
 ```
 
 ## Vega
@@ -60,7 +60,7 @@ spec_mtcars
 We expect this to be identical to the **reference** case, using the `to_vega()` function to compile to a Vega specification:
 
 ```{r}
-to_vega(spec_mtcars)
+to_vega(vw_ex_mtcars)
 ```
 
 ## PNG
@@ -70,7 +70,7 @@ The function `to_png()` generates an image at 96 DPI. We expect this to appear a
 ```{r}
 file_png <- fs::path(dir_img, "mtcars-refrence.png")
 
-write_png(spec_mtcars, path = file_png)
+write_png(vw_ex_mtcars, path = file_png)
 
 knitr::include_graphics(file_png, dpi = 96)
 ```
@@ -80,7 +80,7 @@ To get retina resolution, we use the `scale` argument in `write_png()`, then adj
 ```{r}
 file_png <- fs::path(dir_img, "mtcars-retina.png")
 
-write_png(spec_mtcars, path = file_png, scale = 2)
+write_png(vw_ex_mtcars, path = file_png, scale = 2)
 
 knitr::include_graphics(file_png, dpi = 96 * 2)
 ```
@@ -90,7 +90,7 @@ We expect that the rendered image will have a *total* size of `width = 600` and 
 ```{r}
 file_png <- fs::path(dir_img, "mtcars-wide.png")
 
-write_png(spec_mtcars, path = file_png, width = 600, height = 300)
+write_png(vw_ex_mtcars, path = file_png, width = 600, height = 300)
 
 knitr::include_graphics(file_png, dpi = 96)
 ```
@@ -100,7 +100,7 @@ Finally, we expect to be able to use `write_png()` with vegawidgets; we expect t
 ```{r}
 file_png <- fs::path(dir_img, "mtcars-widget.png")
 
-write_png(vegawidget(spec_mtcars), path = file_png)
+write_png(vegawidget(vw_ex_mtcars), path = file_png)
 
 knitr::include_graphics(file_png, dpi = 96)
 ```
@@ -112,7 +112,7 @@ The function `to_svg()` generates a vector-image. We expect this to appear ident
 ```{r}
 file_svg <- fs::path(dir_img, "mtcars-refrence.svg")
 
-write_svg(spec_mtcars, path = file_svg)
+write_svg(vw_ex_mtcars, path = file_svg)
 
 knitr::include_graphics(file_svg)
 ```
@@ -122,7 +122,7 @@ We expect that the rendered image will have a *total* size of `width = 600` and 
 ```{r}
 file_svg <- fs::path(dir_img, "mtcars-wide.svg")
 
-write_svg(spec_mtcars, path = file_svg, width = 600, height = 300)
+write_svg(vw_ex_mtcars, path = file_svg, width = 600, height = 300)
 
 knitr::include_graphics(file_svg)
 ```
@@ -132,7 +132,7 @@ The `scale` argument in `write_svg()` may not be useful becuse the SVG itself is
 ```{r}
 file_svg <- fs::path(dir_img, "mtcars-retina.svg")
 
-write_svg(spec_mtcars, path = file_svg, scale = 2)
+write_svg(vw_ex_mtcars, path = file_svg, scale = 2)
 
 knitr::include_graphics(file_svg)
 ```
@@ -142,7 +142,7 @@ Finally, we expect to be able to use `write_svg()` with vegawidgets; we expect t
 ```{r}
 file_svg <- fs::path(dir_img, "mtcars-widget.svg")
 
-write_svg(vegawidget(spec_mtcars), path = file_svg)
+write_svg(vegawidget(vw_ex_mtcars), path = file_svg)
 
 knitr::include_graphics(file_svg)
 ```

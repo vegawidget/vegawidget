@@ -2,27 +2,27 @@ context("test-autosize.R")
 
 # create a multiple-view spec
 # ===
-spec_mtcars_hconcat <- spec_mtcars
+vw_ex_mtcars_hconcat <- vw_ex_mtcars
 
 hconcat_elem <-
   list(
-    data = spec_mtcars_hconcat$data,
-    mark = spec_mtcars_hconcat$mark,
-    encoding = spec_mtcars_hconcat$encoding
+    data = vw_ex_mtcars_hconcat$data,
+    mark = vw_ex_mtcars_hconcat$mark,
+    encoding = vw_ex_mtcars_hconcat$encoding
   )
 
-spec_mtcars_hconcat$hconcat <- list(hconcat_elem, hconcat_elem)
+vw_ex_mtcars_hconcat$hconcat <- list(hconcat_elem, hconcat_elem)
 
-spec_mtcars_hconcat$data <- NULL
-spec_mtcars_hconcat$mark <- NULL
-spec_mtcars_hconcat$encoding <- NULL
+vw_ex_mtcars_hconcat$data <- NULL
+vw_ex_mtcars_hconcat$mark <- NULL
+vw_ex_mtcars_hconcat$encoding <- NULL
 # ===
 
 # create an autosize spec
 # ===
-spec_mtcars_autosize <- spec_mtcars
+vw_ex_mtcars_autosize <- vw_ex_mtcars
 
-spec_mtcars_autosize$config <-
+vw_ex_mtcars_autosize$config <-
   list(
     autosize = list(type = "fit", contains = "padding"),
     view = list(width = 300L, height = 300L)
@@ -30,30 +30,30 @@ spec_mtcars_autosize$config <-
 # ===
 
 test_that("is_multiple_view works", {
-  expect_false(is_multiple_view(spec_mtcars))
-  expect_true(is_multiple_view(spec_mtcars_hconcat))
+  expect_false(is_multiple_view(vw_ex_mtcars))
+  expect_true(is_multiple_view(vw_ex_mtcars_hconcat))
 })
 
 test_that("autosize warns", {
   expect_warning(
-    autosize(spec_mtcars_hconcat, width = 300),
+    autosize(vw_ex_mtcars_hconcat, width = 300),
     "no effect on rendering\\.$"
   )
 })
 
 test_that("autosize works", {
 
-  vgspec_mtcars <- to_vega(spec_mtcars)
+  vgvw_ex_mtcars <- to_vega(vw_ex_mtcars)
 
   expect_identical(
-    autosize(spec_mtcars, width = 300, height = 300),
-    spec_mtcars_autosize
+    autosize(vw_ex_mtcars, width = 300, height = 300),
+    vw_ex_mtcars_autosize
   )
 
   # autosize works on Vega (vs Vega-Lite)
   expect_identical(
-    autosize(vgspec_mtcars, width = 300, height = 300),
-    to_vega(spec_mtcars_autosize)
+    autosize(vgvw_ex_mtcars, width = 300, height = 300),
+    to_vega(vw_ex_mtcars_autosize)
   )
 })
 

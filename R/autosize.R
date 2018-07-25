@@ -29,7 +29,7 @@
 #'
 #' @return object with S3 class `vegaspec`
 #' @examples
-#'   autosize(spec_mtcars, width = 350, height = 350)
+#'   autosize(vw_ex_mtcars, width = 350, height = 350)
 #' @export
 #'
 autosize <- function(spec, width = NULL, height = NULL) {

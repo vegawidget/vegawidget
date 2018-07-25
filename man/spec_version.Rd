@@ -19,10 +19,10 @@ Examines the \code{$schema} element of a vegaspec.
 Returns a list with two elements:
 
 \describe{
-\item{\code{library}}{\code{character}, either \code{"vega"} or \code{"vegalite"}}
+\item{\code{library}}{\code{character}, either \code{"vega"} or \code{"vega_lite"}}
 \item{\code{version}}{\code{character}, version tag}
 }
 }
 \examples{
-  spec_version(spec_mtcars)
+  spec_version(vw_ex_mtcars)
 }

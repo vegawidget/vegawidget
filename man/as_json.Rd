@@ -18,5 +18,5 @@ as_json(spec, pretty = TRUE)
 Coerce vegaspec to JSON
 }
 \examples{
-  as_json(spec_mtcars)
+  as_json(vw_ex_mtcars)
 }

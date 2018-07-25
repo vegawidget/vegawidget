@@ -13,7 +13,7 @@
 #'
 #' @return `list` with elements `library`, `version`
 #' @examples
-#'   spec_version(spec_mtcars)
+#'   spec_version(vw_ex_mtcars)
 #' @export
 #'
 spec_version <- function(spec) {

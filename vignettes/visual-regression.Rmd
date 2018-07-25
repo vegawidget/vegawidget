@@ -6,7 +6,7 @@ output: rmarkdown::html_document
 
 The purpose of this document is to use our eyeballs to vaildate the rendering of vegaspecs as vegawidgets and images. This will be a very boring document, as we are going to see the same specification rendered ad-naseum.
 
-For the image tests, we use explicity test the functions `write_png()` and `write_svg()`. We note the complimentary functions `to_png()` and `to_svg()`; these are implicitly tested as they are the used by the `write_png()` and `write_svg()` functions.
+For the image tests, we use explicity test the functions `vw_write_png()` and `write_svg()`. We note the complimentary functions `to_png()` and `to_svg()`; these are implicitly tested as they are the used by the `vw_write_png()` and `write_svg()` functions.
 
 ```{r}
 library("conflicted")
@@ -70,17 +70,17 @@ The function `vw_to_png()` generates an image at 96 DPI. We expect this to appea
 ```{r}
 file_png <- fs::path(dir_img, "mtcars-refrence.png")
 
-write_png(vw_ex_mtcars, path = file_png)
+vw_write_png(vw_ex_mtcars, path = file_png)
 
 knitr::include_graphics(file_png, dpi = 96)
 ```
 
-To get retina resolution, we use the `scale` argument in `write_png()`, then adjust the `dpi` argument in `include_graphics()`. Thus, we expect this to appear indentical to the **reference**. 
+To get retina resolution, we use the `scale` argument in `vw_write_png()`, then adjust the `dpi` argument in `include_graphics()`. Thus, we expect this to appear indentical to the **reference**. 
 
 ```{r}
 file_png <- fs::path(dir_img, "mtcars-retina.png")
 
-write_png(vw_ex_mtcars, path = file_png, scale = 2)
+vw_write_png(vw_ex_mtcars, path = file_png, scale = 2)
 
 knitr::include_graphics(file_png, dpi = 96 * 2)
 ```
@@ -90,17 +90,17 @@ We expect that the rendered image will have a *total* size of `width = 600` and 
 ```{r}
 file_png <- fs::path(dir_img, "mtcars-wide.png")
 
-write_png(vw_ex_mtcars, path = file_png, width = 600, height = 300)
+vw_write_png(vw_ex_mtcars, path = file_png, width = 600, height = 300)
 
 knitr::include_graphics(file_png, dpi = 96)
 ```
 
-Finally, we expect to be able to use `write_png()` with vegawidgets; we expect this to appear at the same size as the **reference**, but at non-retina resolution:
+Finally, we expect to be able to use `vw_write_png()` with vegawidgets; we expect this to appear at the same size as the **reference**, but at non-retina resolution:
 
 ```{r}
 file_png <- fs::path(dir_img, "mtcars-widget.png")
 
-write_png(vegawidget(vw_ex_mtcars), path = file_png)
+vw_write_png(vegawidget(vw_ex_mtcars), path = file_png)
 
 knitr::include_graphics(file_png, dpi = 96)
 ```

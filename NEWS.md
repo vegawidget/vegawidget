@@ -2,6 +2,7 @@
 
 * overhauls the API (#15, with @AliciaSchep)
 
+  * changes `write_svg()` -> `vw_write_svg()`
   * changes `to_vega()` -> `vw_to_vega()`
   * changes `to_svg()` -> `vw_to_svg()`
   * changes `to_png()` -> `vw_to_png()`

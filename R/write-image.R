@@ -62,15 +62,15 @@ write_svg.vegawidget <- function(widget, path, scale = 1, ...) {
 #' }
 #' @export
 #'
-write_png <- function(...) {
-  UseMethod("write_png")
+vw_write_png <- function(...) {
+  UseMethod("vw_write_png")
 }
 
-#' @rdname write_png
+#' @rdname vw_write_png
 #' @export
 #'
-write_png.default <- function(spec, path, scale = 1, embed = NULL,
-                              width = NULL, height = NULL, ...) {
+vw_write_png.default <- function(spec, path, scale = 1, embed = NULL,
+                                 width = NULL, height = NULL, ...) {
 
   png <-
     vw_to_png(
@@ -87,10 +87,10 @@ write_png.default <- function(spec, path, scale = 1, embed = NULL,
   invisible(spec)
 }
 
-#' @rdname write_png
+#' @rdname vw_write_png
 #' @export
 #'
-write_png.vegawidget <- function(widget, path, scale = 1, ...) {
+vw_write_png.vegawidget <- function(widget, path, scale = 1, ...) {
 
   png <- vw_to_png(widget, scale = scale)
   png <- vw_png_bin(png)

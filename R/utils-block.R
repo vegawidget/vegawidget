@@ -10,7 +10,7 @@
 block_build_directory <-
   function(path, spec, embed = vega_embed(),
            version = vega_version(major = FALSE),
-           .block = block_config(), readme = NULL,
+           .block = vw_block_config(), readme = NULL,
            use_thumbnail = TRUE, use_preview = TRUE) {
 
   assert_packages("fs")
@@ -90,7 +90,7 @@ block_build_directory <-
 #' @seealso [Blocks documentation](https://bl.ocks.org/-/about)
 #' @export
 #'
-block_config <- function(license = "mit", height = 500, scrolling = TRUE, border = TRUE){
+vw_block_config <- function(license = "mit", height = 500, scrolling = TRUE, border = TRUE){
 
   assert_packages("yaml")
 

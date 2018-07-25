@@ -5,13 +5,13 @@
 \alias{block_create_gistid}
 \title{Create gist to use as block}
 \usage{
-block_create(spec, embed = vega_embed(), .block = block_config(),
+block_create(spec, embed = vega_embed(), .block = vw_block_config(),
   version = vega_version(major = FALSE), description = "", readme = NULL,
   use_thumbnail = TRUE, use_preview = TRUE, git_method = c("ssh",
   "https"), endpoint = NULL, env_pat = NULL, block_host = NULL,
   quiet = FALSE, browse = TRUE)
 
-block_create_gistid(spec, embed = vega_embed(), .block = block_config(),
+block_create_gistid(spec, embed = vega_embed(), .block = vw_block_config(),
   version = vega_version(major = FALSE), description = "", readme = NULL,
   use_thumbnail = TRUE, use_preview = TRUE, git_method = c("ssh",
   "https"), endpoint = NULL, env_pat = NULL, block_host = NULL,
@@ -26,7 +26,7 @@ which will result in a canvas-rendering and action-links included for
 exporting, viewing the Vega-Lite source, and opening the Vega editor.}
 
 \item{.block}{\code{character}, YAML text for the \code{.block} file -
-use the helper function \code{\link[=block_config]{block_config()}} to specify block-configuration}
+use the helper function \code{\link[=vw_block_config]{vw_block_config()}} to specify block-configuration}
 
 \item{version}{named \code{list} of \code{character}:
 names refer to JavaScript libraries \code{vega}, \code{vega_lite}, \code{vega_embed},

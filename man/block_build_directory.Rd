@@ -5,7 +5,7 @@
 \title{Build block-directory}
 \usage{
 block_build_directory(path, spec, embed = vega_embed(),
-  version = vega_version(major = FALSE), .block = block_config(),
+  version = vega_version(major = FALSE), .block = vw_block_config(),
   readme = NULL, use_thumbnail = TRUE, use_preview = TRUE)
 }
 \arguments{
@@ -25,7 +25,7 @@ helper function \code{\link[=vega_version]{vega_version()}} with \code{major = T
 major versions rather than the versions supported in this package}
 
 \item{.block}{\code{character}, YAML text for the \code{.block} file -
-use the helper function \code{\link[=block_config]{block_config()}} to specify block-configuration}
+use the helper function \code{\link[=vw_block_config]{vw_block_config()}} to specify block-configuration}
 
 \item{readme}{\code{character}, single line, path to a markdown file;
 multiple lines, markdown text}

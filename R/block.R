@@ -7,7 +7,7 @@
 #'
 #' @inheritParams vegawidget
 #' @param .block       `character`, YAML text for the `.block` file -
-#'   use the helper function [block_config()] to specify block-configuration
+#'   use the helper function [vw_block_config()] to specify block-configuration
 #' @param version       named `list` of `character`:
 #'   names refer to JavaScript libraries `vega`, `vega_lite`, `vega_embed`,
 #'   values are the tags for the versions to use in the block - use the
@@ -48,7 +48,8 @@
 #'  [gistr::gist_create_git()]
 #' @export
 #'
-block_create <- function(spec, embed = vega_embed(), .block = block_config(),
+block_create <- function(spec, embed = vega_embed(),
+                         .block = vw_block_config(),
                          version = vega_version(major = FALSE),
                          description = "", readme = NULL,
                          use_thumbnail = TRUE, use_preview = TRUE,
@@ -65,7 +66,8 @@ block_create <- function(spec, embed = vega_embed(), .block = block_config(),
 #' @rdname block_create
 #' @export
 #'
-block_create_gistid <- function(spec, embed = vega_embed(), .block = block_config(),
+block_create_gistid <- function(spec, embed = vega_embed(),
+                                .block = vw_block_config(),
                                 version = vega_version(major = FALSE),
                                 description = "", readme = NULL,
                                 use_thumbnail = TRUE, use_preview = TRUE,
@@ -79,7 +81,8 @@ block_create_gistid <- function(spec, embed = vega_embed(), .block = block_confi
   result[c("endpoint", "id")]
 }
 
-.block_create <- function(spec, embed = vega_embed(), .block = block_config(),
+.block_create <- function(spec, embed = vega_embed(),
+                          .block = vw_block_config(),
                           version = vega_version(major = FALSE),
                           description = "", readme = NULL,
                           use_thumbnail = TRUE, use_preview = TRUE,

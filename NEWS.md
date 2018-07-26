@@ -22,4 +22,4 @@
 
 # vegawidget 0.0.2
 
-* Adds a `NEWS.md` file to track changes to the package.
+* Added a `NEWS.md` file to track changes to the package.

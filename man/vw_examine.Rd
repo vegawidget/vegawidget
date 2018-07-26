@@ -38,8 +38,8 @@ directly; it returns invisibly a copy of
 \code{spec}, to support piping.
 }
 \examples{
-  vw_ex_mtcars_autosize <-
-    vw_ex_mtcars \%>\%
+  spec_mtcars_autosize <-
+    spec_mtcars \%>\%
     vw_examine() \%>\%
     vw_autosize(width = 300, height = 300) \%>\%
     vw_examine()

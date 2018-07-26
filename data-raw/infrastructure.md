@@ -336,7 +336,7 @@ pwalk(schema, get_file, path_local_root = dir_schema)
 The data are documented in `R/data.R`.
 
 ``` r
-vw_ex_mtcars <-
+spec_mtcars <-
   as_vegaspec(
     list(
       `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
@@ -355,10 +355,10 @@ vw_ex_mtcars <-
 ```
 
 ``` r
-usethis::use_data(vw_ex_mtcars, overwrite = TRUE)
+usethis::use_data(spec_mtcars, overwrite = TRUE)
 ```
 
-    ## ✔ Saving vw_ex_mtcars to data/vw_ex_mtcars.rda
+    ## ✔ Saving spec_mtcars to data/spec_mtcars.rda
 
 ## Internal data
 

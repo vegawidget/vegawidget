@@ -7,8 +7,8 @@
 #' @return `character` SVG string
 #' @examples
 #' \dontrun{
-#'   vw_to_svg(vw_ex_mtcars)
-#'   vw_to_svg(vegawidget(vw_ex_mtcars))
+#'   vw_to_svg(spec_mtcars)
+#'   vw_to_svg(vegawidget(spec_mtcars))
 #' }
 #' @export
 #'
@@ -69,8 +69,8 @@ vw_to_svg.vegawidget <- function(widget, scale = 1, ...) {
 #' @seealso [vw_png_bin()]
 #' @examples
 #' \dontrun{
-#'   vw_to_png(vw_ex_mtcars)
-#'   vw_to_png(vegawidget(vw_ex_mtcars))
+#'   vw_to_png(spec_mtcars)
+#'   vw_to_png(vegawidget(spec_mtcars))
 #' }
 #' @export
 #'

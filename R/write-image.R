@@ -7,8 +7,8 @@
 #'
 #' @examples
 #' \dontrun{
-#'   vw_write_svg(vw_ex_mtcars)
-#'   vw_write_svg(vegawidget(vw_ex_mtcars))
+#'   vw_write_svg(spec_mtcars)
+#'   vw_write_svg(vegawidget(spec_mtcars))
 #' }
 #' @export
 #'
@@ -57,8 +57,8 @@ vw_write_svg.vegawidget <- function(widget, path, scale = 1, ...) {
 #'
 #' @examples
 #' \dontrun{
-#'   vw_write_svg(vw_ex_mtcars)
-#'   vw_write_svg(vegawidget(vw_ex_mtcars))
+#'   vw_write_svg(spec_mtcars)
+#'   vw_write_svg(vegawidget(spec_mtcars))
 #' }
 #' @export
 #'

@@ -43,8 +43,8 @@ Convert to PNG encoded-string
 }
 \examples{
 \dontrun{
-  vw_to_png(vw_ex_mtcars)
-  vw_to_png(vegawidget(vw_ex_mtcars))
+  vw_to_png(spec_mtcars)
+  vw_to_png(vegawidget(spec_mtcars))
 }
 }
 \seealso{

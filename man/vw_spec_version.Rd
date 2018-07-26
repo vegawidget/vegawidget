@@ -24,5 +24,5 @@ Returns a list with two elements:
 }
 }
 \examples{
-  vw_spec_version(vw_ex_mtcars)
+  vw_spec_version(spec_mtcars)
 }

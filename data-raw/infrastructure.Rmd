@@ -40,7 +40,7 @@ Package infrastucture incudes:
   - list of version numbers: `.vega_version`
   - strings of minified javascript libraries: `.vega_js`, `.vega_polyfill_symbol_js`, `.vega_polyfill_promise_js`, `.vega_lite_js` (perhaps the js libraries could use the htmldependency and memoise)
 - public package data:
-  - `vw_ex_mtcars` vegaspec for an mtcars scatterplot
+  - `spec_mtcars` vegaspec for an mtcars scatterplot
 - files to create a [block](https://bl.ocks.org)
 - files to validate the schema
 
@@ -261,7 +261,7 @@ pwalk(schema, get_file, path_local_root = dir_schema)
 The data are documented in `R/data.R`.
 
 ```{r}
-vw_ex_mtcars <-
+spec_mtcars <-
   as_vegaspec(
     list(
       `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
@@ -280,7 +280,7 @@ vw_ex_mtcars <-
 ```
 
 ```{r}
-usethis::use_data(vw_ex_mtcars, overwrite = TRUE)
+usethis::use_data(spec_mtcars, overwrite = TRUE)
 ```
 
 ## Internal data

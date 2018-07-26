@@ -2,6 +2,6 @@
 #'
 #' A Vega-Lite specification to create a scatterplot for `mtcars`.
 #'
-#' @format A `vegaspec`, see [as_vegaspec()]
+#' @format A `vegaspec`, thin wrapper around list
 #'
-"vw_ex_mtcars"
+"spec_mtcars"

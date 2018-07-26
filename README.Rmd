@@ -23,7 +23,7 @@ The goal of vegawidget is to render Vega-Lite and Vega specifications into htmlw
 Vega and Vega-Lite specifications are just text, formatted as JSON. Let's build a modest Vega-Lite specification using lists:
 
 ```{r spec}
-vw_ex_mtcars <-
+spec_mtcars <-
   list(
     `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
     description = "An mtcars example.",
@@ -42,20 +42,20 @@ The `vegawidget()` function is used to render specifications into htmlwidgets. I
 ```{r vegawidget}
 library("vegawidget")
 
-vegawidget(vw_ex_mtcars)
+vegawidget(spec_mtcars)
 ```
 
 If you wish to examine a specification, you may use the `examine()` function, which is a thin wrapper around the `jsonedit()` function from the **listviewer** package.
 
 ```{r}
-examine(vw_ex_mtcars)
+examine(spec_mtcars)
 ```
 
 If you wish to deploy a specification to be rendered on bl.ocks.org, you can do that too (provied you have a GutHub account).
 
 ```{r create_block, eval=FALSE}
 # not yet fully implemented
-create_block(vw_ex_mtcars)
+create_block(spec_mtcars)
 ```
 
 ## Installation
@@ -71,15 +71,15 @@ devtools::install_github("vegawidget/vegawidget")
 
 This package provides functions to render Vega and Vega-Lite specifications; it does not help you build specifications. This is left to other packages. Further, this package is designed *not* to be loaded directly; rather its purpose is to make rendering-functions available for such other packages to use.
 
-For example, let's convert `vw_ex_mtcars` to an S3 object with class `"my_class_name"`:
+For example, let's convert `spec_mtcars` to an S3 object with class `"my_class_name"`:
 
 ```{r s3}
-vw_ex_mtcars_s3 <- structure(
-  vw_ex_mtcars,
+spec_mtcars_s3 <- structure(
+  spec_mtcars,
   class = c("my_class_name")
 )
 
-class(vw_ex_mtcars_s3)
+class(spec_mtcars_s3)
 ```
 
 To take full advantage of these rendering functions, we have to define a method, `as_vegaspec()` for this class, and also define `print()` and `knit_print()` methods.
@@ -112,7 +112,7 @@ knit_print.my_class_name <- function(x, ..., options = NULL){
 With these defined, you can render your specification by printing:
 
 ```{r}
-vw_ex_mtcars_s3
+spec_mtcars_s3
 ```
 
 Accordingly, this package offers a templating function, `use_vegawidget(class)` (not yet implemented), to help you integrate vegawidget functions into your package. 

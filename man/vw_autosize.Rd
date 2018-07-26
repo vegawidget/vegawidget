@@ -41,5 +41,5 @@ including axes, labels, etc.
 }
 }
 \examples{
-  vw_autosize(vw_ex_mtcars, width = 350, height = 350)
+  vw_autosize(spec_mtcars, width = 350, height = 350)
 }

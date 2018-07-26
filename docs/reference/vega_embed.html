@@ -68,7 +68,7 @@ vega-embed documentation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.1</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3</span>
       </span>
     </div>
 
@@ -97,6 +97,9 @@ vega-embed documentation." />
       <a href="../articles/visual-regression.html">Visual Regression</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -138,7 +141,7 @@ and <code>editor</code> links. This documentation is adapted from the
     </div>
 
     <pre class="usage"><span class='fu'>vega_embed</span>(<span class='kw'>renderer</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"canvas"</span>, <span class='st'>"svg"</span>), <span class='kw'>actions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>defaultStyle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>logLevel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>defaultStyle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>logLevel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>loader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>onBeforeParse</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scaleFactor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>editorUrl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sourceHeader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sourceFooter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -289,27 +292,20 @@ not shown.</p><ul>
 <li><p>To suppress all action links, call with <code>actions = FALSE</code>.</p></li>
 <li><p>To change from the default for a given action link, call with a list:
 <code>actions = list(editor = FALSE)</code>.</p></li>
-<li><p>To specify which link(s) to include, call using the <code><a href='only_actions.html'>only_actions()</a></code>
-function: <code>actions = only_actions(export = TRUE)</code>.</p></li>
 </ul>
     <p>It is ineffective to set the <code>width</code> and <code>height</code> parameters here, as they
 will be overridden by the values in the chart specification.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='vegawidget.html'>vegawidget()</a></code>, <code><a href='only_actions.html'>only_actions()</a></code>,
+    <div class='dont-index'><p><code><a href='vegawidget.html'>vegawidget()</a></code>,
 <a href='https://vegawidget.github.io/altair/field-guide-rendering.html'>altair: Field Guide to Rendering Charts</a>,
 <a href='https://github.com/vega/vega-embed'>vega-embed library</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Set renderer</span>
-<span class='no'>embed_options</span> <span class='kw'>&lt;-</span> <span class='fu'>vega_embed</span>(<span class='kw'>renderer</span> <span class='kw'>=</span> <span class='st'>"svg"</span>)
-
-<span class='co'># Specify  action links</span>
-<span class='no'>embed_options</span> <span class='kw'>&lt;-</span> <span class='fu'>vega_embed</span>(<span class='kw'>actions</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>embed_options</span> <span class='kw'>&lt;-</span> <span class='fu'>vega_embed</span>(<span class='kw'>actions</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>editor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>))
-<span class='no'>embed_options</span> <span class='kw'>&lt;-</span> <span class='fu'>vega_embed</span>(<span class='kw'>actions</span> <span class='kw'>=</span> <span class='fu'><a href='only_actions.html'>only_actions</a></span>(<span class='kw'>export</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div></pre>
+<span class='no'>embed_options</span> <span class='kw'>&lt;-</span> <span class='fu'>vega_embed</span>(<span class='kw'>renderer</span> <span class='kw'>=</span> <span class='st'>"svg"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -330,7 +326,7 @@ will be overridden by the values in the chart specification.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Ian Lyttle.</p>
+  <p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
 </div>
 
 <div class="pkgdown">

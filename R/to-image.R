@@ -61,7 +61,7 @@ vw_to_svg.vegawidget <- function(widget, scale = 1, ...) {
   svg
 }
 
-#' Convert to PNG encoded-string
+#' Convert to PNG data-URI string
 #'
 #' @inheritParams vw_to_svg
 #'

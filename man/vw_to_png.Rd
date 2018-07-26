@@ -4,7 +4,7 @@
 \alias{vw_to_png}
 \alias{vw_to_png.default}
 \alias{vw_to_png.vegawidget}
-\title{Convert to PNG encoded-string}
+\title{Convert to PNG data-URI string}
 \usage{
 vw_to_png(...)
 
@@ -39,7 +39,7 @@ the default is to use the height in the chart specification}
 \code{character} base-64 encoded string
 }
 \description{
-Convert to PNG encoded-string
+Convert to PNG data-URI string
 }
 \examples{
 \dontrun{

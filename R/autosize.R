@@ -1,23 +1,23 @@
 #' Autosize vegaspec
 #'
-#' The arguments `width` and `height` can be used to override the width and height
-#' of the provided `spec`.
+#' The arguments `width` and `height` are used to override the width and height
+#' of the provided `spec`, if the `spec` does not have multiple views.
+#' The dimensions you provide describe the overall width and height of the
+#' rendered chart, including axes, labels, legends, etc.
 #'
-#' There are some important limitations:
+#' In a Vega or Vega-Lite specification, the default interpretation
+#' of width and height is to describe the dimensions of the
+#' **plotting rectangle**, not including the space used by the axes, labels,
+#' etc. When `width` and `height` are specified with `autosize`,
+#' the meanings change to describe the dimensions of the **entire** rendered chart,
+#' including axes, labels, etc.
 #'
-#' - Specifying `width` and `height` is
+#' There is an important limitation: specifying `width` and `height` is
 #' [effective only for single-view and layered specifications](
 #' https://vega.github.io/vega-lite/docs/size.html#limitations).
 #' It will not work for specifications with multiple views
 #' (e.g. `hconcat`, `vconcat`, `facet`, `repeat`); this will issue a
 #' warning that there will be no effect on the specification when rendered.
-#'
-#' - In the specification, the default interpretation of width and height
-#' is to describe the dimensions of the
-#' **plotting rectangle**, not including the space used by the axes, labels,
-#' etc. When `width` and `height` are specified,
-#' the meanings change to describe the dimensions of the **entire** rendered chart,
-#' including axes, labels, etc.
 #'
 #' @inheritParams as_vegaspec
 #' @param width   `integer`, if specified, the total rendered width (in pixels)

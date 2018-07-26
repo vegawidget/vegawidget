@@ -45,10 +45,10 @@ library("vegawidget")
 vegawidget(spec_mtcars)
 ```
 
-If you wish to examine a specification, you may use the `examine()` function, which is a thin wrapper around the `jsonedit()` function from the **listviewer** package.
+If you wish to examine a specification, you may use the `vw_examine()` function, which is a thin wrapper around the `jsonedit()` function from the **listviewer** package.
 
 ```{r}
-examine(spec_mtcars)
+vw_examine(spec_mtcars)
 ```
 
 If you wish to deploy a specification to be rendered on bl.ocks.org, you can do that too (provied you have a GutHub account).

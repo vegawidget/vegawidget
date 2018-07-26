@@ -6,31 +6,86 @@ development:
   mode: unreleased
 
 reference:
-  - title: Rendering
+  - title: vegaspec
     desc: >
-      Rendering functions
+      The central *object* of this package is `vegaspec`, an S3 object
+      which inherits from `list`. Use these functions to coerce to a `vegaspec`,
+      format as JSON, or otherwise operate on a `vegaspec`. If the
+      [**V8**](https://CRAN.R-project.org/package=V8) package is installed,
+      you can translate a Vega-Lite specification to a Vega specification.
     contents:
-    - to_vega
-    - as_vegaspec
+      - as_vegaspec
+      - vw_as_json
+      - vw_autosize
+      - vw_to_vega
+      - vw_spec_version
+  - title: Rendering vegaspecs
+    desc: >
+      The central *side-effect* of this package is to render a `vegawidget`,
+      an S3 object which inherits from `htmlwidget`. A `vegawidget` is
+      built using a `vegaspec`. A helper function is provided for
+      [vega-embed](https://github.com/vega/vega-embed) options. These options
+      can be specified as an argument to the `vegawidget` function,
+      or as an R option, `vega.embed`, which would picked up by the
+      `knit_print` method.
+      If the [**webshot**](https://CRAN.R-project.org/package=webshot)
+      package and PhantomJS are installed, knitting to a non-html format should
+      "just work".
+    contents:
     - vegawidget
     - vega_embed
-    - only_actions
-  - title: Debugging and sharing
-    desc: >
-      Helps you figure out and share
-    contents:
-    - examine
-    - create_block
-    - block_yaml
+    - knit_print.vegaspec
   - title: Shiny
     desc: >
-      Functions to work with Shiny
+      Some basic functionality is provided now; more is on the way.
     contents:
     - renderVegawidget
     - vegawidgetOutput
-  - title: Utilities
+  - title: Data
     desc: >
-      Other functions
+      These are sample specifications.
     contents:
-    - to_vega
-    - vega_versions
+    - spec_mtcars
+  - title: Images
+    desc: >
+      If you have the
+      [**webdriver**](https://CRAN.R-project.org/package=webdriver) package
+      and PhantomJS installed, you can convert and write a `vegaspec` or a
+      `vegawidget` to PNG or SVG format.
+    contents:
+    - vw_to_png
+    - vw_to_svg
+    - vw_write_png
+    - vw_write_svg
+    - vw_png_bin
+  - title: Debugging and sharing
+    desc: >
+      These are functions to help you understand a `vegaspec` and to help
+      you share your work with others. The `examine` function requires that
+      you have the
+      [**listviewer**](https://CRAN.R-project.org/package=listviewer) package
+      installed. The functions to create and retrieve
+      [blocks](https://bl.ocks.org)
+      use the [**gistr**](https://CRAN.R-project.org/package=gistr) and
+      [**fs**](https://CRAN.R-project.org/package=fs) packages, also the
+      [**webdriver**](https://CRAN.R-project.org/package=webdriver) package
+      and PhantomJS if you want upload images to your block.
+    contents:
+    - vw_examine
+    - vw_create_block
+    - vw_retrieve_block
+  - title: Utilities and internal functions
+    desc: >
+      These functions help you determine the version of your `vegaspec`, the
+      versions of the JavaScript libraries used to render your `vegawidget`,
+      and to create a block. You will likely not need to call any of the "block"
+      functions directly.
+    contents:
+    - vw_spec_version
+    - vega_version
+    - vw_block_index
+    - vw_block_build_directory
+    - vw_block_config
+
+
+

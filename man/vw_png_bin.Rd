@@ -2,17 +2,24 @@
 % Please edit documentation in R/write-image.R
 \name{vw_png_bin}
 \alias{vw_png_bin}
-\title{Translate PNG from dataURI string to binary}
+\title{Coerce data-URI string to raw binary}
 \usage{
 vw_png_bin(png)
 }
 \arguments{
-\item{png}{\code{character}, dataURI string describing PNG}
+\item{png}{\code{character}, data-URI string describing PNG}
 }
 \value{
 \code{raw} PNG
 }
 \description{
-Translate PNG from dataURI string to binary
+Coerce data-URI string to raw binary
 }
-\keyword{internal}
+\examples{
+\dontrun{
+  png_bin <-
+    spec_mtcars \%>\%
+    vw_to_png() \%>\%
+    vw_png_bin()
+}
+}

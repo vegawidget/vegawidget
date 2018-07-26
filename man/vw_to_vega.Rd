@@ -10,8 +10,14 @@ vw_to_vega(spec)
 \item{spec}{object to be coerced to Vega/Vega-Lite specification}
 }
 \value{
-a vegaspec for Vega
+S3 object of class \code{vegaspec_vega} and \code{vegaspec}
 }
 \description{
-Convert to Vega specification
+If the \href{https://CRAN.R-project.org/package=V8}{V8} package is installed,
+use this function to translate a Vega-Lite specification to a
+Vega specification.
+}
+\examples{
+  vw_spec_version(spec_mtcars)
+  vw_spec_version(vw_to_vega(spec_mtcars))
 }

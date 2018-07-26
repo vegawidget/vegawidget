@@ -1,8 +1,15 @@
 #' Convert to Vega specification
 #'
+#' If the [**V8**](https://CRAN.R-project.org/package=V8) package is installed,
+#' use this function to translate a Vega-Lite specification to a
+#' Vega specification.
+#'
 #' @inheritParams as_vegaspec
 #'
-#' @return a vegaspec for Vega
+#' @return S3 object of class `vegaspec_vega` and `vegaspec`
+#' @examples
+#'   vw_spec_version(spec_mtcars)
+#'   vw_spec_version(vw_to_vega(spec_mtcars))
 #' @export
 #'
 vw_to_vega <- function(spec) {

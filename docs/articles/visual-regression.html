@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.1</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3</span>
       </span>
     </div>
 
@@ -60,6 +60,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -78,12 +81,12 @@
 
       
       </header><script src="visual-regression_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="visual-regression_files/vega-4.0.0/promise.min.js"></script><script src="visual-regression_files/vega-4.0.0/symbol.min.js"></script><script src="visual-regression_files/vega-4.0.0/vega.js"></script><script src="visual-regression_files/vega-lite-2.5.0/vega-lite.min.js"></script><link href="visual-regression_files/vega-embed-3.14.0/vega-embed.css" rel="stylesheet">
-<script src="visual-regression_files/vega-embed-3.14.0/vega-embed-modified.js"></script><script src="visual-regression_files/vegawidget-binding-0.0.1/vegawidget.js"></script><div class="row">
+<script src="visual-regression_files/vega-embed-3.14.0/vega-embed-modified.js"></script><script src="visual-regression_files/vegawidget-binding-0.0.3/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Visual Regression</h1>
             
-            <h4 class="date">2018-07-18</h4>
+            <h4 class="date">2018-07-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/visual-regression.Rmd"><code>vignettes/visual-regression.Rmd</code></a></small>
       <div class="hidden name"><code>visual-regression.Rmd</code></div>
@@ -92,20 +95,24 @@
 
     
     
-<p>The purpose of this document is to use our eyeballs to vaildate the rendering.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"magrittr"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">options</span>(</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="dt">vega.embed =</span> vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/vega_embed">vega_embed</a></span>(<span class="dt">defaultStyle =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">)</a></code></pre></div>
+<p>The purpose of this document is to use our eyeballs to vaildate the rendering of vegaspecs as vegawidgets and images. This will be a very boring document, as we are going to see the same specification rendered ad-naseum.</p>
+<p>For the image tests, we use explicity test the functions <code><a href="../reference/vw_write_png.html">vw_write_png()</a></code> and <code><a href="../reference/vw_write_svg.html">vw_write_svg()</a></code>. We note the complimentary functions <code>to_png()</code> and <code>to_svg()</code>; these are implicitly tested as they are the used by the <code><a href="../reference/vw_write_png.html">vw_write_png()</a></code> and <code><a href="../reference/vw_write_svg.html">vw_write_svg()</a></code> functions.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"conflicted"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">dir_img &lt;-<span class="st"> "visual-regression-files"</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="cf">if</span> (fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/file_access.html">dir_exists</a></span>(dir_img)) {</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/delete.html">dir_delete</a></span>(dir_img)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/create.html">dir_create</a></span>(dir_img)</a></code></pre></div>
 <div id="reference" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reference" class="anchor"></a>Reference</h2>
-<p>Our first test is the standard mtcars scatterplot, where the plotting area is 300 * 300.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-d6e2e5edc02212378662" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d6e2e5edc02212378662">{"x":{
+<p>Our reference is this <code>mtcars</code> scatterplot. We expect it to be rendered with a plotting area with <code>width = 300</code> and <code>height = 300</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">spec_mtcars</a></code></pre></div>
+<div id="htmlwidget-41d24b573223a36e4540" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-41d24b573223a36e4540">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -580,502 +587,21 @@
     }
   },
   "embed_options": {
+    "defaultStyle": true,
     "renderer": "canvas"
   }
 },"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="vega-lite" class="section level2">
+<div id="autosize" class="section level2">
 <h2 class="hasAnchor">
-<a href="#vega-lite" class="anchor"></a>Vega-Lite</h2>
-<p>Let’s convert this spec to JSON, then back to a vegaspec, then render it:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">spec_mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/as_json.html">as_json</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
-<div id="htmlwidget-01c9f5b3111958198de1" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-01c9f5b3111958198de1">{"x":{
+<a href="#autosize" class="anchor"></a>Autosize</h2>
+<p>Next, we test using <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code>. We expect that the rendered spec will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/vw_autosize.html">vw_autosize</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
+<div id="htmlwidget-a938832f0cd97fc4f97b" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a938832f0cd97fc4f97b">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-    "width": 300,
-    "height": 300,
-    "description": "An mtcars example.",
-    "data": {
-      "values": [
-        {
-          "mpg": 21,
-          "cyl": 6,
-          "disp": 160,
-          "hp": 110,
-          "drat": 3.9,
-          "wt": 2.62,
-          "qsec": 16.46,
-          "vs": 0,
-          "am": 1,
-          "gear": 4,
-          "carb": 4,
-          "_row": "Mazda RX4"
-        },
-        {
-          "mpg": 21,
-          "cyl": 6,
-          "disp": 160,
-          "hp": 110,
-          "drat": 3.9,
-          "wt": 2.875,
-          "qsec": 17.02,
-          "vs": 0,
-          "am": 1,
-          "gear": 4,
-          "carb": 4,
-          "_row": "Mazda RX4 Wag"
-        },
-        {
-          "mpg": 22.8,
-          "cyl": 4,
-          "disp": 108,
-          "hp": 93,
-          "drat": 3.85,
-          "wt": 2.32,
-          "qsec": 18.61,
-          "vs": 1,
-          "am": 1,
-          "gear": 4,
-          "carb": 1,
-          "_row": "Datsun 710"
-        },
-        {
-          "mpg": 21.4,
-          "cyl": 6,
-          "disp": 258,
-          "hp": 110,
-          "drat": 3.08,
-          "wt": 3.215,
-          "qsec": 19.44,
-          "vs": 1,
-          "am": 0,
-          "gear": 3,
-          "carb": 1,
-          "_row": "Hornet 4 Drive"
-        },
-        {
-          "mpg": 18.7,
-          "cyl": 8,
-          "disp": 360,
-          "hp": 175,
-          "drat": 3.15,
-          "wt": 3.44,
-          "qsec": 17.02,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 2,
-          "_row": "Hornet Sportabout"
-        },
-        {
-          "mpg": 18.1,
-          "cyl": 6,
-          "disp": 225,
-          "hp": 105,
-          "drat": 2.76,
-          "wt": 3.46,
-          "qsec": 20.22,
-          "vs": 1,
-          "am": 0,
-          "gear": 3,
-          "carb": 1,
-          "_row": "Valiant"
-        },
-        {
-          "mpg": 14.3,
-          "cyl": 8,
-          "disp": 360,
-          "hp": 245,
-          "drat": 3.21,
-          "wt": 3.57,
-          "qsec": 15.84,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 4,
-          "_row": "Duster 360"
-        },
-        {
-          "mpg": 24.4,
-          "cyl": 4,
-          "disp": 146.7,
-          "hp": 62,
-          "drat": 3.69,
-          "wt": 3.19,
-          "qsec": 20,
-          "vs": 1,
-          "am": 0,
-          "gear": 4,
-          "carb": 2,
-          "_row": "Merc 240D"
-        },
-        {
-          "mpg": 22.8,
-          "cyl": 4,
-          "disp": 140.8,
-          "hp": 95,
-          "drat": 3.92,
-          "wt": 3.15,
-          "qsec": 22.9,
-          "vs": 1,
-          "am": 0,
-          "gear": 4,
-          "carb": 2,
-          "_row": "Merc 230"
-        },
-        {
-          "mpg": 19.2,
-          "cyl": 6,
-          "disp": 167.6,
-          "hp": 123,
-          "drat": 3.92,
-          "wt": 3.44,
-          "qsec": 18.3,
-          "vs": 1,
-          "am": 0,
-          "gear": 4,
-          "carb": 4,
-          "_row": "Merc 280"
-        },
-        {
-          "mpg": 17.8,
-          "cyl": 6,
-          "disp": 167.6,
-          "hp": 123,
-          "drat": 3.92,
-          "wt": 3.44,
-          "qsec": 18.9,
-          "vs": 1,
-          "am": 0,
-          "gear": 4,
-          "carb": 4,
-          "_row": "Merc 280C"
-        },
-        {
-          "mpg": 16.4,
-          "cyl": 8,
-          "disp": 275.8,
-          "hp": 180,
-          "drat": 3.07,
-          "wt": 4.07,
-          "qsec": 17.4,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 3,
-          "_row": "Merc 450SE"
-        },
-        {
-          "mpg": 17.3,
-          "cyl": 8,
-          "disp": 275.8,
-          "hp": 180,
-          "drat": 3.07,
-          "wt": 3.73,
-          "qsec": 17.6,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 3,
-          "_row": "Merc 450SL"
-        },
-        {
-          "mpg": 15.2,
-          "cyl": 8,
-          "disp": 275.8,
-          "hp": 180,
-          "drat": 3.07,
-          "wt": 3.78,
-          "qsec": 18,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 3,
-          "_row": "Merc 450SLC"
-        },
-        {
-          "mpg": 10.4,
-          "cyl": 8,
-          "disp": 472,
-          "hp": 205,
-          "drat": 2.93,
-          "wt": 5.25,
-          "qsec": 17.98,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 4,
-          "_row": "Cadillac Fleetwood"
-        },
-        {
-          "mpg": 10.4,
-          "cyl": 8,
-          "disp": 460,
-          "hp": 215,
-          "drat": 3,
-          "wt": 5.424,
-          "qsec": 17.82,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 4,
-          "_row": "Lincoln Continental"
-        },
-        {
-          "mpg": 14.7,
-          "cyl": 8,
-          "disp": 440,
-          "hp": 230,
-          "drat": 3.23,
-          "wt": 5.345,
-          "qsec": 17.42,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 4,
-          "_row": "Chrysler Imperial"
-        },
-        {
-          "mpg": 32.4,
-          "cyl": 4,
-          "disp": 78.7,
-          "hp": 66,
-          "drat": 4.08,
-          "wt": 2.2,
-          "qsec": 19.47,
-          "vs": 1,
-          "am": 1,
-          "gear": 4,
-          "carb": 1,
-          "_row": "Fiat 128"
-        },
-        {
-          "mpg": 30.4,
-          "cyl": 4,
-          "disp": 75.7,
-          "hp": 52,
-          "drat": 4.93,
-          "wt": 1.615,
-          "qsec": 18.52,
-          "vs": 1,
-          "am": 1,
-          "gear": 4,
-          "carb": 2,
-          "_row": "Honda Civic"
-        },
-        {
-          "mpg": 33.9,
-          "cyl": 4,
-          "disp": 71.1,
-          "hp": 65,
-          "drat": 4.22,
-          "wt": 1.835,
-          "qsec": 19.9,
-          "vs": 1,
-          "am": 1,
-          "gear": 4,
-          "carb": 1,
-          "_row": "Toyota Corolla"
-        },
-        {
-          "mpg": 21.5,
-          "cyl": 4,
-          "disp": 120.1,
-          "hp": 97,
-          "drat": 3.7,
-          "wt": 2.465,
-          "qsec": 20.01,
-          "vs": 1,
-          "am": 0,
-          "gear": 3,
-          "carb": 1,
-          "_row": "Toyota Corona"
-        },
-        {
-          "mpg": 15.5,
-          "cyl": 8,
-          "disp": 318,
-          "hp": 150,
-          "drat": 2.76,
-          "wt": 3.52,
-          "qsec": 16.87,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 2,
-          "_row": "Dodge Challenger"
-        },
-        {
-          "mpg": 15.2,
-          "cyl": 8,
-          "disp": 304,
-          "hp": 150,
-          "drat": 3.15,
-          "wt": 3.435,
-          "qsec": 17.3,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 2,
-          "_row": "AMC Javelin"
-        },
-        {
-          "mpg": 13.3,
-          "cyl": 8,
-          "disp": 350,
-          "hp": 245,
-          "drat": 3.73,
-          "wt": 3.84,
-          "qsec": 15.41,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 4,
-          "_row": "Camaro Z28"
-        },
-        {
-          "mpg": 19.2,
-          "cyl": 8,
-          "disp": 400,
-          "hp": 175,
-          "drat": 3.08,
-          "wt": 3.845,
-          "qsec": 17.05,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 2,
-          "_row": "Pontiac Firebird"
-        },
-        {
-          "mpg": 27.3,
-          "cyl": 4,
-          "disp": 79,
-          "hp": 66,
-          "drat": 4.08,
-          "wt": 1.935,
-          "qsec": 18.9,
-          "vs": 1,
-          "am": 1,
-          "gear": 4,
-          "carb": 1,
-          "_row": "Fiat X1-9"
-        },
-        {
-          "mpg": 26,
-          "cyl": 4,
-          "disp": 120.3,
-          "hp": 91,
-          "drat": 4.43,
-          "wt": 2.14,
-          "qsec": 16.7,
-          "vs": 0,
-          "am": 1,
-          "gear": 5,
-          "carb": 2,
-          "_row": "Porsche 914-2"
-        },
-        {
-          "mpg": 30.4,
-          "cyl": 4,
-          "disp": 95.1,
-          "hp": 113,
-          "drat": 3.77,
-          "wt": 1.513,
-          "qsec": 16.9,
-          "vs": 1,
-          "am": 1,
-          "gear": 5,
-          "carb": 2,
-          "_row": "Lotus Europa"
-        },
-        {
-          "mpg": 15.8,
-          "cyl": 8,
-          "disp": 351,
-          "hp": 264,
-          "drat": 4.22,
-          "wt": 3.17,
-          "qsec": 14.5,
-          "vs": 0,
-          "am": 1,
-          "gear": 5,
-          "carb": 4,
-          "_row": "Ford Pantera L"
-        },
-        {
-          "mpg": 19.7,
-          "cyl": 6,
-          "disp": 145,
-          "hp": 175,
-          "drat": 3.62,
-          "wt": 2.77,
-          "qsec": 15.5,
-          "vs": 0,
-          "am": 1,
-          "gear": 5,
-          "carb": 6,
-          "_row": "Ferrari Dino"
-        },
-        {
-          "mpg": 15,
-          "cyl": 8,
-          "disp": 301,
-          "hp": 335,
-          "drat": 3.54,
-          "wt": 3.57,
-          "qsec": 14.6,
-          "vs": 0,
-          "am": 1,
-          "gear": 5,
-          "carb": 8,
-          "_row": "Maserati Bora"
-        },
-        {
-          "mpg": 21.4,
-          "cyl": 4,
-          "disp": 121,
-          "hp": 109,
-          "drat": 4.11,
-          "wt": 2.78,
-          "qsec": 18.6,
-          "vs": 1,
-          "am": 1,
-          "gear": 4,
-          "carb": 2,
-          "_row": "Volvo 142E"
-        }
-      ]
-    },
-    "mark": "point",
-    "encoding": {
-      "x": {
-        "field": "wt",
-        "type": "quantitative"
-      },
-      "y": {
-        "field": "mpg",
-        "type": "quantitative"
-      },
-      "color": {
-        "field": "cyl",
-        "type": "nominal"
-      }
-    }
-  },
-  "embed_options": {
-    "renderer": "canvas"
-  }
-},"evals":[],"jsHooks":[]}</script><p>Next, we test using <code><a href="../reference/autosize.html">autosize()</a></code>. The size of the div will be 300 * 300; the plotting area will be smaller.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/autosize.html">autosize</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">300</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-0307b9ef8944aa2dca5a" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0307b9ef8944aa2dca5a">{"x":{
-  "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-    "width": 300,
+    "width": 600,
     "height": 300,
     "description": "An mtcars example.",
     "data": {
@@ -1547,25 +1073,26 @@
     },
     "config": {
       "autosize": {
-        "contains": "padding",
-        "type": "fit"
+        "type": "fit",
+        "contains": "padding"
       },
       "view": {
-        "width": 300,
+        "width": 600,
         "height": 300
       }
     }
   },
   "embed_options": {
+    "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script><p>We can do the same thing using the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">300</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-7de5fdbe37b01d7bbe59" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7de5fdbe37b01d7bbe59">{"x":{
+},"evals":[],"jsHooks":[]}</script><p>We exepct the same result using the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
+<div id="htmlwidget-d79b010a0409dfaf34a6" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d79b010a0409dfaf34a6">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-    "width": 300,
+    "width": 600,
     "height": 300,
     "description": "An mtcars example.",
     "data": {
@@ -2037,28 +1564,29 @@
     },
     "config": {
       "autosize": {
-        "contains": "padding",
-        "type": "fit"
+        "type": "fit",
+        "contains": "padding"
       },
       "view": {
-        "width": 300,
+        "width": 600,
         "height": 300
       }
     }
   },
   "embed_options": {
+    "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script><p>Or by setting <code>vega.width</code> and <code>vega.height</code> as knitr options, like so:</p>
-<pre><code>```{r vega.width=300, vega.height=300}
+},"evals":[],"jsHooks":[]}</script><p>We expect the same result by setting <code>vega.width</code> and <code>vega.height</code> as knitr options, like so:</p>
+<pre><code>```{r vega.width=600, vega.height=300}
 spec_mtcars
 ```</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-81aaa062f1d046d575f2" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-81aaa062f1d046d575f2">{"x":{
+<div id="htmlwidget-bd49ee337d55ef172d8b" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bd49ee337d55ef172d8b">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-    "width": 300,
+    "width": 600,
     "height": 300,
     "description": "An mtcars example.",
     "data": {
@@ -2530,16 +2058,17 @@ spec_mtcars
     },
     "config": {
       "autosize": {
-        "contains": "padding",
-        "type": "fit"
+        "type": "fit",
+        "contains": "padding"
       },
       "view": {
-        "width": 300,
+        "width": 600,
         "height": 300
       }
     }
   },
   "embed_options": {
+    "defaultStyle": true,
     "renderer": "canvas"
   }
 },"evals":[],"jsHooks":[]}</script>
@@ -2547,18 +2076,14 @@ spec_mtcars
 <div id="vega" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vega" class="anchor"></a>Vega</h2>
-<p>There should no difference from the first case when we use the <code><a href="../reference/to_vega.html">to_vega()</a></code> function to compile to a Vega specification, then render:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">spec_vega_mtcars &lt;-<span class="st"> </span><span class="kw"><a href="../reference/to_vega.html">to_vega</a></span>(spec_mtcars) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()</a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/autosize.html">autosize</a></span>(spec_vega_mtcars, <span class="dt">width =</span> <span class="dv">300</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-6b7c44714454766e2cbb" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6b7c44714454766e2cbb">{"x":{
+<p>We expect this to be identical to the <strong>reference</strong> case, using the <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code> function to compile to a Vega specification:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/vw_to_vega.html">vw_to_vega</a></span>(spec_mtcars)</a></code></pre></div>
+<div id="htmlwidget-7cc7b092f25e3b2e2eb1" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7cc7b092f25e3b2e2eb1">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega/v3.json",
     "description": "An mtcars example.",
-    "autosize": {
-      "contains": "padding",
-      "type": "fit"
-    },
+    "autosize": "pad",
     "padding": 5,
     "width": 300,
     "height": 300,
@@ -3196,1310 +2721,74 @@ spec_mtcars
     }
   },
   "embed_options": {
-    "renderer": "canvas"
-  }
-},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_vega_mtcars, <span class="dt">width =</span> <span class="dv">300</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-014a1940528090c54241" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-014a1940528090c54241">{"x":{
-  "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega/v3.json",
-    "description": "An mtcars example.",
-    "autosize": {
-      "contains": "padding",
-      "type": "fit"
-    },
-    "padding": 5,
-    "width": 300,
-    "height": 300,
-    "style": "cell",
-    "data": [
-      {
-        "name": "source_0",
-        "values": [
-          {
-            "mpg": 21,
-            "cyl": 6,
-            "disp": 160,
-            "hp": 110,
-            "drat": 3.9,
-            "wt": 2.62,
-            "qsec": 16.46,
-            "vs": 0,
-            "am": 1,
-            "gear": 4,
-            "carb": 4,
-            "_row": "Mazda RX4"
-          },
-          {
-            "mpg": 21,
-            "cyl": 6,
-            "disp": 160,
-            "hp": 110,
-            "drat": 3.9,
-            "wt": 2.875,
-            "qsec": 17.02,
-            "vs": 0,
-            "am": 1,
-            "gear": 4,
-            "carb": 4,
-            "_row": "Mazda RX4 Wag"
-          },
-          {
-            "mpg": 22.8,
-            "cyl": 4,
-            "disp": 108,
-            "hp": 93,
-            "drat": 3.85,
-            "wt": 2.32,
-            "qsec": 18.61,
-            "vs": 1,
-            "am": 1,
-            "gear": 4,
-            "carb": 1,
-            "_row": "Datsun 710"
-          },
-          {
-            "mpg": 21.4,
-            "cyl": 6,
-            "disp": 258,
-            "hp": 110,
-            "drat": 3.08,
-            "wt": 3.215,
-            "qsec": 19.44,
-            "vs": 1,
-            "am": 0,
-            "gear": 3,
-            "carb": 1,
-            "_row": "Hornet 4 Drive"
-          },
-          {
-            "mpg": 18.7,
-            "cyl": 8,
-            "disp": 360,
-            "hp": 175,
-            "drat": 3.15,
-            "wt": 3.44,
-            "qsec": 17.02,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 2,
-            "_row": "Hornet Sportabout"
-          },
-          {
-            "mpg": 18.1,
-            "cyl": 6,
-            "disp": 225,
-            "hp": 105,
-            "drat": 2.76,
-            "wt": 3.46,
-            "qsec": 20.22,
-            "vs": 1,
-            "am": 0,
-            "gear": 3,
-            "carb": 1,
-            "_row": "Valiant"
-          },
-          {
-            "mpg": 14.3,
-            "cyl": 8,
-            "disp": 360,
-            "hp": 245,
-            "drat": 3.21,
-            "wt": 3.57,
-            "qsec": 15.84,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 4,
-            "_row": "Duster 360"
-          },
-          {
-            "mpg": 24.4,
-            "cyl": 4,
-            "disp": 146.7,
-            "hp": 62,
-            "drat": 3.69,
-            "wt": 3.19,
-            "qsec": 20,
-            "vs": 1,
-            "am": 0,
-            "gear": 4,
-            "carb": 2,
-            "_row": "Merc 240D"
-          },
-          {
-            "mpg": 22.8,
-            "cyl": 4,
-            "disp": 140.8,
-            "hp": 95,
-            "drat": 3.92,
-            "wt": 3.15,
-            "qsec": 22.9,
-            "vs": 1,
-            "am": 0,
-            "gear": 4,
-            "carb": 2,
-            "_row": "Merc 230"
-          },
-          {
-            "mpg": 19.2,
-            "cyl": 6,
-            "disp": 167.6,
-            "hp": 123,
-            "drat": 3.92,
-            "wt": 3.44,
-            "qsec": 18.3,
-            "vs": 1,
-            "am": 0,
-            "gear": 4,
-            "carb": 4,
-            "_row": "Merc 280"
-          },
-          {
-            "mpg": 17.8,
-            "cyl": 6,
-            "disp": 167.6,
-            "hp": 123,
-            "drat": 3.92,
-            "wt": 3.44,
-            "qsec": 18.9,
-            "vs": 1,
-            "am": 0,
-            "gear": 4,
-            "carb": 4,
-            "_row": "Merc 280C"
-          },
-          {
-            "mpg": 16.4,
-            "cyl": 8,
-            "disp": 275.8,
-            "hp": 180,
-            "drat": 3.07,
-            "wt": 4.07,
-            "qsec": 17.4,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 3,
-            "_row": "Merc 450SE"
-          },
-          {
-            "mpg": 17.3,
-            "cyl": 8,
-            "disp": 275.8,
-            "hp": 180,
-            "drat": 3.07,
-            "wt": 3.73,
-            "qsec": 17.6,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 3,
-            "_row": "Merc 450SL"
-          },
-          {
-            "mpg": 15.2,
-            "cyl": 8,
-            "disp": 275.8,
-            "hp": 180,
-            "drat": 3.07,
-            "wt": 3.78,
-            "qsec": 18,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 3,
-            "_row": "Merc 450SLC"
-          },
-          {
-            "mpg": 10.4,
-            "cyl": 8,
-            "disp": 472,
-            "hp": 205,
-            "drat": 2.93,
-            "wt": 5.25,
-            "qsec": 17.98,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 4,
-            "_row": "Cadillac Fleetwood"
-          },
-          {
-            "mpg": 10.4,
-            "cyl": 8,
-            "disp": 460,
-            "hp": 215,
-            "drat": 3,
-            "wt": 5.424,
-            "qsec": 17.82,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 4,
-            "_row": "Lincoln Continental"
-          },
-          {
-            "mpg": 14.7,
-            "cyl": 8,
-            "disp": 440,
-            "hp": 230,
-            "drat": 3.23,
-            "wt": 5.345,
-            "qsec": 17.42,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 4,
-            "_row": "Chrysler Imperial"
-          },
-          {
-            "mpg": 32.4,
-            "cyl": 4,
-            "disp": 78.7,
-            "hp": 66,
-            "drat": 4.08,
-            "wt": 2.2,
-            "qsec": 19.47,
-            "vs": 1,
-            "am": 1,
-            "gear": 4,
-            "carb": 1,
-            "_row": "Fiat 128"
-          },
-          {
-            "mpg": 30.4,
-            "cyl": 4,
-            "disp": 75.7,
-            "hp": 52,
-            "drat": 4.93,
-            "wt": 1.615,
-            "qsec": 18.52,
-            "vs": 1,
-            "am": 1,
-            "gear": 4,
-            "carb": 2,
-            "_row": "Honda Civic"
-          },
-          {
-            "mpg": 33.9,
-            "cyl": 4,
-            "disp": 71.1,
-            "hp": 65,
-            "drat": 4.22,
-            "wt": 1.835,
-            "qsec": 19.9,
-            "vs": 1,
-            "am": 1,
-            "gear": 4,
-            "carb": 1,
-            "_row": "Toyota Corolla"
-          },
-          {
-            "mpg": 21.5,
-            "cyl": 4,
-            "disp": 120.1,
-            "hp": 97,
-            "drat": 3.7,
-            "wt": 2.465,
-            "qsec": 20.01,
-            "vs": 1,
-            "am": 0,
-            "gear": 3,
-            "carb": 1,
-            "_row": "Toyota Corona"
-          },
-          {
-            "mpg": 15.5,
-            "cyl": 8,
-            "disp": 318,
-            "hp": 150,
-            "drat": 2.76,
-            "wt": 3.52,
-            "qsec": 16.87,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 2,
-            "_row": "Dodge Challenger"
-          },
-          {
-            "mpg": 15.2,
-            "cyl": 8,
-            "disp": 304,
-            "hp": 150,
-            "drat": 3.15,
-            "wt": 3.435,
-            "qsec": 17.3,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 2,
-            "_row": "AMC Javelin"
-          },
-          {
-            "mpg": 13.3,
-            "cyl": 8,
-            "disp": 350,
-            "hp": 245,
-            "drat": 3.73,
-            "wt": 3.84,
-            "qsec": 15.41,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 4,
-            "_row": "Camaro Z28"
-          },
-          {
-            "mpg": 19.2,
-            "cyl": 8,
-            "disp": 400,
-            "hp": 175,
-            "drat": 3.08,
-            "wt": 3.845,
-            "qsec": 17.05,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 2,
-            "_row": "Pontiac Firebird"
-          },
-          {
-            "mpg": 27.3,
-            "cyl": 4,
-            "disp": 79,
-            "hp": 66,
-            "drat": 4.08,
-            "wt": 1.935,
-            "qsec": 18.9,
-            "vs": 1,
-            "am": 1,
-            "gear": 4,
-            "carb": 1,
-            "_row": "Fiat X1-9"
-          },
-          {
-            "mpg": 26,
-            "cyl": 4,
-            "disp": 120.3,
-            "hp": 91,
-            "drat": 4.43,
-            "wt": 2.14,
-            "qsec": 16.7,
-            "vs": 0,
-            "am": 1,
-            "gear": 5,
-            "carb": 2,
-            "_row": "Porsche 914-2"
-          },
-          {
-            "mpg": 30.4,
-            "cyl": 4,
-            "disp": 95.1,
-            "hp": 113,
-            "drat": 3.77,
-            "wt": 1.513,
-            "qsec": 16.9,
-            "vs": 1,
-            "am": 1,
-            "gear": 5,
-            "carb": 2,
-            "_row": "Lotus Europa"
-          },
-          {
-            "mpg": 15.8,
-            "cyl": 8,
-            "disp": 351,
-            "hp": 264,
-            "drat": 4.22,
-            "wt": 3.17,
-            "qsec": 14.5,
-            "vs": 0,
-            "am": 1,
-            "gear": 5,
-            "carb": 4,
-            "_row": "Ford Pantera L"
-          },
-          {
-            "mpg": 19.7,
-            "cyl": 6,
-            "disp": 145,
-            "hp": 175,
-            "drat": 3.62,
-            "wt": 2.77,
-            "qsec": 15.5,
-            "vs": 0,
-            "am": 1,
-            "gear": 5,
-            "carb": 6,
-            "_row": "Ferrari Dino"
-          },
-          {
-            "mpg": 15,
-            "cyl": 8,
-            "disp": 301,
-            "hp": 335,
-            "drat": 3.54,
-            "wt": 3.57,
-            "qsec": 14.6,
-            "vs": 0,
-            "am": 1,
-            "gear": 5,
-            "carb": 8,
-            "_row": "Maserati Bora"
-          },
-          {
-            "mpg": 21.4,
-            "cyl": 4,
-            "disp": 121,
-            "hp": 109,
-            "drat": 4.11,
-            "wt": 2.78,
-            "qsec": 18.6,
-            "vs": 1,
-            "am": 1,
-            "gear": 4,
-            "carb": 2,
-            "_row": "Volvo 142E"
-          }
-        ]
-      },
-      {
-        "name": "data_0",
-        "source": "source_0",
-        "transform": [
-          {
-            "type": "formula",
-            "expr": "toNumber(datum[\"wt\"])",
-            "as": "wt"
-          },
-          {
-            "type": "formula",
-            "expr": "toNumber(datum[\"mpg\"])",
-            "as": "mpg"
-          },
-          {
-            "type": "filter",
-            "expr": "datum[\"wt\"] !== null && !isNaN(datum[\"wt\"]) && datum[\"mpg\"] !== null && !isNaN(datum[\"mpg\"])"
-          }
-        ]
-      }
-    ],
-    "marks": [
-      {
-        "name": "marks",
-        "type": "symbol",
-        "style": [
-          "point"
-        ],
-        "from": {
-          "data": "data_0"
-        },
-        "encode": {
-          "update": {
-            "opacity": {
-              "value": 0.7
-            },
-            "fill": {
-              "value": "transparent"
-            },
-            "stroke": {
-              "scale": "color",
-              "field": "cyl"
-            },
-            "x": {
-              "scale": "x",
-              "field": "wt"
-            },
-            "y": {
-              "scale": "y",
-              "field": "mpg"
-            }
-          }
-        }
-      }
-    ],
-    "scales": [
-      {
-        "name": "x",
-        "type": "linear",
-        "domain": {
-          "data": "data_0",
-          "field": "wt"
-        },
-        "range": [
-          0,
-          {
-            "signal": "width"
-          }
-        ],
-        "nice": true,
-        "zero": true
-      },
-      {
-        "name": "y",
-        "type": "linear",
-        "domain": {
-          "data": "data_0",
-          "field": "mpg"
-        },
-        "range": [
-          {
-            "signal": "height"
-          },
-          0
-        ],
-        "nice": true,
-        "zero": true
-      },
-      {
-        "name": "color",
-        "type": "ordinal",
-        "domain": {
-          "data": "data_0",
-          "field": "cyl",
-          "sort": true
-        },
-        "range": "category"
-      }
-    ],
-    "axes": [
-      {
-        "scale": "x",
-        "orient": "bottom",
-        "grid": false,
-        "title": "wt",
-        "labelFlush": true,
-        "labelOverlap": true,
-        "tickCount": {
-          "signal": "ceil(width/40)"
-        },
-        "zindex": 1
-      },
-      {
-        "scale": "x",
-        "orient": "bottom",
-        "grid": true,
-        "tickCount": {
-          "signal": "ceil(width/40)"
-        },
-        "gridScale": "y",
-        "domain": false,
-        "labels": false,
-        "maxExtent": 0,
-        "minExtent": 0,
-        "ticks": false,
-        "zindex": 0
-      },
-      {
-        "scale": "y",
-        "orient": "left",
-        "grid": false,
-        "title": "mpg",
-        "labelOverlap": true,
-        "tickCount": {
-          "signal": "ceil(height/40)"
-        },
-        "zindex": 1
-      },
-      {
-        "scale": "y",
-        "orient": "left",
-        "grid": true,
-        "tickCount": {
-          "signal": "ceil(height/40)"
-        },
-        "gridScale": "x",
-        "domain": false,
-        "labels": false,
-        "maxExtent": 0,
-        "minExtent": 0,
-        "ticks": false,
-        "zindex": 0
-      }
-    ],
-    "legends": [
-      {
-        "stroke": "color",
-        "title": "cyl",
-        "encode": {
-          "symbols": {
-            "update": {
-              "fill": {
-                "value": "transparent"
-              },
-              "opacity": {
-                "value": 0.7
-              }
-            }
-          }
-        }
-      }
-    ],
-    "config": {
-      "axisY": {
-        "minExtent": 30
-      }
-    }
-  },
-  "embed_options": {
-    "renderer": "canvas"
-  }
-},"evals":[],"jsHooks":[]}</script><pre><code>```{r vega.width=300, vega.height=300}
-spec_vega_mtcars
-```</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">spec_vega_mtcars</a></code></pre></div>
-<div id="htmlwidget-c47195b028b71a6d0fbf" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c47195b028b71a6d0fbf">{"x":{
-  "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega/v3.json",
-    "description": "An mtcars example.",
-    "autosize": {
-      "contains": "padding",
-      "type": "fit"
-    },
-    "padding": 5,
-    "width": 300,
-    "height": 300,
-    "style": "cell",
-    "data": [
-      {
-        "name": "source_0",
-        "values": [
-          {
-            "mpg": 21,
-            "cyl": 6,
-            "disp": 160,
-            "hp": 110,
-            "drat": 3.9,
-            "wt": 2.62,
-            "qsec": 16.46,
-            "vs": 0,
-            "am": 1,
-            "gear": 4,
-            "carb": 4,
-            "_row": "Mazda RX4"
-          },
-          {
-            "mpg": 21,
-            "cyl": 6,
-            "disp": 160,
-            "hp": 110,
-            "drat": 3.9,
-            "wt": 2.875,
-            "qsec": 17.02,
-            "vs": 0,
-            "am": 1,
-            "gear": 4,
-            "carb": 4,
-            "_row": "Mazda RX4 Wag"
-          },
-          {
-            "mpg": 22.8,
-            "cyl": 4,
-            "disp": 108,
-            "hp": 93,
-            "drat": 3.85,
-            "wt": 2.32,
-            "qsec": 18.61,
-            "vs": 1,
-            "am": 1,
-            "gear": 4,
-            "carb": 1,
-            "_row": "Datsun 710"
-          },
-          {
-            "mpg": 21.4,
-            "cyl": 6,
-            "disp": 258,
-            "hp": 110,
-            "drat": 3.08,
-            "wt": 3.215,
-            "qsec": 19.44,
-            "vs": 1,
-            "am": 0,
-            "gear": 3,
-            "carb": 1,
-            "_row": "Hornet 4 Drive"
-          },
-          {
-            "mpg": 18.7,
-            "cyl": 8,
-            "disp": 360,
-            "hp": 175,
-            "drat": 3.15,
-            "wt": 3.44,
-            "qsec": 17.02,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 2,
-            "_row": "Hornet Sportabout"
-          },
-          {
-            "mpg": 18.1,
-            "cyl": 6,
-            "disp": 225,
-            "hp": 105,
-            "drat": 2.76,
-            "wt": 3.46,
-            "qsec": 20.22,
-            "vs": 1,
-            "am": 0,
-            "gear": 3,
-            "carb": 1,
-            "_row": "Valiant"
-          },
-          {
-            "mpg": 14.3,
-            "cyl": 8,
-            "disp": 360,
-            "hp": 245,
-            "drat": 3.21,
-            "wt": 3.57,
-            "qsec": 15.84,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 4,
-            "_row": "Duster 360"
-          },
-          {
-            "mpg": 24.4,
-            "cyl": 4,
-            "disp": 146.7,
-            "hp": 62,
-            "drat": 3.69,
-            "wt": 3.19,
-            "qsec": 20,
-            "vs": 1,
-            "am": 0,
-            "gear": 4,
-            "carb": 2,
-            "_row": "Merc 240D"
-          },
-          {
-            "mpg": 22.8,
-            "cyl": 4,
-            "disp": 140.8,
-            "hp": 95,
-            "drat": 3.92,
-            "wt": 3.15,
-            "qsec": 22.9,
-            "vs": 1,
-            "am": 0,
-            "gear": 4,
-            "carb": 2,
-            "_row": "Merc 230"
-          },
-          {
-            "mpg": 19.2,
-            "cyl": 6,
-            "disp": 167.6,
-            "hp": 123,
-            "drat": 3.92,
-            "wt": 3.44,
-            "qsec": 18.3,
-            "vs": 1,
-            "am": 0,
-            "gear": 4,
-            "carb": 4,
-            "_row": "Merc 280"
-          },
-          {
-            "mpg": 17.8,
-            "cyl": 6,
-            "disp": 167.6,
-            "hp": 123,
-            "drat": 3.92,
-            "wt": 3.44,
-            "qsec": 18.9,
-            "vs": 1,
-            "am": 0,
-            "gear": 4,
-            "carb": 4,
-            "_row": "Merc 280C"
-          },
-          {
-            "mpg": 16.4,
-            "cyl": 8,
-            "disp": 275.8,
-            "hp": 180,
-            "drat": 3.07,
-            "wt": 4.07,
-            "qsec": 17.4,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 3,
-            "_row": "Merc 450SE"
-          },
-          {
-            "mpg": 17.3,
-            "cyl": 8,
-            "disp": 275.8,
-            "hp": 180,
-            "drat": 3.07,
-            "wt": 3.73,
-            "qsec": 17.6,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 3,
-            "_row": "Merc 450SL"
-          },
-          {
-            "mpg": 15.2,
-            "cyl": 8,
-            "disp": 275.8,
-            "hp": 180,
-            "drat": 3.07,
-            "wt": 3.78,
-            "qsec": 18,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 3,
-            "_row": "Merc 450SLC"
-          },
-          {
-            "mpg": 10.4,
-            "cyl": 8,
-            "disp": 472,
-            "hp": 205,
-            "drat": 2.93,
-            "wt": 5.25,
-            "qsec": 17.98,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 4,
-            "_row": "Cadillac Fleetwood"
-          },
-          {
-            "mpg": 10.4,
-            "cyl": 8,
-            "disp": 460,
-            "hp": 215,
-            "drat": 3,
-            "wt": 5.424,
-            "qsec": 17.82,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 4,
-            "_row": "Lincoln Continental"
-          },
-          {
-            "mpg": 14.7,
-            "cyl": 8,
-            "disp": 440,
-            "hp": 230,
-            "drat": 3.23,
-            "wt": 5.345,
-            "qsec": 17.42,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 4,
-            "_row": "Chrysler Imperial"
-          },
-          {
-            "mpg": 32.4,
-            "cyl": 4,
-            "disp": 78.7,
-            "hp": 66,
-            "drat": 4.08,
-            "wt": 2.2,
-            "qsec": 19.47,
-            "vs": 1,
-            "am": 1,
-            "gear": 4,
-            "carb": 1,
-            "_row": "Fiat 128"
-          },
-          {
-            "mpg": 30.4,
-            "cyl": 4,
-            "disp": 75.7,
-            "hp": 52,
-            "drat": 4.93,
-            "wt": 1.615,
-            "qsec": 18.52,
-            "vs": 1,
-            "am": 1,
-            "gear": 4,
-            "carb": 2,
-            "_row": "Honda Civic"
-          },
-          {
-            "mpg": 33.9,
-            "cyl": 4,
-            "disp": 71.1,
-            "hp": 65,
-            "drat": 4.22,
-            "wt": 1.835,
-            "qsec": 19.9,
-            "vs": 1,
-            "am": 1,
-            "gear": 4,
-            "carb": 1,
-            "_row": "Toyota Corolla"
-          },
-          {
-            "mpg": 21.5,
-            "cyl": 4,
-            "disp": 120.1,
-            "hp": 97,
-            "drat": 3.7,
-            "wt": 2.465,
-            "qsec": 20.01,
-            "vs": 1,
-            "am": 0,
-            "gear": 3,
-            "carb": 1,
-            "_row": "Toyota Corona"
-          },
-          {
-            "mpg": 15.5,
-            "cyl": 8,
-            "disp": 318,
-            "hp": 150,
-            "drat": 2.76,
-            "wt": 3.52,
-            "qsec": 16.87,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 2,
-            "_row": "Dodge Challenger"
-          },
-          {
-            "mpg": 15.2,
-            "cyl": 8,
-            "disp": 304,
-            "hp": 150,
-            "drat": 3.15,
-            "wt": 3.435,
-            "qsec": 17.3,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 2,
-            "_row": "AMC Javelin"
-          },
-          {
-            "mpg": 13.3,
-            "cyl": 8,
-            "disp": 350,
-            "hp": 245,
-            "drat": 3.73,
-            "wt": 3.84,
-            "qsec": 15.41,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 4,
-            "_row": "Camaro Z28"
-          },
-          {
-            "mpg": 19.2,
-            "cyl": 8,
-            "disp": 400,
-            "hp": 175,
-            "drat": 3.08,
-            "wt": 3.845,
-            "qsec": 17.05,
-            "vs": 0,
-            "am": 0,
-            "gear": 3,
-            "carb": 2,
-            "_row": "Pontiac Firebird"
-          },
-          {
-            "mpg": 27.3,
-            "cyl": 4,
-            "disp": 79,
-            "hp": 66,
-            "drat": 4.08,
-            "wt": 1.935,
-            "qsec": 18.9,
-            "vs": 1,
-            "am": 1,
-            "gear": 4,
-            "carb": 1,
-            "_row": "Fiat X1-9"
-          },
-          {
-            "mpg": 26,
-            "cyl": 4,
-            "disp": 120.3,
-            "hp": 91,
-            "drat": 4.43,
-            "wt": 2.14,
-            "qsec": 16.7,
-            "vs": 0,
-            "am": 1,
-            "gear": 5,
-            "carb": 2,
-            "_row": "Porsche 914-2"
-          },
-          {
-            "mpg": 30.4,
-            "cyl": 4,
-            "disp": 95.1,
-            "hp": 113,
-            "drat": 3.77,
-            "wt": 1.513,
-            "qsec": 16.9,
-            "vs": 1,
-            "am": 1,
-            "gear": 5,
-            "carb": 2,
-            "_row": "Lotus Europa"
-          },
-          {
-            "mpg": 15.8,
-            "cyl": 8,
-            "disp": 351,
-            "hp": 264,
-            "drat": 4.22,
-            "wt": 3.17,
-            "qsec": 14.5,
-            "vs": 0,
-            "am": 1,
-            "gear": 5,
-            "carb": 4,
-            "_row": "Ford Pantera L"
-          },
-          {
-            "mpg": 19.7,
-            "cyl": 6,
-            "disp": 145,
-            "hp": 175,
-            "drat": 3.62,
-            "wt": 2.77,
-            "qsec": 15.5,
-            "vs": 0,
-            "am": 1,
-            "gear": 5,
-            "carb": 6,
-            "_row": "Ferrari Dino"
-          },
-          {
-            "mpg": 15,
-            "cyl": 8,
-            "disp": 301,
-            "hp": 335,
-            "drat": 3.54,
-            "wt": 3.57,
-            "qsec": 14.6,
-            "vs": 0,
-            "am": 1,
-            "gear": 5,
-            "carb": 8,
-            "_row": "Maserati Bora"
-          },
-          {
-            "mpg": 21.4,
-            "cyl": 4,
-            "disp": 121,
-            "hp": 109,
-            "drat": 4.11,
-            "wt": 2.78,
-            "qsec": 18.6,
-            "vs": 1,
-            "am": 1,
-            "gear": 4,
-            "carb": 2,
-            "_row": "Volvo 142E"
-          }
-        ]
-      },
-      {
-        "name": "data_0",
-        "source": "source_0",
-        "transform": [
-          {
-            "type": "formula",
-            "expr": "toNumber(datum[\"wt\"])",
-            "as": "wt"
-          },
-          {
-            "type": "formula",
-            "expr": "toNumber(datum[\"mpg\"])",
-            "as": "mpg"
-          },
-          {
-            "type": "filter",
-            "expr": "datum[\"wt\"] !== null && !isNaN(datum[\"wt\"]) && datum[\"mpg\"] !== null && !isNaN(datum[\"mpg\"])"
-          }
-        ]
-      }
-    ],
-    "marks": [
-      {
-        "name": "marks",
-        "type": "symbol",
-        "style": [
-          "point"
-        ],
-        "from": {
-          "data": "data_0"
-        },
-        "encode": {
-          "update": {
-            "opacity": {
-              "value": 0.7
-            },
-            "fill": {
-              "value": "transparent"
-            },
-            "stroke": {
-              "scale": "color",
-              "field": "cyl"
-            },
-            "x": {
-              "scale": "x",
-              "field": "wt"
-            },
-            "y": {
-              "scale": "y",
-              "field": "mpg"
-            }
-          }
-        }
-      }
-    ],
-    "scales": [
-      {
-        "name": "x",
-        "type": "linear",
-        "domain": {
-          "data": "data_0",
-          "field": "wt"
-        },
-        "range": [
-          0,
-          {
-            "signal": "width"
-          }
-        ],
-        "nice": true,
-        "zero": true
-      },
-      {
-        "name": "y",
-        "type": "linear",
-        "domain": {
-          "data": "data_0",
-          "field": "mpg"
-        },
-        "range": [
-          {
-            "signal": "height"
-          },
-          0
-        ],
-        "nice": true,
-        "zero": true
-      },
-      {
-        "name": "color",
-        "type": "ordinal",
-        "domain": {
-          "data": "data_0",
-          "field": "cyl",
-          "sort": true
-        },
-        "range": "category"
-      }
-    ],
-    "axes": [
-      {
-        "scale": "x",
-        "orient": "bottom",
-        "grid": false,
-        "title": "wt",
-        "labelFlush": true,
-        "labelOverlap": true,
-        "tickCount": {
-          "signal": "ceil(width/40)"
-        },
-        "zindex": 1
-      },
-      {
-        "scale": "x",
-        "orient": "bottom",
-        "grid": true,
-        "tickCount": {
-          "signal": "ceil(width/40)"
-        },
-        "gridScale": "y",
-        "domain": false,
-        "labels": false,
-        "maxExtent": 0,
-        "minExtent": 0,
-        "ticks": false,
-        "zindex": 0
-      },
-      {
-        "scale": "y",
-        "orient": "left",
-        "grid": false,
-        "title": "mpg",
-        "labelOverlap": true,
-        "tickCount": {
-          "signal": "ceil(height/40)"
-        },
-        "zindex": 1
-      },
-      {
-        "scale": "y",
-        "orient": "left",
-        "grid": true,
-        "tickCount": {
-          "signal": "ceil(height/40)"
-        },
-        "gridScale": "x",
-        "domain": false,
-        "labels": false,
-        "maxExtent": 0,
-        "minExtent": 0,
-        "ticks": false,
-        "zindex": 0
-      }
-    ],
-    "legends": [
-      {
-        "stroke": "color",
-        "title": "cyl",
-        "encode": {
-          "symbols": {
-            "update": {
-              "fill": {
-                "value": "transparent"
-              },
-              "opacity": {
-                "value": 0.7
-              }
-            }
-          }
-        }
-      }
-    ],
-    "config": {
-      "axisY": {
-        "minExtent": 30
-      }
-    }
-  },
-  "embed_options": {
+    "defaultStyle": true,
     "renderer": "canvas"
   }
 },"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="png" class="section level2">
+<h2 class="hasAnchor">
+<a href="#png" class="anchor"></a>PNG</h2>
+<p>The function <code><a href="../reference/vw_to_png.html">vw_to_png()</a></code> generates an image at 96 DPI. We expect this to appear at the same size as the <strong>reference</strong>. However, we not using retina resolution so it will appear a bit fuzzy on non-retina monitors.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">file_png &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-refrence.png"</span>)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw"><a href="../reference/vw_write_png.html">vw_write_png</a></span>(spec_mtcars, <span class="dt">path =</span> file_png)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_png, <span class="dt">dpi =</span> <span class="dv">96</span>)</a></code></pre></div>
+<p><img src="visual-regression-files/mtcars-refrence.png" width="398"></p>
+<p>To get retina resolution, we use the <code>scale</code> argument in <code><a href="../reference/vw_write_png.html">vw_write_png()</a></code>, then adjust the <code>dpi</code> argument in <code>include_graphics()</code>. Thus, we expect this to appear indentical to the <strong>reference</strong>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">file_png &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-retina.png"</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw"><a href="../reference/vw_write_png.html">vw_write_png</a></span>(spec_mtcars, <span class="dt">path =</span> file_png, <span class="dt">scale =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_png, <span class="dt">dpi =</span> <span class="dv">96</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="visual-regression-files/mtcars-retina.png" width="398"></p>
+<p>We expect that the rendered image will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>, but at non-retina resolution:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">file_png &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-wide.png"</span>)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="../reference/vw_write_png.html">vw_write_png</a></span>(spec_mtcars, <span class="dt">path =</span> file_png, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_png, <span class="dt">dpi =</span> <span class="dv">96</span>)</a></code></pre></div>
+<p><img src="visual-regression-files/mtcars-wide.png" width="600"></p>
+<p>Finally, we expect to be able to use <code><a href="../reference/vw_write_png.html">vw_write_png()</a></code> with vegawidgets; we expect this to appear at the same size as the <strong>reference</strong>, but at non-retina resolution:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">file_png &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-widget.png"</span>)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw"><a href="../reference/vw_write_png.html">vw_write_png</a></span>(<span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars), <span class="dt">path =</span> file_png)</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_png, <span class="dt">dpi =</span> <span class="dv">96</span>)</a></code></pre></div>
+<p><img src="visual-regression-files/mtcars-widget.png" width="398"></p>
+</div>
+<div id="svg" class="section level2">
+<h2 class="hasAnchor">
+<a href="#svg" class="anchor"></a>SVG</h2>
+<p>The function <code><a href="../reference/vw_to_svg.html">vw_to_svg()</a></code> generates a vector-image. We expect this to appear identical to the <strong>reference</strong>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">file_svg &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-refrence.svg"</span>)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw"><a href="../reference/vw_write_svg.html">vw_write_svg</a></span>(spec_mtcars, <span class="dt">path =</span> file_svg)</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_svg)</a></code></pre></div>
+<p><img src="visual-regression-files/mtcars-refrence.svg"><!-- --></p>
+<p>We expect that the rendered image will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>, and to appear at retina resolution.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">file_svg &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-wide.svg"</span>)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw"><a href="../reference/vw_write_svg.html">vw_write_svg</a></span>(spec_mtcars, <span class="dt">path =</span> file_svg, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_svg)</a></code></pre></div>
+<p><img src="visual-regression-files/mtcars-wide.svg"><!-- --></p>
+<p>The <code>scale</code> argument in <code><a href="../reference/vw_write_svg.html">vw_write_svg()</a></code> may not be useful becuse the SVG itself is scalable. We expect this appear at double-size to <strong>reference</strong>, with retina resolution:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">file_svg &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-retina.svg"</span>)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw"><a href="../reference/vw_write_svg.html">vw_write_svg</a></span>(spec_mtcars, <span class="dt">path =</span> file_svg, <span class="dt">scale =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_svg)</a></code></pre></div>
+<p><img src="visual-regression-files/mtcars-retina.svg"><!-- --></p>
+<p>Finally, we expect to be able to use <code><a href="../reference/vw_write_svg.html">vw_write_svg()</a></code> with vegawidgets; we expect this to appear identical to the <strong>reference</strong>:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">file_svg &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-widget.svg"</span>)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw"><a href="../reference/vw_write_svg.html">vw_write_svg</a></span>(<span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars), <span class="dt">path =</span> file_svg)</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_svg)</a></code></pre></div>
+<p><img src="visual-regression-files/mtcars-widget.svg"><!-- --></p>
 </div>
   </div>
 
@@ -4509,8 +2798,10 @@ spec_vega_mtcars
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#reference">Reference</a></li>
-      <li><a href="#vega-lite">Vega-Lite</a></li>
+      <li><a href="#autosize">Autosize</a></li>
       <li><a href="#vega">Vega</a></li>
+      <li><a href="#png">PNG</a></li>
+      <li><a href="#svg">SVG</a></li>
       </ul>
 </div>
       </div>
@@ -4519,7 +2810,7 @@ spec_vega_mtcars
 
 
       <footer><div class="copyright">
-  <p>Developed by Ian Lyttle.</p>
+  <p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
 </div>
 
 <div class="pkgdown">

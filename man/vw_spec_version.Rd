@@ -13,7 +13,7 @@ vw_spec_version(spec)
 \code{list} with elements \code{library}, \code{version}
 }
 \description{
-Examines the \code{$schema} element of a vegaspec.
+Use this function to determine the \code{library} and \code{version} of a \code{vegaspec}.
 }
 \details{
 Returns a list with two elements:
@@ -25,4 +25,5 @@ Returns a list with two elements:
 }
 \examples{
   vw_spec_version(spec_mtcars)
+  vw_spec_version(vw_to_vega(spec_mtcars))
 }

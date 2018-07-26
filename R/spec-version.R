@@ -1,6 +1,6 @@
 #' Determine vegaspec version
 #'
-#' Examines the `$schema` element of a vegaspec.
+#' Use this function to determine the `library` and `version` of a `vegaspec`.
 #'
 #' Returns a list with two elements:
 #'
@@ -14,6 +14,7 @@
 #' @return `list` with elements `library`, `version`
 #' @examples
 #'   vw_spec_version(spec_mtcars)
+#'   vw_spec_version(vw_to_vega(spec_mtcars))
 #' @export
 #'
 vw_spec_version <- function(spec) {

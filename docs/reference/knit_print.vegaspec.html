@@ -63,7 +63,7 @@ respectively." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.1</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3</span>
       </span>
     </div>
 
@@ -92,6 +92,9 @@ respectively." />
       <a href="../articles/visual-regression.html">Visual Regression</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -127,14 +130,14 @@ respectively.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>knit_print.vegaspec</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>options</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>knit_print.vegaspec</span>(<span class='no'>spec</span>, <span class='no'>...</span>, <span class='kw'>options</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>Altair chart object</p></td>
+      <th>spec</th>
+      <td><p>object to be coerced to Vega/Vega-Lite specification</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -148,7 +151,9 @@ respectively.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>vega.width</code> and <code>vega.height</code> are
+    <p>Embedding options can be passed by setting the option <code>vega.embed</code> using
+<code><a href='vega_embed.html'>vega_embed()</a></code>.</p>
+<p><code>vega.width</code> and <code>vega.height</code> are
 coerced to numeric, so it is ineffective to specify a percentage.</p>
     
 
@@ -166,7 +171,7 @@ coerced to numeric, so it is ineffective to specify a percentage.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Ian Lyttle.</p>
+  <p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
 </div>
 
 <div class="pkgdown">

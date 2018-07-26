@@ -100,12 +100,18 @@ vw_write_png.vegawidget <- function(widget, path, scale = 1, ...) {
   invisible(vegawidget)
 }
 
-#' Translate PNG from dataURI string to binary
+#' Coerce data-URI string to raw binary
 #'
-#' @param png `character`, dataURI string describing PNG
+#' @param png `character`, data-URI string describing PNG
 #'
 #' @return `raw` PNG
-#' @keywords internal
+#' @examples
+#' \dontrun{
+#'   png_bin <-
+#'     spec_mtcars %>%
+#'     vw_to_png() %>%
+#'     vw_png_bin()
+#' }
 #' @export
 #'
 vw_png_bin <- function(png) {

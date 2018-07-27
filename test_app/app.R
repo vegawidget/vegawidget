@@ -39,28 +39,25 @@ library(vegawidget)
 
 spec <- jsonlite::fromJSON("example_vega_schema.json")
 
-vegawidget_addEventListener <- function(id, event, handler) {
-
-  session <- shiny::getDefaultReactiveDomain()
-
-  # prepair a message using the function arguments
-  message <- list(id = id, event = event, handler = handler)
-  print(class(message$handler))
-
-  # send a custom message to JavaScript
-  session$sendCustomMessage("addEventListener", message)
-
-}
 
 
-addShinyEventListener <- function(x, event){
-  htmlwidgets::onRender(x, "function(el, x, data) {this.addShinyEventListener(data)}", event)
-}
 
 addEventListener <- function(x, event, handler){
   htmlwidgets::onRender(x,
                         paste0("function(el, x) {this.addEventListener('",
                               event, "', ",handler,")}"))
+}
+
+
+addShinyEventListener <- function(x, event){
+  handler = "function(event, item) {
+              if (item !== null && item !== undefined && item.datum !== undefined){
+                Shiny.onInputChange(el.id + '_' + event.type, item.datum);
+              } else {
+                Shiny.onInputChange(el.id + '_' + event.type,null);
+              }
+          }"
+  addEventListener(x, event, handler)
 }
 
 addSignalListener <- function(x, signal, handler){
@@ -70,7 +67,9 @@ addSignalListener <- function(x, signal, handler){
 }
 
 addShinySignalListener <- function(x, signal){
-  htmlwidgets::onRender(x, "function(el, x, signal) {this.addShinySignalListener(signal)}", signal)
+  handler = "function(name, value) {
+              Shiny.onInputChange(el.id + '_' + name, value)}"
+ addSignalListener(x, signal, handler)
 }
 
 callViewAPI <- function(id, fn, params) {
@@ -84,6 +83,21 @@ callViewAPI <- function(id, fn, params) {
   session$sendCustomMessage("callView", message)
 
 }
+
+vw_bind_ui <- function(output_id, input_id, signal_name, input_transformer = NULL) {
+
+  session <- shiny::getDefaultReactiveDomain()
+  shiny::observe( {
+    if (!is.null(input_transformer)) {
+      in_ <- input_transformer(session$input[[input_id]])
+    } else {
+      in_ <- session$input[[input_id]]
+    }
+    print(in_)
+    callViewAPI(output_id, "signal", list(signal_name,in_))
+  })
+}
+
 
 ui <- shiny::fluidPage(
 
@@ -101,7 +115,7 @@ library(magrittr)
 server <- function(input, output) {
 
   output$chart <- renderVegawidget({
-    vegawidget(spec) %>% #addShinyEventListener("click") %>%
+    vegawidget(spec) %>% addShinyEventListener("click") %>%
       #addEventListener("dblclick", "function(event, item) {console.log(item);}") %>%
       #addSignalListener("brush_tuple", "function(name, value) {console.log(value);}")
       #addShinySignalListener("brush_tuple")
@@ -121,16 +135,18 @@ server <- function(input, output) {
   #                          }'))}
   # )
 
-  x <- shiny::reactiveVal()
 
   output$cl <- shiny::renderPrint({
-    input$chart_cyl
+    input[['chart_cyl']]
+    #input$chart_click
   })
 
-  shiny::observe({
-    #shiny::invalidateLater(2000)
-    x <- callViewAPI("chart", "signal", list("cyl",input$slider))
-  })
+  vw_bind_ui("chart", "slider", "cyl")
+
+  # shiny::observe({
+  #   #shiny::invalidateLater(2000)
+  #   x <- callViewAPI("chart", "signal", list("cyl",input$slider))
+  # })
 
 
 }

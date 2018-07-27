@@ -59,21 +59,11 @@ HTMLWidgets.widget({
       },
 
       addEventListener: function(event_name, handler) {
-         console.log(event_name);
-         console.log(handler);
+         // Use a list to store event listeners that are
+         // applied prior to render time
          event_listeners[event_name] = handler;
-      },
-
-      addShinyEventListener: function(event_name) {
-        if (HTMLWidgets.shinyMode) {
-          event_listeners[event_name] =
-            function(event, item) {
-              if (item !== null && item !== undefined && item.datum !== undefined){
-                Shiny.onInputChange(el.id + "_" + event_name, item.datum);
-              } else {
-                Shiny.onInputChange(el.id + "_" + event_name,null);
-              }
-            };
+         if (view !== null){
+           view.addEventListener(event_name, handler);
          }
       },
 

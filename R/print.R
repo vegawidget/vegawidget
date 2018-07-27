@@ -70,3 +70,12 @@ knit_print.vegaspec <- function(spec, ..., options = NULL){
     vegawidget(spec, embed = embed, width = width, height = height)
   )
 }
+
+# tells us if we are knitting or not (knot?)
+is_knit <- function() {
+  if (!requireNamespace("knitr", quietly = TRUE)) {
+    return(FALSE)
+  }
+
+  !is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))
+}

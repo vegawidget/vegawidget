@@ -24,6 +24,16 @@ vw_examine <- function(spec, mode = "tree",
 
   assert_packages("listviewer")
 
+  # I would prefer that this function print the htmlwidget and
+  # invisibly return the spec, so as to support piping.
+  #
+  # However, doing this prevents the widget from being printed
+  # when being knit. See https://github.com/vegawidget/vegawidget/issues/30
+  #
+  # To me, it is more important that this work well with knitr, than
+  # that this be pipeable.
+  #
+
   listviewer::jsonedit(
     listdata = spec,
     mode = mode,

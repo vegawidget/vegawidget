@@ -55,7 +55,7 @@ If you wish to deploy a specification to be rendered on bl.ocks.org, you can do 
 
 ```{r create_block, eval=FALSE}
 # not yet fully implemented
-create_block(spec_mtcars)
+vw_create_block(spec_mtcars)
 ```
 
 ## Installation

@@ -2,7 +2,7 @@
 % Please edit documentation in R/vegawidget.R
 \name{vegawidgetOutput}
 \alias{vegawidgetOutput}
-\title{Shiny output for Vega-Lite}
+\title{Shiny-output for vegawidget}
 \usage{
 vegawidgetOutput(outputId, width = "100\%", height = "400px")
 }
@@ -18,5 +18,5 @@ string and have \code{"px"} appended.}
 string and have \code{"px"} appended.}
 }
 \description{
-Shiny output for Vega-Lite
+Shiny-output for vegawidget
 }

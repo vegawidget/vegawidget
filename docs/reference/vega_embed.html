@@ -32,14 +32,10 @@
   
 <meta property="og:title" content="Vega embed options — vega_embed" />
 
-<meta property="og:description" content="Used to specify the embed argument to the vegawidget() renderer.
-These arguments are then passed to the
+<meta property="og:description" content="Helper-function to specify the embed argument to vegawidget().
+These arguments reflect the options to the
 vega-embed
-library, which ultimately renders the chart specification as HTML.
-The most common options to set are renderer, to specify &quot;canvas&quot;
-or &quot;svg&quot;, and actions, to specify the inclusion of export, source,
-and editor links. This documentation is adapted from the
-vega-embed documentation." />
+library, which ultimately renders the chart specification as HTML." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -68,7 +64,7 @@ vega-embed documentation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.1</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3</span>
       </span>
     </div>
 
@@ -93,7 +89,13 @@ vega-embed documentation." />
     <li>
       <a href="../articles/first-example.html">First Example</a>
     </li>
+    <li>
+      <a href="../articles/visual-regression.html">Visual Regression</a>
+    </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -123,21 +125,19 @@ vega-embed documentation." />
 
     <div class="ref-description">
     
-    <p>Used to specify the <code>embed</code> argument to the <code><a href='vegawidget.html'>vegawidget()</a></code> renderer.
-These arguments are then passed to the
-<a href='https://github.com/vega/vega-embed#options'>vega-embed</a>
-library, which ultimately renders the chart specification as HTML.
-The most common options to set are <code>renderer</code>, to specify <code>"canvas"</code>
-or <code>"svg"</code>, and <code>actions</code>, to specify the inclusion of <code>export</code>, <code>source</code>,
-and <code>editor</code> links. This documentation is adapted from the
-<a href='https://github.com/vega/vega-embed#options'>vega-embed documentation</a>.</p>
+    <p>Helper-function to specify the <code>embed</code> argument to <code><a href='vegawidget.html'>vegawidget()</a></code>.
+These arguments reflect the options to the
+<a href='https://github.com/vega/vega-embed/#options'>vega-embed</a>
+library, which ultimately renders the chart specification as HTML.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>vega_embed</span>(<span class='kw'>renderer</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"canvas"</span>, <span class='st'>"svg"</span>), <span class='kw'>actions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>logLevel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>loader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>onBeforeParse</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>editorUrl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sourceHeader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sourceFooter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>runAsync</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>vega_embed</span>(<span class='kw'>renderer</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"canvas"</span>, <span class='st'>"svg"</span>), <span class='kw'>actions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>defaultStyle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>logLevel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>loader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>onBeforeParse</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scaleFactor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>editorUrl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sourceHeader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sourceFooter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>hover</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>runAsync</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,6 +165,11 @@ can be overridden. For example, if <code>actions</code> is
 have two links – "View Source" and "Open in Vega Editor".</p></td>
     </tr>
     <tr>
+      <th>defaultStyle</th>
+      <td><p><code>logical</code> or <code>character</code>
+default stylesheet for embed actions</p></td>
+    </tr>
+    <tr>
       <th>mode</th>
       <td><p><code>character</code> if specified, tells Vega-Embed to parse the spec
 as vega or vega-lite. Vega-Embed will parse the <code>$schema</code> url if the mode
@@ -172,10 +177,23 @@ is not specified. Vega-Embed will default to vega if neither mode,
 nor $schema are specified.</p></td>
     </tr>
     <tr>
+      <th>theme</th>
+      <td><p><code>character</code> if specified, tells Vega-Embed use the theme from
+<a href='https://github.com/vega/vega-themes'>Vega Themes</a>;
+this is an experimental feature.</p></td>
+    </tr>
+    <tr>
       <th>logLevel</th>
       <td><p>sets the current log level.
 See <a href='https://vega.github.io/vega/docs/api/view/#view_logLevel'>Vega docs</a>
 for details.</p></td>
+    </tr>
+    <tr>
+      <th>tooltip</th>
+      <td><p><code>JS</code>, <code>logical</code>, or object
+to provide a <a href='https://vega.github.io/vega/docs/api/view/#view_tooltip'>tooltip handler</a>,
+customize the default <a href='https://github.com/vega/vega-tooltip'>Vega Tooltip handler</a>,
+or disable the default handler.</p></td>
     </tr>
     <tr>
       <th>loader</th>
@@ -208,6 +226,11 @@ See <a href='https://vega.github.io/vega/docs/api/view/#view_padding'>Vega docs<
 for details.</p></td>
     </tr>
     <tr>
+      <th>scaleFactor</th>
+      <td><p><code>numeric</code> the number by which to multiply the width and
+height (default 1) of an exported PNG or SVG image.</p></td>
+    </tr>
+    <tr>
       <th>config</th>
       <td><p><code>character</code> or <code>list</code> a URL string** from which to load
 a Vega/Vega-Lite or Vega-Lite configuration file, or a <code>list</code> of
@@ -237,6 +260,10 @@ page generated by the "View Source" action link. The text will be added
 immediately before the closing `` tag.</p></td>
     </tr>
     <tr>
+      <th>hover</th>
+      <td><p><code>logical</code>, enable <a href='https://vega.github.io/vega/docs/api/view/#view_hover'>hover event processing</a></p></td>
+    </tr>
+    <tr>
       <th>runAsync</th>
       <td><p><code>logical</code>, indicating to use
 <a href='https://vega.github.io/vega/docs/api/view/#view_runAsync'>runAsync</a>
@@ -246,38 +273,40 @@ instead of <a href='https://vega.github.io/vega/docs/api/view/#view_run'>run</a>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>S3 object with class <code>vega_embed</code></p>
+    <p><code>list</code> to to be used with vega-embed JavaScript library</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The default <code>renderer</code> is <code>"canvas"</code>.</p>
-<p>The default for <code>actions</code> is <code>NULL</code>, which means that the <code>export</code>,
+    <p>The most important arguments are <code>renderer</code>, <code>actions</code>, and <code>defaultStyle</code>:</p><ul>
+<li><p>The default <code>renderer</code> is <code>"canvas"</code>.</p></li>
+<li><p>The default for <code>actions</code> is <code>NULL</code>, which means that the <code>export</code>,
 <code>source</code>, and <code>editor</code> links are shown, but the <code>compiled</code> link is
 not shown.</p><ul>
 <li><p>To suppress all action links, call with <code>actions = FALSE</code>.</p></li>
 <li><p>To change from the default for a given action link, call with a list:
 <code>actions = list(editor = FALSE)</code>.</p></li>
-<li><p>To specify which link(s) to include, call using the <code><a href='only_actions.html'>only_actions()</a></code>
-function: <code>actions = only_actions(export = TRUE)</code>.</p></li>
+</ul></li>
+<li><p>The default for <code>defaultStyle</code> is <code>TRUE</code>, which means that action-links
+are rendered in a widget at the upper-right corner of the rendered chart.</p></li>
 </ul>
-    <p>It is ineffective to set the <code>width</code> and <code>height</code> parameters here, as they
-will be overridden by the values in the chart specification.</p>
+    <p>It is ineffective to set the <code>width</code> and <code>height</code> parameters here when
+embedding a Vega-Lite specification, as they will be overridden by the values
+in the chart specification.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='vegawidget.html'>vegawidget()</a></code>, <code><a href='only_actions.html'>only_actions()</a></code>,
-<a href='https://vegawidget.github.io/altair/field-guide-rendering.html'>altair: Field Guide to Rendering Charts</a>,
-<a href='https://github.com/vega/vega-embed'>vega-embed library</a></p></div>
+    <div class='dont-index'><p><a href='https://github.com/vega/vega-embed'>vega-embed library</a>,
+<code><a href='vegawidget.html'>vegawidget()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Set renderer</span>
-<span class='no'>embed_options</span> <span class='kw'>&lt;-</span> <span class='fu'>vega_embed</span>(<span class='kw'>renderer</span> <span class='kw'>=</span> <span class='st'>"svg"</span>)
-
-<span class='co'># Specify  action links</span>
-<span class='no'>embed_options</span> <span class='kw'>&lt;-</span> <span class='fu'>vega_embed</span>(<span class='kw'>actions</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>embed_options</span> <span class='kw'>&lt;-</span> <span class='fu'>vega_embed</span>(<span class='kw'>actions</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>editor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>))
-<span class='no'>embed_options</span> <span class='kw'>&lt;-</span> <span class='fu'>vega_embed</span>(<span class='kw'>actions</span> <span class='kw'>=</span> <span class='fu'><a href='only_actions.html'>only_actions</a></span>(<span class='kw'>export</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>vega_embed</span>(<span class='kw'>renderer</span> <span class='kw'>=</span> <span class='st'>"svg"</span>)</div><div class='output co'>#&gt; $defaultStyle
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $renderer
+#&gt; [1] "svg"
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -298,7 +327,7 @@ will be overridden by the values in the chart specification.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Ian Lyttle.</p>
+  <p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
 </div>
 
 <div class="pkgdown">

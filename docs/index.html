@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.1</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3</span>
       </span>
     </div>
 
@@ -57,7 +57,13 @@
 <li>
       <a href="articles/first-example.html">First Example</a>
     </li>
+    <li>
+      <a href="articles/visual-regression.html">Visual Regression</a>
+    </li>
   </ul>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -76,9 +82,8 @@
 <!--/.navbar -->
 
       
-      </header><script src="index_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="index_files/vega-4.0.0/promise.min.js"></script><script src="index_files/vega-4.0.0/symbol.min.js"></script><script src="index_files/vega-4.0.0/vega.js"></script><script src="index_files/vega-lite-2.5.0/vega-lite-min.js"></script><link href="index_files/vega-embed-3.14.0/vega-embed.css" rel="stylesheet">
-<script src="index_files/vega-embed-3.14.0/vega-embed-modified.js"></script><script src="index_files/vegawidget-binding-0.0.1/vegawidget.js"></script><link href="index_files/jsoneditor-5.5.5/jsoneditor.min.css" rel="stylesheet">
-<script src="index_files/jsoneditor-5.5.5/jsoneditor.min.js"></script><script src="index_files/jsonedit-binding-2.0.0/jsonedit.js"></script><div class="row">
+      </header><script src="index_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="index_files/vega-4.0.0/promise.min.js"></script><script src="index_files/vega-4.0.0/symbol.min.js"></script><script src="index_files/vega-4.0.0/vega.js"></script><script src="index_files/vega-lite-2.5.0/vega-lite.min.js"></script><link href="index_files/vega-embed-3.14.0/vega-embed.css" rel="stylesheet">
+<script src="index_files/vega-embed-3.14.0/vega-embed-modified.js"></script><script src="index_files/vegawidget-binding-0.0.3/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     
 
@@ -105,10 +110,15 @@
 <a class="sourceLine" id="cb1-12" data-line-number="12">  )  </a></code></pre></div>
 <p>The <code><a href="reference/vegawidget.html">vegawidget()</a></code> function is used to render specifications into htmlwidgets. If you are reading this document on the GitHub code site, it is further rendered into a PNG:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="reference/vegawidget.html">vegawidget</a></span>(spec_mtcars)</a></code></pre></div>
-<div id="htmlwidget-17314876b07dc45a988b" style="width:700px;height:432.632880098888px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-17314876b07dc45a988b">{"x":{
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; Attaching package: 'vegawidget'</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; The following object is masked _by_ '.GlobalEnv':</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;     spec_mtcars</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="kw"><a href="reference/vegawidget.html">vegawidget</a></span>(spec_mtcars)</a></code></pre></div>
+<div id="htmlwidget-f56487eb24ca1e7fa643" style="width:700px;height:432.632880098888px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f56487eb24ca1e7fa643">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "description": "An mtcars example.",
@@ -581,484 +591,14 @@
     }
   },
   "embed_options": {
+    "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script><p>If you wish to examine a specification, you may use the <code><a href="reference/examine.html">examine()</a></code> function, which is a thin wrapper around the <code>jsonedit()</code> function from the <strong>listviewer</strong> package.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="reference/examine.html">examine</a></span>(spec_mtcars)</a></code></pre></div>
-<div id="htmlwidget-05a5da9d9f1940268543" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-05a5da9d9f1940268543">{"x":{"data":{
-  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-  "description": "An mtcars example.",
-  "data": {
-    "values": [
-      {
-        "mpg": 21,
-        "cyl": 6,
-        "disp": 160,
-        "hp": 110,
-        "drat": 3.9,
-        "wt": 2.62,
-        "qsec": 16.46,
-        "vs": 0,
-        "am": 1,
-        "gear": 4,
-        "carb": 4,
-        "_row": "Mazda RX4"
-      },
-      {
-        "mpg": 21,
-        "cyl": 6,
-        "disp": 160,
-        "hp": 110,
-        "drat": 3.9,
-        "wt": 2.875,
-        "qsec": 17.02,
-        "vs": 0,
-        "am": 1,
-        "gear": 4,
-        "carb": 4,
-        "_row": "Mazda RX4 Wag"
-      },
-      {
-        "mpg": 22.8,
-        "cyl": 4,
-        "disp": 108,
-        "hp": 93,
-        "drat": 3.85,
-        "wt": 2.32,
-        "qsec": 18.61,
-        "vs": 1,
-        "am": 1,
-        "gear": 4,
-        "carb": 1,
-        "_row": "Datsun 710"
-      },
-      {
-        "mpg": 21.4,
-        "cyl": 6,
-        "disp": 258,
-        "hp": 110,
-        "drat": 3.08,
-        "wt": 3.215,
-        "qsec": 19.44,
-        "vs": 1,
-        "am": 0,
-        "gear": 3,
-        "carb": 1,
-        "_row": "Hornet 4 Drive"
-      },
-      {
-        "mpg": 18.7,
-        "cyl": 8,
-        "disp": 360,
-        "hp": 175,
-        "drat": 3.15,
-        "wt": 3.44,
-        "qsec": 17.02,
-        "vs": 0,
-        "am": 0,
-        "gear": 3,
-        "carb": 2,
-        "_row": "Hornet Sportabout"
-      },
-      {
-        "mpg": 18.1,
-        "cyl": 6,
-        "disp": 225,
-        "hp": 105,
-        "drat": 2.76,
-        "wt": 3.46,
-        "qsec": 20.22,
-        "vs": 1,
-        "am": 0,
-        "gear": 3,
-        "carb": 1,
-        "_row": "Valiant"
-      },
-      {
-        "mpg": 14.3,
-        "cyl": 8,
-        "disp": 360,
-        "hp": 245,
-        "drat": 3.21,
-        "wt": 3.57,
-        "qsec": 15.84,
-        "vs": 0,
-        "am": 0,
-        "gear": 3,
-        "carb": 4,
-        "_row": "Duster 360"
-      },
-      {
-        "mpg": 24.4,
-        "cyl": 4,
-        "disp": 146.7,
-        "hp": 62,
-        "drat": 3.69,
-        "wt": 3.19,
-        "qsec": 20,
-        "vs": 1,
-        "am": 0,
-        "gear": 4,
-        "carb": 2,
-        "_row": "Merc 240D"
-      },
-      {
-        "mpg": 22.8,
-        "cyl": 4,
-        "disp": 140.8,
-        "hp": 95,
-        "drat": 3.92,
-        "wt": 3.15,
-        "qsec": 22.9,
-        "vs": 1,
-        "am": 0,
-        "gear": 4,
-        "carb": 2,
-        "_row": "Merc 230"
-      },
-      {
-        "mpg": 19.2,
-        "cyl": 6,
-        "disp": 167.6,
-        "hp": 123,
-        "drat": 3.92,
-        "wt": 3.44,
-        "qsec": 18.3,
-        "vs": 1,
-        "am": 0,
-        "gear": 4,
-        "carb": 4,
-        "_row": "Merc 280"
-      },
-      {
-        "mpg": 17.8,
-        "cyl": 6,
-        "disp": 167.6,
-        "hp": 123,
-        "drat": 3.92,
-        "wt": 3.44,
-        "qsec": 18.9,
-        "vs": 1,
-        "am": 0,
-        "gear": 4,
-        "carb": 4,
-        "_row": "Merc 280C"
-      },
-      {
-        "mpg": 16.4,
-        "cyl": 8,
-        "disp": 275.8,
-        "hp": 180,
-        "drat": 3.07,
-        "wt": 4.07,
-        "qsec": 17.4,
-        "vs": 0,
-        "am": 0,
-        "gear": 3,
-        "carb": 3,
-        "_row": "Merc 450SE"
-      },
-      {
-        "mpg": 17.3,
-        "cyl": 8,
-        "disp": 275.8,
-        "hp": 180,
-        "drat": 3.07,
-        "wt": 3.73,
-        "qsec": 17.6,
-        "vs": 0,
-        "am": 0,
-        "gear": 3,
-        "carb": 3,
-        "_row": "Merc 450SL"
-      },
-      {
-        "mpg": 15.2,
-        "cyl": 8,
-        "disp": 275.8,
-        "hp": 180,
-        "drat": 3.07,
-        "wt": 3.78,
-        "qsec": 18,
-        "vs": 0,
-        "am": 0,
-        "gear": 3,
-        "carb": 3,
-        "_row": "Merc 450SLC"
-      },
-      {
-        "mpg": 10.4,
-        "cyl": 8,
-        "disp": 472,
-        "hp": 205,
-        "drat": 2.93,
-        "wt": 5.25,
-        "qsec": 17.98,
-        "vs": 0,
-        "am": 0,
-        "gear": 3,
-        "carb": 4,
-        "_row": "Cadillac Fleetwood"
-      },
-      {
-        "mpg": 10.4,
-        "cyl": 8,
-        "disp": 460,
-        "hp": 215,
-        "drat": 3,
-        "wt": 5.424,
-        "qsec": 17.82,
-        "vs": 0,
-        "am": 0,
-        "gear": 3,
-        "carb": 4,
-        "_row": "Lincoln Continental"
-      },
-      {
-        "mpg": 14.7,
-        "cyl": 8,
-        "disp": 440,
-        "hp": 230,
-        "drat": 3.23,
-        "wt": 5.345,
-        "qsec": 17.42,
-        "vs": 0,
-        "am": 0,
-        "gear": 3,
-        "carb": 4,
-        "_row": "Chrysler Imperial"
-      },
-      {
-        "mpg": 32.4,
-        "cyl": 4,
-        "disp": 78.7,
-        "hp": 66,
-        "drat": 4.08,
-        "wt": 2.2,
-        "qsec": 19.47,
-        "vs": 1,
-        "am": 1,
-        "gear": 4,
-        "carb": 1,
-        "_row": "Fiat 128"
-      },
-      {
-        "mpg": 30.4,
-        "cyl": 4,
-        "disp": 75.7,
-        "hp": 52,
-        "drat": 4.93,
-        "wt": 1.615,
-        "qsec": 18.52,
-        "vs": 1,
-        "am": 1,
-        "gear": 4,
-        "carb": 2,
-        "_row": "Honda Civic"
-      },
-      {
-        "mpg": 33.9,
-        "cyl": 4,
-        "disp": 71.1,
-        "hp": 65,
-        "drat": 4.22,
-        "wt": 1.835,
-        "qsec": 19.9,
-        "vs": 1,
-        "am": 1,
-        "gear": 4,
-        "carb": 1,
-        "_row": "Toyota Corolla"
-      },
-      {
-        "mpg": 21.5,
-        "cyl": 4,
-        "disp": 120.1,
-        "hp": 97,
-        "drat": 3.7,
-        "wt": 2.465,
-        "qsec": 20.01,
-        "vs": 1,
-        "am": 0,
-        "gear": 3,
-        "carb": 1,
-        "_row": "Toyota Corona"
-      },
-      {
-        "mpg": 15.5,
-        "cyl": 8,
-        "disp": 318,
-        "hp": 150,
-        "drat": 2.76,
-        "wt": 3.52,
-        "qsec": 16.87,
-        "vs": 0,
-        "am": 0,
-        "gear": 3,
-        "carb": 2,
-        "_row": "Dodge Challenger"
-      },
-      {
-        "mpg": 15.2,
-        "cyl": 8,
-        "disp": 304,
-        "hp": 150,
-        "drat": 3.15,
-        "wt": 3.435,
-        "qsec": 17.3,
-        "vs": 0,
-        "am": 0,
-        "gear": 3,
-        "carb": 2,
-        "_row": "AMC Javelin"
-      },
-      {
-        "mpg": 13.3,
-        "cyl": 8,
-        "disp": 350,
-        "hp": 245,
-        "drat": 3.73,
-        "wt": 3.84,
-        "qsec": 15.41,
-        "vs": 0,
-        "am": 0,
-        "gear": 3,
-        "carb": 4,
-        "_row": "Camaro Z28"
-      },
-      {
-        "mpg": 19.2,
-        "cyl": 8,
-        "disp": 400,
-        "hp": 175,
-        "drat": 3.08,
-        "wt": 3.845,
-        "qsec": 17.05,
-        "vs": 0,
-        "am": 0,
-        "gear": 3,
-        "carb": 2,
-        "_row": "Pontiac Firebird"
-      },
-      {
-        "mpg": 27.3,
-        "cyl": 4,
-        "disp": 79,
-        "hp": 66,
-        "drat": 4.08,
-        "wt": 1.935,
-        "qsec": 18.9,
-        "vs": 1,
-        "am": 1,
-        "gear": 4,
-        "carb": 1,
-        "_row": "Fiat X1-9"
-      },
-      {
-        "mpg": 26,
-        "cyl": 4,
-        "disp": 120.3,
-        "hp": 91,
-        "drat": 4.43,
-        "wt": 2.14,
-        "qsec": 16.7,
-        "vs": 0,
-        "am": 1,
-        "gear": 5,
-        "carb": 2,
-        "_row": "Porsche 914-2"
-      },
-      {
-        "mpg": 30.4,
-        "cyl": 4,
-        "disp": 95.1,
-        "hp": 113,
-        "drat": 3.77,
-        "wt": 1.513,
-        "qsec": 16.9,
-        "vs": 1,
-        "am": 1,
-        "gear": 5,
-        "carb": 2,
-        "_row": "Lotus Europa"
-      },
-      {
-        "mpg": 15.8,
-        "cyl": 8,
-        "disp": 351,
-        "hp": 264,
-        "drat": 4.22,
-        "wt": 3.17,
-        "qsec": 14.5,
-        "vs": 0,
-        "am": 1,
-        "gear": 5,
-        "carb": 4,
-        "_row": "Ford Pantera L"
-      },
-      {
-        "mpg": 19.7,
-        "cyl": 6,
-        "disp": 145,
-        "hp": 175,
-        "drat": 3.62,
-        "wt": 2.77,
-        "qsec": 15.5,
-        "vs": 0,
-        "am": 1,
-        "gear": 5,
-        "carb": 6,
-        "_row": "Ferrari Dino"
-      },
-      {
-        "mpg": 15,
-        "cyl": 8,
-        "disp": 301,
-        "hp": 335,
-        "drat": 3.54,
-        "wt": 3.57,
-        "qsec": 14.6,
-        "vs": 0,
-        "am": 1,
-        "gear": 5,
-        "carb": 8,
-        "_row": "Maserati Bora"
-      },
-      {
-        "mpg": 21.4,
-        "cyl": 4,
-        "disp": 121,
-        "hp": 109,
-        "drat": 4.11,
-        "wt": 2.78,
-        "qsec": 18.6,
-        "vs": 1,
-        "am": 1,
-        "gear": 4,
-        "carb": 2,
-        "_row": "Volvo 142E"
-      }
-    ]
-  },
-  "mark": "point",
-  "encoding": {
-    "x": {
-      "field": "wt",
-      "type": "quantitative"
-    },
-    "y": {
-      "field": "mpg",
-      "type": "quantitative"
-    },
-    "color": {
-      "field": "cyl",
-      "type": "nominal"
-    }
-  }
-},"options":{"mode":"tree","modes":["code","form","text","tree","view"]}},"evals":[],"jsHooks":[]}</script><p>If you wish to deploy a specification to be rendered on bl.ocks.org, you can do that too (provied you have a GutHub account).</p>
+},"evals":[],"jsHooks":[]}</script><p>If you wish to examine a specification, you may use the <code><a href="reference/vw_examine.html">vw_examine()</a></code> function, which is a thin wrapper around the <code>jsonedit()</code> function from the <strong>listviewer</strong> package.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="reference/vw_examine.html">vw_examine</a></span>(spec_mtcars)</a></code></pre></div>
+<p>If you wish to deploy a specification to be rendered on bl.ocks.org, you can do that too (provied you have a GutHub account).</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># not yet fully implemented</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="reference/create_block.html">create_block</a></span>(spec_mtcars)</a></code></pre></div>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">create_block</span>(spec_mtcars)</a></code></pre></div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -1073,32 +613,38 @@
 <p>For example, let’s convert <code>spec_mtcars</code> to an S3 object with class <code>"my_class_name"</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">spec_mtcars_s3 &lt;-<span class="st"> </span><span class="kw">structure</span>(</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  spec_mtcars,</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">class =</span> <span class="kw">c</span>(<span class="st">"my_class_name"</span>, <span class="kw">class</span>(spec_mtcars))</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">class =</span> <span class="kw">c</span>(<span class="st">"my_class_name"</span>)</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">)</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="kw">class</span>(spec_mtcars_s3)</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; [1] "my_class_name" "list"</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; [1] "my_class_name"</span></a></code></pre></div>
 <p>To take full advantage of these rendering functions, we have to define a method, <code><a href="reference/as_vegaspec.html">as_vegaspec()</a></code> for this class, and also define <code>print()</code> and <code>knit_print()</code> methods.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">as_vegaspec.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(spec, ...) {</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="co"># revert to vegawidget.list, defined in vegawidget</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="kw">NextMethod</span>()</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="co"># reverts to list</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">  spec &lt;-<span class="st"> </span><span class="kw">unclass</span>(spec)</a>
 <a class="sourceLine" id="cb7-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">print.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) {</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">  </a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">  <span class="kw">print</span>(vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/vegawidget">vegawidget</a></span>(x, ...))</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">  <span class="co"># as_vegaspec has a list method</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">  vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(spec, ...)</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">}</a>
 <a class="sourceLine" id="cb7-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10">  <span class="kw">invisible</span>(x)</a>
-<a class="sourceLine" id="cb7-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13">knit_print.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(x, ..., <span class="dt">options =</span> <span class="ot">NULL</span>){</a>
-<a class="sourceLine" id="cb7-14" data-line-number="14">  <span class="co"># in reality, more stuff here</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15">  knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/knit_print">knit_print</a></span>(vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/vegawidget">vegawidget</a></span>(x))</a>
-<a class="sourceLine" id="cb7-16" data-line-number="16">}</a></code></pre></div>
+<a class="sourceLine" id="cb7-10" data-line-number="10">print.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) {</a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">  </a>
+<a class="sourceLine" id="cb7-12" data-line-number="12">  x &lt;-<span class="st"> </span>vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(x)</a>
+<a class="sourceLine" id="cb7-13" data-line-number="13">  </a>
+<a class="sourceLine" id="cb7-14" data-line-number="14">  <span class="kw">print</span>(x, ...)</a>
+<a class="sourceLine" id="cb7-15" data-line-number="15">}</a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17">knit_print.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(x, ..., <span class="dt">options =</span> <span class="ot">NULL</span>){</a>
+<a class="sourceLine" id="cb7-18" data-line-number="18">  </a>
+<a class="sourceLine" id="cb7-19" data-line-number="19">  x &lt;-<span class="st"> </span>vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(x)</a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21">  knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/knit_print">knit_print</a></span>(x, ..., <span class="dt">options =</span> options)</a>
+<a class="sourceLine" id="cb7-22" data-line-number="22">}</a></code></pre></div>
 <p>With these defined, you can render your specification by printing:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">spec_mtcars_s3</a></code></pre></div>
-<div id="htmlwidget-aa3de42120d1a128793a" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-aa3de42120d1a128793a">{"x":{
+<div id="htmlwidget-7728f10ff32b32d67d7c" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7728f10ff32b32d67d7c">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "description": "An mtcars example.",
@@ -1571,6 +1117,7 @@
     }
   },
   "embed_options": {
+    "defaultStyle": true,
     "renderer": "canvas"
   }
 },"evals":[],"jsHooks":[]}</script><p>Accordingly, this package offers a templating function, <code>use_vegawidget(class)</code> (not yet implemented), to help you integrate vegawidget functions into your package.</p>
@@ -1609,6 +1156,8 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Ian Lyttle <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-9962-4849" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
+<li>Vega/Vega-Lite Developers <br><small class="roles"> Author </small>  </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
@@ -1626,7 +1175,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Ian Lyttle.</p>
+  <p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
 </div>
 
 <div class="pkgdown">

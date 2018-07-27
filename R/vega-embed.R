@@ -1,29 +1,27 @@
 #' Vega embed options
 #'
-#' Used to specify the `embed` argument to the `vegawidget()` renderer.
-#' These arguments are then passed to the
-#' [vega-embed](https://github.com/vega/vega-embed#options)
+#' Helper-function to specify the `embed` argument to `vegawidget()`.
+#' These arguments reflect the options to the
+#' [vega-embed](https://github.com/vega/vega-embed/#options)
 #' library, which ultimately renders the chart specification as HTML.
-#' The most common options to set are `renderer`, to specify `"canvas"`
-#' or `"svg"`, and `actions`, to specify the inclusion of `export`, `source`,
-#' and `editor` links. This documentation is adapted from the
-#' [vega-embed documentation](https://github.com/vega/vega-embed#options).
 #'
-#' The default `renderer` is `"canvas"`.
+#' The most important arguments are `renderer`, `actions`, and `defaultStyle`:
 #'
-#' The default for `actions` is `NULL`, which means that the `export`,
+#' - The default `renderer` is `"canvas"`.
+#'
+#' - The default for `actions` is `NULL`, which means that the `export`,
 #' `source`, and `editor` links are shown, but the `compiled` link is
 #' not shown.
+#'   - To suppress all action links, call with `actions = FALSE`.
+#'   - To change from the default for a given action link, call with a list:
+#'     `actions = list(editor = FALSE)`.
 #'
-#' - To suppress all action links, call with `actions = FALSE`.
-#' - To change from the default for a given action link, call with a list:
-#'   `actions = list(editor = FALSE)`.
-#' - To specify which link(s) to include, call using the `only_actions()`
-#'   function: `actions = only_actions(export = TRUE)`.
+#' - The default for `defaultStyle` is `TRUE`, which means that action-links
+#' are rendered in a widget at the upper-right corner of the rendered chart.
 #'
-#' It is ineffective to set the `width` and `height` parameters here, as they
-#' will be overridden by the values in the chart specification.
-#'
+#' It is ineffective to set the `width` and `height` parameters here when
+#' embedding a Vega-Lite specification, as they will be overridden by the values
+#' in the chart specification.
 #'
 #' @param mode `character` if specified, tells Vega-Embed to parse the spec
 #'   as vega or vega-lite. Vega-Embed will parse the `$schema` url if the mode
@@ -96,25 +94,18 @@
 #'   [`runAsync`](https://vega.github.io/vega/docs/api/view/#view_runAsync)
 #'   instead of [`run`](https://vega.github.io/vega/docs/api/view/#view_run).
 #'
-#' @seealso [vegawidget()], [only_actions()],
-#'   [altair: Field Guide to Rendering Charts](https://vegawidget.github.io/altair/field-guide-rendering.html),
-#'   [`vega-embed` library](https://github.com/vega/vega-embed)
+#' @seealso [vega-embed library](https://github.com/vega/vega-embed),
+#'   [vegawidget()]
 #'
 #' @examples
-#' # Set renderer
-#' embed_options <- vega_embed(renderer = "svg")
+#' vega_embed(renderer = "svg")
 #'
-#' # Specify  action links
-#' embed_options <- vega_embed(actions = FALSE)
-#' embed_options <- vega_embed(actions = list(editor = FALSE))
-#' embed_options <- vega_embed(actions = only_actions(export = TRUE))
-#'
-#' @return `list`
+#' @return `list` to to be used with vega-embed JavaScript library
 #' @export
 #'
 vega_embed <- function(renderer = c("canvas", "svg"),
                        actions = NULL,
-                       defaultStyle = NULL,
+                       defaultStyle = TRUE,
                        mode = NULL,
                        theme = NULL,
                        logLevel = NULL,
@@ -196,34 +187,6 @@ vega_embed <- function(renderer = c("canvas", "svg"),
   embed_options <- list_remove_null(options)
 
   embed_options
-}
-
-#' Helper function for vega_embed actions
-#'
-#' This function can be useful if you want to specify only one
-#' of the links include in the embedding-options.
-#'
-#' @param export `logical`, include "Export As ..." link
-#' @param source `logical`, include "View Source" link
-#' @param compiled `logical`, include "Compiled" link
-#' @param editor `logical`, include "Open in Vega Editor" link
-#'
-#' @return `list`
-#' @seealso [vega_embed()]
-#' @examples
-#' embed_options <- vega_embed(actions = only_actions(export = TRUE))
-#' @export
-#'
-#'
-only_actions = function(export = FALSE, source = FALSE, compiled = FALSE,
-                        editor = FALSE) {
-  list(
-    export = as.logical(export),
-    source = as.logical(source),
-    compiled = as.logical(compiled),
-    editor = as.logical(editor)
-  )
-
 }
 
 list_remove_null <- function(x) {

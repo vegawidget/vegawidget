@@ -1,4 +1,5 @@
 .Rproj.user
 .Rhistory
 .RData
-inst/doc
+inst/do
+.V8history

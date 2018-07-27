@@ -3,12 +3,15 @@
 \docType{data}
 \name{spec_mtcars}
 \alias{spec_mtcars}
-\title{Vega-Lite specification}
-\format{A \code{vegaspec}, thin wrapper around list}
+\title{Example vegaspec: mtcars scatterplot}
+\format{S3 object of class \code{vegaspec}}
 \usage{
 spec_mtcars
 }
 \description{
 A Vega-Lite specification to create a scatterplot for \code{mtcars}.
+}
+\seealso{
+\code{\link[=as_vegaspec]{as_vegaspec()}}
 }
 \keyword{datasets}

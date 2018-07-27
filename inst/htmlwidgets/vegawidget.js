@@ -9,7 +9,6 @@ HTMLWidgets.widget({
     var view = null;
     var event_listeners = {};
     var signal_listeners = {};
-    var svg_result = null;
 
     return {
 
@@ -35,7 +34,6 @@ HTMLWidgets.widget({
           for (var signal_name in signal_listeners) {
             result.view.addSignalListener(signal_name, signal_listeners[signal_name]);
           }
-
 
         }).catch(console.error);
 
@@ -82,21 +80,20 @@ HTMLWidgets.widget({
 
     };
 
-
   }
 });
 
 
 // Helper function to get view object via the htmlWidgets object
-function getVegaView(id){
+function getVegaView(selector){
 
   // Get the HTMLWidgets object
-  var htmlWidgetsObj = HTMLWidgets.find("#" + id);
+  var htmlWidgetsObj = HTMLWidgets.find(selector);
 
   console.log(htmlWidgetsObj);
   var view_obj = null;
 
-  if( typeof(htmlWidgetsObj) !== "undefined"){
+  if (typeof(htmlWidgetsObj) !== "undefined"){
     view_obj = htmlWidgetsObj.getView();
   }
 
@@ -114,27 +111,3 @@ Shiny.addCustomMessageHandler('callView', function(message){
 
 });
 }
-
-
-/*if (HTMLWidgets.shinyMode) {
-  var fxns = ['vegawidget_event_listener'];
-
-  var addShinyHandler = function(fxn) {
-    return function() {
-      Shiny.addCustomMessageHandler(
-        "vegawidget:" + fxn, function(message) {
-          var el = document.getElementById(message.id);
-          console.log(message.id);
-          console.log(el.widget);
-          if (el) {
-            el.widget[fxn](message);
-          }
-        }
-      );
-    };
-  };
-
-  for (var i = 0; i < fxns.length; i++) {
-    addShinyHandler(fxns[i])();
-  }
-}*/

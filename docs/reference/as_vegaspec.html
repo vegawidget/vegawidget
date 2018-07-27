@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Coerce to a Vega/Vega-Lite specification — as_vegaspec • vegawidget</title>
+<title>Coerce to vegaspec — as_vegaspec • vegawidget</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,12 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Coerce to a Vega/Vega-Lite specification — as_vegaspec" />
+<meta property="og:title" content="Coerce to vegaspec — as_vegaspec" />
 
-<meta property="og:description" content="Talk about how vegaspec is a thin wrapper to list. Implemented as JSON." />
+<meta property="og:description" content="Vega and Vega-Lite use JSON as the format for their specifications. Within R,
+it seems natural to work with these specifications as lists. Accordingly,
+a vegaspec is also a list. This family of functions is used to coerce lists,
+JSON, and character strings to vegaspec." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.1</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3</span>
       </span>
     </div>
 
@@ -86,7 +89,13 @@
     <li>
       <a href="../articles/first-example.html">First Example</a>
     </li>
+    <li>
+      <a href="../articles/visual-regression.html">Visual Regression</a>
+    </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -109,14 +118,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Coerce to a Vega/Vega-Lite specification</h1>
+    <h1>Coerce to vegaspec</h1>
     <small class="dont-index">Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/R/vegaspec.R'><code>R/vegaspec.R</code></a></small>
     <div class="hidden name"><code>as_vegaspec.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Talk about how <code>vegaspec</code> is a thin wrapper to <code>list</code>. Implemented as JSON.</p>
+    <p>Vega and Vega-Lite use JSON as the format for their specifications. Within R,
+it seems natural to work with these specifications as lists. Accordingly,
+a <code>vegaspec</code> is also a list. This family of functions is used to coerce lists,
+JSON, and character strings to <code>vegaspec</code>.</p>
     
     </div>
 
@@ -142,7 +154,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>spec</th>
-      <td><p>object to be coerced to Vega/Vega-Lite specification</p></td>
+      <td><p>object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -156,9 +168,30 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Talk about this is the chance to validate the spec.</p>
+    <p>The <code>character</code> method for this function will take:</p><ul>
+<li><p>JSON string</p></li>
+<li><p>A path to a local JSON file</p></li>
+<li><p>A URL that contains a JSON file, requires <a href='https://CRAN.R-project.org/package=httr'>httr</a> be installed</p></li>
+</ul>
+    <p>For Vega and Vega-Lite, the translation between list and JSON is a little
+bit particular. This function, <code>as_vegaspec()</code>, can be used to translate
+from JSON; <code><a href='vw_as_json.html'>vw_as_json()</a></code> can be used to translate to JSON.</p>
+<p>A given <code>vegaspec</code> will be particular to either Vega or Vega-Lite. You can use
+the function <code><a href='vw_spec_version.html'>vw_spec_version()</a></code> to determine this. You can use
+<code><a href='vw_to_vega.html'>vw_to_vega()</a></code> to translate a Vega-Lite spec to Vega.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='https://vega.github.io/vega/'>Vega</a>,
+<a href='https://vega.github.io/vega-lite/'>Vega-Lite</a>,
+<code><a href='vw_as_json.html'>vw_as_json()</a></code>, <code><a href='vw_spec_version.html'>vw_spec_version()</a></code>, <code><a href='vw_to_vega.html'>vw_to_vega()</a></code></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>  </div><span class='co'># NOT RUN {</span>
+    <span class='fu'>as_vegaspec</span>(<span class='st'>"https://vega.github.io/vega-lite/examples/specs/bar.vl.json"</span>)
+
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -168,14 +201,18 @@
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
-          </ul>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Ian Lyttle.</p>
+  <p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
 </div>
 
 <div class="pkgdown">

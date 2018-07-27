@@ -1,13 +1,36 @@
-#' Coerce to a Vega/Vega-Lite specification
+#' Coerce to vegaspec
 #'
-#' Talk about how `vegaspec` is a thin wrapper to `list`. Implemented as JSON.
+#' Vega and Vega-Lite use JSON as the format for their specifications. Within R,
+#' it seems natural to work with these specifications as lists. Accordingly,
+#' a `vegaspec` is also a list. This family of functions is used to coerce lists,
+#' JSON, and character strings to `vegaspec`.
 #'
-#' Talk about this is the chance to validate the spec.
+#' The `character` method for this function will take:
+#' \itemize{
+#'   \item{JSON string}
+#'   \item{A path to a local JSON file}
+#'   \item{A URL that contains a JSON file, requires [httr](https://CRAN.R-project.org/package=httr) be installed}
+#' }
 #'
-#' @param spec        object to be coerced to Vega/Vega-Lite specification
+#' For Vega and Vega-Lite, the translation between list and JSON is a little
+#' bit particular. This function, [as_vegaspec()], can be used to translate
+#' from JSON; [vw_as_json()] can be used to translate to JSON.
+#'
+#' A given `vegaspec` will be particular to either Vega or Vega-Lite. You can use
+#' the function [vw_spec_version()] to determine this. You can use
+#' [vw_to_vega()] to translate a Vega-Lite spec to Vega.
+#'
+#' @param spec        object to be coerced to `vegaspec`, a Vega/Vega-Lite specification
 #' @param ...         other args (attempt to future-proof)
 #'
 #' @return S3 object of class `vegaspec`
+#' @examples
+#'   \dontrun{
+#'     as_vegaspec("https://vega.github.io/vega-lite/examples/specs/bar.vl.json")
+#'   }
+#' @seealso [Vega](https://vega.github.io/vega/),
+#'   [Vega-Lite](https://vega.github.io/vega-lite/),
+#'   [vw_as_json()], [vw_spec_version()], [vw_to_vega()]
 #' @export
 #'
 as_vegaspec <- function(spec, ...) {
@@ -18,10 +41,7 @@ as_vegaspec <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.default <- function(spec, ...) {
-
-  warning("as_vegaspec(): no method for class ", class(spec), call. = FALSE)
-
-  spec
+  stop("as_vegaspec(): no method for class ", class(spec), call. = FALSE)
 }
 
 #' @rdname as_vegaspec
@@ -35,8 +55,7 @@ as_vegaspec.vegaspec <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.list <- function(spec, ...) {
-  spec <- structure(spec, class = unique(c("vegaspec", class(spec))))
-
+  spec <- .as_vegaspec(spec)
   spec
 }
 
@@ -44,11 +63,9 @@ as_vegaspec.list <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.json <- function(spec, ...) {
-
-  # convert to list, process
-  spec <- as_list(spec)
-
-  as_vegaspec(spec)
+  spec <- .as_list(spec)
+  spec <- .as_vegaspec(spec)
+  spec
 }
 
 #' @rdname as_vegaspec
@@ -72,15 +89,37 @@ as_vegaspec.character <- function(spec, ...) {
     spec <- readLines(spec, warn = FALSE)
   }
 
-  # validate the input
-  assertthat::assert_that(
-    jsonlite::validate(spec),
-    msg = "spec is not valid JSON"
-  )
-
-  # convert to list, process
-  spec <- as_list(spec)
-
-  as_vegaspec(spec)
+  spec <- .as_json(spec)
+  spec <- .as_list(spec)
+  spec <- .as_vegaspec(spec)
+  spec
 }
+
+#' Coerce vegaspec to JSON
+#'
+#' For Vega and Vega-Lite, the translation between list and JSON is a little
+#' bit particular. This function, [vw_as_json()], can be used to translate
+#' to JSON; [as_vegaspec()] can be used to translate from JSON.
+#'
+#' @inheritParams as_vegaspec
+#' @param pretty `logical` indicates to use pretty (vs. minified) formatting
+#'
+#' @return `jsonlite::json` object
+#' @examples
+#'   vw_as_json(spec_mtcars)
+#'
+#' @seealso [as_vegaspec()]
+#' @export
+#'
+vw_as_json <- function(spec, pretty = TRUE) {
+
+  spec <- as_vegaspec(spec)
+  spec <- .as_json(spec, pretty = pretty)
+
+  spec
+}
+
+
+
+
 

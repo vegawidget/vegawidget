@@ -7,12 +7,11 @@
 vegawidget(spec, embed = NULL, width = NULL, height = NULL, ...)
 }
 \arguments{
-\item{spec}{chart_specification}
+\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
-\item{embed}{\code{vega_embed} object to specify embedding options -
-the default is an empty call to \code{\link[=vega_embed]{vega_embed()}},
-which will result in a canvas-rendering and action-links included for
-exporting, viewing the Vega-Lite source, and opening the Vega editor.}
+\item{embed}{\code{list} to specify
+\href{https://github.com/vega/vega-embed#options}{vega-embed} options,
+see \strong{Details} on how this is set if \code{NULL}.}
 
 \item{width}{\code{integer}, if specified, the total rendered width (in pixels)
 of the chart - valid only for single-view charts and layered charts;
@@ -22,47 +21,49 @@ the default is to use the width in the chart specification}
 of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification}
 
-\item{...}{other arguments}
+\item{...}{other arguments passed to \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}}
+}
+\value{
+S3 object of class \code{vegawidget} and \code{htmlwidget}
 }
 \description{
-Renders a chart as an htmlwidget.
+The main use of this package is to render a \code{vegawidget},
+which is also an \code{htmlwidget}. This function builds a \code{vegawidget}
+using a \code{vegaspec}.
 }
 \details{
-This function is called \code{vegawidget()} is because it returns an htmlwidget
-that uses Vega-Lite and Vega JavaScript libraries.
+If \code{embed} is \code{NULL}, \code{vegawidget()} uses:
+\itemize{
+\item \code{getOption("vega.embed")}, if that is NULL:
+\item an empty call to \code{\link[=vega_embed]{vega_embed()}}
+}
 
-To specify embedding-options, use the \code{\link[=vega_embed]{vega_embed()}} function with the
-\code{embed} argument. Its most-important options are:
+The most-important arguments to \code{\link[=vega_embed]{vega_embed()}} are:
 \itemize{
 \item \code{renderer}, to specify \code{"canvas"} (default) or \code{"svg"}
 \item \code{actions},  to specify action-links
 for \code{export}, \code{source}, \code{compiled}, and \code{editor}
 }
 
-If \code{actions} is \code{TRUE} (or \code{FALSE}), all the links
-are shown (or not). Use a named list to be more specific, see
-\code{\link[=vega_embed]{vega_embed()}} and \code{\link[=only_actions]{only_actions()}}.
-
-If \code{embed} is \code{NULL}, \code{vegawidget()} sets \code{embed} to the value of
-\code{getOption("altair.embed_options")}. Then, if this option is \code{NULL}, the
-\href{https://github.com/vega/vega-embed#api-reference}{vega-embed}
-defaults are used.
-
-The arguments \code{width} and \code{height} are used to override the width and height
-determined using the \code{chart} specification. However, there are some
+If either \code{width} or \code{height} is specified, the \code{autosize()} function
+is used to override the width and height of the \code{spec}. There are some
 important provisions:
 \itemize{
-\item Specifying \code{width} and \code{height} in \code{vegawidget()} is
+\item Specifying \code{width} and \code{height} is
 \href{https://vega.github.io/vega-lite/docs/size.html#limitations}{effective only for single-view charts and layered charts}.
 It will not work for contatenated, faceted, or repeated charts.
-\item In the chart specification, the default interpretation of width and height
+\item In the \code{spec}, the default interpretation of width and height
 is to describe the dimensions of the
 \strong{plotting rectangle}, not including the space used by the axes, labels,
-etc. When \code{width} and \code{height} are specified using \code{vegawidget()},
-the meanings change to describe the dimensions of the \strong{entire} rendered chart,
-including axes, labels, etc.
-\item Keep in mind that the action-links are not a part of the rendered chart,
-so you may have to account for them yourself. You might expect
-the height of the action-links to be 15-20 pixels.
+etc. Here, \code{width} and \code{height} describe the dimensions
+of the \strong{entire} rendered chart, including axes, labels, etc.
 }
+}
+\examples{
+  vegawidget(spec_mtcars, width = 350, height = 350)
+
+}
+\seealso{
+\href{https://github.com/vega/vega-embed#options}{vega-embed options},
+\code{\link[=vega_embed]{vega_embed()}}, \code{\link[=vw_autosize]{vw_autosize()}}
 }

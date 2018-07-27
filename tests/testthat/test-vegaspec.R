@@ -1,23 +1,27 @@
 context("test-vegaspec.R")
 
+library("magrittr")
+
 test_that("as_vegaspec translates", {
 
-  spec_list <- list(a = 1L, b = "foo")
-  spec_vegaspec <-
-    structure(spec_list, class = c("vegaspec", class(spec_list)))
+  # need to go to json and back because of data-frame in vw_ex_mtcars
+  spec_ref <- spec_mtcars %>% vw_as_json() %>% as_vegaspec()
+  spec_json <- vw_as_json(spec_ref)
 
-  spec_json <- as_json(spec_list)
-  spec_char <- '{"a": 1, "b": "foo"}'
+  expect_identical(as_vegaspec(spec_ref), spec_ref)
+  expect_identical(as_vegaspec(spec_json), spec_ref)
 
-  spec_list_vegaspec <- as_vegaspec(spec_list)
-  spec_json_vegaspec <- as_vegaspec(spec_json)
-  spec_char_vegaspec <- as_vegaspec(spec_char)
-  spec_vegaspec_vegaspec <- as_vegaspec(spec_vegaspec)
+})
 
-  expect_identical(spec_list_vegaspec, spec_vegaspec)
-  expect_identical(spec_json_vegaspec, spec_vegaspec)
-  expect_identical(spec_char_vegaspec, spec_vegaspec)
-  expect_identical(spec_vegaspec_vegaspec, spec_vegaspec)
+test_that("class is correct", {
+
+  expect_is(as_vegaspec(unclass(spec_mtcars)), "list")
+  expect_is(as_vegaspec(unclass(spec_mtcars)), "vegaspec")
+  expect_is(as_vegaspec(unclass(spec_mtcars)), "vegaspec_vega_lite")
+
+  expect_is(vw_to_vega(spec_mtcars), "list")
+  expect_is(vw_to_vega(spec_mtcars), "vegaspec")
+  expect_is(vw_to_vega(spec_mtcars), "vegaspec_vega")
 
 })
 

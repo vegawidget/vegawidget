@@ -32,7 +32,9 @@
   
 <meta property="og:title" content="Coerce data-URI string to raw binary — vw_png_bin" />
 
-<meta property="og:description" content="Coerce data-URI string to raw binary" />
+<meta property="og:description" content="vw_to_png() returns a data-URI string for the PNG image. If
+you want this PNG image as raw binary data, use vw_to_png() followed
+this function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,7 +124,9 @@
 
     <div class="ref-description">
     
-    <p>Coerce data-URI string to raw binary</p>
+    <p><code><a href='image.html'>vw_to_png()</a></code> returns a data-URI string for the PNG image. If
+you want this PNG image as <code>raw</code> binary data, use <code><a href='image.html'>vw_to_png()</a></code> followed
+this function.</p>
     
     </div>
 
@@ -144,10 +148,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-  <span class='no'>png_bin</span> <span class='kw'>&lt;-</span>
-    <span class='no'>spec_mtcars</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='vw_to_png.html'>vw_to_png</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'>vw_png_bin</span>()
+   <span class='no'>spec_mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='image.html'>vw_to_png</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>vw_png_bin</span>()
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

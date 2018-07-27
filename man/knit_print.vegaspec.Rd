@@ -7,21 +7,35 @@
 knit_print.vegaspec(spec, ..., options = NULL)
 }
 \arguments{
-\item{spec}{object to be coerced to Vega/Vega-Lite specification}
+\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
 \item{...}{other arguments}
 
 \item{options}{\code{list}, knitr options}
 }
 \description{
-The only effective sizing options are \code{vega.width} and \code{vega.height};
-these are passed to \code{\link[=vegawidget]{vegawidget()}} as \code{width} and \code{height},
-respectively.
+Currently, the only supported options are \code{vega.width},
+\code{vega.height} (as pixels) and \code{vega.embed} (as a list).
 }
 \details{
-Embedding options can be passed by setting the option \code{vega.embed} using
-\code{\link[=vega_embed]{vega_embed()}}.
+When knitting to an HTML-based format, the \code{spec} is rendered as normal.
 
-\code{vega.width} and \code{vega.height} are
+When knitting to an non-html format, if the
+\href{https://cran.r-project.org/package=webshot}{webshot} package
+and PhantomJS are installed, an image will be generated instead. You
+may find \code{\link[webshot:install_phantomjs]{webshot::install_phantomjs()}} to be useful.
+
+This function has potential to be developed further; it
+calls \code{\link[=vegawidget]{vegawidget()}} using the options \code{vega.width},
+\code{vega.height} and \code{vega.embed}:
+\itemize{
+\item \code{vega.width} and \code{vega.height} are passed to \code{\link[=vegawidget]{vegawidget()}}
+as \code{width} and \code{height}, respectively. These are
 coerced to numeric, so it is ineffective to specify a percentage.
+\item \code{vega.embed} is passed to \code{\link[=vegawidget]{vegawidget()}} as \code{embed}. The function
+\code{\link[=vega_embed]{vega_embed()}} can be useful to set \code{vega.embed}.
+}
+}
+\seealso{
+\code{\link[webshot:install_phantomjs]{webshot::install_phantomjs()}}, \code{\link[=vw_autosize]{vw_autosize()}}, \code{\link[=vega_embed]{vega_embed()}}
 }

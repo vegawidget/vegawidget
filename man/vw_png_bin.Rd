@@ -13,13 +13,12 @@ vw_png_bin(png)
 \code{raw} PNG
 }
 \description{
-Coerce data-URI string to raw binary
+\code{\link[=vw_to_png]{vw_to_png()}} returns a data-URI string for the PNG image. If
+you want this PNG image as \code{raw} binary data, use \code{vw_to_png()} followed
+this function.
 }
 \examples{
 \dontrun{
-  png_bin <-
-    spec_mtcars \%>\%
-    vw_to_png() \%>\%
-    vw_png_bin()
+   spec_mtcars \%>\% vw_to_png() \%>\% vw_png_bin()
 }
 }

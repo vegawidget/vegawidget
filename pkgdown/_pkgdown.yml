@@ -8,8 +8,8 @@ development:
 reference:
   - title: vegaspec
     desc: >
-      The central *object* of this package is `vegaspec`, an S3 object
-      which inherits from `list`. Use these functions to coerce to a `vegaspec`,
+      The central *object* of this package is `vegaspec`, which is also
+      a `list`. Use these functions to coerce to a `vegaspec`,
       format as JSON, or otherwise operate on a `vegaspec`. If the
       [**V8**](https://CRAN.R-project.org/package=V8) package is installed,
       you can translate a Vega-Lite specification to a Vega specification.
@@ -19,10 +19,10 @@ reference:
       - vw_autosize
       - vw_to_vega
       - vw_spec_version
-  - title: Rendering vegaspecs
+  - title: Rendering a vegaspec
     desc: >
       The central *side-effect* of this package is to render a `vegawidget`,
-      an S3 object which inherits from `htmlwidget`. A `vegawidget` is
+      which is also an `htmlwidget`. A `vegawidget` is
       built using a `vegaspec`. A helper function is provided for
       [vega-embed](https://github.com/vega/vega-embed) options. These options
       can be specified as an argument to the `vegawidget` function,
@@ -73,6 +73,7 @@ reference:
     contents:
     - vw_examine
     - vw_create_block
+    - vw_block_config
     - vw_retrieve_block
   - title: Utilities and internal functions
     desc: >
@@ -85,7 +86,6 @@ reference:
     - vega_version
     - vw_block_index
     - vw_block_build_directory
-    - vw_block_config
 
 
 

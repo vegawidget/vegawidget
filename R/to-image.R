@@ -1,22 +1,60 @@
-#' Convert to SVG string
+#' Create or write image
 #'
+#' If the [**webdriver**](https://cran.r-project.org/package=webdriver) package
+#' and PhantomJS are installed, these functions can be used to create
+#' or write images as PNG or SVG, using a `vegaspec` or `vegawidget`.
+#'
+#' These functions can be called using (an object that can be coerced to)
+#' a `vegaspec` or a `vegawidget`. In addition to the
+#' [**webdriver**](https://cran.r-project.org/package=webdriver) package,
+#' you may also need to install PhantomJS; you can use
+#' [webdriver::install_phantomjs()].
+#'
+#' Images are created using the
+#' [vega-view](https://github.com/vega/vega-view#image-export) image-export
+#' functions. These functions accept a scale factor, represented here as the
+#' `scale` argument. By specifying `scale = 2` for the PNG functions, a
+#' retina-ready image will be generated.
+#'
+#' The `vw_to_png()` function returns a data-URI string for the PNG image. If
+#' you want this PNG image as `raw` binary data, use `vw_to_png()` followed by
+#' [vw_png_bin()].
+#'
+#' @name image
 #' @inheritParams vegawidget
-#' @param scale scale factor for the image
-#' @param widget object created using [vegawidget()]
+#' @param path   `character`, local path to which to write file
+#' @param scale  `numeric`, scale-factor for the image:
+#'   ratio of the width (pixels) of the image to the
+#'   width (pixels) of the rendered chart
+#' @param widget `vegawidget`, created using [vegawidget()]
 #'
-#' @return `character` SVG string
+#' @return \describe{
+#'   \item{`vw_to_png()`}{`character`, data-URI string for PNG}
+#'   \item{`vw_to_svg()`}{`character`, SVG string}
+#'   \item{`vw_write_png()`}{invisible `vegaspec` or `vegawidget`}
+#'   \item{`vw_write_svg()`}{invisible `vegaspec` or `vegawidget`}
+#' }
+#'
 #' @examples
 #' \dontrun{
-#'   vw_to_svg(spec_mtcars)
+#'   # call any of these functions using either a vegaspec or a vegawidget
 #'   vw_to_svg(vegawidget(spec_mtcars))
+#'   write_png(spec_mtcars, "temp.png")
+#'   spec_mtcars %>% vw_to_png() %>% vw_png_bin()
 #' }
+#' @seealso [webdriver::install_phantomjs()],
+#' [vega-view library](https://github.com/vega/vega-view#image-export),
+#' [vw_png_bin()]
+#'
+
+#' @rdname image
 #' @export
 #'
 vw_to_svg <- function(...) {
   UseMethod("vw_to_svg")
 }
 
-#' @rdname vw_to_svg
+#' @rdname image
 #' @export
 #'
 vw_to_svg.default <-
@@ -36,7 +74,7 @@ vw_to_svg.default <-
   svg
 }
 
-#' @rdname vw_to_svg
+#' @rdname image
 #' @export
 #'
 vw_to_svg.vegawidget <- function(widget, scale = 1, ...) {
@@ -61,24 +99,14 @@ vw_to_svg.vegawidget <- function(widget, scale = 1, ...) {
   svg
 }
 
-#' Convert to PNG data-URI string
-#'
-#' @inheritParams vw_to_svg
-#'
-#' @return `character` base-64 encoded string
-#' @seealso [vw_png_bin()]
-#' @examples
-#' \dontrun{
-#'   vw_to_png(spec_mtcars)
-#'   vw_to_png(vegawidget(spec_mtcars))
-#' }
+#' @rdname image
 #' @export
 #'
 vw_to_png <- function(...) {
   UseMethod("vw_to_png")
 }
 
-#' @rdname vw_to_png
+#' @rdname image
 #' @export
 #'
 vw_to_png.default <-
@@ -98,7 +126,7 @@ vw_to_png.default <-
     png
 }
 
-#' @rdname vw_to_png
+#' @rdname image
 #' @export
 #'
 vw_to_png.vegawidget <- function(widget, scale = 1, ...) {

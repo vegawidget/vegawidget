@@ -1,22 +1,11 @@
-#' Write to SVG file
-#'
-#' @inheritParams vw_to_svg
-#' @param path path to which to write image-file
-#'
-#' @return copy of whatever was sent to it
-#'
-#' @examples
-#' \dontrun{
-#'   vw_write_svg(spec_mtcars)
-#'   vw_write_svg(vegawidget(spec_mtcars))
-#' }
+#' @rdname image
 #' @export
 #'
 vw_write_svg <- function(...) {
   UseMethod("vw_write_svg")
 }
 
-#' @rdname vw_write_svg
+#' @rdname image
 #' @export
 #'
 vw_write_svg.default <- function(spec, path, scale = 1, embed = NULL,
@@ -36,7 +25,7 @@ vw_write_svg.default <- function(spec, path, scale = 1, embed = NULL,
   invisible(spec)
 }
 
-#' @rdname vw_write_svg
+#' @rdname image
 #' @export
 #'
 vw_write_svg.vegawidget <- function(widget, path, scale = 1, ...) {
@@ -49,24 +38,14 @@ vw_write_svg.vegawidget <- function(widget, path, scale = 1, ...) {
 }
 
 
-#' Write to PNG file
-#'
-#' @inheritParams vw_write_svg
-#'
-#' @return copy of whatever was sent to it
-#'
-#' @examples
-#' \dontrun{
-#'   vw_write_svg(spec_mtcars)
-#'   vw_write_svg(vegawidget(spec_mtcars))
-#' }
+#' @rdname image
 #' @export
 #'
 vw_write_png <- function(...) {
   UseMethod("vw_write_png")
 }
 
-#' @rdname vw_write_png
+#' @rdname image
 #' @export
 #'
 vw_write_png.default <- function(spec, path, scale = 1, embed = NULL,
@@ -87,7 +66,7 @@ vw_write_png.default <- function(spec, path, scale = 1, embed = NULL,
   invisible(spec)
 }
 
-#' @rdname vw_write_png
+#' @rdname image
 #' @export
 #'
 vw_write_png.vegawidget <- function(widget, path, scale = 1, ...) {
@@ -102,15 +81,16 @@ vw_write_png.vegawidget <- function(widget, path, scale = 1, ...) {
 
 #' Coerce data-URI string to raw binary
 #'
+#' [vw_to_png()] returns a data-URI string for the PNG image. If
+#' you want this PNG image as `raw` binary data, use `vw_to_png()` followed
+#' this function.
+#'
 #' @param png `character`, data-URI string describing PNG
 #'
 #' @return `raw` PNG
 #' @examples
 #' \dontrun{
-#'   png_bin <-
-#'     spec_mtcars %>%
-#'     vw_to_png() %>%
-#'     vw_png_bin()
+#'    spec_mtcars %>% vw_to_png() %>% vw_png_bin()
 #' }
 #' @export
 #'

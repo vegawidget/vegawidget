@@ -56,23 +56,30 @@ vw_block_build_directory <-
 
   # image
   if (use_thumbnail || use_preview) {
-    assert_packages("magick")
+
+    has_webshot <- requireNamespace("webshot", quietly = TRUE)
+    has_magick <- requireNamespace("magick", quietly = TRUE)
+
+    if (!(has_webshot && has_magick)) {
+      warning("Not uploading images: requires 'webshot' and 'magick' packages")
+      return(path)
+    }
 
     img <- vw_to_png(spec, scale = 2)
     img <- vw_png_bin(img)
     img <- magick::image_read(img)
-  }
 
-  # thumbnail
-  if (use_thumbnail) {
-    tmb <- magick::image_resize(img, geometry = "230x120")
-    magick::image_write(tmb, fs::path(path, "thumbnail.png"), format = "png")
-  }
+    # thumbnail
+    if (use_thumbnail) {
+      tmb <- magick::image_resize(img, geometry = "230x120")
+      magick::image_write(tmb, fs::path(path, "thumbnail.png"), format = "png")
+    }
 
-  # preview
-  if (use_preview) {
-    pvw <- magick::image_resize(img, geometry = "960x500")
-    magick::image_write(pvw, fs::path(path, "preview.png"), format = "png")
+    # preview
+    if (use_preview) {
+      pvw <- magick::image_resize(img, geometry = "960x500")
+      magick::image_write(pvw, fs::path(path, "preview.png"), format = "png")
+    }
   }
 
   path
@@ -80,17 +87,20 @@ vw_block_build_directory <-
 
 #' Specify block-configuration
 #'
+#' Helper function to build a YAML configuartion-string. This string
+#' is sent to the gist in a file named `.block`.
 #'
 #' @param license   `character` specifies the license
-#' @param height    `numeric` height of the block (pixels)
+#' @param height    `integer` height of the block (pixels)
 #' @param scrolling `logical` indicates to use scrolling bars
-#' @param border    `logical` indicates to put a border on the `iframe`
+#' @param border    `logical` indicates to put a border on the `<iframe/>`
 #'
 #' @return `character` yaml string for `.block` file
 #' @seealso [Blocks documentation](https://bl.ocks.org/-/about)
 #' @export
 #'
-vw_block_config <- function(license = "mit", height = 500, scrolling = TRUE, border = TRUE){
+vw_block_config <- function(license = "mit", height = 500L, scrolling = TRUE,
+                            border = TRUE) {
 
   assert_packages("yaml")
 

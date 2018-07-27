@@ -14,20 +14,32 @@ format.vegaspec <- function(x, ...) {
 
 #' Knit-print method
 #'
-#' The only effective sizing options are `vega.width` and `vega.height`;
-#' these are passed to [vegawidget()] as `width` and `height`,
-#' respectively.
+#' Currently, the only supported options are `vega.width`,
+#' `vega.height` (as pixels) and `vega.embed` (as a list).
 #'
-#' Embedding options can be passed by setting the option `vega.embed` using
-#' [vega_embed()].
+#' When knitting to an HTML-based format, the `spec` is rendered as normal.
 #'
-#' `vega.width` and `vega.height` are
-#' coerced to numeric, so it is ineffective to specify a percentage.
+#' When knitting to an non-html format, if the
+#' [**webshot**](https://cran.r-project.org/package=webshot) package
+#' and PhantomJS are installed, an image will be generated instead. You
+#' may find [webshot::install_phantomjs()] to be useful.
+#'
+#' This function has potential to be developed further; it
+#' calls [vegawidget()] using the options `vega.width`,
+#' `vega.height` and `vega.embed`:
+#'
+#'  - `vega.width` and `vega.height` are passed to [vegawidget()]
+#'  as `width` and `height`, respectively. These are
+#'  coerced to numeric, so it is ineffective to specify a percentage.
+#'
+#'  - `vega.embed` is passed to [vegawidget()] as `embed`. The function
+#'  [vega_embed()] can be useful to set `vega.embed`.
 #'
 #' @inheritParams as_vegaspec
 #' @param ... other arguments
 #' @param options `list`, knitr options
 #'
+#' @seealso [webshot::install_phantomjs()], [vw_autosize()], [vega_embed()]
 #' @export
 #'
 knit_print.vegaspec <- function(spec, ..., options = NULL){

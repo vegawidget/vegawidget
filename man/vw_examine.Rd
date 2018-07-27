@@ -8,7 +8,7 @@ vw_examine(spec, mode = "tree", modes = c("code", "form", "text", "tree",
   "view"), ..., width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
-\item{spec}{object to be coerced to Vega/Vega-Lite specification}
+\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
 \item{mode}{\code{string} for the initial view from \code{modes}.  \code{'tree'} is the default.}
 
@@ -32,15 +32,18 @@ invisible copy of \code{spec}, called for side-effect.
 }
 \description{
 This is a thin wrapper to \code{\link[listviewer:jsonedit]{listviewer::jsonedit()}},
-used to interactvely examine a Vega or Vega-Lite specification.
-It works a little differently than calling \code{\link[listviewer:jsonedit]{listviewer::jsonedit()}}
-directly; it returns invisibly a copy of
+use to interactvely examine a Vega or Vega-Lite specification.
+}
+\details{
+This function works a little differently than calling
+\code{\link[listviewer:jsonedit]{listviewer::jsonedit()}} directly; it returns invisibly a copy of
 \code{spec}, to support piping.
 }
 \examples{
+  vw_examine(spec_mtcars)
+
   spec_mtcars_autosize <-
     spec_mtcars \%>\%
-    vw_examine() \%>\%
     vw_autosize(width = 300, height = 300) \%>\%
     vw_examine()
 }

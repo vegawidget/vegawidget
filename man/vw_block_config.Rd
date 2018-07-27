@@ -4,23 +4,24 @@
 \alias{vw_block_config}
 \title{Specify block-configuration}
 \usage{
-vw_block_config(license = "mit", height = 500, scrolling = TRUE,
+vw_block_config(license = "mit", height = 500L, scrolling = TRUE,
   border = TRUE)
 }
 \arguments{
 \item{license}{\code{character} specifies the license}
 
-\item{height}{\code{numeric} height of the block (pixels)}
+\item{height}{\code{integer} height of the block (pixels)}
 
 \item{scrolling}{\code{logical} indicates to use scrolling bars}
 
-\item{border}{\code{logical} indicates to put a border on the \code{iframe}}
+\item{border}{\code{logical} indicates to put a border on the \code{<iframe/>}}
 }
 \value{
 \code{character} yaml string for \code{.block} file
 }
 \description{
-Specify block-configuration
+Helper function to build a YAML configuartion-string. This string
+is sent to the gist in a file named \code{.block}.
 }
 \seealso{
 \href{https://bl.ocks.org/-/about}{Blocks documentation}

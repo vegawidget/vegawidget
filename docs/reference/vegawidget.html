@@ -32,7 +32,9 @@
   
 <meta property="og:title" content="Create a Vega/Vega-Lite htmlwidget — vegawidget" />
 
-<meta property="og:description" content="Renders a chart as an htmlwidget." />
+<meta property="og:description" content="The main use of this package is to render a vegawidget,
+which is also an htmlwidget. This function builds a vegawidget
+using a vegaspec." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,7 +124,9 @@
 
     <div class="ref-description">
     
-    <p>Renders a chart as an htmlwidget.</p>
+    <p>The main use of this package is to render a <code>vegawidget</code>,
+which is also an <code>htmlwidget</code>. This function builds a <code>vegawidget</code>
+using a <code>vegaspec</code>.</p>
     
     </div>
 
@@ -133,14 +137,13 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>spec</th>
-      <td><p>object to be coerced to Vega/Vega-Lite specification</p></td>
+      <td><p>object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></td>
     </tr>
     <tr>
       <th>embed</th>
-      <td><p><code>vega_embed</code> object to specify embedding options -
-the default is an empty call to <code><a href='vega_embed.html'>vega_embed()</a></code>,
-which will result in a canvas-rendering and action-links included for
-exporting, viewing the Vega-Lite source, and opening the Vega editor.</p></td>
+      <td><p><code>list</code> to specify
+<a href='https://github.com/vega/vega-embed#options'>vega-embed</a> options,
+see <strong>Details</strong> on how this is set if <code>NULL</code>.</p></td>
     </tr>
     <tr>
       <th>width</th>
@@ -160,49 +163,56 @@ the default is to use the height in the chart specification</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>S3 object of class <code>vegawidget</code> and <code>htmlwidget</code></p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function is called <code>vegawidget()</code> is because it returns an htmlwidget
-that uses Vega-Lite and Vega JavaScript libraries.</p>
-<p>To specify embedding-options, use the <code><a href='vega_embed.html'>vega_embed()</a></code> function with the
-<code>embed</code> argument. Its most-important options are:</p><ul>
+    <p>If <code>embed</code> is <code>NULL</code>, <code>vegawidget()</code> uses:</p><ul>
+<li><p><code>getOption("vega.embed")</code>, if that is NULL:</p></li>
+<li><p>an empty call to <code><a href='vega_embed.html'>vega_embed()</a></code></p></li>
+</ul>
+    <p>The most-important arguments to <code><a href='vega_embed.html'>vega_embed()</a></code> are:</p><ul>
 <li><p><code>renderer</code>, to specify <code>"canvas"</code> (default) or <code>"svg"</code></p></li>
 <li><p><code>actions</code>,  to specify action-links
 for <code>export</code>, <code>source</code>, <code>compiled</code>, and <code>editor</code></p></li>
 </ul>
-    <p>If <code>actions</code> is <code>TRUE</code> (or <code>FALSE</code>), all the links
-are shown (or not). Use a named list to be more specific, see
-<code><a href='vega_embed.html'>vega_embed()</a></code>.</p>
-<p>If <code>embed</code> is <code>NULL</code>, <code>vegawidget()</code> sets <code>embed</code> to the value of
-<code>getOption("vega.embed")</code>. Then, if this option is <code>NULL</code>, the
-<a href='https://github.com/vega/vega-embed#api-reference'>vega-embed</a>
-defaults are used.</p>
-<p>The arguments <code>width</code> and <code>height</code> are used to override the width and height
-determined using the <code>chart</code> specification. However, there are some
+    <p>If either <code>width</code> or <code>height</code> is specified, the <code>autosize()</code> function
+is used to override the width and height of the <code>spec</code>. There are some
 important provisions:</p><ul>
-<li><p>Specifying <code>width</code> and <code>height</code> in <code>vegawidget()</code> is
+<li><p>Specifying <code>width</code> and <code>height</code> is
 <a href='https://vega.github.io/vega-lite/docs/size.html#limitations'>effective only for single-view charts and layered charts</a>.
 It will not work for contatenated, faceted, or repeated charts.</p></li>
-<li><p>In the chart specification, the default interpretation of width and height
+<li><p>In the <code>spec</code>, the default interpretation of width and height
 is to describe the dimensions of the
 <strong>plotting rectangle</strong>, not including the space used by the axes, labels,
-etc. When <code>width</code> and <code>height</code> are specified using <code>vegawidget()</code>,
-the meanings change to describe the dimensions of the <strong>entire</strong> rendered chart,
-including axes, labels, etc.</p></li>
-<li><p>Keep in mind that the action-links are not a part of the rendered chart,
-so you may have to account for them yourself. You might expect
-the height of the action-links to be 15-20 pixels.</p></li>
+etc. Here, <code>width</code> and <code>height</code> describe the dimensions
+of the <strong>entire</strong> rendered chart, including axes, labels, etc.</p></li>
 </ul>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'><p><a href='https://github.com/vega/vega-embed#options'>vega-embed options</a>,
+<code><a href='vega_embed.html'>vega_embed()</a></code>, <code><a href='vw_autosize.html'>vw_autosize()</a></code></p></div>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>  <span class='fu'>vegawidget</span>(<span class='no'>spec_mtcars</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>350</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>350</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
-          </ul>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

@@ -32,7 +32,10 @@
   
 <meta property="og:title" content="Retrieve vegaspec from block — vw_retrieve_block" />
 
-<meta property="og:description" content="Need a github PAT in envvar GITHUB_PAT" />
+<meta property="og:description" content="You can use this function to retrieve a vegaspec from
+blocks (gists) where the spec is in its own JSON file.
+As well, this function requires that
+gistr be installed." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,7 +125,10 @@
 
     <div class="ref-description">
     
-    <p>Need a github PAT in envvar <code>GITHUB_PAT</code></p>
+    <p>You can use this function to retrieve a <code>vegaspec</code> from
+blocks (gists) where the spec is in its own JSON file.
+As well, this function requires that
+<a href='https://cran.r-project.org/package=gistr'>gistr</a> be installed.</p>
     
     </div>
 
@@ -163,9 +169,38 @@ Useful to specify with GitHub Enterprise, e.g. <code>"GITHUB_ACME_PAT"</code>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>vegaspec</code></p>
+    <p>S3 object of class <code>vegaspec</code></p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>In addition to having the <strong>gistr</strong> package installed, you will need a
+GitHub Personal Access Token (PAT) stored in an environment variable
+called <code>GITHUB_PAT</code>. See <a href='http://happygitwithr.com/github-pat.html'>Happy Git with R</a>
+for more information on how to acquire and store a PAT.</p>
+<p>The <code>file</code> argument accepts a regular expression for the name of the JSON file
+within the gist. If you don't provide a <code>file</code>, it will return the first file
+in the gist with a <code>.json</code> extension (not case sensitive). Don't worry about
+escaping the dots in <code>file</code>, it will likely not make a difference.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='https://bl.ocks.org/-/about'>Blocks documentation</a>,
+<code><a href='vw_create_block.html'>vw_create_block()</a></code>, <code><a href='http://www.rdocumentation.org/packages/gistr/topics/gist'>gistr::gist()</a></code></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+  <span class='co'># https://bl.ocks.org/domoritz/455e1c7872c4b38a58b90df0c3d7b1b9</span>
+  <span class='no'>spec_bars</span> <span class='kw'>&lt;-</span>
+    <span class='fu'>vw_retrieve_block</span>(<span class='st'>"455e1c7872c4b38a58b90df0c3d7b1b9"</span>)
+  <span class='no'>spec_bars</span> <span class='kw'>&lt;-</span>
+    <span class='fu'>vw_retrieve_block</span>(<span class='st'>"dmoritz/455e1c7872c4b38a58b90df0c3d7b1b9"</span>)
+  <span class='no'>spec_bars</span> <span class='kw'>&lt;-</span>
+    <span class='fu'>vw_retrieve_block</span>(
+      <span class='st'>"455e1c7872c4b38a58b90df0c3d7b1b9"</span>,
+      <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"bar.vl.json"</span>
+    )
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -173,7 +208,13 @@ Useful to specify with GitHub Enterprise, e.g. <code>"GITHUB_ACME_PAT"</code>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

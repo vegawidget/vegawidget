@@ -7,7 +7,7 @@
 vw_autosize(spec, width = NULL, height = NULL)
 }
 \arguments{
-\item{spec}{object to be coerced to Vega/Vega-Lite specification}
+\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
 \item{width}{\code{integer}, if specified, the total rendered width (in pixels)
 of the chart - valid only for single-view charts and layered charts;

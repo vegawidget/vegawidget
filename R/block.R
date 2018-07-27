@@ -1,9 +1,25 @@
 #' Create gist to use as block
 #'
+#' These functions require that [**fs**](https://cran.r-project.org/package=fs)
+#' and  [**gistr**](https://cran.r-project.org/package=gistr) be installed.
+#' If you want to include a thumbnail or preview image, you will need the
+#' [**magick**](https://cran.r-project.org/package=magick) package,
+#' [**webdriver**](https://cran.r-project.org/package=webdriver) package,
+#' and PhantomJS installed.
+#'
 #' These functions do the same thing: create a gist; they differ only in what
 #' they return. `vw_create_block()` returns a copy of `spec` so that it can be
 #' used in a pipe; `vw_create_block_gistid()` returns a list of information
 #' about the newly-created gist.
+#'
+#' In addition to having the **gistr** package installed, you will need a
+#' GitHub Personal Access Token (PAT) stored in an environment variable
+#' called `GITHUB_PAT`. See [Happy Git with R](http://happygitwithr.com/github-pat.html)
+#' for more information on how to acquire and store a PAT.
+#'
+#' The default versions of the Vega JavaScript libraries are this package's
+#' supported versions. To use the major (current) versions instead, use
+#' `version = vega_version(major = TRUE)`.
 #'
 #' @inheritParams vegawidget
 #' @param .block       `character`, YAML text for the `.block` file -
@@ -13,7 +29,8 @@
 #'   values are the tags for the versions to use in the block - use the
 #'   helper function [vega_version()] with `major = TRUE` to use the current
 #'   major versions rather than the versions supported in this package
-#' @param description   `character`, description for the gist
+#' @param description   `character`, description for the gist - if `NULL`,
+#'   looks for a description field in `spec`.
 #' @param readme        `character`, single line, path to a markdown file;
 #'   multiple lines, markdown text
 #' @param use_thumbnail `logical`, indicates to include a thumbnail image
@@ -43,19 +60,31 @@
 #'     }
 #'   }
 #' }
+#' @examples
+#' \dontrun{
+#'   # use supported versions
+#'   vw_create_block(spec_mtcars)
+#'   # use major versions
+#'   vw_create_block(spec_mtcars, version = vega_version(major = TRUE))
+#'   # return gist information
+#'   vw_create_block_gistid(spec_mtcars)
+#' }
 #'
 #' @seealso [Blocks documentation](https://bl.ocks.org/-/about),
-#'  [gistr::gist_create_git()]
+#'  [vw_retrieve_block()],
+#'  [gistr::gist_create_git()], [vega_version()], [vw_block_config()]
+#'
 #' @export
 #'
 vw_create_block <- function(spec, embed = vega_embed(),
-                         .block = vw_block_config(),
-                         version = vega_version(major = FALSE),
-                         description = "", readme = NULL,
-                         use_thumbnail = TRUE, use_preview = TRUE,
-                         git_method = c("ssh", "https"), endpoint = NULL,
-                         env_pat = NULL, block_host = NULL,
-                         quiet = FALSE, browse = TRUE) {
+                            .block = vw_block_config(),
+                            version = vega_version(major = FALSE),
+                            description = NULL, readme = NULL,
+                            use_thumbnail = TRUE, use_preview = TRUE,
+                            git_method = c("ssh", "https"),
+                            endpoint = NULL, env_pat = NULL,
+                            block_host = NULL, quiet = FALSE,
+                            browse = TRUE) {
 
   # pass along everything to .create_block()
   result <- do.call(.vw_create_block, args = as.list(environment()))
@@ -67,13 +96,14 @@ vw_create_block <- function(spec, embed = vega_embed(),
 #' @export
 #'
 vw_create_block_gistid <- function(spec, embed = vega_embed(),
-                                .block = vw_block_config(),
-                                version = vega_version(major = FALSE),
-                                description = "", readme = NULL,
-                                use_thumbnail = TRUE, use_preview = TRUE,
-                                git_method = c("ssh", "https"), endpoint = NULL,
-                                env_pat = NULL, block_host = NULL,
-                                quiet = FALSE, browse = TRUE) {
+                                   .block = vw_block_config(),
+                                   version = vega_version(major = FALSE),
+                                   description = NULL, readme = NULL,
+                                   use_thumbnail = TRUE, use_preview = TRUE,
+                                   git_method = c("ssh", "https"),
+                                   endpoint = NULL, env_pat = NULL,
+                                   block_host = NULL, quiet = FALSE,
+                                   browse = TRUE) {
 
   # pass along everything to .create_block()
   result <- do.call(.vw_create_block, args = as.list(environment()))
@@ -82,20 +112,23 @@ vw_create_block_gistid <- function(spec, embed = vega_embed(),
 }
 
 .vw_create_block <- function(spec, embed = vega_embed(),
-                          .block = vw_block_config(),
-                          version = vega_version(major = FALSE),
-                          description = "", readme = NULL,
-                          use_thumbnail = TRUE, use_preview = TRUE,
-                          git_method = c("ssh", "https"), endpoint = NULL,
-                          env_pat = NULL, block_host = NULL,
-                          quiet = FALSE, browse = TRUE) {
-
+                             .block = vw_block_config(),
+                             version = vega_version(major = FALSE),
+                             description = NULL, readme = NULL,
+                             use_thumbnail = TRUE, use_preview = TRUE,
+                             git_method = c("ssh", "https"),
+                             endpoint = NULL, env_pat = NULL,
+                             block_host = NULL, quiet = FALSE,
+                             browse = TRUE) {
   # validate
   assert_packages("fs", "gistr")
 
   # create temporary directory
   dir_temp <- fs::path(tempdir(), glue::glue("block-{as.numeric(Sys.time())}"))
   fs::dir_create(dir_temp)
+
+  # doing this here so we can access the description
+  spec <- as_vegaspec(spec)
 
   # compose a temp directory to contain the gist files
   vw_block_build_directory(
@@ -111,7 +144,7 @@ vw_create_block_gistid <- function(spec, embed = vega_embed(),
 
   # create the gist based on the temp directory
   files <- fs::dir_ls(dir_temp, all = TRUE) # ensures we include .block
-  description <- description %||% ""
+  description <- description %||% spec$description %||% ""
 
   gst <- suppressMessages(
     gistr::gist_create_git(
@@ -151,14 +184,42 @@ vw_create_block_gistid <- function(spec, embed = vega_embed(),
 
 #' Retrieve vegaspec from block
 #'
-#' Need a github PAT in envvar `GITHUB_PAT`
+#' You can use this function to retrieve a `vegaspec` from
+#' blocks (gists) where the spec is in its own JSON file.
+#' As well, this function requires that
+#' [**gistr**](https://cran.r-project.org/package=gistr) be installed.
+#'
+#' In addition to having the **gistr** package installed, you will need a
+#' GitHub Personal Access Token (PAT) stored in an environment variable
+#' called `GITHUB_PAT`. See [Happy Git with R](http://happygitwithr.com/github-pat.html)
+#' for more information on how to acquire and store a PAT.
+#'
+#' The `file` argument accepts a regular expression for the name of the JSON file
+#' within the gist. If you don't provide a `file`, it will return the first file
+#' in the gist with a `.json` extension (not case sensitive). Don't worry about
+#' escaping the dots in `file`, it will likely not make a difference.
 #'
 #' @param id      `character` block id
 #' @param file    `character` filename within block,
 #'   `NULL` will retrieve first JSON file
 #' @inheritParams vw_create_block
 #'
-#' @return `vegaspec`
+#' @return S3 object of class `vegaspec`
+#' @examples
+#' \dontrun{
+#'   # https://bl.ocks.org/domoritz/455e1c7872c4b38a58b90df0c3d7b1b9
+#'   spec_bars <-
+#'     vw_retrieve_block("455e1c7872c4b38a58b90df0c3d7b1b9")
+#'   spec_bars <-
+#'     vw_retrieve_block("dmoritz/455e1c7872c4b38a58b90df0c3d7b1b9")
+#'   spec_bars <-
+#'     vw_retrieve_block(
+#'       "455e1c7872c4b38a58b90df0c3d7b1b9",
+#'       file = "bar.vl.json"
+#'     )
+#' }
+#' @seealso [Blocks documentation](https://bl.ocks.org/-/about),
+#'  [vw_create_block()], [gistr::gist()]
 #' @export
 #'
 vw_retrieve_block <- function(id, file = NULL, endpoint = NULL, env_pat = NULL,

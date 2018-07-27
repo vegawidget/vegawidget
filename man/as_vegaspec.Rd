@@ -22,7 +22,7 @@ as_vegaspec(spec, ...)
 \method{as_vegaspec}{character}(spec, ...)
 }
 \arguments{
-\item{spec}{object to be coerced to Vega/Vega-Lite specification}
+\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
 \item{...}{other args (attempt to future-proof)}
 }

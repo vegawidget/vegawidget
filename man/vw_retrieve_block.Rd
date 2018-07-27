@@ -26,8 +26,40 @@ Useful to specify with GitHub Enterprise, e.g. \code{"GITHUB_ACME_PAT"}
 \item{quiet}{\code{logical}, indicates to supress messages}
 }
 \value{
-\code{vegaspec}
+S3 object of class \code{vegaspec}
 }
 \description{
-Need a github PAT in envvar \code{GITHUB_PAT}
+You can use this function to retrieve a \code{vegaspec} from
+blocks (gists) where the spec is in its own JSON file.
+As well, this function requires that
+\href{https://cran.r-project.org/package=gistr}{gistr} be installed.
+}
+\details{
+In addition to having the \strong{gistr} package installed, you will need a
+GitHub Personal Access Token (PAT) stored in an environment variable
+called \code{GITHUB_PAT}. See \href{http://happygitwithr.com/github-pat.html}{Happy Git with R}
+for more information on how to acquire and store a PAT.
+
+The \code{file} argument accepts a regular expression for the name of the JSON file
+within the gist. If you don't provide a \code{file}, it will return the first file
+in the gist with a \code{.json} extension (not case sensitive). Don't worry about
+escaping the dots in \code{file}, it will likely not make a difference.
+}
+\examples{
+\dontrun{
+  # https://bl.ocks.org/domoritz/455e1c7872c4b38a58b90df0c3d7b1b9
+  spec_bars <-
+    vw_retrieve_block("455e1c7872c4b38a58b90df0c3d7b1b9")
+  spec_bars <-
+    vw_retrieve_block("dmoritz/455e1c7872c4b38a58b90df0c3d7b1b9")
+  spec_bars <-
+    vw_retrieve_block(
+      "455e1c7872c4b38a58b90df0c3d7b1b9",
+      file = "bar.vl.json"
+    )
+}
+}
+\seealso{
+\href{https://bl.ocks.org/-/about}{Blocks documentation},
+\code{\link[=vw_create_block]{vw_create_block()}}, \code{\link[gistr:gist]{gistr::gist()}}
 }

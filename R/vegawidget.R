@@ -1,53 +1,47 @@
 #' Create a Vega/Vega-Lite htmlwidget
 #'
-#' Renders a chart as an htmlwidget.
+#' The main use of this package is to render a `vegawidget`,
+#' which is also an `htmlwidget`. This function builds a `vegawidget`
+#' using a `vegaspec`.
 #'
-#' This function is called `vegawidget()` is because it returns an htmlwidget
-#' that uses Vega-Lite and Vega JavaScript libraries.
+#' If `embed` is `NULL`, `vegawidget()` uses:
 #'
-#' To specify embedding-options, use the [vega_embed()] function with the
-#' `embed` argument. Its most-important options are:
+#' - `getOption("vega.embed")`, if that is NULL:
+#' - an empty call to [vega_embed()]
+#'
+#' The most-important arguments to [vega_embed()] are:
 #'
 #' - `renderer`, to specify `"canvas"` (default) or `"svg"`
 #' - `actions`,  to specify action-links
 #'    for `export`, `source`, `compiled`, and `editor`
 #'
-#' If `actions` is `TRUE` (or `FALSE`), all the links
-#' are shown (or not). Use a named list to be more specific, see
-#' [vega_embed()].
-#'
-#' If `embed` is `NULL`, `vegawidget()` sets `embed` to the value of
-#' `getOption("vega.embed")`. Then, if this option is `NULL`, the
-#' [vega-embed](https://github.com/vega/vega-embed#api-reference)
-#' defaults are used.
-#'
-#' The arguments `width` and `height` are used to override the width and height
-#' determined using the `chart` specification. However, there are some
+#' If either `width` or `height` is specified, the `autosize()` function
+#' is used to override the width and height of the `spec`. There are some
 #' important provisions:
 #'
-#' - Specifying `width` and `height` in `vegawidget()` is
+#' - Specifying `width` and `height` is
 #' [effective only for single-view charts and layered charts](
 #' https://vega.github.io/vega-lite/docs/size.html#limitations).
 #' It will not work for contatenated, faceted, or repeated charts.
 #'
-#' - In the chart specification, the default interpretation of width and height
+#' - In the `spec`, the default interpretation of width and height
 #' is to describe the dimensions of the
 #' **plotting rectangle**, not including the space used by the axes, labels,
-#' etc. When `width` and `height` are specified using `vegawidget()`,
-#' the meanings change to describe the dimensions of the **entire** rendered chart,
-#' including axes, labels, etc.
-#'
-#' - Keep in mind that the action-links are not a part of the rendered chart,
-#' so you may have to account for them yourself. You might expect
-#' the height of the action-links to be 15-20 pixels.
+#' etc. Here, `width` and `height` describe the dimensions
+#' of the **entire** rendered chart, including axes, labels, etc.
 #'
 #' @inheritParams as_vegaspec
 #' @inheritParams vw_autosize
-#' @param embed   `vega_embed` object to specify embedding options -
-#'   the default is an empty call to [vega_embed()],
-#'   which will result in a canvas-rendering and action-links included for
-#'   exporting, viewing the Vega-Lite source, and opening the Vega editor.
+#' @param embed   `list` to specify
+#'   [vega-embed](https://github.com/vega/vega-embed#options) options,
+#'   see **Details** on how this is set if `NULL`.
 #' @param ... other arguments passed to [htmlwidgets::createWidget()]
+#'
+#' @return S3 object of class `vegawidget` and `htmlwidget`
+#' @seealso [vega-embed options](https://github.com/vega/vega-embed#options),
+#'   [vega_embed()], [vw_autosize()]
+#' @examples
+#'   vegawidget(spec_mtcars, width = 350, height = 350)
 #'
 #' @export
 #'

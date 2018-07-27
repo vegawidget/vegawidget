@@ -127,7 +127,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-vegaspec" class="hasAnchor"><a href="#section-vegaspec" class="anchor"></a>vegaspec</h2>
-          <p class="section-desc"><p>The central <em>object</em> of this package is <code>vegaspec</code>, an S3 object which inherits from <code>list</code>. Use these functions to coerce to a <code>vegaspec</code>, format as JSON, or otherwise operate on a <code>vegaspec</code>. If the <a href="https://CRAN.R-project.org/package=V8"><strong>V8</strong></a> package is installed, you can translate a Vega-Lite specification to a Vega specification.</p></p>
+          <p class="section-desc"><p>The central <em>object</em> of this package is <code>vegaspec</code>, which is also a <code>list</code>. Use these functions to coerce to a <code>vegaspec</code>, format as JSON, or otherwise operate on a <code>vegaspec</code>. If the <a href="https://CRAN.R-project.org/package=V8"><strong>V8</strong></a> package is installed, you can translate a Vega-Lite specification to a Vega specification.</p></p>
         </th>
       </tr>
       <tr>
@@ -164,8 +164,8 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-rendering-vegaspecs" class="hasAnchor"><a href="#section-rendering-vegaspecs" class="anchor"></a>Rendering vegaspecs</h2>
-          <p class="section-desc"><p>The central <em>side-effect</em> of this package is to render a <code>vegawidget</code>, an S3 object which inherits from <code>htmlwidget</code>. A <code>vegawidget</code> is built using a <code>vegaspec</code>. A helper function is provided for <a href="https://github.com/vega/vega-embed">vega-embed</a> options. These options can be specified as an argument to the <code>vegawidget</code> function, or as an R option, <code>vega.embed</code>, which would picked up by the <code>knit_print</code> method. If the <a href="https://CRAN.R-project.org/package=webshot"><strong>webshot</strong></a> package and PhantomJS are installed, knitting to a non-html format should “just work”.</p></p>
+          <h2 id="section-rendering-a-vegaspec" class="hasAnchor"><a href="#section-rendering-a-vegaspec" class="anchor"></a>Rendering a vegaspec</h2>
+          <p class="section-desc"><p>The central <em>side-effect</em> of this package is to render a <code>vegawidget</code>, which is also an <code>htmlwidget</code>. A <code>vegawidget</code> is built using a <code>vegaspec</code>. A helper function is provided for <a href="https://github.com/vega/vega-embed">vega-embed</a> options. These options can be specified as an argument to the <code>vegawidget</code> function, or as an R option, <code>vega.embed</code>, which would picked up by the <code>knit_print</code> method. If the <a href="https://CRAN.R-project.org/package=webshot"><strong>webshot</strong></a> package and PhantomJS are installed, knitting to a non-html format should “just work”.</p></p>
         </th>
       </tr>
       <tr>
@@ -231,27 +231,9 @@
       <tr>
         
         <td>
-          <p><code><a href="vw_to_png.html">vw_to_png()</a></code> </p>
+          <p><code><a href="image.html">vw_to_svg()</a></code> <code><a href="image.html">vw_to_png()</a></code> <code><a href="image.html">vw_write_svg()</a></code> <code><a href="image.html">vw_write_png()</a></code> </p>
         </td>
-        <td><p>Convert to PNG data-URI string</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vw_to_svg.html">vw_to_svg()</a></code> </p>
-        </td>
-        <td><p>Convert to SVG string</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vw_write_png.html">vw_write_png()</a></code> </p>
-        </td>
-        <td><p>Write to PNG file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vw_write_svg.html">vw_write_svg()</a></code> </p>
-        </td>
-        <td><p>Write to SVG file</p></td>
+        <td><p>Create or write image</p></td>
       </tr><tr>
         
         <td>
@@ -278,6 +260,12 @@
           <p><code><a href="vw_create_block.html">vw_create_block()</a></code> <code><a href="vw_create_block.html">vw_create_block_gistid()</a></code> </p>
         </td>
         <td><p>Create gist to use as block</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_block_config.html">vw_block_config()</a></code> </p>
+        </td>
+        <td><p>Specify block-configuration</p></td>
       </tr><tr>
         
         <td>
@@ -316,12 +304,6 @@
           <p><code><a href="vw_block_build_directory.html">vw_block_build_directory()</a></code> </p>
         </td>
         <td><p>Build block-directory</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vw_block_config.html">vw_block_config()</a></code> </p>
-        </td>
-        <td><p>Specify block-configuration</p></td>
       </tr>
     </tbody>
     </table>
@@ -331,7 +313,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-vegaspec">vegaspec</a></li>
-      <li><a href="#section-rendering-vegaspecs">Rendering vegaspecs</a></li>
+      <li><a href="#section-rendering-a-vegaspec">Rendering a vegaspec</a></li>
       <li><a href="#section-shiny">Shiny</a></li>
       <li><a href="#section-data">Data</a></li>
       <li><a href="#section-images">Images</a></li>

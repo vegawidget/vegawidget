@@ -32,10 +32,12 @@
   
 <meta property="og:title" content="Create gist to use as block — vw_create_block" />
 
-<meta property="og:description" content="These functions do the same thing: create a gist; they differ only in what
-they return. vw_create_block() returns a copy of spec so that it can be
-used in a pipe; vw_create_block_gistid() returns a list of information
-about the newly-created gist." />
+<meta property="og:description" content="These functions require that fs
+and  gistr be installed.
+If you want to include a thumbnail or preview image, you will need the
+magick package,
+webdriver package,
+and PhantomJS installed." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -125,22 +127,24 @@ about the newly-created gist." />
 
     <div class="ref-description">
     
-    <p>These functions do the same thing: create a gist; they differ only in what
-they return. <code>vw_create_block()</code> returns a copy of <code>spec</code> so that it can be
-used in a pipe; <code>vw_create_block_gistid()</code> returns a list of information
-about the newly-created gist.</p>
+    <p>These functions require that <a href='https://cran.r-project.org/package=fs'>fs</a>
+and  <a href='https://cran.r-project.org/package=gistr'>gistr</a> be installed.
+If you want to include a thumbnail or preview image, you will need the
+<a href='https://cran.r-project.org/package=magick'>magick</a> package,
+<a href='https://cran.r-project.org/package=webdriver'>webdriver</a> package,
+and PhantomJS installed.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>vw_create_block</span>(<span class='no'>spec</span>, <span class='kw'>embed</span> <span class='kw'>=</span> <span class='fu'><a href='vega_embed.html'>vega_embed</a></span>(), <span class='kw'>.block</span> <span class='kw'>=</span> <span class='fu'><a href='vw_block_config.html'>vw_block_config</a></span>(),
-  <span class='kw'>version</span> <span class='kw'>=</span> <span class='fu'><a href='vega_version.html'>vega_version</a></span>(<span class='kw'>major</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>), <span class='kw'>description</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>readme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>use_thumbnail</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>use_preview</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>git_method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ssh"</span>,
-  <span class='st'>"https"</span>), <span class='kw'>endpoint</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>env_pat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>block_host</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>browse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>version</span> <span class='kw'>=</span> <span class='fu'><a href='vega_version.html'>vega_version</a></span>(<span class='kw'>major</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>), <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>readme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>use_thumbnail</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>use_preview</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>git_method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ssh"</span>, <span class='st'>"https"</span>), <span class='kw'>endpoint</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>env_pat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>block_host</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>browse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>vw_create_block_gistid</span>(<span class='no'>spec</span>, <span class='kw'>embed</span> <span class='kw'>=</span> <span class='fu'><a href='vega_embed.html'>vega_embed</a></span>(),
   <span class='kw'>.block</span> <span class='kw'>=</span> <span class='fu'><a href='vw_block_config.html'>vw_block_config</a></span>(), <span class='kw'>version</span> <span class='kw'>=</span> <span class='fu'><a href='vega_version.html'>vega_version</a></span>(<span class='kw'>major</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
-  <span class='kw'>description</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>readme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>use_thumbnail</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>readme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>use_thumbnail</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>use_preview</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>git_method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ssh"</span>, <span class='st'>"https"</span>), <span class='kw'>endpoint</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>env_pat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>block_host</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>browse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -149,14 +153,13 @@ about the newly-created gist.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>spec</th>
-      <td><p>object to be coerced to Vega/Vega-Lite specification</p></td>
+      <td><p>object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></td>
     </tr>
     <tr>
       <th>embed</th>
-      <td><p><code>vega_embed</code> object to specify embedding options -
-the default is an empty call to <code><a href='vega_embed.html'>vega_embed()</a></code>,
-which will result in a canvas-rendering and action-links included for
-exporting, viewing the Vega-Lite source, and opening the Vega editor.</p></td>
+      <td><p><code>list</code> to specify
+<a href='https://github.com/vega/vega-embed#options'>vega-embed</a> options,
+see <strong>Details</strong> on how this is set if <code>NULL</code>.</p></td>
     </tr>
     <tr>
       <th>.block</th>
@@ -173,7 +176,8 @@ major versions rather than the versions supported in this package</p></td>
     </tr>
     <tr>
       <th>description</th>
-      <td><p><code>character</code>, description for the gist</p></td>
+      <td><p><code>character</code>, description for the gist - if <code>NULL</code>,
+looks for a description field in <code>spec</code>.</p></td>
     </tr>
     <tr>
       <th>readme</th>
@@ -234,12 +238,37 @@ when complete</p></td>
 </dl>
 
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>These functions do the same thing: create a gist; they differ only in what
+they return. <code>vw_create_block()</code> returns a copy of <code>spec</code> so that it can be
+used in a pipe; <code>vw_create_block_gistid()</code> returns a list of information
+about the newly-created gist.</p>
+<p>In addition to having the <strong>gistr</strong> package installed, you will need a
+GitHub Personal Access Token (PAT) stored in an environment variable
+called <code>GITHUB_PAT</code>. See <a href='http://happygitwithr.com/github-pat.html'>Happy Git with R</a>
+for more information on how to acquire and store a PAT.</p>
+<p>The default versions of the Vega JavaScript libraries are this package's
+supported versions. To use the major (current) versions instead, use
+<code>version = vega_version(major = TRUE)</code>.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://bl.ocks.org/-/about'>Blocks documentation</a>,
-<code><a href='http://www.rdocumentation.org/packages/gistr/topics/gist_create_git'>gistr::gist_create_git()</a></code></p></div>
+<code><a href='vw_retrieve_block.html'>vw_retrieve_block()</a></code>,
+<code><a href='http://www.rdocumentation.org/packages/gistr/topics/gist_create_git'>gistr::gist_create_git()</a></code>, <code><a href='vega_version.html'>vega_version()</a></code>, <code><a href='vw_block_config.html'>vw_block_config()</a></code></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+  <span class='co'># use supported versions</span>
+  <span class='fu'>vw_create_block</span>(<span class='no'>spec_mtcars</span>)
+  <span class='co'># use major versions</span>
+  <span class='fu'>vw_create_block</span>(<span class='no'>spec_mtcars</span>, <span class='kw'>version</span> <span class='kw'>=</span> <span class='fu'><a href='vega_version.html'>vega_version</a></span>(<span class='kw'>major</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+  <span class='co'># return gist information</span>
+  <span class='fu'>vw_create_block_gistid</span>(<span class='no'>spec_mtcars</span>)
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -248,8 +277,12 @@ when complete</p></td>
       
       <li><a href="#value">Value</a></li>
 
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

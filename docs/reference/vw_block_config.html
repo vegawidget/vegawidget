@@ -32,7 +32,8 @@
   
 <meta property="og:title" content="Specify block-configuration — vw_block_config" />
 
-<meta property="og:description" content="Specify block-configuration" />
+<meta property="og:description" content="Helper function to build a YAML configuartion-string. This string
+is sent to the gist in a file named .block." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,11 +123,12 @@
 
     <div class="ref-description">
     
-    <p>Specify block-configuration</p>
+    <p>Helper function to build a YAML configuartion-string. This string
+is sent to the gist in a file named <code>.block</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>vw_block_config</span>(<span class='kw'>license</span> <span class='kw'>=</span> <span class='st'>"mit"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>scrolling</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='fu'>vw_block_config</span>(<span class='kw'>license</span> <span class='kw'>=</span> <span class='st'>"mit"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>500L</span>, <span class='kw'>scrolling</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>border</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -138,7 +140,7 @@
     </tr>
     <tr>
       <th>height</th>
-      <td><p><code>numeric</code> height of the block (pixels)</p></td>
+      <td><p><code>integer</code> height of the block (pixels)</p></td>
     </tr>
     <tr>
       <th>scrolling</th>
@@ -146,7 +148,7 @@
     </tr>
     <tr>
       <th>border</th>
-      <td><p><code>logical</code> indicates to put a border on the <code>iframe</code></p></td>
+      <td><p><code>logical</code> indicates to put a border on the <code>&lt;iframe/&gt;</code></p></td>
     </tr>
     </table>
     

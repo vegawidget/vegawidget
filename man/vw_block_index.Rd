@@ -7,10 +7,9 @@
 vw_block_index(embed = vega_embed(), version = vega_version(major = FALSE))
 }
 \arguments{
-\item{embed}{\code{vega_embed} object to specify embedding options -
-the default is an empty call to \code{\link[=vega_embed]{vega_embed()}},
-which will result in a canvas-rendering and action-links included for
-exporting, viewing the Vega-Lite source, and opening the Vega editor.}
+\item{embed}{\code{list} to specify
+\href{https://github.com/vega/vega-embed#options}{vega-embed} options,
+see \strong{Details} on how this is set if \code{NULL}.}
 
 \item{version}{named \code{list} of \code{character}:
 names refer to JavaScript libraries \code{vega}, \code{vega_lite}, \code{vega_embed},

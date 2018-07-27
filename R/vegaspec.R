@@ -20,7 +20,7 @@
 #' the function [vw_spec_version()] to determine this. You can use
 #' [vw_to_vega()] to translate a Vega-Lite spec to Vega.
 #'
-#' @param spec        object to be coerced to Vega/Vega-Lite specification
+#' @param spec        object to be coerced to `vegaspec`, a Vega/Vega-Lite specification
 #' @param ...         other args (attempt to future-proof)
 #'
 #' @return S3 object of class `vegaspec`

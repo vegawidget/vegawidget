@@ -33,10 +33,7 @@
 <meta property="og:title" content="Examine vegaspec — vw_examine" />
 
 <meta property="og:description" content="This is a thin wrapper to listviewer::jsonedit(),
-used to interactvely examine a Vega or Vega-Lite specification.
-It works a little differently than calling listviewer::jsonedit()
-directly; it returns invisibly a copy of
-spec, to support piping." />
+use to interactvely examine a Vega or Vega-Lite specification." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -127,10 +124,7 @@ spec, to support piping." />
     <div class="ref-description">
     
     <p>This is a thin wrapper to <code><a href='http://www.rdocumentation.org/packages/listviewer/topics/jsonedit'>listviewer::jsonedit()</a></code>,
-used to interactvely examine a Vega or Vega-Lite specification.
-It works a little differently than calling <code><a href='http://www.rdocumentation.org/packages/listviewer/topics/jsonedit'>listviewer::jsonedit()</a></code>
-directly; it returns invisibly a copy of
-<code>spec</code>, to support piping.</p>
+use to interactvely examine a Vega or Vega-Lite specification.</p>
     
     </div>
 
@@ -142,7 +136,7 @@ directly; it returns invisibly a copy of
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>spec</th>
-      <td><p>object to be coerced to Vega/Vega-Lite specification</p></td>
+      <td><p>object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></td>
     </tr>
     <tr>
       <th>mode</th>
@@ -179,11 +173,18 @@ identifier.</p></td>
 
     <p>invisible copy of <code>spec</code>, called for side-effect.</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function works a little differently than calling
+<code><a href='http://www.rdocumentation.org/packages/listviewer/topics/jsonedit'>listviewer::jsonedit()</a></code> directly; it returns invisibly a copy of
+<code>spec</code>, to support piping.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='no'>spec_mtcars_autosize</span> <span class='kw'>&lt;-</span>
+    <pre class="examples"><div class='input'>  <span class='fu'>vw_examine</span>(<span class='no'>spec_mtcars</span>)
+
+  <span class='no'>spec_mtcars_autosize</span> <span class='kw'>&lt;-</span>
     <span class='no'>spec_mtcars</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>vw_examine</span>() <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='vw_autosize.html'>vw_autosize</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>300</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>300</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>vw_examine</span>()</div></pre>
   </div>
@@ -193,6 +194,8 @@ identifier.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

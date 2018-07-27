@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert to PNG data-URI string — vw_to_png • vegawidget</title>
+<title>Create or write image — image • vegawidget</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Convert to PNG data-URI string — vw_to_png" />
+<meta property="og:title" content="Create or write image — image" />
 
-<meta property="og:description" content="Convert to PNG data-URI string" />
+<meta property="og:description" content="If the webdriver package
+and PhantomJS are installed, these functions can be used to create
+or write images as PNG or SVG, using a vegaspec or vegawidget." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -115,25 +117,54 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert to PNG data-URI string</h1>
-    <small class="dont-index">Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/R/to-image.R'><code>R/to-image.R</code></a></small>
-    <div class="hidden name"><code>vw_to_png.Rd</code></div>
+    <h1>Create or write image</h1>
+    <small class="dont-index">Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/R/to-image.R'><code>R/to-image.R</code></a>, <a href='https://github.com/vegawidget/vegawidget/blob/master/R/write-image.R'><code>R/write-image.R</code></a></small>
+    <div class="hidden name"><code>image.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Convert to PNG data-URI string</p>
+    <p>If the <a href='https://cran.r-project.org/package=webdriver'>webdriver</a> package
+and PhantomJS are installed, these functions can be used to create
+or write images as PNG or SVG, using a <code>vegaspec</code> or <code>vegawidget</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>vw_to_png</span>(<span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>vw_to_svg</span>(<span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>vw_to_svg</span>(<span class='no'>spec</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>embed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for vegawidget</span>
+<span class='fu'>vw_to_svg</span>(<span class='no'>widget</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+
+<span class='fu'>vw_to_png</span>(<span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>vw_to_png</span>(<span class='no'>spec</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>embed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for vegawidget</span>
-<span class='fu'>vw_to_png</span>(<span class='no'>widget</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>vw_to_png</span>(<span class='no'>widget</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+
+<span class='fu'>vw_write_svg</span>(<span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>vw_write_svg</span>(<span class='no'>spec</span>, <span class='no'>path</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>embed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for vegawidget</span>
+<span class='fu'>vw_write_svg</span>(<span class='no'>widget</span>, <span class='no'>path</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+
+<span class='fu'>vw_write_png</span>(<span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>vw_write_png</span>(<span class='no'>spec</span>, <span class='no'>path</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>embed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for vegawidget</span>
+<span class='fu'>vw_write_png</span>(<span class='no'>widget</span>, <span class='no'>path</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,7 +179,9 @@
     </tr>
     <tr>
       <th>scale</th>
-      <td><p>scale factor for the image</p></td>
+      <td><p><code>numeric</code>, scale-factor for the image:
+ratio of the width (pixels) of the image to the
+width (pixels) of the rendered chart</p></td>
     </tr>
     <tr>
       <th>embed</th>
@@ -170,23 +203,54 @@ the default is to use the height in the chart specification</p></td>
     </tr>
     <tr>
       <th>widget</th>
-      <td><p>object created using <code><a href='vegawidget.html'>vegawidget()</a></code></p></td>
+      <td><p><code>vegawidget</code>, created using <code><a href='vegawidget.html'>vegawidget()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p><code>character</code>, local path to which to write file</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>character</code> base-64 encoded string</p>
+    
+<dl class='dl-horizontal'>
+<dt><code>vw_to_png()</code></dt><dd><p><code>character</code>, data-URI string for PNG</p></dd>
+<dt><code>vw_to_svg()</code></dt><dd><p><code>character</code>, SVG string</p></dd>
+<dt><code>vw_write_png()</code></dt><dd><p>invisible <code>vegaspec</code> or <code>vegawidget</code></p></dd>
+<dt><code>vw_write_svg()</code></dt><dd><p>invisible <code>vegaspec</code> or <code>vegawidget</code></p></dd>
+</dl>
+
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>These functions can be called using (an object that can be coerced to)
+a <code>vegaspec</code> or a <code>vegawidget</code>. In addition to the
+<a href='https://cran.r-project.org/package=webdriver'>webdriver</a> package,
+you may also need to install PhantomJS; you can use
+<code><a href='http://www.rdocumentation.org/packages/webdriver/topics/install_phantomjs'>webdriver::install_phantomjs()</a></code>.</p>
+<p>Images are created using the
+<a href='https://github.com/vega/vega-view#image-export'>vega-view</a> image-export
+functions. These functions accept a scale factor, represented here as the
+<code>scale</code> argument. By specifying <code>scale = 2</code> for the PNG functions, a
+retina-ready image will be generated.</p>
+<p>The <code>vw_to_png()</code> function returns a data-URI string for the PNG image. If
+you want this PNG image as <code>raw</code> binary data, use <code>vw_to_png()</code> followed by
+<code><a href='vw_png_bin.html'>vw_png_bin()</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='vw_png_bin.html'>vw_png_bin()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/webdriver/topics/install_phantomjs'>webdriver::install_phantomjs()</a></code>,
+<a href='https://github.com/vega/vega-view#image-export'>vega-view library</a>,
+<code><a href='vw_png_bin.html'>vw_png_bin()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-  <span class='fu'>vw_to_png</span>(<span class='no'>spec_mtcars</span>)
-  <span class='fu'>vw_to_png</span>(<span class='fu'><a href='vegawidget.html'>vegawidget</a></span>(<span class='no'>spec_mtcars</span>))
+  <span class='co'># call any of these functions using either a vegaspec or a vegawidget</span>
+  <span class='fu'>vw_to_svg</span>(<span class='fu'><a href='vegawidget.html'>vegawidget</a></span>(<span class='no'>spec_mtcars</span>))
+  <span class='fu'>write_png</span>(<span class='no'>spec_mtcars</span>, <span class='st'>"temp.png"</span>)
+  <span class='no'>spec_mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>vw_to_png</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='vw_png_bin.html'>vw_png_bin</a></span>()
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -195,6 +259,8 @@ the default is to use the height in the chart specification</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

@@ -32,9 +32,8 @@
   
 <meta property="og:title" content="Knit-print method — knit_print.vegaspec" />
 
-<meta property="og:description" content="The only effective sizing options are vega.width and vega.height;
-these are passed to vegawidget() as width and height,
-respectively." />
+<meta property="og:description" content="Currently, the only supported options are vega.width,
+vega.height (as pixels) and vega.embed (as a list)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -124,9 +123,8 @@ respectively." />
 
     <div class="ref-description">
     
-    <p>The only effective sizing options are <code>vega.width</code> and <code>vega.height</code>;
-these are passed to <code><a href='vegawidget.html'>vegawidget()</a></code> as <code>width</code> and <code>height</code>,
-respectively.</p>
+    <p>Currently, the only supported options are <code>vega.width</code>,
+<code>vega.height</code> (as pixels) and <code>vega.embed</code> (as a list).</p>
     
     </div>
 
@@ -137,7 +135,7 @@ respectively.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>spec</th>
-      <td><p>object to be coerced to Vega/Vega-Lite specification</p></td>
+      <td><p>object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -151,10 +149,24 @@ respectively.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Embedding options can be passed by setting the option <code>vega.embed</code> using
-<code><a href='vega_embed.html'>vega_embed()</a></code>.</p>
-<p><code>vega.width</code> and <code>vega.height</code> are
-coerced to numeric, so it is ineffective to specify a percentage.</p>
+    <p>When knitting to an HTML-based format, the <code>spec</code> is rendered as normal.</p>
+<p>When knitting to an non-html format, if the
+<a href='https://cran.r-project.org/package=webshot'>webshot</a> package
+and PhantomJS are installed, an image will be generated instead. You
+may find <code><a href='http://www.rdocumentation.org/packages/webshot/topics/install_phantomjs'>webshot::install_phantomjs()</a></code> to be useful.</p>
+<p>This function has potential to be developed further; it
+calls <code><a href='vegawidget.html'>vegawidget()</a></code> using the options <code>vega.width</code>,
+<code>vega.height</code> and <code>vega.embed</code>:</p><ul>
+<li><p><code>vega.width</code> and <code>vega.height</code> are passed to <code><a href='vegawidget.html'>vegawidget()</a></code>
+as <code>width</code> and <code>height</code>, respectively. These are
+coerced to numeric, so it is ineffective to specify a percentage.</p></li>
+<li><p><code>vega.embed</code> is passed to <code><a href='vegawidget.html'>vegawidget()</a></code> as <code>embed</code>. The function
+<code><a href='vega_embed.html'>vega_embed()</a></code> can be useful to set <code>vega.embed</code>.</p></li>
+</ul>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/webshot/topics/install_phantomjs'>webshot::install_phantomjs()</a></code>, <code><a href='vw_autosize.html'>vw_autosize()</a></code>, <code><a href='vega_embed.html'>vega_embed()</a></code></p></div>
     
 
   </div>
@@ -164,6 +176,8 @@ coerced to numeric, so it is ineffective to specify a percentage.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>

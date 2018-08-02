@@ -46,7 +46,7 @@ library("vegawidget")
 vegawidget(spec_mtcars)
 ```
 
-![](README-vegawidget-1.png)<!-- -->
+![](man/figures/README-vegawidget-1.png)<!-- -->
 
 If you wish to examine a specification, you may use the `vw_examine()`
 function, which is a thin wrapper around the `jsonedit()` function from
@@ -56,7 +56,7 @@ the **listviewer** package.
 vw_examine(spec_mtcars)
 ```
 
-![](README-unnamed-chunk-2-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-2-1.png)<!-- -->
 
 If you wish to deploy a specification to be rendered on bl.ocks.org, you
 can do that too (provied you have a GutHub account).
@@ -131,7 +131,7 @@ With these defined, you can render your specification by printing:
 spec_mtcars_s3
 ```
 
-![](README-unnamed-chunk-3-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
 
 Accordingly, this package offers a templating function,
 `use_vegawidget(class)` (not yet implemented), to help you integrate
@@ -141,6 +141,4 @@ vegawidget functions into your package.
 
 In the future, challenges will include:
 
-  - offering **crosstalk** compatibility
-  - offering reactive **shiny** behavior, like **ggvis** provides for
-    its Vega specifications
+  - defining interactions for **shiny**.

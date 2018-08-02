@@ -82,6 +82,7 @@ reference:
       and to create a block. You will likely not need to call any of the "block"
       functions directly.
     contents:
+    - use_vegawidget
     - vw_spec_version
     - vega_version
     - vw_block_index

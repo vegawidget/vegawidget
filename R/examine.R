@@ -35,7 +35,7 @@ vw_examine <- function(spec, mode = "tree",
   #
 
   listviewer::jsonedit(
-    listdata = spec,
+    listdata = as_vegaspec(spec),
     mode = mode,
     modes = modes,
     ...,

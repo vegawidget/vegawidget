@@ -1,5 +1,7 @@
 # vegawidget 0.0.3
 
+* adds function `use_vegawidget()` to help other packages use these functions ()
+
 * overhauls the API (#15, with @AliciaSchep)
 
   * changes `write_svg()` -> `vw_write_svg()`

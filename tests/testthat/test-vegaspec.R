@@ -25,6 +25,22 @@ test_that("class is correct", {
 
 })
 
+test_that("vw_as_json handles NULLS", {
+
+  spec_test <- list(
+    `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
+    width = NULL,
+    height = NULL
+  )
+
+  spec_test_json <- vw_as_json(spec_test)
+
+  expect_match(spec_test_json, '"width": null')
+  expect_match(spec_test_json, '"height": null')
+
+})
+
+
 
 
 

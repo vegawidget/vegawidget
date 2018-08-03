@@ -1,6 +1,8 @@
 # vegawidget 0.0.3
 
-* adds function `use_vegawidget()` to help other packages use these functions ()
+* adds function `vega_schema()` to create a string describing a schema-URL (#32)
+
+* adds function `use_vegawidget()` to help other packages use these functions (#21)
 
 * overhauls the API (#15, with @AliciaSchep)
 

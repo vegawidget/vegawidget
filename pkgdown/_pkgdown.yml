@@ -75,10 +75,15 @@ reference:
     - vw_create_block
     - vw_block_config
     - vw_retrieve_block
-  - title: Utilities and internal functions
+  - title: Utilities
     desc: >
-      These functions deal the schema-version of your `vegaspec`, and the
-      versions of the JavaScript libraries used to render your `vegawidget`.
+      You can use `use_vegawidget()` to bring this package's functionality to
+      yours. Much like `usethis::use_pipe()` allows you to re-export the pipe
+      in your package's namespace, `use_vegawidget()` does this for many of
+      these functions.
+
+      The other functions deal schema-versions and versions of Vega's
+      JavaScript libraries.
     contents:
     - use_vegawidget
     - vw_spec_version

@@ -276,11 +276,17 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-utilities-and-internal-functions" class="hasAnchor"><a href="#section-utilities-and-internal-functions" class="anchor"></a>Utilities and internal functions</h2>
-          <p class="section-desc"><p>These functions help you determine the version of your <code>vegaspec</code>, the versions of the JavaScript libraries used to render your <code>vegawidget</code>, and to create a block. You will likely not need to call any of the “block” functions directly.</p></p>
+          <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
+          <p class="section-desc"><p>You can use <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> to bring this package’s functionality to yours. Much like <code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_pipe">usethis::use_pipe()</a></code> allows you to re-export the pipe in your package’s namespace, <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> does this for many of these functions. The other functions deal schema-versions and versions of Vega’s JavaScript libraries.</p></p>
         </th>
       </tr>
       <tr>
+        
+        <td>
+          <p><code><a href="use_vegawidget.html">use_vegawidget()</a></code> </p>
+        </td>
+        <td><p>Add vegawidget functions to your package</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="vw_spec_version.html">vw_spec_version()</a></code> </p>
@@ -295,21 +301,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="use_vegawidget.html">use_vegawidget()</a></code> </p>
+          <p><code><a href="vega_schema.html">vega_schema()</a></code> </p>
         </td>
-        <td><p>Adds vegawidget functions to your package</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vw_block_index.html">vw_block_index()</a></code> </p>
-        </td>
-        <td><p>Create text for block index.html</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vw_block_build_directory.html">vw_block_build_directory()</a></code> </p>
-        </td>
-        <td><p>Build block-directory</p></td>
+        <td><p>Create string for schema-URL</p></td>
       </tr>
     </tbody>
     </table>
@@ -324,7 +318,7 @@
       <li><a href="#section-data">Data</a></li>
       <li><a href="#section-images">Images</a></li>
       <li><a href="#section-debugging-and-sharing">Debugging and sharing</a></li>
-      <li><a href="#section-utilities-and-internal-functions">Utilities and internal functions</a></li>
+      <li><a href="#section-utilities">Utilities</a></li>
     </ul>
   </div>
 </div>

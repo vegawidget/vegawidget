@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add vegawidget functions to your package — use_vegawidget • vegawidget</title>
+<title>Create string for schema-URL — vega_schema • vegawidget</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,13 +30,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Add vegawidget functions to your package — use_vegawidget" />
+<meta property="og:title" content="Create string for schema-URL — vega_schema" />
 
-<meta property="og:description" content="This function does the setup for your package to use vegawidget functions:
-adds vegawidget to &quot;Imports&quot; in your package's DESCRIPTION file
-creates R/utils-vegawidget.R
-encourages you to take the steps outlined in Details
-" />
+<meta property="og:description" content="Useful if you are creating a vegaspec manually." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -119,47 +115,49 @@ encourages you to take the steps outlined in Details
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add vegawidget functions to your package</h1>
-    <small class="dont-index">Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/R/use-vegawidget.R'><code>R/use-vegawidget.R</code></a></small>
-    <div class="hidden name"><code>use_vegawidget.Rd</code></div>
+    <h1>Create string for schema-URL</h1>
+    <small class="dont-index">Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/R/spec-version.R'><code>R/spec-version.R</code></a></small>
+    <div class="hidden name"><code>vega_schema.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function does the setup for your package to use vegawidget functions:</p><ul>
-<li><p>adds <strong>vegawidget</strong> to "Imports" in your package's DESCRIPTION file</p></li>
-<li><p>creates <code>R/utils-vegawidget.R</code></p></li>
-<li><p>encourages you to take the steps outlined in <strong>Details</strong></p></li>
-</ul>
+    <p>Useful if you are creating a vegaspec manually.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>use_vegawidget</span>(<span class='no'>s3_class_name</span>)</pre>
+    <pre class="usage"><span class='fu'>vega_schema</span>(<span class='kw'>library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vega_lite"</span>, <span class='st'>"vega"</span>), <span class='kw'>major</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>s3_class_name</th>
-      <td><p><code>character</code>, name of an S3 class for object to
-be coerced to a <code>vegaspec</code></p></td>
+      <th>library</th>
+      <td><p><code>character</code>, either <code>"vega"</code> or <code>"vega_lite"</code></p></td>
+    </tr>
+    <tr>
+      <th>major</th>
+      <td><p><code>logical</code> return major version-tags rather than the
+tags for the specific versions supported by this package</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>invisible <code>NULL</code>, called for side effects</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>You will have to edit <code>R/utils-vegawidget.R</code>:</p><ul>
-<li><p>add the code within your class's method for
-to coerce your object to a <code>vegaspec</code>.</p></li>
-<li><p>at your discretion, delete references to functions you do not want
-to re-export.</p></li>
-</ul>
+    <p><code>character</code> URL for schema</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>  <span class='fu'>vega_schema</span>()</div><div class='output co'>#&gt; [1] "https://vega.github.io/schema/vega-lite/v2.json"</div><div class='input'>  <span class='fu'>vega_schema</span>(<span class='st'>"vega"</span>, <span class='kw'>major</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "https://vega.github.io/schema/vega/v4.0.0-rc.2.json"</div><div class='input'>
+  <span class='co'># creating a spec by hand</span>
+  <span class='no'>spec</span> <span class='kw'>&lt;-</span>
+    <span class='fu'>list</span>(
+      <span class='kw'>`$schema`</span> <span class='kw'>=</span> <span class='fu'>vega_schema</span>(),
+      <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>300</span>,
+      <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>300</span>
+      <span class='co'># and so on</span>
+    ) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='as_vegaspec.html'>as_vegaspec</a></span>()</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -167,9 +165,9 @@ to re-export.</p></li>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

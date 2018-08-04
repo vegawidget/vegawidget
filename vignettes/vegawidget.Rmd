@@ -1,0 +1,11 @@
+---
+title: "Render using vegawidget"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+---
+
+## Vegawidget
+
+## Vega Embed
+
+## Printing

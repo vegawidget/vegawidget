@@ -64,6 +64,10 @@ The `vega_schema()` function has an argument to specify the `library` as either 
 vw_spec_version(spec_anscombe_1)
 ```
 
+## Printing
+
+A few words about `print()` and `knit_print()` methods, then refer to the vegawidget article for more details.  
+
 ## JSON
 
 When a vegaspec is rendered as a vegawidget, the spec is coerced automatically to JSON by the `vegawidget()` function. Like other JSON-based systems, Vega and Vega-Lite have their own particularities in their JSON format. These are taken into account by the function `vw_as_json()`, which is a wrapper around `jsonlite::toJSON()`. You may find this handy if you want to write a vegaspec to disk or elsewhere.

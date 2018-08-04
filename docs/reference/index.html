@@ -84,6 +84,9 @@
       <a href="../articles/first-example.html">First Example</a>
     </li>
     <li>
+      <a href="../articles/vegaspec.html">Specify using vegaspec</a>
+    </li>
+    <li>
       <a href="../articles/visual-regression.html">Visual Regression</a>
     </li>
   </ul>
@@ -126,7 +129,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-vegaspec" class="hasAnchor"><a href="#section-vegaspec" class="anchor"></a>vegaspec</h2>
+          <h2 id="section-specifying-vegaspec" class="hasAnchor"><a href="#section-specifying-vegaspec" class="anchor"></a>Specifying: vegaspec</h2>
           <p class="section-desc"><p>The central <em>object</em> of this package is <code>vegaspec</code>, which is also a <code>list</code>. Use these functions to coerce to a <code>vegaspec</code>, format as JSON, or otherwise operate on a <code>vegaspec</code>. If the <a href="https://CRAN.R-project.org/package=V8"><strong>V8</strong></a> package is installed, you can translate a Vega-Lite specification to a Vega specification.</p></p>
         </th>
       </tr>
@@ -136,6 +139,12 @@
           <p><code><a href="as_vegaspec.html">as_vegaspec()</a></code> </p>
         </td>
         <td><p>Coerce to vegaspec</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_examine.html">vw_examine()</a></code> </p>
+        </td>
+        <td><p>Examine vegaspec</p></td>
       </tr><tr>
         
         <td>
@@ -160,11 +169,17 @@
           <p><code><a href="vw_spec_version.html">vw_spec_version()</a></code> </p>
         </td>
         <td><p>Determine vegaspec version</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vega_schema.html">vega_schema()</a></code> </p>
+        </td>
+        <td><p>Create string for schema-URL</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-rendering-a-vegaspec" class="hasAnchor"><a href="#section-rendering-a-vegaspec" class="anchor"></a>Rendering a vegaspec</h2>
+          <h2 id="section-rendering-vegawidget" class="hasAnchor"><a href="#section-rendering-vegawidget" class="anchor"></a>Rendering: vegawidget</h2>
           <p class="section-desc"><p>The central <em>side-effect</em> of this package is to render a <code>vegawidget</code>, which is also an <code>htmlwidget</code>. A <code>vegawidget</code> is built using a <code>vegaspec</code>. A helper function is provided for <a href="https://github.com/vega/vega-embed">vega-embed</a> options. These options can be specified as an argument to the <code>vegawidget</code> function, or as an R option, <code>vega.embed</code>, which would picked up by the <code>knit_print</code> method. If the <a href="https://CRAN.R-project.org/package=webshot"><strong>webshot</strong></a> package and PhantomJS are installed, knitting to a non-html format should “just work”.</p></p>
         </th>
       </tr>
@@ -244,17 +259,11 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-debugging-and-sharing" class="hasAnchor"><a href="#section-debugging-and-sharing" class="anchor"></a>Debugging and sharing</h2>
-          <p class="section-desc"><p>These are functions to help you understand a <code>vegaspec</code> and to help you share your work with others. The <code>examine</code> function requires that you have the <a href="https://CRAN.R-project.org/package=listviewer"><strong>listviewer</strong></a> package installed. The functions to create and retrieve <a href="https://bl.ocks.org">blocks</a> use the <a href="https://CRAN.R-project.org/package=gistr"><strong>gistr</strong></a> and <a href="https://CRAN.R-project.org/package=fs"><strong>fs</strong></a> packages, also the <a href="https://CRAN.R-project.org/package=webdriver"><strong>webdriver</strong></a> package and PhantomJS if you want upload images to your block.</p></p>
+          <h2 id="section-sharing" class="hasAnchor"><a href="#section-sharing" class="anchor"></a>Sharing</h2>
+          <p class="section-desc"><p>These functions, to create and retrieve <a href="https://bl.ocks.org">blocks</a>, require the <a href="https://CRAN.R-project.org/package=gistr"><strong>gistr</strong></a> and <a href="https://CRAN.R-project.org/package=fs"><strong>fs</strong></a> packages, also the <a href="https://CRAN.R-project.org/package=webdriver"><strong>webdriver</strong></a> package and PhantomJS if you want upload images to your block.</p></p>
         </th>
       </tr>
       <tr>
-        
-        <td>
-          <p><code><a href="vw_examine.html">vw_examine()</a></code> </p>
-        </td>
-        <td><p>Examine vegaspec</p></td>
-      </tr><tr>
         
         <td>
           <p><code><a href="vw_create_block.html">vw_create_block()</a></code> <code><a href="vw_create_block.html">vw_create_block_gistid()</a></code> </p>
@@ -312,12 +321,12 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-vegaspec">vegaspec</a></li>
-      <li><a href="#section-rendering-a-vegaspec">Rendering a vegaspec</a></li>
+      <li><a href="#section-specifying-vegaspec">Specifying: vegaspec</a></li>
+      <li><a href="#section-rendering-vegawidget">Rendering: vegawidget</a></li>
       <li><a href="#section-shiny">Shiny</a></li>
       <li><a href="#section-data">Data</a></li>
       <li><a href="#section-images">Images</a></li>
-      <li><a href="#section-debugging-and-sharing">Debugging and sharing</a></li>
+      <li><a href="#section-sharing">Sharing</a></li>
       <li><a href="#section-utilities">Utilities</a></li>
     </ul>
   </div>

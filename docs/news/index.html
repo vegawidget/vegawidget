@@ -84,6 +84,9 @@
       <a href="../articles/first-example.html">First Example</a>
     </li>
     <li>
+      <a href="../articles/vegaspec.html">Specify using vegaspec</a>
+    </li>
+    <li>
       <a href="../articles/visual-regression.html">Visual Regression</a>
     </li>
   </ul>
@@ -120,18 +123,20 @@
 <h1 class="page-header">
 <a href="#vegawidget-0-0-3" class="anchor"></a>vegawidget 0.0.3</h1>
 <ul>
+<li><p>adds function <code><a href="../reference/vega_schema.html">vega_schema()</a></code> to create a string describing a schema-URL (<a href='https://github.com/vegawidget/vegawidget/issues/32'>#32</a>)</p></li>
+<li><p>adds function <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> to help other packages use these functions (<a href='https://github.com/vegawidget/vegawidget/issues/21'>#21</a>)</p></li>
 <li>
 <p>overhauls the API (<a href='https://github.com/vegawidget/vegawidget/issues/15'>#15</a>, with <a href='http://github.com/AliciaSchep'>@AliciaSchep</a>)</p>
 <ul>
-<li>changes <code>write_svg()</code> -&gt; <code><a href="../reference/vw_write_svg.html">vw_write_svg()</a></code>
+<li>changes <code>write_svg()</code> -&gt; <code><a href="../reference/image.html">vw_write_svg()</a></code>
 </li>
-<li>changes <code>write_png()</code> -&gt; <code><a href="../reference/vw_write_png.html">vw_write_png()</a></code>
+<li>changes <code>write_png()</code> -&gt; <code><a href="../reference/image.html">vw_write_png()</a></code>
 </li>
 <li>changes <code>to_vega()</code> -&gt; <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code>
 </li>
-<li>changes <code>to_svg()</code> -&gt; <code><a href="../reference/vw_to_svg.html">vw_to_svg()</a></code>
+<li>changes <code>to_svg()</code> -&gt; <code><a href="../reference/image.html">vw_to_svg()</a></code>
 </li>
-<li>changes <code>to_png()</code> -&gt; <code><a href="../reference/vw_to_png.html">vw_to_png()</a></code>
+<li>changes <code>to_png()</code> -&gt; <code><a href="../reference/image.html">vw_to_png()</a></code>
 </li>
 <li>changes <code>png_bin()</code> -&gt; <code><a href="../reference/vw_png_bin.html">vw_png_bin()</a></code>
 </li>
@@ -141,9 +146,9 @@
 </li>
 <li>changes <code>block_retrieve()</code> -&gt; <code><a href="../reference/vw_retrieve_block.html">vw_retrieve_block()</a></code>
 </li>
-<li>changes <code>block_build_directory()</code> -&gt; <code><a href="../reference/vw_block_build_directory.html">vw_block_build_directory()</a></code>
+<li>changes <code>block_build_directory()</code> -&gt; <code>vw_block_build_directory()</code>
 </li>
-<li>changes <code>block_index()</code> -&gt; <code><a href="../reference/vw_block_index.html">vw_block_index()</a></code>
+<li>changes <code>block_index()</code> -&gt; <code>vw_block_index()</code>
 </li>
 <li>changes <code>block_create_gistid()</code> -&gt; <code><a href="../reference/vw_create_block.html">vw_create_block_gistid()</a></code>
 </li>

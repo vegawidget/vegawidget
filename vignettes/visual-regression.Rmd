@@ -65,7 +65,7 @@ vw_to_vega(spec_mtcars)
 
 ## PNG
 
-The function `vw_to_png()` generates an image at 96 DPI. We expect this to appear at the same size as the **reference**. However, we not using retina resolution so it will appear a bit fuzzy on non-retina monitors.
+The function `vw_write_png()` generates an image at 96 DPI. We expect this to appear at the same size as the **reference**. However, we not using retina resolution so it will appear a bit fuzzy on non-retina monitors.
 
 ```{r}
 file_png <- fs::path(dir_img, "mtcars-refrence.png")

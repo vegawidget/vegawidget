@@ -77,16 +77,14 @@ reference:
     - vw_retrieve_block
   - title: Utilities and internal functions
     desc: >
-      These functions help you determine the version of your `vegaspec`, the
-      versions of the JavaScript libraries used to render your `vegawidget`,
-      and to create a block. You will likely not need to call any of the "block"
-      functions directly.
+      These functions deal the schema-version of your `vegaspec`, and the
+      versions of the JavaScript libraries used to render your `vegawidget`.
     contents:
     - use_vegawidget
     - vw_spec_version
     - vega_version
-    - vw_block_index
-    - vw_block_build_directory
+    - vega_schema
+
 
 
 

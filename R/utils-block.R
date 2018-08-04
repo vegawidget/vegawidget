@@ -1,11 +1,10 @@
 #' Build block-directory
+#' @noRd
 #'
 #' @param path   `character`  path to an empty directory
 #' @inheritParams vw_create_block
 #'
 #' @return `character` path, called for side effects
-#' @keywords internal
-#' @export
 #'
 vw_block_build_directory <-
   function(path, spec, embed = vega_embed(),
@@ -143,12 +142,11 @@ vw_block_config <- function(license = "mit", height = 500L, scrolling = TRUE,
 }
 
 #' Create text for block index.html
+#' @noRd
 #'
 #' @inheritParams vw_create_block
 #'
 #' @return `character` text of `index.html`
-#' @keywords internal
-#' @export
 #'
 vw_block_index <- function(embed = vega_embed(),
                            version = vega_version(major = FALSE)) {

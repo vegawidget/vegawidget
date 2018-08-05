@@ -24,9 +24,13 @@ navbar:
         - text: Render using vegawidget
           href: articles/vegawidget.html
         - text: Share with bl.ocks.org
+          href: articles/blocks.html
         - text: Create Images
-        - text: Incorporate into Other Packages
+          href: articles/image.html
+        - text: Import into Other Packages
+          href: articles/import.html
         - text: Utilities
+          href: articles/utilities.html
         - text: "------------"
         - text: Visual Regression
           href: articles/visual-regression.html

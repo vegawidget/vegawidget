@@ -4,8 +4,67 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 ---
 
+The central *side-effect* of this package is to render a `vegawidget`, which is also an `htmlwidget`. A `vegawidget` is built using a `vegaspec`. A helper function is provided for [vega-embed](https://github.com/vega/vega-embed) options. These options can be specified as an argument to the `vegawidget()` function, or as an R option, `vega.embed`. The R options `vega,embed`, `vega.height`, and `vega.width` can be useful when printing or creating an image from a spec. 
+
+If the [**webshot**](https://CRAN.R-project.org/package=webshot) package and PhantomJS are installed, knitting to a non-html format should "just work".
+
 ## Vegawidget
 
-## Vega Embed
+When you print a `vegaspec`, its print method calls `vegawidget()`.
+
+```{r}
+library("vegawidget")
+
+vegawidget(spec_mtcars) 
+```
+ 
+ In addition to `spec`, the function `vegawidget()` has arguments to `embed` and to specify the overall dimensions, `width` and `height`. 
+
+The `embed` argument is used to specify the embedding options, according to the API to the [vega-embed library](https://github.com/vega/vega-embed#options). There are a lot of options; to make things easier, you can use the helper function `vega_embed()`, it mirrors the options available to the version of the vega-embed library supported by this package (see `vega_version()`). The most important arguments are:
+
+- `renderer`: `character`, either `"canvas"` (default) or `"svg"`
+- `actions`: named `list` of logicals to indicate the presence of action-links; names (default value) can be `export` (`TRUE`), `source` (`TRUE`), `compiled` (`FALSE`), or `editor` (`TRUE`).
+
+Here are some examples of various options:
+
+```{r}
+vegawidget(spec_mtcars, embed = vega_embed(renderer = "svg"))
+```
+
+```{r}
+vegawidget(spec_mtcars, embed = vega_embed(actions = FALSE))
+```
+
+The arguments `width` and `height` in `vegawidget()` are used to autosize the `spec` before rendering, using `vw_autosize()`.
+
+```{r}
+vegawidget(spec_mtcars, width = 300, height = 300)
+```
+
+Here, the `width` and `height` refer to the overall dimensions of the rendered vegaspec.
+Please see the [vegaspec article](vegaspec.html) for more details on how sizing works.
 
 ## Printing
+
+In the previous section, you saw how to specify the rendering options using the `vegawidget()` function explicitly. You may wish to set the options implicitly: you can do so using the R options `vega.embed`, `vega.width`, and `vega.height`.
+
+One way to set these options is in a knitr chunk:
+
+    ```{r vega.embed=vegawidget::vega_embed(actions = FALSE)}
+    spec_mtcars
+    ```
+
+```{r vega.embed=vegawidget::vega_embed(actions = FALSE), echo=FALSE}
+spec_mtcars
+```
+
+    ```{r vega.width=300, vega.height=300}
+    spec_mtcars
+    ```
+
+```{r vega.width=300, vega.height=300, echo=FALSE}
+spec_mtcars
+```
+
+TODO: Talk about ther ways to set options.
+

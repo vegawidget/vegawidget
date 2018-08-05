@@ -65,10 +65,18 @@
     <li>
       <a href="../articles/vegawidget.html">Render using vegawidget</a>
     </li>
-    <li class="dropdown-header">Share with bl.ocks.org</li>
-    <li class="dropdown-header">Create Images</li>
-    <li class="dropdown-header">Incorporate into Other Packages</li>
-    <li class="dropdown-header">Utilities</li>
+    <li>
+      <a href="../articles/blocks.html">Share with bl.ocks.org</a>
+    </li>
+    <li>
+      <a href="../articles/image.html">Create Images</a>
+    </li>
+    <li>
+      <a href="../articles/import.html">Import into Other Packages</a>
+    </li>
+    <li>
+      <a href="../articles/utilities.html">Utilities</a>
+    </li>
     <li class="divider">
     <li>
       <a href="../articles/visual-regression.html">Visual Regression</a>
@@ -150,8 +158,8 @@
 <a href="#reference" class="anchor"></a>Reference</h2>
 <p>Our reference is this <code>mtcars</code> scatterplot. We expect it to be rendered with a plotting area with <code>width = 300</code> and <code>height = 300</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-b67ccada1fa4a149be86" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b67ccada1fa4a149be86">{"x":{
+<div id="htmlwidget-889122976e9f35a204c9" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-889122976e9f35a204c9">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -636,8 +644,8 @@
 <a href="#autosize" class="anchor"></a>Autosize</h2>
 <p>Next, we test using <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code>. We expect that the rendered spec will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/vw_autosize.html">vw_autosize</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-75e971b03d6332c5b18e" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-75e971b03d6332c5b18e">{"x":{
+<div id="htmlwidget-5af47b3cd6b60dfbd40e" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5af47b3cd6b60dfbd40e">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1127,8 +1135,8 @@
   }
 },"evals":[],"jsHooks":[]}</script><p>We exepct the same result using the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-2a44fbb8eb126957411f" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2a44fbb8eb126957411f">{"x":{
+<div id="htmlwidget-ffb37fcc7f543cb27c23" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ffb37fcc7f543cb27c23">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1621,8 +1629,8 @@
 spec_mtcars
 ```</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-60d537f40ec4de74436d" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-60d537f40ec4de74436d">{"x":{
+<div id="htmlwidget-8dc044c1d58d5b65794e" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8dc044c1d58d5b65794e">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -2117,8 +2125,8 @@ spec_mtcars
 <a href="#vega" class="anchor"></a>Vega</h2>
 <p>We expect this to be identical to the <strong>reference</strong> case, using the <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code> function to compile to a Vega specification:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/vw_to_vega.html">vw_to_vega</a></span>(spec_mtcars)</a></code></pre></div>
-<div id="htmlwidget-94bca921c2073ff93f08" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-94bca921c2073ff93f08">{"x":{
+<div id="htmlwidget-dd971191a6765bd0d4b8" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dd971191a6765bd0d4b8">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega/v3.json",
     "description": "An mtcars example.",

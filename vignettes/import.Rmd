@@ -1,0 +1,5 @@
+---
+title: "Import into Other Packages"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+---

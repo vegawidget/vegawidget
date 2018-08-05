@@ -5,6 +5,35 @@ template:
 development:
   mode: unreleased
 
+navbar:
+  title: "vegawidget"
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Reference"
+      href: "reference/index.html"
+    - text: "Changelog"
+      href: "news/index.html"
+    - text: Articles
+      menu:
+        - text: First Example
+          href: articles/first-example.html
+        - text: "------------"
+        - text: Specify using vegaspec
+          href: articles/vegaspec.html
+        - text: Render using vegawidget
+          href: articles/vegawidget.html
+        - text: Share with bl.ocks.org
+        - text: Create Images
+        - text: Incorporate into Other Packages
+        - text: Utilities
+        - text: "------------"
+        - text: Visual Regression
+          href: articles/visual-regression.html
+  right:
+    - icon: fa-github fa-2x
+      href: https://github.com/vegawidget/vegawidget
+
 reference:
   - title: "Specifying: vegaspec"
     desc: >

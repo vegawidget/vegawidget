@@ -45,6 +45,9 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
@@ -55,22 +58,28 @@
 <li>
       <a href="../articles/first-example.html">First Example</a>
     </li>
+    <li class="divider">
     <li>
       <a href="../articles/vegaspec.html">Specify using vegaspec</a>
     </li>
+    <li>
+      <a href="../articles/vegawidget.html">Render using vegawidget</a>
+    </li>
+    <li class="dropdown-header">Share with bl.ocks.org</li>
+    <li class="dropdown-header">Create Images</li>
+    <li class="dropdown-header">Incorporate into Other Packages</li>
+    <li class="dropdown-header">Utilities</li>
+    <li class="divider">
     <li>
       <a href="../articles/visual-regression.html">Visual Regression</a>
     </li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/vegawidget/vegawidget">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fa fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -89,7 +98,7 @@
     <div class="page-header toc-ignore">
       <h1>Visual Regression</h1>
             
-            <h4 class="date">2018-08-04</h4>
+            <h4 class="date">2018-08-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/visual-regression.Rmd"><code>vignettes/visual-regression.Rmd</code></a></small>
       <div class="hidden name"><code>visual-regression.Rmd</code></div>
@@ -100,22 +109,49 @@
     
 <p>The purpose of this document is to use our eyeballs to vaildate the rendering of vegaspecs as vegawidgets and images. This will be a very boring document, as we are going to see the same specification rendered ad-naseum.</p>
 <p>For the image tests, we use explicity test the functions <code><a href="../reference/image.html">vw_write_png()</a></code> and <code><a href="../reference/image.html">vw_write_svg()</a></code>. We note the complimentary functions <code>to_png()</code> and <code>to_svg()</code>; these are implicitly tested as they are the used by the <code><a href="../reference/image.html">vw_write_png()</a></code> and <code><a href="../reference/image.html">vw_write_svg()</a></code> functions.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"conflicted"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">dir_img &lt;-<span class="st"> "visual-regression-files"</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="cf">if</span> (fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/file_access.html">dir_exists</a></span>(dir_img)) {</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/delete.html">dir_delete</a></span>(dir_img)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">}</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"fs"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">"here"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(<span class="st">"glue"</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(<span class="st">"conflicted"</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># this dictates that the *right* way to compile the html file is </span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># is to use pkgdown::build_site() or pkgdown::build_article()</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">prefix_image &lt;-<span class="st"> "visual-regression"</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">dir_write &lt;-<span class="st"> </span>here<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/here/topics/here">here</a></span>(<span class="st">"docs"</span>, <span class="st">"reference"</span>, <span class="st">"figures"</span>)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">dir_read &lt;-<span class="st"> </span>here<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/here/topics/here">here</a></span>(<span class="st">"reference"</span>, <span class="st">"figures"</span>)</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/create.html">dir_create</a></span>(dir_img)</a></code></pre></div>
+<a class="sourceLine" id="cb2-7" data-line-number="7">path_write &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_write, glue<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/glue">glue</a></span>(<span class="st">"{prefix_image}-{x}"</span>))</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">path_read &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">  fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_read, glue<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/glue">glue</a></span>(<span class="st">"{prefix_image}-{x}"</span>))</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">}</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co"># clean out old files</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">to_delete &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="http://fs.r-lib.org/reference/dir_ls.html">dir_ls</a></span>(</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">    dir_write, </a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">    <span class="dt">regexp =</span> glue<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/glue">glue</a></span>(<span class="st">"^{fs::path(dir_write, prefix_image)}"</span>)</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">  )</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="kw"><a href="http://fs.r-lib.org/reference/path_math.html">path_rel</a></span>(to_delete, <span class="dt">start =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/here/topics/here">here</a></span>())</a></code></pre></div>
+<pre><code>## docs/reference/figures/visual-regression-mtcars-refrence.png
+## docs/reference/figures/visual-regression-mtcars-refrence.svg
+## docs/reference/figures/visual-regression-mtcars-retina.png
+## docs/reference/figures/visual-regression-mtcars-retina.svg
+## docs/reference/figures/visual-regression-mtcars-wide.png
+## docs/reference/figures/visual-regression-mtcars-wide.svg
+## docs/reference/figures/visual-regression-mtcars-widget.png
+## docs/reference/figures/visual-regression-mtcars-widget.svg</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="http://fs.r-lib.org/reference/delete.html">file_delete</a></span>(to_delete)</a></code></pre></div>
 <div id="reference" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reference" class="anchor"></a>Reference</h2>
 <p>Our reference is this <code>mtcars</code> scatterplot. We expect it to be rendered with a plotting area with <code>width = 300</code> and <code>height = 300</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-a17706085a409bcd1160" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a17706085a409bcd1160">{"x":{
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">spec_mtcars</a></code></pre></div>
+<div id="htmlwidget-b67ccada1fa4a149be86" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b67ccada1fa4a149be86">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -599,9 +635,9 @@
 <h2 class="hasAnchor">
 <a href="#autosize" class="anchor"></a>Autosize</h2>
 <p>Next, we test using <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code>. We expect that the rendered spec will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/vw_autosize.html">vw_autosize</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-f89a2b4954679d11cd1a" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f89a2b4954679d11cd1a">{"x":{
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/vw_autosize.html">vw_autosize</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
+<div id="htmlwidget-75e971b03d6332c5b18e" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-75e971b03d6332c5b18e">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1090,9 +1126,9 @@
     "renderer": "canvas"
   }
 },"evals":[],"jsHooks":[]}</script><p>We exepct the same result using the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-2a77112fb5c0dc4feac3" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2a77112fb5c0dc4feac3">{"x":{
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
+<div id="htmlwidget-2a44fbb8eb126957411f" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2a44fbb8eb126957411f">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1584,9 +1620,9 @@
 <pre><code>```{r vega.width=600, vega.height=300}
 spec_mtcars
 ```</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-d51d7a729274274cd8bc" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d51d7a729274274cd8bc">{"x":{
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">spec_mtcars</a></code></pre></div>
+<div id="htmlwidget-60d537f40ec4de74436d" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-60d537f40ec4de74436d">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -2080,9 +2116,9 @@ spec_mtcars
 <h2 class="hasAnchor">
 <a href="#vega" class="anchor"></a>Vega</h2>
 <p>We expect this to be identical to the <strong>reference</strong> case, using the <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code> function to compile to a Vega specification:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/vw_to_vega.html">vw_to_vega</a></span>(spec_mtcars)</a></code></pre></div>
-<div id="htmlwidget-3a08fdcacbe3e31b3a06" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3a08fdcacbe3e31b3a06">{"x":{
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/vw_to_vega.html">vw_to_vega</a></span>(spec_mtcars)</a></code></pre></div>
+<div id="htmlwidget-94bca921c2073ff93f08" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-94bca921c2073ff93f08">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega/v3.json",
     "description": "An mtcars example.",
@@ -2733,65 +2769,65 @@ spec_mtcars
 <h2 class="hasAnchor">
 <a href="#png" class="anchor"></a>PNG</h2>
 <p>The function <code><a href="../reference/image.html">vw_write_png()</a></code> generates an image at 96 DPI. We expect this to appear at the same size as the <strong>reference</strong>. However, we not using retina resolution so it will appear a bit fuzzy on non-retina monitors.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">file_png &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-refrence.png"</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_png</a></span>(spec_mtcars, <span class="dt">path =</span> file_png)</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_png, <span class="dt">dpi =</span> <span class="dv">96</span>)</a></code></pre></div>
-<p><img src="visual-regression-files/mtcars-refrence.png" width="398"></p>
-<p>To get retina resolution, we use the <code>scale</code> argument in <code><a href="../reference/image.html">vw_write_png()</a></code>, then adjust the <code>dpi</code> argument in <code>include_graphics()</code>. Thus, we expect this to appear indentical to the <strong>reference</strong>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">file_png &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-retina.png"</span>)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_png</a></span>(spec_mtcars, <span class="dt">path =</span> file_png, <span class="dt">scale =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_png, <span class="dt">dpi =</span> <span class="dv">96</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
-<p><img src="visual-regression-files/mtcars-retina.png" width="398"></p>
-<p>We expect that the rendered image will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>, but at non-retina resolution:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">file_png &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-wide.png"</span>)</a>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">filename &lt;-<span class="st"> "mtcars-refrence.png"</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_png</a></span>(spec_mtcars, <span class="dt">path =</span> file_png, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_png</a></span>(spec_mtcars, <span class="kw">path_write</span>(filename))</a>
 <a class="sourceLine" id="cb11-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_png, <span class="dt">dpi =</span> <span class="dv">96</span>)</a></code></pre></div>
-<p><img src="visual-regression-files/mtcars-wide.png" width="600"></p>
-<p>Finally, we expect to be able to use <code><a href="../reference/image.html">vw_write_png()</a></code> with vegawidgets; we expect this to appear at the same size as the <strong>reference</strong>, but at non-retina resolution:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">file_png &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-widget.png"</span>)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_png</a></span>(<span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars), <span class="dt">path =</span> file_png)</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="kw">path_read</span>(filename), <span class="dt">dpi =</span> <span class="dv">96</span>)</a></code></pre></div>
+<p><img src="../reference/figures/visual-regression-mtcars-refrence.png"><!-- --></p>
+<p>To get retina resolution, we use the <code>scale</code> argument in <code><a href="../reference/image.html">vw_write_png()</a></code>, then adjust the <code>dpi</code> argument in <code>include_graphics()</code>. Thus, we expect this to appear indentical to the <strong>reference</strong>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">filename &lt;-<span class="st"> "mtcars-retina.png"</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_png</a></span>(spec_mtcars, <span class="kw">path_write</span>(filename), <span class="dt">scale =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb12-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_png, <span class="dt">dpi =</span> <span class="dv">96</span>)</a></code></pre></div>
-<p><img src="visual-regression-files/mtcars-widget.png" width="398"></p>
+<a class="sourceLine" id="cb12-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="kw">path_read</span>(filename), <span class="dt">dpi =</span> <span class="dv">96</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="../reference/figures/visual-regression-mtcars-retina.png"><!-- --></p>
+<p>We expect that the rendered image will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>, but at non-retina resolution:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">filename &lt;-<span class="st"> "mtcars-wide.png"</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_png</a></span>(spec_mtcars, <span class="kw">path_write</span>(filename), <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="kw">path_read</span>(filename), <span class="dt">dpi =</span> <span class="dv">96</span>)</a></code></pre></div>
+<p><img src="../reference/figures/visual-regression-mtcars-wide.png"><!-- --></p>
+<p>Finally, we expect to be able to use <code><a href="../reference/image.html">vw_write_png()</a></code> with vegawidgets; we expect this to appear at the same size as the <strong>reference</strong>, but at non-retina resolution:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">filename &lt;-<span class="st"> "mtcars-widget.png"</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_png</a></span>(<span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars), <span class="kw">path_write</span>(filename))</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="kw">path_read</span>(filename), <span class="dt">dpi =</span> <span class="dv">96</span>)</a></code></pre></div>
+<p><img src="../reference/figures/visual-regression-mtcars-widget.png"><!-- --></p>
 </div>
 <div id="svg" class="section level2">
 <h2 class="hasAnchor">
 <a href="#svg" class="anchor"></a>SVG</h2>
 <p>The function <code><a href="../reference/image.html">vw_to_svg()</a></code> generates a vector-image. We expect this to appear identical to the <strong>reference</strong>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">file_svg &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-refrence.svg"</span>)</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_svg</a></span>(spec_mtcars, <span class="dt">path =</span> file_svg)</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_svg)</a></code></pre></div>
-<p><img src="visual-regression-files/mtcars-refrence.svg"><!-- --></p>
-<p>We expect that the rendered image will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>, and to appear at retina resolution.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">file_svg &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-wide.svg"</span>)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_svg</a></span>(spec_mtcars, <span class="dt">path =</span> file_svg, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_svg)</a></code></pre></div>
-<p><img src="visual-regression-files/mtcars-wide.svg"><!-- --></p>
-<p>The <code>scale</code> argument in <code><a href="../reference/image.html">vw_write_svg()</a></code> may not be useful becuse the SVG itself is scalable. We expect this appear at double-size to <strong>reference</strong>, with retina resolution:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">file_svg &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-retina.svg"</span>)</a>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">filename &lt;-<span class="st"> "mtcars-refrence.svg"</span></a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_svg</a></span>(spec_mtcars, <span class="dt">path =</span> file_svg, <span class="dt">scale =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_svg</a></span>(spec_mtcars, <span class="kw">path_write</span>(filename))</a>
 <a class="sourceLine" id="cb15-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_svg)</a></code></pre></div>
-<p><img src="visual-regression-files/mtcars-retina.svg"><!-- --></p>
-<p>Finally, we expect to be able to use <code><a href="../reference/image.html">vw_write_svg()</a></code> with vegawidgets; we expect this to appear identical to the <strong>reference</strong>:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">file_svg &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(dir_img, <span class="st">"mtcars-widget.svg"</span>)</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="kw">path_read</span>(filename))</a></code></pre></div>
+<p><img src="../reference/figures/visual-regression-mtcars-refrence.svg"><!-- --></p>
+<p>We expect that the rendered image will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>, and to appear at retina resolution.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">filename &lt;-<span class="st"> "mtcars-wide.svg"</span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_svg</a></span>(<span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars), <span class="dt">path =</span> file_svg)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_svg</a></span>(spec_mtcars, <span class="kw">path_write</span>(filename), <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a>
 <a class="sourceLine" id="cb16-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_svg)</a></code></pre></div>
-<p><img src="visual-regression-files/mtcars-widget.svg"><!-- --></p>
+<a class="sourceLine" id="cb16-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="kw">path_read</span>(filename))</a></code></pre></div>
+<p><img src="../reference/figures/visual-regression-mtcars-wide.svg"><!-- --></p>
+<p>The <code>scale</code> argument in <code><a href="../reference/image.html">vw_write_svg()</a></code> may not be useful becuse the SVG itself is scalable. We expect this appear at double-size to <strong>reference</strong>, with retina resolution:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">filename &lt;-<span class="st"> "mtcars-retina.svg"</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_svg</a></span>(spec_mtcars, <span class="kw">path_write</span>(filename), <span class="dt">scale =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb17-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="kw">path_read</span>(filename))</a></code></pre></div>
+<p><img src="../reference/figures/visual-regression-mtcars-retina.svg"><!-- --></p>
+<p>Finally, we expect to be able to use <code><a href="../reference/image.html">vw_write_svg()</a></code> with vegawidgets; we expect this to appear identical to the <strong>reference</strong>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">filename &lt;-<span class="st"> "mtcars-widget.svg"</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_svg</a></span>(<span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars), <span class="kw">path_write</span>(filename))</a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="kw">path_read</span>(filename))</a></code></pre></div>
+<p><img src="../reference/figures/visual-regression-mtcars-widget.svg"><!-- --></p>
 </div>
   </div>
 

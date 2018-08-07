@@ -37,7 +37,7 @@ including axes, labels, etc.
 There is an important limitation: specifying \code{width} and \code{height} is
 \href{https://vega.github.io/vega-lite/docs/size.html#limitations}{effective only for single-view and layered specifications}.
 It will not work for specifications with multiple views
-(e.g. \code{hconcat}, \code{vconcat}, \code{facet}, \code{`repeat`}); this will issue a
+(e.g. \code{hconcat}, \code{vconcat}, \code{facet}, \code{repeat}); this will issue a
 warning that there will be no effect on the specification when rendered.
 }
 \examples{

@@ -6,10 +6,10 @@
 \usage{
 vega_embed(renderer = c("canvas", "svg"), actions = NULL,
   defaultStyle = TRUE, mode = NULL, theme = NULL, logLevel = NULL,
-  tooltip = NULL, loader = NULL, onBeforeParse = NULL, width = NULL,
-  height = NULL, padding = NULL, scaleFactor = NULL, config = NULL,
-  editorUrl = NULL, sourceHeader = NULL, sourceFooter = NULL,
-  hover = NULL, runAsync = NULL)
+  tooltip = NULL, loader = NULL, onBeforeParse = NULL,
+  width = NULL, height = NULL, padding = NULL, scaleFactor = NULL,
+  config = NULL, editorUrl = NULL, sourceHeader = NULL,
+  sourceFooter = NULL, hover = NULL, runAsync = NULL)
 }
 \arguments{
 \item{renderer}{\code{character} the renderer to use for the view.

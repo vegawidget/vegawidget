@@ -18,15 +18,15 @@
 \usage{
 vw_to_svg(...)
 
-\method{vw_to_svg}{default}(spec, scale = 1, embed = NULL, width = NULL,
-  height = NULL, ...)
+\method{vw_to_svg}{default}(spec, scale = 1, embed = NULL,
+  width = NULL, height = NULL, ...)
 
 \method{vw_to_svg}{vegawidget}(widget, scale = 1, ...)
 
 vw_to_png(...)
 
-\method{vw_to_png}{default}(spec, scale = 1, embed = NULL, width = NULL,
-  height = NULL, ...)
+\method{vw_to_png}{default}(spec, scale = 1, embed = NULL,
+  width = NULL, height = NULL, ...)
 
 \method{vw_to_png}{vegawidget}(widget, scale = 1, ...)
 

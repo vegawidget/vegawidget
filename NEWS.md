@@ -1,5 +1,7 @@
 # vegawidget 0.0.3
 
+* adds function `vw_serialize_data()` to help format dates and datetimes in data frames (#33)
+
 * adds function `vega_schema()` to create a string describing a schema-URL (#32)
 
 * adds function `use_vegawidget()` to help other packages use these functions (#21)

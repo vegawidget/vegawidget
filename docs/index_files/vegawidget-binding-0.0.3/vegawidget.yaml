@@ -7,12 +7,12 @@ dependencies:
       - symbol.min.js
       - vega.js
   - name: vega-lite
-    version: "2.5.0"
+    version: "2.6.0"
     src: htmlwidgets/lib/vega-lite
     script:
       - vega-lite.min.js
   - name: vega-embed
-    version: "3.14.0"
+    version: "3.16.0"
     src: htmlwidgets/lib/vega-embed
     script:
       - vega-embed-modified.js

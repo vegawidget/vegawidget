@@ -75,11 +75,13 @@ vw_serialize_data <- function(data, iso_dttm = FALSE, iso_date = TRUE) {
     }
 
     # is a datetime, format according to iso
-    ifelse(
-      iso,
-      format(x, format = "%Y-%m-%dT%H:%M:%OS3Z", tz = "UTC"),
-      format(x, format = "%Y-%m-%d %H:%M:%OS3")
-    )
+    if (iso) {
+      x <- format(x, format = "%Y-%m-%dT%H:%M:%OS3Z", tz = "UTC")
+    } else {
+      x <- format(x, format = "%Y-%m-%d %H:%M:%OS3")
+    }
+
+    x
   }
 
   date_format <- function(x, iso) {
@@ -90,11 +92,13 @@ vw_serialize_data <- function(data, iso_dttm = FALSE, iso_date = TRUE) {
     }
 
     # is a Date, format according to iso
-    ifelse(
-      iso,
-      format(x, format = "%Y-%m-%d"),
-      format(x, format = "%Y/%m/%d")
-    )
+    if (iso) {
+      x <- format(x, format = "%Y-%m-%d")
+    } else {
+      x <- format(x, format = "%Y/%m/%d")
+    }
+
+    x
   }
 
   cols <- colnames(data)

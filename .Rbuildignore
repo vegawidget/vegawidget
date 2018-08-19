@@ -10,6 +10,7 @@
 ^vignettes/first-example\.Rmd$
 ^vignettes/image\.Rmd$
 ^vignettes/import\.Rmd$
+^vignettes/time\.Rmd$
 ^vignettes/utilities\.Rmd$
 ^vignettes/vegaspec\.Rmd$
 ^vignettes/vegawidget\.Rmd$

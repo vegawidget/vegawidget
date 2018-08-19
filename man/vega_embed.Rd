@@ -9,7 +9,7 @@ vega_embed(renderer = c("canvas", "svg"), actions = NULL,
   tooltip = NULL, loader = NULL, onBeforeParse = NULL,
   width = NULL, height = NULL, padding = NULL, scaleFactor = NULL,
   config = NULL, editorUrl = NULL, sourceHeader = NULL,
-  sourceFooter = NULL, hover = NULL, runAsync = NULL)
+  sourceFooter = NULL, hover = NULL, runAsync = NULL, i18n = NULL)
 }
 \arguments{
 \item{renderer}{\code{character} the renderer to use for the view.
@@ -74,7 +74,7 @@ for details.}
 \item{scaleFactor}{\code{numeric} the number by which to multiply the width and
 height (default 1) of an exported PNG or SVG image.}
 
-\item{config}{\code{character} or \code{list} a URL string** from which to load
+\item{config}{\code{character} or \code{list} a URL string from which to load
 a Vega/Vega-Lite or Vega-Lite configuration file, or a \code{list} of
 Vega/Vega-Lite configurations to override the default configuration
 options. If \code{config} is a URL, it will be subject to standard browser
@@ -100,6 +100,10 @@ immediately before the closing `` tag.}
 \item{runAsync}{\code{logical}, indicating to use
 \href{https://vega.github.io/vega/docs/api/view/#view_runAsync}{runAsync}
 instead of \href{https://vega.github.io/vega/docs/api/view/#view_run}{run}.}
+
+\item{i18n}{\code{list}, This property maps keys
+(COMPILED_ACTION, EDITOR_ACTION, PNG_ACTION, SOURCE_ACTION, SVG_ACTION)
+to string values for the action's text. By default, the text is in English.}
 }
 \value{
 \code{list} to to be used with vega-embed JavaScript library

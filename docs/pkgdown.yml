@@ -6,6 +6,7 @@ articles:
   first-example: first-example.html
   image: image.html
   import: import.html
+  time: time.html
   utilities: utilities.html
   vegaspec: vegaspec.html
   vegawidget: vegawidget.html

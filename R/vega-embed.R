@@ -72,7 +72,7 @@
 #'   have two links – "View Source" and "Open in Vega Editor".
 #' @param scaleFactor `numeric` the number by which to multiply the width and
 #'   height (default 1) of an exported PNG or SVG image.
-#' @param config `character` or `list` a URL string** from which to load
+#' @param config `character` or `list` a URL string from which to load
 #'   a Vega/Vega-Lite or Vega-Lite configuration file, or a `list` of
 #'   Vega/Vega-Lite configurations to override the default configuration
 #'   options. If `config` is a URL, it will be subject to standard browser
@@ -93,6 +93,9 @@
 #' @param runAsync	`logical`, indicating to use
 #'   [`runAsync`](https://vega.github.io/vega/docs/api/view/#view_runAsync)
 #'   instead of [`run`](https://vega.github.io/vega/docs/api/view/#view_run).
+#' @param i18n `list`, This property maps keys
+#'   (COMPILED_ACTION, EDITOR_ACTION, PNG_ACTION, SOURCE_ACTION, SVG_ACTION)
+#'   to string values for the action's text. By default, the text is in English.
 #'
 #' @seealso [vega-embed library](https://github.com/vega/vega-embed),
 #'   [vegawidget()]
@@ -121,7 +124,8 @@ vega_embed <- function(renderer = c("canvas", "svg"),
                        sourceHeader = NULL,
                        sourceFooter = NULL,
                        hover = NULL,
-                       runAsync = NULL) {
+                       runAsync = NULL,
+                       i18n = NULL) {
 
   renderer <- match.arg(renderer)
 
@@ -181,7 +185,8 @@ vega_embed <- function(renderer = c("canvas", "svg"),
       sourceHeader = sourceHeader,
       sourceFooter = sourceFooter,
       hover = hover,
-      runAsync = runAsync
+      runAsync = runAsync,
+      i18n = i18n
     )
 
   embed_options <- list_remove_null(options)

@@ -4,15 +4,15 @@
 \alias{vw_serialize_data}
 \title{Serialize data-frame time-columns}
 \usage{
-vw_serialize_data(data, iso_dtm = FALSE, iso_date = TRUE)
+vw_serialize_data(data, iso_dttm = FALSE, iso_date = TRUE)
 }
 \arguments{
 \item{data}{\code{data.frame}, data to be serialized}
 
-\item{iso_date}{\code{logical}, indicates if dates (\code{Date}) are to be
+\item{iso_dttm}{\code{logical}, indicates if datetimes (\code{POSIXct}) are to be
 formatted using ISO-8601}
 
-\item{iso_dttm}{\code{logical}, indicates if datetimes (\code{POSIXct}) are to be
+\item{iso_date}{\code{logical}, indicates if dates (\code{Date}) are to be
 formatted using ISO-8601}
 }
 \value{
@@ -75,4 +75,7 @@ This is why the default for \code{iso_date} is \code{TRUE}. In this scenario,
 you need not specify to Vega how to parse the date; because of its
 ISO-8601 format, it will parse to UTC. As with the other UTC cases,
 you should use UTC time-scales and local time-units.
+}
+\seealso{
+\href{https://vega.github.io/vega-lite/docs/timeunit.html#utc}{Vega-Lite Time Unit (UTC)}
 }

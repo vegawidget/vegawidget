@@ -1,3 +1,7 @@
+# vegawidget 0.0.4
+
+* updates to Vega-Lite 2.6.0, Vega 4.0.0-rc.3, vega-embed 3.16.0. 
+
 # vegawidget 0.0.3
 
 * adds function `vw_serialize_data()` to help format dates and datetimes in data frames (#33)
@@ -26,4 +30,4 @@
 
 # vegawidget 0.0.2
 
-* Added a `NEWS.md` file to track changes to the package.
+* adds a `NEWS.md` file to track changes to the package

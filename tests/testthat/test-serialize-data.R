@@ -17,7 +17,7 @@ test_that("mtcars is unchanged", {
   expect_identical(vw_serialize_data(mtcars), mtcars)
 })
 
-test_that("dates and datetimes serialize correctly", {
+test_that("single-values serialize correctly", {
   expect_identical(
     vw_serialize_data(df_ref, iso_dttm = TRUE, iso_date = TRUE),
     data.frame(
@@ -45,5 +45,19 @@ test_that("dates and datetimes serialize correctly", {
     )
   )
 
+})
 
+test_that("multiple-values serialize correctly", {
+  mult <- data.frame(
+    dttm = dttm + seq(0, 1),
+    date = date + seq(0, 1)
+  )
+
+  str_mult <- data.frame(
+    dttm = c("2012-03-04 00:06:07.000", "2012-03-04 00:06:08.000"),
+    date = c("2012-03-04", "2012-03-05"),
+    stringsAsFactors = FALSE
+  )
+
+  expect_identical(vw_serialize_data(mult), str_mult)
 })

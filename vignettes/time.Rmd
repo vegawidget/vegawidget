@@ -1,0 +1,86 @@
+---
+title: "Working with time"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+---
+
+```{r}
+library("tibble")
+library("vegawidget")
+```
+
+```{r}
+data <- tribble(
+         ~date,               ~time_local,          ~time_local_plus,                  ~time_utc,
+  "1970-01-01", "1970-01-01 00:00:00.000", "1970-01-02 00:00:00.000", "1970-01-01T00:00:00.000Z",
+  "1970-01-02", "1970-01-02 00:00:00.000", "1970-01-03 00:00:00.000", "1970-01-02T00:00:00.000Z"
+)
+```
+
+```{r}
+spec <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(
+      values = data,
+      format = list(
+        parse = list(
+          time_local = "utc:'%Y-%m-%d %H:%M:%S.%L'"
+        )
+      )
+    ),
+    mark = "point",
+    encoding = list(
+      x = list(field = "time_local", type = "temporal"),
+      y = list(field = "time_utc", type = "temporal"),
+      tooltip = list(
+        list(field = "time_local", type = "temporal", format = "%Y-%m-%d %H:%M:%S.%L"),
+        list(title = "time_local (s)", field = "time_local", type = "temporal", format = "%s"),
+        list(field = "time_utc", type = "temporal", format = "%Y-%m-%d %H:%M:%S.%L"),
+        list(title = "time_utc (s)", field = "date", type = "temporal", format = "%s")
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+spec
+```
+
+It seems as if if we parse as UTC, then it "keeps track" of the fact that it's UTC - we use local time-units and scales.
+
+Let's try a rectangle:
+
+```{r}
+spec_rect <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(
+      values = data,
+      format = list(
+        parse = list(
+          time_local = "utc:'%Y-%m-%d %H:%M:%S.%L'",
+          time_local_plus = "utc:'%Y-%m-%d %H:%M:%S.%L'"
+        )
+      )
+    ),
+    mark = "rect",
+    encoding = list(
+      x = list(field = "time_local", type = "temporal", title = "time_local"),
+      x2 = list(field = "time_local_plus", type = "temporal"),
+      tooltip = list(
+        list(field = "time_local", type = "temporal", format = "%Y-%m-%d %H:%M:%S"),
+        list(title = "time_local (s)", field = "time_local", type = "temporal", format = "%s"),
+        list(field = "date", type = "temporal", format = "%Y-%m-%d %H:%M:%S"),
+        list(title = "date (s)", field = "date", type = "temporal", format = "%s")
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+spec_rect
+```
+
+```{r}
+vw_examine(spec_rect)
+```
+

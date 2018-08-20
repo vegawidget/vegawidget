@@ -111,10 +111,11 @@ reference:
       in your package's namespace, `use_vegawidget()` does this for many of
       these functions.
 
-      The other functions deal schema-versions and versions of Vega's
+      The other functions deal serializing date-times, and versions of Vega's
       JavaScript libraries.
     contents:
     - use_vegawidget
+    - vw_serialize_data
     - vw_spec_version
     - vega_version
     - vega_schema

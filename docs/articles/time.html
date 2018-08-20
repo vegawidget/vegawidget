@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.4</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
     <div class="page-header toc-ignore">
       <h1>Working with time</h1>
             
-            <h4 class="date">2018-08-19</h4>
+            <h4 class="date">2018-08-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/time.Rmd"><code>vignettes/time.Rmd</code></a></small>
       <div class="hidden name"><code>time.Rmd</code></div>
@@ -119,9 +119,9 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"tibble"</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">         <span class="op">~</span>date,           <span class="op">~</span>time_local,      <span class="op">~</span>time_local_plus,              <span class="op">~</span>time_utc,</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="st">"1970-01-01"</span>, <span class="st">"1970-01-01 00:00:00"</span>, <span class="st">"1970-01-02 00:00:00"</span>, <span class="st">"1970-01-01T00:00:00Z"</span>,</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="st">"1970-01-02"</span>, <span class="st">"1970-01-02 00:00:00"</span>, <span class="st">"1970-01-03 00:00:00"</span>, <span class="st">"1970-01-02T00:00:00Z"</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">         <span class="op">~</span>date,               <span class="op">~</span>time_local,          <span class="op">~</span>time_local_plus,                  <span class="op">~</span>time_utc,</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="st">"1970-01-01"</span>, <span class="st">"1970-01-01 00:00:00.000"</span>, <span class="st">"1970-01-02 00:00:00.000"</span>, <span class="st">"1970-01-01T00:00:00.000Z"</span>,</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="st">"1970-01-02"</span>, <span class="st">"1970-01-02 00:00:00.000"</span>, <span class="st">"1970-01-03 00:00:00.000"</span>, <span class="st">"1970-01-02T00:00:00.000Z"</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">)</a></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">spec &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw">list</span>(</a>
@@ -130,47 +130,47 @@
 <a class="sourceLine" id="cb3-5" data-line-number="5">      <span class="dt">values =</span> data,</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6">      <span class="dt">format =</span> <span class="kw">list</span>(</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7">        <span class="dt">parse =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">          <span class="dt">time_local =</span> <span class="st">"utc:'%Y-%m-%d %H:%M:%S'"</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">          <span class="dt">time_local =</span> <span class="st">"utc:'%Y-%m-%d %H:%M:%S.%L'"</span></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9">        )</a>
 <a class="sourceLine" id="cb3-10" data-line-number="10">      )</a>
 <a class="sourceLine" id="cb3-11" data-line-number="11">    ),</a>
 <a class="sourceLine" id="cb3-12" data-line-number="12">    <span class="dt">mark =</span> <span class="st">"point"</span>,</a>
 <a class="sourceLine" id="cb3-13" data-line-number="13">    <span class="dt">encoding =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">      <span class="dt">x =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">scale =</span> <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">"utc"</span>)),</a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">      <span class="dt">y =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">scale =</span> <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">"utc"</span>)),</a>
+<a class="sourceLine" id="cb3-14" data-line-number="14">      <span class="dt">x =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>),</a>
+<a class="sourceLine" id="cb3-15" data-line-number="15">      <span class="dt">y =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_utc"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>),</a>
 <a class="sourceLine" id="cb3-16" data-line-number="16">      <span class="dt">tooltip =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">        <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span>),</a>
+<a class="sourceLine" id="cb3-17" data-line-number="17">        <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S.%L"</span>),</a>
 <a class="sourceLine" id="cb3-18" data-line-number="18">        <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">"time_local (s)"</span>, <span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%s"</span>),</a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">        <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span>),</a>
-<a class="sourceLine" id="cb3-20" data-line-number="20">        <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">"date (s)"</span>, <span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%s"</span>)</a>
+<a class="sourceLine" id="cb3-19" data-line-number="19">        <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_utc"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S.%L"</span>),</a>
+<a class="sourceLine" id="cb3-20" data-line-number="20">        <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">"time_utc (s)"</span>, <span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%s"</span>)</a>
 <a class="sourceLine" id="cb3-21" data-line-number="21">      )</a>
 <a class="sourceLine" id="cb3-22" data-line-number="22">    )</a>
 <a class="sourceLine" id="cb3-23" data-line-number="23">  ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-24" data-line-number="24"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb3-25" data-line-number="25"></a>
 <a class="sourceLine" id="cb3-26" data-line-number="26">spec</a></code></pre></div>
-<div id="htmlwidget-17e2c65885158a4613e1" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-17e2c65885158a4613e1">{"x":{
+<div id="htmlwidget-5ed5871638814698f938" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5ed5871638814698f938">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "data": {
       "values": [
         {
           "date": "1970-01-01",
-          "time_local": "1970-01-01 00:00:00",
-          "time_local_plus": "1970-01-02 00:00:00",
-          "time_utc": "1970-01-01T00:00:00Z"
+          "time_local": "1970-01-01 00:00:00.000",
+          "time_local_plus": "1970-01-02 00:00:00.000",
+          "time_utc": "1970-01-01T00:00:00.000Z"
         },
         {
           "date": "1970-01-02",
-          "time_local": "1970-01-02 00:00:00",
-          "time_local_plus": "1970-01-03 00:00:00",
-          "time_utc": "1970-01-02T00:00:00Z"
+          "time_local": "1970-01-02 00:00:00.000",
+          "time_local_plus": "1970-01-03 00:00:00.000",
+          "time_utc": "1970-01-02T00:00:00.000Z"
         }
       ],
       "format": {
         "parse": {
-          "time_local": "utc:'%Y-%m-%d %H:%M:%S'"
+          "time_local": "utc:'%Y-%m-%d %H:%M:%S.%L'"
         }
       }
     },
@@ -178,23 +178,17 @@
     "encoding": {
       "x": {
         "field": "time_local",
-        "type": "temporal",
-        "scale": {
-          "type": "utc"
-        }
+        "type": "temporal"
       },
       "y": {
-        "field": "date",
-        "type": "temporal",
-        "scale": {
-          "type": "utc"
-        }
+        "field": "time_utc",
+        "type": "temporal"
       },
       "tooltip": [
         {
           "field": "time_local",
           "type": "temporal",
-          "format": "%Y-%m-%d %H:%M:%S"
+          "format": "%Y-%m-%d %H:%M:%S.%L"
         },
         {
           "title": "time_local (s)",
@@ -203,12 +197,12 @@
           "format": "%s"
         },
         {
-          "field": "date",
+          "field": "time_utc",
           "type": "temporal",
-          "format": "%Y-%m-%d %H:%M:%S"
+          "format": "%Y-%m-%d %H:%M:%S.%L"
         },
         {
-          "title": "date (s)",
+          "title": "time_utc (s)",
           "field": "date",
           "type": "temporal",
           "format": "%s"
@@ -220,7 +214,8 @@
     "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script><p>Let’s try a rectangle:</p>
+},"evals":[],"jsHooks":[]}</script><p>It seems as if if we parse as UTC, then it “keeps track” of the fact that it’s UTC - we use local time-units and scales.</p>
+<p>Let’s try a rectangle:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">spec_rect &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">list</span>(</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../reference/vega_schema.html">vega_schema</a></span>(),</a>
@@ -228,14 +223,14 @@
 <a class="sourceLine" id="cb4-5" data-line-number="5">      <span class="dt">values =</span> data,</a>
 <a class="sourceLine" id="cb4-6" data-line-number="6">      <span class="dt">format =</span> <span class="kw">list</span>(</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7">        <span class="dt">parse =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">          <span class="dt">time_local =</span> <span class="st">"utc:'%Y-%m-%d %H:%M:%S'"</span>,</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">          <span class="dt">time_local_plus =</span> <span class="st">"utc:'%Y-%m-%d %H:%M:%S'"</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">          <span class="dt">time_local =</span> <span class="st">"utc:'%Y-%m-%d %H:%M:%S.%L'"</span>,</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">          <span class="dt">time_local_plus =</span> <span class="st">"utc:'%Y-%m-%d %H:%M:%S.%L'"</span></a>
 <a class="sourceLine" id="cb4-10" data-line-number="10">        )</a>
 <a class="sourceLine" id="cb4-11" data-line-number="11">      )</a>
 <a class="sourceLine" id="cb4-12" data-line-number="12">    ),</a>
 <a class="sourceLine" id="cb4-13" data-line-number="13">    <span class="dt">mark =</span> <span class="st">"rect"</span>,</a>
 <a class="sourceLine" id="cb4-14" data-line-number="14">    <span class="dt">encoding =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb4-15" data-line-number="15">      <span class="dt">x =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">scale =</span> <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">"utc"</span>), <span class="dt">title =</span> <span class="st">"time_local"</span>),</a>
+<a class="sourceLine" id="cb4-15" data-line-number="15">      <span class="dt">x =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">title =</span> <span class="st">"time_local"</span>),</a>
 <a class="sourceLine" id="cb4-16" data-line-number="16">      <span class="dt">x2 =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local_plus"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>),</a>
 <a class="sourceLine" id="cb4-17" data-line-number="17">      <span class="dt">tooltip =</span> <span class="kw">list</span>(</a>
 <a class="sourceLine" id="cb4-18" data-line-number="18">        <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span>),</a>
@@ -248,29 +243,29 @@
 <a class="sourceLine" id="cb4-25" data-line-number="25"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb4-26" data-line-number="26"></a>
 <a class="sourceLine" id="cb4-27" data-line-number="27">spec_rect</a></code></pre></div>
-<div id="htmlwidget-f72691ae87cbaea28211" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f72691ae87cbaea28211">{"x":{
+<div id="htmlwidget-2af06125ea42fb210957" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2af06125ea42fb210957">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "data": {
       "values": [
         {
           "date": "1970-01-01",
-          "time_local": "1970-01-01 00:00:00",
-          "time_local_plus": "1970-01-02 00:00:00",
-          "time_utc": "1970-01-01T00:00:00Z"
+          "time_local": "1970-01-01 00:00:00.000",
+          "time_local_plus": "1970-01-02 00:00:00.000",
+          "time_utc": "1970-01-01T00:00:00.000Z"
         },
         {
           "date": "1970-01-02",
-          "time_local": "1970-01-02 00:00:00",
-          "time_local_plus": "1970-01-03 00:00:00",
-          "time_utc": "1970-01-02T00:00:00Z"
+          "time_local": "1970-01-02 00:00:00.000",
+          "time_local_plus": "1970-01-03 00:00:00.000",
+          "time_utc": "1970-01-02T00:00:00.000Z"
         }
       ],
       "format": {
         "parse": {
-          "time_local": "utc:'%Y-%m-%d %H:%M:%S'",
-          "time_local_plus": "utc:'%Y-%m-%d %H:%M:%S'"
+          "time_local": "utc:'%Y-%m-%d %H:%M:%S.%L'",
+          "time_local_plus": "utc:'%Y-%m-%d %H:%M:%S.%L'"
         }
       }
     },
@@ -279,9 +274,6 @@
       "x": {
         "field": "time_local",
         "type": "temporal",
-        "scale": {
-          "type": "utc"
-        },
         "title": "time_local"
       },
       "x2": {
@@ -319,8 +311,8 @@
     "renderer": "canvas"
   }
 },"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/vw_examine.html">vw_examine</a></span>(spec_rect)</a></code></pre></div>
-<div id="htmlwidget-3722494f74762f47a54f" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3722494f74762f47a54f">{"x":{"data":{"$schema":"https://vega.github.io/schema/vega-lite/v2.json","data":{"values":{"date":["1970-01-01","1970-01-02"],"time_local":["1970-01-01 00:00:00","1970-01-02 00:00:00"],"time_local_plus":["1970-01-02 00:00:00","1970-01-03 00:00:00"],"time_utc":["1970-01-01T00:00:00Z","1970-01-02T00:00:00Z"]},"format":{"parse":{"time_local":"utc:'%Y-%m-%d %H:%M:%S'","time_local_plus":"utc:'%Y-%m-%d %H:%M:%S'"}}},"mark":"rect","encoding":{"x":{"field":"time_local","type":"temporal","scale":{"type":"utc"},"title":"time_local"},"x2":{"field":"time_local_plus","type":"temporal"},"tooltip":[{"field":"time_local","type":"temporal","format":"%Y-%m-%d %H:%M:%S"},{"title":"time_local (s)","field":"time_local","type":"temporal","format":"%s"},{"field":"date","type":"temporal","format":"%Y-%m-%d %H:%M:%S"},{"title":"date (s)","field":"date","type":"temporal","format":"%s"}]}},"options":{"mode":"tree","modes":["code","form","text","tree","view"]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6b44ac068762cf14cf3f" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6b44ac068762cf14cf3f">{"x":{"data":{"$schema":"https://vega.github.io/schema/vega-lite/v2.json","data":{"values":{"date":["1970-01-01","1970-01-02"],"time_local":["1970-01-01 00:00:00.000","1970-01-02 00:00:00.000"],"time_local_plus":["1970-01-02 00:00:00.000","1970-01-03 00:00:00.000"],"time_utc":["1970-01-01T00:00:00.000Z","1970-01-02T00:00:00.000Z"]},"format":{"parse":{"time_local":"utc:'%Y-%m-%d %H:%M:%S.%L'","time_local_plus":"utc:'%Y-%m-%d %H:%M:%S.%L'"}}},"mark":"rect","encoding":{"x":{"field":"time_local","type":"temporal","title":"time_local"},"x2":{"field":"time_local_plus","type":"temporal"},"tooltip":[{"field":"time_local","type":"temporal","format":"%Y-%m-%d %H:%M:%S"},{"title":"time_local (s)","field":"time_local","type":"temporal","format":"%s"},{"field":"date","type":"temporal","format":"%Y-%m-%d %H:%M:%S"},{"title":"date (s)","field":"date","type":"temporal","format":"%s"}]}},"options":{"mode":"tree","modes":["code","form","text","tree","view"]}},"evals":[],"jsHooks":[]}</script>
 </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

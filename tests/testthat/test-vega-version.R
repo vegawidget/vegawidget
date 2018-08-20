@@ -16,7 +16,7 @@ test_that("get_vega_version works correctly", {
     vega_embed = "3.16.0"
   )
 
-  expect_identical(get_vega_version("2.5.0"), vega_vers)
+  expect_identical(get_vega_version("2.6.0"), vega_vers)
 
 })
 

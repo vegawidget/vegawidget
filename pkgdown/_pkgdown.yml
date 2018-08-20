@@ -51,6 +51,7 @@ reference:
       - vw_examine
       - vw_as_json
       - vw_autosize
+      - vw_rename_datasets
       - vw_to_vega
       - vw_spec_version
       - vega_schema

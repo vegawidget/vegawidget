@@ -38,6 +38,17 @@ NULL
 #'
 NULL
 
+#' Rename datasets in a vegaspec
+#'
+#' See \code{vegawidget::\link[vegawidget]{vw_rename_datasets}} for details.
+#'
+#' @name vw_rename_datasets
+#' @rdname vw_rename_datasets
+#' @importFrom vegawidget vw_rename_datasets
+#' @export
+#'
+NULL
+
 #### print functions ####
 
 #' @export
@@ -225,6 +236,7 @@ NULL
 #' @export
 #'
 NULL
+
 
 
 

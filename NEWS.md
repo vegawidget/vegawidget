@@ -1,3 +1,7 @@
+# vegawidget 0.0.4.9000
+
+* adds function `vw_rename_data()` to reanme named datasets within a vegaspec (#34)
+
 # vegawidget 0.0.4
 
 * updates to Vega-Lite 2.6.0, Vega 4.0.0-rc.3, vega-embed 3.16.0. 

@@ -7,6 +7,8 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
 
     var view = null;
+    var event_listeners = {};
+    var signal_listeners = {};
 
     return {
 
@@ -25,6 +27,14 @@ HTMLWidgets.widget({
 
           view = result.view;
 
+          for (var event_name in event_listeners) {
+            result.view.addEventListener(event_name, event_listeners[event_name]);
+          }
+
+          for (var signal_name in signal_listeners) {
+            result.view.addSignalListener(signal_name, signal_listeners[signal_name]);
+          }
+
         }).catch(console.error);
 
       },
@@ -35,6 +45,37 @@ HTMLWidgets.widget({
 
       getView: function() {
         return view;
+      },
+
+
+      callView: function(fn, params) {
+        if (view !== null && view !== undefined){
+          var method = view[fn];
+          method.apply(view, params);
+          view.run();
+        }
+      },
+
+      addEventListener: function(event_name, handler) {
+         // Use a list to store event listeners that are
+         // applied prior to render time
+         event_listeners[event_name] = handler;
+         if (view !== null){
+           view.addEventListener(event_name, handler);
+         }
+      },
+
+      addSignalListener: function(signal_name, handler) {
+         signal_listeners[signal_name] = handler;
+      },
+
+      addShinySignalListener: function(signal_name) {
+        if (HTMLWidgets.shinyMode) {
+          signal_listeners[signal_name] =
+            function(name, value) {
+              Shiny.onInputChange(el.id + "_" + signal_name, value);
+            };
+         }
       }
 
     };
@@ -57,4 +98,16 @@ function getVegaView(selector){
   }
 
   return(view_obj);
+}
+
+if (HTMLWidgets.shinyMode) {
+Shiny.addCustomMessageHandler('callView', function(message){
+
+    // get the correct HTMLWidget instance
+    var htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
+    if( typeof(htmlWidgetsObj) !== "undefined"){
+      htmlWidgetsObj.callView(message.fn, message.params);
+    }
+
+});
 }

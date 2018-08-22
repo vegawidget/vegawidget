@@ -45,7 +45,8 @@ Imports:
     assertthat,
     rlang,
     glue,
-    magrittr
+    magrittr,
+    shiny
 Suggests:
     knitr,
     rmarkdown,

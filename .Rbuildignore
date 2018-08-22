@@ -18,3 +18,5 @@
 ^vignettes/visual-regression-.*\.png$
 ^vignettes/visual-regression-.*\.svg$
 ^\.V8history$
+^vignettes/shiny\.Rmd$
+^test_app$

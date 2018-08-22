@@ -14,8 +14,9 @@ vw_create_block(spec, embed = vega_embed(), .block = vw_block_config(),
 vw_create_block_gistid(spec, embed = vega_embed(),
   .block = vw_block_config(), version = vega_version(major = FALSE),
   description = NULL, readme = NULL, use_thumbnail = TRUE,
-  use_preview = TRUE, git_method = c("ssh", "https"), endpoint = NULL,
-  env_pat = NULL, block_host = NULL, quiet = FALSE, browse = TRUE)
+  use_preview = TRUE, git_method = c("ssh", "https"),
+  endpoint = NULL, env_pat = NULL, block_host = NULL,
+  quiet = FALSE, browse = TRUE)
 }
 \arguments{
 \item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}

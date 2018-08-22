@@ -26,6 +26,56 @@ Accordingly, when designing a vegaspec that uses time, you have to make some
 some compromises. This function helps you to implement your compromise in
 a principled way, as explained in the opinions below.
 }
+\details{
+Let's assume that your \code{POSIXct} data has a time-zone attached.
+There are three different scenarios for rendering this data:
+\itemize{
+\item using the time-zone of the browser
+\item using UTC
+\item using the time-zone of the data
+}
+
+If you intend to display the data using the \strong{time-zone of the browser},
+or using \strong{UTC}, you should serialze datetimes using ISO-8601, i.e.
+\code{iso_dttm = TRUE}. In the rest of your vegaspec, you should choose
+local or UTC time-scales accordingly. However, in either case, you should
+use local time-units. No compromise is necessary.
+
+If you intend to display the data using the \strong{time-zone of the browser},
+this is where you will have to compromise. In this case, you should
+serialize using \code{iso_dttm = FALSE}. By doing this, your datetimes will be
+serialized using a non-ISO-8601 format, and notably, \strong{using the time-zone}
+of the datetime. When you design your vegaspec, you should treat this as
+if it were a UTC time. You should direct Vega to parse this data as UTC,
+i.e. \code{{"foo": "utc:'\%Y-\%m-\%d \%H:\%M:\%S'"}}. In other words, Vega should
+interpret your local timestamp as if it were a UTC timestamp.
+As in the first UTC case, you should use UTC time-scales and local
+time-units.
+
+The compromise you are making is this: the internal representation of
+the instants in time will be different in Vega than it will be in R.
+You are losing information because you are converting from a \code{POSIXct}
+object with a time-zone to a timestamp without a time-zone. It is also
+worth noting that the time information in your Vega plot should not
+be used anywhere else - this should be the last place this serialized
+data should be used because it is no longer trustworthy. For this,
+you will gain the ability to show the data in the context of its
+time-zone.
+
+Dates can be different creatures than datetimes. I think that is appropriate
+to serialize dates in an ISO format because, I think, UTC is the
+"common currency" for dates. I think this is because it is more common to
+compare across different locations using dates as a common index. For
+example, you might compare daily stock-market data from NYSE, CAC-40, and
+Hang Seng. To maintain a common time-index, you might choose UTC to
+represent the dates in all three locations, despite the time-zone
+differences.
+
+This is why the default for \code{iso_date} is \code{TRUE}. In this scenario,
+you need not specify to Vega how to parse the date; because of its
+ISO-8601 format, it will parse to UTC. As with the other UTC cases,
+you should use UTC time-scales and local time-units.
+}
 \seealso{
 \href{https://vega.github.io/vega-lite/docs/timeunit.html#utc}{Vega-Lite Time Unit (UTC)}
 }

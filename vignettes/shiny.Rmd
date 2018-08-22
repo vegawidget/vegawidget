@@ -1,0 +1,48 @@
+---
+title: "Shiny interactions"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+---
+
+Shiny interaction support in vegawidget and this vignette are still a work in progress.  
+
+Currently supported are:
+
+* `vw_add_event_listener` to add an event listener, where event is something like 'click' or 'hover'
+* `vw_add_signal_listener` to addd a signal listener to listen to a vega signal
+* `vw_bind_ui` to bind a shiny UI element to a vega signal, so that when the UI element is updated, the value is pushed to the signal 
+
+To see examples of `vw_add_event_listener` and `vw_bind_ui`, see the app in the test_app of the repository.
+
+## Listeners
+
+The two functions to create listeners by default add a listener that will push the relavant data from the interaction/signal to shiny. If the widget has been created as `output$chart` then a 'click' event will update ` input$chart_click`.  Similarly, a listener for a signal named 'mysignal' would update `input$chart_mysignal`.
+
+Alternatively, a custom listener function can be provided. That function should be a javascript with form `function(event,item)` for events and `function(name,value)` for signals.
+
+At the moment, listeners are added at render time -- there is no support for adding a listner dynamically after having created the chart.  That functionality may be added in future, especially if a salient use case arises.
+
+One would typically add a listener like this:
+
+```{r, eval = FALSE}
+vegawidget(spec) %>%
+      vw_add_event_listener("click")
+```
+
+## Binding UI elements
+
+`vw_bind_ui("chart", "slider", "cyl")` will bind the signal named "cyl" in the shiny output named "chart" to the value from the input named "slider".  Optionally, an input transformation function (in R) can be passed as well which will be applied to the input before passing it to the signal.
+
+## Potential future functionality
+
+### Selections
+
+At present, it is not straightforward to listen to 'selections' in vega-lite. If refactoring & updates in vega-lite make it easier to access and listen to selections, then that functionality should get added to this package.
+
+### insert and remove
+
+The vega view api includes methods to insert or remove data from a plot. The internal `vw_call_vega_view` should be helpful for implementing this, but the format of the arguments has to be just right...  
+
+### crosstalk or other inter-widget communication
+
+Another potential area of future work is compatibility with crosstalk package.

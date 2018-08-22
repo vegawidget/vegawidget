@@ -1,5 +1,5 @@
 Package: vegawidget
-Version: 0.0.4
+Version: 0.0.4.9000
 Title: Htmlwidget Renderer for Vega and Vega-Lite
 Description: Vega and Vega-Lite parse text in JSON notation to render 
   chart-specifications into HTML. This package is used to facilitate the 
@@ -20,6 +20,9 @@ Authors@R: c(
       role = c("ctb"),
       comment = c(ORCID = "orcid.org/0000-0002-3915-0618")
     ),
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("ctb"), 
+      comment = c(ORCID = "0000-0003-4757-117X")
+    ),
     person("Kanit", "Wongsuphasawat", comment = "Vega/Vega-Lite library", role = c("ctb")),
     person("Dominik", "Moritz", comment = "Vega/Vega-Lite library", role = c("ctb")),
     person("Arvind", "Satyanarayan", comment = "Vega/Vega-Lite library", role = c("ctb")),
@@ -33,7 +36,7 @@ ByteCompile: true
 URL: https://github.com/vegawidget/vegawidget
 BugReports: https://github.com/vegawidget/vegawidget/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 Depends:
     R (>= 2.10)
 Imports:
@@ -56,5 +59,11 @@ Suggests:
     webshot,
     webdriver,
     base64enc,
-    magick
+    magick,
+    usethis,
+    whisker,
+    crayon,
+    clipr,
+    desc,
+    clisymbols
 VignetteBuilder: knitr

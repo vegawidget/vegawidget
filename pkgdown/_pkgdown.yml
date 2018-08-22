@@ -5,8 +5,41 @@ template:
 development:
   mode: unreleased
 
+navbar:
+  title: "vegawidget"
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Reference"
+      href: "reference/index.html"
+    - text: "Changelog"
+      href: "news/index.html"
+    - text: Articles
+      menu:
+        - text: First Example
+          href: articles/first-example.html
+        - text: "------------"
+        - text: Specify using vegaspec
+          href: articles/vegaspec.html
+        - text: Render using vegawidget
+          href: articles/vegawidget.html
+        - text: Share with bl.ocks.org
+          href: articles/blocks.html
+        - text: Create Images
+          href: articles/image.html
+        - text: Import into Other Packages
+          href: articles/import.html
+        - text: Utilities
+          href: articles/utilities.html
+        - text: "------------"
+        - text: Visual Regression
+          href: articles/visual-regression.html
+  right:
+    - icon: fa-github fa-2x
+      href: https://github.com/vegawidget/vegawidget
+
 reference:
-  - title: vegaspec
+  - title: "Specifying: vegaspec"
     desc: >
       The central *object* of this package is `vegaspec`, which is also
       a `list`. Use these functions to coerce to a `vegaspec`,
@@ -15,11 +48,14 @@ reference:
       you can translate a Vega-Lite specification to a Vega specification.
     contents:
       - as_vegaspec
+      - vw_examine
       - vw_as_json
       - vw_autosize
+      - vw_rename_datasets
       - vw_to_vega
       - vw_spec_version
-  - title: Rendering a vegaspec
+      - vega_schema
+  - title: "Rendering: vegawidget"
     desc: >
       The central *side-effect* of this package is to render a `vegawidget`,
       which is also an `htmlwidget`. A `vegawidget` is
@@ -58,34 +94,33 @@ reference:
     - vw_write_png
     - vw_write_svg
     - vw_png_bin
-  - title: Debugging and sharing
+  - title: Sharing
     desc: >
-      These are functions to help you understand a `vegaspec` and to help
-      you share your work with others. The `examine` function requires that
-      you have the
-      [**listviewer**](https://CRAN.R-project.org/package=listviewer) package
-      installed. The functions to create and retrieve
-      [blocks](https://bl.ocks.org)
-      use the [**gistr**](https://CRAN.R-project.org/package=gistr) and
+      These functions, to create and retrieve [blocks](https://bl.ocks.org),
+      require the [**gistr**](https://CRAN.R-project.org/package=gistr) and
       [**fs**](https://CRAN.R-project.org/package=fs) packages, also the
       [**webdriver**](https://CRAN.R-project.org/package=webdriver) package
       and PhantomJS if you want upload images to your block.
     contents:
-    - vw_examine
     - vw_create_block
     - vw_block_config
     - vw_retrieve_block
-  - title: Utilities and internal functions
+  - title: Utilities
     desc: >
-      These functions help you determine the version of your `vegaspec`, the
-      versions of the JavaScript libraries used to render your `vegawidget`,
-      and to create a block. You will likely not need to call any of the "block"
-      functions directly.
+      You can use `use_vegawidget()` to bring this package's functionality to
+      yours. Much like `usethis::use_pipe()` allows you to re-export the pipe
+      in your package's namespace, `use_vegawidget()` does this for many of
+      these functions.
+
+      The other functions deal serializing date-times, and versions of Vega's
+      JavaScript libraries.
     contents:
+    - use_vegawidget
+    - vw_serialize_data
     - vw_spec_version
     - vega_version
-    - vw_block_index
-    - vw_block_build_directory
+    - vega_schema
+
 
 
 

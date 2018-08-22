@@ -8,19 +8,38 @@ The purpose of this document is to use our eyeballs to vaildate the rendering of
 
 For the image tests, we use explicity test the functions `vw_write_png()` and `vw_write_svg()`. We note the complimentary functions `to_png()` and `to_svg()`; these are implicitly tested as they are the used by the `vw_write_png()` and `vw_write_svg()` functions.
 
-```{r}
+```{r, message=FALSE}
+library("fs")
+library("here")
+library("glue")
 library("conflicted")
 library("vegawidget")
 ```
 
 ```{r}
-dir_img <- "visual-regression-files"
+# this dictates that the *right* way to compile the html file is 
+# is to use pkgdown::build_site() or pkgdown::build_article()
+prefix_image <- "visual-regression"
+dir_write <- here::here("docs", "reference", "figures")
+dir_read <- here::here("reference", "figures")
 
-if (fs::dir_exists(dir_img)) {
-  fs::dir_delete(dir_img)
+path_write <- function(x) {
+  fs::path(dir_write, glue::glue("{prefix_image}-{x}"))
 }
 
-fs::dir_create(dir_img)
+path_read <- function(x) {
+  fs::path(dir_read, glue::glue("{prefix_image}-{x}"))
+}
+
+# clean out old files
+to_delete <- 
+  dir_ls(
+    dir_write, 
+    regexp = glue::glue("^{fs::path(dir_write, prefix_image)}")
+  )
+
+path_rel(to_delete, start = here())
+file_delete(to_delete)
 ```
 
 ## Reference 
@@ -65,44 +84,44 @@ vw_to_vega(spec_mtcars)
 
 ## PNG
 
-The function `vw_to_png()` generates an image at 96 DPI. We expect this to appear at the same size as the **reference**. However, we not using retina resolution so it will appear a bit fuzzy on non-retina monitors.
+The function `vw_write_png()` generates an image at 96 DPI. We expect this to appear at the same size as the **reference**. However, we not using retina resolution so it will appear a bit fuzzy on non-retina monitors.
 
 ```{r}
-file_png <- fs::path(dir_img, "mtcars-refrence.png")
+filename <- "mtcars-refrence.png"
 
-vw_write_png(spec_mtcars, path = file_png)
+vw_write_png(spec_mtcars, path_write(filename))
 
-knitr::include_graphics(file_png, dpi = 96)
+knitr::include_graphics(path_read(filename), dpi = 96)
 ```
 
 To get retina resolution, we use the `scale` argument in `vw_write_png()`, then adjust the `dpi` argument in `include_graphics()`. Thus, we expect this to appear indentical to the **reference**. 
 
 ```{r}
-file_png <- fs::path(dir_img, "mtcars-retina.png")
+filename <- "mtcars-retina.png"
+  
+vw_write_png(spec_mtcars, path_write(filename), scale = 2)
 
-vw_write_png(spec_mtcars, path = file_png, scale = 2)
-
-knitr::include_graphics(file_png, dpi = 96 * 2)
+knitr::include_graphics(path_read(filename), dpi = 96 * 2)
 ```
 
 We expect that the rendered image will have a *total* size of `width = 600` and `height = 300`, but at non-retina resolution:
 
 ```{r}
-file_png <- fs::path(dir_img, "mtcars-wide.png")
+filename <- "mtcars-wide.png"
+  
+vw_write_png(spec_mtcars, path_write(filename), width = 600, height = 300)
 
-vw_write_png(spec_mtcars, path = file_png, width = 600, height = 300)
-
-knitr::include_graphics(file_png, dpi = 96)
+knitr::include_graphics(path_read(filename), dpi = 96)
 ```
 
 Finally, we expect to be able to use `vw_write_png()` with vegawidgets; we expect this to appear at the same size as the **reference**, but at non-retina resolution:
 
 ```{r}
-file_png <- fs::path(dir_img, "mtcars-widget.png")
+filename <- "mtcars-widget.png"
+  
+vw_write_png(vegawidget(spec_mtcars), path_write(filename))
 
-vw_write_png(vegawidget(spec_mtcars), path = file_png)
-
-knitr::include_graphics(file_png, dpi = 96)
+knitr::include_graphics(path_read(filename), dpi = 96)
 ```
 
 ## SVG
@@ -110,39 +129,39 @@ knitr::include_graphics(file_png, dpi = 96)
 The function `vw_to_svg()` generates a vector-image. We expect this to appear identical to the **reference**: 
 
 ```{r}
-file_svg <- fs::path(dir_img, "mtcars-refrence.svg")
+filename <- "mtcars-refrence.svg"
 
-vw_write_svg(spec_mtcars, path = file_svg)
+vw_write_svg(spec_mtcars, path_write(filename))
 
-knitr::include_graphics(file_svg)
+knitr::include_graphics(path_read(filename))
 ```
 
 We expect that the rendered image will have a *total* size of `width = 600` and `height = 300`, and to appear at retina resolution.
 
 ```{r}
-file_svg <- fs::path(dir_img, "mtcars-wide.svg")
+filename <- "mtcars-wide.svg"
 
-vw_write_svg(spec_mtcars, path = file_svg, width = 600, height = 300)
+vw_write_svg(spec_mtcars, path_write(filename), width = 600, height = 300)
 
-knitr::include_graphics(file_svg)
+knitr::include_graphics(path_read(filename))
 ```
 
 The `scale` argument in `vw_write_svg()` may not be useful becuse the SVG itself is scalable. We expect this appear at double-size to **reference**, with retina resolution: 
 
 ```{r}
-file_svg <- fs::path(dir_img, "mtcars-retina.svg")
+filename <- "mtcars-retina.svg"
 
-vw_write_svg(spec_mtcars, path = file_svg, scale = 2)
+vw_write_svg(spec_mtcars, path_write(filename), scale = 2)
 
-knitr::include_graphics(file_svg)
+knitr::include_graphics(path_read(filename))
 ```
 
 Finally, we expect to be able to use `vw_write_svg()` with vegawidgets; we expect this to appear identical to the **reference**:
 
 ```{r}
-file_svg <- fs::path(dir_img, "mtcars-widget.svg")
+filename <- "mtcars-widget.svg"
 
-vw_write_svg(vegawidget(spec_mtcars), path = file_svg)
+vw_write_svg(vegawidget(spec_mtcars), path_write(filename))
 
-knitr::include_graphics(file_svg)
+knitr::include_graphics(path_read(filename))
 ```

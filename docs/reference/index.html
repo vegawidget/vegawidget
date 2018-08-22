@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.4</span>
       </span>
     </div>
 
@@ -73,6 +73,9 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
@@ -83,20 +86,37 @@
     <li>
       <a href="../articles/first-example.html">First Example</a>
     </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/vegaspec.html">Specify using vegaspec</a>
+    </li>
+    <li>
+      <a href="../articles/vegawidget.html">Render using vegawidget</a>
+    </li>
+    <li>
+      <a href="../articles/blocks.html">Share with bl.ocks.org</a>
+    </li>
+    <li>
+      <a href="../articles/image.html">Create Images</a>
+    </li>
+    <li>
+      <a href="../articles/import.html">Import into Other Packages</a>
+    </li>
+    <li>
+      <a href="../articles/utilities.html">Utilities</a>
+    </li>
+    <li class="divider"></li>
     <li>
       <a href="../articles/visual-regression.html">Visual Regression</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/vegawidget/vegawidget">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fa fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -126,7 +146,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-vegaspec" class="hasAnchor"><a href="#section-vegaspec" class="anchor"></a>vegaspec</h2>
+          <h2 id="section-specifying-vegaspec" class="hasAnchor"><a href="#section-specifying-vegaspec" class="anchor"></a>Specifying: vegaspec</h2>
           <p class="section-desc"><p>The central <em>object</em> of this package is <code>vegaspec</code>, which is also a <code>list</code>. Use these functions to coerce to a <code>vegaspec</code>, format as JSON, or otherwise operate on a <code>vegaspec</code>. If the <a href="https://CRAN.R-project.org/package=V8"><strong>V8</strong></a> package is installed, you can translate a Vega-Lite specification to a Vega specification.</p></p>
         </th>
       </tr>
@@ -136,6 +156,12 @@
           <p><code><a href="as_vegaspec.html">as_vegaspec()</a></code> </p>
         </td>
         <td><p>Coerce to vegaspec</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_examine.html">vw_examine()</a></code> </p>
+        </td>
+        <td><p>Examine vegaspec</p></td>
       </tr><tr>
         
         <td>
@@ -160,11 +186,17 @@
           <p><code><a href="vw_spec_version.html">vw_spec_version()</a></code> </p>
         </td>
         <td><p>Determine vegaspec version</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vega_schema.html">vega_schema()</a></code> </p>
+        </td>
+        <td><p>Create string for schema-URL</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-rendering-a-vegaspec" class="hasAnchor"><a href="#section-rendering-a-vegaspec" class="anchor"></a>Rendering a vegaspec</h2>
+          <h2 id="section-rendering-vegawidget" class="hasAnchor"><a href="#section-rendering-vegawidget" class="anchor"></a>Rendering: vegawidget</h2>
           <p class="section-desc"><p>The central <em>side-effect</em> of this package is to render a <code>vegawidget</code>, which is also an <code>htmlwidget</code>. A <code>vegawidget</code> is built using a <code>vegaspec</code>. A helper function is provided for <a href="https://github.com/vega/vega-embed">vega-embed</a> options. These options can be specified as an argument to the <code>vegawidget</code> function, or as an R option, <code>vega.embed</code>, which would picked up by the <code>knit_print</code> method. If the <a href="https://CRAN.R-project.org/package=webshot"><strong>webshot</strong></a> package and PhantomJS are installed, knitting to a non-html format should “just work”.</p></p>
         </th>
       </tr>
@@ -244,17 +276,11 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-debugging-and-sharing" class="hasAnchor"><a href="#section-debugging-and-sharing" class="anchor"></a>Debugging and sharing</h2>
-          <p class="section-desc"><p>These are functions to help you understand a <code>vegaspec</code> and to help you share your work with others. The <code>examine</code> function requires that you have the <a href="https://CRAN.R-project.org/package=listviewer"><strong>listviewer</strong></a> package installed. The functions to create and retrieve <a href="https://bl.ocks.org">blocks</a> use the <a href="https://CRAN.R-project.org/package=gistr"><strong>gistr</strong></a> and <a href="https://CRAN.R-project.org/package=fs"><strong>fs</strong></a> packages, also the <a href="https://CRAN.R-project.org/package=webdriver"><strong>webdriver</strong></a> package and PhantomJS if you want upload images to your block.</p></p>
+          <h2 id="section-sharing" class="hasAnchor"><a href="#section-sharing" class="anchor"></a>Sharing</h2>
+          <p class="section-desc"><p>These functions, to create and retrieve <a href="https://bl.ocks.org">blocks</a>, require the <a href="https://CRAN.R-project.org/package=gistr"><strong>gistr</strong></a> and <a href="https://CRAN.R-project.org/package=fs"><strong>fs</strong></a> packages, also the <a href="https://CRAN.R-project.org/package=webdriver"><strong>webdriver</strong></a> package and PhantomJS if you want upload images to your block.</p></p>
         </th>
       </tr>
       <tr>
-        
-        <td>
-          <p><code><a href="vw_examine.html">vw_examine()</a></code> </p>
-        </td>
-        <td><p>Examine vegaspec</p></td>
-      </tr><tr>
         
         <td>
           <p><code><a href="vw_create_block.html">vw_create_block()</a></code> <code><a href="vw_create_block.html">vw_create_block_gistid()</a></code> </p>
@@ -276,11 +302,23 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-utilities-and-internal-functions" class="hasAnchor"><a href="#section-utilities-and-internal-functions" class="anchor"></a>Utilities and internal functions</h2>
-          <p class="section-desc"><p>These functions help you determine the version of your <code>vegaspec</code>, the versions of the JavaScript libraries used to render your <code>vegawidget</code>, and to create a block. You will likely not need to call any of the “block” functions directly.</p></p>
+          <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
+          <p class="section-desc"><p>You can use <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> to bring this package’s functionality to yours. Much like <code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_pipe">usethis::use_pipe()</a></code> allows you to re-export the pipe in your package’s namespace, <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> does this for many of these functions. The other functions deal serializing date-times, and versions of Vega’s JavaScript libraries.</p></p>
         </th>
       </tr>
       <tr>
+        
+        <td>
+          <p><code><a href="use_vegawidget.html">use_vegawidget()</a></code> </p>
+        </td>
+        <td><p>Add vegawidget functions to your package</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_serialize_data.html">vw_serialize_data()</a></code> </p>
+        </td>
+        <td><p>Serialize data-frame time-columns</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="vw_spec_version.html">vw_spec_version()</a></code> </p>
@@ -295,15 +333,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="vw_block_index.html">vw_block_index()</a></code> </p>
+          <p><code><a href="vega_schema.html">vega_schema()</a></code> </p>
         </td>
-        <td><p>Create text for block index.html</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vw_block_build_directory.html">vw_block_build_directory()</a></code> </p>
-        </td>
-        <td><p>Build block-directory</p></td>
+        <td><p>Create string for schema-URL</p></td>
       </tr>
     </tbody>
     </table>
@@ -312,13 +344,13 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-vegaspec">vegaspec</a></li>
-      <li><a href="#section-rendering-a-vegaspec">Rendering a vegaspec</a></li>
+      <li><a href="#section-specifying-vegaspec">Specifying: vegaspec</a></li>
+      <li><a href="#section-rendering-vegawidget">Rendering: vegawidget</a></li>
       <li><a href="#section-shiny">Shiny</a></li>
       <li><a href="#section-data">Data</a></li>
       <li><a href="#section-images">Images</a></li>
-      <li><a href="#section-debugging-and-sharing">Debugging and sharing</a></li>
-      <li><a href="#section-utilities-and-internal-functions">Utilities and internal functions</a></li>
+      <li><a href="#section-sharing">Sharing</a></li>
+      <li><a href="#section-utilities">Utilities</a></li>
     </ul>
   </div>
 </div>

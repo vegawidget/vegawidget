@@ -1,0 +1,12 @@
+---
+title: "Create images"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+---
+
+If the [**webdriver**](https://github.com/rstudio/webdriver#README) package and PhantomJS are installed, these functions can be used to create or write images as PNG or SVG, using a vegaspec or vegawidget.
+
+## Create image
+
+
+## Write image

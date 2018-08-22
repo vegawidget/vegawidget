@@ -50,3 +50,43 @@ vw_spec_version <- function(spec) {
 
   result
 }
+
+
+#' Create string for schema-URL
+#'
+#' Useful if you are creating a vegaspec manually.
+#'
+#' @param library `character`, either `"vega"` or `"vega_lite"`
+#' @inheritParams vega_version
+#'
+#' @return `character` URL for schema
+#' @examples
+#'   vega_schema()
+#'   vega_schema("vega", major = FALSE)
+#'
+#'   # creating a spec by hand
+#'   spec <-
+#'     list(
+#'       `$schema` = vega_schema(),
+#'       width = 300,
+#'       height = 300
+#'       # and so on
+#'     ) %>%
+#'     as_vegaspec()
+#'
+#' @export
+#'
+vega_schema <- function(library = c("vega_lite", "vega"), major = TRUE) {
+
+  library <- match.arg(library)
+  version <- vega_version(major = major)[[library]]
+
+  # change "vega_lite" to "vega-lite"
+  library <- gsub("_", "-", library)
+
+  schema <-
+    glue::glue("https://vega.github.io/schema/{library}/v{version}.json")
+  schema <- as.character(schema)
+
+  schema
+}

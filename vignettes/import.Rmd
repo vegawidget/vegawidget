@@ -1,0 +1,19 @@
+---
+title: "Import into Other Packages"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+---
+
+The principal motivation for the **vegawidget** package is to provide other packages that build Vega or Vega-Lite specifications a resuable set of functions.
+
+To make this truly resuable... `use_pipe()`...
+
+Your package might have an S3 class. For *altair*, this is `altair.vegalite.v2.api.TopLevelMixin`.
+
+Call `use_vegawidget()`, it will:
+
+- ...
+
+You need to adapt one thing, then everything else "just works".
+
+

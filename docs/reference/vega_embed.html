@@ -64,7 +64,7 @@ library, which ultimately renders the chart specification as HTML." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.4</span>
       </span>
     </div>
 
@@ -79,6 +79,9 @@ library, which ultimately renders the chart specification as HTML." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
@@ -89,20 +92,37 @@ library, which ultimately renders the chart specification as HTML." />
     <li>
       <a href="../articles/first-example.html">First Example</a>
     </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/vegaspec.html">Specify using vegaspec</a>
+    </li>
+    <li>
+      <a href="../articles/vegawidget.html">Render using vegawidget</a>
+    </li>
+    <li>
+      <a href="../articles/blocks.html">Share with bl.ocks.org</a>
+    </li>
+    <li>
+      <a href="../articles/image.html">Create Images</a>
+    </li>
+    <li>
+      <a href="../articles/import.html">Import into Other Packages</a>
+    </li>
+    <li>
+      <a href="../articles/utilities.html">Utilities</a>
+    </li>
+    <li class="divider"></li>
     <li>
       <a href="../articles/visual-regression.html">Visual Regression</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/vegawidget/vegawidget">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fa fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -134,10 +154,10 @@ library, which ultimately renders the chart specification as HTML.</p>
 
     <pre class="usage"><span class='fu'>vega_embed</span>(<span class='kw'>renderer</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"canvas"</span>, <span class='st'>"svg"</span>), <span class='kw'>actions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>defaultStyle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>logLevel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>loader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>onBeforeParse</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scaleFactor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>editorUrl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sourceHeader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sourceFooter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>hover</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>runAsync</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>loader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>onBeforeParse</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scaleFactor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>editorUrl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sourceHeader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sourceFooter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>hover</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>runAsync</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>i18n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -232,7 +252,7 @@ height (default 1) of an exported PNG or SVG image.</p></td>
     </tr>
     <tr>
       <th>config</th>
-      <td><p><code>character</code> or <code>list</code> a URL string** from which to load
+      <td><p><code>character</code> or <code>list</code> a URL string from which to load
 a Vega/Vega-Lite or Vega-Lite configuration file, or a <code>list</code> of
 Vega/Vega-Lite configurations to override the default configuration
 options. If <code>config</code> is a URL, it will be subject to standard browser
@@ -268,6 +288,12 @@ immediately before the closing `` tag.</p></td>
       <td><p><code>logical</code>, indicating to use
 <a href='https://vega.github.io/vega/docs/api/view/#view_runAsync'>runAsync</a>
 instead of <a href='https://vega.github.io/vega/docs/api/view/#view_run'>run</a>.</p></td>
+    </tr>
+    <tr>
+      <th>i18n</th>
+      <td><p><code>list</code>, This property maps keys
+(COMPILED_ACTION, EDITOR_ACTION, PNG_ACTION, SOURCE_ACTION, SVG_ACTION)
+to string values for the action's text. By default, the text is in English.</p></td>
     </tr>
     </table>
     

@@ -28,22 +28,18 @@ htmlwidget for special situations in which you want a non-random
 identifier.}
 }
 \value{
-invisible copy of \code{spec}, called for side-effect.
+S3 object of class \code{jsonedit} and \code{htmlwidget}
 }
 \description{
 This is a thin wrapper to \code{\link[listviewer:jsonedit]{listviewer::jsonedit()}},
 use to interactvely examine a Vega or Vega-Lite specification.
-}
-\details{
-This function works a little differently than calling
-\code{\link[listviewer:jsonedit]{listviewer::jsonedit()}} directly; it returns invisibly a copy of
-\code{spec}, to support piping.
 }
 \examples{
   vw_examine(spec_mtcars)
 
   spec_mtcars_autosize <-
     spec_mtcars \%>\%
-    vw_autosize(width = 300, height = 300) \%>\%
-    vw_examine()
+    vw_autosize(width = 300, height = 300)
+
+  vw_examine(spec_mtcars_autosize)
 }

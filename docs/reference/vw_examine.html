@@ -62,7 +62,7 @@ use to interactvely examine a Vega or Vega-Lite specification." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.4</span>
       </span>
     </div>
 
@@ -77,6 +77,9 @@ use to interactvely examine a Vega or Vega-Lite specification." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
@@ -87,20 +90,37 @@ use to interactvely examine a Vega or Vega-Lite specification." />
     <li>
       <a href="../articles/first-example.html">First Example</a>
     </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/vegaspec.html">Specify using vegaspec</a>
+    </li>
+    <li>
+      <a href="../articles/vegawidget.html">Render using vegawidget</a>
+    </li>
+    <li>
+      <a href="../articles/blocks.html">Share with bl.ocks.org</a>
+    </li>
+    <li>
+      <a href="../articles/image.html">Create Images</a>
+    </li>
+    <li>
+      <a href="../articles/import.html">Import into Other Packages</a>
+    </li>
+    <li>
+      <a href="../articles/utilities.html">Utilities</a>
+    </li>
+    <li class="divider"></li>
     <li>
       <a href="../articles/visual-regression.html">Visual Regression</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/vegawidget/vegawidget">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fa fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,8 +148,9 @@ use to interactvely examine a Vega or Vega-Lite specification.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>vw_examine</span>(<span class='no'>spec</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"tree"</span>, <span class='kw'>modes</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"code"</span>, <span class='st'>"form"</span>, <span class='st'>"text"</span>, <span class='st'>"tree"</span>,
-  <span class='st'>"view"</span>), <span class='no'>...</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>vw_examine</span>(<span class='no'>spec</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"tree"</span>, <span class='kw'>modes</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"code"</span>, <span class='st'>"form"</span>, <span class='st'>"text"</span>,
+  <span class='st'>"tree"</span>, <span class='st'>"view"</span>), <span class='no'>...</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,13 +192,7 @@ identifier.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>invisible copy of <code>spec</code>, called for side-effect.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This function works a little differently than calling
-<code><a href='http://www.rdocumentation.org/packages/listviewer/topics/jsonedit'>listviewer::jsonedit()</a></code> directly; it returns invisibly a copy of
-<code>spec</code>, to support piping.</p>
+    <p>S3 object of class <code>jsonedit</code> and <code>htmlwidget</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -185,8 +200,9 @@ identifier.</p></td>
 
   <span class='no'>spec_mtcars_autosize</span> <span class='kw'>&lt;-</span>
     <span class='no'>spec_mtcars</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='vw_autosize.html'>vw_autosize</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>300</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>300</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>vw_examine</span>()</div></pre>
+    <span class='fu'><a href='vw_autosize.html'>vw_autosize</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>300</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>300</span>)
+
+  <span class='fu'>vw_examine</span>(<span class='no'>spec_mtcars_autosize</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -194,8 +210,6 @@ identifier.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

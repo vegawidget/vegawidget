@@ -131,13 +131,13 @@ vega_version_long
 ```
 
     ## $vega_lite
-    ## [1] "2.5.0"
+    ## [1] "2.6.0"
     ## 
     ## $vega
-    ## [1] "4.0.0-rc.2"
+    ## [1] "4.0.0-rc.3"
     ## 
     ## $vega_embed
-    ## [1] "3.14.0"
+    ## [1] "3.16.0"
 
 ``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
@@ -218,14 +218,14 @@ htmlwidgets_downloads
     ## # A tibble: 9 x 2
     ##   path_local                 path_remote                                  
     ##   <chr>                      <chr>                                        
-    ## 1 vega-lite/vega-lite.min.js https://cdn.jsdelivr.net/npm/vega-lite@2.5.0 
+    ## 1 vega-lite/vega-lite.min.js https://cdn.jsdelivr.net/npm/vega-lite@2.6.0 
     ## 2 vega-lite/LICENSE          https://raw.githubusercontent.com/vega/vega-…
     ## 3 vega/promise.min.js        https://vega.github.io/vega/assets/promise.m…
     ## 4 vega/symbol.min.js         https://vega.github.io/vega/assets/symbol.mi…
-    ## 5 vega/vega.min.js           https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.2 
-    ## 6 vega/vega.js               https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.2…
+    ## 5 vega/vega.min.js           https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.3 
+    ## 6 vega/vega.js               https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.3…
     ## 7 vega/LICENSE               https://raw.githubusercontent.com/vega/vega/…
-    ## 8 vega-embed/vega-embed.js   https://cdn.jsdelivr.net/npm/vega-embed@3.14…
+    ## 8 vega-embed/vega-embed.js   https://cdn.jsdelivr.net/npm/vega-embed@3.16…
     ## 9 vega-embed/LICENSE         https://raw.githubusercontent.com/vega/vega-…
 
 ``` r
@@ -324,8 +324,8 @@ schema
     ## # A tibble: 2 x 2
     ##   path_local            path_remote                                       
     ##   <chr>                 <chr>                                             
-    ## 1 vega/v4.0.0-rc.2.json https://vega.github.io/schema/vega/v4.0.0-rc.2.js…
-    ## 2 vega-lite/v2.5.0.json https://vega.github.io/schema/vega-lite/v2.5.0.js…
+    ## 1 vega/v4.0.0-rc.3.json https://vega.github.io/schema/vega/v4.0.0-rc.3.js…
+    ## 2 vega-lite/v2.6.0.json https://vega.github.io/schema/vega-lite/v2.6.0.js…
 
 ``` r
 pwalk(schema, get_file, path_local_root = dir_schema)

@@ -8,7 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "man/figures/README-"
 )
 ```
 
@@ -55,7 +55,7 @@ If you wish to deploy a specification to be rendered on bl.ocks.org, you can do 
 
 ```{r create_block, eval=FALSE}
 # not yet fully implemented
-create_block(spec_mtcars)
+vw_create_block(spec_mtcars)
 ```
 
 ## Installation
@@ -121,8 +121,7 @@ Accordingly, this package offers a templating function, `use_vegawidget(class)` 
 
 In the future, challenges will include:
 
-- offering **crosstalk** compatibility
-- offering reactive **shiny** behavior, like **ggvis** provides for its Vega specifications
+- defining interactions for **shiny**.
 
 
 

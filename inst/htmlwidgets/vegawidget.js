@@ -10,7 +10,7 @@ HTMLWidgets.widget({
     var event_listeners = {};
     var signal_listeners = {};
     var table_insert = {};
-
+    var table_remove = {};
 
     return {
 
@@ -33,6 +33,8 @@ HTMLWidgets.widget({
 
           console.log(table_insert);
 
+          console.log(table_remove);
+
           for (var event_name in event_listeners) {
             console.log(event_listeners[event_name]);
             result.view.addEventListener(event_name, event_listeners[event_name]);
@@ -42,14 +44,25 @@ HTMLWidgets.widget({
             result.view.addSignalListener(signal_name, signal_listeners[signal_name]);
           }
 
-          for (var table_name in table_insert) {
+          /*
+          // remove is trickier in that you need to match the exact structure
+          // of the input data set
+          for (var remove_name in table_remove) {
+            console.log(remove_name);
+            update = HTMLWidgets.dataframeToD3(table_remove[remove_name]);
+            console.log(update);
+            result.view.remove('table', () => update).runAsync();
+            console.log(result.view.data(remove_name));
+          }
+          */
+
+          for (var insert_name in table_insert) {
             // convert to row oriented json
-            update = HTMLWidgets.dataframeToD3(table_insert[table_name]);
+            update = HTMLWidgets.dataframeToD3(table_insert[insert_name]);
             // one problem here is if the inserted data falls out of the
             // scales / pixel bounds of the plot, a problem for 1d plots
-            // adding additional scales etc.
-            result.view.insert(table_name, update).runAsync();
-            console.log(result.view.data(table_name));
+            // data outside scales etc.
+            result.view.insert(insert_name, update).runAsync();
           }
 
         }).catch(console.error);
@@ -97,6 +110,10 @@ HTMLWidgets.widget({
 
       insert: function(table_name, table_data) {
         table_insert[table_name] = table_data;
+      },
+
+      remove: function(table_name, table_data) {
+        table_remove[table_name] = table_data;
       }
 
     };

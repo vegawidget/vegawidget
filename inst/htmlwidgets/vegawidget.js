@@ -9,6 +9,8 @@ HTMLWidgets.widget({
     var view = null;
     var event_listeners = {};
     var signal_listeners = {};
+    var table_insert = {};
+
 
     return {
 
@@ -27,12 +29,27 @@ HTMLWidgets.widget({
 
           view = result.view;
 
+          console.log(event_listeners);
+
+          console.log(table_insert);
+
           for (var event_name in event_listeners) {
+            console.log(event_listeners[event_name]);
             result.view.addEventListener(event_name, event_listeners[event_name]);
           }
 
           for (var signal_name in signal_listeners) {
             result.view.addSignalListener(signal_name, signal_listeners[signal_name]);
+          }
+
+          for (var table_name in table_insert) {
+            // convert to row oriented json
+            update = HTMLWidgets.dataframeToD3(table_insert[table_name]);
+            // one problem here is if the inserted data falls out of the
+            // scales / pixel bounds of the plot, a problem for 1d plots
+            // adding additional scales etc.
+            result.view.insert(table_name, update).runAsync();
+            console.log(result.view.data(table_name));
           }
 
         }).catch(console.error);
@@ -76,6 +93,10 @@ HTMLWidgets.widget({
               Shiny.onInputChange(el.id + "_" + signal_name, value);
             };
          }
+      },
+
+      insert: function(table_name, table_data) {
+        table_insert[table_name] = table_data;
       }
 
     };

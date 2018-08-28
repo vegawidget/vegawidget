@@ -59,16 +59,3 @@ vw_add_signal_listener <- function(x, signal, handler = "shiny"){
                    signal, "', ",handler,")}")
   htmlwidgets::onRender(x, js_call)
 }
-
-
-vw_get_state <- function(x, name, type) {
-  type <- match.arg(type, c("data", "signal"))
-
-  js_call <- paste0("function(el, x) { this.getState('",
-                    type, "', ", name, ")}")
-
-  htmlwidgets::onRender(x, js_call)
-
-}
-
-

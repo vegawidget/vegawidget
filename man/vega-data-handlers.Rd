@@ -3,9 +3,15 @@
 \name{vega-data-handlers}
 \alias{vega-data-handlers}
 \alias{vw_insert_data}
+\alias{vw_remove_data}
+\alias{vw_update_data}
 \title{Modify data for a vegawidget}
 \usage{
 vw_insert_data(x, name, newdata)
+
+vw_remove_data(x, name, newdata)
+
+vw_update_data(x, name, newdata)
 }
 \arguments{
 \item{x}{a vegawidget object}

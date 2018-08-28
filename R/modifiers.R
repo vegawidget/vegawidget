@@ -34,7 +34,7 @@ checked_named_dataset <- function(x, name) {
   }
 }
 
-.modifier <- function(name, type) {
+.modifier_js <- function(name, type) {
   paste0(
     "
 function(el, x, data) { this.", type, "('",  name, "', data);}
@@ -42,7 +42,20 @@ function(el, x, data) { this.", type, "('",  name, "', data);}
   )
 }
 
+.modifier_r <- function(x, name, newdata, type) {
+  stopifnot(
+    inherits(newdata, "data.frame"),
+    is.character(name) && length(name) == 1L,
+    inherits(x, "vegawidget")
+  )
 
+  checked_named_dataset(jsonlite::fromJSON(x$x)$chart_spec, name)
+
+  js_call <- .modifier_js(name, type)
+
+  htmlwidgets::onRender(x, js_call, data = newdata)
+
+}
 
 #' Modify data for a vegawidget
 #'
@@ -57,34 +70,18 @@ function(el, x, data) { this.", type, "('",  name, "', data);}
 #' @rdname vega-data-handlers
 #' @export
 vw_insert_data <- function(x, name, newdata) {
-
-  stopifnot(
-    inherits(newdata, "data.frame"),
-    is.character(name) && length(name) == 1L,
-    inherits(x, "vegawidget")
-  )
-
-  checked_named_dataset(jsonlite::fromJSON(x$x)$chart_spec, name)
-
-  js_call <- .modifier(name, "insert")
-
-  htmlwidgets::onRender(x, js_call, data = newdata)
+  .modifier_r(x, name, newdata, "insert")
 }
 
 #' @name vega-data-handlers
 #' @export
 vw_remove_data <- function(x, name, newdata) {
+  .modifier_r(x, name, newdata, "remove")
+}
 
-  stopifnot(
-    inherits(newdata, "data.frame"),
-    is.character(name) && length(name) == 1L,
-    inherits(x, "vegawidget")
-  )
 
-  checked_named_dataset(jsonlite::fromJSON(x$x)$chart_spec, name)
-
-  js_call <- .modifier(name, "remove")
-
-  htmlwidgets::onRender(x, js_call, data = newdata)
-
+#' @name vega-data-handlers
+#' @export
+vw_update_data <- function(x, name, newdata) {
+  .modifier_r(x, name, newdata, "update")
 }

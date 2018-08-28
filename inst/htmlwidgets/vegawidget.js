@@ -85,7 +85,7 @@ HTMLWidgets.widget({
       },
 
      getState: function(name, type) {
-       if (view !== null && view !=== undefined) {
+       if (view !== null && view !== undefined) {
           console.log(view.getState()[type][name]);
        }
      },

@@ -11,6 +11,7 @@ HTMLWidgets.widget({
     var signal_listeners = {};
     var table_insert = {};
     var table_remove = {};
+    var table_update = {};
 
     return {
 
@@ -28,12 +29,6 @@ HTMLWidgets.widget({
           el.removeAttribute("style");
 
           view = result.view;
-
-          console.log(event_listeners);
-
-          console.log(table_insert);
-
-          console.log(table_remove);
 
           for (var event_name in event_listeners) {
             console.log(event_listeners[event_name]);
@@ -57,12 +52,24 @@ HTMLWidgets.widget({
           */
 
           for (var insert_name in table_insert) {
-            // convert to row oriented json
-            update = HTMLWidgets.dataframeToD3(table_insert[insert_name]);
             // one problem here is if the inserted data falls out of the
             // scales / pixel bounds of the plot, a problem for 1d plots
             // data outside scales etc.
-            result.view.insert(insert_name, update).runAsync();
+            result
+              .view
+              .insert(insert_name, table_insert[insert_name])
+              .runAsync();
+          }
+
+          for (var update_name in table_update) {
+            console.log(table_update[update_name]);
+            result
+              .view
+              .change(update_name,
+                         vega.changeset()
+                         .remove(function() { return true })
+                         .insert(table_update[update_name]))
+              .runAsync();
           }
 
         }).catch(console.error);
@@ -109,11 +116,15 @@ HTMLWidgets.widget({
       },
 
       insert: function(table_name, table_data) {
-        table_insert[table_name] = table_data;
+        table_insert[table_name] = HTMLWidgets.dataframeToD3(table_data);
       },
 
       remove: function(table_name, table_data) {
         table_remove[table_name] = table_data;
+      },
+
+      update: function(table_name, table_data) {
+        table_update[table_name] = HTMLWidgets.dataframeToD3(table_data);
       }
 
     };

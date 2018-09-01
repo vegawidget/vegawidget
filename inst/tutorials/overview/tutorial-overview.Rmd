@@ -1,0 +1,32 @@
+---
+title: Vegawidget
+author: "Ian Lyttle"
+output:
+  learnr::tutorial:
+    df_print: tibble
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library("learnr")
+library("vegawidget")
+
+options(width = 100)
+knitr::opts_chunk$set(comment = "#>")
+```
+
+## First section
+
+This is an introduction to some of the features of the [vegawidget](https://vegawidget.github.io/vegawidget/) package.
+
+Some words.
+
+```{r spec_mtcars, exercise=TRUE}
+spec_mtcars
+```
+
+We can also examine a spec
+
+```{r }
+vw_examine(spec_mtcars)
+```

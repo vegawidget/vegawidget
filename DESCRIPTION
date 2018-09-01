@@ -65,5 +65,9 @@ Suggests:
     crayon,
     clipr,
     desc,
-    clisymbols
+    clisymbols,
+    readr,
+    tibble,
+    lubridate,
+    learnr
 VignetteBuilder: knitr

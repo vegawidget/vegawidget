@@ -17,17 +17,25 @@ options(width = 100)
 knitr::opts_chunk$set(comment = "#>")
 ```
 
-## Motivation
+## Introduction
 
-This is an introduction to some of the features of the [vegawidget](https://vegawidget.github.io/vegawidget/) package.
+The [Vega-Lite](https://vega.github.io/vega-lite) JavaScript library offers grammar-of-graphics visualization, rendered in the browser, with interactivity. In R, the [htmlwidgets](https://www.htmlwidgets.org) framework provides a bridge to render Javascript visualizations; the [vegawidget](https://vegawidget.github.io/vegawidget) offers such a  bridge for Vega-Lite and Vega.
 
-Some words.
+The purpose of this tutorial is to introduce you to some of the concepts in Vega-Lite, and how to implement them from R using vegawidget. The remainder of this section is to introduce you to the charts you will create in this tutorial.
+
+We will build Vega-Lite specifications from R, by hand, using lists of lists. I recognize that this is probably not the optimal way to do things, but I don't know yet what that optimal way is. One alternative is to use the [altair](https://vegawidget.github.io/altair) package, which ports the Python [Altair](https://altair-viz.github.io) package.
+
+One thing to keep in mind if you are a user of **ggplot2**: your grammar-of-graphics knowledge will help you understand what is going on in Vega-Lite, but your knowledge of ggplot2 syntax may frustrate you as you learn the Vega-Lite syntax. As you will see, Vega-Lite approaches the grammar-of-graphics differently from ggplot2.
 
 ### Scatterplot
 
+This would not be an R tutorial without `mtcars`. Before showing the scatterplot, let's have a look at the data (I always find this helpful).
+
 ```{r}
-as_tibble(mtcars)
+glimpse(as_tibble(mtcars))
 ```
+
+A scatterplot shows each observation as a point, using **quantitative** variables on the $x$ any $y$ axes. Here, we are showing the weight and the miles-per-gallon on the axes. We are also showing the number of cylinders as a **nominal** variable, encoded as color.
 
 ```{r echo=FALSE}
 scatterplot <- 
@@ -48,9 +56,13 @@ scatterplot
 
 ### Bar chart
 
+This is a bit of fake toy-data I cooked up. As you can see, there is a `category` and a `number`:
+
 ```{r}
-data_category
+glimpse(data_category)
 ```
+
+A bar-chart gives us a bar for each observation, in this case, encoding a nominal variable on the $x$ axis, and a quantitative variable on the $y$ axis. 
 
 ```{r echo=FALSE}
 spec_bar <- 
@@ -66,8 +78,8 @@ bar_chart <-
   c(
     list(
       `$schema` = vega_schema(),
-      data = list(values = data_category)     
-    ),
+       data = list(values = data_category)
+    ),    
     spec_bar
   ) %>%
   as_vegaspec()
@@ -76,6 +88,8 @@ bar_chart
 ```
 
 ### Layered chart
+
+Just like in ggplot2, Vega-Lite allows us to layer charts. Here, we use the bar chart (adjusting the opacity) from before as the first layer. We make a second layer using a line to join the same observations.
 
 ```{r echo=FALSE}
 spec_bar_layer <- spec_bar
@@ -95,12 +109,17 @@ layer_chart <-
 layer_chart
 ```
 
+### Time-indexed chart, with aggregation
 
-### Time-indexed chart
+Here, we use some Seattle-weather data that we appropriated from [vega-datasets](https://github.com/vega/vega-datasets). We have daily weather observations from the beginning of 2012, through the end of 2015.
 
 ```{r}
-data_seattle_daily
+glimpse(data_seattle_daily)
 ```
+
+This chart shows the mean of the maximum-temperature for each month-of-the-year. We encode the month of the date, expressed as an **ordinal** variable, to the $x$ axis. We encode the mean of all the maximum-temperatures for that month, a quantitative variable, to the $y$ axis.
+
+When we make this chart in the exercises, we will discuss why we expressing the $x$ encoding as an ordinal variable, rather than as a **temporal** variable.
 
 ```{r echo=FALSE}
 spec_month <- 
@@ -110,12 +129,14 @@ spec_month <-
       x = list(
         field = "date",
         type = "ordinal",
-        timeUnit = "utcmonth"
+        timeUnit = "utcmonth",
+        title = "month(date)"
       ),
       y = list(
         field = "temp_max",
         type = "quantitative",
-        aggregate = "mean"
+        aggregate = "mean",
+        title = "mean(temp_max)"
       )
     )
   )
@@ -124,7 +145,7 @@ seattle_by_month <-
   c(
     list(
       `$schema` = vega_schema(),
-      data = list(values = data_seattle_daily)
+       data = list(values = data_seattle_daily)
     ),
     spec_month    
   ) %>%
@@ -135,13 +156,20 @@ seattle_by_month
 
 ### Faceted chart
 
+This is the same chart as above, but we now facet by row, according to the year of the observation.
+
 ```{r echo=FALSE}
 seattle_by_month_facet <- 
   list(
     `$schema` = vega_schema(),
     data = list(values = data_seattle_daily),
     facet = list(
-      row = list(field = "date", type = "ordinal", timeUnit = "utcyear")
+      row = list(
+        field = "date", 
+        type = "ordinal", 
+        timeUnit = "utcyear", 
+        title = "year(date)"
+      )
     ),
     spec = c(
       list(height = 100),
@@ -153,8 +181,11 @@ seattle_by_month_facet <-
 seattle_by_month_facet
 ```
 
-
 ### Repeated chart
+
+In addition to layering and facetting, Vega-Lite has another compositional operator, repeating. This is where we can specify a list of variables to use on a series of charts, an axis corresponding to that variable. 
+
+Here, we repeat `wt` and `hp` as the $x$-axis varaible, arranging in columns. 
 
 ```{r echo=FALSE}
 spec_repeat <- 
@@ -181,6 +212,8 @@ mtcars_by_var
 
 ### Interactive chart
 
+One of the exciting things that Vega-Lite offers is an interaction framework. Here, we add a selection brush to the "repeated" plot, then add some conditional logic to the encoding for opacity: more-opaque if selected, and less-opaque if not selected.
+
 ```{r echo=FALSE}
 selection_scatterplot <- list(brush_scatterplot = list(type = "interval"))
 
@@ -197,6 +230,7 @@ mtcars_interactive
 
 ### Tooltips
 
+Finally, at least for this tutorial, we look at how to customize tooltips.
 
 ```{r echo=FALSE}
 seattle_by_month_facet_tooltip <- seattle_by_month_facet
@@ -207,16 +241,16 @@ seattle_by_month_facet_tooltip$spec$encoding$tooltip <-
       field = "date", 
       type = "temporal", 
       timeUnit = "utcyearmonth",
-      title = "month",
+      title = "year-month(date)",
       format = "%Y-%m"
     ),
     list(
-        field = "temp_max",
-        type = "quantitative",
-        aggregate = "mean",
-        title = "mean(temp_max)",
-        format = ".1f"
-      )
+      field = "temp_max",
+      type = "quantitative",
+      aggregate = "mean",
+      title = "mean(temp_max)",
+      format = ".1f"
+    )
   )
 
 seattle_by_month_facet_tooltip

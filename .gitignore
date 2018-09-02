@@ -3,3 +3,5 @@
 .RData
 inst/do
 .V8history
+inst/tutorials/*/rsconnect
+inst/tutorials/*/*.html

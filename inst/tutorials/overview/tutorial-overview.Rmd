@@ -1,5 +1,5 @@
 ---
-title: Vegawidget
+title: vegawidget Overview
 author: "Ian Lyttle"
 output:
   learnr::tutorial:
@@ -9,24 +9,196 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library("learnr")
+library("tibble")
+library("listviewer")
 library("vegawidget")
 
 options(width = 100)
 knitr::opts_chunk$set(comment = "#>")
 ```
 
-## First section
+## Motivation
 
 This is an introduction to some of the features of the [vegawidget](https://vegawidget.github.io/vegawidget/) package.
 
 Some words.
 
-```{r spec_mtcars, exercise=TRUE}
-spec_mtcars
+### Scatterplot
+
+```{r echo=FALSE}
+scatterplot <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = mtcars),
+    mark = "point",
+    encoding = list(
+      x = list(field = "wt", type = "quantitative"),
+      y = list(field = "mpg", type = "quantitative"),
+      color = list(field = "cyl", type = "nominal")
+    )
+  ) %>%
+  as_vegaspec()
+
+scatterplot
 ```
 
-We can also examine a spec
+### Bar chart
 
-```{r }
-vw_examine(spec_mtcars)
+```{r echo=FALSE}
+spec_bar <- 
+  list(
+    mark = "bar",
+    encoding = list(
+      x = list(field = "category", type = "nominal"),
+      y = list(field = "number", type = "quantitative")
+    )    
+  )
+
+bar_chart <- 
+  c(
+    list(
+      `$schema` = vega_schema(),
+      data = list(values = data_category)     
+    ),
+    spec_bar
+  ) %>%
+  as_vegaspec()
+
+bar_chart
+```
+
+### Layered chart
+
+```{r echo=FALSE}
+spec_bar_layer <- spec_bar
+spec_bar_layer$encoding$opacity = list(value = 0.3)
+
+spec_line_layer <- spec_bar
+spec_line_layer$mark = "line"
+
+layer_chart <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = data_category),      
+    layer = list(spec_bar_layer, spec_line_layer)
+  ) %>%
+  as_vegaspec()
+
+layer_chart
+```
+
+
+### Time-indexed chart
+
+```{r echo=FALSE}
+spec_month <- 
+  list(
+    mark = "bar",
+    encoding = list(
+      x = list(
+        field = "date",
+        type = "ordinal",
+        timeUnit = "utcmonth"
+      ),
+      y = list(
+        field = "temp_max",
+        type = "quantitative",
+        aggregate = "mean"
+      )
+    )
+  )
+
+seattle_by_month <- 
+  c(
+    list(
+      `$schema` = vega_schema(),
+      data = list(values = data_seattle_daily)
+    ),
+    spec_month    
+  ) %>%
+  as_vegaspec()
+
+seattle_by_month
+```
+
+### Faceted chart
+
+```{r echo=FALSE}
+seattle_by_month_facet <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = data_seattle_daily),
+    facet = list(
+      row = list(field = "date", type = "ordinal", timeUnit = "utcyear")
+    ),
+    spec = c(
+      list(height = 100),
+      spec_month
+    )
+  ) %>%
+  as_vegaspec()
+
+seattle_by_month_facet
+```
+
+
+### Repeated chart
+
+```{r echo=FALSE}
+spec_repeat <- 
+  list(
+    mark = "point",
+    encoding = list(
+      x = list(field = list(`repeat` = "column"), type = "quantitative"),
+      y = list(field = "mpg", type = "quantitative"),
+      color = list(field = "cyl", type = "nominal")
+    )
+  )
+
+mtcars_by_var <-
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = mtcars),
+    `repeat` = list(column = list("wt", "hp")),
+    spec = spec_repeat
+  ) %>%
+  as_vegaspec()
+
+mtcars_by_var
+```
+
+### Interactive chart
+
+```{r echo=FALSE}
+selection_scatterplot <- list(brush_scatterplot = list(type = "interval"))
+
+mtcars_interactive <- mtcars_by_var
+
+mtcars_interactive$spec$selection <- selection_scatterplot
+mtcars_interactive$spec$encoding$opacity <- list(
+  condition = list(selection = "brush_scatterplot", value = 0.8),
+  value = 0.3
+)
+
+mtcars_interactive
+```
+
+### Tooltips
+
+
+```{r echo=FALSE}
+seattle_by_month_facet_tooltip <- seattle_by_month_facet
+
+seattle_by_month_facet_tooltip$spec$encoding$tooltip <-
+  list(
+    list(field = "date", type = "temporal", timeUnit = "utcyear"),
+    list(field = "date", type = "temporal", timeUnit = "utcmonth"),
+    list(
+        field = "temp_max",
+        type = "quantitative",
+        aggregate = "mean"
+      )
+  )
+
+seattle_by_month_facet_tooltip
 ```

@@ -25,6 +25,10 @@ Some words.
 
 ### Scatterplot
 
+```{r}
+as_tibble(mtcars)
+```
+
 ```{r echo=FALSE}
 scatterplot <- 
   list(
@@ -43,6 +47,10 @@ scatterplot
 ```
 
 ### Bar chart
+
+```{r}
+data_category
+```
 
 ```{r echo=FALSE}
 spec_bar <- 
@@ -89,6 +97,10 @@ layer_chart
 
 
 ### Time-indexed chart
+
+```{r}
+data_seattle_daily
+```
 
 ```{r echo=FALSE}
 spec_month <- 
@@ -191,12 +203,19 @@ seattle_by_month_facet_tooltip <- seattle_by_month_facet
 
 seattle_by_month_facet_tooltip$spec$encoding$tooltip <-
   list(
-    list(field = "date", type = "temporal", timeUnit = "utcyear"),
-    list(field = "date", type = "temporal", timeUnit = "utcmonth"),
+    list(
+      field = "date", 
+      type = "temporal", 
+      timeUnit = "utcyearmonth",
+      title = "month",
+      format = "%Y-%m"
+    ),
     list(
         field = "temp_max",
         type = "quantitative",
-        aggregate = "mean"
+        aggregate = "mean",
+        title = "mean(temp_max)",
+        format = ".1f"
       )
   )
 

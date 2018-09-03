@@ -123,7 +123,7 @@ Here, we use some Seattle-weather data that we appropriated from [vega-datasets]
 glimpse(data_seattle_daily)
 ```
 
-This chart shows the mean of the maximum-temperature for each month-of-the-year. We encode the month of the date, expressed as an **ordinal** variable, to the $x$ axis. We encode the mean of all the maximum-temperatures for that month, a quantitative variable, to the $y$ axis.
+This chart shows the mean of the maximum-temperature for each month-of-the-year. We encode the month of the date, expressed as an **ordinal** variable, to the $x$ axis. We encode the maximum of all the maximum-temperatures for that month, a quantitative variable, to the $y$ axis.
 
 When we make this chart in the exercises, we will discuss why we expressing the $x$ encoding as an ordinal variable, rather than as a **temporal** variable.
 
@@ -141,8 +141,8 @@ spec_month <-
       y = list(
         field = "temp_max",
         type = "quantitative",
-        aggregate = "mean",
-        title = "mean(temp_max)"
+        aggregate = "max",
+        title = "max(temp_max)"
       )
     )
   )
@@ -328,7 +328,11 @@ We will look more at how vegaspecs work in the exercises that follow.
 
 ## Bar chart
 
-With a bar chart, we consider a quantitative variable and a nominal (or ordinal variable).
+With a bar chart, we consider a quantitative variable and a nominal (or ordinal variable). Here's the example:
+
+```{r echo=FALSE}
+bar_chart
+```
 
 Here again is the toy dataset we used earlier to make the bar chart:
 
@@ -338,17 +342,17 @@ glimpse(data_category)
 
 ### Your turn
 
-Let's make a bar chart! In the template below:
+Let's make this bar chart! In the template below:
 
 - set the `value` for `data` to `data_category`
 - set the `mark` to `"bar"`
 - for the `x` `encoding`, set the `field` to `"category"` and the `type` to `"nominal"` 
 - for the `y` `encoding`, set the `field` to `"number"` and the `type` to `"quantitative"` 
-- at the end, set the function bring piped-to to `as_vegaspec()`
+- at the end, set the function being piped-to to `as_vegaspec()`
 
 Run the code; your chart should look like the chart above.
 
-```{r bar-chart-template, exercise=TRUE}
+```{r bar-chart-template, exercise=TRUE, exercise.lines=15}
 bar_chart <- 
   list(
     `$schema` = vega_schema(),
@@ -390,6 +394,12 @@ Unit specifications can be composed into compound specifications. Like ggplot2, 
 To create a layered chart, we make a `layer` element at the top-level of the specification. The `layer` element is an *unnamed* list where each element is a unit-specification; the order of the `layer` list is the order of the layers, from bottom to top.
 
 One feature shared by Vega-Lite and ggplot2 is the inheritance of plot specifiations. Anything specified at the top level of the spec is inherited in lower levels of the spec.
+
+Here's the example we will replicate:
+
+```{r echo=FALSE}
+layer_chart
+```
 
 ### Your turn
 
@@ -490,11 +500,86 @@ object    | `{"b": 23.4}` | named list     | `list(b = 23.4)`
 boolean   | `true`        | logical        | `TRUE`
 number    | `45.6`        | integer/double | `45.6`
 string    | `"happy"`     | character      | `"happy"`
-null      | `null`        | NULL           | `NULL`
+null      | `null`        | NULL/NA        | `NULL`
 
-This chart may be useful for when you see a Vega-Lite specification, using JSON, and you might like to imagine how to write it in terms of R lists. You will find examples of each of these types, except `null` in the `layered_chart` specification. 
+This chart may be useful for when you see a Vega-Lite specification, using JSON, and you might like to imagine how to write it in terms of R lists. You will find examples of each of these types, except `null` in the `layered_chart` specification. Also `null` may present a difficulty - because JSON does not have an `NA` type, from R both `NA` and `null` types are mapped to JSON `null`. Going from JSON to R, `null` will map to `NULL`.
 
 ## Time-indexed chart, with aggregation
+
+One of the neat features of Vega-Lite is the time-unit functions that can be built into the encodings.
+
+Let's have another look at the Seattle weather-data - these are observations from the beginning of 2012 through the end of 2015.
+
+```{r echo=FALSE}
+glimpse(data_seattle_daily)
+```
+
+Here's what our finished chart should look like:
+
+```{r}
+seattle_by_month
+```
+
+### Your turn
+
+In the template below:
+
+- add the `$schema` element
+- add the `data` element, using `data_seattle_daily`
+- set the value for `mark` (we are using `"bar"`)
+- for the `x` `encoding`:
+  - set the value for `field` (consult the data for a time-variable)
+  - set the `timeUnit` to `"utcmonth"`
+  - set the axis `title` to match the seample chart 
+- for the `y` `encoding`:
+  - set the value for `field` (consult the data for the variable for daily maximum-temperature)
+  - set the `type` accordingly
+  - set `aggregate` to `"max"`
+  - set the axis `title` to match the seample chart 
+  
+```{r by-month, exercise=TRUE, exercise.lines=25}
+month_chart <-
+  list(
+    ..., # `$schema` element
+    ..., # data element
+    mark = "...",
+    encoding = list(
+      x = list(
+        field = "...", 
+        type = "ordinal", 
+        timeUnit = "...",
+        title = "..."
+      ),
+      y = list(
+        field = "...",
+        type = "...",
+        aggregate = "...",
+        title = "..."
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+month_chart
+```
+
+### Discussion
+
+You may wonder why we specify `date` as an ordinal variable, rather than as a temporal variable. The reason is the that the `type` determines the default scales. Change the value of `type` to `"temporal"` to see how the x-scale changes. Change it back, if you like.
+
+The `timeUnit` element implies a transformation for each value of `date`. In this case, we are using the built-in transformation function `"utcmonth"`. As Vega-Lite parsed the input data, it parsed the `date` as UTC, because it is formatted using the [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) (you can verify this using `month_chart %>% vw_as_json() %>% vw_examine()`). The function `"utcmonth"` maps a temporal value to another, buy truncating to the month, then projecting that month into a "prototype" year, 1900. For example:
+
+`date`       | mapped value using `"utcmonth"`
+------------ | -----------
+`2012-11-06` | `1900-11-01`
+`2013-07-04` | `1900-07-01`
+`2015-10-14` | `1900-10-01`
+
+On the $x$ axis, instead of using values of `date`, we use the mapped values provided by `"utcmonth"`.
+
+As you can imagine, this means that we will have a lot of observations mapped to each of the months. This motivates us to aggregate the $y$ values; in this case we `aggreagte` using the built-in `"max"` function. 
+
+For more detail on how Vega-Lite's time-units and implied aggregations work, see this [Observable notebook](https://beta.observablehq.com/@ijlyttle/vega-lite-timeunit), and, of course, the [Vega-Lite](https://vega.github.io/vega-lite/docs/timeunit.html) reference on time units.
 
 ## Faceted chart
 

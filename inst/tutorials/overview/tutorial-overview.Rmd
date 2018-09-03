@@ -239,27 +239,40 @@ mtcars_interactive
 Finally, at least for this tutorial, we look at how to customize tooltips.
 
 ```{r echo=FALSE}
-seattle_by_month_facet_tooltip <- seattle_by_month_facet
+mtcars_with_names <- as_tibble(rownames_to_column(mtcars, var = "name"))
+```
 
-seattle_by_month_facet_tooltip$spec$encoding$tooltip <-
+```{r echo=FALSE}
+tooltip_chart <- 
   list(
-    list(
-      field = "date", 
-      type = "temporal", 
-      timeUnit = "utcyearmonth",
-      title = "year-month(date)",
-      format = "%Y-%m"
+    `$schema` = vega_schema(),
+    data = list(values = mtcars_with_names),
+    `repeat` = list(
+      column = list("wt", "hp")
     ),
-    list(
-      field = "temp_max",
-      type = "quantitative",
-      aggregate = "mean",
-      title = "mean(temp_max)",
-      format = ".1f"
+    spec = list(
+      selection = list(brush = list(type = "interval")),
+      mark = "point",
+      encoding = list(
+        x = list(field = list(`repeat` = "column"), type = "quantitative"),
+        y = list(field = "mpg", type = "quantitative"),
+        color = list(field = "cyl", type = "nominal"),
+        opacity = list(
+          condition = list(selection = "brush", value = 0.8),
+          value = 0.3
+        ),
+        tooltip = list(
+          list(field = "name", type = "nominal"),
+          list(field = "wt", type = "quantitative"),
+          list(field = "hp", type = "quantitative"),
+          list(field = "mpg", type = "quantitative")
+        )
+      )
     )
-  )
+  ) %>%
+  as_vegaspec()
 
-seattle_by_month_facet_tooltip
+tooltip_chart
 ```
 
 ## Scatterplot
@@ -583,10 +596,259 @@ For more detail on how Vega-Lite's time-units and implied aggregations work, see
 
 ## Faceted chart
 
+Just like ggplot2, Vega-Lite can make faceted charts. However, faceting is limited to rows and columns; Vega-Lite hopes to implement facet-wrapping soon.
+
+Let's remind ourselves of our sample chart:
+
+```{r}
+seattle_by_month_facet
+```
+
+### Your turn
+
+Using the template below:
+
+- set the name of the element in the `facet` element to `row`
+- within this newly-named `row` element:
+  - set the `field` to `"date"`
+  - set the `timeUnit` to `"utcyear"`
+  - set the `title` as you see in the sample
+- within the `spec` element, set the `height` to `100`
+
+```{r facet, exercise=TRUE, exercise.lines=35}
+facet_chart <-
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = data_seattle_daily),
+    facet = list(
+      ... = list(
+        field = "...", 
+        type = "ordinal", 
+        timeUnit = "...",
+        title = "..."
+      )
+    ),
+    spec = list(
+      height = ...,
+      mark = "bar",
+      encoding = list(
+        x = list(
+          field = "date", 
+          type = "ordinal", 
+          timeUnit = "utcmonth",
+          title = "month(date)"
+        ),
+        y = list(
+          field = "temp_max",
+          type = "quantitative",
+          aggregate = "max",
+          title = "max(temp_max)"
+        )
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+facet_chart
+```
+
+### Discussion
+
+In Vega-Lite, faceting is specified using a top-level element called `facet`, which itself can have elements called `row` and/or `column`. Each of these `row` and `column` elements themselves contain elements much like an `encoding`: elements like `field`, `type`, etc. 
+
+Within a facetted specification, there needs to be a `spec` element, which the faceting acts upon. Within this `sepc` element is a unit or layered specification. Keep in mind that you can facet a layered specification, but you **cannot** layer a faceted specification. This is because layered specifications can contain only unit specifications.
+
+Within the `facet` specification, `timeunit` makes another appearance. Here, we are creating another variable by mapping our `date` variable to the first instant of its UTC year. We can see a little bit "behind the scenes" by changing the formatting of the axis labels and the header labels:
+
+- to the `row` `facet` element, add an element `header` and set its value to `list(format = "%Y-%m-%d")`.
+- to the `x` `encoding` element, add an element `axis` and set its value, similarly, to `list(format = "%Y-%m-%d")`.
+
+Vega uses [d3-time-format](https://github.com/d3/d3-time-format#locale_format) to format its temporal variables.
+
 ## Repeated chart
+
+In addition to a faceting operator, Vega-Lite offers a repeat operator. For those of you familiar with Tidy Data, you can think of it like this: *faceting* operates on the values of a variable, in a tall data-frame; *repeating* operates on the columns of a wide data-frame.
+
+Let's consider our old friend, `mtcars`:
+
+```{r echo=FALSE}
+glimpse(as_tibble(mtcars))
+```
+
+Let's say we want to compare, side-by-side, the effect of `wt` on `mpg` with the effect of `hp` on `mpg`, as in this example:
+
+```{r}
+mtcars_by_var
+```
+
+### Your turn
+
+Using the template below:
+
+- complete the `data` element using `mtcars`
+- note that we need to enclose `repeat` in backticks for the `` `repeat` `` element, because `repeat` is a reserved word in R
+- set the `column` `` `repeat` `` element to an unnamed list containing `"wt"` and `"hp"`
+- within the `x` `encoding` of the `spec`, set the `field` to `` list(`repeat` = "column") ``
+
+```{r repeat_chart, exercise=TRUE, exercise.lines=20}
+repeat_chart <- 
+  list(
+    `$schema` = vega_schema(),
+    data = ...,
+    `repeat` = list(
+      column = ...
+    ),
+    spec = list(
+      mark = "point",
+      encoding = list(
+        x = list(field = ..., type = "quantitative"),
+        y = list(field = "mpg", type = "quantitative"),
+        color = list(field = "cyl", type = "nominal")
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+repeat_chart
+```
+
+### Discussion
+
+There is another composition operation you should be aware of, *concatenation*, which lets you compose different specifications into a single chart. For now, check out the [Vega-Lite documentation](https://vega.github.io/vega-lite/docs/concat.html).
 
 ## Interactive chart
 
+Until now, the capabilities we have seen are generally available in ggplot2, using a concise vocabulary you already know. The big *additional* capability that Vega-Lite offers is interaction.
+
+For now, let's take a very narrow view of interactivity as having two steps:
+
+1. How do we select those observations we wish to highlight?
+2. How do we highlight the selected observations in all the views?
+
+There is another question that I am interested to answer soon:
+
+- given that we have highlighted all our interesting observations, how do we extract that information from the visualization to be used elsewhere?
+
+Leaving that third question aside for the time-being, Vega-Lite offers us tools for the first two questions:
+
+1. We can specify an `"interval"` `selection`, which will draw a "little grey box" according to your clicking-and-dragging.
+2. We can specify an `encoding` with a `condition` based on our `selection`. 
+
+Here's the example we will build:
+
+```{r}
+mtcars_interactive
+```
+
+### Your turn
+
+This will be a two step process. In this case, I think it will be useful for you to be able to check your work as after each step, so I am using comments as the templating device; please remove the comment-characters accordingly:
+
+- within the `spec`, create a `selection` element; its value should be `list(brush = list(type = "interval"))`
+
+Run the code and make sure that when you click-and-drag on either of the views that a "little grey box" appears. Note that there is nothing special about the name `brush`; it is simply the name we use to identify *this* selection.
+
+- within the `spec`, create an `opacity` encoding; its value should be a list with two elements:
+  - an element `condition` with the value `list(selection = "brush", value = 0.8)`
+  - an element `value` with the value `0.3`
+  - (be sure to remove the comment-character at the end of the `color` element.)
+
+Run the code and make sure it behaves as the example above.
+
+```{r interactive_chart, exercise=TRUE, exercise.lines=25}
+repeat_chart <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = mtcars),
+    `repeat` = list(
+      column = list("wt", "hp")
+    ),
+    spec = list(
+      # selection = ...,
+      mark = "point",
+      encoding = list(
+        x = list(field = list(`repeat` = "column"), type = "quantitative"),
+        y = list(field = "mpg", type = "quantitative"),
+        color = list(field = "cyl", type = "nominal")#,
+        # opacity = list(
+        #  condition = ...,
+        #  value = ...
+        # )
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+repeat_chart
+```
+
+### Discussion
+
+This is just one small part of interactiviy. Reference page, discrete selections. Bound to scales. Bound to external controls.
+
 ## Tooltips
 
+Continuing with our `mtcars` example, it may be instructive to add customized tooltips. In Vega-Lite a tooltip is simply another encoding channel that is attached to a mark.
+
+The names of the cars in `mtcars` are contained in the row-names. To include them as a part of a dataset, we have to put them into a variable. Thus, we put them in the `name` variable, in a "new" dataset called `mtcars_with_names`:
+
+```{r}
+glimpse(mtcars_with_names)
+```
+
+Here's what the finished product should look like and behave like:
+
+```{r}
+tooltip_chart
+```
+
+### Your turn
+
+```{r tooltip_chart-setup, echo=FALSE}
+mtcars_with_names <- as_tibble(rownames_to_column(mtcars, var = "name"))
+```
+
+Starting with our working interactive-example as a template:
+
+- within the `spec`, in the `tooltip` `encoding`, set the `field` to `"name"` and set the type to `"nominal"`
+
+Run the code to make sure it works as you expect.
+
+- add tooltip elements for `hp`, `wt`, and `mpg` (keeping in mind that these are `"quantitative"` variables)
+
+```{r tooltip_chart, exercise=TRUE, exercise.lines=30}
+tooltip_chart <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = mtcars_with_names),
+    `repeat` = list(
+      column = list("wt", "hp")
+    ),
+    spec = list(
+      selection = list(brush = list(type = "interval")),
+      mark = "point",
+      encoding = list(
+        x = list(field = list(`repeat` = "column"), type = "quantitative"),
+        y = list(field = "mpg", type = "quantitative"),
+        color = list(field = "cyl", type = "nominal"),
+        opacity = list(
+          condition = list(selection = "brush", value = 0.8),
+          value = 0.3
+        ),
+        tooltip = list(
+          list(field = "...", type = "...")
+          # add more tooltip-elements here
+        )
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+tooltip_chart
+```
+
+Some warnings about aggregation and a reminder that a tooltip is an encoding.
+
 ## What next?
+
+Need to cover concatenated views. Types of selections. Refer to Vega-Lite paper, documentation. Altair package, altair and vegawidget packages. Maps.

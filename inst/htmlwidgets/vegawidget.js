@@ -11,7 +11,6 @@ HTMLWidgets.widget({
     var signal_listeners = {};
     var table_insert = {};
     var table_remove = {};
-    var table_update = {};
 
     return {
 
@@ -61,17 +60,6 @@ HTMLWidgets.widget({
               .runAsync();
           }
 
-          for (var update_name in table_update) {
-            console.log(table_update[update_name]);
-            result
-              .view
-              .change(update_name,
-                         vega.changeset()
-                         .remove(function() { return true })
-                         .insert(table_update[update_name]))
-              .runAsync();
-          }
-
         }).catch(console.error);
 
       },
@@ -87,9 +75,22 @@ HTMLWidgets.widget({
       callView: function(fn, params) {
         if (view !== null && view !== undefined){
           var method = view[fn];
+          console.log(params);
+
+          console.log(method);
           method.apply(view, params);
           view.run();
         }
+      },
+
+      changeView: function(params) {
+        let changeset = vega.changeset()
+                            .remove(() => {return true})
+                            .insert(params.data);
+        let args = [params.name, changeset];
+        console.log(changeset, args);
+        this.callView('change', args);
+
       },
 
       addEventListener: function(event_name, handler) {
@@ -120,10 +121,6 @@ HTMLWidgets.widget({
 
       remove: function(table_name, table_data) {
         table_remove[table_name] = table_data;
-      },
-
-      update: function(table_name, table_data) {
-        table_update[table_name] = HTMLWidgets.dataframeToD3(table_data);
       }
 
     };
@@ -154,7 +151,12 @@ Shiny.addCustomMessageHandler('callView', function(message){
     // get the correct HTMLWidget instance
     var htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
     if( typeof(htmlWidgetsObj) !== "undefined"){
-      htmlWidgetsObj.callView(message.fn, message.params);
+      if (message.fn === "change") {
+        htmlWidgetsObj.changeView(message.params);
+      } else {
+        htmlWidgetsObj.callView(message.fn, message.params);
+      }
+
     }
 
 });

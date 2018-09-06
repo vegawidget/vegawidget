@@ -5,6 +5,7 @@
 ^data-raw$
 ^\.travis\.yml$
 ^docs$
+^inst/tutorials/overview/rsconnect/*$
 ^pkgdown$
 ^vignettes/blocks\.Rmd$
 ^vignettes/first-example\.Rmd$

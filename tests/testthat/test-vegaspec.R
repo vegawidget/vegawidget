@@ -40,6 +40,21 @@ test_that("vw_as_json handles NULLS", {
 
 })
 
+test_that("vegaspec without $schema warns and adds element", {
+
+  spec_test <- list()
+
+  # warning
+  spec_ref <- expect_warning(as_vegaspec(spec_test))
+
+  # check result
+  expect_identical(
+    spec_ref,
+    as_vegaspec(list(`$schema` = vega_schema()))
+  )
+
+})
+
 
 
 

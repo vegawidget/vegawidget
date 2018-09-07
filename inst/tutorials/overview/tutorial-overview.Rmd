@@ -19,7 +19,7 @@ knitr::opts_chunk$set(comment = "#>")
 
 ## Introduction
 
-The [Vega-Lite](https://vega.github.io/vega-lite) JavaScript library offers grammar-of-graphics visualization, rendered in the browser, with interactivity. In R, the [htmlwidgets](https://www.htmlwidgets.org) framework provides a bridge to render Javascript visualizations; the [vegawidget](https://vegawidget.github.io/vegawidget) offers such a  bridge for Vega-Lite and Vega.
+The [Vega-Lite](https://vega.github.io/vega-lite) JavaScript library offers grammar-of-graphics visualization, rendered in the browser, with interactivity. In R, the [htmlwidgets](https://www.htmlwidgets.org) framework provides a bridge to render JavaScript visualizations; the [vegawidget](https://vegawidget.github.io/vegawidget) offers such a  bridge for Vega-Lite and Vega.
 
 The purpose of this tutorial is to introduce you to some of the concepts in Vega-Lite, and how to implement them from R using vegawidget. The remainder of this section is to introduce you to the charts you will create in this tutorial.
 
@@ -27,7 +27,7 @@ We will build Vega-Lite specifications from R, by hand, using lists of lists. I 
 
 One thing to keep in mind if you are a user of **ggplot2**: your grammar-of-graphics knowledge will help you understand what is going on in Vega-Lite, but your knowledge of ggplot2 syntax may frustrate you as you learn the Vega-Lite syntax. As you will see, Vega-Lite approaches the grammar-of-graphics differently from ggplot2.
 
-If you want to work with the vegawidget package on your own computer, it is not yet on CRAN. You can install it from GutHub, using **devtools**:
+If you want to work with the vegawidget package on your own computer, it is not yet on CRAN. You can install it from GitHub, using **devtools**:
 
 ```{r eval=FALSE}
 devtools::install_github("vegawidget/vegawidget")
@@ -189,9 +189,9 @@ seattle_by_month_facet
 
 ### Repeated chart
 
-In addition to layering and facetting, Vega-Lite has another compositional operator, repeating. This is where we can specify a list of variables to use on a series of charts, an axis corresponding to that variable. 
+In addition to layering and faceting, Vega-Lite has another composition operator, repeating. This is where we can specify a list of variables to use on a series of charts, an axis corresponding to that variable. 
 
-Here, we repeat `wt` and `hp` as the $x$-axis varaible, arranging in columns. 
+Here, we repeat `wt` and `hp` as the $x$-axis variable, arranging in columns. 
 
 ```{r echo=FALSE}
 spec_repeat <- 
@@ -383,7 +383,7 @@ bar_chart
 
 ### Discussion
 
-This might be a good time to refer you to this [paper introducing Vega-Lite](https://idl.cs.washington.edu/files/2017-VegaLite-InfoVis.pdf). One of the first concepts it covers is the **unit specification** of a single cartesian plot, which consists of:
+This might be a good time to refer you to this [paper introducing Vega-Lite](https://idl.cs.washington.edu/files/2017-VegaLite-InfoVis.pdf). One of the first concepts it covers is the **unit specification** of a single Cartesian plot, which consists of:
 
 - data
 - transforms (like ggplot2 stat)
@@ -406,7 +406,7 @@ Unit specifications can be composed into compound specifications. Like ggplot2, 
 
 To create a layered chart, we make a `layer` element at the top-level of the specification. The `layer` element is an *unnamed* list where each element is a unit-specification; the order of the `layer` list is the order of the layers, from bottom to top.
 
-One feature shared by Vega-Lite and ggplot2 is the inheritance of plot specifiations. Anything specified at the top level of the spec is inherited in lower levels of the spec.
+One feature shared by Vega-Lite and ggplot2 is the inheritance of plot specifications. Anything specified at the top level of the spec is inherited in lower levels of the spec.
 
 Here's the example we will replicate:
 
@@ -496,7 +496,7 @@ vw_examine(layered_chart)
 
 In its default mode, we see a representation of "lists of lists". By changing the mode of the viewer from **View** to **Code**, you can see a JSON representation.
 
-Note that in the JSON, we see the `data` `values` element is column-based (like an R data-frame), rather than row-based (as Vega would expect). This is because, normally, the data frame is not transposed until the vegaspec is rendered. The function that translates from the vegaspec list to JSON is `vw_as_json()`, which wraps `jsonlite::toJSON()` (setting some important paramaters).
+Note that in the JSON, we see the `data` `values` element is column-based (like an R data-frame), rather than row-based (as Vega would expect). This is because, normally, the data frame is not transposed until the vegaspec is rendered. The function that translates from the vegaspec list to JSON is `vw_as_json()`, which wraps `jsonlite::toJSON()` (setting some important parameters).
 
 In the code box above, try `vw_examine(vw_as_json(layered_chart))` to see the difference in the shape of the data. 
 
@@ -510,7 +510,7 @@ JSON type | JSON example  | R type         | R example
 --------- | ------------- | -------------- | ----------
 array     | `["a", 1]`    | unnamed list   | `list("a", 1L)`
 object    | `{"b": 23.4}` | named list     | `list(b = 23.4)`
-boolean   | `true`        | logical        | `TRUE`
+Boolean   | `true`        | logical        | `TRUE`
 number    | `45.6`        | integer/double | `45.6`
 string    | `"happy"`     | character      | `"happy"`
 null      | `null`        | NULL/NA        | `NULL`
@@ -543,12 +543,12 @@ In the template below:
 - for the `x` `encoding`:
   - set the value for `field` (consult the data for a time-variable)
   - set the `timeUnit` to `"utcmonth"`
-  - set the axis `title` to match the seample chart 
+  - set the axis `title` to match the sample chart 
 - for the `y` `encoding`:
   - set the value for `field` (consult the data for the variable for daily maximum-temperature)
   - set the `type` accordingly
   - set `aggregate` to `"max"`
-  - set the axis `title` to match the seample chart 
+  - set the axis `title` to match the sample chart 
   
 ```{r by-month, exercise=TRUE, exercise.lines=25}
 month_chart <-
@@ -656,7 +656,7 @@ facet_chart
 
 In Vega-Lite, faceting is specified using a top-level element called `facet`, which itself can have elements called `row` and/or `column`. Each of these `row` and `column` elements themselves contain elements much like an `encoding`: elements like `field`, `type`, etc. 
 
-Within a facetted specification, there needs to be a `spec` element, which the faceting acts upon. Within this `sepc` element is a unit or layered specification. Keep in mind that you can facet a layered specification, but you **cannot** layer a faceted specification. This is because layered specifications can contain only unit specifications.
+Within a faceted specification, there needs to be a `spec` element, which the faceting acts upon. Within this `sepc` element is a unit or layered specification. Keep in mind that you can facet a layered specification, but you **cannot** layer a faceted specification. This is because layered specifications can contain only unit specifications.
 
 Within the `facet` specification, `timeunit` makes another appearance. Here, we are creating another variable by mapping our `date` variable to the first instant of its UTC year. We can see a little bit "behind the scenes" by changing the formatting of the axis labels and the header labels:
 
@@ -784,7 +784,10 @@ repeat_chart
 
 ### Discussion
 
-This is just one small part of interactiviy. Reference page, discrete selections. Bound to scales. Bound to external controls.
+This is just one small part of interactivity, I would recommend that you check out the Vega-Lite [reference on selections](https://vega.github.io/vega-lite/docs/selection.html). There are some neat examples of different ways to use selections, for example:
+
+- [binding to scales](https://vega.github.io/vega-lite/docs/selection.html#scale-domains)
+- [binding to html controls](https://vega.github.io/vega-lite/docs/bind.html#input-element-binding)
 
 ## Tooltips
 
@@ -847,8 +850,28 @@ tooltip_chart <-
 tooltip_chart
 ```
 
-Some warnings about aggregation and a reminder that a tooltip is an encoding.
+When making an aggregation in an encoding that there is an implied "group-by" of all the other encoded fields. Keep in mind that anything you put in a tooltip is also an encoding, so if your tooltips are not consistent with your encodings, you way get some strange and hard-to-debug errors.
 
 ## What next?
 
-Need to cover concatenated views. Types of selections. Refer to Vega-Lite paper, documentation. Altair package, altair and vegawidget packages. Maps.
+This is only the beginning of what is possible in Vega-Lite. Going forward, I would recommend these resources:
+
+- [Vega-Lite webpage](https://vega.github.io/vega-lite/)
+- [Vega-Lite InfoVis preprint](https://idl.cs.washington.edu/papers/vega-lite)
+
+For the vegawidget package:
+
+- [vegawidget pkgdown site](https://vegawidget.github.io/vegawidget)
+
+The Altair (Python) project provides a structured framework of functions to build Vega-Lite specifications:
+
+- [Altair website](https://altair-viz.github.io/)
+- [altair, R port of Altair](https://vegawidget.github.io/altair)
+
+Within Vega-Lite, these are some topics I did not cover in this tutorial (but would like to):
+
+- [Boxplots](https://vega.github.io/vega-lite/docs/boxplot.html)
+- [Concatenated views](https://vega.github.io/vega-lite/docs/concat.html)
+- [More on selections](https://vega.github.io/vega-lite/docs/selection.html)
+- [Geoshapes](https://vega.github.io/vega-lite/docs/geoshape.html)
+

@@ -13,116 +13,76 @@ knitr::opts_chunk$set(
 
 ```{r}
 library("vegawidget")
-library("magrittr")
-library("tibble")
-library("readr")
-library("purrr")
 ```
 
-Let's write a vega-lite spec!
+In this vignette, we will go over a straightforward vegaspec: first as an overview, then examine each of its components, then highlight the mechanisms in this package we use to make the rendering. 
 
-Here's a JSON spec
+Here is our sample chart:
 
-```
-{
-  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-  "description": "A simple bar chart with embedded data.",
-  "width": 300,
-  "height": 300,
-  "data": {
-    "values": [
-      {"a": "A","b": 28}, {"a": "B","b": 55}, {"a": "C","b": 43},
-      {"a": "D","b": 91}, {"a": "E","b": 81}, {"a": "F","b": 53},
-      {"a": "G","b": 19}, {"a": "H","b": 87}, {"a": "I","b": 52}
-    ]
-  },
-  "mark": "bar",
-  "encoding": {
-    "x": {"field": "a", "type": "ordinal"},
-    "y": {"field": "b", "type": "quantitative"}
-  }
-}
-```
-
-```{r}
-data_values <-
-  list(
-    list(a = "A", b = 28),
-    list(a = "B", b = 55),
-    list(a = "C", b = 43),
-    list(a = "D", b = 91),
-    list(a = "E", b = 81),
-    list(a = "F", b = 53),
-    list(a = "G", b = 19),
-    list(a = "H", b = 87),
-    list(a = "I", b = 52)
-  )
-
-data <- 
-  data.frame(
-    a = c("A", "B", "C", "D", "E", "F", "G", "H", "I"),
-    b = c(28, 55, 43, 91, 81, 53, 19, 87, 52),
-    stringsAsFactors = FALSE
-  )
-
+```{r echo=FALSE, comment = ""}
 spec <- 
   list(
     `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
     description = "A simple bar chart with embedded data.",
-    data = list(values = data_values),
+    data = list(values = data_category),
     mark = "bar",
     encoding = list(
-      x = list(field = "a", type = "ordinal"),
-      y = list(field = "b", type = "quantitative")
+      x = list(field = "category", type = "ordinal"),
+      y = list(field = "number", type = "quantitative")
     )
-  )
-
-vegawidget::vegawidget(spec)
+  ) %>%
+  as_vegaspec()
 ```
 
+```{r echo=FALSE}
+spec
+```
+
+To see the JSON behind it, you can hover over the circle near the top-left of the chart and "Open in Vega Editor". As well, you can expand the section below: 
+
+<details>
+<summary>Open to see JSON</summary>
+```{r echo=FALSE, comment = ""}
+cat(format(vw_as_json(spec)))
+```
+</details>
+
+----
+
+We can build a vegaspec using lists; here's how we could build the sample chart:
+
 ```{r}
-spec_named <- 
+spec <- 
   list(
-    `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
-    description = "A simple bar chart with embedded data.",
-    datasets = 
-      list(
-        sample = data_values
-      ),
-    data = list(name = "sample"),
+    `$schema` = vega_schema(),
+    data = list(values = data_category),
     mark = "bar",
     encoding = list(
-      x = list(field = "a", type = "ordinal"),
-      y = list(field = "b", type = "quantitative")
+      x = list(field = "category", type = "ordinal"),
+      y = list(field = "number", type = "quantitative")
     )
-  )
-
-vegawidget::vegawidget(spec_named)
+  ) %>%
+  as_vegaspec()  
 ```
 
-Let's try to modify a spec that we create using a data-frame:
+The first element, `` `$schema` ``,  helps the Vega-rendering system recognize what kind of specification this is: is it for Vega or Vega-Lite? We can use the function `vega_schema()`; its default-behavior is to return a string to indicate that we are using Vega-Lite.
+
+The next element is used to specify the `data`. Although it may seem more-intuitive simply to specify this as a data-frame, [Vega-Lite also lets you specify](https://vega.github.io/vega-lite/docs/data.html) `data` using named-datasets, and URLs. We use the `values` element to signify that the data is provided in-line. The dataset, `data_category`, is included as a sample dataset with this package.
+
+There is an element to specify the `mark`; in our case, each observation will appear as a `"bar"` on the chart. The available marks are detailed in the [Vega-Lite documentation](https://vega.github.io/vega-lite/docs/mark.html).
+
+Finally, there is an element to specify each `encoding`. For each of the `x` and `y` encodings, the `field` and `type` are specified. The field is the name of the variable (column) in the `data`; the type is generally one of `"quantitative"`, `"nominal"`, `"ordinal"`, or `"temporal"`. Vega-Lite uses the `type` to use sensible defaults for axis- and label-formatting. As you might expect, more details are available at the [Vega-Lite documentation](https://vega.github.io/vega-lite/docs/encoding.html).
+
+This list is piped to `as_vegaspec()`, which adds class-attributes to the `list`, letting us print and render in a much-less less-cumbersome way:
 
 ```{r}
-spec_data_frame <- spec
-
-spec_data_frame$data <- list(values = data)
-
-vegawidget::vegawidget(spec_data_frame)
+spec
 ```
 
-```{r}
-spec_mtcars <-
-  list(
-    `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
-    description = "An mtcars example.",
-    data = list(values = mtcars),
-    mark = "point",
-    encoding = list(
-      x = list(field = "wt", type = "quantitative"),
-      y = list(field = "mpg", type = "quantitative"),
-      color = list(field = "cyl", type = "nominal")
-    )
-  )  
+Behind the scenes, the print method does two things:
 
-vegawidget(spec_mtcars)
-```
+- it converts the list to JSON, using `vw_as_json()`
+- it renders the htmlwidget using `vegawidget()`
+
+This gives a very quick overview; for more details, please see the [vegaspec article](vegaspec.html) (focusing on the specification) and the [vegawidget article](vegawidget.html) (focusing on the rendering).
+

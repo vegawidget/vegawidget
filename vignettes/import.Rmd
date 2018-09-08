@@ -16,4 +16,44 @@ Call `use_vegawidget()`, it will:
 
 You need to adapt one thing, then everything else "just works".
 
+```{r s3}
+spec_mtcars_s3 <- structure(
+  spec_mtcars,
+  class = c("my_class_name")
+)
 
+class(spec_mtcars_s3)
+```
+
+To take full advantage of these rendering functions, we have to define a method, `as_vegaspec()` for this class, and also define `print()` and `knit_print()` methods.
+
+```{r methods}
+as_vegaspec.my_class_name <- function(spec, ...) {
+  
+  # reverts to list
+  spec <- unclass(spec)
+
+  # as_vegaspec has a list method
+  vegawidget::as_vegaspec(spec, ...)
+}
+
+print.my_class_name <- function(x, ...) {
+  
+  x <- vegawidget::as_vegaspec(x)
+  
+  print(x, ...)
+}
+
+knit_print.my_class_name <- function(x, ..., options = NULL){
+  
+  x <- vegawidget::as_vegaspec(x)
+
+  knitr::knit_print(x, ..., options = options)
+}
+```
+
+With these defined, you can render your specification by printing:
+
+```{r}
+spec_mtcars_s3
+```

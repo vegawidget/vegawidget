@@ -296,8 +296,8 @@ To compose a Vega-Lite chart using vegawidget, we will build a series of nested 
 Using the provided template to fill in the `"..."`:
 
 - set the `mark` to `"point"`
-- set the `x` `encoding` such that the `field` is `"wt"` and the `type` is `"quatitative"`
-- set the `y` `encoding` such that the `field` is `"mpg"` and the `type` is `"quatitative"`
+- set the `x` `encoding` such that the `field` is `"wt"` and the `type` is `"quantitative"`
+- set the `y` `encoding` such that the `field` is `"mpg"` and the `type` is `"quantitative"`
 - set the `color` `encoding` such that the `field` is `"cyl"` and the `type` is `"nominal"`
 
 Run the code to check your results.

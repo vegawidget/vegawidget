@@ -4,9 +4,18 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 ---
 
-The central object of this package is a vegaspec, short for "Vega specification". In our context, this refers to either a Vega or Vega-Lite specification.
+The central object of this package is a vegaspec, short for "Vega specification". This can refer to either a Vega or Vega-Lite specification; in our examples, we work almost exclusively with Vega-Lite.
 
-TODO - draw the subject threads together into an introduction.
+This article will showcase functions that:
+
+- build a vegaspec: `as_vegaspec()`
+- examine a vegaspec: `vw_examine()`
+- print vegaspecs: `print()` and `knit_print()` methods
+- convert a vegaspec to JSON: `vw_as_json()`
+- resize a vegaspec: `vw_autosize()`
+- complie a Vega-Lite spec to Vega: `vw_to_vega()`
+
+The article ends with some "gotchas" (please contribute more as you find them).
 
 ## Vegaspec
 
@@ -17,19 +26,17 @@ Vega and Vega-Lite expect JSON. However, within R, it is easier to work with lis
 ```{r}
 library("vegawidget")
 
-list_anscombe_1 <- list(
-  `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
-  data = list(values = anscombe),
-  mark = "point",
-  encoding = list(
-    x = list(field = "x1", type = "quantitative"),
-    y = list(field = "y1", type = "quantitative")
-  )
-) 
-
-spec_anscombe_1 <- as_vegaspec(list_anscombe_1)
-
-spec_anscombe_1
+list_anscombe_1 <- 
+  list(
+    `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
+    data = list(values = anscombe),
+    mark = "point",
+    encoding = list(
+      x = list(field = "x1", type = "quantitative"),
+      y = list(field = "y1", type = "quantitative")
+    )
+  ) %>%
+  as_vegaspec()
 ```
 
 Accordingly, the `vegaspec` S3 class inherits from `list`.
@@ -108,7 +115,7 @@ spec_anscombe_autosize
 
 In this context, the `width` and `height` are defined as the dimensions of the entire plot including axes, labels, padding, etc.
 
-There are limitations to autosizing; the most prominent is that specifying width and height is [effective only for single-view and layered specifications](https://vega.github.io/vega-lite/docs/size.html#limitations). It will not work for specifications with multiple views (e.g. `hconcat`, `vconcat`, `facet`, `repeat`); this will issue a warning that there will be no effect on the specification when rendered.
+There are limitations to autosizing; the most prominent is that specifying width and height is [effective only for single-view and layered specifications](https://vega.github.io/vega-lite/docs/size.html#limitations). It will not work for specifications with multiple views (e.g. `hconcat`, `vconcat`, `facet`, `` `repeat` ``); this will issue a warning that there will be no effect on the specification when rendered.
 
 For more information, see the Vega-Lite documentation on [sizing](https://vega.github.io/vega-lite/docs/size.html#limitations).
 

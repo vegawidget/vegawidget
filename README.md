@@ -12,7 +12,10 @@ status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project
 The goal of vegawidget is to render Vega-Lite and Vega specifications
 into htmlwidgets. Its ambition is to be a low-level interface to the
 Vega(-Lite) API, such that other packages can build upon it to offer
-higher-level functions to compose Vega(-Lite) specifications.
+higher-level functions to compose Vega(-Lite) specifications. This is
+the key difference with the
+[vegalite](https://github.com/hrbrmstr/vegalite) package; this package
+provides a minimal interface with Vega-Lite.
 
 ## Installation
 
@@ -104,3 +107,24 @@ Accordingly, this package offers a templating function,
 package. This function is used to [import and re-export vegawidget
 functions](https://github.com/vegawidget/altair/blob/master/R/utils-vegawidget.R)
 for the [altair](https://vegawidget.github.io/altair) package.
+
+## Acknowlegdements
+
+  - [Alicia Schep](https://github.com/AliciaSchep) has been instrumental
+    in guiding the evolution of the API.
+  - [Bob Rudis](https://github.com/hrbrmstr) and the
+    [vegalite](https://github.com/hrbrmstr/vegalite) package provided a
+    lot of the inspiration for this work, providing a high-level
+    interface to Vega-Lite.
+  - The [Altair](https://altair-viz.github.io) developers, for further
+    popularizing the notion of using a programming language (Python) to
+    create and render Vega-Lite specifications.  
+  - The [Vega-Lite](https://vega.github.io/vega-lite/) developers, for
+    providing a foundation upon which the rest of this is built.
+
+## Contributing
+
+Contributions are welcome, please see this [guide](CONTRIBUTING.md).
+Please note that this project is released with a [Contributor Code of
+Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree
+to abide by its terms.

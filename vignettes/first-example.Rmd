@@ -82,7 +82,7 @@ spec
 Behind the scenes, the print method does two things:
 
 - it converts the list to JSON, using `vw_as_json()`
-- it renders the htmlwidget using `vegawidget()`
+- it renders the JSON to an htmlwidget, using `vegawidget()`
 
 This gives a very quick overview; for more details, please see the [vegaspec article](vegaspec.html) (focusing on the specification) and the [vegawidget article](vegawidget.html) (focusing on the rendering).
 

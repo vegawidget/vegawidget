@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 # vegawidget
 
-The goal of vegawidget is to render Vega-Lite and Vega specifications into htmlwidgets. Its ambition is to be a low-level interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications.
+The goal of vegawidget is to render Vega-Lite and Vega specifications into htmlwidgets. Its ambition is to be a low-level interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications. This is the key difference with the [vegalite](https://github.com/hrbrmstr/vegalite) package; this package provides a minimal interface with Vega-Lite. 
 
 ## Installation
 
@@ -85,7 +85,18 @@ This package provides functions to render Vega(-Lite) specifications; although i
 
 Accordingly, this package offers a templating function, `use_vegawidget()`, to help you integrate vegawidget functions into your package. This function is used to [import and re-export vegawidget functions](https://github.com/vegawidget/altair/blob/master/R/utils-vegawidget.R) for the [altair](https://vegawidget.github.io/altair) package.
  
+## Acknowlegdements
 
+- [Alicia Schep](https://github.com/AliciaSchep) has been instrumental in guiding the API
+- [Bob Rudis](https://github.com/hrbrmstr) and the [vegalite](https://github.com/hrbrmstr/vegalite) package provided a lot of the initial inspiration
 
+- vegalite package
+- Altair
+- Vega-Lite
+
+## Contributing
+
+Contributions are welcome, please see this [guide](CONTRIBUTING.md).
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
 

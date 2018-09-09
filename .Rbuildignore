@@ -19,3 +19,4 @@
 ^vignettes/visual-regression-.*\.png$
 ^vignettes/visual-regression-.*\.svg$
 ^\.V8history$
+^CODE_OF_CONDUCT\.md$

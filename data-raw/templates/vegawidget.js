@@ -44,17 +44,18 @@ HTMLWidgets.widget({
 
 
 // Helper function to get view object via the htmlWidgets object
-function getVegaView(selector){
+function getVegaView(selector) {
 
   // Get the HTMLWidgets object
   var htmlWidgetsObj = HTMLWidgets.find(selector);
 
-  console.log(htmlWidgetsObj);
+  //console.log(htmlWidgetsObj);
   var view_obj = null;
 
   if (typeof(htmlWidgetsObj) !== "undefined"){
     view_obj = htmlWidgetsObj.getView();
   }
 
+  //console.log(view_obj);
   return(view_obj);
 }

@@ -15,11 +15,11 @@ Vega(-Lite) API, such that other packages can build upon it to offer
 higher-level functions to compose Vega(-Lite) specifications. This is
 the key difference with the
 [vegalite](https://github.com/hrbrmstr/vegalite) package; this package
-provides a minimal interface with Vega-Lite.
+provides a but minimal interface to Vega-Lite.
 
 ## Installation
 
-You can install vegawidget from github with:
+You can install vegawidget from GitHub with:
 
 ``` r
 # install.packages("devtools")

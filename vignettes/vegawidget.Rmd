@@ -4,11 +4,13 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 ---
 
-The central *side-effect* of this package is to render a `vegawidget`, which is also an `htmlwidget`. A `vegawidget` is built using a `vegaspec`. A helper function is provided for [vega-embed](https://github.com/vega/vega-embed) options. These options can be specified as an argument to the `vegawidget()` function, or as an R option, `vega.embed`. The R options `vega,embed`, `vega.height`, and `vega.width` can be useful when printing or creating an image from a spec. 
+The central *side-effect* of this package is to render a *vegawidget*, which is also an htmlwidget. A vegawidget is built by the `vegawidget()` function, using a `vegaspec`. 
+
+The `vegawidget()` function lets you call is provided for [vega-embed](https://github.com/vega/vega-embed) options. These options can be specified as an argument to the `vegawidget()` function, or as an R option, `vega.embed`. The R options `vega,embed`, `vega.height`, and `vega.width` can be useful when printing or creating an image from a spec. 
 
 If the [**webshot**](https://CRAN.R-project.org/package=webshot) package and PhantomJS are installed, knitting to a non-html format should "just work".
 
-## Vegawidget
+## Using `vegawidget()` arguments
 
 When you print a `vegaspec`, its print method calls `vegawidget()`.
 
@@ -44,7 +46,7 @@ vegawidget(spec_mtcars, width = 300, height = 300)
 Here, the `width` and `height` refer to the overall dimensions of the rendered vegaspec.
 Please see the [vegaspec article](vegaspec.html) for more details on how sizing works.
 
-## Printing
+## Using knitr chunk-options
 
 In the previous section, you saw how to specify the rendering options using the `vegawidget()` function explicitly. You may wish to set the options implicitly: you can do so using the R options `vega.embed`, `vega.width`, and `vega.height`.
 
@@ -66,5 +68,100 @@ spec_mtcars
 spec_mtcars
 ```
 
-TODO: Talk about ther ways to set options.
+## Extending using JavaScript
+
+Here, we recreate this Vega-Lite [streaming tutorial](https://vega.github.io/vega-lite/tutorials/streaming.html).
+
+```{r}
+spec_table <-
+  list(
+    `$schema` = vega_schema(),
+    width = 400,
+    data = list(name = "table"),
+    mark = "line",
+    encoding = list(
+      x = list(
+        field = "x", 
+        type = "quantitative",
+        scale = list(zero =  FALSE)
+      ),
+      y = list(field = "y", type = "quantitative"),
+      color = list(field = "category", type = "nominal")
+    )
+  ) %>%
+  as_vegaspec()
+```
+
+The `elementId` argument is passed on to `htmlwidget::createWidget()`. 
+
+```{r}
+vegawidget(spec_table, elementId = "streaming-demo")
+```
+
+```{js}
+function getVegaViewTimeout(selector, timeout = 10) {
+
+  var functionGetVegaViewTimeout = function() {
+
+    var view = getVegaView(selector);
+
+    timeout = timeout * 2;
+
+    if (view === null) {
+      console.log(
+        "Could not find vega view at '" +  selector + "'. " +
+        "Waiting " + timeout + " ms to try again."
+      );
+      view = setTimeout(functionGetVegaViewTimeout, timeout);
+    } 
+  
+    return view;
+  
+  }
+
+  return functionGetVegaViewTimeout();
+}
+
+var demo_view = getVegaViewTimeout('#streaming-demo');
+```
+
+```{js}
+/**
+ * Generates a new tuple with random walk.
+ */
+function newGenerator() {
+    var counter = -1;
+    var previousY = [5, 5, 5, 5];
+    return function () {
+        counter++;
+        var newVals = previousY.map(function (v, c) { return ({
+            x: counter,
+            y: v + Math.round(Math.random() * 10 - c * 3),
+            category: c
+        }); });
+        previousY = newVals.map(function (v) { return v.y; });
+        return newVals;
+    };
+}
+
+var valueGenerator = newGenerator();
+var minimumX = -100;
+window.setInterval(
+  function () {
+
+   var demo_view = getVegaViewTimeout('#streaming-demo', 100);
+
+    minimumX++;
+    
+    var changeSet = 
+      vega.
+      changeset().
+      insert(valueGenerator()).
+      remove(function (t) { return t.x < minimumX; });
+        
+    demo_view.change('table', changeSet).run();
+  }, 
+  1000
+);
+```
 

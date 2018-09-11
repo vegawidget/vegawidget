@@ -99,7 +99,7 @@ vegawidget(spec_table, elementId = "streaming-demo")
 ```
 
 ```{js}
-$(window).on('load', function() {
+HTMLWidgets.addPostRenderHandler(function() {
 
   getVegaView('#streaming-demo')
     .then(function(view) {
@@ -131,8 +131,6 @@ $(window).on('load', function() {
     });
 
 });
-
-
 ```
 
 

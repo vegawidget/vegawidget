@@ -1,0 +1,877 @@
+---
+title: vegawidget Overview
+author: "Ian Lyttle"
+output:
+  learnr::tutorial:
+    df_print: tibble
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library("learnr")
+library("tibble")
+library("listviewer")
+library("vegawidget")
+
+options(width = 100)
+knitr::opts_chunk$set(comment = "#>")
+```
+
+## Introduction
+
+The [Vega-Lite](https://vega.github.io/vega-lite) JavaScript library offers grammar-of-graphics visualization, rendered in the browser, with interactivity. In R, the [htmlwidgets](https://www.htmlwidgets.org) framework provides a bridge to render JavaScript visualizations; the [vegawidget](https://vegawidget.github.io/vegawidget) offers such a  bridge for Vega-Lite and Vega.
+
+The purpose of this tutorial is to introduce you to some of the concepts in Vega-Lite, and how to implement them from R using vegawidget. The remainder of this section is to introduce you to the charts you will create in this tutorial.
+
+We will build Vega-Lite specifications from R, by hand, using lists of lists. I recognize that this is probably not the optimal way to do things, but I don't know yet what that optimal way is. One alternative is to use the [altair](https://vegawidget.github.io/altair) package, which ports the Python [Altair](https://altair-viz.github.io) package.
+
+One thing to keep in mind if you are a user of **ggplot2**: your grammar-of-graphics knowledge will help you understand what is going on in Vega-Lite, but your knowledge of ggplot2 syntax may frustrate you as you learn the Vega-Lite syntax. As you will see, Vega-Lite approaches the grammar-of-graphics differently from ggplot2.
+
+If you want to work with the vegawidget package on your own computer, it is not yet on CRAN. You can install it from GitHub, using **devtools**:
+
+```{r eval=FALSE}
+devtools::install_github("vegawidget/vegawidget")
+```
+
+### Scatterplot
+
+This would not be a proper R tutorial without `mtcars`. Before showing the scatterplot, let's have a look at the data (I always find this helpful).
+
+```{r}
+glimpse(as_tibble(mtcars))
+```
+
+A scatterplot shows each observation as a point, using **quantitative** variables on the $x$ any $y$ axes. Here, we are showing the weight and the miles-per-gallon on the axes. We are also showing the number of cylinders as a **nominal** variable, encoded as color.
+
+```{r echo=FALSE}
+scatterplot <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = mtcars),
+    mark = "point",
+    encoding = list(
+      x = list(field = "wt", type = "quantitative"),
+      y = list(field = "mpg", type = "quantitative"),
+      color = list(field = "cyl", type = "nominal")
+    )
+  ) %>%
+  as_vegaspec()
+
+scatterplot
+```
+
+### Bar chart
+
+This is a bit of fake toy-data I cooked up. As you can see, there is a `category` and a `number`:
+
+```{r}
+glimpse(data_category)
+```
+
+A bar-chart gives us a bar for each observation, in this case, encoding a nominal variable on the $x$ axis, and a quantitative variable on the $y$ axis. 
+
+```{r echo=FALSE}
+spec_bar <- 
+  list(
+    mark = "bar",
+    encoding = list(
+      x = list(field = "category", type = "nominal"),
+      y = list(field = "number", type = "quantitative")
+    )    
+  )
+
+bar_chart <- 
+  c(
+    list(
+      `$schema` = vega_schema(),
+       data = list(values = data_category)
+    ),    
+    spec_bar
+  ) %>%
+  as_vegaspec()
+
+bar_chart
+```
+
+### Layered chart
+
+Just like in ggplot2, Vega-Lite allows us to layer charts. Here, we use the bar chart (adjusting the opacity) from before as the first layer. We make a second layer using a line to join the same observations.
+
+```{r echo=FALSE}
+spec_bar_layer <- spec_bar
+spec_bar_layer$encoding$opacity = list(value = 0.3)
+
+spec_line_layer <- spec_bar
+spec_line_layer$mark = "line"
+
+layer_chart <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = data_category),      
+    layer = list(spec_bar_layer, spec_line_layer)
+  ) %>%
+  as_vegaspec()
+
+layer_chart
+```
+
+### Time-indexed chart, with aggregation
+
+Here, we use some Seattle-weather data that we appropriated from [vega-datasets](https://github.com/vega/vega-datasets). We have daily weather observations from the beginning of 2012, through the end of 2015.
+
+```{r}
+glimpse(data_seattle_daily)
+```
+
+This chart shows the mean of the maximum-temperature for each month-of-the-year. We encode the month of the date, expressed as an **ordinal** variable, to the $x$ axis. We encode the maximum of all the maximum-temperatures for that month, a quantitative variable, to the $y$ axis.
+
+When we make this chart in the exercises, we will discuss why we expressing the $x$ encoding as an ordinal variable, rather than as a **temporal** variable.
+
+```{r echo=FALSE}
+spec_month <- 
+  list(
+    mark = "bar",
+    encoding = list(
+      x = list(
+        field = "date",
+        type = "ordinal",
+        timeUnit = "utcmonth",
+        title = "month(date)"
+      ),
+      y = list(
+        field = "temp_max",
+        type = "quantitative",
+        aggregate = "max",
+        title = "max(temp_max)"
+      )
+    )
+  )
+
+seattle_by_month <- 
+  c(
+    list(
+      `$schema` = vega_schema(),
+       data = list(values = data_seattle_daily)
+    ),
+    spec_month    
+  ) %>%
+  as_vegaspec()
+
+seattle_by_month
+```
+
+### Faceted chart
+
+This is the same chart as above, but we now facet by row, according to the year of the observation.
+
+```{r echo=FALSE}
+seattle_by_month_facet <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = data_seattle_daily),
+    facet = list(
+      row = list(
+        field = "date", 
+        type = "ordinal", 
+        timeUnit = "utcyear", 
+        title = "year(date)"
+      )
+    ),
+    spec = c(
+      list(height = 100),
+      spec_month
+    )
+  ) %>%
+  as_vegaspec()
+
+seattle_by_month_facet
+```
+
+### Repeated chart
+
+In addition to layering and faceting, Vega-Lite has another composition operator, repeating. This is where we can specify a list of variables to use on a series of charts, an axis corresponding to that variable. 
+
+Here, we repeat `wt` and `hp` as the $x$-axis variable, arranging in columns. 
+
+```{r echo=FALSE}
+spec_repeat <- 
+  list(
+    mark = "point",
+    encoding = list(
+      x = list(field = list(`repeat` = "column"), type = "quantitative"),
+      y = list(field = "mpg", type = "quantitative"),
+      color = list(field = "cyl", type = "nominal")
+    )
+  )
+
+mtcars_by_var <-
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = mtcars),
+    `repeat` = list(column = list("wt", "hp")),
+    spec = spec_repeat
+  ) %>%
+  as_vegaspec()
+
+mtcars_by_var
+```
+
+### Interactive chart
+
+One of the exciting things that Vega-Lite offers is an interaction framework. Here, we add a selection brush to the "repeated" plot; click-and-drag on either sub-chart. Then, we add some conditional logic to the encoding for opacity: more-opaque if selected, and less-opaque if not selected.
+
+```{r echo=FALSE}
+selection_scatterplot <- list(brush_scatterplot = list(type = "interval"))
+
+mtcars_interactive <- mtcars_by_var
+
+mtcars_interactive$spec$selection <- selection_scatterplot
+mtcars_interactive$spec$encoding$opacity <- list(
+  condition = list(selection = "brush_scatterplot", value = 0.8),
+  value = 0.3
+)
+
+mtcars_interactive
+```
+
+### Tooltips
+
+Finally, at least for this tutorial, we look at how to customize tooltips.
+
+```{r echo=FALSE}
+mtcars_with_names <- as_tibble(rownames_to_column(mtcars, var = "name"))
+```
+
+```{r echo=FALSE}
+tooltip_chart <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = mtcars_with_names),
+    `repeat` = list(
+      column = list("wt", "hp")
+    ),
+    spec = list(
+      selection = list(brush = list(type = "interval")),
+      mark = "point",
+      encoding = list(
+        x = list(field = list(`repeat` = "column"), type = "quantitative"),
+        y = list(field = "mpg", type = "quantitative"),
+        color = list(field = "cyl", type = "nominal"),
+        opacity = list(
+          condition = list(selection = "brush", value = 0.8),
+          value = 0.3
+        ),
+        tooltip = list(
+          list(field = "name", type = "nominal"),
+          list(field = "wt", type = "quantitative"),
+          list(field = "hp", type = "quantitative"),
+          list(field = "mpg", type = "quantitative")
+        )
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+tooltip_chart
+```
+
+## Scatterplot
+
+A scatterplot is a chart with quantitative encodings for the $x$ and $y$ axes. When finished, your chart should look like this:
+
+```{r echo=FALSE}
+scatterplot
+```
+
+Just in case, here is a reminder of the `mtcars` dataset:
+
+```{r echo=FALSE}
+glimpse(as_tibble(mtcars))
+```
+
+### Your turn
+
+To compose a Vega-Lite chart using vegawidget, we will build a series of nested lists.
+
+Using the provided template to fill in the `"..."`:
+
+- set the `mark` to `"point"`
+- set the `x` `encoding` such that the `field` is `"wt"` and the `type` is `"quantitative"`
+- set the `y` `encoding` such that the `field` is `"mpg"` and the `type` is `"quantitative"`
+- set the `color` `encoding` such that the `field` is `"cyl"` and the `type` is `"nominal"`
+
+Run the code to check your results.
+
+```{r scatterplot-template, exercise=TRUE}
+spec_scatterplot <-
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = mtcars),
+    mark = "...",
+    encoding = list(
+      x = list(field = "...", type = "..."),
+      y = list(field = "...", type = "..."),
+      color = list(field = "...", type = "...")
+    )
+  ) %>%
+  as_vegaspec()
+
+spec_scatterplot
+```
+
+### Discussion
+
+Congratulations on making a (what might be your first) Vega-Lite chart! Let's go over some of the infrastructure.
+
+Within the vegawidget package, a specification (or a spec) is used to, well specify a Vega-Lite (or Vega) chart; we call such a specification a **vegaspec**. There are a few things you should know about vegaspecs:
+
+- they are created using `as_vegaspec()`
+- within R, they live as lists
+- when rendering to HTML, they are converted automatically to JSON
+- R knows to print a vegaspec by rendering to HTML
+
+### Your turn
+
+Using the exercise-block above, add the statement `str(spec_scatterplot)` and rerun to look at the structure of a vegaspec. 
+
+- What do you see in the classes?
+- What did the `vega_schema()` function do?
+
+We will look more at how vegaspecs work in the exercises that follow.
+
+## Bar chart
+
+With a bar chart, we consider a quantitative variable and a nominal (or ordinal variable). Here's the example:
+
+```{r echo=FALSE}
+bar_chart
+```
+
+Here again is the toy dataset we used earlier to make the bar chart:
+
+```{r echo=FALSE}
+glimpse(data_category)
+```
+
+### Your turn
+
+Let's make this bar chart! In the template below:
+
+- set the `value` for `data` to `data_category`
+- set the `mark` to `"bar"`
+- for the `x` `encoding`, set the `field` to `"category"` and the `type` to `"nominal"` 
+- for the `y` `encoding`, set the `field` to `"number"` and the `type` to `"quantitative"` 
+- at the end, set the function being piped-to to `as_vegaspec()`
+
+Run the code; your chart should look like the chart above.
+
+```{r bar-chart-template, exercise=TRUE, exercise.lines=15}
+bar_chart <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = ...),
+    mark = "...",
+    encoding = list(
+      x = list(field = "...", type = "..."),
+      y = list(field = "...", type = "...")
+    )    
+  ) %>%
+  ...
+
+bar_chart
+```
+
+### Discussion
+
+This might be a good time to refer you to this [paper introducing Vega-Lite](https://idl.cs.washington.edu/files/2017-VegaLite-InfoVis.pdf). One of the first concepts it covers is the **unit specification** of a single Cartesian plot, which consists of:
+
+- data
+- transforms (like ggplot2 stat)
+- mark-type (like ggplot2 geom)
+- encodings (like ggplot2 aesthetics)
+
+You see we are using all of these, except transforms, in this example (don't worry, we will touch on transforms later). 
+In ggplot2, the type of the variable is implied by inspecting the column of the data frame, which is not difficult because R's data frames are column-based. Vega-Lite thinks of datasets as being row-based, so we need to be explicit about our data-types. Accordingly we have:
+
+- `"nominal"`, analogous to a string or a factor in R
+- `"ordinal"`, analogous to an ordered factor in R
+- `"quantitative"`, analogous to a double or integer in R
+- `"temporal"`, analogous to a POSIXct datetime in R
+
+Although it is beyond the scope of this overview, you have to be careful using temporal variables. This is because Vega-Lite (also Vega and d3) depends on the JavaScript `Date()` object, which does not have support timezones in the way that we are accustomed-to in R or Python. For more, see this [writeup](https://altair-viz.github.io/user_guide/times_and_dates.html) at the Altair website. 
+
+## Layered chart
+
+Unit specifications can be composed into compound specifications. Like ggplot2, we can compose layers in Vega-Lite. One thing to keep in mind is that layered specifications can contain only unit specifications.
+
+To create a layered chart, we make a `layer` element at the top-level of the specification. The `layer` element is an *unnamed* list where each element is a unit-specification; the order of the `layer` list is the order of the layers, from bottom to top.
+
+One feature shared by Vega-Lite and ggplot2 is the inheritance of plot specifications. Anything specified at the top level of the spec is inherited in lower levels of the spec.
+
+Here's the example we will replicate:
+
+```{r echo=FALSE}
+layer_chart
+```
+
+### Your turn
+
+Although it may not make much sense as a visualization technique, we can combine our bar-chart with a line-chart, using a layered specification.
+
+In the template below:
+
+- set the function in the `` `$schema` `` element to `vega_schema()`.
+- within the first element of the `layer` list:
+  - create a `mark` element and set it to `"bar"` 
+  - within the `opacity` `encoding` element, create a `value` element and set it to `0.3`
+- within the second element of the `layer` list:
+  - create a `mark` element and set it to `"line"`
+  
+```{r layered-chart, exercise=TRUE, exercise.lines=25}
+layered_chart <-
+  list(
+    `$schema` = ...,
+    data = list(values = data_category),
+    encoding = list(
+      x = list(field = "category", type = "ordinal"),
+      y = list(field = "number", type = "quantitative")
+    ),
+    layer = list(
+      list(
+        ..., # bar
+        encoding = list(
+          opacity = list(...)
+        )
+      ),
+      list(...) # line
+    )
+  ) %>%
+  as_vegaspec()
+
+layered_chart
+```
+
+### Discussion
+
+In this discussion, we will get more into the nuts-and-bolts of vegaspecs.
+
+First and foremost, we deal with the mysterious `$schema` element. This element is used by the Vega-rendering libraries as a clue to tell it how to process the rest of the spec: as a Vega-Lite spec or a Vega spec. Rather than having to remember the string, vegawidget offers a convenience function, `vega_spec()`. It takes an argument, `library`, which can be `"vega_lite"` (the default), or `"vega"`.
+
+Try it out:
+
+```{r vega_schema, exercise=TRUE}
+# try also with library = "vega" and library = "vega_lite"
+vega_schema()
+```
+
+```{r examine-setup, echo=FALSE}
+layered_chart <-
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = data_category),
+    encoding = list(
+      x = list(field = "category", type = "ordinal"),
+      y = list(field = "number", type = "quantitative")
+    ),
+    layer = list(
+      list(
+        mark = "bar", # bar
+        encoding = list(
+          opacity = list(value = 0.3)
+        )
+      ),
+      list(mark = "line") # line
+    )
+  ) %>%
+  as_vegaspec()
+```
+
+If you want to have a closer look at a vegaspec, you can use the `vw_examine()` function. This is a thin wrapper around the `jsonedit()` function from the [listviewer](https://github.com/timelyportfolio/listviewer) package. 
+
+The block below has been prepopulated with a working copy of `layered_chart`.
+
+```{r examine, exercise=TRUE}
+vw_examine(layered_chart)
+```
+
+In its default mode, we see a representation of "lists of lists". By changing the mode of the viewer from **View** to **Code**, you can see a JSON representation.
+
+Note that in the JSON, we see the `data` `values` element is column-based (like an R data-frame), rather than row-based (as Vega would expect). This is because, normally, the data frame is not transposed until the vegaspec is rendered. The function that translates from the vegaspec list to JSON is `vw_as_json()`, which wraps `jsonlite::toJSON()` (setting some important parameters).
+
+In the code box above, try `vw_examine(vw_as_json(layered_chart))` to see the difference in the shape of the data. 
+
+If you have a vegaspec you want to write to disk or to transfer to others, use the `vw_as_json()` function.
+
+Let's have a closer look, above, at the JSON for `layered_chart`. Note that named lists correspond to JSON elements wrapped in curly-brackets, `{}`, while unnamed lists correspond to elements wrapped in square-brackets, `[]`.
+
+In JSON, we have six basic data-types, each of which map to an R data-type:
+
+JSON type | JSON example  | R type         | R example
+--------- | ------------- | -------------- | ----------
+array     | `["a", 1]`    | unnamed list   | `list("a", 1L)`
+object    | `{"b": 23.4}` | named list     | `list(b = 23.4)`
+Boolean   | `true`        | logical        | `TRUE`
+number    | `45.6`        | integer/double | `45.6`
+string    | `"happy"`     | character      | `"happy"`
+null      | `null`        | NULL/NA        | `NULL`
+
+This chart may be useful for when you see a Vega-Lite specification, using JSON, and you might like to imagine how to write it in terms of R lists. You will find examples of each of these types, except `null` in the `layered_chart` specification. Also `null` may present a difficulty - because JSON does not have an `NA` type, from R both `NA` and `null` types are mapped to JSON `null`. Going from JSON to R, `null` will map to `NULL`.
+
+## Time-indexed chart, with aggregation
+
+One of the neat features of Vega-Lite is the time-unit functions that can be built into the encodings.
+
+Let's have another look at the Seattle weather-data - these are observations from the beginning of 2012 through the end of 2015.
+
+```{r echo=FALSE}
+glimpse(data_seattle_daily)
+```
+
+Here's what our finished chart should look like:
+
+```{r}
+seattle_by_month
+```
+
+### Your turn
+
+In the template below:
+
+- add the `$schema` element
+- add the `data` element, using `data_seattle_daily`
+- set the value for `mark` (we are using `"bar"`)
+- for the `x` `encoding`:
+  - set the value for `field` (consult the data for a time-variable)
+  - set the `timeUnit` to `"utcmonth"`
+  - set the axis `title` to match the sample chart 
+- for the `y` `encoding`:
+  - set the value for `field` (consult the data for the variable for daily maximum-temperature)
+  - set the `type` accordingly
+  - set `aggregate` to `"max"`
+  - set the axis `title` to match the sample chart 
+  
+```{r by-month, exercise=TRUE, exercise.lines=25}
+month_chart <-
+  list(
+    ..., # `$schema` element
+    ..., # data element
+    mark = "...",
+    encoding = list(
+      x = list(
+        field = "...", 
+        type = "ordinal", 
+        timeUnit = "...",
+        title = "..."
+      ),
+      y = list(
+        field = "...",
+        type = "...",
+        aggregate = "...",
+        title = "..."
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+month_chart
+```
+
+### Discussion
+
+You may wonder why we specify `date` as an ordinal variable, rather than as a temporal variable. The reason is the that the `type` determines the default scales. Change the value of `type` to `"temporal"` to see how the x-scale changes. Change it back, if you like.
+
+The `timeUnit` element implies a transformation for each value of `date`. In this case, we are using the built-in transformation function `"utcmonth"`. As Vega-Lite parsed the input data, it parsed the `date` as UTC, because it is formatted using the [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) (you can verify this using `month_chart %>% vw_as_json() %>% vw_examine()`). The function `"utcmonth"` maps a temporal value to another, buy truncating to the month, then projecting that month into a "prototype" year, 1900. For example:
+
+`date`       | mapped value using `"utcmonth"`
+------------ | -----------
+`2012-11-06` | `1900-11-01`
+`2013-07-04` | `1900-07-01`
+`2015-10-14` | `1900-10-01`
+
+On the $x$ axis, instead of using values of `date`, we use the mapped values provided by `"utcmonth"`.
+
+As you can imagine, this means that we will have a lot of observations mapped to each of the months. This motivates us to aggregate the $y$ values; in this case we `aggreagte` using the built-in `"max"` function. 
+
+For more detail on how Vega-Lite's time-units and implied aggregations work, see this [Observable notebook](https://beta.observablehq.com/@ijlyttle/vega-lite-timeunit), and, of course, the [Vega-Lite](https://vega.github.io/vega-lite/docs/timeunit.html) reference on time units.
+
+## Faceted chart
+
+Just like ggplot2, Vega-Lite can make faceted charts. However, faceting is limited to rows and columns; Vega-Lite hopes to implement facet-wrapping soon.
+
+Let's remind ourselves of our sample chart:
+
+```{r}
+seattle_by_month_facet
+```
+
+### Your turn
+
+Using the template below:
+
+- set the name of the element in the `facet` element to `row`
+- within this newly-named `row` element:
+  - set the `field` to `"date"`
+  - set the `timeUnit` to `"utcyear"`
+  - set the `title` as you see in the sample
+- within the `spec` element, set the `height` to `100`
+
+```{r facet, exercise=TRUE, exercise.lines=35}
+facet_chart <-
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = data_seattle_daily),
+    facet = list(
+      ... = list(
+        field = "...", 
+        type = "ordinal", 
+        timeUnit = "...",
+        title = "..."
+      )
+    ),
+    spec = list(
+      height = ...,
+      mark = "bar",
+      encoding = list(
+        x = list(
+          field = "date", 
+          type = "ordinal", 
+          timeUnit = "utcmonth",
+          title = "month(date)"
+        ),
+        y = list(
+          field = "temp_max",
+          type = "quantitative",
+          aggregate = "max",
+          title = "max(temp_max)"
+        )
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+facet_chart
+```
+
+### Discussion
+
+In Vega-Lite, faceting is specified using a top-level element called `facet`, which itself can have elements called `row` and/or `column`. Each of these `row` and `column` elements themselves contain elements much like an `encoding`: elements like `field`, `type`, etc. 
+
+Within a faceted specification, there needs to be a `spec` element, which the faceting acts upon. Within this `sepc` element is a unit or layered specification. Keep in mind that you can facet a layered specification, but you **cannot** layer a faceted specification. This is because layered specifications can contain only unit specifications.
+
+Within the `facet` specification, `timeunit` makes another appearance. Here, we are creating another variable by mapping our `date` variable to the first instant of its UTC year. We can see a little bit "behind the scenes" by changing the formatting of the axis labels and the header labels:
+
+- to the `row` `facet` element, add an element `header` and set its value to `list(format = "%Y-%m-%d")`.
+- to the `x` `encoding` element, add an element `axis` and set its value, similarly, to `list(format = "%Y-%m-%d")`.
+
+Vega uses [d3-time-format](https://github.com/d3/d3-time-format#locale_format) to format its temporal variables.
+
+## Repeated chart
+
+In addition to a faceting operator, Vega-Lite offers a repeat operator. For those of you familiar with Tidy Data, you can think of it like this: *faceting* operates on the values of a variable, in a tall data-frame; *repeating* operates on the columns of a wide data-frame.
+
+Let's consider our old friend, `mtcars`:
+
+```{r echo=FALSE}
+glimpse(as_tibble(mtcars))
+```
+
+Let's say we want to compare, side-by-side, the effect of `wt` on `mpg` with the effect of `hp` on `mpg`, as in this example:
+
+```{r}
+mtcars_by_var
+```
+
+### Your turn
+
+Using the template below:
+
+- complete the `data` element using `mtcars`
+- note that we need to enclose `repeat` in backticks for the `` `repeat` `` element, because `repeat` is a reserved word in R
+- set the `column` `` `repeat` `` element to an unnamed list containing `"wt"` and `"hp"`
+- within the `x` `encoding` of the `spec`, set the `field` to `` list(`repeat` = "column") ``
+
+```{r repeat_chart, exercise=TRUE, exercise.lines=20}
+repeat_chart <- 
+  list(
+    `$schema` = vega_schema(),
+    data = ...,
+    `repeat` = list(
+      column = ...
+    ),
+    spec = list(
+      mark = "point",
+      encoding = list(
+        x = list(field = ..., type = "quantitative"),
+        y = list(field = "mpg", type = "quantitative"),
+        color = list(field = "cyl", type = "nominal")
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+repeat_chart
+```
+
+### Discussion
+
+There is another composition operation you should be aware of, *concatenation*, which lets you compose different specifications into a single chart. For now, check out the [Vega-Lite documentation](https://vega.github.io/vega-lite/docs/concat.html).
+
+## Interactive chart
+
+Until now, the capabilities we have seen are generally available in ggplot2, using a concise vocabulary you already know. The big *additional* capability that Vega-Lite offers is interaction.
+
+For now, let's take a very narrow view of interactivity as having two steps:
+
+1. How do we select those observations we wish to highlight?
+2. How do we highlight the selected observations in all the views?
+
+There is another question that I am interested to answer soon:
+
+- given that we have highlighted all our interesting observations, how do we extract that information from the visualization to be used elsewhere?
+
+Leaving that third question aside for the time-being, Vega-Lite offers us tools for the first two questions:
+
+1. We can specify an `"interval"` `selection`, which will draw a "little grey box" according to your clicking-and-dragging.
+2. We can specify an `encoding` with a `condition` based on our `selection`. 
+
+Here's the example we will build:
+
+```{r}
+mtcars_interactive
+```
+
+### Your turn
+
+This will be a two step process. In this case, I think it will be useful for you to be able to check your work as after each step, so I am using comments as the templating device; please remove the comment-characters accordingly:
+
+- within the `spec`, create a `selection` element; its value should be `list(brush = list(type = "interval"))`
+
+Run the code and make sure that when you click-and-drag on either of the views that a "little grey box" appears. Note that there is nothing special about the name `brush`; it is simply the name we use to identify *this* selection.
+
+- within the `spec`, create an `opacity` encoding; its value should be a list with two elements:
+  - an element `condition` with the value `list(selection = "brush", value = 0.8)`
+  - an element `value` with the value `0.3`
+  - (be sure to remove the comment-character at the end of the `color` element.)
+
+Run the code and make sure it behaves as the example above.
+
+```{r interactive_chart, exercise=TRUE, exercise.lines=25}
+repeat_chart <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = mtcars),
+    `repeat` = list(
+      column = list("wt", "hp")
+    ),
+    spec = list(
+      # selection = ...,
+      mark = "point",
+      encoding = list(
+        x = list(field = list(`repeat` = "column"), type = "quantitative"),
+        y = list(field = "mpg", type = "quantitative"),
+        color = list(field = "cyl", type = "nominal")#,
+        # opacity = list(
+        #  condition = ...,
+        #  value = ...
+        # )
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+repeat_chart
+```
+
+### Discussion
+
+This is just one small part of interactivity, I would recommend that you check out the Vega-Lite [reference on selections](https://vega.github.io/vega-lite/docs/selection.html). There are some neat examples of different ways to use selections, for example:
+
+- [binding to scales](https://vega.github.io/vega-lite/docs/selection.html#scale-domains)
+- [binding to html controls](https://vega.github.io/vega-lite/docs/bind.html#input-element-binding)
+
+## Tooltips
+
+Continuing with our `mtcars` example, it may be instructive to add customized tooltips. In Vega-Lite a tooltip is simply another encoding channel that is attached to a mark.
+
+The names of the cars in `mtcars` are contained in the row-names. To include them as a part of a dataset, we have to put them into a variable. Thus, we put them in the `name` variable, in a "new" dataset called `mtcars_with_names`:
+
+```{r}
+glimpse(mtcars_with_names)
+```
+
+Here's what the finished product should look like and behave like:
+
+```{r}
+tooltip_chart
+```
+
+### Your turn
+
+```{r tooltip_chart-setup, echo=FALSE}
+mtcars_with_names <- as_tibble(rownames_to_column(mtcars, var = "name"))
+```
+
+Starting with our working interactive-example as a template:
+
+- within the `spec`, in the `tooltip` `encoding`, set the `field` to `"name"` and set the type to `"nominal"`
+
+Run the code to make sure it works as you expect.
+
+- add tooltip elements for `hp`, `wt`, and `mpg` (keeping in mind that these are `"quantitative"` variables)
+
+```{r tooltip_chart, exercise=TRUE, exercise.lines=30}
+tooltip_chart <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = mtcars_with_names),
+    `repeat` = list(
+      column = list("wt", "hp")
+    ),
+    spec = list(
+      selection = list(brush = list(type = "interval")),
+      mark = "point",
+      encoding = list(
+        x = list(field = list(`repeat` = "column"), type = "quantitative"),
+        y = list(field = "mpg", type = "quantitative"),
+        color = list(field = "cyl", type = "nominal"),
+        opacity = list(
+          condition = list(selection = "brush", value = 0.8),
+          value = 0.3
+        ),
+        tooltip = list(
+          list(field = "...", type = "...")
+          # add more tooltip-elements here
+        )
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+tooltip_chart
+```
+
+When making an aggregation in an encoding that there is an implied "group-by" of all the other encoded fields. Keep in mind that anything you put in a tooltip is also an encoding, so if your tooltips are not consistent with your encodings, you way get some strange and hard-to-debug errors.
+
+## What next?
+
+This is only the beginning of what is possible in Vega-Lite. Going forward, I would recommend these resources:
+
+- [Vega-Lite webpage](https://vega.github.io/vega-lite/)
+- [Vega-Lite InfoVis preprint](https://idl.cs.washington.edu/papers/vega-lite)
+
+For the vegawidget package:
+
+- [vegawidget pkgdown site](https://vegawidget.github.io/vegawidget)
+
+The Altair (Python) project provides a structured framework of functions to build Vega-Lite specifications:
+
+- [Altair website](https://altair-viz.github.io/)
+- [altair, R port of Altair](https://vegawidget.github.io/altair)
+
+Within Vega-Lite, these are some topics I did not cover in this tutorial (but would like to):
+
+- [Boxplots](https://vega.github.io/vega-lite/docs/boxplot.html)
+- [Concatenated views](https://vega.github.io/vega-lite/docs/concat.html)
+- [More on selections](https://vega.github.io/vega-lite/docs/selection.html)
+- [Geoshapes](https://vega.github.io/vega-lite/docs/geoshape.html)
+

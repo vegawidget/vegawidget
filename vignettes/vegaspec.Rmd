@@ -4,136 +4,129 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 ---
 
-The central object of this package is a vegaspec, short for "Vega specification". In our context, this refers to either a Vega or Vega-Lite specification.
+The central object of this package is a *vegaspec*, short for "Vega specification". This can refer to either a Vega or Vega-Lite specification; in our examples, we work almost exclusively with Vega-Lite.
 
-TODO - draw the subject threads together into an introduction.
+This article will showcase functions that:
 
-## Vegaspec
+- build a vegaspec: `as_vegaspec()`
+- examine a vegaspec: `vw_examine()`
+- convert a vegaspec to JSON: `vw_as_json()`
+- resize a vegaspec: `vw_autosize()`
+- compile a Vega-Lite spec to Vega: `vw_to_vega()`
 
-A vegaspec is created using the constructor `as_vegaspec()`. You can coerce to a `vegaspec` object from a `list`, `character` or a **jsonlite** `json` object. 
+The article ends with some "gotchas" (please contribute more as you find them).
 
-Vega and Vega-Lite expect JSON. However, within R, it is easier to work with lists. This is one of the philosophies of this package: a vegaspec "lives" as a list, and then is corerced to JSON when rendered as a vegawidget.
+## Building
+
+A vegaspec is created using the constructor `as_vegaspec()`, which takes a `list`, `character` or a **jsonlite** `json` object. 
+
+Vega and Vega-Lite expect JSON. However, within R, it is easier to work with lists. This is one of the underpinnings of this package: a vegaspec "lives" as a list, and then is coerced to JSON when rendered as a vegawidget.
+
+Let's start with a bar-chart example:
 
 ```{r}
 library("vegawidget")
 
-list_anscombe_1 <- list(
-  `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
-  data = list(values = anscombe),
-  mark = "point",
-  encoding = list(
-    x = list(field = "x1", type = "quantitative"),
-    y = list(field = "y1", type = "quantitative")
-  )
-) 
+spec_category <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(values = data_category),
+    mark = "bar",
+    encoding = list(
+      x = list(field = "category", type = "nominal"),
+      y = list(field = "number", type = "quantitative")
+    )
+  ) %>%
+  as_vegaspec()
 
-spec_anscombe_1 <- as_vegaspec(list_anscombe_1)
-
-spec_anscombe_1
+spec_category
 ```
 
-Accordingly, the `vegaspec` S3 class inherits from `list`.
+Looking at the structure of `spec_category`, we see that the `vegaspec` S3 class inherits from `list`.
 
 ```{r}
-str(spec_anscombe_1)
+str(spec_category)
 ```
 
-A couple of points before going further. We have a helper function, `vega_schema()`, that you can use to generate the string for the `$schema` element. This can be useful if you are writing a vegaspec manually. We also have a function, `vw_examine()`, that you can use to, well, examine a vegaspec.
+Note the helper function, `vega_schema()`, that you can use to generate the string for the `$schema` element. This can be useful if you are writing a vegaspec manually. 
+
+
+## Examining
+
+We also have a function, `vw_examine()`, that you can use to, well, examine a vegaspec.
 
 ```{r}
-list_anscombe_1 <- list(
-  `$schema` = vega_schema(),  # defaults to major version of "vega_lite"
-  data = list(values = anscombe),
-  mark = "point",
-  encoding = list(
-    x = list(field = "x1", type = "quantitative"),
-    y = list(field = "y1", type = "quantitative")
-  )
-) 
-
-spec_anscombe_1 <- as_vegaspec(list_anscombe_1)
-
-vw_examine(spec_anscombe_1)
+vw_examine(spec_category)
 ```
 
-The `vw_examine()` function is a thin wrapper around `listviewer::jsonedit()`; it can be handy to see what is "going on" inside a vegaspec.
- 
-The `vega_schema()` function has an argument to specify the `library` as either `"vega-lite"` or `"vega"`, and another that indicates to use the `major` version of the `library`. It has a complematary function, `vw_spec_version()`, that can be used to return the `library` and `version` of the schema of a vegaspes:
+You might note that, here, the `data$values` element of the vegaspec has a column-major format. In R, data frames are lists of vectors; each of the columns is a vector. In the Vega framework, data sets have a row-major format. What we see above is the specification *before* it is rendered. In the rendering process, data-frames are converted to row-major data. 
 
-```{r}
-vw_spec_version(spec_anscombe_1)
-```
-
-## Printing
-
-A few words about `print()` and `knit_print()` methods, then refer to the vegawidget article for more details.  
-
-## JSON
+## Converting to JSON
 
 When a vegaspec is rendered as a vegawidget, the spec is coerced automatically to JSON by the `vegawidget()` function. Like other JSON-based systems, Vega and Vega-Lite have their own particularities in their JSON format. These are taken into account by the function `vw_as_json()`, which is a wrapper around `jsonlite::toJSON()`. You may find this handy if you want to write a vegaspec to disk or elsewhere.
 
-We can examine the JSON:
+Let's examine the JSON for our example code:
 
 ```{r}
-json_anscombe_1 <- vw_as_json(spec_anscombe_1)
-
-vw_examine(json_anscombe_1)
+spec_category %>% 
+  vw_as_json() %>% 
+  vw_examine()
 ```
+Here, the `data$values` element has been transposed. The function `vw_as_json()` takes care of this so that the spec will render properly. 
 
-You will notice a difference between the original, `spec_anscombe_1`, and the json version, `json_ancombe_1`: the `data$values` element has been transposed. As you know, an R data frame is column-oriented; Vega expects data to be row-oriented. Our function `vw_as_json()` takes care of this so that the spec will render properly. This is a one-way trip; it is an exercise for the reader to show that `as_vegaspec()` does not change this back.
-
-## Sizing
+## Resizing
 
 Sizing can be a tricky issue in Vega-Lite. 
 
-The first thing to keep in mind is that the default interpretation of width and height refers to the dimensions of the plotting area. For example, we can set `width` and `height` of our Anscombe spec:
+The first thing to keep in mind is that the default interpretation of width and height refers to the dimensions of the plotting area. For example, we can set `width` and `height` of our example spec:
 
 ```{r}
-spec_anscombe_size <- spec_anscombe_1
+spec_category_size <- spec_category
 
-spec_anscombe_size$width  <- 300
-spec_anscombe_size$height <- 300
+spec_category_size$width  <- 300
+spec_category_size$height <- 300
 
-spec_anscombe_size
+spec_category_size
 ```
 
 Here, the plotting area is 300 $\times$ 300. If we want to set the dimension of the entire plot, we can use the `vw_autosize()` function:
 
 ```{r}
-spec_anscombe_autosize <- 
-  vw_autosize(spec_anscombe_size, width = 300, height = 300)
+spec_category_autosize <- 
+  spec_category %>%
+  vw_autosize(width = 300, height = 300)
 
-spec_anscombe_autosize
+spec_category_autosize
 ```
 
 In this context, the `width` and `height` are defined as the dimensions of the entire plot including axes, labels, padding, etc.
 
-There are limitations to autosizing; the most prominent is that specifying width and height is [effective only for single-view and layered specifications](https://vega.github.io/vega-lite/docs/size.html#limitations). It will not work for specifications with multiple views (e.g. `hconcat`, `vconcat`, `facet`, `repeat`); this will issue a warning that there will be no effect on the specification when rendered.
+There are limitations to autosizing; the most prominent is that specifying width and height is [effective only for single-view and layered specifications](https://vega.github.io/vega-lite/docs/size.html#limitations). It will not work for specifications with multiple views (e.g. `hconcat`, `vconcat`, `facet`, `` `repeat` ``); this will issue a warning that there will be no effect on the specification when rendered.
 
 For more information, see the Vega-Lite documentation on [sizing](https://vega.github.io/vega-lite/docs/size.html#limitations).
 
 ## Compile to Vega
 
-When rendering a Vega-Lite specification, the vega-lite JavaScript library will compile the Vega-Lite specification into Vega. If you have the **V8** package installed, and want to compile a Vega-Lite specicifation to Vega, for your own purposes, you can use the `vw_to_vega()` function.
+When rendering a Vega-Lite specification, the vega-lite JavaScript library will compile the Vega-Lite specification into Vega. If you have the **V8** package installed, and want to compile a Vega-Lite specification to Vega, for your own purposes, you can use the `vw_to_vega()` function.
+
+To be clear, if you are using only Vega-Lite, this is not something you should ever need to do. This may be useful if you need to design a specification using Vega, and you want get things started using a Vega-Lite specification.
 
 ```{r}
-spec_anscombe_1_vega <- vw_to_vega(spec_anscombe_1)
+spec_category_vega <- vw_to_vega(spec_category)
 
-spec_anscombe_1_vega
+spec_category_vega
 ```
 
+We can use the `vw_spec_version()` function to check the version of the specification:
+
 ```{r}
-vw_spec_version(spec_anscombe_1_vega)
+vw_spec_version(spec_category_vega)
 ```
 
-```{r}
-vw_examine(spec_anscombe_1_vega)
-```
-
-You can autosize a Vega specification.
+You can examine the result to see how much-more verbose is the Vega specification, compared to the Vega-Lite specification.
 
 ```{r}
-vw_autosize(spec_anscombe_1_vega, width = 300, height = 300)
+vw_examine(spec_category_vega)
 ```
 
 ## Gotchas

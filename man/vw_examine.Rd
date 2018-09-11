@@ -4,17 +4,19 @@
 \alias{vw_examine}
 \title{Examine vegaspec}
 \usage{
-vw_examine(spec, mode = "tree", modes = c("code", "form", "text",
-  "tree", "view"), ..., width = NULL, height = NULL,
+vw_examine(spec, mode = "view", modes = c("view", "code", "form",
+  "text", "tree"), ..., width = NULL, height = NULL,
   elementId = NULL)
 }
 \arguments{
 \item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
-\item{mode}{\code{string} for the initial view from \code{modes}.  \code{'tree'} is the default.}
+\item{mode}{\code{string} for the initial view from modes.
+\code{'view'} is the default.}
 
-\item{modes}{\code{string} \code{c('code', 'form', 'text', 'tree', 'view')} will be the default, since
-these are all the modes currently supported by \code{jsoneditor}.}
+\item{modes}{string \code{c('view','code', 'form', 'text', 'tree')}
+will be the default, since these are all the modes
+currently supported by \strong{\code{jsoneditor}}.}
 
 \item{...}{\code{list} of other options for \code{jsoneditor}.  This is a temporary way
 of trying other options in \code{jsoneditor}.  In the future, this will be eliminated

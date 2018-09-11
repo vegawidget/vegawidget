@@ -10,6 +10,15 @@
 
 .as_vegaspec.list <- function(x, ...) {
 
+  # if no `$schema` element, add one
+  if (!("$schema" %in% names(x))) {
+    warning(
+      "Spec has no `$schema` element, ",
+      "adding `$schema` element for Vega-Lite major-version"
+    )
+    x <- c(`$schema` = vega_schema(), x)
+  }
+
   # determine if this is a vega or vega_lite spec
   library <- .schema_type(x[["$schema"]])$library
 

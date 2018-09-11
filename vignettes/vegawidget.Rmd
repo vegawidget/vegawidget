@@ -10,7 +10,7 @@ The `vegawidget()` function lets you call is provided for [vega-embed](https://g
 
 If the [**webshot**](https://CRAN.R-project.org/package=webshot) package and PhantomJS are installed, knitting to a non-html format should "just work".
 
-## Using `vegawidget()` arguments
+## Using vegawidget arguments
 
 When you print a `vegaspec`, its print method calls `vegawidget()`.
 
@@ -99,69 +99,42 @@ vegawidget(spec_table, elementId = "streaming-demo")
 ```
 
 ```{js}
-function getVegaViewTimeout(selector, timeout = 10) {
+$(window).on('load', function() {
 
-  var functionGetVegaViewTimeout = function() {
-
-    var view = getVegaView(selector);
-
-    timeout = timeout * 2;
-
-    if (view === null) {
-      console.log(
-        "Could not find vega view at '" +  selector + "'. " +
-        "Waiting " + timeout + " ms to try again."
-      );
-      view = setTimeout(functionGetVegaViewTimeout, timeout);
-    } 
+  getVegaView('#streaming-demo')
+    .then(function(view) {
+      /**
+       * Generates a new tuple with random walk.
+       */
+      function newGenerator() {
+          var counter = -1;
+          var previousY = [5, 5, 5, 5];
+          return function () {
+              counter++;
+              var newVals = previousY.map(function (v, c) { return ({
+                  x: counter,
+                  y: v + Math.round(Math.random() * 10 - c * 3),
+                  category: c
+              }); });
+              previousY = newVals.map(function (v) { return v.y; });
+              return newVals;
+          };
+      }
   
-    return view;
-  
-  }
+      var valueGenerator = newGenerator();
+      var minimumX = -100;
+      window.setInterval(function () {
+          minimumX++;
+          var changeSet = vega.changeset().insert(valueGenerator()).remove(function (t) { return t.x < minimumX; });
+          view.change('table', changeSet).run();
+      }, 1000);  
+    });
 
-  return functionGetVegaViewTimeout();
-}
+});
 
-var demo_view = getVegaViewTimeout('#streaming-demo');
+
 ```
 
-```{js}
-/**
- * Generates a new tuple with random walk.
- */
-function newGenerator() {
-    var counter = -1;
-    var previousY = [5, 5, 5, 5];
-    return function () {
-        counter++;
-        var newVals = previousY.map(function (v, c) { return ({
-            x: counter,
-            y: v + Math.round(Math.random() * 10 - c * 3),
-            category: c
-        }); });
-        previousY = newVals.map(function (v) { return v.y; });
-        return newVals;
-    };
-}
 
-var valueGenerator = newGenerator();
-var minimumX = -100;
-window.setInterval(
-  function () {
 
-   var demo_view = getVegaViewTimeout('#streaming-demo', 100);
-
-    minimumX++;
-    
-    var changeSet = 
-      vega.
-      changeset().
-      insert(valueGenerator()).
-      remove(function (t) { return t.x < minimumX; });
-        
-    demo_view.change('table', changeSet).run();
-  }, 
-  1000
-);
-```
 

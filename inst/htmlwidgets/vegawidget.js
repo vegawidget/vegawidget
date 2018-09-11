@@ -1,3 +1,6 @@
+// Please make sure you edit this file at data-raw/templates/vegawidget.js
+//  - then render data-raw/infrastructure.Rmd
+
 HTMLWidgets.widget({
 
   name: "vegawidget",

@@ -10,7 +10,7 @@ The `vegawidget()` function lets you call is provided for [vega-embed](https://g
 
 If the [**webshot**](https://CRAN.R-project.org/package=webshot) package and PhantomJS are installed, knitting to a non-html format should "just work".
 
-## Using `vegawidget()` arguments
+## Using vegawidget arguments
 
 When you print a `vegaspec`, its print method calls `vegawidget()`.
 
@@ -102,7 +102,7 @@ vegawidget(spec_table, elementId = "streaming-demo")
 $(window).on('load', function() {
 
   getVegaView('#streaming-demo')
-    .then(function(res) {
+    .then(function(view) {
       /**
        * Generates a new tuple with random walk.
        */
@@ -126,7 +126,7 @@ $(window).on('load', function() {
       window.setInterval(function () {
           minimumX++;
           var changeSet = vega.changeset().insert(valueGenerator()).remove(function (t) { return t.x < minimumX; });
-          res.change('table', changeSet).run();
+          view.change('table', changeSet).run();
       }, 1000);  
     });
 

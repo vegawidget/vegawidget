@@ -2,28 +2,21 @@
 % Please edit documentation in R/modifiers.R
 \name{vega-data-handlers}
 \alias{vega-data-handlers}
-\alias{vw_insert_data}
-\alias{vw_remove_data}
-\alias{vw_update_data}
-\title{Modify data for a vegawidget}
+\alias{vw_change_data}
+\title{Dynamically modify data for a vegawidget with shiny}
 \usage{
-vw_insert_data(x, name, newdata)
-
-vw_remove_data(x, name, newdata)
-
-vw_update_data(x, name, newdata)
+vw_change_data(input_id, name, newdata)
 }
 \arguments{
-\item{x}{a vegawidget object}
+\item{input_id}{the div element the widget is bound to}
 
-\item{name}{the named data set to import to}
+\item{name}{the named data set in the spec to change}
 
 \item{newdata}{a data.frame to pass to the visualization}
 }
 \description{
-Modify data for a vegawidget
+Dynamically modify data for a vegawidget with shiny
 }
 \details{
-If no name field(s) has been specified in the data element
-of the vega spec as defined by x, this function will throw an error.
+Use inside a shiny application with shiny::observe({})
 }

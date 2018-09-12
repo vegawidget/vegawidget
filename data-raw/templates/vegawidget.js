@@ -38,9 +38,9 @@ HTMLWidgets.widget({
 
       callView: function(fn, params) {
         view_promise.then(function(result) {
-            let method = result[fn];
-            method.apply(result, params);
-            result.run();
+            let method = result.view[fn];
+            method.apply(result.view, params);
+            result.view.run();
           });
       },
 
@@ -49,6 +49,8 @@ HTMLWidgets.widget({
         let changeset = vega.changeset()
                             .remove(() => {return true})
                             .insert(params.data);
+        console.log(typeof changeset);
+        console.log(changeset);
         let args = [params.name, changeset];
         this.callView('change', args);
       },
@@ -56,13 +58,13 @@ HTMLWidgets.widget({
 
       addEventListener: function(event_name, handler) {
          view_promise.then(function(result) {
-           result.addEventListener(event_name, handler);
+           result.view.addEventListener(event_name, handler);
          });
       },
 
       addSignalListener: function(signal_name, handler) {
         view_promise.then(function(result) {
-          result.addSignalListener(signal_name, handler);
+          result.view.addSignalListener(signal_name, handler);
         });
       }
     };
@@ -85,10 +87,16 @@ if (HTMLWidgets.shinyMode) {
 Shiny.addCustomMessageHandler('callView', function(message){
 
     // get the correct HTMLWidget instance
-    var htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
-    if( typeof(htmlWidgetsObj) !== "undefined"){
-      htmlWidgetsObj.callView(message.fn, message.params);
-    }
+    let htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
 
+    let validObj = typeof htmlWidgetsObj !== "undefined" & htmlWidgetsObj !== null;
+
+    if (validObj) {
+      if (message.fn === "change") {
+          htmlWidgetsObj.changeView(message.params);
+       } else {
+         htmlWidgetsObj.callView(message.fn, message.params);
+       }
+    }
 });
 }

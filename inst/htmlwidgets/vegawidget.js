@@ -1,3 +1,6 @@
+// Please make sure you edit this file at data-raw/templates/vegawidget.js
+//  - then render data-raw/infrastructure.Rmd
+
 HTMLWidgets.widget({
 
   name: "vegawidget",
@@ -6,11 +9,7 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
-    var view = null;
-    var event_listeners = {};
-    var signal_listeners = {};
-    var table_insert = {};
-    var table_remove = {};
+    var view_promise = null;
 
     return {
 
@@ -19,7 +18,7 @@ HTMLWidgets.widget({
         var chart_spec = x.chart_spec;
         var embed_options = x.embed_options;
 
-        vegaEmbed(el, chart_spec, opt = embed_options).then(function(result) {
+        view_promise = vegaEmbed(el, chart_spec, opt = embed_options).then(function(result) {
 
           // By removing the style (width and height) of the
           // enclosing element, we let the "chart" decide the space it
@@ -27,38 +26,7 @@ HTMLWidgets.widget({
           //
           el.removeAttribute("style");
 
-          view = result.view;
-
-          for (var event_name in event_listeners) {
-            console.log(event_listeners[event_name]);
-            result.view.addEventListener(event_name, event_listeners[event_name]);
-          }
-
-          for (var signal_name in signal_listeners) {
-            result.view.addSignalListener(signal_name, signal_listeners[signal_name]);
-          }
-
-          /*
-          // remove is trickier in that you need to match the exact structure
-          // of the input data set
-          for (var remove_name in table_remove) {
-            console.log(remove_name);
-            update = HTMLWidgets.dataframeToD3(table_remove[remove_name]);
-            console.log(update);
-            result.view.remove('table', () => update).runAsync();
-            console.log(result.view.data(remove_name));
-          }
-          */
-
-          for (var insert_name in table_insert) {
-            // one problem here is if the inserted data falls out of the
-            // scales / pixel bounds of the plot, a problem for 1d plots
-            // data outside scales etc.
-            result
-              .view
-              .insert(insert_name, table_insert[insert_name])
-              .runAsync();
-          }
+          return(result.view);
 
         }).catch(console.error);
 
@@ -69,58 +37,23 @@ HTMLWidgets.widget({
       },
 
       getView: function() {
-        return view;
+        return view_promise;
       },
 
       callView: function(fn, params) {
-        if (view !== null && view !== undefined){
-          var method = view[fn];
-          console.log(params);
-
-          console.log(method);
-          method.apply(view, params);
-          view.run();
-        }
-      },
-
-      changeView: function(params) {
-        let changeset = vega.changeset()
-                            .remove(() => {return true})
-                            .insert(params.data);
-        let args = [params.name, changeset];
-        console.log(changeset, args);
-        this.callView('change', args);
-
+        view_promise.then(function(result) {
+            var method = result[fn];
+            method.apply(result, params);
+            result.run();
+          });
       },
 
       addEventListener: function(event_name, handler) {
-         // Use a list to store event listeners that are
-         // applied prior to render time
-         event_listeners[event_name] = handler;
-         if (view !== null){
-           view.addEventListener(event_name, handler);
-         }
+         view_promise.then(function(result){ result.addEventListener(event_name, handler); });
       },
 
       addSignalListener: function(signal_name, handler) {
-         signal_listeners[signal_name] = handler;
-      },
-
-      addShinySignalListener: function(signal_name) {
-        if (HTMLWidgets.shinyMode) {
-          signal_listeners[signal_name] =
-            function(name, value) {
-              Shiny.onInputChange(el.id + "_" + signal_name, value);
-            };
-         }
-      },
-
-      insert: function(table_name, table_data) {
-        table_insert[table_name] = HTMLWidgets.dataframeToD3(table_data);
-      },
-
-      remove: function(table_name, table_data) {
-        table_remove[table_name] = table_data;
+        view_promise.then(function(result){ result.addSignalListener(signal_name, handler); });
       }
 
     };
@@ -160,7 +93,4 @@ Shiny.addCustomMessageHandler('callView', function(message){
     }
 
 });
-
-
-
 }

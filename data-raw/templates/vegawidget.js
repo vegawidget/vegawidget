@@ -1,3 +1,6 @@
+// Please make sure you edit this file at data-raw/templates/vegawidget.js
+//  - then render data-raw/infrastructure.Rmd
+
 HTMLWidgets.widget({
 
   name: "vegawidget",
@@ -6,7 +9,7 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
-    var view = null;
+    var view_promise = null;
 
     return {
 
@@ -15,7 +18,7 @@ HTMLWidgets.widget({
         var chart_spec = x.chart_spec;
         var embed_options = x.embed_options;
 
-        vegaEmbed(el, chart_spec, opt = embed_options).then(function(result) {
+        view_promise = vegaEmbed(el, chart_spec, opt = embed_options).then(function(result) {
 
           // By removing the style (width and height) of the
           // enclosing element, we let the "chart" decide the space it
@@ -23,8 +26,7 @@ HTMLWidgets.widget({
           //
           el.removeAttribute("style");
 
-          view = result.view;
-
+          return(result.view);
         }).catch(console.error);
 
       },
@@ -34,7 +36,24 @@ HTMLWidgets.widget({
       },
 
       getView: function() {
-        return view;
+        return view_promise;
+      },
+
+
+      callView: function(fn, params) {
+        view_promise.then(function(result) {
+            var method = result[fn];
+            method.apply(result, params);
+            result.run();
+          });
+      },
+
+      addEventListener: function(event_name, handler) {
+         view_promise.then(function(result){ result.addEventListener(event_name, handler); });
+      },
+
+      addSignalListener: function(signal_name, handler) {
+        view_promise.then(function(result){ result.addSignalListener(signal_name, handler); });
       }
 
     };
@@ -57,4 +76,16 @@ function getVegaView(selector){
   }
 
   return(view_obj);
+}
+
+if (HTMLWidgets.shinyMode) {
+Shiny.addCustomMessageHandler('callView', function(message){
+
+    // get the correct HTMLWidget instance
+    var htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
+    if( typeof(htmlWidgetsObj) !== "undefined"){
+      htmlWidgetsObj.callView(message.fn, message.params);
+    }
+
+});
 }

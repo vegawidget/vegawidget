@@ -25,6 +25,7 @@ HTMLWidgets.widget({
             // enclosing element, we let the "chart" decide the space it
             // will occupy.
             el.removeAttribute("style");
+            result.view.run();
           })
           .catch(console.error);
       },
@@ -34,7 +35,9 @@ HTMLWidgets.widget({
       },
 
       // the view can just be an attribute of the HTMLWidgets object
-      getView: view_promise,
+      getView: function() {
+        return view_promise;
+      },
 
       callView: function(fn, params) {
         view_promise.then(function(result) {
@@ -49,8 +52,6 @@ HTMLWidgets.widget({
         let changeset = vega.changeset()
                             .remove(() => {return true})
                             .insert(params.data);
-        console.log(typeof changeset);
-        console.log(changeset);
         let args = [params.name, changeset];
         this.callView('change', args);
       },
@@ -65,6 +66,12 @@ HTMLWidgets.widget({
       addSignalListener: function(signal_name, handler) {
         view_promise.then(function(result) {
           result.view.addSignalListener(signal_name, handler);
+        });
+      },
+
+      loadData: function(name, data) {
+        view_promise.then(function(result) {
+          result.view.insert(name, HTMLWidgets.dataframeToD3(data)).run();
         });
       }
     };

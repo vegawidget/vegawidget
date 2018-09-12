@@ -15,47 +15,56 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
 
-        var chart_spec = x.chart_spec;
-        var embed_options = x.embed_options;
+        // initialise promise
+        view_promise = vegaEmbed(el, x.chart_spec, opt = x.embed_options);
 
-        view_promise = vegaEmbed(el, chart_spec, opt = embed_options).then(function(result) {
-
-          // By removing the style (width and height) of the
-          // enclosing element, we let the "chart" decide the space it
-          // will occupy.
-          //
-          el.removeAttribute("style");
-
-          return(result.view);
-        }).catch(console.error);
-
+        // fulfill promise by rendering the visualisation
+        view_promise
+          .then(function(result) {
+            // By removing the style (width and height) of the
+            // enclosing element, we let the "chart" decide the space it
+            // will occupy.
+            el.removeAttribute("style");
+          })
+          .catch(console.error);
       },
 
       resize: function(width, height) {
 
       },
 
-      getView: function() {
-        return view_promise;
-      },
-
+      // the view can just be an attribute of the HTMLWidgets object
+      getView: view_promise,
 
       callView: function(fn, params) {
         view_promise.then(function(result) {
-            var method = result[fn];
+            let method = result[fn];
             method.apply(result, params);
             result.run();
           });
       },
 
+      // hard reset of data to the view
+      changeView: function(params) {
+        let changeset = vega.changeset()
+                            .remove(() => {return true})
+                            .insert(params.data);
+        let args = [params.name, changeset];
+        this.callView('change', args);
+      },
+
+
       addEventListener: function(event_name, handler) {
-         view_promise.then(function(result){ result.addEventListener(event_name, handler); });
+         view_promise.then(function(result) {
+           result.addEventListener(event_name, handler);
+         });
       },
 
       addSignalListener: function(signal_name, handler) {
-        view_promise.then(function(result){ result.addSignalListener(signal_name, handler); });
+        view_promise.then(function(result) {
+          result.addSignalListener(signal_name, handler);
+        });
       }
-
     };
 
   }
@@ -64,18 +73,12 @@ HTMLWidgets.widget({
 
 // Helper function to get view object via the htmlWidgets object
 function getVegaView(selector){
-
   // Get the HTMLWidgets object
-  var htmlWidgetsObj = HTMLWidgets.find(selector);
-
+  let htmlWidgetsObj = HTMLWidgets.find(selector);
   console.log(htmlWidgetsObj);
-  var view_obj = null;
+  let noView = typeof htmlWidgetsObj === "undefined" | htmlWidgetsObj === null;
 
-  if (typeof(htmlWidgetsObj) !== "undefined"){
-    view_obj = htmlWidgetsObj.getView();
-  }
-
-  return(view_obj);
+  return noView ? null : htmlWidgetsObj.getView;
 }
 
 if (HTMLWidgets.shinyMode) {

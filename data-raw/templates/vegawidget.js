@@ -25,7 +25,6 @@ HTMLWidgets.widget({
             // enclosing element, we let the "chart" decide the space it
             // will occupy.
             el.removeAttribute("style");
-            result.view.run();
           })
           .catch(console.error);
       },
@@ -85,9 +84,14 @@ function getVegaView(selector){
   // Get the HTMLWidgets object
   let htmlWidgetsObj = HTMLWidgets.find(selector);
   console.log(htmlWidgetsObj);
-  let noView = typeof htmlWidgetsObj === "undefined" | htmlWidgetsObj === null;
-
-  return noView ? null : htmlWidgetsObj.getView;
+  // no htmlwidget = no view
+  let hasView = typeof htmlWidgetsObj !== "undefined" & htmlWidgetsObj !== null;
+  // want to return the resolved promise of the view
+  let view = null;
+  if (hasView) {
+     view = htmlWidgetsObj.getView().then(function(result) { return result.view; });
+   }
+   return view;
 }
 
 if (HTMLWidgets.shinyMode) {

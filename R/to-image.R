@@ -85,7 +85,7 @@ vw_to_svg.vegawidget <- function(widget, scale = 1, ...) {
   js_string <-
     paste0(
      "var done = arguments[0];
-      getVegaView('.vegawidget').then(function(result) {return result.view.toSVG(", scale, ");})
+      getVegaView('.vegawidget').then(function(result) {return result.toSVG(", scale, ");})
         .then(function(svg) {
            done(svg)
         })
@@ -156,7 +156,7 @@ vw_to_png.vegawidget <- function(widget, scale = 1, ...) {
   js_string <-
     paste0(
       "var done = arguments[0];
-      getVegaView('.vegawidget').then(function(result){return result.view.toCanvas(", scale, ");})
+      getVegaView('.vegawidget').then(function(result){return result.toCanvas(", scale, ");})
         .then(function(canvas) {
            return canvas.toDataURL('image/png', 0);
         })

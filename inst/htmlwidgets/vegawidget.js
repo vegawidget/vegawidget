@@ -40,7 +40,7 @@ HTMLWidgets.widget({
 
       callView: function(fn, params) {
         view_promise.then(function(result) {
-            let method = result.view[fn];
+            var method = result.view[fn];
             method.apply(result.view, params);
             result.view.run();
           });
@@ -48,10 +48,10 @@ HTMLWidgets.widget({
 
       // hard reset of data to the view
       changeView: function(params) {
-        let changeset = vega.changeset()
-                            .remove(() => {return true})
+        var changeset = vega.changeset()
+                            .remove(function() {return true})
                             .insert(params.data);
-        let args = [params.name, changeset];
+        var args = [params.name, changeset];
         this.callView('change', args);
       },
 
@@ -82,12 +82,12 @@ HTMLWidgets.widget({
 // Helper function to get view object via the htmlWidgets object
 function getVegaView(selector){
   // Get the HTMLWidgets object
-  let htmlWidgetsObj = HTMLWidgets.find(selector);
+  var htmlWidgetsObj = HTMLWidgets.find(selector);
   console.log(htmlWidgetsObj);
   // no htmlwidget = no view
-  let hasView = typeof htmlWidgetsObj !== "undefined" & htmlWidgetsObj !== null;
+  var hasView = typeof htmlWidgetsObj !== "undefined" & htmlWidgetsObj !== null;
   // want to return the resolved promise of the view
-  let view = null;
+  var view = null;
   if (hasView) {
      view = htmlWidgetsObj.getView().then(function(result) { return result.view; });
    }
@@ -98,9 +98,9 @@ if (HTMLWidgets.shinyMode) {
 Shiny.addCustomMessageHandler('callView', function(message){
 
     // get the correct HTMLWidget instance
-    let htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
+    var htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
 
-    let validObj = typeof htmlWidgetsObj !== "undefined" & htmlWidgetsObj !== null;
+    var validObj = typeof htmlWidgetsObj !== "undefined" & htmlWidgetsObj !== null;
 
     if (validObj) {
       if (message.fn === "change") {

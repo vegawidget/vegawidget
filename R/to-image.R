@@ -85,13 +85,10 @@ vw_to_svg.vegawidget <- function(widget, scale = 1, ...) {
   js_string <-
     paste0(
      "var done = arguments[0];
-      getVegaView('.vegawidget').then(function(result) {return result.toSVG(", scale, ");})
-        .then(function(svg) {
-           done(svg)
-        })
-        .catch(function(err) {
-          console.error(err)
-        });"
+      getVegaPromise('.vegawidget')
+        .then(function(result) { return result.view.toSVG(", scale, "); })
+        .then(function(svg) { done(svg) })
+        .catch(function(err) { console.error(err) });"
     )
 
   svg <- get_image(widget, js_string)
@@ -156,14 +153,11 @@ vw_to_png.vegawidget <- function(widget, scale = 1, ...) {
   js_string <-
     paste0(
       "var done = arguments[0];
-      getVegaView('.vegawidget').then(function(result){return result.toCanvas(", scale, ");})
-        .then(function(canvas) {
-           return canvas.toDataURL('image/png', 0);
-        })
+      getVegaPromise('.vegawidget')
+        .then(function(result){ return result.view.toCanvas(", scale, "); })
+        .then(function(canvas) { return canvas.toDataURL('image/png', 0); })
         .then(done)
-        .catch(function(err) {
-          console.error(err)
-        });"
+        .catch(function(err) { console.error(err) });"
     )
 
   png <- get_image(widget, js_string)

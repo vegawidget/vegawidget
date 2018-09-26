@@ -19,9 +19,8 @@ vw_change_data <- function(input_id, name, newdata) {
 }
 
 
-checked_named_dataset <- function(x, name) {
-  # check we have a named dataset in the data layer
-  # can either have a nested list or a flat list here
+has_named_dataset <- function(x, name) {
+
   if (!is.null(names(x$data))) {
     has_named_datasets <- "name" %in% names(x$data)
 
@@ -50,9 +49,26 @@ checked_named_dataset <- function(x, name) {
       )
   }
 
-  if (!any(matches_name)) {
-    stop(paste("Data set called", name, "not found in vega spec."))
+  return(matches_name)
+
+}
+
+checked_named_dataset <- function(x, name) {
+  # check we have a named dataset in the data layer
+  # can either have a nested list or a flat list here
+  has_concat <- grepl("concat", names(x))
+  if (any(has_concat)) {
+    matches_name <- unlist(lapply(x[has_concat][[1]],
+                                  has_named_dataset, name = name))
+  } else {
+    matches_name <- has_named_dataset(x, name)
   }
+
+  if (!any(matches_name)) {
+    stop(paste0("Dataset called '", name, "' not found in vega spec."),
+         call. = FALSE)
+  }
+
 }
 
 .modifier_js <- function(name, type) {
@@ -70,7 +86,7 @@ checked_named_dataset <- function(x, name) {
     inherits(x, "vegawidget")
   )
 
-  checked_named_dataset(jsonlite::fromJSON(x$x)$chart_spec, name)
+  checked_named_dataset(jsonlite::fromJSON(x$x, simplifyDataFrame = FALSE)$chart_spec, name)
 
   js_call <- .modifier_js(name, type)
 

@@ -1,6 +1,5 @@
-# This is an example shiny application that dynamically .  The app adds a click listener that prints the value of the data point.
-# It also binds a slider UI element to the signal, which is used in the spec
-# to filter the points.
+# This is an example shiny application that dynamically animates the gapminder
+# dataset.
 
 library(shiny)
 library(vegawidget)
@@ -32,10 +31,11 @@ server <- function(input, output) {
     encoding = list(
       x = list(field = "gdpPercap",
                type = "quantitative",
-               scale = list(type = "log", domain = range(gapminder$gdpPercap))),
+               scale = list(type = "log",
+                            scale = list(domain = range(gapminder$gdpPercap)))),
       y = list(field = "lifeExp",
                type = "quantitative",
-               scale = list(zero = FALSE, domain = range(gapminder$lifeExp))),
+               scale = list(zero = FALSE, scale = list(domain = range(gapminder$lifeExp)))),
       color = list(field = "continent",
                    type = "nominal")
     )

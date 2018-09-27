@@ -9,25 +9,24 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
-    var view_promise = null;
+    var vega_promise = null;
 
     return {
 
       renderValue: function(x) {
 
-        var chart_spec = x.chart_spec;
-        var embed_options = x.embed_options;
+        // initialise promise
+        vega_promise = vegaEmbed(el, x.chart_spec, opt = x.embed_options);
 
-        view_promise = vegaEmbed(el, chart_spec, opt = embed_options).then(function(result) {
-
-          // By removing the style (width and height) of the
-          // enclosing element, we let the "chart" decide the space it
-          // will occupy.
-          //
-          el.removeAttribute("style");
-
-          return(result.view);
-        }).catch(console.error);
+        // fulfill promise by rendering the visualisation
+        vega_promise
+          .then(function(result) {
+            // By removing the style (width and height) of the
+            // enclosing element, we let the "chart" decide the space it
+            // will occupy.
+            el.removeAttribute("style");
+          })
+          .catch(console.error);
 
       },
 
@@ -35,8 +34,8 @@ HTMLWidgets.widget({
 
       },
 
-      getView: function() {
-        return view_promise;
+      getPromise: function() {
+        return vega_promise;
       }
 
     };
@@ -46,17 +45,13 @@ HTMLWidgets.widget({
 
 
 // Helper function to get view object via the htmlWidgets object
-function getVegaView(selector){
+function getVegaPromise(selector){
 
-  // Get the HTMLWidgets object
+  // get the htmlWidgetsObj
   var htmlWidgetsObj = HTMLWidgets.find(selector);
 
-  //console.log(htmlWidgetsObj);
-  var view_obj = null;
+  // verify the element (to be determined)
 
-  if (typeof(htmlWidgetsObj) !== "undefined"){
-    view_obj = htmlWidgetsObj.getView();
-  }
-
-  return(view_obj);
+  // return the promise
+  return(htmlWidgetsObj.getPromise());
 }

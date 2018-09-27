@@ -99,10 +99,12 @@ vegawidget(spec_table, elementId = "streaming-demo")
 ```
 
 ```{js}
-$(window).on('load', function() {
+// This is a JavaScript chunk, using {js} instead of {r}
 
-  getVegaView('#streaming-demo')
-    .then(function(view) {
+HTMLWidgets.addPostRenderHandler(function() {
+
+  getVegaPromise('#streaming-demo')
+    .then(function(result) {
       /**
        * Generates a new tuple with random walk.
        */
@@ -126,13 +128,11 @@ $(window).on('load', function() {
       window.setInterval(function () {
           minimumX++;
           var changeSet = vega.changeset().insert(valueGenerator()).remove(function (t) { return t.x < minimumX; });
-          view.change('table', changeSet).run();
+          result.view.change('table', changeSet).run();
       }, 1000);  
     });
 
 });
-
-
 ```
 
 

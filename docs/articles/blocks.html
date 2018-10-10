@@ -105,7 +105,7 @@
     <div class="page-header toc-ignore">
       <h1>Share with bl.ocks.org</h1>
             
-            <h4 class="date">2018-10-09</h4>
+            <h4 class="date">2018-10-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/blocks.Rmd"><code>vignettes/blocks.Rmd</code></a></small>
       <div class="hidden name"><code>blocks.Rmd</code></div>
@@ -114,26 +114,64 @@
 
     
     
-<p>Mike Bostock’s <a href="https://bl.ocks.org">blocks service</a> is a great resource for sharing visualizations. <em>Blocks</em> (as they are called) are not stored at this website, they are taken from GitHub <a href="https://gist.github.com">gists</a>. If you have the <a href="https://cran.r-project.org/package=gistr"><strong>gistr</strong></a> and <a href="https://fs.r-lib.org"><strong>fs</strong></a> packages installed, and have a GitHub account (PAT), you can deploy a <code>vegaspec</code> to gist, and it will appear as a block. If you have the <a href="https://github.com/ropensci/magick#readme"><strong>magick</strong></a> and <a href="https://github.com/rstudio/webdriver#README"><strong>webdriver</strong></a> packages (with PhantomJS installed), you can include preview and thumb images with the block. If a block (not necessarily yours) has a vegaspec, and the spec is in its own file, you can import a <code>vegaspec</code> from a block.</p>
-<p>TODO: Include caveats about git2r.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a></code></pre></div>
+<p>Mike Bostock’s <a href="https://bl.ocks.org">blocks service</a> is a great resource for sharing visualizations. <em>Blocks</em> (as they are called) are not persistenly stored on the blocks website; they are taken from GitHub <a href="https://gist.github.com">gists</a>.</p>
+<ul>
+<li><p>If you have the <a href="https://cran.r-project.org/package=gistr"><strong>gistr</strong></a> and <a href="https://fs.r-lib.org"><strong>fs</strong></a> packages installed, and have a GitHub account and personal-access token (PAT), you can deploy a <code>vegaspec</code> to gist, and it will appear as a block.</p></li>
+<li><p>If you have the <a href="https://github.com/ropensci/magick#readme"><strong>magick</strong></a> and <a href="https://github.com/rstudio/webdriver#README"><strong>webdriver</strong></a> packages (with PhantomJS installed), you can include preview and thumb images with the block.</p></li>
+<li><p>If a block (not necessarily yours) has a Vega(-Lite) specification, and the specification is in its own file, you can import a <code>vegaspec</code> from a block.</p></li>
+</ul>
+<p>As you may know, it can be a frustrating experience to work with git from R - until it isn’t. By this, I mean that you can spend a lot of energy to get things working the first time - then they “just work”. If this is your situation, and you have not yet reached the “just work” stage, I highly recommend Jenny Bryan’s e-book <a href="http://happygitwithr.com/">Happy Git and GitHub for the useR</a> to help you get to the essence of git and GitHub issues. If it’s a problem, chances are that Jenny has seen it and documented it!</p>
+<p>In particular, I have run into issues with SSH credentialing - for which this <a href="http://happygitwithr.com/ssh-keys.html#ssh-troubleshooting">troubleshooting section</a> is invaluable.</p>
+<p>To use these functions to create and retrieve blocks, you will need a GitHub PAT. Unsurprisingly, there’s a book <a href="http://happygitwithr.com/github-pat.html">section</a> on GitHub PATs.</p>
 <div id="create-a-block" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-a-block" class="anchor"></a>Create a block</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a></code></pre></div>
+<p>You can create a block using a vegaspec as an argument to <code><a href="../reference/vw_create_block.html">vw_create_block()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/vw_create_block.html">vw_create_block</a></span>(spec_mtcars)</a></code></pre></div>
 <pre><code>## block url: https://bl.ocks.org/06a512525fbe7a96e1a2028e1871b61c
 ##  gist url: https://gist.github.com/06a512525fbe7a96e1a2028e1871b61c</code></pre>
+<p>Here’s a <a href="https://bl.ocks.org/06a512525fbe7a96e1a2028e1871b61c">link</a> to the deployed block.</p>
+<div id="arguments" class="section level3">
+<h3 class="hasAnchor">
+<a href="#arguments" class="anchor"></a>Arguments</h3>
+<p>As you can see in the reference for the <code><a href="../reference/vw_create_block.html">vw_create_block()</a></code> function, there are a lot of arguments. Here are some of the highlights:</p>
+<ul>
+<li><p><code>embed</code> to supply vega-embed options, using the helper-function <code><a href="../reference/vega_embed.html">vega_embed()</a></code>.</p></li>
+<li><p><code>.block</code> to supply block-configuration options, using the helper-function <code><a href="../reference/vw_block_config.html">vw_block_config()</a></code>.</p></li>
+<li><p><code>version</code> is used to determine if the block uses the versions vega libraries associated with this release of this (vegawidget) package, or if they should use the major-release version. The default is to use the same version.</p></li>
+<li><p><code>description</code> is a text string used as a title. If none is supplied here, the function will try to look for a <code>description</code> element in the supplied vegaspec.</p></li>
+<li><p><code>readme</code> text for a Markdown file, or the path to a Markdown file.</p></li>
+</ul>
+</div>
+<div id="return-value" class="section level3">
+<h3 class="hasAnchor">
+<a href="#return-value" class="anchor"></a>Return value</h3>
+<p>We have two very similar functions <code><a href="../reference/vw_create_block.html">vw_create_block()</a></code> and <code><a href="../reference/vw_create_block.html">vw_create_block_gistid()</a></code>. They have the same arguments and they have the same side-effect; they both create the same gist that can be used as a block. They differ in the return value:</p>
+<ul>
+<li><p><code><a href="../reference/vw_create_block.html">vw_create_block()</a></code> returns an invisible copy of the <code>spec</code> argument.</p></li>
+<li><p><code><a href="../reference/vw_create_block.html">vw_create_block_gistid()</a></code> returns a list with the <code>endpoint</code> of the GitHub service used, and the <code>id</code> of the gist created.</p></li>
+</ul>
+<p>Depending on what you are doing, one function may be more-useful to you than the other.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">gistid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/vw_create_block.html">vw_create_block_gistid</a></span>(spec_mtcars)</a></code></pre></div>
 <pre><code>## block url: https://bl.ocks.org/650e59f6a81cf63b9004ae291fe90667
 ##  gist url: https://gist.github.com/650e59f6a81cf63b9004ae291fe90667</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">gistid</a></code></pre></div>
+<pre><code>## $endpoint
+## [1] "https://api.github.com"
+## 
+## $id
+## [1] "650e59f6a81cf63b9004ae291fe90667"</code></pre>
+</div>
 </div>
 <div id="retrieve-a-block" class="section level2">
 <h2 class="hasAnchor">
 <a href="#retrieve-a-block" class="anchor"></a>Retrieve a block</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/vw_retrieve_block.html">vw_retrieve_block</a></span>(gistid<span class="op">$</span>id)</a></code></pre></div>
+<p>If a block has a JSON file, you can retrieve that JSON file and parse it into a vegaspec. For example, we can retrieve the vegaspec from the block that created above:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/vw_retrieve_block.html">vw_retrieve_block</a></span>(gistid<span class="op">$</span>id)</a></code></pre></div>
 <pre><code>## retrieving `spec.json` from gist 650e59f6a81cf63b9004ae291fe90667</code></pre>
-<div id="htmlwidget-a1d969a6cfedc5481bff" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a1d969a6cfedc5481bff">{"x":{
+<div id="htmlwidget-a618409d80580c17a5a2" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a618409d80580c17a5a2">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -611,7 +649,7 @@
     "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script>
+},"evals":[],"jsHooks":[]}</script><p>The default behavior is to return the first file in the gist that has a <code>.json</code> extension. If you need to be more specific, you can use the <code>file</code> argument.</p>
 </div>
   </div>
 

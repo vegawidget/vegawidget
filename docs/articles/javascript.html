@@ -105,7 +105,7 @@
     <div class="page-header toc-ignore">
       <h1>Extend using JavaScript</h1>
             
-            <h4 class="date">2018-10-09</h4>
+            <h4 class="date">2018-10-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/javascript.Rmd"><code>vignettes/javascript.Rmd</code></a></small>
       <div class="hidden name"><code>javascript.Rmd</code></div>
@@ -115,10 +115,11 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a></code></pre></div>
+<p>The purpose of this article is to show how you can use JavaScript to extend Vega’s capabilties. In both the examples shown here, we are using the <a href="https://github.com/vega/vega-view">vega-view</a> API to update the dataset using JavaScript. Clearly, this approach is not as intuitive as using Shiny, but it could be useful in situations where Shiny is not available or feasible.</p>
 <div id="demo-streaming-data" class="section level2">
 <h2 class="hasAnchor">
-<a href="#demo-streaming-data" class="anchor"></a>Demo: streaming-data</h2>
-<p>Here, we recreate this Vega-Lite <a href="https://vega.github.io/vega-lite/tutorials/streaming.html">streaming tutorial</a>.</p>
+<a href="#demo-streaming-data" class="anchor"></a>Demo: streaming data</h2>
+<p>Here, we recreate this Vega-Lite <a href="https://vega.github.io/vega-lite/tutorials/streaming.html">streaming tutorial</a>. In this case we are using JavaScript both to create the new data, and to update the dataset in Vega.</p>
 <p>The point of the original Vega-Lite demo is to show how to use the <a href="https://github.com/vega/vega-view">vega-view</a> API to modify a chart once it has been rendered. The point of this demo is to show the steps you can take to adapt the original Vega-Lite demo to the htmlwidgets context.</p>
 <p>Our first step is to create a vegaspec. Note that we have named a dataset to <code>"table"</code>, but we have not included any data.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">spec_table &lt;-</a>
@@ -257,44 +258,60 @@ HTMLWidgets.addPostRenderHandler(function() {
 <div id="demo-externally-driven-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#demo-externally-driven-data" class="anchor"></a>Demo: externally-driven data</h2>
-<p>This is an adaptation of an <a href="https://beta.observablehq.com/@ijlyttle/using-changesets-with-vega-lite">Observable notebook</a>.</p>
+<p>This is an adaptation of an <a href="https://beta.observablehq.com/@ijlyttle/using-changesets-with-vega-lite">Observable notebook</a>. The goal here is to show how you can update the data using an external source, like an input. Although we can do this using JavaScript only, the process is not nearly as straightforward as using Shiny. However, this may be useful in cases where it is not feasible to use Shiny.</p>
+<p>We will use the <strong>htmltools</strong> package to generate our HTML elements.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"htmltools"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">input &lt;-<span class="st"> </span>tags<span class="op">$</span><span class="kw">input</span>(</a>
+<p>We create a range input that we use to specify an angle - in our case 0 to 360 degrees. Our input is named <code>"angle"</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">input_angle &lt;-<span class="st"> </span>tags<span class="op">$</span><span class="kw">input</span>(</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">type =</span> <span class="st">"range"</span>, </a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">name =</span> <span class="st">"angle"</span>, </a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="dt">value =</span> <span class="dv">0</span>, </a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">  <span class="dt">min =</span> <span class="dv">0</span>, </a>
 <a class="sourceLine" id="cb6-6" data-line-number="6">  <span class="dt">max =</span> <span class="dv">360</span>, </a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">  <span class="dt">step =</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">)</a></code></pre></div>
+<a class="sourceLine" id="cb6-7" data-line-number="7">  <span class="dt">step =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">  <span class="dt">style =</span> <span class="st">"width: 400px; margin-bottom: 10px;"</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">)</a></code></pre></div>
+<p>We then create our vegaspec and our vegawidget output, using a named dataset called <code>"source"</code>. Our chart will be inside an element called <code>"circle"</code></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">spec_circle &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">list</span>(</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../reference/vega_schema.html">vega_schema</a></span>(),</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">    <span class="dt">data =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">      <span class="dt">values =</span> <span class="kw">list</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">      <span class="dt">name =</span> <span class="st">"source"</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">    ),</a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">    <span class="dt">mark =</span> <span class="st">"point"</span>,</a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">    <span class="dt">encoding =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb7-10" data-line-number="10">      <span class="dt">x =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb7-11" data-line-number="11">        <span class="dt">field =</span> <span class="st">"x"</span>, </a>
-<a class="sourceLine" id="cb7-12" data-line-number="12">        <span class="dt">type =</span> <span class="st">"quantitative"</span>, </a>
-<a class="sourceLine" id="cb7-13" data-line-number="13">        <span class="dt">scale =</span> <span class="kw">list</span>(<span class="dt">domain =</span> <span class="kw">list</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb7-14" data-line-number="14">      ),</a>
-<a class="sourceLine" id="cb7-15" data-line-number="15">      <span class="dt">y =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb7-16" data-line-number="16">        <span class="dt">field =</span> <span class="st">"y"</span>, </a>
-<a class="sourceLine" id="cb7-17" data-line-number="17">        <span class="dt">type =</span> <span class="st">"quantitative"</span>, </a>
-<a class="sourceLine" id="cb7-18" data-line-number="18">        <span class="dt">scale =</span> <span class="kw">list</span>(<span class="dt">domain =</span> <span class="kw">list</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb7-19" data-line-number="19">      )     </a>
-<a class="sourceLine" id="cb7-20" data-line-number="20">    )</a>
-<a class="sourceLine" id="cb7-21" data-line-number="21">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
-<a class="sourceLine" id="cb7-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_circle, <span class="dt">elementId =</span> <span class="st">"circle"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb7-4" data-line-number="4">    <span class="dt">width =</span> <span class="dv">300</span>,</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="dt">height =</span> <span class="dv">300</span>,</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">      <span class="dt">values =</span> <span class="kw">list</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">      <span class="dt">name =</span> <span class="st">"source"</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">    ),</a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">    <span class="dt">mark =</span> <span class="st">"point"</span>,</a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">    <span class="dt">encoding =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb7-12" data-line-number="12">      <span class="dt">x =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb7-13" data-line-number="13">        <span class="dt">field =</span> <span class="st">"x"</span>, </a>
+<a class="sourceLine" id="cb7-14" data-line-number="14">        <span class="dt">type =</span> <span class="st">"quantitative"</span>, </a>
+<a class="sourceLine" id="cb7-15" data-line-number="15">        <span class="dt">scale =</span> <span class="kw">list</span>(<span class="dt">domain =</span> <span class="kw">list</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb7-16" data-line-number="16">      ),</a>
+<a class="sourceLine" id="cb7-17" data-line-number="17">      <span class="dt">y =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb7-18" data-line-number="18">        <span class="dt">field =</span> <span class="st">"y"</span>, </a>
+<a class="sourceLine" id="cb7-19" data-line-number="19">        <span class="dt">type =</span> <span class="st">"quantitative"</span>, </a>
+<a class="sourceLine" id="cb7-20" data-line-number="20">        <span class="dt">scale =</span> <span class="kw">list</span>(<span class="dt">domain =</span> <span class="kw">list</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb7-21" data-line-number="21">      )     </a>
+<a class="sourceLine" id="cb7-22" data-line-number="22">    )</a>
+<a class="sourceLine" id="cb7-23" data-line-number="23">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
+<a class="sourceLine" id="cb7-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb7-26" data-line-number="26">output_chart &lt;-<span class="st"> </span><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_circle, <span class="dt">elementId =</span> <span class="st">"circle"</span>)</a></code></pre></div>
+<p>Finally, we create a text output just so that we can see our data object - its id is <code>"text"</code>. Note that we put in some dummy text that will be written-over later.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">output_text &lt;-<span class="st"> </span>tags<span class="op">$</span><span class="kw"><a href="http://www.rdocumentation.org/packages/htmltools/topics/builder">div</a></span>(</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="dt">id =</span> <span class="st">"text"</span>, </a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="dt">style =</span> <span class="st">"font-family: monospace; margin-bottom: 10px;"</span>,</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">  <span class="st">"Look here for live data"</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">)</a></code></pre></div>
+<p>Having created our elements, we print them into our document:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">output_chart</a></code></pre></div>
 <div id="circle" style="width:700px;height:432.632880098888px;" class="vegawidget html-widget"></div>
 <script type="application/json" data-for="circle">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+    "width": 300,
+    "height": 300,
     "data": {
       "values": {
         "x": 1,
@@ -330,58 +347,79 @@ HTMLWidgets.addPostRenderHandler(function() {
     "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">input</a></code></pre></div>
-<input type="range" name="angle" value="0" min="0" max="360" step="1"><div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">tags<span class="op">$</span><span class="kw"><a href="http://www.rdocumentation.org/packages/htmltools/topics/builder">div</a></span>(<span class="dt">id =</span> <span class="st">"foo"</span>)</a></code></pre></div>
-<div id="foo"></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">var</span> angle_input <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">"[name=angle]"</span>)<span class="op">;</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">function</span> <span class="at">on_angle</span>() <span class="op">{</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">  <span class="kw">var</span> theta <span class="op">=</span> <span class="va">angle_input</span>.<span class="at">value</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">PI</span> / <span class="dv">180</span><span class="op">;</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">  <span class="kw">var</span> data_live <span class="op">=</span> <span class="op">{</span><span class="dt">x</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">cos</span>(theta)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">sin</span>(theta)<span class="op">};</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">  <span class="co">// changes text value</span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10">  <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">"foo"</span>).<span class="at">innerHTML</span> <span class="op">=</span> <span class="va">JSON</span>.<span class="at">stringify</span>(data_live)<span class="op">;</span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11">  </a>
-<a class="sourceLine" id="cb10-12" data-line-number="12">  <span class="co">// changes Vega chart</span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13">  <span class="at">getVegaPromise</span>(<span class="st">'#circle'</span>).<span class="at">then</span>(<span class="kw">function</span>(result) <span class="op">{</span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14">  </a>
-<a class="sourceLine" id="cb10-15" data-line-number="15">    changeSet <span class="op">=</span> <span class="va">vega</span>.<span class="at">changeset</span>()</a>
-<a class="sourceLine" id="cb10-16" data-line-number="16">                    .<span class="at">insert</span>(data_live)</a>
-<a class="sourceLine" id="cb10-17" data-line-number="17">                    .<span class="at">remove</span>(<span class="va">vega</span>.<span class="at">truthy</span>)<span class="op">;</span></a>
-<a class="sourceLine" id="cb10-18" data-line-number="18">        </a>
-<a class="sourceLine" id="cb10-19" data-line-number="19">    <span class="va">result</span>.<span class="va">view</span>.<span class="at">change</span>(<span class="st">'source'</span><span class="op">,</span> changeSet).<span class="at">run</span>()<span class="op">;</span>  </a>
-<a class="sourceLine" id="cb10-20" data-line-number="20">    </a>
-<a class="sourceLine" id="cb10-21" data-line-number="21">  <span class="op">}</span>)<span class="op">;</span></a>
-<a class="sourceLine" id="cb10-22" data-line-number="22"><span class="op">}</span></a>
-<a class="sourceLine" id="cb10-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb10-24" data-line-number="24"><span class="va">angle_input</span>.<span class="at">addEventListener</span>(<span class="st">"input"</span><span class="op">,</span> on_angle)<span class="op">;</span></a></code></pre></div>
+},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">input_angle</a></code></pre></div>
+<input type="range" name="angle" value="0" min="0" max="360" step="1" style="width: 400px; margin-bottom: 10px;"><div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">output_text</a></code></pre></div>
+<div id="text" style="font-family: monospace; margin-bottom: 10px;">Look here for live data</div>
+<p>It remains to define the interaction among the elements. Here’s where we need to use some JavaScript.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co">// this is a {js} chunk</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">// JS reference to our slider-input</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw">var</span> input_angle <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">"[name=angle]"</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">// updates the chart and the text output according to the input value</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="kw">function</span> <span class="at">on_angle</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">  <span class="co">// translate the input value to x-y coordinates </span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10">  <span class="kw">var</span> theta <span class="op">=</span> <span class="va">input_angle</span>.<span class="at">value</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">PI</span> / <span class="dv">180</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11">  <span class="kw">var</span> data_live <span class="op">=</span> <span class="op">{</span><span class="dt">x</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">cos</span>(theta)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">sin</span>(theta)<span class="op">};</span></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb12-13" data-line-number="13">  <span class="co">// changes output-text value to show the coordinates</span></a>
+<a class="sourceLine" id="cb12-14" data-line-number="14">  <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">"#text"</span>).<span class="at">innerHTML</span> <span class="op">=</span> <span class="va">JSON</span>.<span class="at">stringify</span>(data_live)<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-15" data-line-number="15">  </a>
+<a class="sourceLine" id="cb12-16" data-line-number="16">  <span class="co">// changes Vega chart</span></a>
+<a class="sourceLine" id="cb12-17" data-line-number="17">  <span class="at">getVegaPromise</span>(<span class="st">'#circle'</span>).<span class="at">then</span>(<span class="kw">function</span>(result) <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-18" data-line-number="18">  </a>
+<a class="sourceLine" id="cb12-19" data-line-number="19">    <span class="co">// create a changeset</span></a>
+<a class="sourceLine" id="cb12-20" data-line-number="20">    changeSet <span class="op">=</span> <span class="va">vega</span>.<span class="at">changeset</span>()</a>
+<a class="sourceLine" id="cb12-21" data-line-number="21">                    .<span class="at">insert</span>(data_live)    <span class="co">// inserts new data</span></a>
+<a class="sourceLine" id="cb12-22" data-line-number="22">                    .<span class="at">remove</span>(<span class="va">vega</span>.<span class="at">truthy</span>)<span class="op">;</span> <span class="co">// removes all old data</span></a>
+<a class="sourceLine" id="cb12-23" data-line-number="23">    </a>
+<a class="sourceLine" id="cb12-24" data-line-number="24">    <span class="co">// implement the changeset    </span></a>
+<a class="sourceLine" id="cb12-25" data-line-number="25">    <span class="va">result</span>.<span class="va">view</span>.<span class="at">change</span>(<span class="st">'source'</span><span class="op">,</span> changeSet).<span class="at">run</span>()<span class="op">;</span>  </a>
+<a class="sourceLine" id="cb12-26" data-line-number="26">    </a>
+<a class="sourceLine" id="cb12-27" data-line-number="27">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-28" data-line-number="28"><span class="op">}</span></a>
+<a class="sourceLine" id="cb12-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb12-30" data-line-number="30"><span class="co">// whenever the input changes, run the updateing-function</span></a>
+<a class="sourceLine" id="cb12-31" data-line-number="31"><span class="va">input_angle</span>.<span class="at">addEventListener</span>(<span class="st">"input"</span><span class="op">,</span> on_angle)<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb12-33" data-line-number="33"><span class="co">// run the updating function *once* as soon as the document is ready</span></a>
+<a class="sourceLine" id="cb12-34" data-line-number="34"><span class="va">HTMLWidgets</span>.<span class="at">addPostRenderHandler</span>(on_angle)<span class="op">;</span></a></code></pre></div>
 <script type="text/javascript">
-var angle_input = document.querySelector("[name=angle]");
+// this is a {js} chunk
 
+// JS reference to our slider-input
+var input_angle = document.querySelector("[name=angle]");
+
+// updates the chart and the text output according to the input value
 function on_angle() {
 
-  var theta = angle_input.value * Math.PI / 180;
-
+  // translate the input value to x-y coordinates 
+  var theta = input_angle.value * Math.PI / 180;
   var data_live = {x: Math.cos(theta), y: Math.sin(theta)};
 
-  // changes text value
-  document.getElementById("foo").innerHTML = JSON.stringify(data_live);
+  // changes output-text value to show the coordinates
+  document.querySelector("#text").innerHTML = JSON.stringify(data_live);
   
   // changes Vega chart
   getVegaPromise('#circle').then(function(result) {
   
+    // create a changeset
     changeSet = vega.changeset()
-                    .insert(data_live)
-                    .remove(vega.truthy);
-        
+                    .insert(data_live)    // inserts new data
+                    .remove(vega.truthy); // removes all old data
+    
+    // implement the changeset    
     result.view.change('source', changeSet).run();  
     
   });
 }
 
-angle_input.addEventListener("input", on_angle);
+// whenever the input changes, run the updateing-function
+input_angle.addEventListener("input", on_angle);
+
+// run the updating function *once* as soon as the document is ready
+HTMLWidgets.addPostRenderHandler(on_angle);
 </script>
 </div>
   </div>
@@ -391,7 +429,7 @@ angle_input.addEventListener("input", on_angle);
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#demo-streaming-data">Demo: streaming-data</a></li>
+<li><a href="#demo-streaming-data">Demo: streaming data</a></li>
       <li><a href="#demo-externally-driven-data">Demo: externally-driven data</a></li>
       </ul>
 </div>

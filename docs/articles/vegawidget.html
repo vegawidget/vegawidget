@@ -105,7 +105,7 @@
     <div class="page-header toc-ignore">
       <h1>Render using vegawidget</h1>
             
-            <h4 class="date">2018-10-09</h4>
+            <h4 class="date">2018-10-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/vegawidget.Rmd"><code>vignettes/vegawidget.Rmd</code></a></small>
       <div class="hidden name"><code>vegawidget.Rmd</code></div>
@@ -116,17 +116,33 @@
     
 <p>The central <em>side-effect</em> of this package is to render a <em>vegawidget</em>, an htmlwidget.</p>
 <p>A vegawidget is built by the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function, using a <code>vegaspec</code>. However, in many cases, your call to <code><a href="../reference/vegawidget.html">vegawidget()</a></code> may be implied in a <code>print</code> method, rather than being made explicitly.</p>
-<p>The <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function lets you provide <a href="https://github.com/vega/vega-embed">vega-embed</a> options. These can be specified as an argument to the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function, or as an R option: <code>vega.embed</code>. The R options <code>vega.embed</code>, <code>vega.height</code>, and <code>vega.width</code> can be useful when printing or creating an image from a spec.</p>
-<p>If the <a href="https://CRAN.R-project.org/package=webshot"><strong>webshot</strong></a> package and PhantomJS are installed, knitting to a non-html format should “just work”.</p>
+<p>The <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function has three main arguments:</p>
+<ul>
+<li>
+<code>embed</code> - to provide <a href="https://github.com/vega/vega-embed">vega-embed</a>
+</li>
+<li>
+<code>width</code>, <code>height</code> - to provide width and height to <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code>
+</li>
+</ul>
+<p>Because your call to vegawidget may be implicit, there are a number of ways to provide these arguments.</p>
+<ul>
+<li>using explicit arguments (<code>embed</code>, <code>width</code>, <code>height</code>) to the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function</li>
+<li>setting R options (<code>vega.embed</code>, <code>vega.width</code>, and <code>vega.height</code>) in a knitr chunk</li>
+<li>setting R options using <code>options()</code>
+</li>
+</ul>
+<p>These methods are listed in order of precedence; the <code>embed</code> argument to the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function will be used in favor of <code>getOption("vega.embed")</code>. Furthermore, if you specify the <code>embed</code> argument, <code><a href="../reference/vegawidget.html">vegawidget()</a></code> will ignore any part of the embed-object that may have been set in <code>getOption("vega.embed")</code>.</p>
+<p>These options make the most sense if you are rendering an HTML document. If you are rendering to a non-HTML format, you can use the <a href="https://CRAN.R-project.org/package=webshot"><strong>webshot</strong></a> package with PhantomJS installed, so that knitting to a non-HTML format should “just work”.</p>
 <div id="using-vegawidget-arguments" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-vegawidget-arguments" class="anchor"></a>Using vegawidget arguments</h2>
 <p>When you print a <code>vegaspec</code>, its print method calls <code><a href="../reference/vegawidget.html">vegawidget()</a></code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars) </a></code></pre></div>
-<div id="htmlwidget-a1baadc9e1f3b41ae244" style="width:700px;height:432.632880098888px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a1baadc9e1f3b41ae244">{"x":{
+<a class="sourceLine" id="cb1-3" data-line-number="3">spec_mtcars </a></code></pre></div>
+<div id="htmlwidget-e486c8b27d2359988da1" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e486c8b27d2359988da1">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -604,7 +620,7 @@
     "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script><p>In addition to <code>spec</code>, the function <code><a href="../reference/vegawidget.html">vegawidget()</a></code> has arguments to <code>embed</code> and to specify the overall dimensions, <code>width</code> and <code>height</code>.</p>
+},"evals":[],"jsHooks":[]}</script><p>In addition to <code>spec</code>, the function <code><a href="../reference/vegawidget.html">vegawidget()</a></code> has arguments to <code>embed</code> and to specify the overall dimensions, <code>width</code> and <code>height</code>. Setting the options using <code><a href="../reference/vegawidget.html">vegawidget()</a></code> arguments will override options set any other way.</p>
 <p>The <code>embed</code> argument is used to specify the embedding options, according to the API to the <a href="https://github.com/vega/vega-embed#options">vega-embed library</a>. There are a lot of options; to make things easier, you can use the helper function <code><a href="../reference/vega_embed.html">vega_embed()</a></code>, it mirrors the options available to the version of the vega-embed library supported by this package (see <code><a href="../reference/vega_version.html">vega_version()</a></code>). The most important arguments are:</p>
 <ul>
 <li>
@@ -613,10 +629,10 @@
 <li>
 <code>actions</code>: named <code>list</code> of logicals to indicate the presence of action-links; names (default value) can be <code>export</code> (<code>TRUE</code>), <code>source</code> (<code>TRUE</code>), <code>compiled</code> (<code>FALSE</code>), or <code>editor</code> (<code>TRUE</code>).</li>
 </ul>
-<p>Here are some examples of various options:</p>
+<p>For example, you can change the renderer to SVG:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">embed =</span> <span class="kw"><a href="../reference/vega_embed.html">vega_embed</a></span>(<span class="dt">renderer =</span> <span class="st">"svg"</span>))</a></code></pre></div>
-<div id="htmlwidget-093209744d0facd2cb8f" style="width:700px;height:432.632880098888px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-093209744d0facd2cb8f">{"x":{
+<div id="htmlwidget-37d00dd7f2e981b64940" style="width:700px;height:432.632880098888px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-37d00dd7f2e981b64940">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -1094,9 +1110,10 @@
     "defaultStyle": true,
     "renderer": "svg"
   }
-},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">embed =</span> <span class="kw"><a href="../reference/vega_embed.html">vega_embed</a></span>(<span class="dt">actions =</span> <span class="ot">FALSE</span>))</a></code></pre></div>
-<div id="htmlwidget-e8807023aee0a2590c48" style="width:700px;height:432.632880098888px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e8807023aee0a2590c48">{"x":{
+},"evals":[],"jsHooks":[]}</script><p>You can remove the actions “bug” that is otherwise placed at the top-right of the chart:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">embed =</span> <span class="kw"><a href="../reference/vega_embed.html">vega_embed</a></span>(<span class="dt">actions =</span> <span class="ot">FALSE</span>))</a></code></pre></div>
+<div id="htmlwidget-32d37941bc0fb9e2cc51" style="width:700px;height:432.632880098888px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-32d37941bc0fb9e2cc51">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -1575,10 +1592,10 @@
     "renderer": "canvas",
     "actions": false
   }
-},"evals":[],"jsHooks":[]}</script><p>The arguments <code>width</code> and <code>height</code> in <code><a href="../reference/vegawidget.html">vegawidget()</a></code> are used to autosize the <code>spec</code> before rendering, using <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code>.</p>
+},"evals":[],"jsHooks":[]}</script><p>The arguments <code>width</code> and <code>height</code> in <code><a href="../reference/vegawidget.html">vegawidget()</a></code> are used to autosize the <code>spec</code> before rendering, using <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">300</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-e0ce397ec21b8d0818fd" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e0ce397ec21b8d0818fd">{"x":{
+<div id="htmlwidget-d1487c9695a8674a9a86" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d1487c9695a8674a9a86">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -2068,16 +2085,16 @@
   }
 },"evals":[],"jsHooks":[]}</script><p>Here, the <code>width</code> and <code>height</code> refer to the overall dimensions of the rendered vegaspec. Please see the <a href="vegaspec.html">vegaspec article</a> for more details on how sizing works.</p>
 </div>
-<div id="using-knitr-chunk-options" class="section level2">
+<div id="setting-r-options-using-knitr-chunk-options" class="section level2">
 <h2 class="hasAnchor">
-<a href="#using-knitr-chunk-options" class="anchor"></a>Using knitr chunk-options</h2>
+<a href="#setting-r-options-using-knitr-chunk-options" class="anchor"></a>Setting R options using knitr chunk-options</h2>
 <p>In the previous section, you saw how to specify the rendering options using the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function explicitly. You may wish to set the options implicitly: you can do so using the R options <code>vega.embed</code>, <code>vega.width</code>, and <code>vega.height</code>.</p>
 <p>One way to set these options is in a knitr chunk:</p>
 <pre><code>```{r vega.embed=vegawidget::vega_embed(actions = FALSE)}
 spec_mtcars
 ```</code></pre>
-<div id="htmlwidget-1fe5f9086961803d55c4" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1fe5f9086961803d55c4">{"x":{
+<div id="htmlwidget-7da48cba595bb572f6b1" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7da48cba595bb572f6b1">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -2559,8 +2576,8 @@ spec_mtcars
 },"evals":[],"jsHooks":[]}</script><pre><code>```{r vega.width=300, vega.height=300}
 spec_mtcars
 ```</code></pre>
-<div id="htmlwidget-c169160f40c9be6dc20f" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c169160f40c9be6dc20f">{"x":{
+<div id="htmlwidget-29f3df30b6da2f6d0285" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-29f3df30b6da2f6d0285">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -3050,6 +3067,515 @@ spec_mtcars
   }
 },"evals":[],"jsHooks":[]}</script>
 </div>
+<div id="setting-r-options-using-options" class="section level2">
+<h2 class="hasAnchor">
+<a href="#setting-r-options-using-options" class="anchor"></a>Setting R options using <code>options()</code>
+</h2>
+<p>We can set options explicitly using the <code>options()</code> function. There are a few ways of the ways you can do this:</p>
+<ul>
+<li>put an <code>options()</code> call in your <code>.Rprofile</code>
+</li>
+<li>put an <code>options()</code> call in a code chunk in your <code>.Rmd</code> file</li>
+<li>use the <a href="https://cran.r-project.org/package=config"><strong>config</strong></a>, with <code>!expr options(...)</code> in your YML configuration file.</li>
+</ul>
+<p>Here, we use a variation of the second option, making an explicit <code>options()</code> call to set the width and height:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># set new options while capturing the existing options</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">options_old &lt;-<span class="st"> </span><span class="kw">options</span>(<span class="dt">vega.width =</span> <span class="dv">300</span>, <span class="dt">vega.height =</span> <span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co"># print a vegaspec using the new options</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">spec_mtcars</a></code></pre></div>
+<div id="htmlwidget-4003f62e24d4d88d425a" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4003f62e24d4d88d425a">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+    "width": 300,
+    "height": 300,
+    "description": "An mtcars example.",
+    "data": {
+      "values": [
+        {
+          "mpg": 21,
+          "cyl": 6,
+          "disp": 160,
+          "hp": 110,
+          "drat": 3.9,
+          "wt": 2.62,
+          "qsec": 16.46,
+          "vs": 0,
+          "am": 1,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Mazda RX4"
+        },
+        {
+          "mpg": 21,
+          "cyl": 6,
+          "disp": 160,
+          "hp": 110,
+          "drat": 3.9,
+          "wt": 2.875,
+          "qsec": 17.02,
+          "vs": 0,
+          "am": 1,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Mazda RX4 Wag"
+        },
+        {
+          "mpg": 22.8,
+          "cyl": 4,
+          "disp": 108,
+          "hp": 93,
+          "drat": 3.85,
+          "wt": 2.32,
+          "qsec": 18.61,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Datsun 710"
+        },
+        {
+          "mpg": 21.4,
+          "cyl": 6,
+          "disp": 258,
+          "hp": 110,
+          "drat": 3.08,
+          "wt": 3.215,
+          "qsec": 19.44,
+          "vs": 1,
+          "am": 0,
+          "gear": 3,
+          "carb": 1,
+          "_row": "Hornet 4 Drive"
+        },
+        {
+          "mpg": 18.7,
+          "cyl": 8,
+          "disp": 360,
+          "hp": 175,
+          "drat": 3.15,
+          "wt": 3.44,
+          "qsec": 17.02,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "Hornet Sportabout"
+        },
+        {
+          "mpg": 18.1,
+          "cyl": 6,
+          "disp": 225,
+          "hp": 105,
+          "drat": 2.76,
+          "wt": 3.46,
+          "qsec": 20.22,
+          "vs": 1,
+          "am": 0,
+          "gear": 3,
+          "carb": 1,
+          "_row": "Valiant"
+        },
+        {
+          "mpg": 14.3,
+          "cyl": 8,
+          "disp": 360,
+          "hp": 245,
+          "drat": 3.21,
+          "wt": 3.57,
+          "qsec": 15.84,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Duster 360"
+        },
+        {
+          "mpg": 24.4,
+          "cyl": 4,
+          "disp": 146.7,
+          "hp": 62,
+          "drat": 3.69,
+          "wt": 3.19,
+          "qsec": 20,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Merc 240D"
+        },
+        {
+          "mpg": 22.8,
+          "cyl": 4,
+          "disp": 140.8,
+          "hp": 95,
+          "drat": 3.92,
+          "wt": 3.15,
+          "qsec": 22.9,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Merc 230"
+        },
+        {
+          "mpg": 19.2,
+          "cyl": 6,
+          "disp": 167.6,
+          "hp": 123,
+          "drat": 3.92,
+          "wt": 3.44,
+          "qsec": 18.3,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Merc 280"
+        },
+        {
+          "mpg": 17.8,
+          "cyl": 6,
+          "disp": 167.6,
+          "hp": 123,
+          "drat": 3.92,
+          "wt": 3.44,
+          "qsec": 18.9,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Merc 280C"
+        },
+        {
+          "mpg": 16.4,
+          "cyl": 8,
+          "disp": 275.8,
+          "hp": 180,
+          "drat": 3.07,
+          "wt": 4.07,
+          "qsec": 17.4,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 3,
+          "_row": "Merc 450SE"
+        },
+        {
+          "mpg": 17.3,
+          "cyl": 8,
+          "disp": 275.8,
+          "hp": 180,
+          "drat": 3.07,
+          "wt": 3.73,
+          "qsec": 17.6,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 3,
+          "_row": "Merc 450SL"
+        },
+        {
+          "mpg": 15.2,
+          "cyl": 8,
+          "disp": 275.8,
+          "hp": 180,
+          "drat": 3.07,
+          "wt": 3.78,
+          "qsec": 18,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 3,
+          "_row": "Merc 450SLC"
+        },
+        {
+          "mpg": 10.4,
+          "cyl": 8,
+          "disp": 472,
+          "hp": 205,
+          "drat": 2.93,
+          "wt": 5.25,
+          "qsec": 17.98,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Cadillac Fleetwood"
+        },
+        {
+          "mpg": 10.4,
+          "cyl": 8,
+          "disp": 460,
+          "hp": 215,
+          "drat": 3,
+          "wt": 5.424,
+          "qsec": 17.82,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Lincoln Continental"
+        },
+        {
+          "mpg": 14.7,
+          "cyl": 8,
+          "disp": 440,
+          "hp": 230,
+          "drat": 3.23,
+          "wt": 5.345,
+          "qsec": 17.42,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Chrysler Imperial"
+        },
+        {
+          "mpg": 32.4,
+          "cyl": 4,
+          "disp": 78.7,
+          "hp": 66,
+          "drat": 4.08,
+          "wt": 2.2,
+          "qsec": 19.47,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Fiat 128"
+        },
+        {
+          "mpg": 30.4,
+          "cyl": 4,
+          "disp": 75.7,
+          "hp": 52,
+          "drat": 4.93,
+          "wt": 1.615,
+          "qsec": 18.52,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Honda Civic"
+        },
+        {
+          "mpg": 33.9,
+          "cyl": 4,
+          "disp": 71.1,
+          "hp": 65,
+          "drat": 4.22,
+          "wt": 1.835,
+          "qsec": 19.9,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Toyota Corolla"
+        },
+        {
+          "mpg": 21.5,
+          "cyl": 4,
+          "disp": 120.1,
+          "hp": 97,
+          "drat": 3.7,
+          "wt": 2.465,
+          "qsec": 20.01,
+          "vs": 1,
+          "am": 0,
+          "gear": 3,
+          "carb": 1,
+          "_row": "Toyota Corona"
+        },
+        {
+          "mpg": 15.5,
+          "cyl": 8,
+          "disp": 318,
+          "hp": 150,
+          "drat": 2.76,
+          "wt": 3.52,
+          "qsec": 16.87,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "Dodge Challenger"
+        },
+        {
+          "mpg": 15.2,
+          "cyl": 8,
+          "disp": 304,
+          "hp": 150,
+          "drat": 3.15,
+          "wt": 3.435,
+          "qsec": 17.3,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "AMC Javelin"
+        },
+        {
+          "mpg": 13.3,
+          "cyl": 8,
+          "disp": 350,
+          "hp": 245,
+          "drat": 3.73,
+          "wt": 3.84,
+          "qsec": 15.41,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Camaro Z28"
+        },
+        {
+          "mpg": 19.2,
+          "cyl": 8,
+          "disp": 400,
+          "hp": 175,
+          "drat": 3.08,
+          "wt": 3.845,
+          "qsec": 17.05,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "Pontiac Firebird"
+        },
+        {
+          "mpg": 27.3,
+          "cyl": 4,
+          "disp": 79,
+          "hp": 66,
+          "drat": 4.08,
+          "wt": 1.935,
+          "qsec": 18.9,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Fiat X1-9"
+        },
+        {
+          "mpg": 26,
+          "cyl": 4,
+          "disp": 120.3,
+          "hp": 91,
+          "drat": 4.43,
+          "wt": 2.14,
+          "qsec": 16.7,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 2,
+          "_row": "Porsche 914-2"
+        },
+        {
+          "mpg": 30.4,
+          "cyl": 4,
+          "disp": 95.1,
+          "hp": 113,
+          "drat": 3.77,
+          "wt": 1.513,
+          "qsec": 16.9,
+          "vs": 1,
+          "am": 1,
+          "gear": 5,
+          "carb": 2,
+          "_row": "Lotus Europa"
+        },
+        {
+          "mpg": 15.8,
+          "cyl": 8,
+          "disp": 351,
+          "hp": 264,
+          "drat": 4.22,
+          "wt": 3.17,
+          "qsec": 14.5,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 4,
+          "_row": "Ford Pantera L"
+        },
+        {
+          "mpg": 19.7,
+          "cyl": 6,
+          "disp": 145,
+          "hp": 175,
+          "drat": 3.62,
+          "wt": 2.77,
+          "qsec": 15.5,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 6,
+          "_row": "Ferrari Dino"
+        },
+        {
+          "mpg": 15,
+          "cyl": 8,
+          "disp": 301,
+          "hp": 335,
+          "drat": 3.54,
+          "wt": 3.57,
+          "qsec": 14.6,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 8,
+          "_row": "Maserati Bora"
+        },
+        {
+          "mpg": 21.4,
+          "cyl": 4,
+          "disp": 121,
+          "hp": 109,
+          "drat": 4.11,
+          "wt": 2.78,
+          "qsec": 18.6,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Volvo 142E"
+        }
+      ]
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "wt",
+        "type": "quantitative"
+      },
+      "y": {
+        "field": "mpg",
+        "type": "quantitative"
+      },
+      "color": {
+        "field": "cyl",
+        "type": "nominal"
+      }
+    },
+    "config": {
+      "autosize": {
+        "type": "fit",
+        "contains": "padding"
+      },
+      "view": {
+        "width": 300,
+        "height": 300
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># restore the old options</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">options</span>(options_old)</a></code></pre></div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -3058,7 +3584,8 @@ spec_mtcars
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#using-vegawidget-arguments">Using vegawidget arguments</a></li>
-      <li><a href="#using-knitr-chunk-options">Using knitr chunk-options</a></li>
+      <li><a href="#setting-r-options-using-knitr-chunk-options">Setting R options using knitr chunk-options</a></li>
+      <li><a href="#setting-r-options-using-options">Setting R options using <code>options()</code></a></li>
       </ul>
 </div>
       </div>

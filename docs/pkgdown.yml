@@ -3,9 +3,9 @@ pkgdown: 1.0.0.9000
 pkgdown_sha: ec07721af836595483aa678822a26c3f285c5ffa
 articles:
   blocks: blocks.html
-  first-example: first-example.html
   image: image.html
   import: import.html
+  javascript: javascript.html
   time: time.html
   utilities: utilities.html
   vegaspec: vegaspec.html

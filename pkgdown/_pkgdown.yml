@@ -16,13 +16,12 @@ navbar:
       href: "news/index.html"
     - text: Articles
       menu:
-        - text: First Example
-          href: articles/first-example.html
-        - text: "------------"
         - text: Specify using vegaspec
           href: articles/vegaspec.html
         - text: Render using vegawidget
           href: articles/vegawidget.html
+        - text: Extend using JavaScript
+          href: articles/javascript.html
         - text: Share with bl.ocks.org
           href: articles/blocks.html
         - text: Create Images

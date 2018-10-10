@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Specify block-configuration — vw_block_config • vegawidget</title>
+<title>Rename datasets in a vegaspec — vw_rename_datasets • vegawidget</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,10 +30,13 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Specify block-configuration — vw_block_config" />
+<meta property="og:title" content="Rename datasets in a vegaspec — vw_rename_datasets" />
 
-<meta property="og:description" content="Helper function to build a YAML configuartion-string. This string
-is sent to the gist in a file named .block." />
+<meta property="og:description" content="If a vegaspec has named datasets, it may be useful to rename them.
+This function will return a vegaspec with datasets named data_001,
+data_002, and so on. It will go through the spec and replace the
+refernces to the names. A future version of this function may give you
+the more control over the names used." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -135,49 +138,35 @@ is sent to the gist in a file named .block." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Specify block-configuration</h1>
-    <small class="dont-index">Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/R/utils-block.R'><code>R/utils-block.R</code></a></small>
-    <div class="hidden name"><code>vw_block_config.Rd</code></div>
+    <h1>Rename datasets in a vegaspec</h1>
+    <small class="dont-index">Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/R/rename-datasets.R'><code>R/rename-datasets.R</code></a></small>
+    <div class="hidden name"><code>vw_rename_datasets.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Helper function to build a YAML configuartion-string. This string
-is sent to the gist in a file named <code>.block</code>.</p>
+    <p>If a vegaspec has named datasets, it may be useful to rename them.
+This function will return a vegaspec with datasets named <code>data_001</code>,
+<code>data_002</code>, and so on. It will go through the spec and replace the
+refernces to the names. A future version of this function may give you
+the more control over the names used.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>vw_block_config</span>(<span class='kw'>license</span> <span class='kw'>=</span> <span class='st'>"mit"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>500L</span>, <span class='kw'>scrolling</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>border</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>vw_rename_datasets</span>(<span class='no'>spec</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>license</th>
-      <td><p><code>character</code> specifies the license</p></td>
-    </tr>
-    <tr>
-      <th>height</th>
-      <td><p><code>integer</code> height of the block (pixels)</p></td>
-    </tr>
-    <tr>
-      <th>scrolling</th>
-      <td><p><code>logical</code> indicates to use scrolling bars</p></td>
-    </tr>
-    <tr>
-      <th>border</th>
-      <td><p><code>logical</code> indicates to put a border on the <code>&lt;iframe/&gt;</code></p></td>
+      <th>spec</th>
+      <td><p>object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>character</code> yaml string for <code>.block</code> file</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><a href='https://bl.ocks.org/-/about'>Blocks documentation</a></p></div>
+    <p>S3 object of class <code>vegaspec</code></p>
     
 
   </div>
@@ -187,8 +176,6 @@ is sent to the gist in a file named <code>.block</code>.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>

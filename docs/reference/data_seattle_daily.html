@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Specify block-configuration — vw_block_config • vegawidget</title>
+<title>Example dataset: Seattle daily weather — data_seattle_daily • vegawidget</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,10 +30,10 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Specify block-configuration — vw_block_config" />
+<meta property="og:title" content="Example dataset: Seattle daily weather — data_seattle_daily" />
 
-<meta property="og:description" content="Helper function to build a YAML configuartion-string. This string
-is sent to the gist in a file named .block." />
+<meta property="og:description" content="This dataset contains daily weather-observations from Seattle for the
+years 2012-2015, inclusive." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -135,60 +135,44 @@ is sent to the gist in a file named .block." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Specify block-configuration</h1>
-    <small class="dont-index">Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/R/utils-block.R'><code>R/utils-block.R</code></a></small>
-    <div class="hidden name"><code>vw_block_config.Rd</code></div>
+    <h1>Example dataset: Seattle daily weather</h1>
+    <small class="dont-index">Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>data_seattle_daily.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Helper function to build a YAML configuartion-string. This string
-is sent to the gist in a file named <code>.block</code>.</p>
+    <p>This dataset contains daily weather-observations from Seattle for the
+years 2012-2015, inclusive.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>vw_block_config</span>(<span class='kw'>license</span> <span class='kw'>=</span> <span class='st'>"mit"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>500L</span>, <span class='kw'>scrolling</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>border</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>license</th>
-      <td><p><code>character</code> specifies the license</p></td>
-    </tr>
-    <tr>
-      <th>height</th>
-      <td><p><code>integer</code> height of the block (pixels)</p></td>
-    </tr>
-    <tr>
-      <th>scrolling</th>
-      <td><p><code>logical</code> indicates to use scrolling bars</p></td>
-    </tr>
-    <tr>
-      <th>border</th>
-      <td><p><code>logical</code> indicates to put a border on the <code>&lt;iframe/&gt;</code></p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='no'>data_seattle_daily</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p><code>character</code> yaml string for <code>.block</code> file</p>
+    <p>A data frame with 1461 observations of six variables</p><dl class='dl-horizontal'>
+<dt>date</dt><dd><p><code>Date</code>, date of the observation</p></dd>
+<dt>precipitation</dt><dd><p><code>double</code>, amount of precipitation (mm)</p></dd>
+<dt>temp_max</dt><dd><p><code>double</code>, maximum temperature (°C)</p></dd>
+<dt>temp_min</dt><dd><p><code>double</code>, minimum temperature (°C)</p></dd>
+<dt>wind</dt><dd><p><code>double</code>, average wind-speed (m/s)</p></dd>
+<dt>weather</dt><dd><p><code>character</code>, description of weather</p></dd>
+</dl>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <div class='dont-index'><p><a href='https://bl.ocks.org/-/about'>Blocks documentation</a></p></div>
+    <p><a href='https://vega.github.io/vega-datasets/data/seattle-weather.csv'>https://vega.github.io/vega-datasets/data/seattle-weather.csv</a></p>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#format">Format</a></li>
 
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#source">Source</a></li>
           </ul>
 
   </div>

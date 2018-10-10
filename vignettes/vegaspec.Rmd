@@ -20,9 +20,9 @@ The article ends with some "gotchas" (please contribute more as you find them).
 
 A vegaspec is created using the constructor `as_vegaspec()`, which takes a `list`, `character` or a **jsonlite** `json` object. 
 
-Vega and Vega-Lite expect JSON. However, within R, it is easier to work with lists. This is one of the underpinnings of this package: a vegaspec "lives" as a list, and then is coerced to JSON when rendered as a vegawidget.
+Vega and Vega-Lite expect JSON. Because it is easier, in R, to work with lists, a vegaspec "lives" as a list, and then is coerced to JSON when rendered as a vegawidget.
 
-Let's start with a bar-chart example:
+Let's start with a bar-chart example. The `data_category` object is a sample dataset included in this package:
 
 ```{r}
 library("vegawidget")
@@ -48,12 +48,11 @@ Looking at the structure of `spec_category`, we see that the `vegaspec` S3 class
 str(spec_category)
 ```
 
-Note the helper function, `vega_schema()`, that you can use to generate the string for the `$schema` element. This can be useful if you are writing a vegaspec manually. 
-
+You can use the helper function `vega_schema()` to generate the string for the `$schema` element, which can be useful if you are writing a vegaspec manually. 
 
 ## Examining
 
-We also have a function, `vw_examine()`, that you can use to, well, examine a vegaspec.
+We also have a function, `vw_examine()`, that you can use to, well, examine a vegaspec. It is a thin wrapper around the `listviewer::jsonedit()` function:
 
 ```{r}
 vw_examine(spec_category)
@@ -63,7 +62,7 @@ You might note that, here, the `data$values` element of the vegaspec has a colum
 
 ## Converting to JSON
 
-When a vegaspec is rendered as a vegawidget, the spec is coerced automatically to JSON by the `vegawidget()` function. Like other JSON-based systems, Vega and Vega-Lite have their own particularities in their JSON format. These are taken into account by the function `vw_as_json()`, which is a wrapper around `jsonlite::toJSON()`. You may find this handy if you want to write a vegaspec to disk or elsewhere.
+When a vegaspec is rendered as a vegawidget, the spec is coerced automatically to JSON by the `vegawidget()` function. Like other JSON-based systems, Vega and Vega-Lite have their own particularities in their JSON format. These are taken into account by the function `vw_as_json()`, which wraps `jsonlite::toJSON()` with the correct defaults for Vega(-Lite). You may find this handy if you want to write a vegaspec to disk or elsewhere.
 
 Let's examine the JSON for our example code:
 

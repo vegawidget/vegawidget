@@ -1,0 +1,177 @@
+---
+title: "Extend using JavaScript"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+---
+
+
+```{r}
+library("vegawidget")
+```
+
+## Demo: streaming-data
+
+Here, we recreate this Vega-Lite [streaming tutorial](https://vega.github.io/vega-lite/tutorials/streaming.html). 
+
+The point of the original Vega-Lite demo is to show how to use the [vega-view](https://github.com/vega/vega-view) API to modify a chart once it has been rendered. The point of this demo is to show the steps you can take to adapt the original Vega-Lite demo to the htmlwidgets context.
+ 
+Our first step is to create a vegaspec. Note that we have named a dataset to `"table"`, but we have not included any data.
+
+```{r}
+spec_table <-
+  list(
+    `$schema` = vega_schema(),
+    width = 400,
+    data = list(name = "table"),
+    mark = "line",
+    encoding = list(
+      x = list(
+        field = "x", 
+        type = "quantitative",
+        scale = list(zero =  FALSE)
+      ),
+      y = list(field = "y", type = "quantitative"),
+      color = list(field = "category", type = "nominal")
+    )
+  ) %>%
+  as_vegaspec()
+```
+
+We use `vegawidget()` function with an `elementId` argument, to specify the id of the HTML element. This argument is not documented as a part of `vegawidget()`; rather it is passed on to `htmlwidget::createWidget()` using `...`. We need to specify this so that the JavaScript code we write later will know which Vega chart to modify. 
+
+```{r}
+vegawidget(spec_table, elementId = "streaming-demo")
+```
+
+In the absence of the code below, we would be left with an empty chart. Note that this is written in JavaScript - in the R Markdown file, this is a `{js}` chunk, rather than an `{r}` chunk. We use functionality provided by the **htmlwidgets** package to add a callback function using the `HTMLWidgets.addPostRenderHandler()` in JavaScript. We could have done the same thing from R using the `htmlwidgets::onStaticRenderComplete()` function, where the code inside the callback function would be sent as a R character string. In this case, we preferred to be able to use the JavaScript code highlighting.
+
+The `HTMLWidgets.addPostRenderHandler()` function is useful because it does not run its code until all the htmlwidgets on the page have been initialized. Without it, our code would fail because it would try to evaluate a Vega view that does not exist when it is run.
+
+We provide a callback function - a function without arguments - the purpose of which is to execute the code inside once all the htmlwidgets have finished rendering. This code is virtually identical to the code in the the Vega-Lite demo; the biggest difference is how we obtain the Vega promise object. 
+
+In the demo code, the `vegaEmbed()` function (described in the [vega-embed](https://github.com/vega/vega-embed) library) returns a promise object, a JavaScript object used for asynchronous execution. We do not have direct access to the creation of the promise in the HTML file, but the vegawidget JavaScript API provides a function `getVegaPromise()` that, given a CSS selector to find the enclosing element (hence the `elementId = "table"` earlier), returns the promise.
+
+The `.then()` call contains a function that takes a single argument, `result` - this is our promise object. A  [`vegaEmbed()`](https://github.com/vega/vega-embed#embed) promise object contains two objects: a [`view`](https://github.com/vega/vega-view#vega-view) instance and a copy of the `spec` used to create it. Although we are likely interested only in the view, we follow the vega-embed convention to return the entire object so that you refer to the view in the function as `result.view`.
+
+The rest of the code is copied from the original demonstration. To change a dataset, we use vega-view's [change](https://github.com/vega/vega-view#view_change) method.
+
+```{js}
+// This is a JavaScript chunk, using {js} instead of {r}
+
+HTMLWidgets.addPostRenderHandler(function() {
+
+  getVegaPromise('#streaming-demo')
+    .then(function(result) {
+      /**
+       * Generates a new tuple with random walk.
+       */
+      function newGenerator() {
+          var counter = -1;
+          var previousY = [5, 5, 5, 5];
+          return function () {
+              counter++;
+              var newVals = previousY.map(function (v, c) { return ({
+                  x: counter,
+                  y: v + Math.round(Math.random() * 10 - c * 3),
+                  category: c
+              }); });
+              previousY = newVals.map(function (v) { return v.y; });
+              return newVals;
+          };
+      }
+  
+      var valueGenerator = newGenerator();
+      var minimumX = -100;
+      window.setInterval(function () {
+          minimumX++;
+          var changeSet = vega.changeset()
+                              .insert(valueGenerator())
+                              .remove(function (t) { return t.x < minimumX; });
+                              
+          result.view.change('table', changeSet).run();
+      }, 1000);  
+    });
+
+});
+```
+
+## Demo: externally-driven data
+
+This is an adaptation of an [Observable notebook](https://beta.observablehq.com/@ijlyttle/using-changesets-with-vega-lite).
+
+```{r}
+library("htmltools")
+```
+
+```{r}
+input <- tags$input(
+  type = "range", 
+  name = "angle", 
+  value = 0, 
+  min = 0, 
+  max = 360, 
+  step = 1
+)
+```
+
+```{r}
+spec_circle <- 
+  list(
+    `$schema` = vega_schema(),
+    data = list(
+      values = list(x = 1, y = 0),
+      name = "source"
+    ),
+    mark = "point",
+    encoding = list(
+      x = list(
+        field = "x", 
+        type = "quantitative", 
+        scale = list(domain = list(-1, 1))
+      ),
+      y = list(
+        field = "y", 
+        type = "quantitative", 
+        scale = list(domain = list(-1, 1))
+      )     
+    )
+  ) %>%
+  as_vegaspec()
+
+vegawidget(spec_circle, elementId = "circle")
+```
+
+```{r}
+input
+```
+
+```{r}
+tags$div(id = "foo")
+```
+
+```{js}
+var angle_input = document.querySelector("[name=angle]");
+
+function on_angle() {
+
+  var theta = angle_input.value * Math.PI / 180;
+
+  var data_live = {x: Math.cos(theta), y: Math.sin(theta)};
+
+  // changes text value
+  document.getElementById("foo").innerHTML = JSON.stringify(data_live);
+  
+  // changes Vega chart
+  getVegaPromise('#circle').then(function(result) {
+  
+    changeSet = vega.changeset()
+                    .insert(data_live)
+                    .remove(vega.truthy);
+        
+    result.view.change('source', changeSet).run();  
+    
+  });
+}
+
+angle_input.addEventListener("input", on_angle);
+```

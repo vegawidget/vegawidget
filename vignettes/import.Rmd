@@ -17,6 +17,8 @@ Call `use_vegawidget()`, it will:
 You need to adapt one thing, then everything else "just works".
 
 ```{r s3}
+library("vegawidget")
+
 spec_mtcars_s3 <- structure(
   spec_mtcars,
   class = c("my_class_name")

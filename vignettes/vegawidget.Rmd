@@ -4,9 +4,11 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 ---
 
-The central *side-effect* of this package is to render a *vegawidget*, which is also an htmlwidget. A vegawidget is built by the `vegawidget()` function, using a `vegaspec`. 
+The central *side-effect* of this package is to render a *vegawidget*, an htmlwidget. 
 
-The `vegawidget()` function lets you call is provided for [vega-embed](https://github.com/vega/vega-embed) options. These options can be specified as an argument to the `vegawidget()` function, or as an R option, `vega.embed`. The R options `vega,embed`, `vega.height`, and `vega.width` can be useful when printing or creating an image from a spec. 
+A vegawidget is built by the `vegawidget()` function, using a `vegaspec`. However, in many cases, your call to `vegawidget()` may be implied in a `print` method, rather than being made explicitly. 
+
+The `vegawidget()` function lets you provide [vega-embed](https://github.com/vega/vega-embed) options. These can be specified as an argument to the `vegawidget()` function, or as an R option: `vega.embed`. The R options `vega.embed`, `vega.height`, and `vega.width` can be useful when printing or creating an image from a spec. 
 
 If the [**webshot**](https://CRAN.R-project.org/package=webshot) package and PhantomJS are installed, knitting to a non-html format should "just work".
 
@@ -68,72 +70,7 @@ spec_mtcars
 spec_mtcars
 ```
 
-## Extending using JavaScript
 
-Here, we recreate this Vega-Lite [streaming tutorial](https://vega.github.io/vega-lite/tutorials/streaming.html).
-
-```{r}
-spec_table <-
-  list(
-    `$schema` = vega_schema(),
-    width = 400,
-    data = list(name = "table"),
-    mark = "line",
-    encoding = list(
-      x = list(
-        field = "x", 
-        type = "quantitative",
-        scale = list(zero =  FALSE)
-      ),
-      y = list(field = "y", type = "quantitative"),
-      color = list(field = "category", type = "nominal")
-    )
-  ) %>%
-  as_vegaspec()
-```
-
-The `elementId` argument is passed on to `htmlwidget::createWidget()`. 
-
-```{r}
-vegawidget(spec_table, elementId = "streaming-demo")
-```
-
-```{js}
-// This is a JavaScript chunk, using {js} instead of {r}
-
-HTMLWidgets.addPostRenderHandler(function() {
-
-  getVegaPromise('#streaming-demo')
-    .then(function(result) {
-      /**
-       * Generates a new tuple with random walk.
-       */
-      function newGenerator() {
-          var counter = -1;
-          var previousY = [5, 5, 5, 5];
-          return function () {
-              counter++;
-              var newVals = previousY.map(function (v, c) { return ({
-                  x: counter,
-                  y: v + Math.round(Math.random() * 10 - c * 3),
-                  category: c
-              }); });
-              previousY = newVals.map(function (v) { return v.y; });
-              return newVals;
-          };
-      }
-  
-      var valueGenerator = newGenerator();
-      var minimumX = -100;
-      window.setInterval(function () {
-          minimumX++;
-          var changeSet = vega.changeset().insert(valueGenerator()).remove(function (t) { return t.x < minimumX; });
-          result.view.change('table', changeSet).run();
-      }, 1000);  
-    });
-
-});
-```
 
 
 

@@ -78,9 +78,12 @@ reference:
     - vegawidgetOutput
   - title: Data
     desc: >
-      These are sample specifications.
+      This package provides some sample specifications and datasets.
     contents:
     - spec_mtcars
+    - data_category
+    - data_seattle_daily
+    - data_seattle_hourly
   - title: Images
     desc: >
       If you have the

@@ -8,7 +8,7 @@ output: rmarkdown::html_document
 library("vegawidget")
 ```
 
-The purpose of this article is to show how you can use JavaScript to extend Vega's capabilties. In both the examples shown here, we are using the [vega-view](https://github.com/vega/vega-view) API to update the dataset using JavaScript. Clearly, this approach is not as intuitive as using Shiny, but it could be useful in situations where Shiny is not available or feasible.
+The purpose of this article is to show how you can use JavaScript to extend Vega's capabilities. In both the examples shown here, we are using the [vega-view](https://github.com/vega/vega-view) API to update the dataset using JavaScript. Clearly, this approach is not as intuitive as using Shiny, but it could be useful in situations where Shiny is not available or feasible.
 
 ## Demo: streaming data
 

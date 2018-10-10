@@ -11,6 +11,7 @@
 ^vignettes/first-example\.Rmd$
 ^vignettes/image\.Rmd$
 ^vignettes/import\.Rmd$
+^vignettes/javascript\.Rmd$
 ^vignettes/time\.Rmd$
 ^vignettes/utilities\.Rmd$
 ^vignettes/vegaspec\.Rmd$

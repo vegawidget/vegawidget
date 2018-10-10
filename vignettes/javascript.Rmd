@@ -8,7 +8,7 @@ output: rmarkdown::html_document
 library("vegawidget")
 ```
 
-The purpose of this article is to show how you can use JavaScript to extend Vega's capabilities. In both the examples shown here, we are using the [vega-view](https://github.com/vega/vega-view) API to update the dataset using JavaScript. Clearly, this approach is not as intuitive as using Shiny, but it could be useful in situations where Shiny is not available or feasible.
+The purpose of this article is to show how you can use JavaScript to extend Vega's capabilities. In these examples, we use the [vega-view](https://github.com/vega/vega-view) API to update the dataset using JavaScript. Clearly, this approach is not as intuitive as using Shiny, but it could be useful in situations where Shiny is not available or feasible.
 
 ## Demo: streaming data
 
@@ -175,7 +175,7 @@ input_angle
 output_text
 ```
 
-It remains to define the interaction among the elements. Here's where we need to use some JavaScript.
+It remains to define the interaction among the elements, using JavaScript:
 
 ```{js}
 // this is a {js} chunk
@@ -186,7 +186,7 @@ var input_angle = document.querySelector("[name=angle]");
 // updates the chart and the text output according to the input value
 function on_angle() {
 
-  // translate the input value to x-y coordinates 
+  // translate the input value to x-y coordinates in a new dataset
   var theta = input_angle.value * Math.PI / 180;
   var data_live = {x: Math.cos(theta), y: Math.sin(theta)};
 
@@ -207,7 +207,7 @@ function on_angle() {
   });
 }
 
-// whenever the input changes, run the updateing-function
+// whenever the input changes, run the updating function
 input_angle.addEventListener("input", on_angle);
 
 // run the updating function *once* as soon as the document is ready

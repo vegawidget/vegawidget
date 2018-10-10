@@ -115,7 +115,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a></code></pre></div>
-<p>The purpose of this article is to show how you can use JavaScript to extend Vega’s capabilities. In both the examples shown here, we are using the <a href="https://github.com/vega/vega-view">vega-view</a> API to update the dataset using JavaScript. Clearly, this approach is not as intuitive as using Shiny, but it could be useful in situations where Shiny is not available or feasible.</p>
+<p>The purpose of this article is to show how you can use JavaScript to extend Vega’s capabilities. In these examples, we use the <a href="https://github.com/vega/vega-view">vega-view</a> API to update the dataset using JavaScript. Clearly, this approach is not as intuitive as using Shiny, but it could be useful in situations where Shiny is not available or feasible.</p>
 <div id="demo-streaming-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#demo-streaming-data" class="anchor"></a>Demo: streaming data</h2>
@@ -350,7 +350,7 @@ HTMLWidgets.addPostRenderHandler(function() {
 },"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">input_angle</a></code></pre></div>
 <input type="range" name="angle" value="0" min="0" max="360" step="1" style="width: 400px; margin-bottom: 10px;"><div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">output_text</a></code></pre></div>
 <div id="text" style="font-family: monospace; margin-bottom: 10px;">Look here for live data</div>
-<p>It remains to define the interaction among the elements. Here’s where we need to use some JavaScript.</p>
+<p>It remains to define the interaction among the elements, using JavaScript:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co">// this is a {js} chunk</span></a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">// JS reference to our slider-input</span></a>
@@ -359,7 +359,7 @@ HTMLWidgets.addPostRenderHandler(function() {
 <a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">// updates the chart and the text output according to the input value</span></a>
 <a class="sourceLine" id="cb12-7" data-line-number="7"><span class="kw">function</span> <span class="at">on_angle</span>() <span class="op">{</span></a>
 <a class="sourceLine" id="cb12-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9">  <span class="co">// translate the input value to x-y coordinates </span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">  <span class="co">// translate the input value to x-y coordinates in a new dataset</span></a>
 <a class="sourceLine" id="cb12-10" data-line-number="10">  <span class="kw">var</span> theta <span class="op">=</span> <span class="va">input_angle</span>.<span class="at">value</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">PI</span> / <span class="dv">180</span><span class="op">;</span></a>
 <a class="sourceLine" id="cb12-11" data-line-number="11">  <span class="kw">var</span> data_live <span class="op">=</span> <span class="op">{</span><span class="dt">x</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">cos</span>(theta)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">sin</span>(theta)<span class="op">};</span></a>
 <a class="sourceLine" id="cb12-12" data-line-number="12"></a>
@@ -380,7 +380,7 @@ HTMLWidgets.addPostRenderHandler(function() {
 <a class="sourceLine" id="cb12-27" data-line-number="27">  <span class="op">}</span>)<span class="op">;</span></a>
 <a class="sourceLine" id="cb12-28" data-line-number="28"><span class="op">}</span></a>
 <a class="sourceLine" id="cb12-29" data-line-number="29"></a>
-<a class="sourceLine" id="cb12-30" data-line-number="30"><span class="co">// whenever the input changes, run the updateing-function</span></a>
+<a class="sourceLine" id="cb12-30" data-line-number="30"><span class="co">// whenever the input changes, run the updating function</span></a>
 <a class="sourceLine" id="cb12-31" data-line-number="31"><span class="va">input_angle</span>.<span class="at">addEventListener</span>(<span class="st">"input"</span><span class="op">,</span> on_angle)<span class="op">;</span></a>
 <a class="sourceLine" id="cb12-32" data-line-number="32"></a>
 <a class="sourceLine" id="cb12-33" data-line-number="33"><span class="co">// run the updating function *once* as soon as the document is ready</span></a>
@@ -394,7 +394,7 @@ var input_angle = document.querySelector("[name=angle]");
 // updates the chart and the text output according to the input value
 function on_angle() {
 
-  // translate the input value to x-y coordinates 
+  // translate the input value to x-y coordinates in a new dataset
   var theta = input_angle.value * Math.PI / 180;
   var data_live = {x: Math.cos(theta), y: Math.sin(theta)};
 
@@ -415,7 +415,7 @@ function on_angle() {
   });
 }
 
-// whenever the input changes, run the updateing-function
+// whenever the input changes, run the updating function
 input_angle.addEventListener("input", on_angle);
 
 // run the updating function *once* as soon as the document is ready

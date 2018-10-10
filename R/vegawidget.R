@@ -53,6 +53,10 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
   # if `embed` is still NULL, set using empty call to vega_embed()
   embed <- embed %||% vega_embed()
 
+  # set width, height if available from an option
+  width <- width %||% getOption("vega.width")
+  height <- height %||% getOption("vega.height")
+
   # autosize (if needed)
   spec <- vw_autosize(spec, width = width, height = height)
 

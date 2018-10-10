@@ -76,10 +76,6 @@
     <li>
       <a href="../articles/utilities.html">Utilities</a>
     </li>
-    <li class="divider">
-    <li>
-      <a href="../articles/visual-regression.html">Visual Regression</a>
-    </li>
   </ul>
 </li>
       </ul>
@@ -106,7 +102,7 @@
     <div class="page-header toc-ignore">
       <h1>Working with time</h1>
             
-            <h4 class="date">2018-10-09</h4>
+            <h4 class="date">2018-10-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/time.Rmd"><code>vignettes/time.Rmd</code></a></small>
       <div class="hidden name"><code>time.Rmd</code></div>
@@ -148,8 +144,8 @@
 <a class="sourceLine" id="cb3-24" data-line-number="24"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb3-25" data-line-number="25"></a>
 <a class="sourceLine" id="cb3-26" data-line-number="26">spec</a></code></pre></div>
-<div id="htmlwidget-87381729e98b0480dcbe" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-87381729e98b0480dcbe">{"x":{
+<div id="htmlwidget-e07d4260a1afd7221db9" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e07d4260a1afd7221db9">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "data": {
@@ -242,8 +238,8 @@
 <a class="sourceLine" id="cb4-25" data-line-number="25"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb4-26" data-line-number="26"></a>
 <a class="sourceLine" id="cb4-27" data-line-number="27">spec_rect</a></code></pre></div>
-<div id="htmlwidget-94c263ce045282ab6458" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-94c263ce045282ab6458">{"x":{
+<div id="htmlwidget-cd17d6030fdaeb33d76f" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cd17d6030fdaeb33d76f">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "data": {
@@ -310,8 +306,8 @@
     "renderer": "canvas"
   }
 },"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/vw_examine.html">vw_examine</a></span>(spec_rect)</a></code></pre></div>
-<div id="htmlwidget-482254500bf79f86e90a" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-482254500bf79f86e90a">{"x":{"data":{"$schema":"https://vega.github.io/schema/vega-lite/v2.json","data":{"values":{"date":["1970-01-01","1970-01-02"],"time_local":["1970-01-01 00:00:00.000","1970-01-02 00:00:00.000"],"time_local_plus":["1970-01-02 00:00:00.000","1970-01-03 00:00:00.000"],"time_utc":["1970-01-01T00:00:00.000Z","1970-01-02T00:00:00.000Z"]},"format":{"parse":{"time_local":"utc:'%Y-%m-%d %H:%M:%S.%L'","time_local_plus":"utc:'%Y-%m-%d %H:%M:%S.%L'"}}},"mark":"rect","encoding":{"x":{"field":"time_local","type":"temporal","title":"time_local"},"x2":{"field":"time_local_plus","type":"temporal"},"tooltip":[{"field":"time_local","type":"temporal","format":"%Y-%m-%d %H:%M:%S"},{"title":"time_local (s)","field":"time_local","type":"temporal","format":"%s"},{"field":"date","type":"temporal","format":"%Y-%m-%d %H:%M:%S"},{"title":"date (s)","field":"date","type":"temporal","format":"%s"}]}},"options":{"mode":"view","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2a3f9b198266fffdffff" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2a3f9b198266fffdffff">{"x":{"data":{"$schema":"https://vega.github.io/schema/vega-lite/v2.json","data":{"values":{"date":["1970-01-01","1970-01-02"],"time_local":["1970-01-01 00:00:00.000","1970-01-02 00:00:00.000"],"time_local_plus":["1970-01-02 00:00:00.000","1970-01-03 00:00:00.000"],"time_utc":["1970-01-01T00:00:00.000Z","1970-01-02T00:00:00.000Z"]},"format":{"parse":{"time_local":"utc:'%Y-%m-%d %H:%M:%S.%L'","time_local_plus":"utc:'%Y-%m-%d %H:%M:%S.%L'"}}},"mark":"rect","encoding":{"x":{"field":"time_local","type":"temporal","title":"time_local"},"x2":{"field":"time_local_plus","type":"temporal"},"tooltip":[{"field":"time_local","type":"temporal","format":"%Y-%m-%d %H:%M:%S"},{"title":"time_local (s)","field":"time_local","type":"temporal","format":"%s"},{"field":"date","type":"temporal","format":"%Y-%m-%d %H:%M:%S"},{"title":"date (s)","field":"date","type":"temporal","format":"%s"}]}},"options":{"mode":"view","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script>
 </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

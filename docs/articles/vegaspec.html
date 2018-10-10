@@ -76,10 +76,6 @@
     <li>
       <a href="../articles/utilities.html">Utilities</a>
     </li>
-    <li class="divider">
-    <li>
-      <a href="../articles/visual-regression.html">Visual Regression</a>
-    </li>
   </ul>
 </li>
       </ul>
@@ -151,8 +147,8 @@
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb1-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb1-15" data-line-number="15">spec_category</a></code></pre></div>
-<div id="htmlwidget-fe1409857ebb495a617d" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fe1409857ebb495a617d">{"x":{
+<div id="htmlwidget-cdcacd6a789168470192" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cdcacd6a789168470192">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "data": {
@@ -239,8 +235,8 @@
 <a href="#examining" class="anchor"></a>Examining</h2>
 <p>We also have a function, <code><a href="../reference/vw_examine.html">vw_examine()</a></code>, that you can use to, well, examine a vegaspec. It is a thin wrapper around the <code><a href="http://www.rdocumentation.org/packages/listviewer/topics/jsonedit">listviewer::jsonedit()</a></code> function:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/vw_examine.html">vw_examine</a></span>(spec_category)</a></code></pre></div>
-<div id="htmlwidget-39b5769c703477733810" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-39b5769c703477733810">{"x":{"data":{"$schema":"https://vega.github.io/schema/vega-lite/v2.json","data":{"values":{"category":["a","b","c","d","e","f","g","h","i","j"],"number":[21,64,23,41,92,52,61,27,34,48]}},"mark":"bar","encoding":{"x":{"field":"category","type":"nominal"},"y":{"field":"number","type":"quantitative"}}},"options":{"mode":"view","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script><p>You might note that, here, the <code>data$values</code> element of the vegaspec has a column-major format. In R, data frames are lists of vectors; each of the columns is a vector. In the Vega framework, data sets have a row-major format. What we see above is the specification <em>before</em> it is rendered. In the rendering process, data-frames are converted to row-major data.</p>
+<div id="htmlwidget-8f3024dd26de72ce9da3" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8f3024dd26de72ce9da3">{"x":{"data":{"$schema":"https://vega.github.io/schema/vega-lite/v2.json","data":{"values":{"category":["a","b","c","d","e","f","g","h","i","j"],"number":[21,64,23,41,92,52,61,27,34,48]}},"mark":"bar","encoding":{"x":{"field":"category","type":"nominal"},"y":{"field":"number","type":"quantitative"}}},"options":{"mode":"view","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script><p>You might note that, here, the <code>data$values</code> element of the vegaspec has a column-major format. In R, data frames are lists of vectors; each of the columns is a vector. In the Vega framework, data sets have a row-major format. What we see above is the specification <em>before</em> it is rendered. In the rendering process, data-frames are converted to row-major data.</p>
 </div>
 <div id="converting-to-json" class="section level2">
 <h2 class="hasAnchor">
@@ -251,8 +247,8 @@
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/vw_as_json.html">vw_as_json</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/vw_examine.html">vw_examine</a></span>()</a></code></pre></div>
 <p></p>
-<div id="htmlwidget-ea68f5262530827f7596" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ea68f5262530827f7596">{"x":{"data":{"$schema":"https://vega.github.io/schema/vega-lite/v2.json","data":{"values":[{"category":"a","number":21},{"category":"b","number":64},{"category":"c","number":23},{"category":"d","number":41},{"category":"e","number":92},{"category":"f","number":52},{"category":"g","number":61},{"category":"h","number":27},{"category":"i","number":34},{"category":"j","number":48}]},"mark":"bar","encoding":{"x":{"field":"category","type":"nominal"},"y":{"field":"number","type":"quantitative"}}},"options":{"mode":"view","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script> Here, the <code>data$values</code> element has been transposed. The function <code><a href="../reference/vw_as_json.html">vw_as_json()</a></code> takes care of this so that the spec will render properly.
+<div id="htmlwidget-af8865ad5040a36901eb" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-af8865ad5040a36901eb">{"x":{"data":{"$schema":"https://vega.github.io/schema/vega-lite/v2.json","data":{"values":[{"category":"a","number":21},{"category":"b","number":64},{"category":"c","number":23},{"category":"d","number":41},{"category":"e","number":92},{"category":"f","number":52},{"category":"g","number":61},{"category":"h","number":27},{"category":"i","number":34},{"category":"j","number":48}]},"mark":"bar","encoding":{"x":{"field":"category","type":"nominal"},"y":{"field":"number","type":"quantitative"}}},"options":{"mode":"view","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script> Here, the <code>data$values</code> element has been transposed. The function <code><a href="../reference/vw_as_json.html">vw_as_json()</a></code> takes care of this so that the spec will render properly.
 </div>
 <div id="resizing" class="section level2">
 <h2 class="hasAnchor">
@@ -265,8 +261,8 @@
 <a class="sourceLine" id="cb6-4" data-line-number="4">spec_category_size<span class="op">$</span>height &lt;-<span class="st"> </span><span class="dv">300</span></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb6-6" data-line-number="6">spec_category_size</a></code></pre></div>
-<div id="htmlwidget-c1529119a848220a3b9a" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c1529119a848220a3b9a">{"x":{
+<div id="htmlwidget-9bdacc489b36f920f25f" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9bdacc489b36f920f25f">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "data": {
@@ -337,8 +333,8 @@
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/vw_autosize.html">vw_autosize</a></span>(<span class="dt">width =</span> <span class="dv">300</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb7-5" data-line-number="5">spec_category_autosize</a></code></pre></div>
-<div id="htmlwidget-33a933508038f924e7c4" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-33a933508038f924e7c4">{"x":{
+<div id="htmlwidget-853ff0a694e4fa1be881" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-853ff0a694e4fa1be881">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "data": {
@@ -425,8 +421,8 @@
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">spec_category_vega &lt;-<span class="st"> </span><span class="kw"><a href="../reference/vw_to_vega.html">vw_to_vega</a></span>(spec_category)</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">spec_category_vega</a></code></pre></div>
-<div id="htmlwidget-7d5b886759a748fc6051" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7d5b886759a748fc6051">{"x":{
+<div id="htmlwidget-6b55ff9869e4c1504d28" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6b55ff9869e4c1504d28">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega/v3.json",
     "autosize": "pad",
@@ -643,8 +639,8 @@
 ## [1] "3"</code></pre>
 <p>You can examine the result to see how much-more verbose is the Vega specification, compared to the Vega-Lite specification.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="../reference/vw_examine.html">vw_examine</a></span>(spec_category_vega)</a></code></pre></div>
-<div id="htmlwidget-d5e0ddca3957205aac61" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d5e0ddca3957205aac61">{"x":{"data":{"$schema":"https://vega.github.io/schema/vega/v3.json","autosize":"pad","padding":5,"height":200,"style":"cell","data":[{"name":"source_0","values":[{"category":"a","number":21},{"category":"b","number":64},{"category":"c","number":23},{"category":"d","number":41},{"category":"e","number":92},{"category":"f","number":52},{"category":"g","number":61},{"category":"h","number":27},{"category":"i","number":34},{"category":"j","number":48}]},{"name":"data_0","source":"source_0","transform":[{"type":"formula","expr":"toNumber(datum[\"number\"])","as":"number"},{"type":"filter","expr":"datum[\"number\"] !== null && !isNaN(datum[\"number\"])"}]}],"signals":[{"name":"x_step","value":21},{"name":"width","update":"bandspace(domain('x').length, 0.1, 0.05) * x_step"}],"marks":[{"name":"marks","type":"rect","style":["bar"],"from":{"data":"data_0"},"encode":{"update":{"fill":{"value":"#4c78a8"},"x":{"scale":"x","field":"category"},"width":{"scale":"x","band":true},"y":{"scale":"y","field":"number"},"y2":{"scale":"y","value":0}}}}],"scales":[{"name":"x","type":"band","domain":{"data":"data_0","field":"category","sort":true},"range":{"step":{"signal":"x_step"}},"paddingInner":0.1,"paddingOuter":0.05},{"name":"y","type":"linear","domain":{"data":"data_0","field":"number"},"range":[{"signal":"height"},0],"nice":true,"zero":true}],"axes":[{"scale":"x","orient":"bottom","grid":false,"title":"category","encode":{"labels":{"update":{"angle":{"value":270},"align":{"value":"right"},"baseline":{"value":"middle"}}}},"zindex":1},{"scale":"y","orient":"left","grid":false,"title":"number","labelOverlap":true,"tickCount":{"signal":"ceil(height/40)"},"zindex":1},{"scale":"y","orient":"left","grid":true,"tickCount":{"signal":"ceil(height/40)"},"gridScale":"x","domain":false,"labels":false,"maxExtent":0,"minExtent":0,"ticks":false,"zindex":0}],"config":{"axisY":{"minExtent":30}}},"options":{"mode":"view","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-142ad7c341661bca7b22" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-142ad7c341661bca7b22">{"x":{"data":{"$schema":"https://vega.github.io/schema/vega/v3.json","autosize":"pad","padding":5,"height":200,"style":"cell","data":[{"name":"source_0","values":[{"category":"a","number":21},{"category":"b","number":64},{"category":"c","number":23},{"category":"d","number":41},{"category":"e","number":92},{"category":"f","number":52},{"category":"g","number":61},{"category":"h","number":27},{"category":"i","number":34},{"category":"j","number":48}]},{"name":"data_0","source":"source_0","transform":[{"type":"formula","expr":"toNumber(datum[\"number\"])","as":"number"},{"type":"filter","expr":"datum[\"number\"] !== null && !isNaN(datum[\"number\"])"}]}],"signals":[{"name":"x_step","value":21},{"name":"width","update":"bandspace(domain('x').length, 0.1, 0.05) * x_step"}],"marks":[{"name":"marks","type":"rect","style":["bar"],"from":{"data":"data_0"},"encode":{"update":{"fill":{"value":"#4c78a8"},"x":{"scale":"x","field":"category"},"width":{"scale":"x","band":true},"y":{"scale":"y","field":"number"},"y2":{"scale":"y","value":0}}}}],"scales":[{"name":"x","type":"band","domain":{"data":"data_0","field":"category","sort":true},"range":{"step":{"signal":"x_step"}},"paddingInner":0.1,"paddingOuter":0.05},{"name":"y","type":"linear","domain":{"data":"data_0","field":"number"},"range":[{"signal":"height"},0],"nice":true,"zero":true}],"axes":[{"scale":"x","orient":"bottom","grid":false,"title":"category","encode":{"labels":{"update":{"angle":{"value":270},"align":{"value":"right"},"baseline":{"value":"middle"}}}},"zindex":1},{"scale":"y","orient":"left","grid":false,"title":"number","labelOverlap":true,"tickCount":{"signal":"ceil(height/40)"},"zindex":1},{"scale":"y","orient":"left","grid":true,"tickCount":{"signal":"ceil(height/40)"},"gridScale":"x","domain":false,"labels":false,"maxExtent":0,"minExtent":0,"ticks":false,"zindex":0}],"config":{"axisY":{"minExtent":30}}},"options":{"mode":"view","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="gotchas" class="section level2">
 <h2 class="hasAnchor">

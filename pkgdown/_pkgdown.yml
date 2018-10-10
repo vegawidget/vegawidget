@@ -30,9 +30,7 @@ navbar:
           href: articles/import.html
         - text: Utilities
           href: articles/utilities.html
-        - text: "------------"
-        - text: Visual Regression
-          href: articles/visual-regression.html
+
   right:
     - icon: fa-github fa-2x
       href: https://github.com/vegawidget/vegawidget

@@ -7,7 +7,6 @@ articles:
   import: import.html
   javascript: javascript.html
   time: time.html
-  utilities: utilities.html
   vegaspec: vegaspec.html
   vegawidget: vegawidget.html
   visual-regression: visual-regression.html

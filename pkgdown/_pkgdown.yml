@@ -28,8 +28,8 @@ navbar:
           href: articles/image.html
         - text: Import into Other Packages
           href: articles/import.html
-        - text: Utilities
-          href: articles/utilities.html
+        - text: Work with Dates and Times
+          href: articles/dates-times.html
 
   right:
     - icon: fa-github fa-2x
@@ -117,9 +117,7 @@ reference:
     contents:
     - use_vegawidget
     - vw_serialize_data
-    - vw_spec_version
     - vega_version
-    - vega_schema
 
 
 

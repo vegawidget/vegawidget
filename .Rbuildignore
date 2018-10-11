@@ -12,8 +12,7 @@
 ^vignettes/image\.Rmd$
 ^vignettes/import\.Rmd$
 ^vignettes/javascript\.Rmd$
-^vignettes/time\.Rmd$
-^vignettes/utilities\.Rmd$
+^vignettes/dates-times\.Rmd$
 ^vignettes/vegaspec\.Rmd$
 ^vignettes/vegawidget\.Rmd$
 ^vignettes/visual-regression\.Rmd$

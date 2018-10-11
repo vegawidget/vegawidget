@@ -1,5 +1,5 @@
 ---
-title: "Working with time"
+title: "Work with dates and times"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 ---

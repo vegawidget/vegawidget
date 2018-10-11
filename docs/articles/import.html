@@ -95,13 +95,12 @@
 <!--/.navbar -->
 
       
-      </header><script src="import_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="import_files/vega-4.0.0/promise.min.js"></script><script src="import_files/vega-4.0.0/symbol.min.js"></script><script src="import_files/vega-4.0.0/vega.js"></script><script src="import_files/vega-lite-2.6.0/vega-lite.min.js"></script><link href="import_files/vega-embed-3.16.0/vega-embed.css" rel="stylesheet">
-<script src="import_files/vega-embed-3.16.0/vega-embed-modified.js"></script><script src="import_files/vegawidget-binding-0.0.4.9000/vegawidget.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Import into Other Packages</h1>
             
-            <h4 class="date">2018-10-10</h4>
+            <h4 class="date">2018-10-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/import.Rmd"><code>vignettes/import.Rmd</code></a></small>
       <div class="hidden name"><code>import.Rmd</code></div>
@@ -110,531 +109,70 @@
 
     
     
-<p>The principal motivation for the <strong>vegawidget</strong> package is to provide other packages that build Vega or Vega-Lite specifications a resuable set of functions.</p>
-<p>To make this truly resuable… <code>use_pipe()</code>…</p>
-<p>Your package might have an S3 class. For <em>altair</em>, this is <code>altair.vegalite.v2.api.TopLevelMixin</code>.</p>
-<p>Call <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code>, it will:</p>
+<p>The <strong>vegawidget</strong> package is designed to be a low-level interface to the Vega and Vega-Lite visualization frameworks. As such, we hope that the functions provided here can serve as a foundation for other, presumably higher-level, packages. To make it easier for authors of such packages, we offer a function <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> to help incorporate vegawidget functions into those packages.</p>
+<div id="example-altair" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example-altair" class="anchor"></a>Example: altair</h2>
+<p>For example, the <a href="https://vegawidget.github.io/altair"><strong>altair</strong></a> package provides an R interface to the <a href="https://altair-viz.github.io"><strong>Altair</strong></a> Python package. The altair package itself provides the connection to Python, using <a href="https://rstudio.github.io/reticulate"><strong>reticulate</strong></a>; altair’s focus is to provide a means to build a Vega-Lite specification - using higher-level abstractions than lists.</p>
+<p>The rendering part of altair is handled by this package. A number of vegawidget functions are imported into altair, then re-exported. From altair’s perspective, this import-export operation is handled by a single vegawidget function: <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code>.</p>
+<div id="inspiration-usethisuse_pipe" class="section level3">
+<h3 class="hasAnchor">
+<a href="#inspiration-usethisuse_pipe" class="anchor"></a>Inspiration: <code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_pipe">usethis::use_pipe()</a></code>
+</h3>
+<p>A lot of packages use the pipe (<code>%&gt;%</code>) function, so much so that the <a href="http://usethis.r-lib.org"><strong>usethis</strong></a> package offers the function <code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_pipe">usethis::use_pipe()</a></code> for package authors to make the pipe part of their package’s offer:</p>
 <ul>
-<li>…</li>
+<li>adds the <strong>magrittr</strong> package to the “Imports” section of the package’s DESCRIPTION file</li>
+<li>creates a new file in the package’s <code>R</code> directory, <code>utils-pipe.R</code>
+</li>
 </ul>
-<p>You need to adapt one thing, then everything else “just works”.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">spec_mtcars_s3 &lt;-<span class="st"> </span><span class="kw">structure</span>(</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">  spec_mtcars,</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="dt">class =</span> <span class="kw">c</span>(<span class="st">"my_class_name"</span>)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">class</span>(spec_mtcars_s3)</a></code></pre></div>
-<pre><code>## [1] "my_class_name"</code></pre>
-<p>To take full advantage of these rendering functions, we have to define a method, <code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code> for this class, and also define <code>print()</code> and <code>knit_print()</code> methods.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">as_vegaspec.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(spec, ...) {</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">  </a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="co"># reverts to list</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">  spec &lt;-<span class="st"> </span><span class="kw">unclass</span>(spec)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="co"># as_vegaspec has a list method</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">  vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(spec, ...)</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">}</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">print.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) {</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">  </a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">  x &lt;-<span class="st"> </span>vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(x)</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">  </a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">  <span class="kw">print</span>(x, ...)</a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">}</a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">knit_print.my_class_name &lt;-<span class="st"> </span><span class="cf">function</span>(x, ..., <span class="dt">options =</span> <span class="ot">NULL</span>){</a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">  </a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">  x &lt;-<span class="st"> </span>vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(x)</a>
-<a class="sourceLine" id="cb3-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21">  knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/knit_print">knit_print</a></span>(x, ..., <span class="dt">options =</span> options)</a>
-<a class="sourceLine" id="cb3-22" data-line-number="22">}</a></code></pre></div>
-<p>With these defined, you can render your specification by printing:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">spec_mtcars_s3</a></code></pre></div>
-<div id="htmlwidget-725ce5729dd3c823ab64" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-725ce5729dd3c823ab64">{"x":{
-  "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-    "width": 300,
-    "height": 300,
-    "description": "An mtcars example.",
-    "data": {
-      "values": [
-        {
-          "mpg": 21,
-          "cyl": 6,
-          "disp": 160,
-          "hp": 110,
-          "drat": 3.9,
-          "wt": 2.62,
-          "qsec": 16.46,
-          "vs": 0,
-          "am": 1,
-          "gear": 4,
-          "carb": 4,
-          "_row": "Mazda RX4"
-        },
-        {
-          "mpg": 21,
-          "cyl": 6,
-          "disp": 160,
-          "hp": 110,
-          "drat": 3.9,
-          "wt": 2.875,
-          "qsec": 17.02,
-          "vs": 0,
-          "am": 1,
-          "gear": 4,
-          "carb": 4,
-          "_row": "Mazda RX4 Wag"
-        },
-        {
-          "mpg": 22.8,
-          "cyl": 4,
-          "disp": 108,
-          "hp": 93,
-          "drat": 3.85,
-          "wt": 2.32,
-          "qsec": 18.61,
-          "vs": 1,
-          "am": 1,
-          "gear": 4,
-          "carb": 1,
-          "_row": "Datsun 710"
-        },
-        {
-          "mpg": 21.4,
-          "cyl": 6,
-          "disp": 258,
-          "hp": 110,
-          "drat": 3.08,
-          "wt": 3.215,
-          "qsec": 19.44,
-          "vs": 1,
-          "am": 0,
-          "gear": 3,
-          "carb": 1,
-          "_row": "Hornet 4 Drive"
-        },
-        {
-          "mpg": 18.7,
-          "cyl": 8,
-          "disp": 360,
-          "hp": 175,
-          "drat": 3.15,
-          "wt": 3.44,
-          "qsec": 17.02,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 2,
-          "_row": "Hornet Sportabout"
-        },
-        {
-          "mpg": 18.1,
-          "cyl": 6,
-          "disp": 225,
-          "hp": 105,
-          "drat": 2.76,
-          "wt": 3.46,
-          "qsec": 20.22,
-          "vs": 1,
-          "am": 0,
-          "gear": 3,
-          "carb": 1,
-          "_row": "Valiant"
-        },
-        {
-          "mpg": 14.3,
-          "cyl": 8,
-          "disp": 360,
-          "hp": 245,
-          "drat": 3.21,
-          "wt": 3.57,
-          "qsec": 15.84,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 4,
-          "_row": "Duster 360"
-        },
-        {
-          "mpg": 24.4,
-          "cyl": 4,
-          "disp": 146.7,
-          "hp": 62,
-          "drat": 3.69,
-          "wt": 3.19,
-          "qsec": 20,
-          "vs": 1,
-          "am": 0,
-          "gear": 4,
-          "carb": 2,
-          "_row": "Merc 240D"
-        },
-        {
-          "mpg": 22.8,
-          "cyl": 4,
-          "disp": 140.8,
-          "hp": 95,
-          "drat": 3.92,
-          "wt": 3.15,
-          "qsec": 22.9,
-          "vs": 1,
-          "am": 0,
-          "gear": 4,
-          "carb": 2,
-          "_row": "Merc 230"
-        },
-        {
-          "mpg": 19.2,
-          "cyl": 6,
-          "disp": 167.6,
-          "hp": 123,
-          "drat": 3.92,
-          "wt": 3.44,
-          "qsec": 18.3,
-          "vs": 1,
-          "am": 0,
-          "gear": 4,
-          "carb": 4,
-          "_row": "Merc 280"
-        },
-        {
-          "mpg": 17.8,
-          "cyl": 6,
-          "disp": 167.6,
-          "hp": 123,
-          "drat": 3.92,
-          "wt": 3.44,
-          "qsec": 18.9,
-          "vs": 1,
-          "am": 0,
-          "gear": 4,
-          "carb": 4,
-          "_row": "Merc 280C"
-        },
-        {
-          "mpg": 16.4,
-          "cyl": 8,
-          "disp": 275.8,
-          "hp": 180,
-          "drat": 3.07,
-          "wt": 4.07,
-          "qsec": 17.4,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 3,
-          "_row": "Merc 450SE"
-        },
-        {
-          "mpg": 17.3,
-          "cyl": 8,
-          "disp": 275.8,
-          "hp": 180,
-          "drat": 3.07,
-          "wt": 3.73,
-          "qsec": 17.6,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 3,
-          "_row": "Merc 450SL"
-        },
-        {
-          "mpg": 15.2,
-          "cyl": 8,
-          "disp": 275.8,
-          "hp": 180,
-          "drat": 3.07,
-          "wt": 3.78,
-          "qsec": 18,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 3,
-          "_row": "Merc 450SLC"
-        },
-        {
-          "mpg": 10.4,
-          "cyl": 8,
-          "disp": 472,
-          "hp": 205,
-          "drat": 2.93,
-          "wt": 5.25,
-          "qsec": 17.98,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 4,
-          "_row": "Cadillac Fleetwood"
-        },
-        {
-          "mpg": 10.4,
-          "cyl": 8,
-          "disp": 460,
-          "hp": 215,
-          "drat": 3,
-          "wt": 5.424,
-          "qsec": 17.82,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 4,
-          "_row": "Lincoln Continental"
-        },
-        {
-          "mpg": 14.7,
-          "cyl": 8,
-          "disp": 440,
-          "hp": 230,
-          "drat": 3.23,
-          "wt": 5.345,
-          "qsec": 17.42,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 4,
-          "_row": "Chrysler Imperial"
-        },
-        {
-          "mpg": 32.4,
-          "cyl": 4,
-          "disp": 78.7,
-          "hp": 66,
-          "drat": 4.08,
-          "wt": 2.2,
-          "qsec": 19.47,
-          "vs": 1,
-          "am": 1,
-          "gear": 4,
-          "carb": 1,
-          "_row": "Fiat 128"
-        },
-        {
-          "mpg": 30.4,
-          "cyl": 4,
-          "disp": 75.7,
-          "hp": 52,
-          "drat": 4.93,
-          "wt": 1.615,
-          "qsec": 18.52,
-          "vs": 1,
-          "am": 1,
-          "gear": 4,
-          "carb": 2,
-          "_row": "Honda Civic"
-        },
-        {
-          "mpg": 33.9,
-          "cyl": 4,
-          "disp": 71.1,
-          "hp": 65,
-          "drat": 4.22,
-          "wt": 1.835,
-          "qsec": 19.9,
-          "vs": 1,
-          "am": 1,
-          "gear": 4,
-          "carb": 1,
-          "_row": "Toyota Corolla"
-        },
-        {
-          "mpg": 21.5,
-          "cyl": 4,
-          "disp": 120.1,
-          "hp": 97,
-          "drat": 3.7,
-          "wt": 2.465,
-          "qsec": 20.01,
-          "vs": 1,
-          "am": 0,
-          "gear": 3,
-          "carb": 1,
-          "_row": "Toyota Corona"
-        },
-        {
-          "mpg": 15.5,
-          "cyl": 8,
-          "disp": 318,
-          "hp": 150,
-          "drat": 2.76,
-          "wt": 3.52,
-          "qsec": 16.87,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 2,
-          "_row": "Dodge Challenger"
-        },
-        {
-          "mpg": 15.2,
-          "cyl": 8,
-          "disp": 304,
-          "hp": 150,
-          "drat": 3.15,
-          "wt": 3.435,
-          "qsec": 17.3,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 2,
-          "_row": "AMC Javelin"
-        },
-        {
-          "mpg": 13.3,
-          "cyl": 8,
-          "disp": 350,
-          "hp": 245,
-          "drat": 3.73,
-          "wt": 3.84,
-          "qsec": 15.41,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 4,
-          "_row": "Camaro Z28"
-        },
-        {
-          "mpg": 19.2,
-          "cyl": 8,
-          "disp": 400,
-          "hp": 175,
-          "drat": 3.08,
-          "wt": 3.845,
-          "qsec": 17.05,
-          "vs": 0,
-          "am": 0,
-          "gear": 3,
-          "carb": 2,
-          "_row": "Pontiac Firebird"
-        },
-        {
-          "mpg": 27.3,
-          "cyl": 4,
-          "disp": 79,
-          "hp": 66,
-          "drat": 4.08,
-          "wt": 1.935,
-          "qsec": 18.9,
-          "vs": 1,
-          "am": 1,
-          "gear": 4,
-          "carb": 1,
-          "_row": "Fiat X1-9"
-        },
-        {
-          "mpg": 26,
-          "cyl": 4,
-          "disp": 120.3,
-          "hp": 91,
-          "drat": 4.43,
-          "wt": 2.14,
-          "qsec": 16.7,
-          "vs": 0,
-          "am": 1,
-          "gear": 5,
-          "carb": 2,
-          "_row": "Porsche 914-2"
-        },
-        {
-          "mpg": 30.4,
-          "cyl": 4,
-          "disp": 95.1,
-          "hp": 113,
-          "drat": 3.77,
-          "wt": 1.513,
-          "qsec": 16.9,
-          "vs": 1,
-          "am": 1,
-          "gear": 5,
-          "carb": 2,
-          "_row": "Lotus Europa"
-        },
-        {
-          "mpg": 15.8,
-          "cyl": 8,
-          "disp": 351,
-          "hp": 264,
-          "drat": 4.22,
-          "wt": 3.17,
-          "qsec": 14.5,
-          "vs": 0,
-          "am": 1,
-          "gear": 5,
-          "carb": 4,
-          "_row": "Ford Pantera L"
-        },
-        {
-          "mpg": 19.7,
-          "cyl": 6,
-          "disp": 145,
-          "hp": 175,
-          "drat": 3.62,
-          "wt": 2.77,
-          "qsec": 15.5,
-          "vs": 0,
-          "am": 1,
-          "gear": 5,
-          "carb": 6,
-          "_row": "Ferrari Dino"
-        },
-        {
-          "mpg": 15,
-          "cyl": 8,
-          "disp": 301,
-          "hp": 335,
-          "drat": 3.54,
-          "wt": 3.57,
-          "qsec": 14.6,
-          "vs": 0,
-          "am": 1,
-          "gear": 5,
-          "carb": 8,
-          "_row": "Maserati Bora"
-        },
-        {
-          "mpg": 21.4,
-          "cyl": 4,
-          "disp": 121,
-          "hp": 109,
-          "drat": 4.11,
-          "wt": 2.78,
-          "qsec": 18.6,
-          "vs": 1,
-          "am": 1,
-          "gear": 4,
-          "carb": 2,
-          "_row": "Volvo 142E"
-        }
-      ]
-    },
-    "mark": "point",
-    "encoding": {
-      "x": {
-        "field": "wt",
-        "type": "quantitative"
-      },
-      "y": {
-        "field": "mpg",
-        "type": "quantitative"
-      },
-      "color": {
-        "field": "cyl",
-        "type": "nominal"
-      }
-    }
-  },
-  "embed_options": {
-    "defaultStyle": true,
-    "renderer": "canvas"
-  }
-},"evals":[],"jsHooks":[]}</script>
+<p>This new file contains roxygen directives that will handle the importing and exporting the next time you build the package’s documentation. Now, people who install this package will have access to the pipe operator without having to refer explicitly to the magrittr package. It “just works”.</p>
 </div>
+<div id="implementation-altair" class="section level3">
+<h3 class="hasAnchor">
+<a href="#implementation-altair" class="anchor"></a>Implementation: altair</h3>
+<p>We wish to bring a similar robustness and ease-of-use to package authors who want to incorporate vegawidget. To demonstrate how to do this, we will show the process that is already in place with the altair package.</p>
+<p>The <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> function makes a couple of related assumptions about your package. It assumes that your package builds Vega and Vega-Lite specifications, and that the object that you use to contain a specification object is an S3 object. In the case of altair, the name of this S3 class is <code>"altair.vegalite.v2.api.TopLevelMixin"</code>.</p>
+<p>The first step is generic. With your package-project open, with your R working directory being the package’s root directory. When you run <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code>, you will have to provide to provide the name of the S3 class. In the case of altair, we would run:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/use_vegawidget">use_vegawidget</a></span>(<span class="st">"altair.vegalite.v2.api.TopLevelMixin"</span>)</a></code></pre></div>
+<p>Like the <code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_pipe">usethis::use_pipe()</a></code> example, this call does two things:</p>
+<ul>
+<li>adds the <strong>vegawidget</strong> package to the “Imports” section of the package’s DESCRIPTION file</li>
+<li>creates a new file in the package’s <code>R</code> directory, <code>utils-vegawidget.R</code>
+</li>
+</ul>
+<p>However, you have a little bit more work to do before you’re done. You need to edit your new copy of <code>utils-vegawidget.R</code> to tell it how to convert your S3 class to a <code>vegaspec</code>. The part of the file that you need to edit is at the very top.</p>
+<p>In the case of altair, the name of the function is <code>as_vegaspec.altair.vegalite.v2.api.TopLevelMixin()</code>; the <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> function has already named it using the class-name provided.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">as_vegaspec.altair.vegalite.v2.api.TopLevelMixin &lt;-<span class="st"> </span><span class="cf">function</span>(spec, ...) {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="co"># </span><span class="al">TODO</span><span class="co">: if needed, insert code to convert your object to</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="co"># something that can be coerced to a vegaspec.</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  <span class="co">#</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="co"># e.g.:</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="co"># spec &lt;- spec$to_json()</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">  vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(spec, ...)</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">}</a></code></pre></div>
+<p>Here, the commented example code is exactly what is needed. The altair “chart” object, <code>altair.vegalite.v2.api.TopLevelMixin</code>, has a method, <code>to_json()</code> to write out the specification to JSON. The vegawidget <code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code> generic has a method for JSON-formatted strings (it also has a method for lists). So our “finished” product looks like:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">as_vegaspec.altair.vegalite.v2.api.TopLevelMixin &lt;-<span class="st"> </span><span class="cf">function</span>(spec, ...) {</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">  spec &lt;-<span class="st"> </span>spec<span class="op">$</span><span class="kw">to_json</span>()</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  vegawidget<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(spec, ...)</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">}</a></code></pre></div>
+<p>At this point, once you document and re-build the package, vegawidget is fully integrated.</p>
+<p>One final note, when you open your copy of <code>utils-vegawidget.R</code>, you will notice that a <em>lot</em> of functions are imported and exported. If there are functions that you do not wish to incorporate into your package, you can delete the reference to them in this file, then re-document and rebuild.</p>
+</div>
+</div>
+  </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#example-altair">Example: altair</a></li>
+      </ul>
+</div>
       </div>
 
 </div>

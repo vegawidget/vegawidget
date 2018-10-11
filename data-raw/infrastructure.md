@@ -23,13 +23,15 @@ library("httr")
 library("here")
 ```
 
-    ## here() starts at /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget
+    ## here() starts at /Users/lees159/vegawidget
 
 ``` r
 library("purrr")
 library("readr")
 library("dplyr")
 ```
+
+    ## Warning: package 'dplyr' was built under R version 3.5.1
 
     ## 
     ## Attaching package: 'dplyr'
@@ -216,17 +218,17 @@ htmlwidgets_downloads
 ```
 
     ## # A tibble: 9 x 2
-    ##   path_local                 path_remote                                  
-    ##   <chr>                      <chr>                                        
-    ## 1 vega-lite/vega-lite.min.js https://cdn.jsdelivr.net/npm/vega-lite@2.6.0 
-    ## 2 vega-lite/LICENSE          https://raw.githubusercontent.com/vega/vega-…
-    ## 3 vega/promise.min.js        https://vega.github.io/vega/assets/promise.m…
-    ## 4 vega/symbol.min.js         https://vega.github.io/vega/assets/symbol.mi…
-    ## 5 vega/vega.min.js           https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.3 
-    ## 6 vega/vega.js               https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.3…
-    ## 7 vega/LICENSE               https://raw.githubusercontent.com/vega/vega/…
-    ## 8 vega-embed/vega-embed.js   https://cdn.jsdelivr.net/npm/vega-embed@3.16…
-    ## 9 vega-embed/LICENSE         https://raw.githubusercontent.com/vega/vega-…
+    ##   path_local             path_remote                                      
+    ##   <chr>                  <chr>                                            
+    ## 1 vega-lite/vega-lite.m… https://cdn.jsdelivr.net/npm/vega-lite@2.6.0     
+    ## 2 vega-lite/LICENSE      https://raw.githubusercontent.com/vega/vega-lite…
+    ## 3 vega/promise.min.js    https://vega.github.io/vega/assets/promise.min.js
+    ## 4 vega/symbol.min.js     https://vega.github.io/vega/assets/symbol.min.js 
+    ## 5 vega/vega.min.js       https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.3     
+    ## 6 vega/vega.js           https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.3/bui…
+    ## 7 vega/LICENSE           https://raw.githubusercontent.com/vega/vega/mast…
+    ## 8 vega-embed/vega-embed… https://cdn.jsdelivr.net/npm/vega-embed@3.16.0   
+    ## 9 vega-embed/LICENSE     https://raw.githubusercontent.com/vega/vega-embe…
 
 ``` r
 get_file <- function(path_local, path_remote, path_local_root) {
@@ -322,10 +324,10 @@ schema
 ```
 
     ## # A tibble: 2 x 2
-    ##   path_local            path_remote                                       
-    ##   <chr>                 <chr>                                             
-    ## 1 vega/v4.0.0-rc.3.json https://vega.github.io/schema/vega/v4.0.0-rc.3.js…
-    ## 2 vega-lite/v2.6.0.json https://vega.github.io/schema/vega-lite/v2.6.0.js…
+    ##   path_local            path_remote                                        
+    ##   <chr>                 <chr>                                              
+    ## 1 vega/v4.0.0-rc.3.json https://vega.github.io/schema/vega/v4.0.0-rc.3.json
+    ## 2 vega-lite/v2.6.0.json https://vega.github.io/schema/vega-lite/v2.6.0.json
 
 ``` r
 pwalk(schema, get_file, path_local_root = dir_schema)
@@ -358,7 +360,8 @@ spec_mtcars <-
 usethis::use_data(spec_mtcars, overwrite = TRUE)
 ```
 
-    ## ✔ Saving spec_mtcars to data/spec_mtcars.rda
+    ## ✔ Setting active project to '/Users/lees159/vegawidget'
+    ## ✔ Saving 'spec_mtcars' to 'data/spec_mtcars.rda'
 
 ## Internal data
 
@@ -430,4 +433,4 @@ devtools::use_data(
 )
 ```
 
-    ## Saving .vega_version, .vega_js, .vega_lite_js, .promise_js, .symbol_js as sysdata.rda to /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget/R
+    ## Saving .vega_version, .vega_js, .vega_lite_js, .promise_js, .symbol_js as sysdata.rda to /Users/lees159/vegawidget/R

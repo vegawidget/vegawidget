@@ -16,6 +16,7 @@ function(event, item) {
 function(name, value) { Shiny.onInputChange(el.id + '_' + name, value) }
 "
 
+
 #' Event and Signal Listeners
 #'
 #' @param x a vegawidget object
@@ -58,7 +59,3 @@ vw_add_signal_listener <- function(x, signal, handler = "shiny"){
                    signal, "', ",handler,")}")
   htmlwidgets::onRender(x, js_call)
 }
-
-
-
-

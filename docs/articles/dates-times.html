@@ -96,13 +96,12 @@
 
       
       </header><script src="dates-times_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="dates-times_files/vega-4.0.0/promise.min.js"></script><script src="dates-times_files/vega-4.0.0/symbol.min.js"></script><script src="dates-times_files/vega-4.0.0/vega.js"></script><script src="dates-times_files/vega-lite-2.6.0/vega-lite.min.js"></script><link href="dates-times_files/vega-embed-3.16.0/vega-embed.css" rel="stylesheet">
-<script src="dates-times_files/vega-embed-3.16.0/vega-embed-modified.js"></script><script src="dates-times_files/vegawidget-binding-0.0.4.9000/vegawidget.js"></script><link href="dates-times_files/jsoneditor-5.5.5/jsoneditor.min.css" rel="stylesheet">
-<script src="dates-times_files/jsoneditor-5.5.5/jsoneditor.min.js"></script><script src="dates-times_files/jsonedit-binding-2.0.0/jsonedit.js"></script><div class="row">
+<script src="dates-times_files/vega-embed-3.16.0/vega-embed-modified.js"></script><script src="dates-times_files/vegawidget-binding-0.0.4.9000/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Work with dates and times</h1>
             
-            <h4 class="date">2018-10-11</h4>
+            <h4 class="date">2018-10-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/dates-times.Rmd"><code>vignettes/dates-times.Rmd</code></a></small>
       <div class="hidden name"><code>dates-times.Rmd</code></div>
@@ -111,96 +110,861 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"tibble"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">         <span class="op">~</span>date,               <span class="op">~</span>time_local,          <span class="op">~</span>time_local_plus,                  <span class="op">~</span>time_utc,</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="st">"1970-01-01"</span>, <span class="st">"1970-01-01 00:00:00.000"</span>, <span class="st">"1970-01-02 00:00:00.000"</span>, <span class="st">"1970-01-01T00:00:00.000Z"</span>,</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="st">"1970-01-02"</span>, <span class="st">"1970-01-02 00:00:00.000"</span>, <span class="st">"1970-01-03 00:00:00.000"</span>, <span class="st">"1970-01-02T00:00:00.000Z"</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">)</a></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">spec &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../reference/vega_schema.html">vega_schema</a></span>(),</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="dt">data =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">      <span class="dt">values =</span> data,</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">      <span class="dt">format =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">        <span class="dt">parse =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">          <span class="dt">time_local =</span> <span class="st">"utc:'%Y-%m-%d %H:%M:%S.%L'"</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">        )</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">      )</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">    ),</a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">    <span class="dt">mark =</span> <span class="st">"point"</span>,</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">    <span class="dt">encoding =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">      <span class="dt">x =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>),</a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">      <span class="dt">y =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_utc"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>),</a>
-<a class="sourceLine" id="cb3-16" data-line-number="16">      <span class="dt">tooltip =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">        <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S.%L"</span>),</a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">        <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">"time_local (s)"</span>, <span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%s"</span>),</a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">        <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_utc"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S.%L"</span>),</a>
-<a class="sourceLine" id="cb3-20" data-line-number="20">        <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">"time_utc (s)"</span>, <span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%s"</span>)</a>
-<a class="sourceLine" id="cb3-21" data-line-number="21">      )</a>
-<a class="sourceLine" id="cb3-22" data-line-number="22">    )</a>
-<a class="sourceLine" id="cb3-23" data-line-number="23">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
-<a class="sourceLine" id="cb3-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb3-26" data-line-number="26">spec</a></code></pre></div>
-<div id="htmlwidget-d2f5e4ef86ece10e5dc9" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d2f5e4ef86ece10e5dc9">{"x":{
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">"conflicted"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(<span class="st">"lubridate"</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(<span class="st">"readr"</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(<span class="st">"dplyr"</span>)</a></code></pre></div>
+<p>Dates and times can be tricky, even in the familiar confines of R. Vega and Vega-Lite are run in JavaScript, which has a different philosophy of dates and times from R. In R, we have access to the entire time-zone database; in JavaScript, using the <code>Date</code> object, there are only <em>two</em> time zones available: the local time zone used by the client browser and UTC.</p>
+<p>If you are working with time-indexed data, this mismatch of capabilities introduces a lot of “opportunities” for you to create a Vega(-Lite) visualization that does not behave as you intend. The purpose of this article is to walk through the pit-falls of translating dates and times from R to JavaScript, to describe the in-and-outs of Vega-Lite time-units, and to show some useful practices for staying out of trouble.</p>
+<p>The documentation for the Altair Python package includes an <a href="https://altair-viz.github.io/user_guide/times_and_dates.html">article on times and dates</a> with very clear explanations. It is hoped that this article can be similarly clear.</p>
+<div id="time-zones" class="section level2">
+<h2 class="hasAnchor">
+<a href="#time-zones" class="anchor"></a>Time zones</h2>
+<div id="issue" class="section level3">
+<h3 class="hasAnchor">
+<a href="#issue" class="anchor"></a>Issue</h3>
+<p>Things happen at fixed instants in time; we use time zones to describe those fixed instants using a local context. Consider that Neil Armstrong’s first step on the moon happened at <code>1969-07-21T02:56:15Z</code>, represented here as an ISO-8601 string. This uses UTC, the globally-recognized standard reference-frame; ISO-8601 is the standard way to communicate time-stamps. However, this information lacks context for someone who may remember the instant from Chicago, or another who may remember the <em>same</em> instant from Paris.</p>
+<p>In the context of Chicago, the first-step happened at <code>1969-07-20 21:56:15</code>; in the context of Paris, it happened at <code>1969-07-21 03:56:15</code>. We use a system of time zones to provide this context. The standard representation of time zones is IANA (also known as Olson) time zones. These are each associated with a given geographic region, such as <code>"America/Chicago"</code> or <code>"Europe/Paris"</code>; a time zone provides an offset to UTC, given an instant expressed in UTC.</p>
+<p>High level-programming languages, such as R, have access to the full IANA time-zone database. However, the JavaScript <code>Date</code> object has access to only two time zones: the timezone of the local browser, and UTC. JavaScript-based visualization systems, including d3, Plotly, and Vega, are constrained by this limitation because they depend on the JavaScript <code>Date</code> object.</p>
+</div>
+</div>
+<div id="vega-lite-examples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#vega-lite-examples" class="anchor"></a>Vega-Lite examples</h2>
+<p>Let’s look at an example using one of the datasets included in this package: <code>data_seattle_hourly</code>, adapted from <a href="https://github.com/vega/vega-datasets">vega-datasets</a>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">data_seattle_hourly</a></code></pre></div>
+<pre><code>## # A tibble: 8,759 x 2
+##    date                 temp
+##    &lt;dttm&gt;              &lt;dbl&gt;
+##  1 2010-01-01 00:00:00  39.4
+##  2 2010-01-01 01:00:00  39.2
+##  3 2010-01-01 02:00:00  39.0
+##  4 2010-01-01 03:00:00  38.9
+##  5 2010-01-01 04:00:00  38.8
+##  6 2010-01-01 05:00:00  38.7
+##  7 2010-01-01 06:00:00  38.7
+##  8 2010-01-01 07:00:00  38.6
+##  9 2010-01-01 08:00:00  38.7
+## 10 2010-01-01 09:00:00  39.2
+## # ... with 8,749 more rows</code></pre>
+<p>This dataset contains hourly observations of Seattle temperature (°F) for the year 2010. Let’s inspect the time zone of the <code>date</code> variable:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="http://lubridate.tidyverse.org/reference/tz.html">tz</a></span>(data_seattle_hourly<span class="op">$</span>date)</a></code></pre></div>
+<pre><code>## [1] "America/Los_Angeles"</code></pre>
+<p>We see that the <code>date</code> variable uses the <code>"America/Los_Angeles"</code> time zone, which is what we would expect for Seattle. This means that the values for <code>date</code> are displayed above as local time. To make the following demonstrations a little lighter, we will use an shortened version of this dataset, one that uses only 2010-01-01:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">data_seattle_hourly_short &lt;-</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span>data_seattle_hourly <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="kw"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span>(date, <span class="st">"day"</span>) <span class="op">==</span><span class="st"> </span><span class="kw"><a href="http://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span>(<span class="st">"2010-01-01"</span>, <span class="dt">tz =</span> <span class="st">"America/Los_Angeles"</span>)</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
+<pre><code>## Observations: 24
+## Variables: 2
+## $ date &lt;dttm&gt; 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:...
+## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39....</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">spec_local &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../reference/vega_schema.html">vega_schema</a></span>(),</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">    <span class="dt">width =</span> <span class="dv">400</span>,</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">    <span class="dt">height =</span> <span class="dv">75</span>,</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">values =</span> data_seattle_hourly_short),</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">    <span class="dt">mark =</span> <span class="st">"line"</span>,</a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">    <span class="dt">encoding =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">      <span class="dt">x =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb8-10" data-line-number="10">        <span class="dt">field =</span> <span class="st">"date"</span>, </a>
+<a class="sourceLine" id="cb8-11" data-line-number="11">        <span class="dt">type =</span> <span class="st">"temporal"</span>,</a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">        <span class="dt">axis =</span> <span class="kw">list</span>(<span class="dt">format =</span> <span class="st">"%H:%M"</span>)</a>
+<a class="sourceLine" id="cb8-13" data-line-number="13">      ),</a>
+<a class="sourceLine" id="cb8-14" data-line-number="14">      <span class="dt">y =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb8-15" data-line-number="15">        <span class="dt">field =</span> <span class="st">"temp"</span>, </a>
+<a class="sourceLine" id="cb8-16" data-line-number="16">        <span class="dt">type =</span> <span class="st">"quantitative"</span>, </a>
+<a class="sourceLine" id="cb8-17" data-line-number="17">        <span class="dt">scale =</span> <span class="kw">list</span>(<span class="dt">zero =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb8-18" data-line-number="18">      )</a>
+<a class="sourceLine" id="cb8-19" data-line-number="19">    )</a>
+<a class="sourceLine" id="cb8-20" data-line-number="20">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
+<a class="sourceLine" id="cb8-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb8-23" data-line-number="23">spec_local</a></code></pre></div>
+<div id="htmlwidget-1a8e2a6cbcbb855b6cd4" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1a8e2a6cbcbb855b6cd4">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+    "width": 400,
+    "height": 75,
     "data": {
       "values": [
         {
-          "date": "1970-01-01",
-          "time_local": "1970-01-01 00:00:00.000",
-          "time_local_plus": "1970-01-02 00:00:00.000",
-          "time_utc": "1970-01-01T00:00:00.000Z"
+          "date": "2010-01-01 00:00:00",
+          "temp": 39.4
         },
         {
-          "date": "1970-01-02",
-          "time_local": "1970-01-02 00:00:00.000",
-          "time_local_plus": "1970-01-03 00:00:00.000",
-          "time_utc": "1970-01-02T00:00:00.000Z"
+          "date": "2010-01-01 01:00:00",
+          "temp": 39.2
+        },
+        {
+          "date": "2010-01-01 02:00:00",
+          "temp": 39
+        },
+        {
+          "date": "2010-01-01 03:00:00",
+          "temp": 38.9
+        },
+        {
+          "date": "2010-01-01 04:00:00",
+          "temp": 38.8
+        },
+        {
+          "date": "2010-01-01 05:00:00",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01 06:00:00",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01 07:00:00",
+          "temp": 38.6
+        },
+        {
+          "date": "2010-01-01 08:00:00",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01 09:00:00",
+          "temp": 39.2
+        },
+        {
+          "date": "2010-01-01 10:00:00",
+          "temp": 40.1
+        },
+        {
+          "date": "2010-01-01 11:00:00",
+          "temp": 41.3
+        },
+        {
+          "date": "2010-01-01 12:00:00",
+          "temp": 42.5
+        },
+        {
+          "date": "2010-01-01 13:00:00",
+          "temp": 43.2
+        },
+        {
+          "date": "2010-01-01 14:00:00",
+          "temp": 43.5
+        },
+        {
+          "date": "2010-01-01 15:00:00",
+          "temp": 43.3
+        },
+        {
+          "date": "2010-01-01 16:00:00",
+          "temp": 42.7
+        },
+        {
+          "date": "2010-01-01 17:00:00",
+          "temp": 41.7
+        },
+        {
+          "date": "2010-01-01 18:00:00",
+          "temp": 41.2
+        },
+        {
+          "date": "2010-01-01 19:00:00",
+          "temp": 40.9
+        },
+        {
+          "date": "2010-01-01 20:00:00",
+          "temp": 40.7
+        },
+        {
+          "date": "2010-01-01 21:00:00",
+          "temp": 40.4
+        },
+        {
+          "date": "2010-01-01 22:00:00",
+          "temp": 40.2
+        },
+        {
+          "date": "2010-01-01 23:00:00",
+          "temp": 39.9
         }
-      ],
-      "format": {
-        "parse": {
-          "time_local": "utc:'%Y-%m-%d %H:%M:%S.%L'"
-        }
-      }
+      ]
     },
-    "mark": "point",
+    "mark": "line",
     "encoding": {
       "x": {
-        "field": "time_local",
+        "field": "date",
+        "type": "temporal",
+        "axis": {
+          "format": "%H:%M"
+        }
+      },
+      "y": {
+        "field": "temp",
+        "type": "quantitative",
+        "scale": {
+          "zero": false
+        }
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>Our expectation is that this chart will show the times using the local time-zone; in this case, our expectation is met. This is good, but let’s have a closer look at what’s going on.</p>
+<p>Let’s look at first couple of observations in the data frame, as they would be rendered as JSON:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">data_seattle_hourly_short <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>jsonlite<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/jsonlite/topics/fromJSON">toJSON</a></span>()</a></code></pre></div>
+<pre><code>## [{"date":"2010-01-01 00:00:00","temp":39.4},{"date":"2010-01-01 01:00:00","temp":39.2}]</code></pre>
+<p>We see that date-times are <em>not</em> formatted using ISO-8601 formatting - the times are serialized to JSON using the local context. When Vega-Lite <a href="https://vega.github.io/vega-lite/docs/timeunit.html#utc">parses this data</a>, it recognizes that this is a datetime and that the format is <em>not</em> ISO-8601. As such, these times will be parsed, interpreted, and displayed as local times:</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>Times are parsed as UTC time if the date strings are in ISO format. Note that in JavaScript date strings without time are interpreted as UTC but but date strings with time and without timezone as local.</li>
+<li>If that is not the case, by default, times are assumed to be local.</li>
+</ol>
+</blockquote>
+<p>This is all well-and-good, but you should be aware of some “gotchas” due to daylight-saving time:</p>
+<ul>
+<li><p>In Seattle in 2010, the <em>local</em> time represented by <code>"2010-03-14 02:00:00"</code> does not exist; the local time represented by <code>"2010-11-07 01:00:00"</code> occurs twice. This is the reason that the dataset has 8759 observations rather than our expectation of 8760: the “repeated” hour has only one observation. This is one of the fragilities of storing datetimes using local time rather than UTC.</p></li>
+<li><p>In 2010, in Europe, the daylight-saving time transitions happened on different dates from the USA - in Europe this happened on <code>"2010-03-28"</code> and <code>"2010-10-31"</code>. This means that there are local times represented in this dataset that do not exist in <em>local</em> time in Europe, so they will not be parsed, interpreted, or displayed properly.</p></li>
+</ul>
+<p>This is part of the motivation to serialize datetimes using the ISO-8601 format, then to treat the local time-zone, in this case <code>"America/Los_Angeles"</code>, as metadata. We will demonstrate, for the reasons outlined in at the beginning of this article, we cannot get this to work as we expect for Vega(-Lite).</p>
+<p>Let’s start by using a function help us serialize the data:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">data_seattle_hourly_short_iso &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span>data_seattle_hourly_short <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/vw_serialize_data.html">vw_serialize_data</a></span>(<span class="dt">iso_dttm =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
+<pre><code>## Observations: 24
+## Variables: 2
+## $ date &lt;chr&gt; "2010-01-01T08:00:00.000Z", "2010-01-01T09:00:00.000Z", "...
+## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39....</code></pre>
+<p>You can see that we have changed the <code>date</code> variable from a datetime to a character string. Its values show <code>date</code>:</p>
+<ul>
+<li>in the ISO-8601 format (using the <code>iso_dttm</code> argument).</li>
+<li>ISO-8601 implies using UTC (at this time, 8 hours ahead of Seattle).</li>
+<li>to millisecond precision (matching JavaScript’s time-resolution).</li>
+</ul>
+<p>Let’s see what our chart looks like, using this data:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">spec_iso_local &lt;-<span class="st"> </span>spec_local</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">spec_iso_local<span class="op">$</span>data<span class="op">$</span>values &lt;-<span class="st"> </span>data_seattle_hourly_short_iso</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">spec_iso_local</a></code></pre></div>
+<div id="htmlwidget-bd202d31f95202c00236" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bd202d31f95202c00236">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+    "width": 400,
+    "height": 75,
+    "data": {
+      "values": [
+        {
+          "date": "2010-01-01T08:00:00.000Z",
+          "temp": 39.4
+        },
+        {
+          "date": "2010-01-01T09:00:00.000Z",
+          "temp": 39.2
+        },
+        {
+          "date": "2010-01-01T10:00:00.000Z",
+          "temp": 39
+        },
+        {
+          "date": "2010-01-01T11:00:00.000Z",
+          "temp": 38.9
+        },
+        {
+          "date": "2010-01-01T12:00:00.000Z",
+          "temp": 38.8
+        },
+        {
+          "date": "2010-01-01T13:00:00.000Z",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01T14:00:00.000Z",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01T15:00:00.000Z",
+          "temp": 38.6
+        },
+        {
+          "date": "2010-01-01T16:00:00.000Z",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01T17:00:00.000Z",
+          "temp": 39.2
+        },
+        {
+          "date": "2010-01-01T18:00:00.000Z",
+          "temp": 40.1
+        },
+        {
+          "date": "2010-01-01T19:00:00.000Z",
+          "temp": 41.3
+        },
+        {
+          "date": "2010-01-01T20:00:00.000Z",
+          "temp": 42.5
+        },
+        {
+          "date": "2010-01-01T21:00:00.000Z",
+          "temp": 43.2
+        },
+        {
+          "date": "2010-01-01T22:00:00.000Z",
+          "temp": 43.5
+        },
+        {
+          "date": "2010-01-01T23:00:00.000Z",
+          "temp": 43.3
+        },
+        {
+          "date": "2010-01-02T00:00:00.000Z",
+          "temp": 42.7
+        },
+        {
+          "date": "2010-01-02T01:00:00.000Z",
+          "temp": 41.7
+        },
+        {
+          "date": "2010-01-02T02:00:00.000Z",
+          "temp": 41.2
+        },
+        {
+          "date": "2010-01-02T03:00:00.000Z",
+          "temp": 40.9
+        },
+        {
+          "date": "2010-01-02T04:00:00.000Z",
+          "temp": 40.7
+        },
+        {
+          "date": "2010-01-02T05:00:00.000Z",
+          "temp": 40.4
+        },
+        {
+          "date": "2010-01-02T06:00:00.000Z",
+          "temp": 40.2
+        },
+        {
+          "date": "2010-01-02T07:00:00.000Z",
+          "temp": 39.9
+        }
+      ]
+    },
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "axis": {
+          "format": "%H:%M"
+        }
+      },
+      "y": {
+        "field": "temp",
+        "type": "quantitative",
+        "scale": {
+          "zero": false
+        }
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>If the browser you are using to view this page is in the <code>"America/Los_Angeles"</code> time zone, this chart will appear identical as above. However, if you are not, the axis labels for <code>date</code> are now not what we might expect. Vega-Lite parses and interprets the <code>date</code> values as UTC, but displays the <code>date</code> using the <em>browser’s</em> local time-zone. I (Ian) am in the <code>"America/Chicago"</code> time zone, so the axis, for me, begins at 02:00. This is consistent with <em>my</em> time zone being two hours ahead of <code>"America/Los_Angeles"</code>.</p>
+<p>As noted above, the JavaScript <code>Date</code> object knows two time-zones: the browser’s and UTC. Although it will not be terribly satisfying, we can direct Vega-Lite to <a href="https://vega.github.io/vega-lite/docs/timeunit.html#output">display the time as UTC</a> (this way, everyone can be equally unfulfilled):</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">spec_iso_utc &lt;-<span class="st"> </span>spec_iso_local</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">spec_iso_utc<span class="op">$</span>encoding<span class="op">$</span>x<span class="op">$</span>scale &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">type =</span> <span class="st">"utc"</span>) </a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">spec_iso_utc</a></code></pre></div>
+<div id="htmlwidget-4b7e724bc22cf1ad50e1" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4b7e724bc22cf1ad50e1">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+    "width": 400,
+    "height": 75,
+    "data": {
+      "values": [
+        {
+          "date": "2010-01-01T08:00:00.000Z",
+          "temp": 39.4
+        },
+        {
+          "date": "2010-01-01T09:00:00.000Z",
+          "temp": 39.2
+        },
+        {
+          "date": "2010-01-01T10:00:00.000Z",
+          "temp": 39
+        },
+        {
+          "date": "2010-01-01T11:00:00.000Z",
+          "temp": 38.9
+        },
+        {
+          "date": "2010-01-01T12:00:00.000Z",
+          "temp": 38.8
+        },
+        {
+          "date": "2010-01-01T13:00:00.000Z",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01T14:00:00.000Z",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01T15:00:00.000Z",
+          "temp": 38.6
+        },
+        {
+          "date": "2010-01-01T16:00:00.000Z",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01T17:00:00.000Z",
+          "temp": 39.2
+        },
+        {
+          "date": "2010-01-01T18:00:00.000Z",
+          "temp": 40.1
+        },
+        {
+          "date": "2010-01-01T19:00:00.000Z",
+          "temp": 41.3
+        },
+        {
+          "date": "2010-01-01T20:00:00.000Z",
+          "temp": 42.5
+        },
+        {
+          "date": "2010-01-01T21:00:00.000Z",
+          "temp": 43.2
+        },
+        {
+          "date": "2010-01-01T22:00:00.000Z",
+          "temp": 43.5
+        },
+        {
+          "date": "2010-01-01T23:00:00.000Z",
+          "temp": 43.3
+        },
+        {
+          "date": "2010-01-02T00:00:00.000Z",
+          "temp": 42.7
+        },
+        {
+          "date": "2010-01-02T01:00:00.000Z",
+          "temp": 41.7
+        },
+        {
+          "date": "2010-01-02T02:00:00.000Z",
+          "temp": 41.2
+        },
+        {
+          "date": "2010-01-02T03:00:00.000Z",
+          "temp": 40.9
+        },
+        {
+          "date": "2010-01-02T04:00:00.000Z",
+          "temp": 40.7
+        },
+        {
+          "date": "2010-01-02T05:00:00.000Z",
+          "temp": 40.4
+        },
+        {
+          "date": "2010-01-02T06:00:00.000Z",
+          "temp": 40.2
+        },
+        {
+          "date": "2010-01-02T07:00:00.000Z",
+          "temp": 39.9
+        }
+      ]
+    },
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "axis": {
+          "format": "%H:%M"
+        },
+        "scale": {
+          "type": "utc"
+        }
+      },
+      "y": {
+        "field": "temp",
+        "type": "quantitative",
+        "scale": {
+          "zero": false
+        }
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>Here, the <code>date</code> axis begins at 08:00, which is the UTC time when it was midnight in Seattle.</p>
+<div id="datetime-compromise" class="section level3">
+<h3 class="hasAnchor">
+<a href="#datetime-compromise" class="anchor"></a>Datetime compromise</h3>
+<p>Because of the time-zone limitations of the JavaScript <code>Date</code> object, we are forced to make a compromise.</p>
+<p>If we serialize datetimes using the local (to the data) time-zone:</p>
+<ul>
+<li>Vega-Lite parses, interprets, and displays the datetimes as if they are local times in the browser’s time zone.</li>
+<li>Different application of daylight-saving time across different time zones are a potential source of error in the visualization.</li>
+<li>The data, as sent to the browser, is incomplete because we have “lost” the link to the actual instants-in-time that the data represents.</li>
+</ul>
+<p>In other situations, the best-practice for serializing datetimes is to use ISO-8601 formatting and to keep the time zone as metadata. This allows us to refer, unambiguously, to the actual instants-in-time. In a visualization, we would like to be able to use the time zone to provide the needed context to make aggregations, label axes, etc.</p>
+<p>Here, we do not (yet) have this option. If we serialize datetime data using the ISO-8601 format, the instants are parsed and interpreted correctly. However, we have the option to display using only the timezone of the browser or UTC. It is entirely like that the context (time zone) of our data is different from the context of our browser - in which case we are unable to make an effective visualization.</p>
+<p>Faced with this choice, it seems the first option – serializing our data using the data’s local time-zone – is the least-bad option, as it gives us the opportunity to present the data in context. That being said, we need to be mindful of the daylight-saving pitfalls, and warn our users accordingly. Further, we have to recognize (and possibly note to our users) that the data inside the visualization is compromised.</p>
+</div>
+<div id="notes-on-dates" class="section level3">
+<h3 class="hasAnchor">
+<a href="#notes-on-dates" class="anchor"></a>Notes on dates</h3>
+<p>In R, we have different types for date vs. datetimes. This seems a useful distinction, as it allows us to compare a day in New York with a day in Brisbane.</p>
+<p>When designing a Vega visualization, we have a “trick” we can use to treat all dates regardless of time zone: we can treat dates as the datetime at the start of that day in UTC. Vega <a href="https://vega.github.io/vega-lite/docs/timeunit.html#utc">parsing rule</a> for datetimes is that if the data is formatted using ISO-8601, then it is parsed as UTC.</p>
+<p>Let’s consider the dataset <code>data_seattle_daily</code>, where we have daily observations of Seattle weather over the course of four years:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">data_seattle_daily</a></code></pre></div>
+<pre><code>## # A tibble: 1,461 x 6
+##    date       precipitation temp_max temp_min  wind weather
+##    &lt;date&gt;             &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  
+##  1 2012-01-01         0.       12.8     5.00   4.70 drizzle
+##  2 2012-01-02        10.9      10.6     2.80   4.50 rain   
+##  3 2012-01-03         0.800    11.7     7.20   2.30 rain   
+##  4 2012-01-04        20.3      12.2     5.60   4.70 rain   
+##  5 2012-01-05         1.30      8.90    2.80   6.10 rain   
+##  6 2012-01-06         2.50      4.40    2.20   2.20 rain   
+##  7 2012-01-07         0.        7.20    2.80   2.30 rain   
+##  8 2012-01-08         0.       10.0     2.80   2.00 sun    
+##  9 2012-01-09         4.30      9.40    5.00   3.40 rain   
+## 10 2012-01-10         1.00      6.10    0.600  3.40 rain   
+## # ... with 1,451 more rows</code></pre>
+<p>When we serialize this data, it will use the ISO-8601 format for dates, by default.</p>
+<p>In preparation of making some examples, let’s filter to keep the first month of the dataset:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">data_seattle_daily_short &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st">  </span>data_seattle_daily <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span>(date, <span class="st">"month"</span>) <span class="op">==</span><span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"2012-01-01"</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
+<pre><code>## Observations: 31
+## Variables: 6
+## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04,...
+## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1...
+## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4...
+## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6...
+## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4...
+## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain...</code></pre>
+<p>Let’s look at a line-plot of the daily maximum-temperatures:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">spec_tempmax_local &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../reference/vega_schema.html">vega_schema</a></span>(),</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">    <span class="dt">width =</span> <span class="dv">400</span>,</a>
+<a class="sourceLine" id="cb19-5" data-line-number="5">    <span class="dt">height =</span> <span class="dv">75</span>,</a>
+<a class="sourceLine" id="cb19-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">values =</span> data_seattle_daily_short),</a>
+<a class="sourceLine" id="cb19-7" data-line-number="7">    <span class="dt">mark =</span> <span class="st">"line"</span>,</a>
+<a class="sourceLine" id="cb19-8" data-line-number="8">    <span class="dt">encoding =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb19-9" data-line-number="9">      <span class="dt">x =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb19-10" data-line-number="10">        <span class="dt">field =</span> <span class="st">"date"</span>,</a>
+<a class="sourceLine" id="cb19-11" data-line-number="11">        <span class="dt">type =</span> <span class="st">"temporal"</span></a>
+<a class="sourceLine" id="cb19-12" data-line-number="12">      ),</a>
+<a class="sourceLine" id="cb19-13" data-line-number="13">      <span class="dt">y =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb19-14" data-line-number="14">        <span class="dt">field =</span> <span class="st">"temp_max"</span>,</a>
+<a class="sourceLine" id="cb19-15" data-line-number="15">        <span class="dt">type =</span> <span class="st">"quantitative"</span></a>
+<a class="sourceLine" id="cb19-16" data-line-number="16">      ),</a>
+<a class="sourceLine" id="cb19-17" data-line-number="17">      <span class="dt">tooltip =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb19-18" data-line-number="18">        <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span>)</a>
+<a class="sourceLine" id="cb19-19" data-line-number="19">      )</a>
+<a class="sourceLine" id="cb19-20" data-line-number="20">    )</a>
+<a class="sourceLine" id="cb19-21" data-line-number="21">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-22" data-line-number="22"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
+<a class="sourceLine" id="cb19-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb19-24" data-line-number="24">spec_tempmax_local</a></code></pre></div>
+<div id="htmlwidget-8353c0aaabe9985e3e1b" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8353c0aaabe9985e3e1b">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+    "width": 400,
+    "height": 75,
+    "data": {
+      "values": [
+        {
+          "date": "2012-01-01",
+          "precipitation": 0,
+          "temp_max": 12.8,
+          "temp_min": 5,
+          "wind": 4.7,
+          "weather": "drizzle"
+        },
+        {
+          "date": "2012-01-02",
+          "precipitation": 10.9,
+          "temp_max": 10.6,
+          "temp_min": 2.8,
+          "wind": 4.5,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-03",
+          "precipitation": 0.8,
+          "temp_max": 11.7,
+          "temp_min": 7.2,
+          "wind": 2.3,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-04",
+          "precipitation": 20.3,
+          "temp_max": 12.2,
+          "temp_min": 5.6,
+          "wind": 4.7,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-05",
+          "precipitation": 1.3,
+          "temp_max": 8.9,
+          "temp_min": 2.8,
+          "wind": 6.1,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-06",
+          "precipitation": 2.5,
+          "temp_max": 4.4,
+          "temp_min": 2.2,
+          "wind": 2.2,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-07",
+          "precipitation": 0,
+          "temp_max": 7.2,
+          "temp_min": 2.8,
+          "wind": 2.3,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-08",
+          "precipitation": 0,
+          "temp_max": 10,
+          "temp_min": 2.8,
+          "wind": 2,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-09",
+          "precipitation": 4.3,
+          "temp_max": 9.4,
+          "temp_min": 5,
+          "wind": 3.4,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-10",
+          "precipitation": 1,
+          "temp_max": 6.1,
+          "temp_min": 0.6,
+          "wind": 3.4,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-11",
+          "precipitation": 0,
+          "temp_max": 6.1,
+          "temp_min": -1.1,
+          "wind": 5.1,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-12",
+          "precipitation": 0,
+          "temp_max": 6.1,
+          "temp_min": -1.7,
+          "wind": 1.9,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-13",
+          "precipitation": 0,
+          "temp_max": 5,
+          "temp_min": -2.8,
+          "wind": 1.3,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-14",
+          "precipitation": 4.1,
+          "temp_max": 4.4,
+          "temp_min": 0.6,
+          "wind": 5.3,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-15",
+          "precipitation": 5.3,
+          "temp_max": 1.1,
+          "temp_min": -3.3,
+          "wind": 3.2,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-16",
+          "precipitation": 2.5,
+          "temp_max": 1.7,
+          "temp_min": -2.8,
+          "wind": 5,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-17",
+          "precipitation": 8.1,
+          "temp_max": 3.3,
+          "temp_min": 0,
+          "wind": 5.6,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-18",
+          "precipitation": 19.8,
+          "temp_max": 0,
+          "temp_min": -2.8,
+          "wind": 5,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-19",
+          "precipitation": 15.2,
+          "temp_max": -1.1,
+          "temp_min": -2.8,
+          "wind": 1.6,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-20",
+          "precipitation": 13.5,
+          "temp_max": 7.2,
+          "temp_min": -1.1,
+          "wind": 2.3,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-21",
+          "precipitation": 3,
+          "temp_max": 8.3,
+          "temp_min": 3.3,
+          "wind": 8.2,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-22",
+          "precipitation": 6.1,
+          "temp_max": 6.7,
+          "temp_min": 2.2,
+          "wind": 4.8,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-23",
+          "precipitation": 0,
+          "temp_max": 8.3,
+          "temp_min": 1.1,
+          "wind": 3.6,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-24",
+          "precipitation": 8.6,
+          "temp_max": 10,
+          "temp_min": 2.2,
+          "wind": 5.1,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-25",
+          "precipitation": 8.1,
+          "temp_max": 8.9,
+          "temp_min": 4.4,
+          "wind": 5.4,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-26",
+          "precipitation": 4.8,
+          "temp_max": 8.9,
+          "temp_min": 1.1,
+          "wind": 4.8,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-27",
+          "precipitation": 0,
+          "temp_max": 6.7,
+          "temp_min": -2.2,
+          "wind": 1.4,
+          "weather": "drizzle"
+        },
+        {
+          "date": "2012-01-28",
+          "precipitation": 0,
+          "temp_max": 6.7,
+          "temp_min": 0.6,
+          "wind": 2.2,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-29",
+          "precipitation": 27.7,
+          "temp_max": 9.4,
+          "temp_min": 3.9,
+          "wind": 4.5,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-30",
+          "precipitation": 3.6,
+          "temp_max": 8.3,
+          "temp_min": 6.1,
+          "wind": 5.1,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-31",
+          "precipitation": 1.8,
+          "temp_max": 9.4,
+          "temp_min": 6.1,
+          "wind": 3.9,
+          "weather": "rain"
+        }
+      ]
+    },
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "date",
         "type": "temporal"
       },
       "y": {
-        "field": "time_utc",
-        "type": "temporal"
+        "field": "temp_max",
+        "type": "quantitative"
       },
       "tooltip": [
         {
-          "field": "time_local",
-          "type": "temporal",
-          "format": "%Y-%m-%d %H:%M:%S.%L"
-        },
-        {
-          "title": "time_local (s)",
-          "field": "time_local",
-          "type": "temporal",
-          "format": "%s"
-        },
-        {
-          "field": "time_utc",
-          "type": "temporal",
-          "format": "%Y-%m-%d %H:%M:%S.%L"
-        },
-        {
-          "title": "time_utc (s)",
           "field": "date",
           "type": "temporal",
-          "format": "%s"
+          "format": "%Y-%m-%d %H:%M:%S"
         }
       ]
     }
@@ -209,108 +973,314 @@
     "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script><p>It seems as if if we parse as UTC, then it “keeps track” of the fact that it’s UTC - we use local time-units and scales.</p>
-<p>Let’s try a rectangle:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">spec_rect &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../reference/vega_schema.html">vega_schema</a></span>(),</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="dt">data =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">      <span class="dt">values =</span> data,</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">      <span class="dt">format =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">        <span class="dt">parse =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">          <span class="dt">time_local =</span> <span class="st">"utc:'%Y-%m-%d %H:%M:%S.%L'"</span>,</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">          <span class="dt">time_local_plus =</span> <span class="st">"utc:'%Y-%m-%d %H:%M:%S.%L'"</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">        )</a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">      )</a>
-<a class="sourceLine" id="cb4-12" data-line-number="12">    ),</a>
-<a class="sourceLine" id="cb4-13" data-line-number="13">    <span class="dt">mark =</span> <span class="st">"rect"</span>,</a>
-<a class="sourceLine" id="cb4-14" data-line-number="14">    <span class="dt">encoding =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb4-15" data-line-number="15">      <span class="dt">x =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">title =</span> <span class="st">"time_local"</span>),</a>
-<a class="sourceLine" id="cb4-16" data-line-number="16">      <span class="dt">x2 =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local_plus"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>),</a>
-<a class="sourceLine" id="cb4-17" data-line-number="17">      <span class="dt">tooltip =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb4-18" data-line-number="18">        <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span>),</a>
-<a class="sourceLine" id="cb4-19" data-line-number="19">        <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">"time_local (s)"</span>, <span class="dt">field =</span> <span class="st">"time_local"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%s"</span>),</a>
-<a class="sourceLine" id="cb4-20" data-line-number="20">        <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span>),</a>
-<a class="sourceLine" id="cb4-21" data-line-number="21">        <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">"date (s)"</span>, <span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%s"</span>)</a>
-<a class="sourceLine" id="cb4-22" data-line-number="22">      )</a>
-<a class="sourceLine" id="cb4-23" data-line-number="23">    )</a>
-<a class="sourceLine" id="cb4-24" data-line-number="24">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
-<a class="sourceLine" id="cb4-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb4-27" data-line-number="27">spec_rect</a></code></pre></div>
-<div id="htmlwidget-5b70412db3c68675c0bd" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5b70412db3c68675c0bd">{"x":{
+},"evals":[],"jsHooks":[]}</script><p>If you are not in a timezone that is different from UTC (sorry UK), you will see that the points that make up the line are not aligned with the grid. This is another effect of time zones - Vega has parsed and interpreted the <code>date</code> as UTC, but its default is to display it to us using the local time-zone of our browser. For me, near Chicago, the days are “starting” six hours early. You can verify this by using the tooltips, which show the <code>date</code> with the time attached.</p>
+<p>In this situation, we wish to keep the UTC interpretation throughout the visualization. We can do this by using a UTC scale on the x-axis:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">spec_tempmax_utc &lt;-<span class="st"> </span>spec_tempmax_local</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">spec_tempmax_utc<span class="op">$</span>encoding<span class="op">$</span>x<span class="op">$</span>scale &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">type =</span> <span class="st">"utc"</span>)</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">spec_tempmax_utc<span class="op">$</span>encoding<span class="op">$</span>tooltip &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">spec_tempmax_utc</a></code></pre></div>
+<div id="htmlwidget-478a351bdd853dae4d08" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-478a351bdd853dae4d08">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+    "width": 400,
+    "height": 75,
     "data": {
       "values": [
         {
-          "date": "1970-01-01",
-          "time_local": "1970-01-01 00:00:00.000",
-          "time_local_plus": "1970-01-02 00:00:00.000",
-          "time_utc": "1970-01-01T00:00:00.000Z"
+          "date": "2012-01-01",
+          "precipitation": 0,
+          "temp_max": 12.8,
+          "temp_min": 5,
+          "wind": 4.7,
+          "weather": "drizzle"
         },
         {
-          "date": "1970-01-02",
-          "time_local": "1970-01-02 00:00:00.000",
-          "time_local_plus": "1970-01-03 00:00:00.000",
-          "time_utc": "1970-01-02T00:00:00.000Z"
-        }
-      ],
-      "format": {
-        "parse": {
-          "time_local": "utc:'%Y-%m-%d %H:%M:%S.%L'",
-          "time_local_plus": "utc:'%Y-%m-%d %H:%M:%S.%L'"
-        }
-      }
-    },
-    "mark": "rect",
-    "encoding": {
-      "x": {
-        "field": "time_local",
-        "type": "temporal",
-        "title": "time_local"
-      },
-      "x2": {
-        "field": "time_local_plus",
-        "type": "temporal"
-      },
-      "tooltip": [
-        {
-          "field": "time_local",
-          "type": "temporal",
-          "format": "%Y-%m-%d %H:%M:%S"
+          "date": "2012-01-02",
+          "precipitation": 10.9,
+          "temp_max": 10.6,
+          "temp_min": 2.8,
+          "wind": 4.5,
+          "weather": "rain"
         },
         {
-          "title": "time_local (s)",
-          "field": "time_local",
-          "type": "temporal",
-          "format": "%s"
+          "date": "2012-01-03",
+          "precipitation": 0.8,
+          "temp_max": 11.7,
+          "temp_min": 7.2,
+          "wind": 2.3,
+          "weather": "rain"
         },
         {
-          "field": "date",
-          "type": "temporal",
-          "format": "%Y-%m-%d %H:%M:%S"
+          "date": "2012-01-04",
+          "precipitation": 20.3,
+          "temp_max": 12.2,
+          "temp_min": 5.6,
+          "wind": 4.7,
+          "weather": "rain"
         },
         {
-          "title": "date (s)",
-          "field": "date",
-          "type": "temporal",
-          "format": "%s"
+          "date": "2012-01-05",
+          "precipitation": 1.3,
+          "temp_max": 8.9,
+          "temp_min": 2.8,
+          "wind": 6.1,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-06",
+          "precipitation": 2.5,
+          "temp_max": 4.4,
+          "temp_min": 2.2,
+          "wind": 2.2,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-07",
+          "precipitation": 0,
+          "temp_max": 7.2,
+          "temp_min": 2.8,
+          "wind": 2.3,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-08",
+          "precipitation": 0,
+          "temp_max": 10,
+          "temp_min": 2.8,
+          "wind": 2,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-09",
+          "precipitation": 4.3,
+          "temp_max": 9.4,
+          "temp_min": 5,
+          "wind": 3.4,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-10",
+          "precipitation": 1,
+          "temp_max": 6.1,
+          "temp_min": 0.6,
+          "wind": 3.4,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-11",
+          "precipitation": 0,
+          "temp_max": 6.1,
+          "temp_min": -1.1,
+          "wind": 5.1,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-12",
+          "precipitation": 0,
+          "temp_max": 6.1,
+          "temp_min": -1.7,
+          "wind": 1.9,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-13",
+          "precipitation": 0,
+          "temp_max": 5,
+          "temp_min": -2.8,
+          "wind": 1.3,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-14",
+          "precipitation": 4.1,
+          "temp_max": 4.4,
+          "temp_min": 0.6,
+          "wind": 5.3,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-15",
+          "precipitation": 5.3,
+          "temp_max": 1.1,
+          "temp_min": -3.3,
+          "wind": 3.2,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-16",
+          "precipitation": 2.5,
+          "temp_max": 1.7,
+          "temp_min": -2.8,
+          "wind": 5,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-17",
+          "precipitation": 8.1,
+          "temp_max": 3.3,
+          "temp_min": 0,
+          "wind": 5.6,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-18",
+          "precipitation": 19.8,
+          "temp_max": 0,
+          "temp_min": -2.8,
+          "wind": 5,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-19",
+          "precipitation": 15.2,
+          "temp_max": -1.1,
+          "temp_min": -2.8,
+          "wind": 1.6,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-20",
+          "precipitation": 13.5,
+          "temp_max": 7.2,
+          "temp_min": -1.1,
+          "wind": 2.3,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-21",
+          "precipitation": 3,
+          "temp_max": 8.3,
+          "temp_min": 3.3,
+          "wind": 8.2,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-22",
+          "precipitation": 6.1,
+          "temp_max": 6.7,
+          "temp_min": 2.2,
+          "wind": 4.8,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-23",
+          "precipitation": 0,
+          "temp_max": 8.3,
+          "temp_min": 1.1,
+          "wind": 3.6,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-24",
+          "precipitation": 8.6,
+          "temp_max": 10,
+          "temp_min": 2.2,
+          "wind": 5.1,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-25",
+          "precipitation": 8.1,
+          "temp_max": 8.9,
+          "temp_min": 4.4,
+          "wind": 5.4,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-26",
+          "precipitation": 4.8,
+          "temp_max": 8.9,
+          "temp_min": 1.1,
+          "wind": 4.8,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-27",
+          "precipitation": 0,
+          "temp_max": 6.7,
+          "temp_min": -2.2,
+          "wind": 1.4,
+          "weather": "drizzle"
+        },
+        {
+          "date": "2012-01-28",
+          "precipitation": 0,
+          "temp_max": 6.7,
+          "temp_min": 0.6,
+          "wind": 2.2,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-29",
+          "precipitation": 27.7,
+          "temp_max": 9.4,
+          "temp_min": 3.9,
+          "wind": 4.5,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-30",
+          "precipitation": 3.6,
+          "temp_max": 8.3,
+          "temp_min": 6.1,
+          "wind": 5.1,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-31",
+          "precipitation": 1.8,
+          "temp_max": 9.4,
+          "temp_min": 6.1,
+          "wind": 3.9,
+          "weather": "rain"
         }
       ]
+    },
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "scale": {
+          "type": "utc"
+        }
+      },
+      "y": {
+        "field": "temp_max",
+        "type": "quantitative"
+      }
     }
   },
   "embed_options": {
     "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/vw_examine.html">vw_examine</a></span>(spec_rect)</a></code></pre></div>
-<div id="htmlwidget-3c7952825e411e3ebfbb" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3c7952825e411e3ebfbb">{"x":{"data":{"$schema":"https://vega.github.io/schema/vega-lite/v2.json","data":{"values":{"date":["1970-01-01","1970-01-02"],"time_local":["1970-01-01 00:00:00.000","1970-01-02 00:00:00.000"],"time_local_plus":["1970-01-02 00:00:00.000","1970-01-03 00:00:00.000"],"time_utc":["1970-01-01T00:00:00.000Z","1970-01-02T00:00:00.000Z"]},"format":{"parse":{"time_local":"utc:'%Y-%m-%d %H:%M:%S.%L'","time_local_plus":"utc:'%Y-%m-%d %H:%M:%S.%L'"}}},"mark":"rect","encoding":{"x":{"field":"time_local","type":"temporal","title":"time_local"},"x2":{"field":"time_local_plus","type":"temporal"},"tooltip":[{"field":"time_local","type":"temporal","format":"%Y-%m-%d %H:%M:%S"},{"title":"time_local (s)","field":"time_local","type":"temporal","format":"%s"},{"field":"date","type":"temporal","format":"%Y-%m-%d %H:%M:%S"},{"title":"date (s)","field":"date","type":"temporal","format":"%s"}]}},"options":{"mode":"view","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script>
+},"evals":[],"jsHooks":[]}</script><p>By setting the scale to UTC, the chart is aligned properly for everyone.</p>
 </div>
+<div id="summary" class="section level3">
+<h3 class="hasAnchor">
+<a href="#summary" class="anchor"></a>Summary</h3>
+</div>
+</div>
+<div id="vega-lite-time-unit" class="section level2">
+<h2 class="hasAnchor">
+<a href="#vega-lite-time-unit" class="anchor"></a>Vega-Lite time unit</h2>
+</div>
+  </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#time-zones">Time zones</a></li>
+      <li><a href="#vega-lite-examples">Vega-Lite examples</a></li>
+      <li><a href="#vega-lite-time-unit">Vega-Lite time unit</a></li>
+      </ul>
+</div>
       </div>
 
 </div>

@@ -32,12 +32,7 @@
   
 <meta property="og:title" content="Serialize data-frame time-columns — vw_serialize_data" />
 
-<meta property="og:description" content="In Vega, for now, there are only two time-zones available: the local
-time-zone of the browser where the spec is rendered, and UTC. This differs
-from R, where a time-zone attribute is available to POSIXct vectors.
-Accordingly, when designing a vegaspec that uses time, you have to make some
-some compromises. This function helps you to implement your compromise in
-a principled way, as explained in the opinions below." />
+<meta property="og:description" content="Please think of this as an experimental function" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -142,12 +137,7 @@ a principled way, as explained in the opinions below." />
 
     <div class="ref-description">
     
-    <p>In Vega, for now, there are only two time-zones available: the local
-time-zone of the browser where the spec is rendered, and UTC. This differs
-from R, where a time-zone attribute is available to <code>POSIXct</code> vectors.
-Accordingly, when designing a vegaspec that uses time, you have to make some
-some compromises. This function helps you to implement your compromise in
-a principled way, as explained in the opinions below.</p>
+    <p><strong>Please think of this as an experimental function</strong></p>
     
     </div>
 
@@ -178,7 +168,13 @@ formatted using ISO-8601</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Let's assume that your <code>POSIXct</code> data has a time-zone attached.
+    <p>In Vega, for now, there are only two time-zones available: the local
+time-zone of the browser where the spec is rendered, and UTC. This differs
+from R, where a time-zone attribute is available to <code>POSIXct</code> vectors.
+Accordingly, when designing a vegaspec that uses time, you have to make some
+some compromises. This function helps you to implement your compromise in
+a principled way, as explained in the opinions below.</p>
+<p>Let's assume that your <code>POSIXct</code> data has a time-zone attached.
 There are three different scenarios for rendering this data:</p><ul>
 <li><p>using the time-zone of the browser</p></li>
 <li><p>using UTC</p></li>
@@ -226,6 +222,60 @@ you should use UTC time-scales and local time-units.</p>
     <div class='dont-index'><p><a href='https://vega.github.io/vega-lite/docs/timeunit.html#utc'>Vega-Lite Time Unit (UTC)</a></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>  <span class='co'># datetimes</span>
+  <span class='no'>data_seattle_hourly</span> <span class='kw'>%&gt;%</span> <span class='fu'>head</span>()</div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt;   date                 temp
+#&gt;   &lt;dttm&gt;              &lt;dbl&gt;
+#&gt; 1 2010-01-01 00:00:00  39.4
+#&gt; 2 2010-01-01 01:00:00  39.2
+#&gt; 3 2010-01-01 02:00:00  39.0
+#&gt; 4 2010-01-01 03:00:00  38.9
+#&gt; 5 2010-01-01 04:00:00  38.8
+#&gt; 6 2010-01-01 05:00:00  38.7</div><div class='input'>  <span class='no'>data_seattle_hourly</span> <span class='kw'>%&gt;%</span> <span class='fu'>head</span>() <span class='kw'>%&gt;%</span> <span class='fu'>vw_serialize_data</span>(<span class='kw'>iso_dttm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt;   date                      temp
+#&gt;   &lt;chr&gt;                    &lt;dbl&gt;
+#&gt; 1 2010-01-01T08:00:00.000Z  39.4
+#&gt; 2 2010-01-01T09:00:00.000Z  39.2
+#&gt; 3 2010-01-01T10:00:00.000Z  39.0
+#&gt; 4 2010-01-01T11:00:00.000Z  38.9
+#&gt; 5 2010-01-01T12:00:00.000Z  38.8
+#&gt; 6 2010-01-01T13:00:00.000Z  38.7</div><div class='input'>  <span class='no'>data_seattle_hourly</span> <span class='kw'>%&gt;%</span> <span class='fu'>head</span>() <span class='kw'>%&gt;%</span> <span class='fu'>vw_serialize_data</span>(<span class='kw'>iso_dttm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt;   date                     temp
+#&gt;   &lt;chr&gt;                   &lt;dbl&gt;
+#&gt; 1 2010-01-01 00:00:00.000  39.4
+#&gt; 2 2010-01-01 01:00:00.000  39.2
+#&gt; 3 2010-01-01 02:00:00.000  39.0
+#&gt; 4 2010-01-01 03:00:00.000  38.9
+#&gt; 5 2010-01-01 04:00:00.000  38.8
+#&gt; 6 2010-01-01 05:00:00.000  38.7</div><div class='input'>
+  <span class='co'># dates</span>
+  <span class='no'>data_seattle_daily</span> <span class='kw'>%&gt;%</span> <span class='fu'>head</span>()</div><div class='output co'>#&gt; # A tibble: 6 x 6
+#&gt;   date       precipitation temp_max temp_min  wind weather
+#&gt;   &lt;date&gt;             &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  
+#&gt; 1 2012-01-01         0.       12.8      5.00  4.70 drizzle
+#&gt; 2 2012-01-02        10.9      10.6      2.80  4.50 rain   
+#&gt; 3 2012-01-03         0.800    11.7      7.20  2.30 rain   
+#&gt; 4 2012-01-04        20.3      12.2      5.60  4.70 rain   
+#&gt; 5 2012-01-05         1.30      8.90     2.80  6.10 rain   
+#&gt; 6 2012-01-06         2.50      4.40     2.20  2.20 rain   </div><div class='input'>  <span class='no'>data_seattle_daily</span> <span class='kw'>%&gt;%</span> <span class='fu'>head</span>() <span class='kw'>%&gt;%</span> <span class='fu'>vw_serialize_data</span>(<span class='kw'>iso_date</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 6
+#&gt;   date       precipitation temp_max temp_min  wind weather
+#&gt;   &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  
+#&gt; 1 2012-01-01         0.       12.8      5.00  4.70 drizzle
+#&gt; 2 2012-01-02        10.9      10.6      2.80  4.50 rain   
+#&gt; 3 2012-01-03         0.800    11.7      7.20  2.30 rain   
+#&gt; 4 2012-01-04        20.3      12.2      5.60  4.70 rain   
+#&gt; 5 2012-01-05         1.30      8.90     2.80  6.10 rain   
+#&gt; 6 2012-01-06         2.50      4.40     2.20  2.20 rain   </div><div class='input'>  <span class='no'>data_seattle_daily</span> <span class='kw'>%&gt;%</span> <span class='fu'>head</span>() <span class='kw'>%&gt;%</span> <span class='fu'>vw_serialize_data</span>(<span class='kw'>iso_date</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 6
+#&gt;   date       precipitation temp_max temp_min  wind weather
+#&gt;   &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  
+#&gt; 1 2012/01/01         0.       12.8      5.00  4.70 drizzle
+#&gt; 2 2012/01/02        10.9      10.6      2.80  4.50 rain   
+#&gt; 3 2012/01/03         0.800    11.7      7.20  2.30 rain   
+#&gt; 4 2012/01/04        20.3      12.2      5.60  4.70 rain   
+#&gt; 5 2012/01/05         1.30      8.90     2.80  6.10 rain   
+#&gt; 6 2012/01/06         2.50      4.40     2.20  2.20 rain   </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -237,7 +287,9 @@ you should use UTC time-scales and local time-units.</p>
       <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

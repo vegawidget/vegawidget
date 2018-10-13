@@ -388,9 +388,9 @@ Let's ignore the tooltip specification for the time being. The main change we ma
 
 - It binned the `date` variable by truncating the time to include the year and month, hence the `"yearmonth"` part of the directive. This is equivalent to the dplyr expression `mutate(yearmonth = floor_date(date, "month"))`. 
 
-- Because we parsed `date` as UTC, we use the UTC context to determine "when" each month starts. This is why the time-unit directive starts with `"utc"`.
+- Because we parsed `date` as UTC, we used the UTC context to determine "when" each month starts. This is why the time-unit directive starts with `"utc"`.
 
-- It changes the default formatting for the axes to reflect that we have truncated `date` to its year-month.
+- It changed the default formatting for the axes to reflect that we have truncated `date` to its year-month.
 
 For me, the essence of the concept is that a **time unit defines a mapping of an existing temporal-variable to a new temporal-variable**; it is a `dplyr::mutate()` that returns another datetime.
 
@@ -493,8 +493,19 @@ spec_month_aggregate_color$encoding$tooltip <-
 spec_month_aggregate_color
 ```
 
+Looking at the chart itself, we can see that it is behaving as we expect: we can more-easily compare years because the months are on the same scale. Using the tooltip, you can see that the time-unit `"utcmonth"` has projected all of the different years into the year 1900. We are showing this projected year on the x-axis, but the axis labels indicate only the month. The specification of the `"utcmonth"` time-unit did three things:
 
+- It binned the `date` variable by truncating the time to the least-significant unit of the time-unit directive: month. 
 
+- Then it projected using the most-significant unit **not** in the time-unit directive: year.
+
+- Because we parsed `date` as UTC, we used the UTC context to determine "when" each month starts. This is why the time-unit directive starts with `"utc"`.
+
+- It changed the default formatting for the axes to reflect that we have transformed `date` such that its only significant unit is month.
+
+When you look at the [available time-units](https://vega.github.io/vega-lite/docs/timeunit.html), you see a lot of choices   
+
+### Summary
 
 
 

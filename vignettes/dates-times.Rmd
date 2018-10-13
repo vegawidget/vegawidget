@@ -33,7 +33,7 @@ In the context of Chicago, the first-step happened at ``r with_tz(moon_landing, 
 
 High level-programming languages, such as R, have access to the full IANA time-zone database. However, the JavaScript `Date` object has access to only two time zones: the timezone of the local browser, and UTC. JavaScript-based visualization systems, including d3, Plotly, and Vega, are constrained by this limitation because they depend on the JavaScript `Date` object. 
 
-## Vega-Lite examples
+### Vega-Lite examples
 
 Let's look at an example using one of the datasets included in this package: `data_seattle_hourly`, adapted from [vega-datasets](https://github.com/vega/vega-datasets):
 
@@ -212,9 +212,9 @@ spec_tempmax_local <-
 spec_tempmax_local
 ```
 
-If you are not in a timezone that is different from UTC (sorry UK), you will see that the points that make up the line are not aligned with the grid. This is another effect of time zones - Vega has parsed and interpreted the `date` as UTC, but its default is to display it to us using the local time-zone of our browser. For me, near Chicago, the days are "starting" six hours early. You can verify this by using the tooltips, which show the `date` with the time attached.
+If you are in a timezone that is different from UTC (sorry UK), you will see that the points that make up the line are not aligned with the grid. This is another effect of time zones - Vega has parsed and interpreted the `date` as UTC, but its default is to display it to us using the local time-zone of our browser. For me, near Chicago, the days are "starting" six hours early. You can verify this by using the tooltips, which show the `date` with the time attached.
 
-In this situation, we wish to keep the UTC interpretation throughout the visualization. We can do this by using a UTC scale on the x-axis:
+In this situation, we wish to keep the UTC interpretation throughout the visualization. We can do this by using a UTC scale-specification to the x-axis:
 
 ```{r}
 spec_tempmax_utc <- spec_tempmax_local
@@ -225,12 +225,277 @@ spec_tempmax_utc$encoding$tooltip <- NULL
 spec_tempmax_utc
 ```
 
-By setting the scale to UTC, the chart is aligned properly for everyone.
-
+By setting the scale to UTC, the axis is aligned properly for everyone.
 
 ### Summary
 
+#### Parsing
+
+When Vega(-Lite) parses values for dates and times, it checks whether the string is formatted using [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601). 
+
+Here are some examples of ISO-8601 strings:
+
+```
+2001-01-01T19:34:05Z
+2001-01-01T19:34:05+05:00
+2001-01-01
+```
+
+Here are some examples of *non*-ISO-8601 strings:
+
+```
+2001-01-01 19:34:05
+Jan-01-2001 19:34:05
+2001/01/01 
+```
+
+By default, if the format is ISO-8601, Vega will parse the string as UTC. Similarly, by default, if the format is non-ISO-8601, Vega will parse the string as local time. You can override the default by providing a [parsing directive](https://vega.github.io/vega-lite/docs/data.html#format) in the specification.
+ 
+Date and datetimes are the same type in JavaScript - a date is just a datetime at the start of a day. For this reason, you may wish to choose different format to serialize dates and datetimes.
+
+#### Datetimes
+
+It is likely that you wish to show datetime values using the context of the data, e.g. you want to look at the temperatures in Seattle using in the context of Seattle. From R, assuming that your datetimes are using the data-local timezone, e.g. `"America/Los_Angeles"`, the least-bad way to do this is to serialize your datetime values using data-local time, rather than using UTC. You can use the `vw_serialize_data()` function to do this. Although this will let you display the data as you intend, there are a couple of important points to keep in mind:
+
+- Weird things may happen at the daylight-saving time transition-points; this problem is doubled if the transistion points are different in the data than they are in the user's browser, e.g. the data's context is in the US and the user's browser is in Europe.
+
+- Your data is now compromised as your datetime strings no longer unabiguously identify the instants in time. Because Vega does not use generic time-zones, anyone who extracts the data from the Vega specification will be lacking the time-zone context.
+
+#### Dates
+
+Dates seeem to have an "international" context, whereas datetimes are thought-of in their local context. As such, you will may want to use the UTC context in Vega - so you would serialize dates using ISO-8601 format. This is the default behavior of the JSON serializer; if you want dates to use a local context, you can use the `vw_serialize_data()` with `iso_date = FALSE`.
+
+Because Vega's default is to show temporal fields using the browser's timezone, you will have to specify a UTC scale. 
+
+#### Scales
+
+In Vega-Lite, displaying temporal-values is a separate activity from parsing temporal-values. Regardless of the parsing behavior, Vega-Lite's default temporal-scale uses the browser's local time-zone. You can specify a scale in an encoding, for example:
+
+```r
+list(
+  ...,
+  encoding = list(
+    x = list(field = "date", type = "temporal", scale = list(type = "utc")),
+    ...
+  ),
+  ...
+)
+```
+
 ## Vega-Lite time unit
+
+For an interactive version of this section on time units, please see this [Observable notebook](https://beta.observablehq.com/@ijlyttle/vega-lite-timeunit).
+
+Let's say you have daily weather data for, say, Seattle over the course of four years:
+
+```{r}
+data_seattle_daily
+```
+
+You already know how to parse and interpret the `date` values, and how to create charts that treat time sequentially. However, you may be interested to:
+
+- aggregate the data by month
+- compare the behavior anong the years
+
+You could prepare such variables in a pre-processing step, creating new variables in R, using **dplyr** and **lubridate**. You can also do this in Vega-Lite, using **time unit**, a transformation mechanism for temporal values.
+
+Let's make a specification for a time-based scatterplot for the daily maximum-temperature:
+
+```{r}
+spec_daily <-
+  list(
+    `$schema` = vega_schema(),
+    width = 600,
+    height = 200,
+    data = list(values = data_seattle_daily),
+    mark = "point",
+    encoding = list(
+      x = list(
+        field = "date",
+        type = "temporal",
+        scale = list(type = "utc")
+      ),
+      y = list(
+        field = "temp_max",
+        type = "quantitative",
+        scale = list(domain = list(-5, 40))
+      ),
+      tooltip = list(
+        list(
+          field = "date", 
+          type = "temporal", 
+          timeUnit = "utcyearmonthdate",
+          title = "date",
+          format = "%Y-%m-%d"
+        ),
+        list(field = "temp_max", type = "quantitative")
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+spec_daily
+```
+
+There's nothing too surprising here, just to note that we have observations for every day for the calendar years 2102-2015, inclusive.
+
+We use point-marks not because it is optimal for the visualization (it's not), but because it may make clearer what is happening behind the scenes. Seeing what Vega-Lite *actually* does can help us to understand the "time-unit" API.
+
+Let's say we want to look at the maximum temperature by month. If we were to do this in R, we might make a preprocessing step like this:
+
+```{r}
+data_seattle_daily %>%
+  mutate(yearmonth = floor_date(date, "month")) %>%
+  group_by(yearmonth) %>%
+  summarise(temp_max = max(temp_max)) %>%
+  glimpse()
+```
+
+We could then plot this data. However, we can make these data transformations within Vega-Lite. We will show this as a series of steps; the first step is to map the values of `date` to the beginning of the month.
+
+```{r}
+# copy the previous spec
+spec_yearmonth <- spec_daily
+
+# modify the x-encoding
+spec_yearmonth$encoding$x$scale <- NULL
+spec_yearmonth$encoding$x$timeUnit <- "utcyearmonth"
+
+# modify the tooltip-encoding
+spec_yearmonth$encoding$tooltip <- 
+  list(
+    list(
+      field = "date", 
+      type = "temporal", 
+      timeUnit = "utcyearmonthdate",
+      title = "date",
+      format = "%Y-%m-%d"
+    ),
+    list(
+      field = "date", 
+      type = "temporal", 
+      timeUnit = "utcyearmonth", 
+      title = "yearmonth", 
+      format = "%Y-%m-%d"
+    ),     
+    list(field = "temp_max", type = "quantitative")
+  )
+
+spec_yearmonth
+```
+
+Let's ignore the tooltip specification for the time being. The main change we made to the specification was to tweak the x-encoding: removing the UTC `scale` and adding a `timeUnit`, setting it to `"utcyearmonth"`. The specification of a time unit did three things:
+
+- It binned the `date` variable by truncating the time to include the year and month, hence the `"yearmonth"` part of the directive. This is equivalent to the dplyr expression `mutate(yearmonth = floor_date(date, "month"))`. 
+
+- Because we parsed `date` as UTC, we use the UTC context to determine "when" each month starts. This is why the time-unit directive starts with `"utc"`.
+
+- It changes the default formatting for the axes to reflect that we have truncated `date` to its year-month.
+
+For me, the essence of the concept is that a **time unit defines a mapping of an existing temporal-variable to a new temporal-variable**; it is a `dplyr::mutate()` that returns another datetime.
+
+We removed the UTC scale from the x-encoding becasue this is taken care-of with the specification of `"utc"` within the time unit. If we were to [specify it twice](https://vega.github.io/vega-lite/docs/timeunit.html#output), the UTC-offset would be applied twice.
+
+We modified the tooltip to demonstrate that we have the same underlying data - on the x-axis, we use the "mutated" year-month rather than the date. 
+
+The next step is to apply the `group_by()` and `summarise()` operations.
+
+```{r}
+# copy the previous spec
+spec_yearmonth_aggregate <- spec_yearmonth
+
+# add an aggretation directive to the y-encoding
+spec_yearmonth_aggregate$encoding$y$aggregate = "max"
+
+# modify the tooltip
+spec_yearmonth_aggregate$encoding$tooltip <- 
+  list(
+    list(
+      field = "date", 
+      type = "temporal", 
+      timeUnit = "utcyearmonth", 
+      title = "yearmonth", 
+      format = "%Y-%m-%d"
+    ),     
+    list(field = "temp_max", type = "quantitative", aggregate = "max")
+  )  
+
+spec_yearmonth_aggregate
+```
+
+These two operations are undertaken by adding a single specification: the y-encoding directive `aggregate = "max"`. Vega-Lite carries out an implied `group_by()` on all the encodings are not aggregated. In this case, y (`temp_max`) is aggregated; we group by our remaining encoding, x, which is now the "year-month".
+
+We can add an color-encoding for the year, again using a time-unit:
+
+```{r}
+# copy previous spec
+spec_yearmonth_aggregate_color <- spec_yearmonth_aggregate
+
+# create encoding for color using "utcyear" time-unit of date
+spec_yearmonth_aggregate_color$encoding$color <- 
+  list(field = "date", type = "nominal", timeUnit = "utcyear")
+
+# define a tooltip
+spec_yearmonth_aggregate_color$encoding$tooltip <- 
+  list(
+    list(
+      field = "date", 
+      type = "temporal", 
+      timeUnit = "utcyear", 
+      title = "year", 
+      format = "%Y-%m-%d"
+    ),  
+    list(
+      field = "date", 
+      type = "temporal", 
+      timeUnit = "utcyearmonth", 
+      title = "yearmonth", 
+      format = "%Y-%m-%d"
+    ),      
+    list(field = "temp_max", type = "quantitative", aggregate = "max")
+  ) 
+
+spec_yearmonth_aggregate_color
+```
+
+Again, this is another intermediate step; creating a new internal variable using a `"utcyear"` time-unit. We see that Vega-Lite does the "right" thing with the color-legend. Using the tooltip, we also see that the values of `year` are the datetimes corresponding to the first instant in a given year.
+
+In the previous chart, we noted that Vega-Lite will group-by any encoded variable that is not aggregated, then perform the aggregations. In this case, we are grouping by "year" and "year-month", so the end-result of the groupings is the same as the previous example. 
+
+Also, note that we need to take care with our tooltip definitions. Tooltips are encodings, so the aggregation rule applies to tooltip encodings no different that it applies to other encodings. If something "weird" happens when building a chart that uses implicit aggregation, it can be useful to check the tooltip-definitions for encodings and aggregations that are inconsistent with the rest of the encodings (ask me how I found this out).
+
+Our final chart in this series of examples will be to put each of the years on the same scale; we do this by using a time-unit of `"utcmonth"` for the x-encoding. 
+
+```{r}
+spec_month_aggregate_color <- spec_yearmonth_aggregate_color
+
+spec_month_aggregate_color$encoding$x$timeUnit <- "utcmonth"
+
+spec_month_aggregate_color$encoding$tooltip <- 
+  list(
+    list(
+      field = "date", 
+      type = "temporal", 
+      timeUnit = "utcyear", 
+      title = "year", 
+      format = "%Y-%m-%d"
+    ),  
+    list(
+      field = "date", 
+      type = "temporal", 
+      timeUnit = "utcmonth", 
+      title = "month", 
+      format = "%Y-%m-%d"
+    ),      
+    list(field = "temp_max", type = "quantitative", aggregate = "max")
+  ) 
+
+spec_month_aggregate_color
+```
+
+
+
+
 
 
 

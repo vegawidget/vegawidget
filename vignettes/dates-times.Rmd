@@ -12,11 +12,15 @@ library("readr")
 library("dplyr")
 ```
 
-Dates and times can be tricky, even in the familiar confines of R. Vega and Vega-Lite are run in JavaScript, which has a different philosophy of dates and times from R. In R, we have access to the entire time-zone database; in JavaScript, using the `Date` object, there are only *two* time zones available: the local time zone used by the client browser and UTC.  
+Dates and times can be tricky, even within the familiar confines of R. Vega and Vega-Lite are run in JavaScript, which has its own philosophy for dates and times. In R, we have access to the entire time-zone database; in JavaScript, using the `Date` object, there are only *two* time zones available: the local time zone used by the client browser and UTC.  
 
-If you are working with time-indexed data, this mismatch of capabilities introduces a lot of "opportunities" for you to create a Vega(-Lite) visualization that does not behave as you intend. The purpose of this article is to walk through the pit-falls of translating dates and times from R to JavaScript, to describe the in-and-outs of Vega-Lite time-units, and to show some useful practices for staying out of trouble.
+If you are working with time-based data, this mismatch of capabilities introduces a lot of "opportunities" to create a Vega(-Lite) visualizations that do not behave as intended. The purposees of this article are 
 
-The documentation for the Altair Python package includes an [article on times and dates](https://altair-viz.github.io/user_guide/times_and_dates.html) with very clear explanations. It is hoped that this article can be similarly clear. 
+- to walk through the pit-falls of translating dates and times from R to JavaScript.
+- to describe the in-and-outs of Vega-Lite [time-units](https://vega.github.io/vega-lite/docs/timeunit.html).
+- to show some (hopefully) useful practices for staying out of trouble.
+
+The documentation for the Altair Python package includes an [article on times and dates](https://altair-viz.github.io/user_guide/times_and_dates.html) with very clear explanations; it is hoped that this article can be similarly clear. 
 
 ## Time zones
 
@@ -25,11 +29,11 @@ str_moon_landing <- "1969-07-21T02:56:15Z"
 moon_landing <- parse_datetime(str_moon_landing)
 ```
 
-### Issue
+Things happen at fixed instants in time; we use time zones to describe those fixed instants using a local context. Consider that Neil Armstrong's first step on the moon happened at ``r str_moon_landing``, represented here as an [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) string. 
 
-Things happen at fixed instants in time; we use time zones to describe those fixed instants using a local context. Consider that Neil Armstrong's first step on the moon happened at ``r str_moon_landing``, represented here as an ISO-8601 string. This uses UTC, the globally-recognized standard reference-frame; ISO-8601 is the standard way to communicate time-stamps. However, this information lacks context for someone who may remember the instant from Chicago, or another who may remember the *same* instant from Paris.
+All ISO-8601 strings refer unambigously to UTC, the globally-recognized standard reference-frame; it is the standard way to communicate time-stamps. However, it lacks context for someone who may remember an instant from Chicago, or another who may remember the *same* instant from Paris.
 
-In the context of Chicago, the first-step happened at ``r with_tz(moon_landing, "America/Chicago")``; in the context of Paris, it happened at ``r with_tz(moon_landing, "Europe/Paris")``. We use a system of time zones to provide this context. The standard representation of time zones is IANA (also known as Olson) time zones. These are each associated with a given geographic region, such as `"America/Chicago"` or `"Europe/Paris"`; a time zone provides an offset to UTC, given an instant expressed in UTC. 
+In the context of Chicago, the first-step happened at ``r with_tz(moon_landing, "America/Chicago")``; in the context of Paris, it happened at ``r with_tz(moon_landing, "Europe/Paris")``. We use a system of time zones to provide this context. The standard representation of time zones is IANA (also known as Olson) [time-zones](https://en.wikipedia.org/wiki/Tz_database). These are each associated with a given geographic region, such as `"America/Chicago"` or `"Europe/Paris"`; a time zone is used to determine the offset to UTC, given an instant expressed in UTC. 
 
 High level-programming languages, such as R, have access to the full IANA time-zone database. However, the JavaScript `Date` object has access to only two time zones: the timezone of the local browser, and UTC. JavaScript-based visualization systems, including d3, Plotly, and Vega, are constrained by this limitation because they depend on the JavaScript `Date` object. 
 
@@ -38,7 +42,7 @@ High level-programming languages, such as R, have access to the full IANA time-z
 Let's look at an example using one of the datasets included in this package: `data_seattle_hourly`, adapted from [vega-datasets](https://github.com/vega/vega-datasets):
 
 ```{r}
-data_seattle_hourly
+glimpse(data_seattle_hourly)
 ```
 
 This dataset contains hourly observations of Seattle temperature (°F) for the year 2010. Let's inspect the time zone of the `date` variable:
@@ -62,7 +66,7 @@ data_seattle_hourly_short <-
 spec_local <- 
   list(
     `$schema` = vega_schema(),
-    width = 400,
+    width = 600,
     height = 75,
     data = list(values = data_seattle_hourly_short),
     mark = "line",
@@ -84,9 +88,9 @@ spec_local <-
 spec_local
 ```
 
-Our expectation is that this chart will show the times using the local time-zone; in this case, our expectation is met. This is good, but let's have a closer look at what's going on. 
+Our goal is to show the times in the chart using the local time-zone; in this case, we have succeeded. Good news, but let's have a closer look at what's going on. 
 
-Let's look at first couple of observations in the data frame, as they would be rendered as JSON:
+Here are the first couple of observations in the data frame, rendered as JSON (using the same settings for datetimes as we use when render the entire vegaspec to JSON):
 
 ```{r}
 data_seattle_hourly_short %>% head(2) %>% jsonlite::toJSON()
@@ -97,15 +101,15 @@ We see that date-times are *not* formatted using ISO-8601 formatting - the times
 > 1) Times are parsed as UTC time if the date strings are in ISO format. Note that in JavaScript date strings without time are interpreted as UTC but but date strings with time and without timezone as local.
 > 2) If that is not the case, by default, times are assumed to be local.
 
-This is all well-and-good, but you should be aware of some "gotchas" due to daylight-saving time:
+This is what we intended to demonstrate, but you should be aware of some "gotchas" due to daylight-saving time:
 
 - In Seattle in 2010, the *local* time represented by `"2010-03-14 02:00:00"` does not exist; the local time represented by `"2010-11-07 01:00:00"` occurs twice. This is the reason that the dataset has 8759 observations rather than our expectation of 8760: the "repeated" hour has only one observation. This is one of the fragilities of storing datetimes using local time rather than UTC.
 
 - In 2010, in Europe, the daylight-saving time transitions happened on different dates from the USA - in Europe this happened on `"2010-03-28"` and `"2010-10-31"`. This means that there are local times represented in this dataset that do not exist in *local* time in Europe, so they will not be parsed, interpreted, or displayed properly.
 
-This is part of the motivation to serialize datetimes using the ISO-8601 format, then to treat the local time-zone, in this case `"America/Los_Angeles"`, as metadata. We will demonstrate, for the reasons outlined in at the beginning of this article, we cannot get this to work as we expect for Vega(-Lite).
+This is why it is a best-practice in R (and elsewhere) to serialize datetimes using the ISO-8601 format, then to treat the local time-zone, in this case `"America/Los_Angeles"`, as metadata. However, for the reasons outlined in at the beginning of this article, we cannot get this to work using Vega(-Lite). What follows are two different ways that Vega-Lite works with UTC times, *neither of which is likely what you want*.
 
-Let's start by using a function help us serialize the data:
+This package has a function, `vw_serialize_data()`, to serialize dates and times in a data frame. It has an argument to specify a format for dates, `iso_date`, and an option to specify a format for datetimes, `iso_dttm`. We set the `iso_dttm` argument to `TRUE` to serialize our datetimes using ISO-8601 format:
 
 ```{r}
 data_seattle_hourly_short_iso <- 
@@ -116,7 +120,7 @@ data_seattle_hourly_short_iso <-
 
 You can see that we have changed the `date` variable from a datetime to a character string. Its values show `date`:
 
-- in the ISO-8601 format (using the `iso_dttm` argument). 
+- in the ISO-8601 format (according to the `iso_dttm` argument). 
 - ISO-8601 implies using UTC (at this time, 8 hours ahead of Seattle). 
 - to millisecond precision (matching JavaScript's time-resolution).
 
@@ -130,9 +134,9 @@ spec_iso_local$data$values <- data_seattle_hourly_short_iso
 spec_iso_local
 ```
 
-If the browser you are using to view this page is in the `"America/Los_Angeles"` time zone, this chart will appear identical as above. However, if you are not, the axis labels for `date` are now not what we might expect. Vega-Lite parses and interprets the `date` values as UTC, but displays the `date` using the *browser's* local time-zone. I (Ian) am in the `"America/Chicago"` time zone, so the axis, for me, begins at 02:00. This is consistent with *my* time zone being two hours ahead of `"America/Los_Angeles"`.
+If the browser you are using to view this page is in the `"America/Los_Angeles"` time zone, this chart will appear identical to the first chart. However, if your browser is not "in" this time-zone, the axis labels for `date` are now not what we might expect. Vega-Lite parses and interprets the `date` values as UTC, but displays the `date` using the *browser's* local time-zone. I (Ian) am in the `"America/Chicago"` time zone, so the axis, for me, begins at 02:00. This is consistent with *my* time zone being two hours ahead of `"America/Los_Angeles"`.
 
-As noted above, the JavaScript `Date` object knows two time-zones: the browser's and UTC. Although it will not be terribly satisfying, we can direct Vega-Lite to [display the time as UTC](https://vega.github.io/vega-lite/docs/timeunit.html#output) (this way, everyone can be equally unfulfilled):
+As noted above, the JavaScript `Date` object knows two time-zones: the browser's and UTC. Our other option is to direct Vega-Lite to [display the time as UTC](https://vega.github.io/vega-lite/docs/timeunit.html#output):
 
 ```{r}
 spec_iso_utc <- spec_iso_local
@@ -148,33 +152,43 @@ Here, the `date` axis begins at 08:00, which is the UTC time when it was midnigh
 
 Because of the time-zone limitations of the JavaScript `Date` object, we are forced to make a compromise. 
 
-If we serialize datetimes using the local (to the data) time-zone:
+If we serialize datetimes using the local (to the data) time-zone, using a non-ISO-8601 format:
 
 - Vega-Lite parses, interprets, and displays the datetimes as if they are local times in the browser's time zone.
-- Different application of daylight-saving time across different time zones are a potential source of error in the visualization.
+- Different application of daylight-saving time across different time zones is a potential source of error in the visualization.
 - The data, as sent to the browser, is incomplete because we have "lost" the link to the actual instants-in-time that the data represents.
 
-In other situations, the best-practice for serializing datetimes is to use ISO-8601 formatting and to keep the time zone as metadata. This allows us to refer, unambiguously, to the actual instants-in-time. In a visualization, we would like to be able to use the time zone to provide the needed context to make aggregations, label axes, etc. 
+If we serialize datetime data using the ISO-8601 format, the instants are parsed and interpreted correctly. However, we have the option to display using only the time zone of the browser or UTC. It is entirely likely that the context (time zone) of our data is different from the context of our browser - in which case we are unable to make an effective visualization.
 
-Here, we do not (yet) have this option. If we serialize datetime data using the ISO-8601 format, the instants are parsed and interpreted correctly. However, we have the option to display using only the timezone of the browser or UTC. It is entirely like that the context (time zone) of our data is different from the context of our browser - in which case we are unable to make an effective visualization.
+Faced with this choice, it seems the first option -- serializing our data using the data's local time-zone -- is the least-bad option, as it gives us the opportunity to present the data using its own context. That being said, we need to be mindful of the daylight-saving pitfalls, and warn our users accordingly. Further, we have to recognize (and possibly note to our users) that the data inside the visualization is compromised. 
 
-Faced with this choice, it seems the first option -- serializing our data using the data's local time-zone -- is the least-bad option, as it gives us the opportunity to present the data in context. That being said, we need to be mindful of the daylight-saving pitfalls, and warn our users accordingly. Further, we have to recognize (and possibly note to our users) that the data inside the visualization is compromised. 
+In other situations, the best-practice for serializing datetimes is to use ISO-8601 formatting and to keep the time zone as metadata. This allows us to refer, unambiguously, to the actual instants-in-time. It would be great if this were "baked into" Vega(-Lite), but it seems the limitation is fundamentally in the JavaScript `Date` object, suggesting that it would be a heavy lift to implement a comprehensive solution. 
 
 ### Notes on dates
 
-In R, we have different types for date vs. datetimes. This seems a useful distinction, as it allows us to compare a day in New York with a day in Brisbane. 
+In R, we have different types for date (`Date`) vs. datetimes (`POSIXct`). This can be a useful distinction, as using dates makes it easier for us to compare a day in New York with a day in Brisbane. 
 
-When designing a Vega visualization, we have a "trick" we can use to treat all dates regardless of time zone: we can treat dates as the datetime at the start of that day in UTC. Vega [parsing rule](https://vega.github.io/vega-lite/docs/timeunit.html#utc) for datetimes is that if the data is formatted using ISO-8601, then it is parsed as UTC.
+In JavaScript, we have a single type, `Date`, to represent both dates and datetimes; the convention is to treat dates as the datetimes at the *start* of that day. For a given situation, it remains to determine which time zone to use: UTC or local time.
+
+In my opinion, this choice would depend on the larger context of the data. If working with a dataset where a date is used in association with datetimes in the same time-zone context, e.g. all associated with a single factory, then it might make more sense to think of both the date and datetimes in the same time-zone context. However, if working with a dataset with dates associated with locations in different time-zones, e.g. New York and Brisbane, it might make more sense to parse these dates using a neutral context, like UTC. 
+
+In Vega, the [parsing default](https://vega.github.io/vega-lite/docs/timeunit.html#utc) for datetimes is that if the data is formatted using ISO-8601, then it is parsed as UTC. To be clear, what an R user might think of as a date string: `"2001-01-01"`, is in ISO-8601 format; accordingly, by default, it is parsed as a JavaScript `Date` object in the UTC context. 
 
 Let's consider the dataset `data_seattle_daily`, where we have daily observations of Seattle weather over the course of four years:
 
 ```{r}
-data_seattle_daily
+glimpse(data_seattle_daily)
 ```
 
-When we serialize this data, it will use the ISO-8601 format for dates, by default. 
+The default JSON-serializer for dates uses the ISO-8601 format for dates. If we wanted to use a non-ISO-8601 format, we could use `vw_serialize_data()` using `iso_date = FALSE`:
 
-In preparation of making some examples, let's filter to keep the first month of the dataset:
+```{r}
+data_seattle_daily %>%
+  vw_serialize_data(iso_date = FALSE) %>%
+  glimpse()
+```
+
+For the purpose of making some examples of how to work with UTC dates, let's filter the orginal dataset, with ISO-8601 formatting, keeping the first month:
 
 ```{r}
 data_seattle_daily_short <- 
@@ -189,7 +203,7 @@ Let's look at a line-plot of the daily maximum-temperatures:
 spec_tempmax_local <- 
   list(
     `$schema` = vega_schema(),
-    width = 400,
+    width = 600,
     height = 75,
     data = list(values = data_seattle_daily_short),
     mark = "line",
@@ -214,18 +228,18 @@ spec_tempmax_local
 
 If you are in a timezone that is different from UTC (sorry UK), you will see that the points that make up the line are not aligned with the grid. This is another effect of time zones - Vega has parsed and interpreted the `date` as UTC, but its default is to display it to us using the local time-zone of our browser. For me, near Chicago, the days are "starting" six hours early. You can verify this by using the tooltips, which show the `date` with the time attached.
 
-In this situation, we wish to keep the UTC interpretation throughout the visualization. We can do this by using a UTC scale-specification to the x-axis:
+In this situation, we wish to keep the UTC interpretation throughout the visualization. We can do this by using a UTC scale-specification for the x-axis (and the tooltip):
 
 ```{r}
 spec_tempmax_utc <- spec_tempmax_local
 
 spec_tempmax_utc$encoding$x$scale <- list(type = "utc")
-spec_tempmax_utc$encoding$tooltip <- NULL
+spec_tempmax_utc$encoding$tooltip[[1]]$scale <- list(type = "utc")
 
 spec_tempmax_utc
 ```
 
-By setting the scale to UTC, the axis is aligned properly for everyone.
+When using UTC dates (and datetimes), be mindful that you may also have to set the scales to UTC, so that the axis and tootips behave similarly, and properly, for everyone.
 
 ### Summary
 
@@ -249,27 +263,31 @@ Jan-01-2001 19:34:05
 2001/01/01 
 ```
 
-By default, if the format is ISO-8601, Vega will parse the string as UTC. Similarly, by default, if the format is non-ISO-8601, Vega will parse the string as local time. You can override the default by providing a [parsing directive](https://vega.github.io/vega-lite/docs/data.html#format) in the specification.
+By default, if the format is ISO-8601, Vega will parse the string as UTC. Similarly, by default, if the format is non-ISO-8601, Vega will parse the string as local time. You can override the default by providing a [parsing directive](https://vega.github.io/vega-lite/docs/data.html#format) in the specification. If you wish to change how dates and times are serialized, you can use the `vw_serialize_data()` function.
  
-Date and datetimes are the same type in JavaScript - a date is just a datetime at the start of a day. For this reason, you may wish to choose different format to serialize dates and datetimes.
-
 #### Datetimes
 
-It is likely that you wish to show datetime values using the context of the data, e.g. you want to look at the temperatures in Seattle using in the context of Seattle. From R, assuming that your datetimes are using the data-local timezone, e.g. `"America/Los_Angeles"`, the least-bad way to do this is to serialize your datetime values using data-local time, rather than using UTC. You can use the `vw_serialize_data()` function to do this. Although this will let you display the data as you intend, there are a couple of important points to keep in mind:
+It is likely that you wish to show datetime values using the context of the data, e.g. you want to look at the temperatures in Seattle using in the context of Seattle. From R, assuming that your datetimes are using the data-local timezone, e.g. `"America/Los_Angeles"`, the least-bad way to do this is to serialize your datetime values using data-local time, rather than using UTC; this will happen by default. Although this will let you display the data as you intend, there are a couple of important points to keep in mind:
 
-- Weird things may happen at the daylight-saving time transition-points; this problem is doubled if the transistion points are different in the data than they are in the user's browser, e.g. the data's context is in the US and the user's browser is in Europe.
+- Weird things may happen at the daylight-saving time transition-points; this problem is compounded if the transistion points are different in the data than they are in the user's browser, e.g. the data's context is in the US and the user's browser is in Europe.
 
-- Your data is now compromised as your datetime strings no longer unabiguously identify the instants in time. Because Vega does not use generic time-zones, anyone who extracts the data from the Vega specification will be lacking the time-zone context.
+- Your data is now compromised as your datetime strings no longer unabiguously identify the instants in time. Because Vega does not have access to the full list of time-zones, anyone who extracts the data from the Vega specification will be lacking the time-zone context.
+
+If you wish for Vega to parse your datetimes using UTC, you can serialize your datetimes using the function `vw_serialize_data()` using `iso_dttm = TRUE`.
 
 #### Dates
 
-Dates seeem to have an "international" context, whereas datetimes are thought-of in their local context. As such, you will may want to use the UTC context in Vega - so you would serialize dates using ISO-8601 format. This is the default behavior of the JSON serializer; if you want dates to use a local context, you can use the `vw_serialize_data()` with `iso_date = FALSE`.
+Date and datetimes are the same type in JavaScript; a date is just a datetime at the start of a day. 
 
-Because Vega's default is to show temporal fields using the browser's timezone, you will have to specify a UTC scale. 
+Depending on your situation, you may wish to interpret a date using UTC or using the local time-zone of the browser.
+
+- If you are compring dates from different time-zones, e.g. Beijing and London, it may make sense for you, conceptually, to use a single "neutral" time-zone, UTC. In this case you can use the default serialization for dates, the ISO-8601 format, i.e. `"2001-01-01"`; Vega will parse this as UTC. However, you will have to adjust the scales in your visualization to use UTC.
+
+- If your dataset(s) have datetimes and dates from a single time-zone, e.g. a facility in `"America/Chicago"`, it may be useful to display them using the same (local) time-zone context. Here, you can use the `vw_serialize_data()` function with `iso_date = FALSE`, such that Vega will parse the dates using the local time-zone.
 
 #### Scales
 
-In Vega-Lite, displaying temporal-values is a separate activity from parsing temporal-values. Regardless of the parsing behavior, Vega-Lite's default temporal-scale uses the browser's local time-zone. You can specify a scale in an encoding, for example:
+In Vega-Lite, displaying temporal-values on a scale is separate from parsing temporal-values. Regardless of the parsing behavior, Vega-Lite's default temporal-scale uses the browser's local time-zone. You can specify a scale in an encoding, for example:
 
 ```r
 list(
@@ -286,20 +304,24 @@ list(
 
 For an interactive version of this section on time units, please see this [Observable notebook](https://beta.observablehq.com/@ijlyttle/vega-lite-timeunit).
 
-Let's say you have daily weather data for, say, Seattle over the course of four years:
+Let's say you have daily weather data for, say, Seattle over the course of four years. In this case, we want to load the data into vega using a URL, making *this* page a little lighter by not carrying all the data around in each of the follwing charts. Let's have a look at the first few lines:
 
 ```{r}
-data_seattle_daily
+url_seattle_daily <- "https://vega.github.io/vega-datasets/data/seattle-weather.csv"
+
+url_seattle_daily %>%
+  read_lines(n_max = 6) %>%
+  print()
 ```
 
-You already know how to parse and interpret the `date` values, and how to create charts that treat time sequentially. However, you may be interested to:
+As above, this is daily data covering the years 2012-2015 inclusive. Our goal in this section is to show how Vega-Lite time units work by creating charts that:
 
 - aggregate the data by month
 - compare the behavior anong the years
 
-You could prepare such variables in a pre-processing step, creating new variables in R, using **dplyr** and **lubridate**. You can also do this in Vega-Lite, using **time unit**, a transformation mechanism for temporal values.
+To be clear, you could prepare such variables in a pre-processing step, creating new variables in R, using **dplyr** and **lubridate**. You can also do this in Vega-Lite, using **time unit**, a transformation mechanism for temporal values.
 
-Let's make a specification for a time-based scatterplot for the daily maximum-temperature:
+Let's start specification for a time-based scatterplot for the daily maximum-temperature, showing every observation in the dataset. For purposes of illustrating how to work with UTC values, we are going to parse the dates as UTC.
 
 ```{r}
 spec_daily <-
@@ -307,7 +329,12 @@ spec_daily <-
     `$schema` = vega_schema(),
     width = 600,
     height = 200,
-    data = list(values = data_seattle_daily),
+    data = list(
+      url = url_seattle_daily,
+      format = list(
+        parse = list(date = "utc:'%Y/%m/%d'")
+      )
+    ),
     mark = "point",
     encoding = list(
       x = list(
@@ -324,7 +351,7 @@ spec_daily <-
         list(
           field = "date", 
           type = "temporal", 
-          timeUnit = "utcyearmonthdate",
+          scale  = list(type = "utc"),
           title = "date",
           format = "%Y-%m-%d"
         ),
@@ -337,11 +364,9 @@ spec_daily <-
 spec_daily
 ```
 
-There's nothing too surprising here, just to note that we have observations for every day for the calendar years 2102-2015, inclusive.
+We use point-marks here not because it is optimal for the visualization (it probably isn't), but because it may help make clearer what is happening behind the scenes. Seeing what Vega-Lite *actually* does can help us to understand its time-unit API.
 
-We use point-marks not because it is optimal for the visualization (it's not), but because it may make clearer what is happening behind the scenes. Seeing what Vega-Lite *actually* does can help us to understand the "time-unit" API.
-
-Let's say we want to look at the maximum temperature by month. If we were to do this in R, we might make a preprocessing step like this:
+Let's say we want to look at the maximum temperature for each year-month in the dataset - 48 months in all. If we were to do this in R, we might make a preprocessing step like this:
 
 ```{r}
 data_seattle_daily %>%
@@ -363,28 +388,25 @@ spec_yearmonth$encoding$x$timeUnit <- "utcyearmonth"
 
 # modify the tooltip-encoding
 spec_yearmonth$encoding$tooltip <- 
-  list(
+  append(
+    spec_yearmonth$encoding$tooltip, 
     list(
-      field = "date", 
-      type = "temporal", 
-      timeUnit = "utcyearmonthdate",
-      title = "date",
-      format = "%Y-%m-%d"
-    ),
-    list(
-      field = "date", 
-      type = "temporal", 
-      timeUnit = "utcyearmonth", 
-      title = "yearmonth", 
-      format = "%Y-%m-%d"
-    ),     
-    list(field = "temp_max", type = "quantitative")
+      list(
+        field = "date", 
+        type = "temporal", 
+        timeUnit = "utcyearmonth", 
+        title = "yearmonth", 
+        format = "%Y-%m-%d"
+      )      
+    ), 
+    after = 1
   )
+
 
 spec_yearmonth
 ```
 
-Let's ignore the tooltip specification for the time being. The main change we made to the specification was to tweak the x-encoding: removing the UTC `scale` and adding a `timeUnit`, setting it to `"utcyearmonth"`. The specification of a time unit did three things:
+The main change we made to the specification was to tweak the x-encoding: removing the UTC `scale` and adding a `timeUnit`, setting it to `"utcyearmonth"`. The specification of a time unit did three things:
 
 - It binned the `date` variable by truncating the time to include the year and month, hence the `"yearmonth"` part of the directive. This is equivalent to the dplyr expression `mutate(yearmonth = floor_date(date, "month"))`. 
 
@@ -396,9 +418,9 @@ For me, the essence of the concept is that a **time unit defines a mapping of an
 
 We removed the UTC scale from the x-encoding becasue this is taken care-of with the specification of `"utc"` within the time unit. If we were to [specify it twice](https://vega.github.io/vega-lite/docs/timeunit.html#output), the UTC-offset would be applied twice.
 
-We modified the tooltip to demonstrate that we have the same underlying data - on the x-axis, we use the "mutated" year-month rather than the date. 
+We modified the tooltip to demonstrate that we have the same underlying data. On the x-axis, we use the "mutated" year-month rather than the date. 
 
-The next step is to apply the `group_by()` and `summarise()` operations.
+The next step is to apply the Vega-Lite equivalents to dplyr's `group_by()` and `summarise()` operations.
 
 ```{r}
 # copy the previous spec
@@ -407,23 +429,17 @@ spec_yearmonth_aggregate <- spec_yearmonth
 # add an aggretation directive to the y-encoding
 spec_yearmonth_aggregate$encoding$y$aggregate = "max"
 
-# modify the tooltip
-spec_yearmonth_aggregate$encoding$tooltip <- 
-  list(
-    list(
-      field = "date", 
-      type = "temporal", 
-      timeUnit = "utcyearmonth", 
-      title = "yearmonth", 
-      format = "%Y-%m-%d"
-    ),     
-    list(field = "temp_max", type = "quantitative", aggregate = "max")
-  )  
+# remove the original date from the tooltip, add temperature-aggretation
+spec_yearmonth_aggregate$encoding$tooltip[[1]] <- NULL 
+spec_yearmonth_aggregate$encoding$tooltip[[2]]$aggregate <- "max"
+
 
 spec_yearmonth_aggregate
 ```
 
 These two operations are undertaken by adding a single specification: the y-encoding directive `aggregate = "max"`. Vega-Lite carries out an implied `group_by()` on all the encodings are not aggregated. In this case, y (`temp_max`) is aggregated; we group by our remaining encoding, x, which is now the "year-month".
+
+Also, note that we need to take care with our tooltip definitions. Tooltips are encodings, so the aggregation rule applies to tooltip encodings no different that it applies to other encodings. If something "weird" happens when building a chart that uses implicit aggregation, it can be useful to check the tooltip-definitions for encodings and aggregations that are inconsistent with the rest of the encodings (ask me how I found this out).
 
 We can add an color-encoding for the year, again using a time-unit:
 
@@ -435,25 +451,22 @@ spec_yearmonth_aggregate_color <- spec_yearmonth_aggregate
 spec_yearmonth_aggregate_color$encoding$color <- 
   list(field = "date", type = "nominal", timeUnit = "utcyear")
 
-# define a tooltip
+# insert a tooltip element to indicate year
 spec_yearmonth_aggregate_color$encoding$tooltip <- 
-  list(
+  append(
+    spec_yearmonth_aggregate_color$encoding$tooltip,
     list(
-      field = "date", 
-      type = "temporal", 
-      timeUnit = "utcyear", 
-      title = "year", 
-      format = "%Y-%m-%d"
-    ),  
-    list(
-      field = "date", 
-      type = "temporal", 
-      timeUnit = "utcyearmonth", 
-      title = "yearmonth", 
-      format = "%Y-%m-%d"
-    ),      
-    list(field = "temp_max", type = "quantitative", aggregate = "max")
-  ) 
+      list(
+        field = "date", 
+        type = "temporal", 
+        timeUnit = "utcyear", 
+        title = "year", 
+        format = "%Y-%m-%d"
+      )
+    ),
+    after = 0
+  )
+
 
 spec_yearmonth_aggregate_color
 ```
@@ -462,8 +475,6 @@ Again, this is another intermediate step; creating a new internal variable using
 
 In the previous chart, we noted that Vega-Lite will group-by any encoded variable that is not aggregated, then perform the aggregations. In this case, we are grouping by "year" and "year-month", so the end-result of the groupings is the same as the previous example. 
 
-Also, note that we need to take care with our tooltip definitions. Tooltips are encodings, so the aggregation rule applies to tooltip encodings no different that it applies to other encodings. If something "weird" happens when building a chart that uses implicit aggregation, it can be useful to check the tooltip-definitions for encodings and aggregations that are inconsistent with the rest of the encodings (ask me how I found this out).
-
 Our final chart in this series of examples will be to put each of the years on the same scale; we do this by using a time-unit of `"utcmonth"` for the x-encoding. 
 
 ```{r}
@@ -471,42 +482,32 @@ spec_month_aggregate_color <- spec_yearmonth_aggregate_color
 
 spec_month_aggregate_color$encoding$x$timeUnit <- "utcmonth"
 
-spec_month_aggregate_color$encoding$tooltip <- 
-  list(
-    list(
-      field = "date", 
-      type = "temporal", 
-      timeUnit = "utcyear", 
-      title = "year", 
-      format = "%Y-%m-%d"
-    ),  
-    list(
-      field = "date", 
-      type = "temporal", 
-      timeUnit = "utcmonth", 
-      title = "month", 
-      format = "%Y-%m-%d"
-    ),      
-    list(field = "temp_max", type = "quantitative", aggregate = "max")
-  ) 
+spec_month_aggregate_color$encoding$tooltip[[2]]$timeUnit <- "utcmonth"
 
 spec_month_aggregate_color
 ```
 
-Looking at the chart itself, we can see that it is behaving as we expect: we can more-easily compare years because the months are on the same scale. Using the tooltip, you can see that the time-unit `"utcmonth"` has projected all of the different years into the year 1900. We are showing this projected year on the x-axis, but the axis labels indicate only the month. The specification of the `"utcmonth"` time-unit did three things:
+Looking at the chart itself, we can see that it is has now "arrived" at our destination: we can more-easily compare years because the months are on the same scale. Using the tooltip, you can see that the time-unit `"utcmonth"` has projected all of the different years into the year 1900. We are showing this projected year on the x-axis, but the axis labels indicate only the month. The specification of the `"utcmonth"` time-unit did four things:
 
-- It binned the `date` variable by truncating the time to the least-significant unit of the time-unit directive: month. 
+- It binned the `date` variable by truncating (flooring) the time to the least-significant unit of the time-unit directive: in this case, month. 
 
-- Then it projected using the most-significant unit **not** in the time-unit directive: year.
+- It projected the binned `date` using the most-significant units **not** in the time-unit directive: in this case, year.
 
-- Because we parsed `date` as UTC, we used the UTC context to determine "when" each month starts. This is why the time-unit directive starts with `"utc"`.
+- Because we parsed `date` as UTC, we should the UTC context to determine "when" each month starts. This is why the time-unit directive starts with `"utc"`.
 
 - It changed the default formatting for the axes to reflect that we have transformed `date` such that its only significant unit is month.
 
-When you look at the [available time-units](https://vega.github.io/vega-lite/docs/timeunit.html), you see a lot of choices   
-
 ### Summary
 
+A Vega-Lite [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html) maps a datetime to another datetime.
+
+There are a lot of choices among time units; each choice, e.g. `"monthdate"`, `"utcyear"`, etc., has two dimensions:
+
+- to use (or not) the UTC context, indicated by the `"utc"` prefix
+
+- the range of time units to keep, e.g. `"monthdate"`. In this case, time units smaller than *date*, such as hours, minutes and secons are truncated; a "flooring" datetime to the date. In this case, time units larger than *month* are projected into a prototype year, in this case 1900.
+
+Finally, a `timeUnit` specification will set the default formatting (used for axes) for that variable.
 
 
 

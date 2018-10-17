@@ -26,10 +26,11 @@ navbar:
           href: articles/blocks.html
         - text: Create Images
           href: articles/image.html
-        - text: Import into Other Packages
-          href: articles/import.html
         - text: Work with Dates and Times
           href: articles/dates-times.html
+        - text: Import into Other Packages
+          href: articles/import.html
+
 
   right:
     - icon: fa-github fa-2x

@@ -73,10 +73,10 @@
       <a href="articles/image.html">Create Images</a>
     </li>
     <li>
-      <a href="articles/import.html">Import into Other Packages</a>
+      <a href="articles/dates-times.html">Work with Dates and Times</a>
     </li>
     <li>
-      <a href="articles/dates-times.html">Work with Dates and Times</a>
+      <a href="articles/import.html">Import into Other Packages</a>
     </li>
   </ul>
 </li>
@@ -98,8 +98,7 @@
 
       
       </header><script src="index_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="index_files/vega-4.0.0/promise.min.js"></script><script src="index_files/vega-4.0.0/symbol.min.js"></script><script src="index_files/vega-4.0.0/vega.js"></script><script src="index_files/vega-lite-2.6.0/vega-lite.min.js"></script><link href="index_files/vega-embed-3.16.0/vega-embed.css" rel="stylesheet">
-<script src="index_files/vega-embed-3.16.0/vega-embed-modified.js"></script><script src="index_files/vegawidget-binding-0.0.4.9000/vegawidget.js"></script><link href="index_files/jsoneditor-5.5.5/jsoneditor.min.css" rel="stylesheet">
-<script src="index_files/jsoneditor-5.5.5/jsoneditor.min.js"></script><script src="index_files/jsonedit-binding-2.0.0/jsonedit.js"></script><div class="row">
+<script src="index_files/vega-embed-3.16.0/vega-embed-modified.js"></script><script src="index_files/vegawidget-binding-0.0.4.9000/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     
 
@@ -110,38 +109,52 @@
 <div id="vegawidget" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#vegawidget" class="anchor"></a>vegawidget</h1></div>
-<p>The goal of vegawidget is to render Vega-Lite and Vega specifications into htmlwidgets. Its ambition is to be a low-level interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications. This is the key difference with the <a href="https://github.com/hrbrmstr/vegalite">vegalite</a> package; this package provides a but minimal interface to Vega-Lite.</p>
+<p>The goal of vegawidget is to render Vega-Lite and Vega specifications into htmlwidgets. Its ambition is to be a <em>low-level</em> interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications. This is the key difference with the <a href="https://github.com/hrbrmstr/vegalite"><strong>vegalite</strong></a> package: it provides a set of higher-level functions to compose specifications, whereas <strong>vegawidget</strong> concerns itself mainly with the rendering of the htmlwidget.</p>
+<p>To be clear, although Vega-Lite offers a grammar-of-graphics, this package does not offer a user-friendly framework as provided by ggplot2. That being noted, this package may be useful to:</p>
+<ul>
+<li>build re-usable Vega and Vega-Lite specifications for deployment elsewhere, if you can tolerate the frustration of building specifications using lists.</li>
+<li>develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as a foundation (or inspiration).</li>
+</ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install vegawidget from GitHub with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"vegawidget/vegawidget"</span>)</a></code></pre></div>
-<p>An <a href="https://ijlyttle.shinyapps.io/vegawidget-overview">interactive tutorial</a> is available at shinyapps.io.</p>
+<p>This package supports these versions of Vega libraries:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="reference/vega_version.html">vega_version</a></span>()</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; $vega_lite</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; [1] "2.6.0"</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; $vega</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; [1] "4.0.0-rc.3"</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; $vega_embed</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; [1] "3.16.0"</span></a></code></pre></div>
 </div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build such specifications:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"vegawidget"</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">spec_mtcars &lt;-</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="reference/vega_schema.html">vega_schema</a></span>(), <span class="co"># specifies Vega-Lite</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="dt">description =</span> <span class="st">"An mtcars example."</span>,</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">values =</span> mtcars),</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">    <span class="dt">mark =</span> <span class="st">"point"</span>,</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">    <span class="dt">encoding =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">      <span class="dt">x =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"wt"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">      <span class="dt">y =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"mpg"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">      <span class="dt">color =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"cyl"</span>, <span class="dt">type =</span> <span class="st">"nominal"</span>)</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">    )</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="st">  </span><span class="kw"><a href="reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
-<p>The <code><a href="reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; a good many of the functions in this package are built to support, and render, vegaspecs:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-d8006f0c51243757a61e" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d8006f0c51243757a61e">{"x":{
+<p>For a comprehensive introduction to Vega-Lite, please visit the project’s <a href="https://vega.github.io/vega-lite">web site</a>. An <a href="https://ijlyttle.shinyapps.io/vegawidget-overview">interactive tutorial</a> to vegawidget is available at shinyapps.io.</p>
+<p>Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build specifications:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">spec_mtcars &lt;-</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="reference/vega_schema.html">vega_schema</a></span>(), <span class="co"># specifies Vega-Lite</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="dt">description =</span> <span class="st">"An mtcars example."</span>,</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">values =</span> mtcars),</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">    <span class="dt">mark =</span> <span class="st">"point"</span>,</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">    <span class="dt">encoding =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">      <span class="dt">x =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"wt"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">      <span class="dt">y =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"mpg"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">      <span class="dt">color =</span> <span class="kw">list</span>(<span class="dt">field =</span> <span class="st">"cyl"</span>, <span class="dt">type =</span> <span class="st">"nominal"</span>)</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">    )</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
+<p>The <code><a href="reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; many of this package’s functions are built to support, and render, vegaspecs:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">spec_mtcars</a></code></pre></div>
+<div id="htmlwidget-d4c92c35ffb479e6238f" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d4c92c35ffb479e6238f">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "description": "An mtcars example.",
@@ -617,24 +630,39 @@
     "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script><p>If you are reading this document on the GitHub code site, it is further rendered into a PNG. In the background, the vegaspec print-method converts the vegaspec to JSON, using <code><a href="reference/vw_as_json.html">vw_as_json()</a></code>, then renders it as an htmlwidget using <code><a href="reference/vegawidget.html">vegawidget()</a></code>.</p>
-<p>If you wish to examine a vegaspec, you may use the <code><a href="reference/vw_examine.html">vw_examine()</a></code> function, which is a thin wrapper around the <code>jsonedit()</code> function from the <strong>listviewer</strong> package.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/vw_examine.html">vw_examine</a></span>(spec_mtcars)</a></code></pre></div>
-<div id="htmlwidget-fd0a82e3b6b1edde372b" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fd0a82e3b6b1edde372b">{"x":{"data":{"$schema":"https://vega.github.io/schema/vega-lite/v2.json","description":"An mtcars example.","data":{"values":{"mpg":[21,21,22.8,21.4,18.7,18.1,14.3,24.4,22.8,19.2,17.8,16.4,17.3,15.2,10.4,10.4,14.7,32.4,30.4,33.9,21.5,15.5,15.2,13.3,19.2,27.3,26,30.4,15.8,19.7,15,21.4],"cyl":[6,6,4,6,8,6,8,4,4,6,6,8,8,8,8,8,8,4,4,4,4,8,8,8,8,4,4,4,8,6,8,4],"disp":[160,160,108,258,360,225,360,146.7,140.8,167.6,167.6,275.8,275.8,275.8,472,460,440,78.7,75.7,71.1,120.1,318,304,350,400,79,120.3,95.1,351,145,301,121],"hp":[110,110,93,110,175,105,245,62,95,123,123,180,180,180,205,215,230,66,52,65,97,150,150,245,175,66,91,113,264,175,335,109],"drat":[3.9,3.9,3.85,3.08,3.15,2.76,3.21,3.69,3.92,3.92,3.92,3.07,3.07,3.07,2.93,3,3.23,4.08,4.93,4.22,3.7,2.76,3.15,3.73,3.08,4.08,4.43,3.77,4.22,3.62,3.54,4.11],"wt":[2.62,2.875,2.32,3.215,3.44,3.46,3.57,3.19,3.15,3.44,3.44,4.07,3.73,3.78,5.25,5.424,5.345,2.2,1.615,1.835,2.465,3.52,3.435,3.84,3.845,1.935,2.14,1.513,3.17,2.77,3.57,2.78],"qsec":[16.46,17.02,18.61,19.44,17.02,20.22,15.84,20,22.9,18.3,18.9,17.4,17.6,18,17.98,17.82,17.42,19.47,18.52,19.9,20.01,16.87,17.3,15.41,17.05,18.9,16.7,16.9,14.5,15.5,14.6,18.6],"vs":[0,0,1,1,0,1,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,0,1,0,0,0,1],"am":[1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1],"gear":[4,4,4,3,3,3,3,4,4,4,4,3,3,3,3,3,3,4,4,4,3,3,3,3,3,4,5,5,5,5,5,4],"carb":[4,4,1,1,2,1,4,2,2,4,4,3,3,3,4,4,4,1,2,1,1,2,2,4,2,1,2,2,4,6,8,2]}},"mark":"point","encoding":{"x":{"field":"wt","type":"quantitative"},"y":{"field":"mpg","type":"quantitative"},"color":{"field":"cyl","type":"nominal"}}},"options":{"mode":"view","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script><p>If you wish to deploy a vegaspec to be rendered on <a href="https://bl.ocks.org/">bl.ocks.org</a>, you can do that, provided you have a GitHub account.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/vw_create_block.html">vw_create_block</a></span>(spec_mtcars)</a></code></pre></div>
-<p>Similarly, if a block has a <code>.json</code> file with a JSON specification, you can retrieve and put into a vegaspec:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">spec_new &lt;-<span class="st"> </span><span class="kw"><a href="reference/vw_retrieve_block.html">vw_retrieve_block</a></span>(<span class="st">"ijlyttle/06a512525fbe7a96e1a2028e1871b61c"</span>)</a></code></pre></div>
+},"evals":[],"jsHooks":[]}</script><p>The appearance of the chart above depends on where you are reading it:</p>
+<ul>
+<li><p>On this package’s <a href="https://vegawidget.github.io/vegawidget">pkgdown site</a>, it is rendered as part of an HTML environment, showing its full capabilities.</p></li>
+<li><p>At its <a href="https://github.com/vegawidget/vegawidget">GitHub code site</a>, the chart is further rendered as a static PNG.</p></li>
+</ul>
+<p>This is package a low-level interface to Vega-Lite and the Vega ecosystem, which has a lot of powerful capabilities, highlighted in this series of articles:</p>
+<ul>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/vegaspec.html">Specify using vegaspec</a>: how to construct and render a vegaspec.</li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/vegawidget.html">Render using vegawidget</a>: advanced rendering options.</li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/javascript.html">Extend using JavaScript</a>: how to interact with Vega charts using JavaScript.</li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/blocks.html">Share with bl.ocks.org</a>: using GitHub, you can deploy and retrieve vegaspecs to/from <a href="https://bl.ocks.org">bl.ocks.org</a>.</li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/image.html">Create Images</a>: how to create and save PNG or SVG images.</li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/dates-times.html">Work with Dates and Times</a>: dates and times in Vega(-Lite) work a little differently from R.</li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/import.html">Import into Other Packages</a>: how import its functions into your package, then re-export them.</li>
+</ul>
 </div>
 <div id="integration-with-other-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#integration-with-other-packages" class="anchor"></a>Integration with other packages</h2>
-<p>This package provides functions to render Vega(-Lite) specifications; although it provides some helpers, it dos not provide higher-level functions to build specifications. Rather, this is left to other packages. Even though you can use its functions directly, you are invited to import and re-export them for use in <em>your</em> package.</p>
-<p>Accordingly, this package offers a templating function, <code><a href="reference/use_vegawidget.html">use_vegawidget()</a></code>, to help you integrate vegawidget functions into your package. This function is used to <a href="https://github.com/vegawidget/altair/blob/master/R/utils-vegawidget.R">import and re-export vegawidget functions</a> for the <a href="https://vegawidget.github.io/altair">altair</a> package.</p>
+<p>Although there is an <a href="https://vegawidget.github.io/vegawidget/articles/import.html">article</a> dedicated to this aspect of the package, it warrants further emphasis.</p>
+<p>This package provides functions to render Vega(-Lite) specifications; although it provides some helpers, it does not provide higher-level functions to build specifications. Rather, this is left to other packages. Even though you can use its functions directly, you are invited to import and re-export them for use in <em>your</em> package.</p>
+<p>Accordingly, this package offers a templating function, <code><a href="reference/use_vegawidget.html">use_vegawidget()</a></code>, to help you integrate vegawidget functions into your package. For example, it is used to import and re-export vegawidget functions for the <a href="https://vegawidget.github.io/altair">altair</a> package.</p>
 </div>
-<div id="acknowlegdements" class="section level2">
+<div id="acknowledgements" class="section level2">
 <h2 class="hasAnchor">
-<a href="#acknowlegdements" class="anchor"></a>Acknowlegdements</h2>
+<a href="#acknowledgements" class="anchor"></a>Acknowledgements</h2>
 <ul>
 <li>
 <a href="https://github.com/AliciaSchep">Alicia Schep</a> has been instrumental in guiding the evolution of the API.</li>

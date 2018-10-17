@@ -14,7 +14,7 @@ library("dplyr")
 
 Dates and times can be tricky, even within the familiar confines of R. Vega and Vega-Lite are run in JavaScript, which has its own philosophy for dates and times. In R, we have access to the entire time-zone database; in JavaScript, using the `Date` object, there are only *two* time zones available: the local time zone used by the client browser and UTC.  
 
-If you are working with time-based data, this mismatch of capabilities introduces a lot of "opportunities" to create a Vega(-Lite) visualizations that do not behave as intended. The purposees of this article are 
+If you are working with time-based data, this mismatch of capabilities introduces a lot of "opportunities" to create a Vega(-Lite) visualizations that do not behave as intended. The purposes of this article are 
 
 - to walk through the pit-falls of translating dates and times from R to JavaScript.
 - to describe the in-and-outs of Vega-Lite [time-units](https://vega.github.io/vega-lite/docs/timeunit.html).
@@ -31,7 +31,7 @@ moon_landing <- parse_datetime(str_moon_landing)
 
 Things happen at fixed instants in time; we use time zones to describe those fixed instants using a local context. Consider that Neil Armstrong's first step on the moon happened at ``r str_moon_landing``, represented here as an [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) string. 
 
-All ISO-8601 strings refer unambigously to UTC, the globally-recognized standard reference-frame; it is the standard way to communicate time-stamps. However, it lacks context for someone who may remember an instant from Chicago, or another who may remember the *same* instant from Paris.
+All ISO-8601 strings refer unambiguously to UTC, the globally-recognized standard reference-frame; it is the standard way to communicate time-stamps. However, it lacks context for someone who may remember an instant from Chicago, or another who may remember the *same* instant from Paris.
 
 In the context of Chicago, the first-step happened at ``r with_tz(moon_landing, "America/Chicago")``; in the context of Paris, it happened at ``r with_tz(moon_landing, "Europe/Paris")``. We use a system of time zones to provide this context. The standard representation of time zones is IANA (also known as Olson) [time-zones](https://en.wikipedia.org/wiki/Tz_database). These are each associated with a given geographic region, such as `"America/Chicago"` or `"Europe/Paris"`; a time zone is used to determine the offset to UTC, given an instant expressed in UTC. 
 
@@ -188,7 +188,7 @@ data_seattle_daily %>%
   glimpse()
 ```
 
-For the purpose of making some examples of how to work with UTC dates, let's filter the orginal dataset, with ISO-8601 formatting, keeping the first month:
+For the purpose of making some examples of how to work with UTC dates, let's filter the original dataset, with ISO-8601 formatting, keeping the first month:
 
 ```{r}
 data_seattle_daily_short <- 
@@ -239,7 +239,7 @@ spec_tempmax_utc$encoding$tooltip[[1]]$scale <- list(type = "utc")
 spec_tempmax_utc
 ```
 
-When using UTC dates (and datetimes), be mindful that you may also have to set the scales to UTC, so that the axis and tootips behave similarly, and properly, for everyone.
+When using UTC dates (and datetimes), be mindful that you may also have to set the scales to UTC, so that the axis and tooltips behave similarly, and properly, for everyone.
 
 ### Summary
 
@@ -269,9 +269,9 @@ By default, if the format is ISO-8601, Vega will parse the string as UTC. Simila
 
 It is likely that you wish to show datetime values using the context of the data, e.g. you want to look at the temperatures in Seattle using in the context of Seattle. From R, assuming that your datetimes are using the data-local timezone, e.g. `"America/Los_Angeles"`, the least-bad way to do this is to serialize your datetime values using data-local time, rather than using UTC; this will happen by default. Although this will let you display the data as you intend, there are a couple of important points to keep in mind:
 
-- Weird things may happen at the daylight-saving time transition-points; this problem is compounded if the transistion points are different in the data than they are in the user's browser, e.g. the data's context is in the US and the user's browser is in Europe.
+- Weird things may happen at the daylight-saving time transition-points; this problem is compounded if the transition points are different in the data than they are in the user's browser, e.g. the data's context is in the US and the user's browser is in Europe.
 
-- Your data is now compromised as your datetime strings no longer unabiguously identify the instants in time. Because Vega does not have access to the full list of time-zones, anyone who extracts the data from the Vega specification will be lacking the time-zone context.
+- Your data is now compromised as your datetime strings no longer unambiguously identify the instants in time. Because Vega does not have access to the full list of time-zones, anyone who extracts the data from the Vega specification will be lacking the time-zone context.
 
 If you wish for Vega to parse your datetimes using UTC, you can serialize your datetimes using the function `vw_serialize_data()` using `iso_dttm = TRUE`.
 
@@ -281,7 +281,7 @@ Date and datetimes are the same type in JavaScript; a date is just a datetime at
 
 Depending on your situation, you may wish to interpret a date using UTC or using the local time-zone of the browser.
 
-- If you are compring dates from different time-zones, e.g. Beijing and London, it may make sense for you, conceptually, to use a single "neutral" time-zone, UTC. In this case you can use the default serialization for dates, the ISO-8601 format, i.e. `"2001-01-01"`; Vega will parse this as UTC. However, you will have to adjust the scales in your visualization to use UTC.
+- If you are comparing dates from different time-zones, e.g. Beijing and London, it may make sense for you, conceptually, to use a single "neutral" time-zone, UTC. In this case you can use the default serialization for dates, the ISO-8601 format, i.e. `"2001-01-01"`; Vega will parse this as UTC. However, you will have to adjust the scales in your visualization to use UTC.
 
 - If your dataset(s) have datetimes and dates from a single time-zone, e.g. a facility in `"America/Chicago"`, it may be useful to display them using the same (local) time-zone context. Here, you can use the `vw_serialize_data()` function with `iso_date = FALSE`, such that Vega will parse the dates using the local time-zone.
 
@@ -304,7 +304,7 @@ list(
 
 For an interactive version of this section on time units, please see this [Observable notebook](https://beta.observablehq.com/@ijlyttle/vega-lite-timeunit).
 
-Let's say you have daily weather data for, say, Seattle over the course of four years. In this case, we want to load the data into vega using a URL, making *this* page a little lighter by not carrying all the data around in each of the follwing charts. Let's have a look at the first few lines:
+Let's say you have daily weather data for, say, Seattle over the course of four years. In this case, we want to load the data into vega using a URL, making *this* page a little lighter by not carrying all the data around in each of the following charts. Let's have a look at the first few lines:
 
 ```{r}
 url_seattle_daily <- "https://vega.github.io/vega-datasets/data/seattle-weather.csv"
@@ -317,11 +317,11 @@ url_seattle_daily %>%
 As above, this is daily data covering the years 2012-2015 inclusive. Our goal in this section is to show how Vega-Lite time units work by creating charts that:
 
 - aggregate the data by month
-- compare the behavior anong the years
+- compare the behavior among the years
 
 To be clear, you could prepare such variables in a pre-processing step, creating new variables in R, using **dplyr** and **lubridate**. You can also do this in Vega-Lite, using **time unit**, a transformation mechanism for temporal values.
 
-Let's start specification for a time-based scatterplot for the daily maximum-temperature, showing every observation in the dataset. For purposes of illustrating how to work with UTC values, we are going to parse the dates as UTC.
+Let's start specification for a time-based scatterplot for the daily maximum-temperature, showing every observation in the dataset. For purposes of illustrating how to work with UTC values, we parse the dates as UTC. In the vegaspec below, note the `format` entry: `parse = list(date = "utc:'%Y/%m/%d'")`:
 
 ```{r}
 spec_daily <-
@@ -416,7 +416,7 @@ The main change we made to the specification was to tweak the x-encoding: removi
 
 For me, the essence of the concept is that a **time unit defines a mapping of an existing temporal-variable to a new temporal-variable**; it is a `dplyr::mutate()` that returns another datetime.
 
-We removed the UTC scale from the x-encoding becasue this is taken care-of with the specification of `"utc"` within the time unit. If we were to [specify it twice](https://vega.github.io/vega-lite/docs/timeunit.html#output), the UTC-offset would be applied twice.
+We removed the UTC scale from the x-encoding because this is taken care-of with the specification of `"utc"` within the time unit. If we were to [specify it twice](https://vega.github.io/vega-lite/docs/timeunit.html#output), the UTC-offset would be applied twice.
 
 We modified the tooltip to demonstrate that we have the same underlying data. On the x-axis, we use the "mutated" year-month rather than the date. 
 
@@ -505,7 +505,7 @@ There are a lot of choices among time units; each choice, e.g. `"monthdate"`, `"
 
 - to use (or not) the UTC context, indicated by the `"utc"` prefix
 
-- the range of time units to keep, e.g. `"monthdate"`. In this case, time units smaller than *date*, such as hours, minutes and secons are truncated; a "flooring" datetime to the date. In this case, time units larger than *month* are projected into a prototype year, in this case 1900.
+- the range of time units to keep, e.g. `"monthdate"`. In this case, time units smaller than *date*, such as hours, minutes and seconds are truncated; a "flooring" datetime to the date. In this case, time units larger than *month* are projected into a prototype year, in this case 1900.
 
 Finally, a `timeUnit` specification will set the default formatting (used for axes) for that variable.
 

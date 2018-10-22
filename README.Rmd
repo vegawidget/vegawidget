@@ -83,7 +83,7 @@ This is package a low-level interface to Vega-Lite and the Vega ecosystem, which
 - [Share with bl.ocks.org](https://vegawidget.github.io/vegawidget/articles/blocks.html): using GitHub, you can deploy and retrieve vegaspecs to/from [bl.ocks.org](https://bl.ocks.org). 
 - [Create Images](https://vegawidget.github.io/vegawidget/articles/image.html): how to create and save PNG or SVG images.
 - [Work with Dates and Times](https://vegawidget.github.io/vegawidget/articles/dates-times.html): dates and times in Vega(-Lite) work a little differently from R.
-- [Import into Other Packages](https://vegawidget.github.io/vegawidget/articles/import.html): how import its functions into your package, then re-export them.
+- [Import into Other Packages](https://vegawidget.github.io/vegawidget/articles/import.html): how to import vegawidget functions into your package, then re-export them.
 
 ## Integration with other packages
 

@@ -125,7 +125,8 @@ series of articles:
     dates and times in Vega(-Lite) work a little differently from R.
   - [Import into Other
     Packages](https://vegawidget.github.io/vegawidget/articles/import.html):
-    how import its functions into your package, then re-export them.
+    how to import vegawidget functions into your package, then re-export
+    them.
 
 ## Integration with other packages
 

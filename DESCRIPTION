@@ -66,5 +66,6 @@ Suggests:
     crayon,
     clipr,
     desc,
-    clisymbols
+    clisymbols,
+    shinytest
 VignetteBuilder: knitr

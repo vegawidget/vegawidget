@@ -73,11 +73,11 @@ spec_category %>%
 ```
 Here, the `data$values` element has been transposed. The function `vw_as_json()` takes care of this so that the spec will render properly. 
 
-## Resizing
+## Sizing {#sizing}
 
 Sizing can be a tricky issue in Vega-Lite. 
 
-The first thing to keep in mind is that the default interpretation of width and height refers to the dimensions of the plotting area. For example, we can set `width` and `height` of our example spec:
+The first thing to keep in mind is that the default interpretation of width and height refers to the dimensions of the data rectangle. For example, we can set `width` and `height` of our example spec:
 
 ```{r}
 spec_category_size <- spec_category
@@ -88,7 +88,19 @@ spec_category_size$height <- 300
 spec_category_size
 ```
 
-Here, the plotting area is 300 $\times$ 300. If we want to set the dimension of the entire plot, we can use the `vw_autosize()` function:
+Here, the data rectangle is 300 $\times$ 300 pixels, according to our specification. 
+
+```{r echo=FALSE, out.width=710}
+knitr::include_graphics("autosize-off.png")
+```
+
+As you can see above, Vega adds on more "room" for axes, labels, legends, etc., so that the entire chart is 357 $\times$ 347 pixels.
+
+If we want to specify the dimensions of the entire chart, we can use the `vw_autosize()` function. The term "autosize" is taken directly from the Vega [documentation](https://vega.github.io/vega-lite/docs/size.html#autosize) for sizing. In this context, the term "autosize" does **not** mean that Vega will try to find the optimal sizing for your chart. 
+
+Instead, it means that if you have a requirement for the dimensions of the entire chart, Vega will try to adjust the chart to meet these sizing requirements. The `vw_autosize()` function modifies the vegaspec to provide Vega these instructions.
+
+Here's an example:
 
 ```{r}
 spec_category_autosize <- 
@@ -98,11 +110,17 @@ spec_category_autosize <-
 spec_category_autosize
 ```
 
-In this context, the `width` and `height` are defined as the dimensions of the entire plot including axes, labels, padding, etc.
+In this context, the `width` and `height` are defined as the dimensions of the entire plot including axes, labels, padding, etc. Here, we have specified the overall dimensions to be 300 $\times$ 300 pixels:
+
+```{r echo=FALSE, out.width=710}
+knitr::include_graphics("autosize-on.png")
+```
+
+As you can see above, Vega takes into account the "room" needed for axes, labels, legends, etc., so that the data rectangle is 243 $\times$ 253 pixels.
 
 There are limitations to autosizing; the most prominent is that specifying width and height is [effective only for single-view and layered specifications](https://vega.github.io/vega-lite/docs/size.html#limitations). It will not work for specifications with multiple views (e.g. `hconcat`, `vconcat`, `facet`, `` `repeat` ``); this will issue a warning that there will be no effect on the specification when rendered.
 
-For more information, see the Vega-Lite documentation on [sizing](https://vega.github.io/vega-lite/docs/size.html#limitations).
+For more information, see the Vega-Lite documentation on [autosizing](https://vega.github.io/vega-lite/docs/size.html#autosize).
 
 ## Compile to Vega
 

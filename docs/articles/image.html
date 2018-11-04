@@ -8,8 +8,8 @@
 <title>Create images • vegawidget</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Create images">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.4.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.5.9000</span>
       </span>
     </div>
 
@@ -65,9 +65,6 @@
       <a href="../articles/javascript.html">Extend using JavaScript</a>
     </li>
     <li>
-      <a href="../articles/blocks.html">Share with bl.ocks.org</a>
-    </li>
-    <li>
       <a href="../articles/image.html">Create Images</a>
     </li>
     <li>
@@ -95,13 +92,13 @@
 <!--/.navbar -->
 
       
-      </header><script src="image_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="image_files/vega-4.0.0/promise.min.js"></script><script src="image_files/vega-4.0.0/symbol.min.js"></script><script src="image_files/vega-4.0.0/vega.js"></script><script src="image_files/vega-lite-2.6.0/vega-lite.min.js"></script><link href="image_files/vega-embed-3.16.0/vega-embed.css" rel="stylesheet">
-<script src="image_files/vega-embed-3.16.0/vega-embed-modified.js"></script><script src="image_files/vegawidget-binding-0.0.4.9000/vegawidget.js"></script><div class="row">
+      </header><script src="image_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="image_files/vega-4.2.0/promise.min.js"></script><script src="image_files/vega-4.2.0/symbol.min.js"></script><script src="image_files/vega-4.2.0/vega.js"></script><script src="image_files/vega-lite-3.0.0/vega-lite.min.js"></script><link href="image_files/vega-embed-3.19.2/vega-embed.css" rel="stylesheet">
+<script src="image_files/vega-embed-3.19.2/vega-embed-modified.js"></script><script src="image_files/vegawidget-binding-0.0.4.9000/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Create images</h1>
             
-            <h4 class="date">2018-10-17</h4>
+            <h4 class="date">2018-11-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/image.Rmd"><code>vignettes/image.Rmd</code></a></small>
       <div class="hidden name"><code>image.Rmd</code></div>
@@ -139,8 +136,8 @@
 <a href="#reference" class="anchor"></a>Reference</h2>
 <p>For the purpose of comparing later renderings, our reference is this <code>mtcars</code> scatterplot. It is rendered with a plotting area of <code>width = 300</code> and <code>height = 300</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-30a7de1f3774e7db3702" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-30a7de1f3774e7db3702">{"x":{
+<div id="htmlwidget-d32a0f999b7b5bc09131" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d32a0f999b7b5bc09131">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -760,8 +757,8 @@
 <p>Next, we test using <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code>.</p>
 <p><strong>Expectation</strong>: the rendered spec will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="../reference/vw_autosize.html">vw_autosize</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-ddda6e2d0a15ece6c13d" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ddda6e2d0a15ece6c13d">{"x":{
+<div id="htmlwidget-789115029f8047c2139a" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-789115029f8047c2139a">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1251,8 +1248,8 @@
   }
 },"evals":[],"jsHooks":[]}</script><p><strong>Expectation</strong>: we will get the same result using the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-2b2af583a5e7dafba694" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2b2af583a5e7dafba694">{"x":{
+<div id="htmlwidget-04c916f2338fcf34168a" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-04c916f2338fcf34168a">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1745,8 +1742,8 @@
 spec_mtcars
 ```</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-1a3f3248187aa9405714" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1a3f3248187aa9405714">{"x":{
+<div id="htmlwidget-14cc07115d17c7009345" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-14cc07115d17c7009345">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -2241,10 +2238,10 @@ spec_mtcars
 <a href="#vega" class="anchor"></a>Vega</h3>
 <p><strong>Expectation</strong>: this will be identical to the <a href="#reference">reference</a> case, using the <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code> function to compile to a Vega specification:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="../reference/vw_to_vega.html">vw_to_vega</a></span>(spec_mtcars)</a></code></pre></div>
-<div id="htmlwidget-bd1b775f704c07795547" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-bd1b775f704c07795547">{"x":{
+<div id="htmlwidget-32224e50595d9bdce381" style="width:960px;height:500px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-32224e50595d9bdce381">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega/v3.json",
+    "$schema": "https://vega.github.io/schema/vega/v4.json",
     "description": "An mtcars example.",
     "autosize": "pad",
     "padding": 5,
@@ -2718,10 +2715,6 @@ spec_mtcars
             "type": "formula",
             "expr": "toNumber(datum[\"mpg\"])",
             "as": "mpg"
-          },
-          {
-            "type": "filter",
-            "expr": "datum[\"wt\"] !== null && !isNaN(datum[\"wt\"]) && datum[\"mpg\"] !== null && !isNaN(datum[\"mpg\"])"
           }
         ]
       }
@@ -2741,12 +2734,27 @@ spec_mtcars
             "opacity": {
               "value": 0.7
             },
-            "fill": {
-              "value": "transparent"
-            },
-            "stroke": {
-              "scale": "color",
-              "field": "cyl"
+            "fill": [
+              {
+                "test": "datum[\"wt\"] === null || isNaN(datum[\"wt\"]) || datum[\"mpg\"] === null || isNaN(datum[\"mpg\"])",
+                "value": null
+              },
+              {
+                "value": "transparent"
+              }
+            ],
+            "stroke": [
+              {
+                "test": "datum[\"wt\"] === null || isNaN(datum[\"wt\"]) || datum[\"mpg\"] === null || isNaN(datum[\"mpg\"])",
+                "value": null
+              },
+              {
+                "scale": "color",
+                "field": "cyl"
+              }
+            ],
+            "tooltip": {
+              "signal": "{\"wt\": format(datum[\"wt\"], \"\"), \"mpg\": format(datum[\"mpg\"], \"\"), \"cyl\": ''+datum[\"cyl\"]}"
             },
             "x": {
               "scale": "x",
@@ -2820,11 +2828,11 @@ spec_mtcars
       {
         "scale": "x",
         "orient": "bottom",
+        "gridScale": "y",
         "grid": true,
         "tickCount": {
           "signal": "ceil(width/40)"
         },
-        "gridScale": "y",
         "domain": false,
         "labels": false,
         "maxExtent": 0,
@@ -2846,11 +2854,11 @@ spec_mtcars
       {
         "scale": "y",
         "orient": "left",
+        "gridScale": "x",
         "grid": true,
         "tickCount": {
           "signal": "ceil(height/40)"
         },
-        "gridScale": "x",
         "domain": false,
         "labels": false,
         "maxExtent": 0,

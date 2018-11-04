@@ -1,8 +1,7 @@
 pandoc: 2.2.1
-pkgdown: 1.0.0.9000
-pkgdown_sha: ec07721af836595483aa678822a26c3f285c5ffa
+pkgdown: 1.1.0
+pkgdown_sha: ~
 articles:
-  blocks: blocks.html
   dates-times: dates-times.html
   image: image.html
   import: import.html

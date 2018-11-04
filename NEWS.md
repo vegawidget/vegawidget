@@ -1,3 +1,7 @@
+# vegawidget 0.0.5.9000
+
+* deprecates block-functions: `vw_create_block()`, `vw_retrieve_block()`; moved to [vegablock](https://vegawidget.github.io/vegablock)
+
 # vegawidget 0.0.4.9000
 
 * adds learnr tutorial, "Overview"

@@ -77,14 +77,17 @@ Called for side effects
 }
 }
 \description{
+Note: These functions are deprecated; they have been moved to a new package:
+\href{https://vegawidget.github.io/vegablock}{vegablock}
+}
+\details{
 These functions require that \href{https://cran.r-project.org/package=fs}{fs}
 and  \href{https://cran.r-project.org/package=gistr}{gistr} be installed.
 If you want to include a thumbnail or preview image, you will need the
 \href{https://cran.r-project.org/package=magick}{magick} package,
 \href{https://cran.r-project.org/package=webdriver}{webdriver} package,
 and PhantomJS installed.
-}
-\details{
+
 These functions do the same thing: create a gist; they differ only in what
 they return. \code{vw_create_block()} returns a copy of \code{spec} so that it can be
 used in a pipe; \code{vw_create_block_gistid()} returns a list of information

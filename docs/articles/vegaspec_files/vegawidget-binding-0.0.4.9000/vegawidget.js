@@ -34,7 +34,7 @@ HTMLWidgets.widget({
 
       },
 
-      getPromise: function() {
+      get vegaPromise() {
         return vega_promise;
       }
 
@@ -53,5 +53,5 @@ function getVegaPromise(selector){
   // verify the element (to be determined)
 
   // return the promise
-  return(htmlWidgetsObj.getPromise());
+  return(htmlWidgetsObj.vegaPromise);
 }

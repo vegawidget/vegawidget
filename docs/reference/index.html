@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -58,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.4.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.5.9000</span>
       </span>
     </div>
 
@@ -91,9 +93,6 @@
     </li>
     <li>
       <a href="../articles/javascript.html">Extend using JavaScript</a>
-    </li>
-    <li>
-      <a href="../articles/blocks.html">Share with bl.ocks.org</a>
     </li>
     <li>
       <a href="../articles/image.html">Create Images</a>
@@ -295,32 +294,6 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-sharing" class="hasAnchor"><a href="#section-sharing" class="anchor"></a>Sharing</h2>
-          <p class="section-desc"><p>These functions, to create and retrieve <a href="https://bl.ocks.org">blocks</a>, require the <a href="https://CRAN.R-project.org/package=gistr"><strong>gistr</strong></a> and <a href="https://CRAN.R-project.org/package=fs"><strong>fs</strong></a> packages, also the <a href="https://CRAN.R-project.org/package=webdriver"><strong>webdriver</strong></a> package and PhantomJS if you want upload images to your block.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="vw_create_block.html">vw_create_block()</a></code> <code><a href="vw_create_block.html">vw_create_block_gistid()</a></code> </p>
-        </td>
-        <td><p>Create gist to use as block</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vw_block_config.html">vw_block_config()</a></code> </p>
-        </td>
-        <td><p>Specify block-configuration</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vw_retrieve_block.html">vw_retrieve_block()</a></code> </p>
-        </td>
-        <td><p>Retrieve vegaspec from block</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
           <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
           <p class="section-desc"><p>You can use <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> to bring this package’s functionality to yours. Much like <code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_pipe">usethis::use_pipe()</a></code> allows you to re-export the pipe in your package’s namespace, <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> does this for many of these functions. The other functions deal serializing date-times, and versions of Vega’s JavaScript libraries.</p></p>
         </th>
@@ -344,6 +317,32 @@
         </td>
         <td><p>Determine Vega JavaScript versions</p></td>
       </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-sharing-deprecated-" class="hasAnchor"><a href="#section-sharing-deprecated-" class="anchor"></a>Sharing (deprecated)</h2>
+          <p class="section-desc"><p>These functions are now part of the <a href="https://vegawidget.github.io/vegablock">vegablock</a> package. These functions, to create and retrieve <a href="https://bl.ocks.org">blocks</a>, require the <a href="https://CRAN.R-project.org/package=gistr"><strong>gistr</strong></a> and <a href="https://CRAN.R-project.org/package=fs"><strong>fs</strong></a> packages, also the <a href="https://CRAN.R-project.org/package=webdriver"><strong>webdriver</strong></a> package and PhantomJS if you want upload images to your block.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="vw_create_block.html">vw_create_block()</a></code> <code><a href="vw_create_block.html">vw_create_block_gistid()</a></code> </p>
+        </td>
+        <td><p>Create gist to use as block</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_block_config.html">vw_block_config()</a></code> </p>
+        </td>
+        <td><p>Specify block-configuration</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_retrieve_block.html">vw_retrieve_block()</a></code> </p>
+        </td>
+        <td><p>Retrieve vegaspec from block</p></td>
+      </tr>
     </tbody>
     </table>
   </div>
@@ -356,8 +355,8 @@
       <li><a href="#section-shiny">Shiny</a></li>
       <li><a href="#section-data">Data</a></li>
       <li><a href="#section-images">Images</a></li>
-      <li><a href="#section-sharing">Sharing</a></li>
       <li><a href="#section-utilities">Utilities</a></li>
+      <li><a href="#section-sharing-deprecated-">Sharing (deprecated)</a></li>
     </ul>
   </div>
 </div>

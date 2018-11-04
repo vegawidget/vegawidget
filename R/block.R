@@ -1,5 +1,8 @@
 #' Create gist to use as block
 #'
+#' Note: These functions are deprecated; they have been moved to a new package:
+#' [vegablock](https://vegawidget.github.io/vegablock)
+#'
 #' These functions require that [**fs**](https://cran.r-project.org/package=fs)
 #' and  [**gistr**](https://cran.r-project.org/package=gistr) be installed.
 #' If you want to include a thumbnail or preview image, you will need the
@@ -86,6 +89,8 @@ vw_create_block <- function(spec, embed = vega_embed(),
                             block_host = NULL, quiet = FALSE,
                             browse = TRUE) {
 
+  .Deprecated("vw_create_block", package = "vegablock")
+
   # pass along everything to .create_block()
   result <- do.call(.vw_create_block, args = as.list(environment()))
 
@@ -104,6 +109,8 @@ vw_create_block_gistid <- function(spec, embed = vega_embed(),
                                    endpoint = NULL, env_pat = NULL,
                                    block_host = NULL, quiet = FALSE,
                                    browse = TRUE) {
+
+  .Deprecated("vw_create_block_gistid", package = "vegablock")
 
   # pass along everything to .create_block()
   result <- do.call(.vw_create_block, args = as.list(environment()))

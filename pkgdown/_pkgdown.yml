@@ -22,16 +22,12 @@ navbar:
           href: articles/vegawidget.html
         - text: Extend using JavaScript
           href: articles/javascript.html
-        - text: Share with bl.ocks.org
-          href: articles/blocks.html
         - text: Create Images
           href: articles/image.html
         - text: Work with Dates and Times
           href: articles/dates-times.html
         - text: Import into Other Packages
           href: articles/import.html
-
-
   right:
     - icon: fa-github fa-2x
       href: https://github.com/vegawidget/vegawidget
@@ -95,17 +91,6 @@ reference:
     - vw_write_png
     - vw_write_svg
     - vw_png_bin
-  - title: Sharing
-    desc: >
-      These functions, to create and retrieve [blocks](https://bl.ocks.org),
-      require the [**gistr**](https://CRAN.R-project.org/package=gistr) and
-      [**fs**](https://CRAN.R-project.org/package=fs) packages, also the
-      [**webdriver**](https://CRAN.R-project.org/package=webdriver) package
-      and PhantomJS if you want upload images to your block.
-    contents:
-    - vw_create_block
-    - vw_block_config
-    - vw_retrieve_block
   - title: Utilities
     desc: >
       You can use `use_vegawidget()` to bring this package's functionality to
@@ -119,7 +104,20 @@ reference:
     - use_vegawidget
     - vw_serialize_data
     - vega_version
+  - title: Sharing (deprecated)
+    desc: >
+      These functions are now part of the
+      [**vegablock**](https://vegawidget.github.io/vegablock) package.
 
+      These functions, to create and retrieve [blocks](https://bl.ocks.org),
+      require the [**gistr**](https://CRAN.R-project.org/package=gistr) and
+      [**fs**](https://CRAN.R-project.org/package=fs) packages, also the
+      [**webdriver**](https://CRAN.R-project.org/package=webdriver) package
+      and PhantomJS if you want upload images to your block.
+    contents:
+    - vw_create_block
+    - vw_block_config
+    - vw_retrieve_block
 
 
 

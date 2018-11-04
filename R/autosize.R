@@ -7,10 +7,11 @@
 #'
 #' In a Vega or Vega-Lite specification, the default interpretation
 #' of width and height is to describe the dimensions of the
-#' **plotting rectangle**, not including the space used by the axes, labels,
-#' etc. When `width` and `height` are specified with `autosize`,
-#' the meanings change to describe the dimensions of the **entire** rendered chart,
-#' including axes, labels, etc.
+#' **data rectangle**, not including the space used by the axes, labels,
+#' legends, etc. When `width` and `height` are specified using
+#' [autosize](https://vega.github.io/vega-lite/docs/size.html#autosize),
+#' the meanings of `width` and `height` change to describe the dimensions
+#' of the **entire chart**, including axes, labels, legends, etc.
 #'
 #' There is an important limitation: specifying `width` and `height` is
 #' [effective only for single-view and layered specifications](
@@ -30,6 +31,8 @@
 #' @return object with S3 class `vegaspec`
 #' @examples
 #'   vw_autosize(spec_mtcars, width = 350, height = 350)
+#' @seealso [vegaspec article](https://vegawidget.github.io/vegawidget/articles/vegaspec.html#sizing),
+#'   [Vega documentation on sizing](https://vega.github.io/vega-lite/docs/size.html#autosize)
 #' @export
 #'
 vw_autosize <- function(spec, width = NULL, height = NULL) {

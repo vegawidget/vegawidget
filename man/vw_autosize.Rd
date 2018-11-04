@@ -29,10 +29,11 @@ rendered chart, including axes, labels, legends, etc.
 \details{
 In a Vega or Vega-Lite specification, the default interpretation
 of width and height is to describe the dimensions of the
-\strong{plotting rectangle}, not including the space used by the axes, labels,
-etc. When \code{width} and \code{height} are specified with \code{autosize},
-the meanings change to describe the dimensions of the \strong{entire} rendered chart,
-including axes, labels, etc.
+\strong{data rectangle}, not including the space used by the axes, labels,
+legends, etc. When \code{width} and \code{height} are specified using
+\href{https://vega.github.io/vega-lite/docs/size.html#autosize}{autosize},
+the meanings of \code{width} and \code{height} change to describe the dimensions
+of the \strong{entire chart}, including axes, labels, legends, etc.
 
 There is an important limitation: specifying \code{width} and \code{height} is
 \href{https://vega.github.io/vega-lite/docs/size.html#limitations}{effective only for single-view and layered specifications}.
@@ -42,4 +43,8 @@ warning that there will be no effect on the specification when rendered.
 }
 \examples{
   vw_autosize(spec_mtcars, width = 350, height = 350)
+}
+\seealso{
+\href{https://vegawidget.github.io/vegawidget/articles/vegaspec.html#sizing}{vegaspec article},
+\href{https://vega.github.io/vega-lite/docs/size.html#autosize}{Vega documentation on sizing}
 }

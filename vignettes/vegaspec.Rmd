@@ -73,7 +73,7 @@ spec_category %>%
 ```
 Here, the `data$values` element has been transposed. The function `vw_as_json()` takes care of this so that the spec will render properly. 
 
-## Sizing {#sizing}
+## Sizing
 
 Sizing can be a tricky issue in Vega-Lite. 
 

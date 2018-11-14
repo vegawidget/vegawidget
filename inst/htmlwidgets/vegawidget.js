@@ -24,7 +24,8 @@ HTMLWidgets.widget({
             // By removing the style (width and height) of the
             // enclosing element, we let the "chart" decide the space it
             // will occupy.
-            el.removeAttribute("style");
+            // el.setAttribute("style", "");
+            // console.log(el);
           })
           .catch(console.error);
 

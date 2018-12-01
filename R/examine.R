@@ -40,7 +40,7 @@ vw_examine <- function(spec, mode = "view",
   #
 
   listviewer::jsonedit(
-    listdata = as_vegaspec(spec),
+    listdata = vw_as_json(spec),
     mode = mode,
     modes = modes,
     ...,

@@ -4,9 +4,9 @@
 "
 function(event, item) {
   if (item !== null && item !== undefined && item.datum !== undefined){
-  Shiny.onInputChange(el.id + '_' + event.type, item.datum);
+    Shiny.onInputChange(el.id + '_' + event.type, item.datum);
   } else {
-  Shiny.onInputChange(el.id + '_' + event.type,null);
+    Shiny.onInputChange(el.id + '_' + event.type, null);
   }
 }
 "

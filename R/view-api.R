@@ -33,6 +33,6 @@ vw_bind_ui <- function(output_id, input_id, signal_name, input_transformer = NUL
     } else {
       in_signal <- session$input[[input_id]]
     }
-    vw_call_view(output_id, "signal", list(signal_name,in_signal))
+    vw_call_view(output_id, "signal", list(signal_name, in_signal))
   })
 }

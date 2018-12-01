@@ -8,7 +8,7 @@ HTMLWidgets.widget({
   type: "output",
 
   factory: function(el, width, height) {
-    
+
     var vega_promise = null;
 
     return {
@@ -29,12 +29,12 @@ HTMLWidgets.widget({
           })
           .catch(console.error);
       },
-      
+
       // public function to get promise
       getPromise: function() {
         return vega_promise;
       },
-      
+
       // generic function to call functions, a bit like R's do.call()
       callView: function(fn, params) {
         vega_promise.then(function(result) {
@@ -43,9 +43,9 @@ HTMLWidgets.widget({
             result.view.run();
           });
       },
-        
+
       // Data functions
-      
+
       // hard reset of data to the view
       changeView: function(params) {
         var changeset = vega.changeset()
@@ -62,21 +62,21 @@ HTMLWidgets.widget({
           result.view.insert(name, HTMLWidgets.dataframeToD3(data)).run();
         });
       },
-      
+
       // Listener functions
-      
+
       addEventListener: function(event_name, handler) {
         vega_promise.then(function(result) {
           result.view.addEventListener(event_name, handler);
         });
       },
-        
+
       addSignalListener: function(signal_name, handler) {
         vega_promise.then(function(result) {
           result.view.addSignalListener(signal_name, handler);
         });
       }
-      
+
     };
 
   }
@@ -86,16 +86,16 @@ HTMLWidgets.widget({
 // Helper functions to get view object via the htmlWidgets object
 
 if (HTMLWidgets.shinyMode) {
-  
+
   Shiny.addCustomMessageHandler('callView', function(message) {
 
     // it seems that `message` has `id`, `fn`, and `params`
-    
+
     // get the correct HTMLWidget instance
     var htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
 
     var validObj = typeof htmlWidgetsObj !== "undefined" & htmlWidgetsObj !== null;
- 
+
     if (validObj) {
       // why a different API if the call is change?
       if (message.fn === "change") {
@@ -104,9 +104,10 @@ if (HTMLWidgets.shinyMode) {
          htmlWidgetsObj.callView(message.fn, message.params);
        }
     }
-});
+  });
+}
 
-function getVegaPromise(selector){
+function getVegaPromise(selector) {
 
   // get the htmlWidgetsObj
   var htmlWidgetsObj = HTMLWidgets.find(selector);

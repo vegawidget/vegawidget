@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -58,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.4</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.5.9000</span>
       </span>
     </div>
 
@@ -84,30 +86,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/first-example.html">First Example</a>
-    </li>
-    <li class="divider"></li>
-    <li>
       <a href="../articles/vegaspec.html">Specify using vegaspec</a>
     </li>
     <li>
       <a href="../articles/vegawidget.html">Render using vegawidget</a>
     </li>
     <li>
-      <a href="../articles/blocks.html">Share with bl.ocks.org</a>
+      <a href="../articles/javascript.html">Extend using JavaScript</a>
     </li>
     <li>
       <a href="../articles/image.html">Create Images</a>
     </li>
     <li>
+      <a href="../articles/dates-times.html">Work with Dates and Times</a>
+    </li>
+    <li>
       <a href="../articles/import.html">Import into Other Packages</a>
-    </li>
-    <li>
-      <a href="../articles/utilities.html">Utilities</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="../articles/visual-regression.html">Visual Regression</a>
     </li>
   </ul>
 </li>
@@ -177,6 +171,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="vw_rename_datasets.html">vw_rename_datasets()</a></code> </p>
+        </td>
+        <td><p>Rename datasets in a vegaspec</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="vw_to_vega.html">vw_to_vega()</a></code> </p>
         </td>
         <td><p>Convert to Vega specification</p></td>
@@ -243,7 +243,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
-          <p class="section-desc"><p>These are sample specifications.</p></p>
+          <p class="section-desc"><p>This package provides some sample specifications and datasets.</p></p>
         </th>
       </tr>
       <tr>
@@ -252,6 +252,24 @@
           <p><code><a href="spec_mtcars.html">spec_mtcars</a></code> </p>
         </td>
         <td><p>Example vegaspec: mtcars scatterplot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="data_category.html">data_category</a></code> </p>
+        </td>
+        <td><p>Example dataset: Categorical data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="data_seattle_daily.html">data_seattle_daily</a></code> </p>
+        </td>
+        <td><p>Example dataset: Seattle daily weather</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="data_seattle_hourly.html">data_seattle_hourly</a></code> </p>
+        </td>
+        <td><p>Example dataset: Seattle hourly temperatures</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -276,8 +294,34 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-sharing" class="hasAnchor"><a href="#section-sharing" class="anchor"></a>Sharing</h2>
-          <p class="section-desc"><p>These functions, to create and retrieve <a href="https://bl.ocks.org">blocks</a>, require the <a href="https://CRAN.R-project.org/package=gistr"><strong>gistr</strong></a> and <a href="https://CRAN.R-project.org/package=fs"><strong>fs</strong></a> packages, also the <a href="https://CRAN.R-project.org/package=webdriver"><strong>webdriver</strong></a> package and PhantomJS if you want upload images to your block.</p></p>
+          <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
+          <p class="section-desc"><p>You can use <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> to bring this package’s functionality to yours. Much like <code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_pipe">usethis::use_pipe()</a></code> allows you to re-export the pipe in your package’s namespace, <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> does this for many of these functions. The other functions deal serializing date-times, and versions of Vega’s JavaScript libraries.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="use_vegawidget.html">use_vegawidget()</a></code> </p>
+        </td>
+        <td><p>Add vegawidget functions to your package</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_serialize_data.html">vw_serialize_data()</a></code> </p>
+        </td>
+        <td><p>Serialize data-frame time-columns</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vega_version.html">vega_version()</a></code> </p>
+        </td>
+        <td><p>Determine Vega JavaScript versions</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-sharing-deprecated-" class="hasAnchor"><a href="#section-sharing-deprecated-" class="anchor"></a>Sharing (deprecated)</h2>
+          <p class="section-desc"><p>These functions are now part of the <a href="https://vegawidget.github.io/vegablock"><strong>vegablock</strong></a> package. These functions, to create and retrieve <a href="https://bl.ocks.org">blocks</a>, require the <a href="https://CRAN.R-project.org/package=gistr"><strong>gistr</strong></a> and <a href="https://CRAN.R-project.org/package=fs"><strong>fs</strong></a> packages, also the <a href="https://CRAN.R-project.org/package=webdriver"><strong>webdriver</strong></a> package and PhantomJS if you want upload images to your block.</p></p>
         </th>
       </tr>
       <tr>
@@ -299,44 +343,6 @@
         </td>
         <td><p>Retrieve vegaspec from block</p></td>
       </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
-          <p class="section-desc"><p>You can use <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> to bring this package’s functionality to yours. Much like <code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_pipe">usethis::use_pipe()</a></code> allows you to re-export the pipe in your package’s namespace, <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> does this for many of these functions. The other functions deal serializing date-times, and versions of Vega’s JavaScript libraries.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="use_vegawidget.html">use_vegawidget()</a></code> </p>
-        </td>
-        <td><p>Add vegawidget functions to your package</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vw_serialize_data.html">vw_serialize_data()</a></code> </p>
-        </td>
-        <td><p>Serialize data-frame time-columns</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vw_spec_version.html">vw_spec_version()</a></code> </p>
-        </td>
-        <td><p>Determine vegaspec version</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vega_version.html">vega_version()</a></code> </p>
-        </td>
-        <td><p>Determine Vega JavaScript versions</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vega_schema.html">vega_schema()</a></code> </p>
-        </td>
-        <td><p>Create string for schema-URL</p></td>
-      </tr>
     </tbody>
     </table>
   </div>
@@ -349,8 +355,8 @@
       <li><a href="#section-shiny">Shiny</a></li>
       <li><a href="#section-data">Data</a></li>
       <li><a href="#section-images">Images</a></li>
-      <li><a href="#section-sharing">Sharing</a></li>
       <li><a href="#section-utilities">Utilities</a></li>
+      <li><a href="#section-sharing-deprecated-">Sharing (deprecated)</a></li>
     </ul>
   </div>
 </div>

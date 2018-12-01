@@ -1,4 +1,16 @@
+# vegawidget 0.0.5.9000
+
+* tries a kinder, gentler method for enforcing sizing by implementing a sizing policy rather than overwriting the enclosing element
+
+* deprecates block-functions: `vw_create_block()`, `vw_retrieve_block()`; moved to [vegablock](https://vegawidget.github.io/vegablock)
+
 # vegawidget 0.0.4.9000
+
+* adds learnr tutorial, "Overview"
+
+* adds datasets: `data_seattle_hourly`, `data_seattle_daily`, `data_category` 
+
+* changes default-display for `vw_examine()`
 
 * adds function `vw_rename_data()` to reanme named datasets within a vegaspec (#34)
 

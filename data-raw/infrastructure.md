@@ -360,7 +360,8 @@ spec_mtcars <-
 usethis::use_data(spec_mtcars, overwrite = TRUE)
 ```
 
-    ## ✔ Setting active project to '/Users/lees159/vegawidget'
+
+    ## ✔ Setting active project to '/Users/ijlyttle/Documents/git/github/vegawidget/vegawidget'
     ## ✔ Saving 'spec_mtcars' to 'data/spec_mtcars.rda'
 
 ## Internal data

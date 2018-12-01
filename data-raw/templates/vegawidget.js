@@ -8,44 +8,44 @@ HTMLWidgets.widget({
   type: "output",
 
   factory: function(el, width, height) {
-
-    var view_promise = null;
+    
+    var vega_promise = null;
 
     return {
 
       renderValue: function(x) {
 
         // initialise promise
-        view_promise = vegaEmbed(el, x.chart_spec, opt = x.embed_options);
+        vega_promise = vegaEmbed(el, x.chart_spec, opt = x.embed_options);
 
         // fulfill promise by rendering the visualisation
-        view_promise
+        vega_promise
           .then(function(result) {
             // By removing the style (width and height) of the
             // enclosing element, we let the "chart" decide the space it
             // will occupy.
-            el.removeAttribute("style");
+            // el.setAttribute("style", "");
+            // console.log(el);
           })
           .catch(console.error);
       },
-
-      resize: function(width, height) {
-
+      
+      // public function to get promise
+      getPromise: function() {
+        return vega_promise;
       },
-
-      // the view can just be an attribute of the HTMLWidgets object
-      getView: function() {
-        return view_promise;
-      },
-
+      
+      // generic function to call functions, a bit like R's do.call()
       callView: function(fn, params) {
-        view_promise.then(function(result) {
+        vega_promise.then(function(result) {
             var method = result.view[fn];
             method.apply(result.view, params);
             result.view.run();
           });
       },
-
+        
+      // Data functions
+      
       // hard reset of data to the view
       changeView: function(params) {
         var changeset = vega.changeset()
@@ -55,54 +55,49 @@ HTMLWidgets.widget({
         this.callView('change', args);
       },
 
-
-      addEventListener: function(event_name, handler) {
-         view_promise.then(function(result) {
-           result.view.addEventListener(event_name, handler);
-         });
-      },
-
-      addSignalListener: function(signal_name, handler) {
-        view_promise.then(function(result) {
-          result.view.addSignalListener(signal_name, handler);
-        });
-      },
-
+      // TODO: the expected form of the data is different here than in the
+      // changeView function
       loadData: function(name, data) {
-        view_promise.then(function(result) {
+        vega_promise.then(function(result) {
           result.view.insert(name, HTMLWidgets.dataframeToD3(data)).run();
         });
+      },
+      
+      // Listener functions
+      
+      addEventListener: function(event_name, handler) {
+        vega_promise.then(function(result) {
+          result.view.addEventListener(event_name, handler);
+        });
+      },
+        
+      addSignalListener: function(signal_name, handler) {
+        vega_promise.then(function(result) {
+          result.view.addSignalListener(signal_name, handler);
+        });
       }
+      
     };
 
   }
 });
 
 
-// Helper function to get view object via the htmlWidgets object
-function getVegaView(selector){
-  // Get the HTMLWidgets object
-  var htmlWidgetsObj = HTMLWidgets.find(selector);
-  console.log(htmlWidgetsObj);
-  // no htmlwidget = no view
-  var hasView = typeof htmlWidgetsObj !== "undefined" & htmlWidgetsObj !== null;
-  // want to return the resolved promise of the view
-  var view = null;
-  if (hasView) {
-     view = htmlWidgetsObj.getView().then(function(result) { return result.view; });
-   }
-   return view;
-}
+// Helper functions to get view object via the htmlWidgets object
 
 if (HTMLWidgets.shinyMode) {
-Shiny.addCustomMessageHandler('callView', function(message){
+  
+  Shiny.addCustomMessageHandler('callView', function(message) {
 
+    // it seems that `message` has `id`, `fn`, and `params`
+    
     // get the correct HTMLWidget instance
     var htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
 
     var validObj = typeof htmlWidgetsObj !== "undefined" & htmlWidgetsObj !== null;
-
+ 
     if (validObj) {
+      // why a different API if the call is change?
       if (message.fn === "change") {
           htmlWidgetsObj.changeView(message.params);
        } else {
@@ -110,4 +105,15 @@ Shiny.addCustomMessageHandler('callView', function(message){
        }
     }
 });
+
+function getVegaPromise(selector){
+
+  // get the htmlWidgetsObj
+  var htmlWidgetsObj = HTMLWidgets.find(selector);
+
+  // verify the element (to be determined)
+
+  // return the promise
+  return(htmlWidgetsObj.getPromise());
+
 }

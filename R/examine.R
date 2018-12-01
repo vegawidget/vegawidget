@@ -5,6 +5,11 @@
 #'
 #' @inheritParams listviewer::jsonedit
 #' @inheritParams as_vegaspec
+#' @param mode	`string` for the initial view from modes.
+#'   `'view'` is the default.
+#' @param modes string `c('view','code', 'form', 'text', 'tree')`
+#'    will be the default, since these are all the modes
+#'    currently supported by **`jsoneditor`**.
 #'
 #' @return S3 object of class `jsonedit` and `htmlwidget`
 #' @examples
@@ -17,8 +22,8 @@
 #'   vw_examine(spec_mtcars_autosize)
 #' @export
 #'
-vw_examine <- function(spec, mode = "tree",
-                       modes = c("code", "form", "text", "tree", "view"),
+vw_examine <- function(spec, mode = "view",
+                       modes = c("view", "code", "form", "text", "tree"),
                        ..., width = NULL, height = NULL,
                        elementId = NULL) {
 
@@ -35,7 +40,7 @@ vw_examine <- function(spec, mode = "tree",
   #
 
   listviewer::jsonedit(
-    listdata = as_vegaspec(spec),
+    listdata = vw_as_json(spec),
     mode = mode,
     modes = modes,
     ...,

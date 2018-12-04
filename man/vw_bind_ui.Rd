@@ -2,7 +2,7 @@
 % Please edit documentation in R/view-api.R
 \name{vw_bind_ui}
 \alias{vw_bind_ui}
-\title{Bind Shiny UI Element to Vega Signal}
+\title{Create Shiny Observer, Binding Shiny Input to Vega Signal}
 \usage{
 vw_bind_ui(output_id, input_id, signal_name, input_transformer = NULL)
 }

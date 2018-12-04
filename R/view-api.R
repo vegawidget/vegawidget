@@ -27,7 +27,9 @@ vw_call_view <- function(id, fn, params) {
 #'
 #' @return shiny observer that will update signal upon changes to input
 #' @export
-vw_bind_ui <- function(output_id, input_id, signal_name, input_transformer = identity) {
+vw_bind_ui <- function(output_id, input_id, signal_name, input_transformer = NULL) {
+
+  input_transformer <- input_transformer %||% identity
 
   session <- shiny::getDefaultReactiveDomain()
 

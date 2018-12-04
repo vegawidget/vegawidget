@@ -78,9 +78,7 @@ HTMLWidgets.widget({
         vega_promise.then(function(result) {
           result.view.addSignalListener(signal_name, handler);
         });
-      },
-
-      type: "vegawidget"
+      }
 
     };
 
@@ -93,20 +91,19 @@ if (HTMLWidgets.shinyMode) {
   Shiny.addCustomMessageHandler('callView', function(message) {
 
     // we expect `message` to have properties: `id`, `fn`, `params`
+    console.log('Shiny callView');
+    console.log(message);
 
     // get the Vegawidget object
-    var vwObj = Vegawidget.find("#" + message.id);
-
-    // verify we got a valid object
-    if (vwObj !== null) {
+    var vwObj = Vegawidget.find("#" + message.id).then(function(result) {
        // the change call is a little different
+       console.log(result);
        if (message.fn === "change") {
-          vwObj.changeView(message.params);
+         result.changeView(message.params);
        } else {
-          vwObj.callView(message.fn, message.params);
+         result.callView(message.fn, message.params);
        }
-    }
-
+    });
 
   });
 
@@ -117,29 +114,41 @@ var Vegawidget = {
   // goal: get this to return a promise
   find: function(selector) {
 
-    // find the element in the document
-    var vwEl = document.querySelector(selector);
+    return new Promise(function(resolve, reject){
 
-    // finds the html-widget object
-    var vwObj = HTMLWidgets.find(selector);
+      // find and test the element in the document
+      var vwEl = document.querySelector(selector);
 
-    // determine existance of vwObj;
-    var exists = vwObj !== undefined;
-    if (!exists) {
-      console.log("Cannot find vegawidget using selector: " + selector);
-      console.log("This can happen if shiny calls too early");
-      return(null);
-    }
+      // element does not exist
+      if (vwEl === null) {
+        reject(
+          console.log(
+            "No document element found using selector " +
+            "'" + selector + "'" +
+            ".")
+        );
+      }
 
-    // determine validity of vwObj;
-    var valid = vwObj.hasOwnProperty("type") && vwObj.type === "vegawidget";
-    if (!valid) {
-      console.log("Object found using selector: " + selector + "is not a vegawidget");
-      return(null);
-    }
+      // element is not a vegawidget
+      if (!vwEl.classList.contains("vegawidget")) {
+        reject(
+          console.log(
+            "Document element found using selector " +
+            "'" + selector + "'" +
+            " does not have class 'vegawidget'."
+          )
+        );
+      }
 
-    return(vwObj);
+      var vwObj = HTMLWidgets.find(selector);
 
+     	if (vwObj !== undefined) {
+    		resolve(vwObj);
+    	} else {
+    		setTimeout(function() { Vegawidget.find(selector).then(resolve); }, 50);
+    	}
+
+    });
   }
 
 };

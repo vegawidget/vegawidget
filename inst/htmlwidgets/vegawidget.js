@@ -30,6 +30,9 @@ HTMLWidgets.widget({
           .catch(console.error);
       },
 
+      // need to confront this at some point
+      resize: function(width, height) {},
+
       // public function to get promise
       getPromise: function() {
         return vega_promise;
@@ -38,10 +41,10 @@ HTMLWidgets.widget({
       // generic function to call functions, a bit like R's do.call()
       callView: function(fn, params) {
         vega_promise.then(function(result) {
-            var method = result.view[fn];
-            method.apply(result.view, params);
-            result.view.run();
-          });
+          var method = result.view[fn];
+          method.apply(result.view, params);
+          result.view.run();
+        });
       },
 
       // Data functions
@@ -75,7 +78,9 @@ HTMLWidgets.widget({
         vega_promise.then(function(result) {
           result.view.addSignalListener(signal_name, handler);
         });
-      }
+      },
+
+      type: "vegawidget"
 
     };
 
@@ -83,38 +88,58 @@ HTMLWidgets.widget({
 });
 
 
-// Helper functions to get view object via the htmlWidgets object
-
 if (HTMLWidgets.shinyMode) {
 
   Shiny.addCustomMessageHandler('callView', function(message) {
 
-    // it seems that `message` has `id`, `fn`, and `params`
+    // we expect `message` to have properties: `id`, `fn`, `params`
 
-    // get the correct HTMLWidget instance
-    var htmlWidgetsObj = HTMLWidgets.find("#" + message.id);
+    // get the Vegawidget object
+    var vwObj = Vegawidget.find("#" + message.id);
 
-    var validObj = typeof htmlWidgetsObj !== "undefined" & htmlWidgetsObj !== null;
-
-    if (validObj) {
-      // why a different API if the call is change?
-      if (message.fn === "change") {
-          htmlWidgetsObj.changeView(message.params);
+    // verify we got a valid object
+    if (vwObj !== null) {
+       // the change call is a little different
+       if (message.fn === "change") {
+          vwObj.changeView(message.params);
        } else {
-         htmlWidgetsObj.callView(message.fn, message.params);
+          vwObj.callView(message.fn, message.params);
        }
     }
+
+
   });
-}
-
-function getVegaPromise(selector) {
-
-  // get the htmlWidgetsObj
-  var htmlWidgetsObj = HTMLWidgets.find(selector);
-
-  // verify the element (to be determined)
-
-  // return the promise
-  return(htmlWidgetsObj.getPromise());
 
 }
+
+var Vegawidget = {
+
+  // goal: get this to return a promise
+  find: function(selector) {
+
+    // find the element in the document
+    var vwEl = document.querySelector(selector);
+
+    // finds the html-widget object
+    var vwObj = HTMLWidgets.find(selector);
+
+    // determine existance of vwObj;
+    var exists = vwObj !== undefined;
+    if (!exists) {
+      console.log("Cannot find vegawidget using selector: " + selector);
+      console.log("This can happen if shiny calls too early");
+      return(null);
+    }
+
+    // determine validity of vwObj;
+    var valid = vwObj.hasOwnProperty("type") && vwObj.type === "vegawidget";
+    if (!valid) {
+      console.log("Object found using selector: " + selector + "is not a vegawidget");
+      return(null);
+    }
+
+    return(vwObj);
+
+  }
+
+};

@@ -13,9 +13,10 @@ spec <- jsonlite::fromJSON("example_vega_schema.json")
 ui <- shiny::fluidPage(
 
   shiny::titlePanel("vegawidget event example"),
-  shiny::fluidRow(shiny::sliderInput("slider", "Cylinders", min = 4, max = 8, step = 2, value = 6)),
+  shiny::fluidRow(shiny::sliderInput("slider", "Cylinders", min = 4, max = 8, step = 2, value = 4)),
   shiny::fluidRow(vegawidgetOutput("chart")),
   shiny::fluidRow(shiny::verbatimTextOutput("cl"))
+
 )
 
 

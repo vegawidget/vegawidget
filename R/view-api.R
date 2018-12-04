@@ -10,9 +10,12 @@ vw_call_view <- function(id, fn, params) {
   # send a custom message to JavaScript
   session$sendCustomMessage("callView", message)
 
+  # send a custom message to JavaScript
+  # session$sendCustomMessage("callViewInit", message)
+
 }
 
-#' Bind Shiny UI Element to Vega Signal
+#' Create Shiny Observer, Binding Shiny Input to Vega Signal
 #'
 #' Function to bind a shiny UI element to a Vega signal
 #'

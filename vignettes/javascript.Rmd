@@ -44,11 +44,9 @@ We use `vegawidget()` function with an `elementId` argument, to specify the id o
 vegawidget(spec_table, elementId = "streaming-demo")
 ```
 
-In the absence of the code below, we would be left with an empty chart. Note that this is written in JavaScript - in the R Markdown file, this is a `{js}` chunk, rather than an `{r}` chunk. We use functionality provided by the **htmlwidgets** package to add a callback function using the `HTMLWidgets.addPostRenderHandler()` in JavaScript. We could have done the same thing from R using the `htmlwidgets::onStaticRenderComplete()` function, where the code inside the callback function would be sent as a R character string. In this case, we preferred to be able to use the JavaScript code highlighting.
+In the absence of the code below, we would be left with an empty chart. Note that this is written in JavaScript - in the R Markdown file, this is a `{js}` chunk, rather than an `{r}` chunk. 
 
-The `HTMLWidgets.addPostRenderHandler()` function is useful because it does not run its code until all the htmlwidgets on the page have been initialized. Without it, our code would fail because it would try to evaluate a Vega view that does not exist when it is run.
-
-We provide a callback function - a function without arguments - the purpose of which is to execute the code inside once all the htmlwidgets have finished rendering. This code is virtually identical to the code in the the Vega-Lite demo; the biggest difference is how we obtain the Vega promise object. 
+TODO: Describe the `Vegawidget.find()` function, that it returns a promise to a vegawidget object, then you get the veg promise from it, and so on...
 
 In the demo code, the `vegaEmbed()` function (described in the [vega-embed](https://github.com/vega/vega-embed) library) returns a promise object, a JavaScript object used for asynchronous execution. We do not have direct access to the creation of the promise in the HTML file, but the vegawidget JavaScript API provides a function `getVegaPromise()` that, given a CSS selector to find the enclosing element (hence the `elementId = "table"` earlier), returns the promise.
 
@@ -58,41 +56,35 @@ The rest of the code is copied from the original demonstration. To change a data
 
 ```{js}
 // This is a JavaScript chunk, using {js} instead of {r}
+Vegawidget.find('#streaming-demo').then(function(result) {
+  /**
+   * Generates a new tuple with random walk.
+   */
+  function newGenerator() {
+      var counter = -1;
+      var previousY = [5, 5, 5, 5];
+      return function () {
+          counter++;
+          var newVals = previousY.map(function (v, c) { return ({
+              x: counter,
+              y: v + Math.round(Math.random() * 10 - c * 3),
+              category: c
+          }); });
+          previousY = newVals.map(function (v) { return v.y; });
+          return newVals;
+      };
+  }
 
-HTMLWidgets.addPostRenderHandler(function() {
-
-  getVegaPromise('#streaming-demo')
-    .then(function(result) {
-      /**
-       * Generates a new tuple with random walk.
-       */
-      function newGenerator() {
-          var counter = -1;
-          var previousY = [5, 5, 5, 5];
-          return function () {
-              counter++;
-              var newVals = previousY.map(function (v, c) { return ({
-                  x: counter,
-                  y: v + Math.round(Math.random() * 10 - c * 3),
-                  category: c
-              }); });
-              previousY = newVals.map(function (v) { return v.y; });
-              return newVals;
-          };
-      }
-  
-      var valueGenerator = newGenerator();
-      var minimumX = -100;
-      window.setInterval(function () {
-          minimumX++;
-          var changeSet = vega.changeset()
-                              .insert(valueGenerator())
-                              .remove(function (t) { return t.x < minimumX; });
-                              
-          result.view.change('table', changeSet).run();
-      }, 1000);  
-    });
-
+  var valueGenerator = newGenerator();
+  var minimumX = -100;
+  window.setInterval(function () {
+      minimumX++;
+      var changeSet = vega.changeset()
+                          .insert(valueGenerator())
+                          .remove(function (t) { return t.x < minimumX; });
+                          
+      result.callView('change', ['table', changeSet]);
+  }, 1000);  
 });
 ```
 
@@ -194,22 +186,19 @@ function on_angle() {
   document.querySelector("#text").innerHTML = JSON.stringify(data_live);
   
   // changes Vega chart
-  getVegaPromise('#circle').then(function(result) {
-  
-    // create a changeset
-    changeSet = vega.changeset()
-                    .insert(data_live)    // inserts new data
-                    .remove(vega.truthy); // removes all old data
+  Vegawidget.find("#circle").then(function(result) {
     
-    // implement the changeset    
-    result.view.change('source', changeSet).run();  
+    // parameter-list for the changeView function
+    var params = {name: "source", data: data_live};
     
+    result.changeView(params);
   });
+        
 }
 
 // whenever the input changes, run the updating function
 input_angle.addEventListener("input", on_angle);
 
-// run the updating function *once* as soon as the document is ready
-HTMLWidgets.addPostRenderHandler(on_angle);
+// run the updating function *once* as the document initializes
+on_angle()
 ```

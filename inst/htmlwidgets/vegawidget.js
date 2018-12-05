@@ -91,13 +91,10 @@ if (HTMLWidgets.shinyMode) {
   Shiny.addCustomMessageHandler('callView', function(message) {
 
     // we expect `message` to have properties: `id`, `fn`, `params`
-    console.log('Shiny callView');
-    console.log(message);
 
     // get the Vegawidget object
     var vwObj = Vegawidget.find("#" + message.id).then(function(result) {
        // the change call is a little different
-       console.log(result);
        if (message.fn === "change") {
          result.changeView(message.params);
        } else {

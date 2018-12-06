@@ -9,7 +9,25 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
+    // private stuff
     var vega_promise = null;
+
+    var processData = function(data) {
+
+      // if this is a string, construct a function
+      if (typeof(data) === "string") {
+        // Q: what are the risks of this?
+        return(new Function("data_remove", data));
+      }
+
+      // if data is column-based, convert to row-based
+      if (typeof(data) === "object" && !Array.isArray(data)) {
+        return(HTMLWidgets.dataframeToD3(data));
+      }
+
+      // assuming this is already row-based, no-op: return data
+      return(data);
+    };
 
     return {
 
@@ -39,15 +57,58 @@ HTMLWidgets.widget({
       },
 
       // generic function to call functions, a bit like R's do.call()
-      callView: function(fn, params) {
+      callView: function(fn, params, run) {
+
+        // sets default for run
+        run = run || true;
+
+        // invoke fn
         vega_promise.then(function(result) {
           var method = result.view[fn];
           method.apply(result.view, params);
-          result.view.run();
+          if (run) { result.view.run(); }
         });
       },
 
       // Data functions
+      insertData: function(name, data_insert, run) {
+
+        // get data into the "right" form
+        data_insert = processData(data_insert);
+
+        // invoke view.insert
+        this.callView("insert", [name, data_insert], run);
+      },
+
+      removeData: function(name, data_remove, run) {
+
+        // set default
+        data_remove = data_remove || vega.truthy;
+
+        // get data into the "right" form
+        data_remove = processData(data_remove);
+
+        // invoke view.remove
+        this.callView("remove", [name, data_remove], run);
+      },
+
+      changeData: function(name, data_insert, data_remove, run) {
+
+        // set default
+        data_remove = data_remove || vega.truthy;
+
+        // get data into the "right" form
+        data_insert = processData(data_insert);
+        data_remove = processData(data_remove);
+
+        // build the changeset
+        var changeset = vega.changeset()
+                            .remove(data_remove)
+                            .insert(data_insert);
+
+        // invoke view.change
+        this.callView("change", [name, changeset], run);
+      },
 
       // hard reset of data to the view
       changeView: function(params) {
@@ -60,6 +121,9 @@ HTMLWidgets.widget({
 
       // TODO: the expected form of the data is different here than in the
       // changeView function
+
+      // callView('insert', [name, data])
+
       loadData: function(name, data) {
         vega_promise.then(function(result) {
           result.view.insert(name, HTMLWidgets.dataframeToD3(data)).run();
@@ -90,16 +154,52 @@ if (HTMLWidgets.shinyMode) {
 
   Shiny.addCustomMessageHandler('callView', function(message) {
 
-    // we expect `message` to have properties: `id`, `fn`, `params`
+    // `message` properties:
+    // expected: `id`, `fn`
+    // optional: `params`, `run`
 
-    // get the Vegawidget object
-    var vwObj = Vegawidget.find("#" + message.id).then(function(result) {
-       // the change call is a little different
-       if (message.fn === "change") {
-         result.changeView(message.params);
-       } else {
-         result.callView(message.fn, message.params);
-       }
+    // get, then operate on the Vegawidget object
+    Vegawidget.find("#" + message.id).then(function(result) {
+      result.callView(message.fn, message.params, message.run);
+    });
+
+  });
+
+  Shiny.addCustomMessageHandler('insertData', function(message) {
+
+    // `message` properties:
+    // expected: `id`, `data_insert`
+    // optional: `run`
+
+    // get, then operate on the Vegawidget object
+    Vegawidget.find("#" + message.id).then(function(result) {
+      result.insertData(message.data_insert, message.run);
+    });
+
+  });
+
+  Shiny.addCustomMessageHandler('removeData', function(message) {
+
+    // `message` properties:
+    // expected: `id`,
+    // optional: `data_remove`, `run`
+
+    // get, then operate on the Vegawidget object
+    Vegawidget.find("#" + message.id).then(function(result) {
+      result.removeData(message.data_remove, message.run);
+    });
+
+  });
+
+  Shiny.addCustomMessageHandler('changeData', function(message) {
+
+    // `message` properties:
+    // expected: `id`, `data_insert`
+    // optional: `data_remove`, `run`
+
+    // get, then operate on the Vegawidget object
+    Vegawidget.find("#" + message.id).then(function(result) {
+      result.changeData(message.data_insert, message.data_remove, message.run);
     });
 
   });
@@ -108,7 +208,7 @@ if (HTMLWidgets.shinyMode) {
 
 var Vegawidget = {
 
-  // goal: get this to return a promise
+  // this returns a promise for the HTMLWidgets object
   find: function(selector) {
 
     return new Promise(function(resolve, reject){
@@ -137,8 +237,10 @@ var Vegawidget = {
         );
       }
 
+      // get the HTMLWidget object
       var vwObj = HTMLWidgets.find(selector);
 
+      // if it is "defined", resolve it; if not, wait and try again
      	if (vwObj !== undefined) {
     		resolve(vwObj);
     	} else {

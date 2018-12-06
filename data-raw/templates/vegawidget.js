@@ -59,6 +59,10 @@ HTMLWidgets.widget({
       // generic function to call functions, a bit like R's do.call()
       callView: function(fn, params, run) {
 
+        // sets default for run
+        run = run || true;
+
+        // invoke fn
         vega_promise.then(function(result) {
           var method = result.view[fn];
           method.apply(result.view, params);
@@ -150,16 +154,52 @@ if (HTMLWidgets.shinyMode) {
 
   Shiny.addCustomMessageHandler('callView', function(message) {
 
-    // we expect `message` to have properties: `id`, `fn`, `params`
+    // `message` properties:
+    // expected: `id`, `fn`
+    // optional: `params`, `run`
 
     // get, then operate on the Vegawidget object
     Vegawidget.find("#" + message.id).then(function(result) {
-       // the change call is a little different
-       if (message.fn === "change") {
-         result.changeView(message.params);
-       } else {
-         result.callView(message.fn, message.params);
-       }
+      result.callView(message.fn, message.params, message.run);
+    });
+
+  });
+
+  Shiny.addCustomMessageHandler('insertData', function(message) {
+
+    // `message` properties:
+    // expected: `id`, `data_insert`
+    // optional: `run`
+
+    // get, then operate on the Vegawidget object
+    Vegawidget.find("#" + message.id).then(function(result) {
+      result.insertData(message.data_insert, message.run);
+    });
+
+  });
+
+  Shiny.addCustomMessageHandler('removeData', function(message) {
+
+    // `message` properties:
+    // expected: `id`,
+    // optional: `data_remove`, `run`
+
+    // get, then operate on the Vegawidget object
+    Vegawidget.find("#" + message.id).then(function(result) {
+      result.removeData(message.data_remove, message.run);
+    });
+
+  });
+
+  Shiny.addCustomMessageHandler('changeData', function(message) {
+
+    // `message` properties:
+    // expected: `id`, `data_insert`
+    // optional: `data_remove`, `run`
+
+    // get, then operate on the Vegawidget object
+    Vegawidget.find("#" + message.id).then(function(result) {
+      result.changeData(message.data_insert, message.data_remove, message.run);
     });
 
   });
@@ -197,8 +237,10 @@ var Vegawidget = {
         );
       }
 
+      // get the HTMLWidget object
       var vwObj = HTMLWidgets.find(selector);
 
+      // if it is "defined", resolve it; if not, wait and try again
      	if (vwObj !== undefined) {
     		resolve(vwObj);
     	} else {

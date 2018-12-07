@@ -31,6 +31,7 @@ HTMLWidgets.widget({
 
     return {
 
+      // x, object to instantitate htmlwidget
       renderValue: function(x) {
 
         // initialise promise
@@ -173,7 +174,7 @@ if (HTMLWidgets.shinyMode) {
 
     // get, then operate on the Vegawidget object
     Vegawidget.find("#" + message.id).then(function(result) {
-      result.insertData(message.data_insert, message.run);
+      result.insertData(message.name, message.data_insert, message.run);
     });
 
   });
@@ -186,7 +187,7 @@ if (HTMLWidgets.shinyMode) {
 
     // get, then operate on the Vegawidget object
     Vegawidget.find("#" + message.id).then(function(result) {
-      result.removeData(message.data_remove, message.run);
+      result.removeData(message.name, message.data_remove, message.run);
     });
 
   });
@@ -199,7 +200,7 @@ if (HTMLWidgets.shinyMode) {
 
     // get, then operate on the Vegawidget object
     Vegawidget.find("#" + message.id).then(function(result) {
-      result.changeData(message.data_insert, message.data_remove, message.run);
+      result.changeData(message.name, message.data_insert, message.data_remove, message.run);
     });
 
   });

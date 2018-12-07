@@ -10,12 +10,20 @@
 #' @rdname vega-data-handlers
 #' @export
 vw_change_data <- function(input_id, name, newdata) {
-  vw_call_view(input_id, "change",
-               list(name = name,
-                    data = jsonlite::toJSON(newdata,
-                                            dataframe = "rows",
-                                            pretty = TRUE,
-                                            auto_unbox = TRUE)))
+  # vw_call_view(input_id, "change",
+  #              list(name = name,
+  #                   data = jsonlite::toJSON(newdata,
+  #                                           dataframe = "rows",
+  #                                           pretty = TRUE,
+  #                                           auto_unbox = TRUE)))
+
+  session <- shiny::getDefaultReactiveDomain()
+
+  # prepare a message using the function arguments
+  message <- list(name = name, id = input_id, data_insert = newdata)
+
+  # send a custom message to JavaScript
+  session$sendCustomMessage("changeData", message)
 }
 
 

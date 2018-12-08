@@ -2,9 +2,9 @@
 # dataset.
 
 library("shiny")
-library("vegawidget")
 library("dplyr")
 library("gapminder")
+library("vegawidget")
 
 # in this spec, we define the name of a dataset, but do not load it
 spec <- list(

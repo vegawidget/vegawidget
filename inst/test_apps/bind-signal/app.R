@@ -23,12 +23,12 @@ ui <- shiny::fluidPage(
 # Define server logic
 server <- function(input, output) {
 
+  vw_bind_ui("chart", "slider", "cyl")
+
   output$chart <- renderVegawidget({
     vegawidget(spec) %>%
       vw_add_signal_listener("cyl")
   })
-
-  vw_bind_ui("chart", "slider", "cyl")
 
   output$cl <- renderPrint({
     input$chart_cyl

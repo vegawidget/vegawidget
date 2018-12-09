@@ -56,7 +56,7 @@ The rest of the code is copied from the original demonstration. To change a data
 
 ```{js}
 // This is a JavaScript chunk, using {js} instead of {r}
-Vegawidget.findVegaPromise('#streaming-demo').then(function(result) {
+Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
   /**
    * Generates a new tuple with random walk.
    */
@@ -88,7 +88,7 @@ Vegawidget.findVegaPromise('#streaming-demo').then(function(result) {
                           .insert(valueGenerator())
                           .remove(function (t) { return t.x < minimumX; });
                           
-      result.view.change('table', changeSet).run();
+      view.change('table', changeSet).run();
   }, 1000);  
 });
 ```
@@ -191,12 +191,12 @@ function on_angle() {
   document.querySelector("#text").innerHTML = JSON.stringify(data_live);
   
   // changes Vega chart
-  Vegawidget.findVegaPromise("#circle").then(function(result) {
+  Vegawidget.findViewPromise("#circle").then(function(view) {
     var changeSet = vega.changeset()
                         .insert(data_live)
                         .remove(vega.truthy);
                           
-    result.view.change("source", changeSet).run();  
+    view.change("source", changeSet).run();  
   });  
 
 }

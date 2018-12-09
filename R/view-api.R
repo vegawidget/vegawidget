@@ -38,33 +38,45 @@ vw_bind_ui <- function(output_id, input_id, signal_name, input_transformer = NUL
 
 #' a potentially-useful experiment
 #'
-#' @param input a reactive expression
+#' @param expr reactive expression, i.e. `input$slider` or `dataset()`
 #' @param output_id `character` outputId for the vegawidget
-#' @param signal_name `character` name of the signal defined in the
+#' @param name `character` name of the signal defined in the
 #'   vegawidget spec
-#' @param input_transformer `function` (optional) applied to the value of `input`
-#'   before passing to Vega
 #'
 #' @return [shiny::observeEvent()] that reacts to changes in `input`
 #'
 #' @export
-vw_observe_signal <- function(input, output_id, signal_name,
-                              input_transformer = NULL) {
+vw_observe <- function(expr, output_id, name, use_cache = TRUE) {
+
+  # if we are caching the data, we need dplyr
+  if (use_cache) {
+    assert_packages("dplyr")
+  }
 
   # captures (but does not evaluate) the reactive value
   input <- rlang::enquo(input)
 
-  input_transformer <- input_transformer %||% identity
-
   # experiment for later, to cache data for changesets
-  count <- 0
+  value_old <- data.frame()
 
   shiny::observeEvent(
-    eventExpr = rlang::eval_tidy(input),
+    eventExpr = rlang::eval_tidy(expr),
     handlerExpr = {
-      signal_value <- input_transformer(rlang::eval_tidy(input))
-      vw_call_view(output_id, "signal", list(signal_name, signal_value))
-      print(count)
+
+      # evaluate the (reactive) expression
+      value <- rlang::eval_tidy(expr)
+
+      # if
+      if (is.data.frame(value)) {
+        if (use_cache) {
+
+        } else {
+
+        }
+      } else {
+        vw_call_view(output_id, "signal", list(name, value))
+      }
+
       count <<- count + 1
     }
   )

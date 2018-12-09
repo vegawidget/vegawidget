@@ -10,7 +10,7 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
 
     // private stuff
-    var vega_promise = null;
+    var view_promise = null;
 
     var processData = function(data) {
 
@@ -35,11 +35,15 @@ HTMLWidgets.widget({
       renderValue: function(x) {
 
         // initialise promise
-        vega_promise = vegaEmbed(el, x.chart_spec, opt = x.embed_options);
+        view_promise =
+          vegaEmbed(el, x.chart_spec, opt = x.embed_options)
+            .then(function(result) {
+              return result.view;
+            });
 
         // fulfill promise by rendering the visualisation
-        vega_promise
-          .then(function(result) {
+        view_promise
+          .then(function(view) {
             // By removing the style (width and height) of the
             // enclosing element, we let the "chart" decide the space it
             // will occupy.
@@ -52,9 +56,9 @@ HTMLWidgets.widget({
       // need to confront this at some point
       resize: function(width, height) {},
 
-      // public function to get Vega promise
-      getVegaPromise: function() {
-        return vega_promise;
+      // public function to get view_promise
+      get viewPromise() {
+        return view_promise;
       },
 
       // generic function to call functions, a bit like R's do.call()
@@ -64,10 +68,12 @@ HTMLWidgets.widget({
         run = run || true;
 
         // invoke fn
-        vega_promise.then(function(result) {
-          var method = result.view[fn];
-          method.apply(result.view, params);
-          if (run) { result.view.run(); }
+        vega_promise.then(function(view) {
+          var method = view[fn];
+          method.apply(view, params);
+          if (run) {
+            view.run();
+          }
         });
       },
 
@@ -126,22 +132,22 @@ HTMLWidgets.widget({
       // callView('insert', [name, data])
 
       loadData: function(name, data) {
-        vega_promise.then(function(result) {
-          result.view.insert(name, HTMLWidgets.dataframeToD3(data)).run();
+        view_promise.then(function(view) {
+          view.insert(name, HTMLWidgets.dataframeToD3(data)).run();
         });
       },
 
       // Listener functions
 
       addEventListener: function(event_name, handler) {
-        vega_promise.then(function(result) {
-          result.view.addEventListener(event_name, handler);
+        view_promise.then(function(view) {
+          view.addEventListener(event_name, handler);
         });
       },
 
       addSignalListener: function(signal_name, handler) {
-        vega_promise.then(function(result) {
-          result.view.addSignalListener(signal_name, handler);
+        view_promise.then(function(result) {
+          view.addSignalListener(signal_name, handler);
         });
       }
 
@@ -256,9 +262,9 @@ var Vegawidget = {
     });
   },
 
-  findVegaPromise: function(selector) {
-    return this.findPromise(selector).then(function(result) {
-      return result.getVegaPromise();
+  findViewPromise: function(selector) {
+    return this.findPromise(selector).then(function(vwObj) {
+      return vwObj.viewPromise;
     });
   }
 

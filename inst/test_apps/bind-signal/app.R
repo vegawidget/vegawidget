@@ -25,9 +25,9 @@ server <- function(input, output) {
 
   # vw_bind_ui("chart", input$slider, "cyl")
 
-  value <- reactive(input$slider)
+  rct_value <- reactive(input$slider)
 
-  vw_observe_signal(value(), "chart", "cyl")
+  vw_observe_signal(rct_value(), "chart", "cyl")
 
   output$chart <- renderVegawidget({
     vegawidget(spec) %>%

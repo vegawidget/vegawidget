@@ -40,45 +40,36 @@ vw_bind_ui <- function(output_id, input_id, signal_name, input_transformer = NUL
 #'
 #' @param expr reactive expression, i.e. `input$slider` or `dataset()`
 #' @param output_id `character` outputId for the vegawidget
-#' @param name `character` name of the signal defined in the
+#' @param signal_name `character` name of the signal defined in the
 #'   vegawidget spec
 #'
-#' @return [shiny::observeEvent()] that reacts to changes in `input`
+#' @return [shiny::observeEvent()] that reacts to changes in`expr`
 #'
 #' @export
-vw_observe <- function(expr, output_id, name, use_cache = TRUE) {
+vw_observe_to_signal <- function(expr, output_id, signal_name) {
+
+  # captures (but does not evaluate) the reactive expression
+  expr <- rlang::enquo(expr)
+
+  shiny::observeEvent(
+    eventExpr = rlang::eval_tidy(expr),
+    handlerExpr = {
+      # evaluate the (reactive) expression
+      value <- rlang::eval_tidy(expr)
+      # call the view API to set the signal value, then run
+      vw_call_view(output_id, fn = "signal", params = list(signal_name, value))
+    }
+  )
+
+}
+
+vw_observe_to_data <- function(expr, output_id, data_name, use_cache = TRUE) {
 
   # if we are caching the data, we need dplyr
   if (use_cache) {
     assert_packages("dplyr")
   }
 
-  # captures (but does not evaluate) the reactive value
-  input <- rlang::enquo(input)
-
-  # experiment for later, to cache data for changesets
-  value_old <- data.frame()
-
-  shiny::observeEvent(
-    eventExpr = rlang::eval_tidy(expr),
-    handlerExpr = {
-
-      # evaluate the (reactive) expression
-      value <- rlang::eval_tidy(expr)
-
-      # if
-      if (is.data.frame(value)) {
-        if (use_cache) {
-
-        } else {
-
-        }
-      } else {
-        vw_call_view(output_id, "signal", list(name, value))
-      }
-
-      count <<- count + 1
-    }
-  )
+  data_old <- data.frame()
 
 }

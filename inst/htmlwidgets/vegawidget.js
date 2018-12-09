@@ -68,7 +68,7 @@ HTMLWidgets.widget({
         run = run || true;
 
         // invoke fn
-        vega_promise.then(function(view) {
+        this.viewPromise.then(function(view) {
           var method = view[fn];
           method.apply(view, params);
           if (run) {
@@ -132,7 +132,7 @@ HTMLWidgets.widget({
       // callView('insert', [name, data])
 
       loadData: function(name, data) {
-        view_promise.then(function(view) {
+        this.viewPromise.then(function(view) {
           view.insert(name, HTMLWidgets.dataframeToD3(data)).run();
         });
       },
@@ -140,13 +140,13 @@ HTMLWidgets.widget({
       // Listener functions
 
       addEventListener: function(event_name, handler) {
-        view_promise.then(function(view) {
+        this.viewPromise.then(function(view) {
           view.addEventListener(event_name, handler);
         });
       },
 
       addSignalListener: function(signal_name, handler) {
-        view_promise.then(function(result) {
+        this.viewPromise.then(function(result) {
           view.addSignalListener(signal_name, handler);
         });
       }

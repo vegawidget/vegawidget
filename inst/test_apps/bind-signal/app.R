@@ -24,7 +24,10 @@ ui <- shiny::fluidPage(
 server <- function(input, output) {
 
   # vw_bind_ui("chart", input$slider, "cyl")
-  vw_observe_signal(input$slider, "chart", "cyl")
+
+  value <- reactive(input$slider)
+
+  vw_observe_signal(value(), "chart", "cyl")
 
   output$chart <- renderVegawidget({
     vegawidget(spec) %>%

@@ -38,7 +38,7 @@ vw_bind_ui <- function(output_id, input_id, signal_name, input_transformer = NUL
 
 #' a potentially-useful experiment
 #'
-#' @param input a reactive value
+#' @param input a reactive expression
 #' @param output_id `character` outputId for the vegawidget
 #' @param signal_name `character` name of the signal defined in the
 #'   vegawidget spec

@@ -52,8 +52,8 @@ HTMLWidgets.widget({
       // need to confront this at some point
       resize: function(width, height) {},
 
-      // public function to get promise
-      getPromise: function() {
+      // public function to get Vega promise
+      getVegaPromise: function() {
         return vega_promise;
       },
 
@@ -160,7 +160,7 @@ if (HTMLWidgets.shinyMode) {
     // optional: `params`, `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.find("#" + message.id).then(function(result) {
+    Vegawidget.findPromise("#" + message.id).then(function(result) {
       result.callView(message.fn, message.params, message.run);
     });
 
@@ -173,7 +173,7 @@ if (HTMLWidgets.shinyMode) {
     // optional: `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.find("#" + message.id).then(function(result) {
+    Vegawidget.findPromise("#" + message.id).then(function(result) {
       result.insertData(message.name, message.data_insert, message.run);
     });
 
@@ -186,7 +186,7 @@ if (HTMLWidgets.shinyMode) {
     // optional: `data_remove`, `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.find("#" + message.id).then(function(result) {
+    Vegawidget.findPromise("#" + message.id).then(function(result) {
       result.removeData(message.name, message.data_remove, message.run);
     });
 
@@ -199,7 +199,7 @@ if (HTMLWidgets.shinyMode) {
     // optional: `data_remove`, `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.find("#" + message.id).then(function(result) {
+    Vegawidget.findPromise("#" + message.id).then(function(result) {
       result.changeData(message.name, message.data_insert, message.data_remove, message.run);
     });
 
@@ -209,8 +209,13 @@ if (HTMLWidgets.shinyMode) {
 
 var Vegawidget = {
 
-  // this returns a promise for the HTMLWidgets object
-  find: function(selector) {
+  // Find, return a promise to a Vegawidget
+  //
+  // @param selector, string css-selector
+  //
+  // @return a promise to a Vegawidget
+  //
+  findPromise: function(selector) {
 
     return new Promise(function(resolve, reject){
 
@@ -245,9 +250,15 @@ var Vegawidget = {
      	if (vwObj !== undefined) {
     		resolve(vwObj);
     	} else {
-    		setTimeout(function() { Vegawidget.find(selector).then(resolve); }, 50);
+    		setTimeout(function() { Vegawidget.findPromise(selector).then(resolve); }, 50);
     	}
 
+    });
+  },
+
+  findVegaPromise: function(selector) {
+    return this.findPromise(selector).then(function(result) {
+      return result.getVegaPromise();
     });
   }
 

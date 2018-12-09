@@ -56,7 +56,7 @@ The rest of the code is copied from the original demonstration. To change a data
 
 ```{js}
 // This is a JavaScript chunk, using {js} instead of {r}
-Vegawidget.find('#streaming-demo').then(function(result) {
+Vegawidget.findVegaPromise('#streaming-demo').then(function(result) {
   /**
    * Generates a new tuple with random walk.
    */
@@ -79,11 +79,16 @@ Vegawidget.find('#streaming-demo').then(function(result) {
   var minimumX = -100;
   window.setInterval(function () {
       minimumX++;
+      var data_insert = valueGenerator();
+      var data_remove = function(data_remove) {
+        return (data_remove.x < minimumX);
+      };
+      
       var changeSet = vega.changeset()
                           .insert(valueGenerator())
                           .remove(function (t) { return t.x < minimumX; });
                           
-      result.callView('change', ['table', changeSet]);
+      result.view.change('table', changeSet).run();
   }, 1000);  
 });
 ```
@@ -180,25 +185,25 @@ function on_angle() {
 
   // translate the input value to x-y coordinates in a new dataset
   var theta = input_angle.value * Math.PI / 180;
-  var data_live = {x: Math.cos(theta), y: Math.sin(theta)};
+  var data_live = [{x: Math.cos(theta), y: Math.sin(theta)}];
 
   // changes output-text value to show the coordinates
   document.querySelector("#text").innerHTML = JSON.stringify(data_live);
   
   // changes Vega chart
-  Vegawidget.find("#circle").then(function(result) {
-    
-    // parameter-list for the changeView function
-    var params = {name: "source", data: data_live};
-    
-    result.changeView(params);
-  });
-        
+  Vegawidget.findVegaPromise("#circle").then(function(result) {
+    var changeSet = vega.changeset()
+                        .insert(data_live)
+                        .remove(vega.truthy);
+                          
+    result.view.change("source", changeSet).run();  
+  });  
+
 }
 
 // whenever the input changes, run the updating function
 input_angle.addEventListener("input", on_angle);
 
-// run the updating function *once* as the document initializes
+// run the updating function *once* to initialize the input to the data
 on_angle()
 ```

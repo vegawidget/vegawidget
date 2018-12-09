@@ -35,3 +35,38 @@ vw_bind_ui <- function(output_id, input_id, signal_name, input_transformer = NUL
     vw_call_view(output_id, "signal", list(signal_name, signal_value))
   })
 }
+
+#' a potentially-useful experiment
+#'
+#' @param input a reactive value
+#' @param output_id `character` outputId for the vegawidget
+#' @param signal_name `character` name of the signal defined in the
+#'   vegawidget spec
+#' @param input_transformer `function` (optional) applied to the value of `input`
+#'   before passing to Vega
+#'
+#' @return [shiny::observeEvent()] that reacts to changes in `input`
+#'
+#' @export
+vw_observe_signal <- function(input, output_id, signal_name,
+                              input_transformer = NULL) {
+
+  # captures (but does not evaluate) the reactive value
+  input <- rlang::enquo(input)
+
+  input_transformer <- input_transformer %||% identity
+
+  # experiment for later, to cache data for changesets
+  count <- 0
+
+  shiny::observeEvent(
+    eventExpr = rlang::eval_tidy(input),
+    handlerExpr = {
+      signal_value <- input_transformer(rlang::eval_tidy(input))
+      vw_call_view(output_id, "signal", list(signal_name, signal_value))
+      print(count)
+      count <<- count + 1
+    }
+  )
+
+}

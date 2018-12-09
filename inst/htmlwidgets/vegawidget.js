@@ -146,7 +146,7 @@ HTMLWidgets.widget({
       },
 
       addSignalListener: function(signal_name, handler) {
-        this.viewPromise.then(function(result) {
+        this.viewPromise.then(function(view) {
           view.addSignalListener(signal_name, handler);
         });
       }
@@ -166,8 +166,8 @@ if (HTMLWidgets.shinyMode) {
     // optional: `params`, `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.findPromise("#" + message.id).then(function(result) {
-      result.callView(message.fn, message.params, message.run);
+    Vegawidget.findPromise("#" + message.id).then(function(vwObj) {
+      vwObj.callView(message.fn, message.params, message.run);
     });
 
   });
@@ -179,8 +179,8 @@ if (HTMLWidgets.shinyMode) {
     // optional: `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.findPromise("#" + message.id).then(function(result) {
-      result.insertData(message.name, message.data_insert, message.run);
+    Vegawidget.findPromise("#" + message.id).then(function(vwObj) {
+      vwObj.insertData(message.name, message.data_insert, message.run);
     });
 
   });
@@ -192,8 +192,8 @@ if (HTMLWidgets.shinyMode) {
     // optional: `data_remove`, `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.findPromise("#" + message.id).then(function(result) {
-      result.removeData(message.name, message.data_remove, message.run);
+    Vegawidget.findPromise("#" + message.id).then(function(vwObj) {
+      vwObj.removeData(message.name, message.data_remove, message.run);
     });
 
   });
@@ -205,8 +205,8 @@ if (HTMLWidgets.shinyMode) {
     // optional: `data_remove`, `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.findPromise("#" + message.id).then(function(result) {
-      result.changeData(message.name, message.data_insert, message.data_remove, message.run);
+    Vegawidget.findPromise("#" + message.id).then(function(vwObj) {
+      vwObj.changeData(message.name, message.data_insert, message.data_remove, message.run);
     });
 
   });

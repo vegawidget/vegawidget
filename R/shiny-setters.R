@@ -1,4 +1,4 @@
-#' Set a signal using a reactive expression
+#' Set a signal or data using a reactive expression
 #'
 #' There are two ways to change a Vega chart using shiny; by setting
 #' a signal or by setting a dataset. In either case, you will need to
@@ -9,8 +9,8 @@
 #'
 #' @param expr reactive expression, i.e. `input$slider` or `dataset()`
 #' @param output_id `character`, `outputId` for the vegawidget
-#' @param name `character`, name of the signal or dataset, as defined in the
-#'   vegaspec
+#' @param name `character`, name of the signal or dataset being set,
+#'   as defined in the vegaspec
 #' @param use_cache `logical`, for setting data, indicates to
 #'   to send Vega only the *changes* in the dataset, rather
 #'   than making a hard reset of the dataset

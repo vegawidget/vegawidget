@@ -61,6 +61,10 @@ server <- function(input, output) {
   rct_data <- reactive(list_data[[input$dataset]])
 
   # observers
+  observe({
+    print("hello")
+    print(names(input))
+  })
 
   # TODO: note that use_cache = TRUE does not yet work
   vw_shiny_set_data(rct_data(), output_id = "chart", name = "source", use_cache = FALSE)

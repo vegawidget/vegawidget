@@ -12,7 +12,7 @@ spec <- jsonlite::fromJSON("example_vega_schema.json")
 
 ui <- shiny::fluidPage(
 
-  shiny::titlePanel("vegawidget event example"),
+  shiny::titlePanel("vegawidget signal example"),
   shiny::fluidRow(shiny::sliderInput("slider", "Cylinders", min = 4, max = 8, step = 2, value = 4)),
   shiny::fluidRow(vegawidgetOutput("chart")),
   shiny::fluidRow(shiny::verbatimTextOutput("cl"))
@@ -23,13 +23,8 @@ ui <- shiny::fluidPage(
 # Define server logic
 server <- function(input, output) {
 
-  # vw_bind_ui("chart", input$slider, "cyl")
-
-  # reactives
-  rct_value <- reactive(input$slider)
-
   # observers
-  vw_observe_to_signal(rct_value(), "chart", "cyl")
+  vw_shiny_set_signal(input$slider, output_id = "chart", name = "cyl")
 
   # outputs
   output$chart <- renderVegawidget({

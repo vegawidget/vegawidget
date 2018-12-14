@@ -108,10 +108,15 @@ HTMLWidgets.widget({
         data_insert = processData(data_insert);
         data_remove = processData(data_remove);
 
+        //console.log(data_insert);
+        console.log(data_remove);
+
         // build the changeset
         var changeset = vega.changeset()
-                            .remove(data_remove)
-                            .insert(data_insert);
+                            .insert(data_insert)
+                            .remove(data_remove);
+
+        console.log(changeset);
 
         // invoke view.change
         this.callView("change", [name, changeset], run);
@@ -159,54 +164,54 @@ HTMLWidgets.widget({
 
 if (HTMLWidgets.shinyMode) {
 
-  Shiny.addCustomMessageHandler('callView', function(message) {
+  Shiny.addCustomMessageHandler('callView', function(msg) {
 
-    // `message` properties:
+    // `msg` properties:
     // expected: `id`, `fn`
     // optional: `params`, `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.findPromise("#" + message.id).then(function(vwObj) {
-      vwObj.callView(message.fn, message.params, message.run);
+    Vegawidget.findPromise("#" + msg.id).then(function(vwObj) {
+      vwObj.callView(msg.fn, msg.params, msg.run);
     });
 
   });
 
-  Shiny.addCustomMessageHandler('insertData', function(message) {
+  Shiny.addCustomMessageHandler('insertData', function(msg) {
 
-    // `message` properties:
+    // `msg` properties:
     // expected: `id`, `data_insert`
     // optional: `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.findPromise("#" + message.id).then(function(vwObj) {
-      vwObj.insertData(message.name, message.data_insert, message.run);
+    Vegawidget.findPromise("#" + msg.id).then(function(vwObj) {
+      vwObj.insertData(msg.name, msg.data_insert, msg.run);
     });
 
   });
 
-  Shiny.addCustomMessageHandler('removeData', function(message) {
+  Shiny.addCustomMessageHandler('removeData', function(msg) {
 
-    // `message` properties:
+    // `msg` properties:
     // expected: `id`,
     // optional: `data_remove`, `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.findPromise("#" + message.id).then(function(vwObj) {
-      vwObj.removeData(message.name, message.data_remove, message.run);
+    Vegawidget.findPromise("#" + msg.id).then(function(vwObj) {
+      vwObj.removeData(msg.name, msg.data_remove, msg.run);
     });
 
   });
 
-  Shiny.addCustomMessageHandler('changeData', function(message) {
+  Shiny.addCustomMessageHandler('changeData', function(msg) {
 
-    // `message` properties:
+    // `msg` properties:
     // expected: `id`, `data_insert`
     // optional: `data_remove`, `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.findPromise("#" + message.id).then(function(vwObj) {
-      vwObj.changeData(message.name, message.data_insert, message.data_remove, message.run);
+    Vegawidget.findPromise("#" + msg.id).then(function(vwObj) {
+      vwObj.changeData(msg.name, msg.data_insert, msg.data_remove, msg.run);
     });
 
   });

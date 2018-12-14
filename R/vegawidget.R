@@ -95,7 +95,7 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
 #'
 #' @export
 #'
-vegawidgetOutput <- function(outputId, width = "100%", height = "400px") {
+vegawidgetOutput <- function(outputId, width = "auto", height = "auto") {
   htmlwidgets::shinyWidgetOutput(
     outputId,
     "vegawidget",

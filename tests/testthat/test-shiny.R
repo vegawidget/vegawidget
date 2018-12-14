@@ -6,6 +6,6 @@ test_that("binding ui to signal and listening works", {
   # Don't run these tests on the CRAN build servers
   skip_on_cran()
 
-  appdir <- system.file(package = "vegawidget", "test_apps/bind-signal")
+  appdir <- system.file(package = "vegawidget", "test-apps/signal")
   expect_pass(testApp(appdir, compareImages = FALSE))
 })

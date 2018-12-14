@@ -71,5 +71,6 @@ Suggests:
     readr,
     tibble,
     lubridate,
-    learnr
+    learnr,
+    dplyr
 VignetteBuilder: knitr

@@ -171,7 +171,7 @@ if (HTMLWidgets.shinyMode) {
     // optional: `params`, `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.findPromise("#" + msg.id).then(function(vwObj) {
+    Vegawidget.findWidgetPromise("#" + msg.id).then(function(vwObj) {
       vwObj.callView(msg.fn, msg.params, msg.run);
     });
 
@@ -184,7 +184,7 @@ if (HTMLWidgets.shinyMode) {
     // optional: `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.findPromise("#" + msg.id).then(function(vwObj) {
+    Vegawidget.findWidgetPromise("#" + msg.id).then(function(vwObj) {
       vwObj.insertData(msg.name, msg.data_insert, msg.run);
     });
 
@@ -197,7 +197,7 @@ if (HTMLWidgets.shinyMode) {
     // optional: `data_remove`, `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.findPromise("#" + msg.id).then(function(vwObj) {
+    Vegawidget.findWidgetPromise("#" + msg.id).then(function(vwObj) {
       vwObj.removeData(msg.name, msg.data_remove, msg.run);
     });
 
@@ -210,7 +210,7 @@ if (HTMLWidgets.shinyMode) {
     // optional: `data_remove`, `run`
 
     // get, then operate on the Vegawidget object
-    Vegawidget.findPromise("#" + msg.id).then(function(vwObj) {
+    Vegawidget.findWidgetPromise("#" + msg.id).then(function(vwObj) {
       vwObj.changeData(msg.name, msg.data_insert, msg.data_remove, msg.run);
     });
 
@@ -226,7 +226,7 @@ var Vegawidget = {
   //
   // @return a promise to a Vegawidget
   //
-  findPromise: function(selector) {
+  findWidgetPromise: function(selector) {
 
     return new Promise(function(resolve, reject){
 
@@ -261,16 +261,29 @@ var Vegawidget = {
      	if (vwObj !== undefined) {
     		resolve(vwObj);
     	} else {
-    		setTimeout(function() { Vegawidget.findPromise(selector).then(resolve); }, 50);
+    		setTimeout(function() {
+    		  Vegawidget.findWidgetPromise(selector).then(resolve);
+    		}, 50);
     	}
 
     });
   },
 
+  // returns a promise to the Vega view, rather than to the Vegawidget object
   findViewPromise: function(selector) {
-    return this.findPromise(selector).then(function(vwObj) {
+    return this.findWidgetPromise(selector).then(function(vwObj) {
       return vwObj.viewPromise;
     });
+  },
+
+  shinyHandler: {
+    signal: {
+      value: function(inputName) {
+        return function(name, value) {
+          Shiny.setInputValue(inputName, value);
+        };
+      }
+    }
   }
 
 };

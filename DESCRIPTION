@@ -69,5 +69,6 @@ Suggests:
     readr,
     tibble,
     lubridate,
-    learnr
+    learnr,
+    processx
 VignetteBuilder: knitr

@@ -1,6 +1,8 @@
 // Please make sure you edit this file at data-raw/templates/vegawidget.js
 //  - then render data-raw/infrastructure.Rmd
 
+
+// HTMLWidget factory
 HTMLWidgets.widget({
 
   name: "vegawidget",
@@ -18,6 +20,15 @@ HTMLWidgets.widget({
       if (typeof(data) === "string") {
         // Q: what are the risks of this?
         return(new Function("data_remove", data));
+      }
+
+      // if data is boolean return truthy/falsy
+      if (typeof(data) === "boolean") {
+        if (data === true) {
+          return (vega.truthy);
+        } else {
+          return (vega.falsy);
+        }
       }
 
       // if data is column-based, convert to row-based
@@ -78,27 +89,6 @@ HTMLWidgets.widget({
       },
 
       // Data functions
-      insertData: function(name, data_insert, run) {
-
-        // get data into the "right" form
-        data_insert = processData(data_insert);
-
-        // invoke view.insert
-        this.callView("insert", [name, data_insert], run);
-      },
-
-      removeData: function(name, data_remove, run) {
-
-        // set default
-        data_remove = data_remove || vega.truthy;
-
-        // get data into the "right" form
-        data_remove = processData(data_remove);
-
-        // invoke view.remove
-        this.callView("remove", [name, data_remove], run);
-      },
-
       changeData: function(name, data_insert, data_remove, run) {
 
         // set default
@@ -122,37 +112,16 @@ HTMLWidgets.widget({
         this.callView("change", [name, changeset], run);
       },
 
-      // hard reset of data to the view
-      changeView: function(params) {
-        var changeset = vega.changeset()
-                            .remove(function() {return true})
-                            .insert(params.data);
-        var args = [params.name, changeset];
-        this.callView('change', args);
-      },
-
-      // TODO: the expected form of the data is different here than in the
-      // changeView function
-
-      // callView('insert', [name, data])
-
-      loadData: function(name, data) {
+      // Listener functions
+      addSignalListener: function(signal_name, handler) {
         this.viewPromise.then(function(view) {
-          view.insert(name, HTMLWidgets.dataframeToD3(data)).run();
+          view.addSignalListener(signal_name, handler);
         });
       },
-
-      // Listener functions
 
       addEventListener: function(event_name, handler) {
         this.viewPromise.then(function(view) {
           view.addEventListener(event_name, handler);
-        });
-      },
-
-      addSignalListener: function(signal_name, handler) {
-        this.viewPromise.then(function(view) {
-          view.addSignalListener(signal_name, handler);
         });
       }
 
@@ -161,63 +130,7 @@ HTMLWidgets.widget({
   }
 });
 
-
-if (HTMLWidgets.shinyMode) {
-
-  Shiny.addCustomMessageHandler('callView', function(msg) {
-
-    // `msg` properties:
-    // expected: `id`, `fn`
-    // optional: `params`, `run`
-
-    // get, then operate on the Vegawidget object
-    Vegawidget.findWidgetPromise("#" + msg.id).then(function(vwObj) {
-      vwObj.callView(msg.fn, msg.params, msg.run);
-    });
-
-  });
-
-  Shiny.addCustomMessageHandler('insertData', function(msg) {
-
-    // `msg` properties:
-    // expected: `id`, `data_insert`
-    // optional: `run`
-
-    // get, then operate on the Vegawidget object
-    Vegawidget.findWidgetPromise("#" + msg.id).then(function(vwObj) {
-      vwObj.insertData(msg.name, msg.data_insert, msg.run);
-    });
-
-  });
-
-  Shiny.addCustomMessageHandler('removeData', function(msg) {
-
-    // `msg` properties:
-    // expected: `id`,
-    // optional: `data_remove`, `run`
-
-    // get, then operate on the Vegawidget object
-    Vegawidget.findWidgetPromise("#" + msg.id).then(function(vwObj) {
-      vwObj.removeData(msg.name, msg.data_remove, msg.run);
-    });
-
-  });
-
-  Shiny.addCustomMessageHandler('changeData', function(msg) {
-
-    // `msg` properties:
-    // expected: `id`, `data_insert`
-    // optional: `data_remove`, `run`
-
-    // get, then operate on the Vegawidget object
-    Vegawidget.findWidgetPromise("#" + msg.id).then(function(vwObj) {
-      vwObj.changeData(msg.name, msg.data_insert, msg.data_remove, msg.run);
-    });
-
-  });
-
-}
-
+// Top-level Vegawidget object
 var Vegawidget = {
 
   // Find, return a promise to a Vegawidget
@@ -276,14 +189,166 @@ var Vegawidget = {
     });
   },
 
-  shinyHandler: {
+  //
+  //
+  // @param handler string, either the name of a function in the
+  //   `Vegaawidget.handler[type]` object, or the body of a function
+  //   that takes `Vegawidget.handler[type].args` as arguments
+  // @param type string, one of "signal", "event", "data"
+  //
+  makeHandler: function(handler, type) {
+
+    // if `type` is not in `Vegawidget.handler`,
+    //  log message and return undefined
+    if (!this.handler.hasOwnProperty(type)) {
+      console.log("Vegawidget handler type: `" + type + "` not available.");
+      return undefined; // undefined
+    }
+
+    // if `handler` is not a string,
+    //   log message and return undefined
+    if (typeof(handler) !== "string") {
+      console.log("Vegawidget handler: `" + handler + "` must be a string.");
+      return undefined; // undefined
+    }
+
+    // "args" is reserved
+    if (handler === "args") {
+      console.log("Vegawidget handler: `" + handler + "` is a reserved word.");
+      return undefined;
+    }
+
+    // if handler is a property of `this.handler[type]`,
+    // then return that function
+    if (this.handler[type].hasOwnProperty(handler)) {
+      return this.handler[type][handler];
+    }
+
+    // otherwise, build a function using arguments from `type`
+    var args = this.handler[type].args.slice();
+
+    // a bit of ES6 that works, but I don't want to spend hours
+    // trying to find an ES5 solution only to change it.
+    return new Function(...args, handler);
+  },
+
+  handler: {
     signal: {
-      value: function(inputName) {
-        return function(name, value) {
-          Shiny.setInputValue(inputName, value);
-        };
+      args: ["name", "value"],
+      // TODO: describe function
+      // should we return a copy?
+      value: function(name, value) { return value; }
+    },
+    data: {
+      args: ["name", "value"],
+      // TODO: describe function
+      value: function(name, value) { return value.slice(); }
+    },
+    event: {
+      args: ["event", "item"],
+      // TODO: describe function
+      datum: function(event, item) {
+
+        // return null if nothing there
+        if (item === null || item === undefined || item.datum === undefined) {
+          return null;
+        }
+
+        // should we return a copy?
+        return item.datum;
       }
     }
   }
 
 };
+
+// Shiny message-handlers
+if (HTMLWidgets.shinyMode) {
+
+  Shiny.addCustomMessageHandler('callView', function(msg) {
+
+    // `msg` properties:
+    // expected: `outputId`, `fn`
+    // optional: `params`, `run`
+
+    // get, then operate on the Vegawidget object
+    Vegawidget.findWidgetPromise("#" + msg.outputId).then(function(vwObj) {
+      vwObj.callView(msg.fn, msg.params, msg.run);
+    });
+
+  });
+
+  Shiny.addCustomMessageHandler('changeData', function(msg) {
+
+    // `msg` properties:
+    // expected: `outputId`, `data_insert`
+    // optional: `data_remove`, `run`
+
+    // get, then operate on the Vegawidget object
+    Vegawidget.findWidgetPromise("#" + msg.outputId).then(function(vwObj) {
+      vwObj.changeData(msg.name, msg.data_insert, msg.data_remove, msg.run);
+    });
+
+  });
+
+  Shiny.addCustomMessageHandler('addSignalListener', function(msg) {
+
+    // note - there seems to be a *lot* of similarity among the
+    // listener message-functions. When we move to ES6, I think it
+    // could be useful to try to see if we can do this in *one*
+    // message-function.
+
+    // `msg` properties
+    //   `outputId` - name of the shiny outputId for the vegawidget
+    //   `handler` - either the name of a Vegawidget signal-handler, or
+    //      the body of a function (name, value) that returns the value
+    //      you want to bound to `inputId`
+    //   `name` - name of the signal to bind
+    //   `inputId` - name of the shiny inputId to set
+
+    // convert the handler to a function
+    var handler = Vegawidget.makeHandler(msg.handler, "signal");
+
+    // wrap the handler in shiny "stuff"
+    var shinyHandler = function(name, value) {
+      Shiny.setInputValue(msg.inputId, handler(name, value));
+    };
+
+    // get, then operate on the view
+    Vegawidget.findViewPromise("#" + msg.outputId).then(function(view) {
+      view.addSignalListener(msg.name, shinyHandler);
+    });
+
+  });
+
+  Shiny.addCustomMessageHandler('addEventListener', function(msg) {
+
+    // note - there seems to be a *lot* of similarity among the
+    // listener message-functions. When we move to ES6, I think it
+    // could be useful to try to see if we can do this in *one*
+    // message-function.
+
+    // `msg` properties
+    //   `outputId` - name of the shiny outputId for the vegawidget
+    //   `handler` - either the name of a Vegawidget event-handler, or
+    //      the body of a function (event, item) that returns the value
+    //      you want to bound to `inputId`
+    //   `event` - name of the type of event to bind
+    //   `inputId` - name of the shiny inputId to set
+
+    // convert the handler to a function
+    var handler = Vegawidget.makeHandler(msg.handler, "event");
+
+    // wrap the handler in shiny "stuff"
+    var shinyHandler = function(event, item) {
+      Shiny.setInputValue(msg.inputId, handler(event, item));
+    };
+
+    // get, then operate on the view
+    Vegawidget.findViewPromise("#" + msg.outputId).then(function(view) {
+      view.addEventListener(msg.event, shinyHandler);
+    });
+
+  });
+
+}

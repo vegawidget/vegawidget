@@ -1,3 +1,95 @@
+#' Get a signal, data, or value from an event using a reactive expression
+#'
+#' @inheritParams shiny-setters
+#' @param name `character`, name of the signal or dataset being monitored
+#' @param handler `character`
+#'
+#' @return [shiny::reactive()] that returns the value returned by the
+#'  `handler`
+#' @name shiny-getters
+#' @export
+#'
+vw_shiny_get_signal <- function(outputId, name, handler = "value") {
+
+  assert_packages("shiny")
+
+  session <- shiny::getDefaultReactiveDomain()
+
+  inputId <- ""
+
+  # set up an observer to run *once* to add the listener
+  shiny::observe({
+
+    shiny::isolate({
+      # create unique inputId (set in enclosing environment)
+      inputId_proposed <- glue::glue("{outputId}_signal_{name}")
+      inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
+
+      # add listener
+      vw_shiny_msg_addSignalListener(
+        outputId,
+        name = name,
+        handler = handler,
+        inputId = inputId
+      )
+    })
+
+  })
+
+  # return a reactive that listens to our "private" input
+  shiny::reactive({
+    session$input[[inputId]]
+  })
+}
+
+#' @name shiny-getters
+#' @param event `character`, name of the event being monitored
+#' @export
+#'
+vw_shiny_get_event <- function(outputId, event, handler = "datum") {
+
+  assert_packages("shiny")
+
+  session <- shiny::getDefaultReactiveDomain()
+
+  inputId <- ""
+
+  # set up an observer to run *once* to add the listener
+  shiny::observe({
+
+    shiny::isolate({
+      # create unique inputId (set in enclosing environment)
+      inputId_proposed <- glue::glue("{outputId}_event_{event}")
+      inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
+
+      # add listener
+      vw_shiny_msg_addEventListener(
+        outputId,
+        event = event,
+        handler = handler,
+        inputId = inputId
+      )
+    })
+
+  })
+
+  # return a reactive that listens to our "private" input
+  shiny::reactive({
+    session$input[[inputId]]
+  })
+}
+
+get_unique_inputId <- function(inputId, names_input) {
+
+  # compile proposed inputId with names of existing inputs
+  input_names <- c(inputId, names_input)
+
+  # make input_names unique
+  input_names_new <- make.unique(input_names, sep = "_")
+
+  # return first element, corresponds to `inputId`
+  input_names_new[[1]]
+}
 
 
 .SHINY_EVENT_HANDLER <-

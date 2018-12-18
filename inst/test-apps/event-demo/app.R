@@ -12,11 +12,12 @@ spec <- jsonlite::fromJSON("example_vega_schema.json")
 
 ui <- shiny::fluidPage(
 
-  shiny::titlePanel("vegawidget signal example"),
-  shiny::fluidRow(shiny::sliderInput("slider", "Cylinders", min = 4, max = 8, step = 2, value = 4)),
-  shiny::fluidRow(vegawidgetOutput("chart")),
-  shiny::fluidRow(shiny::verbatimTextOutput("cl"))
-
+  shiny::titlePanel("vegawidget event example"),
+  shiny::fluidRow(shiny::sliderInput("slider", "Cylinders", min = 4, max = 6, step = 1, value = 4)),
+  shiny::fluidRow(
+    shiny::column(8, vegawidgetOutput("chart")),
+    shiny::column(4, shiny::verbatimTextOutput("cl"))
+  )
 )
 
 
@@ -24,18 +25,19 @@ ui <- shiny::fluidPage(
 server <- function(input, output) {
 
   # reactives
-  rct_cyl <- vw_shiny_get_signal("chart", name = "cyl", handler = "return value;")
+  rct_click <- vw_shiny_get_event("chart", event = "click")
 
   # observers
   vw_shiny_set_signal(input$slider, outputId = "chart", name = "cyl")
 
   # outputs
   output$chart <- renderVegawidget({
-    vegawidget(spec)
+    vegawidget(spec) %>%
+      vw_add_event_listener("click")
   })
 
-  output$cl <- renderPrint({
-    rct_cyl()
+  output$cl <- shiny::renderPrint({
+    rct_click()
   })
 
 }

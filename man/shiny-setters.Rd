@@ -4,19 +4,19 @@
 \alias{shiny-setters}
 \alias{vw_shiny_set_signal}
 \alias{vw_shiny_set_data}
-\title{Set a signal using a reactive expression}
+\title{Set a signal or data using a reactive expression}
 \usage{
-vw_shiny_set_signal(expr, output_id, name, run = TRUE)
+vw_shiny_set_signal(expr, outputId, name, run = TRUE)
 
-vw_shiny_set_data(expr, output_id, name, use_cache = TRUE, run = TRUE)
+vw_shiny_set_data(expr, outputId, name, use_cache = TRUE, run = TRUE)
 }
 \arguments{
 \item{expr}{reactive expression, i.e. \code{input$slider} or \code{dataset()}}
 
-\item{output_id}{\code{character}, \code{outputId} for the vegawidget}
+\item{outputId}{\code{character}, shiny \code{outputId} for the vegawidget}
 
-\item{name}{\code{character}, name of the signal or dataset, as defined in the
-vegaspec}
+\item{name}{\code{character}, name of the signal or dataset being set,
+as defined in the vegaspec}
 
 \item{run}{\code{logical} indicates if the chart is to be run immediately}
 

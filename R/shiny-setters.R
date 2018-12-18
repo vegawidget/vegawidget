@@ -8,7 +8,7 @@
 #' [shiny::observe()] or [shiny::observeEvent()].
 #'
 #' @param expr reactive expression, i.e. `input$slider` or `dataset()`
-#' @param output_id `character`, `outputId` for the vegawidget
+#' @param outputId `character`, shiny `outputId` for the vegawidget
 #' @param name `character`, name of the signal or dataset being set,
 #'   as defined in the vegaspec
 #' @param use_cache `logical`, for setting data, indicates to
@@ -20,7 +20,7 @@
 #' @name shiny-setters
 #' @export
 #'
-vw_shiny_set_signal <- function(expr, output_id, name, run = TRUE) {
+vw_shiny_set_signal <- function(expr, outputId, name, run = TRUE) {
 
   # captures (but does not evaluate) the reactive expression
   expr <- rlang::enquo(expr)
@@ -31,8 +31,8 @@ vw_shiny_set_signal <- function(expr, output_id, name, run = TRUE) {
       # evaluate the (reactive) expression
       value <- rlang::eval_tidy(expr)
       # call the view API to set the signal value, then (possibly) run
-      vw_shiny_message_view(
-        output_id,
+      vw_shiny_msg_callView(
+        outputId,
         fn = "signal",
         params = list(name, value),
         run = run
@@ -45,7 +45,7 @@ vw_shiny_set_signal <- function(expr, output_id, name, run = TRUE) {
 #' @rdname shiny-setters
 #' @export
 #'
-vw_shiny_set_data <- function(expr, output_id, name, use_cache = TRUE,
+vw_shiny_set_data <- function(expr, outputId, name, use_cache = TRUE,
                               run = TRUE) {
 
   # if we are caching the data, we need dplyr
@@ -93,56 +93,11 @@ vw_shiny_set_data <- function(expr, output_id, name, use_cache = TRUE,
       # print(data_remove)
 
       # call the view API to invoke the changeset, then (possibly) run
-      vw_shiny_message_data(output_id, name, data_insert, data_remove, run)
+      vw_shiny_msg_changeData(outputId, name, data_insert, data_remove, run)
     }
   )
 
 }
 
-# Likely not exported
-# Call the view API from R (shiny)
-vw_shiny_message_view <- function(id, fn, params, run) {
-
-  session <- shiny::getDefaultReactiveDomain()
-
-  # prepare a message using the function arguments
-  message <- list(id = id, fn = fn, params = params, run = run)
-
-  # send a custom message to JavaScript
-  session$sendCustomMessage("callView", message)
-
-  invisible(NULL)
-}
-
-#' Dynamically modify data for a vegawidget with shiny
-#'
-#' @param output_id the div element the widget is bound to
-#' @param data_name the named data set in the spec to change
-#' @param data_insert a data.frame to pass to the visualization
-#' @param data_remove data to be removed
-#' @param run indicates to run chart immediately
-#'
-#' @details Use inside a shiny application with shiny::observe({})
-#' @noRd
-#'
-vw_shiny_message_data <- function(output_id, data_name, data_insert,
-                                  data_remove, run) {
-
-  session <- shiny::getDefaultReactiveDomain()
-
-  # prepare a message using the function arguments
-  message <- list(
-    id = output_id,
-    name = data_name,
-    data_insert = data_insert,
-    data_remove = data_remove,
-    run = run
-  )
-
-  # send a custom message to JavaScript
-  session$sendCustomMessage("changeData", message)
-
-  invisible(NULL)
-}
 
 

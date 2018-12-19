@@ -1,4 +1,19 @@
-# some internal functions for working with JS
+#' Mark character strings as literal JavaScript code
+#'
+#' See \code{htmlwidgets::\link[JS]{JS}} for details.
+#'
+#' @name JS
+#' @export
+#' @importFrom htmlwidgets JS
+#'
+NULL
+
+print.JS_EVAL <- function(x, ...) {
+
+  cat(x)
+
+  invisible(x)
+}
 
 #' Interpolate into a JavaScript string
 #'
@@ -18,7 +33,7 @@
 #' @export
 #'
 glue_js <- function(..., .open = "${", .envir = parent.frame()) {
-  glue::glue(htmlwidgets::JS(...), .open = .open, .envir = .envir)
+  glue::glue(JS(...), .open = .open, .envir = .envir)
 }
 
 # serialize to JS

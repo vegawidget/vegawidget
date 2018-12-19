@@ -4,5 +4,5 @@
 \alias{JS}
 \title{Mark character strings as literal JavaScript code}
 \description{
-See \code{htmlwidgets::\link[JS]{JS}} for details.
+See \code{htmlwidgets::\link[htmlwidgets]{JS}} for details.
 }

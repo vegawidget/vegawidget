@@ -1,6 +1,6 @@
 #' Mark character strings as literal JavaScript code
 #'
-#' See \code{htmlwidgets::\link[JS]{JS}} for details.
+#' See \code{htmlwidgets::\link[htmlwidgets]{JS}} for details.
 #'
 #' @name JS
 #' @export

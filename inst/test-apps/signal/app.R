@@ -27,7 +27,7 @@ server <- function(input, output) {
   rct_cyl <- vw_shiny_get_signal("chart", name = "cyl", handler = "return value;")
 
   # observers
-  vw_shiny_set_signal(input$slider, outputId = "chart", name = "cyl")
+  vw_shiny_set_signal("chart", name = "cyl", value = input$slider)
 
   # outputs
   output$chart <- renderVegawidget({

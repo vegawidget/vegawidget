@@ -7,10 +7,11 @@
 #' These functions act as observers; use them as you would use
 #' [shiny::observe()] or [shiny::observeEvent()].
 #'
-#' @param expr reactive expression, i.e. `input$slider` or `dataset()`
 #' @param outputId `character`, shiny `outputId` for the vegawidget
 #' @param name `character`, name of the signal or dataset being set,
 #'   as defined in the vegaspec
+#' @param value reactive expression, e.g. `input$slider` or `dataset()`,
+#'   that returns the value to which to set the signal or dataset
 #' @param use_cache `logical`, for setting data, indicates to
 #'   to send Vega only the *changes* in the dataset, rather
 #'   than making a hard reset of the dataset
@@ -20,16 +21,16 @@
 #' @name shiny-setters
 #' @export
 #'
-vw_shiny_set_signal <- function(expr, outputId, name, run = TRUE) {
+vw_shiny_set_signal <- function(outputId, name, value, run = TRUE) {
 
   # captures (but does not evaluate) the reactive expression
-  expr <- rlang::enquo(expr)
+  value <- rlang::enquo(value)
 
   shiny::observeEvent(
-    eventExpr = rlang::eval_tidy(expr),
+    eventExpr = rlang::eval_tidy(value),
     handlerExpr = {
       # evaluate the (reactive) expression
-      value <- rlang::eval_tidy(expr)
+      value <- rlang::eval_tidy(value)
       # call the view API to set the signal value, then (possibly) run
       vw_shiny_msg_callView(
         outputId,
@@ -45,7 +46,7 @@ vw_shiny_set_signal <- function(expr, outputId, name, run = TRUE) {
 #' @rdname shiny-setters
 #' @export
 #'
-vw_shiny_set_data <- function(expr, outputId, name, use_cache = TRUE,
+vw_shiny_set_data <- function(outputId, name, value, use_cache = FALSE,
                               run = TRUE) {
 
   # if we are caching the data, we need dplyr
@@ -54,16 +55,16 @@ vw_shiny_set_data <- function(expr, outputId, name, use_cache = TRUE,
   }
 
   # captures (but does not evaluate) the reactive expression
-  expr <- rlang::enquo(expr)
+  value <- rlang::enquo(value)
 
   data_old <- data.frame()
 
   shiny::observeEvent(
-    eventExpr = rlang::eval_tidy(expr),
+    eventExpr = rlang::eval_tidy(value),
     handlerExpr = {
 
       # evaluate the (reactive) expression
-      data <- rlang::eval_tidy(expr)
+      data <- rlang::eval_tidy(value)
       names_data <- names(data)
 
       # create the change-set only if we are cacheing and the names are the same

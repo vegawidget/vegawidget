@@ -1,6 +1,5 @@
 library("shiny")
 library("vegawidget")
-library("dplyr")
 library("tibble")
 
 set.seed(314159)
@@ -15,7 +14,7 @@ source_a <- tibble(
 )
 
 # similar to data_a, missing only the last row
-source_b <- data_a %>% slice(-n_row)
+source_b <- source_a %>% slice(-n_row)
 
 # completely different from data_a
 source_c <- tibble(
@@ -31,10 +30,13 @@ spec <-
     mark = "bar",
     encoding = list(
       x = list(field = "category", type = "ordinal"),
-      y = list(field = "amount", type = "quantitative")
+      y = list(
+        field = "amount",
+        type = "quantitative",
+        scale = list(domain = list(0, 1))
+      )
     )
   )
-
 
 list_data <- list(a = source_a, b = source_b, c = source_c)
 
@@ -61,13 +63,8 @@ server <- function(input, output) {
   rct_data <- reactive(list_data[[input$dataset]])
 
   # observers
-  observe({
-    print("hello")
-    print(names(input))
-  })
-
   # TODO: note that use_cache = TRUE does not yet work
-  vw_shiny_set_data(rct_data(), output_id = "chart", name = "source", use_cache = FALSE)
+  vw_shiny_set_data("chart", name = "source", value = rct_data(), use_cache = FALSE)
 
   # outputs
   output$chart <- renderVegawidget(vegawidget(spec))

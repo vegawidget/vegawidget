@@ -58,9 +58,7 @@ server <- function(input, output) {
   })
 
   # observers
-  observe({
-    vw_change_data("chart", "source", data_filtered())
-  })
+  vw_shiny_set_data("chart", name = "source", value = data_filtered())
 
   # outputs
   output$chart <- renderVegawidget({

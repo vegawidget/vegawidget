@@ -28,12 +28,11 @@ server <- function(input, output) {
   rct_click <- vw_shiny_get_event("chart", event = "click")
 
   # observers
-  vw_shiny_set_signal(input$slider, outputId = "chart", name = "cyl")
+  vw_shiny_set_signal("chart", name = "cyl", value = input$slider)
 
   # outputs
   output$chart <- renderVegawidget({
-    vegawidget(spec) %>%
-      vw_add_event_listener("click")
+    vegawidget(spec)
   })
 
   output$cl <- shiny::renderPrint({

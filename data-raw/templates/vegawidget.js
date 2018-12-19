@@ -232,6 +232,13 @@ var Vegawidget = {
     return new Function(...args, handler);
   },
 
+  makeShinyHandler: function(handler, type, inputId) {
+
+    var handler_function = this.makeHandler(handler, type);
+
+
+  },
+
   handler: {
     signal: {
       args: ["name", "value"],

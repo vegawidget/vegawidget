@@ -8,7 +8,7 @@
 \usage{
 vw_shiny_get_signal(outputId, name, handler = "value")
 
-vw_shiny_get_event(outputId, name, handler = "datum")
+vw_shiny_get_event(outputId, event, handler = "datum")
 }
 \arguments{
 \item{outputId}{\code{character}, shiny \code{outputId} for the vegawidget}
@@ -16,6 +16,8 @@ vw_shiny_get_event(outputId, name, handler = "datum")
 \item{name}{\code{character}, name of the signal or dataset being monitored}
 
 \item{handler}{\code{character}}
+
+\item{event}{\code{character}, name of the event being monitored}
 }
 \value{
 \code{\link[shiny:reactive]{shiny::reactive()}} that returns the value returned by the

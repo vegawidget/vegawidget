@@ -25,8 +25,8 @@
 #'
 #' @return `invisible(NULL)`, called for side-effects
 #' @keywords internal
-#' @name shiny-message
-#' @export
+#'  @name shiny-message
+#' @noRd
 #'
 vw_shiny_msg_callView <- function(outputId, fn, params, run) {
 
@@ -49,7 +49,7 @@ vw_shiny_msg_callView <- function(outputId, fn, params, run) {
 #'   function, returning a boolean.
 #'
 #' @keywords internal
-#' @export
+#' @noRd
 #'
 vw_shiny_msg_changeData <- function(outputId, name, data_insert,
                                     data_remove, run) {
@@ -69,7 +69,7 @@ vw_shiny_msg_changeData <- function(outputId, name, data_insert,
 #'   the handler will be stored
 #'
 #' @keywords internal
-#' @export
+#' @noRd
 #'
 vw_shiny_msg_addSignalListener <- function(outputId, name, handler, inputId) {
 
@@ -84,7 +84,7 @@ vw_shiny_msg_addSignalListener <- function(outputId, name, handler, inputId) {
 #' @param event `character`, name of the event to monitor, e.g. `"click"`
 #'
 #' @keywords internal
-#' @export
+#' @noRd
 #'
 vw_shiny_msg_addEventListener <- function(outputId, event, handler, inputId) {
 

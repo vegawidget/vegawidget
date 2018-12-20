@@ -121,6 +121,8 @@ vw_handler_list <- function(type = NULL) {
   )
 }
 
+#' @noRd
+#' @export
 print.vw_js_handler <- function(x, ...) {
 
   print_body <- function(x, name) {

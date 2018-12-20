@@ -6,9 +6,9 @@
 \alias{vw_shiny_get_event}
 \title{Get a signal, data, or value from an event using a reactive expression}
 \usage{
-vw_shiny_get_signal(outputId, name, handler = "value")
+vw_shiny_get_signal(outputId, name, handler = vw_handler("value"))
 
-vw_shiny_get_event(outputId, event, handler = "datum")
+vw_shiny_get_event(outputId, event, handler = vw_handler("datum"))
 }
 \arguments{
 \item{outputId}{\code{character}, shiny \code{outputId} for the vegawidget}

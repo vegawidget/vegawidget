@@ -9,13 +9,19 @@
 #' @name shiny-getters
 #' @export
 #'
-vw_shiny_get_signal <- function(outputId, name, handler = "value") {
+vw_shiny_get_signal <- function(outputId, name, handler = vw_handler("value")) {
 
   assert_packages("shiny")
 
   session <- shiny::getDefaultReactiveDomain()
 
   inputId <- ""
+
+  # get hander_body
+  handler_body <- handler
+  if (is.function(handler)) {
+    handler_body <- handler("signal")
+  }
 
   # set up an observer to run *once* to add the listener
   shiny::observe({
@@ -29,7 +35,7 @@ vw_shiny_get_signal <- function(outputId, name, handler = "value") {
       vw_shiny_msg_addSignalListener(
         outputId,
         name = name,
-        handler = handler,
+        handlerBody = handler_body,
         inputId = inputId
       )
     })
@@ -46,13 +52,19 @@ vw_shiny_get_signal <- function(outputId, name, handler = "value") {
 #' @param event `character`, name of the event being monitored
 #' @export
 #'
-vw_shiny_get_event <- function(outputId, event, handler = "datum") {
+vw_shiny_get_event <- function(outputId, event, handler = vw_handler("datum")) {
 
   assert_packages("shiny")
 
   session <- shiny::getDefaultReactiveDomain()
 
   inputId <- ""
+
+  # get hander_body
+  handler_body <- handler
+  if (is.function(handler)) {
+    handler_body <- handler("event")
+  }
 
   # set up an observer to run *once* to add the listener
   shiny::observe({
@@ -66,7 +78,7 @@ vw_shiny_get_event <- function(outputId, event, handler = "datum") {
       vw_shiny_msg_addEventListener(
         outputId,
         event = event,
-        handler = handler,
+        handlerBody = handler_body,
         inputId = inputId
       )
     })

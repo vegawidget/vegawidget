@@ -187,77 +187,6 @@ var Vegawidget = {
     return this.findWidgetPromise(selector).then(function(vwObj) {
       return vwObj.viewPromise;
     });
-  },
-
-  //
-  //
-  // @param handler string, either the name of a function in the
-  //   `Vegaawidget.handler[type]` object, or the body of a function
-  //   that takes `Vegawidget.handler[type].args` as arguments
-  // @param type string, one of "signal", "event", "data"
-  //
-  makeHandler: function(handler, type) {
-
-    // if `type` is not in `Vegawidget.handler`,
-    //  log message and return undefined
-    if (!this.handler.hasOwnProperty(type)) {
-      console.log("Vegawidget handler type: `" + type + "` not available.");
-      return undefined; // undefined
-    }
-
-    // if `handler` is not a string,
-    //   log message and return undefined
-    if (typeof(handler) !== "string") {
-      console.log("Vegawidget handler: `" + handler + "` must be a string.");
-      return undefined; // undefined
-    }
-
-    // "args" is reserved
-    if (handler === "args") {
-      console.log("Vegawidget handler: `" + handler + "` is a reserved word.");
-      return undefined;
-    }
-
-    // if handler is a property of `this.handler[type]`,
-    // then return that function
-    if (this.handler[type].hasOwnProperty(handler)) {
-      return this.handler[type][handler];
-    }
-
-    // otherwise, build a function using arguments from `type`
-    var args = this.handler[type].args.slice();
-
-    // a bit of ES6 that works, but I don't want to spend hours
-    // trying to find an ES5 solution only to change it.
-    return new Function(...args, handler);
-  },
-
-  handler: {
-    signal: {
-      args: ["name", "value"],
-      // TODO: describe function
-      // should we return a copy?
-      value: function(name, value) { return value; }
-    },
-    data: {
-      args: ["name", "value"],
-      // TODO: describe function
-      value: function(name, value) { return value.slice(); }
-    },
-    event: {
-      args: ["event", "item"],
-      // TODO: describe function
-      datum: function(event, item) {
-
-        // return null if nothing there
-        if (item === null || item === undefined || item.datum === undefined) {
-          return null;
-        }
-
-        // should we return a copy?
-        return item.datum;
-      }
-    }
   }
 
 };
@@ -300,14 +229,13 @@ if (HTMLWidgets.shinyMode) {
 
     // `msg` properties
     //   `outputId` - name of the shiny outputId for the vegawidget
-    //   `handler` - either the name of a Vegawidget signal-handler, or
-    //      the body of a function (name, value) that returns the value
-    //      you want to bound to `inputId`
+    //   `handlerBody` - the body of a function (name, value) that
+    //      returns the value you want to bound to `inputId`
     //   `name` - name of the signal to bind
     //   `inputId` - name of the shiny inputId to set
 
-    // convert the handler to a function
-    var handler = Vegawidget.makeHandler(msg.handler, "signal");
+    // convert the handlerBody to a function
+    var handler = new Function("name", "value", msg.handlerBody);
 
     // wrap the handler in shiny "stuff"
     var shinyHandler = function(name, value) {
@@ -330,14 +258,13 @@ if (HTMLWidgets.shinyMode) {
 
     // `msg` properties
     //   `outputId` - name of the shiny outputId for the vegawidget
-    //   `handler` - either the name of a Vegawidget event-handler, or
-    //      the body of a function (event, item) that returns the value
-    //      you want to bound to `inputId`
+    //   `handlerBody` - the body of a function (name, value) that
+    //      returns the value you want to bound to `inputId`
     //   `event` - name of the type of event to bind
     //   `inputId` - name of the shiny inputId to set
 
-    // convert the handler to a function
-    var handler = Vegawidget.makeHandler(msg.handler, "event");
+    // convert the handlerBody to a function
+    var handler = new Function("event", "item", msg.handlerBody);
 
     // wrap the handler in shiny "stuff"
     var shinyHandler = function(event, item) {

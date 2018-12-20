@@ -71,7 +71,7 @@ vw_shiny_msg_changeData <- function(outputId, name, data_insert,
 #' @keywords internal
 #' @noRd
 #'
-vw_shiny_msg_addSignalListener <- function(outputId, name, handler, inputId) {
+vw_shiny_msg_addSignalListener <- function(outputId, name, handlerBody, inputId) {
 
   type <- "addSignalListener"
   message <- as.list(environment())
@@ -86,7 +86,7 @@ vw_shiny_msg_addSignalListener <- function(outputId, name, handler, inputId) {
 #' @keywords internal
 #' @noRd
 #'
-vw_shiny_msg_addEventListener <- function(outputId, event, handler, inputId) {
+vw_shiny_msg_addEventListener <- function(outputId, event, handlerBody, inputId) {
 
   type <- "addEventListener"
   message <- as.list(environment())

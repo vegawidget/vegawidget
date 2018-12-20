@@ -4,7 +4,7 @@
 \alias{shiny-setters}
 \alias{vw_shiny_set_signal}
 \alias{vw_shiny_set_data}
-\title{Set a signal or data using a reactive expression}
+\title{Set information in a Vega chart}
 \usage{
 vw_shiny_set_signal(outputId, name, value, run = TRUE)
 

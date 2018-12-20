@@ -4,7 +4,7 @@
 \alias{shiny-getters}
 \alias{vw_shiny_get_signal}
 \alias{vw_shiny_get_event}
-\title{Get a signal, data, or value from an event using a reactive expression}
+\title{Get information from a Vega chart}
 \usage{
 vw_shiny_get_signal(outputId, name, handler = vw_handler("value"))
 
@@ -13,16 +13,36 @@ vw_shiny_get_event(outputId, event, handler = vw_handler("datum"))
 \arguments{
 \item{outputId}{\code{character}, shiny \code{outputId} for the vegawidget}
 
-\item{name}{\code{character}, name of the signal or dataset being monitored}
+\item{name}{\code{character}, name of the signal (defined in Vega specification)
+being monitored}
 
-\item{handler}{\code{character}}
+\item{handler}{\code{vw_handler()} or \code{character}, the \strong{body} of a JavaScript
+function that Vega will use to handle the signal or event; this function
+must return a value}
 
-\item{event}{\code{character}, name of the event being monitored}
+\item{event}{\code{character}, type of the event being monitored, e.g. \code{"click"},
+for list of supported events, please see
+\href{https://vega.github.io/vega/docs/event-streams/}{Vega Event-Stream reference}}
 }
 \value{
 \code{\link[shiny:reactive]{shiny::reactive()}} that returns the value returned by the
-\code{handler}
+\code{handler} function
 }
 \description{
-Get a signal, data, or value from an event using a reactive expression
+There are two types of information you can get from a Vega chart, a signal,
+and information associated with an event. Using these shiny-getters, you can
+make this information available as a reactive expression.
+}
+\details{
+In addition to the chart \code{outputId}, you will need to provide:
+\itemize{
+\item \code{vw_shiny_get_signal()}: the \code{name} of the signal, as defined in the Vega
+specification
+\item \code{vw_shiny_get_event()}: the \code{event} type, as defined in the
+\href{https://vega.github.io/vega/docs/event-streams/}{Vega Event-Stream reference}
+}
+}
+\seealso{
+\code{\link[=vw_handler]{vw_handler()}},
+vega-view: \href{https://github.com/vega/vega-view#view_addSignalListener}{addSignalListener()}
 }

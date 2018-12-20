@@ -1,4 +1,4 @@
-#' Set a signal or data using a reactive expression
+#' Set information in a Vega chart
 #'
 #' There are two ways to change a Vega chart using shiny; by setting
 #' a signal or by setting a dataset. In either case, you will need to

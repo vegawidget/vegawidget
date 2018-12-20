@@ -1,12 +1,30 @@
-#' Get a signal, data, or value from an event using a reactive expression
+#' Get information from a Vega chart
+#'
+#' There are two types of information you can get from a Vega chart, a signal,
+#' and information associated with an event. Using these shiny-getters, you can
+#' make this information available as a reactive expression.
+#'
+#' In addition to the chart `outputId`, you will need to provide:
+#'
+#' - `vw_shiny_get_signal()`: the `name` of the signal, as defined in the Vega
+#'    specification
+#' - `vw_shiny_get_event()`: the `event` type, as defined in the
+#'    [Vega Event-Stream reference](https://vega.github.io/vega/docs/event-streams/)
+#'
 #'
 #' @inheritParams shiny-setters
-#' @param name `character`, name of the signal or dataset being monitored
-#' @param handler `character`
+#' @param name `character`, name of the signal (defined in Vega specification)
+#'   being monitored
+#' @param handler `vw_handler()` or `character`, the **body** of a JavaScript
+#'   function that Vega will use to handle the signal or event; this function
+#'   must return a value
+#'
 #'
 #' @return [shiny::reactive()] that returns the value returned by the
-#'  `handler`
+#'  `handler` function
 #' @name shiny-getters
+#' @seealso [vw_handler()],
+#'   vega-view: [addSignalListener()](https://github.com/vega/vega-view#view_addSignalListener)
 #' @export
 #'
 vw_shiny_get_signal <- function(outputId, name, handler = vw_handler("value")) {
@@ -49,7 +67,9 @@ vw_shiny_get_signal <- function(outputId, name, handler = vw_handler("value")) {
 }
 
 #' @name shiny-getters
-#' @param event `character`, name of the event being monitored
+#' @param event `character`, type of the event being monitored, e.g. `"click"`,
+#'   for list of supported events, please see
+#'   [Vega Event-Stream reference](https://vega.github.io/vega/docs/event-streams/)
 #' @export
 #'
 vw_shiny_get_event <- function(outputId, event, handler = vw_handler("datum")) {

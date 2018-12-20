@@ -25,13 +25,16 @@ for list of supported events, please see
 \href{https://vega.github.io/vega/docs/event-streams/}{Vega Event-Stream reference}}
 }
 \value{
-\code{\link[shiny:reactive]{shiny::reactive()}} that returns the value returned by the
+\code{\link[shiny:reactive]{shiny::reactive()}} function that returns the value returned by the
 \code{handler} function
 }
 \description{
-There are two types of information you can get from a Vega chart, a signal,
-and information associated with an event. Using these shiny-getters, you can
-make this information available as a reactive expression.
+There are two types of information you can get from a Vega chart, a \emph{signal},
+and information associated with an \emph{event}. Any such signal
+must first be defined and \strong{named} in the vegaspec.
+These getter-functions are called from within
+a Shiny \code{server()} function, where they act like
+\code{\link[shiny:reactive]{shiny::reactive()}}, returning a reactive expression.
 }
 \details{
 In addition to the chart \code{outputId}, you will need to provide:

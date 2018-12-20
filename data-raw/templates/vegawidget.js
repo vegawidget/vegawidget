@@ -278,4 +278,10 @@ if (HTMLWidgets.shinyMode) {
 
   });
 
+  Shiny.addCustomMessageHandler('run', function(msg) {
+    // get, then run the view
+    Vegawidget.findViewPromise("#" + msg.outputId).then(function(view) {
+      view.run();
+    });
+  });
 }

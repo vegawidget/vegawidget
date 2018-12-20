@@ -4,11 +4,14 @@
 \alias{shiny-setters}
 \alias{vw_shiny_set_signal}
 \alias{vw_shiny_set_data}
+\alias{vw_shiny_run}
 \title{Set information in a Vega chart}
 \usage{
 vw_shiny_set_signal(outputId, name, value, run = TRUE)
 
-vw_shiny_set_data(outputId, name, value, use_cache = FALSE, run = TRUE)
+vw_shiny_set_data(outputId, name, value, run = TRUE)
+
+vw_shiny_run(outputId, value)
 }
 \arguments{
 \item{outputId}{\code{character}, shiny \code{outputId} for the vegawidget}
@@ -20,20 +23,33 @@ as defined in the vegaspec}
 that returns the value to which to set the signal or dataset}
 
 \item{run}{\code{logical} indicates if the chart is to be run immediately}
-
-\item{use_cache}{\code{logical}, for setting data, indicates to
-to send Vega only the \emph{changes} in the dataset, rather
-than making a hard reset of the dataset}
 }
 \value{
-\code{\link[shiny:observeEvent]{shiny::observeEvent()}} that responds to changes in \code{expr}
+\code{\link[shiny:observeEvent]{shiny::observeEvent()}} function that responds to changes in the
+reactive-expression \code{value}
 }
 \description{
-There are two ways to change a Vega chart using shiny; by setting
-a signal or by setting a dataset. In either case, you will need to
-have named your signal or your dataset in the vegaspec.
+There are two ways to change a Vega chart: by setting
+a \emph{signal} or by setting a \emph{dataset}; you can also
+direct it to run. Any signal or
+dataset you set must first be defined and \strong{named} in the vegaspec.
+These functions are called from within
+a Shiny \code{server()} function, where they act like
+\code{\link[shiny:observe]{shiny::observe()}} or \code{\link[shiny:observeEvent]{shiny::observeEvent()}}.
 }
 \details{
-These functions act as observers; use them as you would use
-\code{\link[shiny:observe]{shiny::observe()}} or \code{\link[shiny:observeEvent]{shiny::observeEvent()}}.
+For the signal and data setters, in addition to the chart \code{outputId},
+you will need to provide:
+\itemize{
+\item the \code{name} of the signal or dataset you wish to keep updated
+\item the \code{value} to which you want to set the signal or dataset;
+this should be a reactive expression like \code{input$slider} or \code{rct_dataset()}
+\item whether or not you want to \code{run} the Vega view again immediately
+after setting this value
+}
+
+If you do not set \code{run = TRUE} in the setter-function,
+you can use the \code{vw_shiny_run()} function to control when
+the chart re-runs. One possibility is to set its \code{value} to a reactive
+expression that refers to, for example, a \code{\link[shiny:actionButton]{shiny::actionButton()}}.
 }

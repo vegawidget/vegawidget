@@ -94,6 +94,19 @@ vw_shiny_msg_addEventListener <- function(outputId, event, handlerBody, inputId)
   vw_shiny_message(type, message)
 }
 
+#' @rdname shiny-message
+#'
+#' @keywords internal
+#' @noRd
+#'
+vw_shiny_msg_run <- function(outputId) {
+
+  type <- "run"
+  message <- as.list(environment())
+
+  vw_shiny_message(type, message)
+}
+
 # internal function to wrap session$sendCustomMessage
 vw_shiny_message <- function(type, message) {
 

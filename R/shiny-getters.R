@@ -1,8 +1,11 @@
 #' Get information from a Vega chart
 #'
-#' There are two types of information you can get from a Vega chart, a signal,
-#' and information associated with an event. Using these shiny-getters, you can
-#' make this information available as a reactive expression.
+#' There are two types of information you can get from a Vega chart, a *signal*,
+#' and information associated with an *event*. Any such signal
+#' must first be defined and **named** in the vegaspec.
+#' These getter-functions are called from within
+#' a Shiny `server()` function, where they act like
+#' [shiny::reactive()], returning a reactive expression.
 #'
 #' In addition to the chart `outputId`, you will need to provide:
 #'
@@ -48,7 +51,7 @@
 #'   function that Vega will use to handle the signal or event; this function
 #'   must return a value
 #'
-#' @return [shiny::reactive()] that returns the value returned by the
+#' @return [shiny::reactive()] function that returns the value returned by the
 #'  `handler` function
 #' @name shiny-getters
 #' @seealso [vw_handler()],

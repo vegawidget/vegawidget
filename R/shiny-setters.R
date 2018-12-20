@@ -1,23 +1,39 @@
 #' Set information in a Vega chart
 #'
-#' There are two ways to change a Vega chart using shiny; by setting
-#' a signal or by setting a dataset. In either case, you will need to
-#' have named your signal or your dataset in the vegaspec.
-#'
-#' These functions act as observers; use them as you would use
+#' There are two ways to change a Vega chart: by setting
+#' a *signal* or by setting a *dataset*; you can also
+#' direct it to run. Any signal or
+#' dataset you set must first be defined and **named** in the vegaspec.
+#' These functions are called from within
+#' a Shiny `server()` function, where they act like
 #' [shiny::observe()] or [shiny::observeEvent()].
+#'
+#' For the signal and data setters, in addition to the chart `outputId`,
+#' you will need to provide:
+#'
+#' - the `name` of the signal or dataset you wish to keep updated
+#' - the `value` to which you want to set the signal or dataset;
+#'   this should be a reactive expression like `input$slider` or `rct_dataset()`
+#' - whether or not you want to `run` the Vega view again immediately
+#'   after setting this value
+#'
+#' If you do not set `run = TRUE` in the setter-function,
+#' you can use the `vw_shiny_run()` function to control when
+#' the chart re-runs. One possibility is to set its `value` to a reactive
+#' expression that refers to, for example, a [shiny::actionButton()].
 #'
 #' @param outputId `character`, shiny `outputId` for the vegawidget
 #' @param name `character`, name of the signal or dataset being set,
 #'   as defined in the vegaspec
 #' @param value reactive expression, e.g. `input$slider` or `dataset()`,
 #'   that returns the value to which to set the signal or dataset
-#' @param use_cache `logical`, for setting data, indicates to
-#'   to send Vega only the *changes* in the dataset, rather
-#'   than making a hard reset of the dataset
+# @param use_cache `logical`, for setting data, indicates to
+#   to send Vega only the *changes* in the dataset, rather
+#   than making a hard reset of the dataset
 #' @param run `logical` indicates if the chart is to be run immediately
 #'
-#' @return [shiny::observeEvent()] that responds to changes in `expr`
+#' @return [shiny::observeEvent()] function that responds to changes in the
+#'   reactive-expression `value`
 #' @name shiny-setters
 #' @export
 #'
@@ -46,8 +62,10 @@ vw_shiny_set_signal <- function(outputId, name, value, run = TRUE) {
 #' @rdname shiny-setters
 #' @export
 #'
-vw_shiny_set_data <- function(outputId, name, value, use_cache = FALSE,
-                              run = TRUE) {
+vw_shiny_set_data <- function(outputId, name, value, run = TRUE) {
+
+  # until we sort things out with Vega, cacheing deos not work
+  use_cache <- FALSE
 
   # if we are caching the data, we need dplyr
   if (use_cache) {
@@ -100,5 +118,21 @@ vw_shiny_set_data <- function(outputId, name, value, use_cache = FALSE,
 
 }
 
+#' @rdname shiny-setters
+#' @export
+#'
+vw_shiny_run <- function(outputId, value) {
+
+  # captures (but does not evaluate) the reactive expression
+  value <- rlang::enquo(value)
+
+  shiny::observeEvent(
+    eventExpr = rlang::eval_tidy(value),
+    handlerExpr = {
+      # call the view API to run
+      vw_shiny_msg_run(outputId)
+    }
+  )
+}
 
 

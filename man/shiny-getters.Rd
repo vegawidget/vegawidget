@@ -41,8 +41,41 @@ specification
 \item \code{vw_shiny_get_event()}: the \code{event} type, as defined in the
 \href{https://vega.github.io/vega/docs/event-streams/}{Vega Event-Stream reference}
 }
+
+When the signal changes, or when the event fires, Vega needs to know which
+information you want returned to Shiny. To do this, Vega requires that
+you provide a JavaScript \code{handler} function. The default functions are
+specified using the \code{vw_handler()} helper-function:
+\itemize{
+\item \code{vw_shiny_get_signal()}: the default \code{handler}, \code{vw_handler("value")},
+specifies that the value of the signal be returned.
+\item \code{vw_shiny_get_event()}: the default \code{handler}, \code{vw_handler("datum")},
+specifies that the single row of data associated with graphical mark
+be returned. For example, if you are monitoring a \code{"click"} event,
+Vega would return the row of data that backs any mark
+(like a point) that you click.
+}
+
+If you need to specify a different behavior for the handler, there are a
+couple of options. The \code{\link[=vw_handler]{vw_handler()}} function is intended to support
+a library of handler functions; use the \code{\link[=vw_handler_list]{vw_handler_list()}} function to
+list them. If it does not contain the handler you need, the \code{handler}
+argument will also accept a character string which will be used as
+the \strong{body} of the handler function.
+
+For example, these calls are equivalent:
+\itemize{
+\item \code{vw_shiny_get_signal(..., handler = vw_handler("value"))}
+\item \code{vw_shiny_get_signal(..., handler = JS("return value;"))}
+}
+
+If you use a custom-handler that you think may be useful for the
+\code{vw_handler()} library, please
+\href{https://github.com/vegawidget/vegawidget/issues}{file an issue}.
 }
 \seealso{
 \code{\link[=vw_handler]{vw_handler()}},
-vega-view: \href{https://github.com/vega/vega-view#view_addSignalListener}{addSignalListener()}
+vega-view:
+\href{https://github.com/vega/vega-view#view_addSignalListener}{addSignalListener()},
+\href{https://github.com/vega/vega-view#view_addEventListener}{addEventListener()}
 }

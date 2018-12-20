@@ -1,38 +1,56 @@
-#' JavaScript Handlers
+#' JavaScript handlers
 #'
 #' A Vega listener needs a handler-function to call when the object
 #' being listened-to changes. These functions help you to build
-#' such handler-functions in R. The `vw_handler()` function is used
+#' such handler-functions from R. The `vw_handler()` function is used
 #' by the [shiny-getters] to define the value that is returned
 #' through a reactive expression. You can use the `vw_handler_list()`
 #' function to discover what predifined handlers are available.
 #'
+#' A couple of points on the design of `vw_handler()`:
+#'
+#' - The handler-list has two levels: `type` and `body`. The function
+#'   `vw_handler()` takes the `body` argument and returns a *function*
+#'   that takes the `type` argument; this function returns the body
+#'   of the handler. This is done so that the shiny-getter function
+#'   can provide its own `type`: `"signal"`, `"event"`, etc.
+#'
+#' - We use Shiny to send the *body* of the handler-function in a message
+#'   to JavaScript, where it is made into a JavaScript function. For a
+#'   given `type` of listener, the arguments are invariant, so
+#'   it is not necessary to provide for each case. Further,
+#'   we understand that the JavaScript `Function()` constructor,
+#'   which takes the string representation of a function-body
+#'   as an argument, is preferable to the JavaScript `eval()` function.
 #'
 #' @param type `character`, name of the type of handler;
-#'   currently-available types are `"signal"` and `"event"`
-#' @param body `character`, name of the body of the handler;
+#'   currently-available types are `"signal"` and `"event"`,
+#'   call with `NULL` (default) to return all types.
+#' @param body `character`, name of the body a handler
+#'   defined in the vegawidget hansler-list;
 #'   currently-available bodies depend on the `type`
 #'
 #' @return \describe{
 #'   \item{`vw_handler()`}{a function that, given a `type`,
 #'   returns a JavaScript handler-body}
 #'   \item{`vw_handler_list()`}{a list of handlers, organized by `type`
-#'   and `body`, prints to a friendly format}
+#'   and `body`, which prints to a friendly format}
 #' }
 #'
 #' @seealso [vw_shiny_get_signal()], [vw_shiny_get_event()],
 #'   vega-view: [addSignalListener()](https://github.com/vega/vega-view#view_addSignalListener),
 #'   [addEventListener()](https://github.com/vega/vega-view#view_addEventListener)
 #' @examples
-#'   \dontrun{
-#'     # called from a within a shiny server-function
-#'     rct_cyl <- vw_shiny_get_signal(
-#'       "chart",
-#'       name = "cyl",
-#'       handler = vw_handler("value")
-#'     )}
-#'   vw_handler_list()
-#'   vw_handler_list("signal")
+#' \dontrun{
+#'  # called from a within a shiny server-function
+#'  rct_cyl <- vw_shiny_get_signal(
+#'    "chart",
+#'    name = "cyl",
+#'    handler = vw_handler("value")
+#'  )}
+#'
+#'  vw_handler_list()
+#'  vw_handler_list("signal")
 #' @export
 #'
 #'

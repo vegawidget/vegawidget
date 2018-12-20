@@ -3,45 +3,65 @@
 \name{vw_handler}
 \alias{vw_handler}
 \alias{vw_handler_list}
-\title{JavaScript Handlers}
+\title{JavaScript handlers}
 \usage{
 vw_handler(body)
 
 vw_handler_list(type = NULL)
 }
 \arguments{
-\item{body}{\code{character}, name of the body of the handler;
+\item{body}{\code{character}, name of the body a handler
+defined in the vegawidget hansler-list;
 currently-available bodies depend on the \code{type}}
 
 \item{type}{\code{character}, name of the type of handler;
-currently-available types are \code{"signal"} and \code{"event"}}
+currently-available types are \code{"signal"} and \code{"event"},
+call with \code{NULL} (default) to return all types.}
 }
 \value{
 \describe{
 \item{\code{vw_handler()}}{a function that, given a \code{type},
 returns a JavaScript handler-body}
 \item{\code{vw_handler_list()}}{a list of handlers, organized by \code{type}
-and \code{body}, prints to a friendly format}
+and \code{body}, which prints to a friendly format}
 }
 }
 \description{
 A Vega listener needs a handler-function to call when the object
 being listened-to changes. These functions help you to build
-such handler-functions in R. The \code{vw_handler()} function is used
+such handler-functions from R. The \code{vw_handler()} function is used
 by the \link{shiny-getters} to define the value that is returned
 through a reactive expression. You can use the \code{vw_handler_list()}
 function to discover what predifined handlers are available.
 }
+\details{
+A couple of points on the design of \code{vw_handler()}:
+\itemize{
+\item The handler-list has two levels: \code{type} and \code{body}. The function
+\code{vw_handler()} takes the \code{body} argument and returns a \emph{function}
+that takes the \code{type} argument; this function returns the body
+of the handler. This is done so that the shiny-getter function
+can provide its own \code{type}: \code{"signal"}, \code{"event"}, etc.
+\item We use Shiny to send the \emph{body} of the handler-function in a message
+to JavaScript, where it is made into a JavaScript function. For a
+given \code{type} of listener, the arguments are invariant, so
+it is not necessary to provide for each case. Further,
+we understand that the JavaScript \code{Function()} constructor,
+which takes the string representation of a function-body
+as an argument, is preferable to the JavaScript \code{eval()} function.
+}
+}
 \examples{
-  \dontrun{
-    # called from a within a shiny server-function
-    rct_cyl <- vw_shiny_get_signal(
-      "chart",
-      name = "cyl",
-      handler = vw_handler("value")
-    )}
-  vw_handler_list()
-  vw_handler_list("signal")
+\dontrun{
+ # called from a within a shiny server-function
+ rct_cyl <- vw_shiny_get_signal(
+   "chart",
+   name = "cyl",
+   handler = vw_handler("value")
+ )}
+
+ vw_handler_list()
+ vw_handler_list("signal")
 }
 \seealso{
 \code{\link[=vw_shiny_get_signal]{vw_shiny_get_signal()}}, \code{\link[=vw_shiny_get_event]{vw_shiny_get_event()}},

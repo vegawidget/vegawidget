@@ -1,5 +1,7 @@
 # vegawidget 0.0.6.9000
 
+* adds function `vw_shiny_demo()` to showcase demonstration-apps
+
 * compiles Shiny demonstration apps in `inst/shiny-demo`
 
 * adds Shiny setter-functions: `vw_shiny_set_signal()`, `vw_shiny_set_data()`, `vw_shiny_run()`, getter-functions: `vw_shiny_get_signal()`, `vw_shiny_get_event()`, and handler helper-functions `vw_handler()`, `vw_handler_list()`

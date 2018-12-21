@@ -70,5 +70,6 @@ Suggests:
     tibble,
     lubridate,
     learnr,
-    processx
+    processx,
+    rsvg
 VignetteBuilder: knitr

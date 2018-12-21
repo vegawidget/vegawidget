@@ -116,7 +116,14 @@ vegawidgetOutput <- function(outputId, width = "auto", height = "auto") {
 #' @export
 #'
 renderVegawidget <- function(expr, env = parent.frame(), quoted = FALSE) {
+
+  # if sent a vegaspec, convert to a vegawidget
+  if (inherits(expr, "vegaspec")) {
+    expr <- vegawidget(expr)
+  }
+
   if (!quoted) { expr <- substitute(expr) } # force quoted
+
   htmlwidgets::shinyRenderWidget(
     expr,
     vegawidgetOutput,

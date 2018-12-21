@@ -1,6 +1,6 @@
 {
   "input": {
-    "chart_cyl": 8,
+    "chart_signal_cyl": 8,
     "slider": 8
   },
   "output": {
@@ -486,14 +486,9 @@
       "evals": [
 
       ],
-      "jsHooks": {
-        "render": [
-          {
-            "code": "function(el, x) {this.addSignalListener('cyl', \nfunction(name, value) { Shiny.onInputChange(el.id + '_' + name, value) }\n)}",
-            "data": null
-          }
-        ]
-      },
+      "jsHooks": [
+
+      ],
       "deps": [
 
       ]

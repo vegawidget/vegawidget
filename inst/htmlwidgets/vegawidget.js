@@ -75,8 +75,10 @@ HTMLWidgets.widget({
       // generic function to call functions, a bit like R's do.call()
       callView: function(fn, params, run) {
 
-        // sets default for run
-        run = run || true;
+        // sets default for run to true if not already false
+        if (run !== false) {
+          run = run || true;
+        }
 
         // invoke fn
         this.viewPromise.then(function(view) {
@@ -91,22 +93,22 @@ HTMLWidgets.widget({
       // Data functions
       changeData: function(name, data_insert, data_remove, run) {
 
-        // set default
-        data_remove = data_remove || vega.truthy;
+        // set default, if not already FALSE
+        if (data_remove !== false) {
+          data_remove = data_remove || vega.truthy;
+        }
 
         // get data into the "right" form
         data_insert = processData(data_insert);
         data_remove = processData(data_remove);
 
         //console.log(data_insert);
-        console.log(data_remove);
+        //console.log(data_remove);
 
         // build the changeset
         var changeset = vega.changeset()
                             .insert(data_insert)
                             .remove(data_remove);
-
-        console.log(changeset);
 
         // invoke view.change
         this.callView("change", [name, changeset], run);
@@ -278,4 +280,10 @@ if (HTMLWidgets.shinyMode) {
 
   });
 
+  Shiny.addCustomMessageHandler('run', function(msg) {
+    // get, then run the view
+    Vegawidget.findViewPromise("#" + msg.outputId).then(function(view) {
+      view.run();
+    });
+  });
 }

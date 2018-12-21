@@ -7,11 +7,11 @@
 \alias{vw_shiny_run}
 \title{Set information in a Vega chart}
 \usage{
-vw_shiny_set_signal(outputId, name, value, run = TRUE)
+vw_shiny_set_signal(outputId, name, value, run = TRUE, ...)
 
-vw_shiny_set_data(outputId, name, value, run = TRUE)
+vw_shiny_set_data(outputId, name, value, run = TRUE, ...)
 
-vw_shiny_run(outputId, value)
+vw_shiny_run(outputId, value, ...)
 }
 \arguments{
 \item{outputId}{\code{character}, shiny \code{outputId} for the vegawidget}
@@ -23,6 +23,8 @@ as defined in the vegaspec}
 that returns the value to which to set the signal or dataset}
 
 \item{run}{\code{logical} indicates if the chart is to be run immediately}
+
+\item{...}{other arguments passed on to \code{\link[shiny:observeEvent]{shiny::observeEvent()}}}
 }
 \value{
 \code{\link[shiny:observeEvent]{shiny::observeEvent()}} function that responds to changes in the

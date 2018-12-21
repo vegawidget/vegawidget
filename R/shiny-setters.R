@@ -31,13 +31,14 @@
 #   to send Vega only the *changes* in the dataset, rather
 #   than making a hard reset of the dataset
 #' @param run `logical` indicates if the chart is to be run immediately
+#' @param ... other arguments passed on to [shiny::observeEvent()]
 #'
 #' @return [shiny::observeEvent()] function that responds to changes in the
 #'   reactive-expression `value`
 #' @name shiny-setters
 #' @export
 #'
-vw_shiny_set_signal <- function(outputId, name, value, run = TRUE) {
+vw_shiny_set_signal <- function(outputId, name, value, run = TRUE, ...) {
 
   # captures (but does not evaluate) the reactive expression
   value <- rlang::enquo(value)
@@ -54,7 +55,8 @@ vw_shiny_set_signal <- function(outputId, name, value, run = TRUE) {
         params = list(name, value),
         run = run
       )
-    }
+    },
+    ...
   )
 
 }
@@ -62,7 +64,7 @@ vw_shiny_set_signal <- function(outputId, name, value, run = TRUE) {
 #' @rdname shiny-setters
 #' @export
 #'
-vw_shiny_set_data <- function(outputId, name, value, run = TRUE) {
+vw_shiny_set_data <- function(outputId, name, value, run = TRUE, ...) {
 
   # until we sort things out with Vega, cacheing deos not work
   use_cache <- FALSE
@@ -113,7 +115,8 @@ vw_shiny_set_data <- function(outputId, name, value, run = TRUE) {
 
       # call the view API to invoke the changeset, then (possibly) run
       vw_shiny_msg_changeData(outputId, name, data_insert, data_remove, run)
-    }
+    },
+    ...
   )
 
 }
@@ -121,7 +124,7 @@ vw_shiny_set_data <- function(outputId, name, value, run = TRUE) {
 #' @rdname shiny-setters
 #' @export
 #'
-vw_shiny_run <- function(outputId, value) {
+vw_shiny_run <- function(outputId, value, ...) {
 
   # captures (but does not evaluate) the reactive expression
   value <- rlang::enquo(value)
@@ -131,7 +134,8 @@ vw_shiny_run <- function(outputId, value) {
     handlerExpr = {
       # call the view API to run
       vw_shiny_msg_run(outputId)
-    }
+    },
+    ...
   )
 }
 

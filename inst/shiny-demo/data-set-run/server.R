@@ -58,6 +58,8 @@ server <- function(input, output) {
   vw_shiny_set_data("chart", name = "source", value = rct_data(), run = FALSE)
 
   # whenever the button is activated, the chart will be re-run
+  # - ignoreNULL is set to FALSE to allow the chart to run
+  #   once, at initializaiton
   vw_shiny_run("chart", value = input$run, ignoreNULL = FALSE)
 
   # outputs

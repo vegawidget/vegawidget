@@ -15,7 +15,7 @@ ui_select_dataset <-
 ui_button_run <- actionButton("run", label = "Re-run chart")
 
 ui <- fluidPage(
-  titlePanel("Vegawidget: setting data"),
+  titlePanel("Vegawidget: setting data with delayed run"),
   sidebarLayout(
     sidebarPanel(
       ui_select_dataset,

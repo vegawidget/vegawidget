@@ -17,7 +17,7 @@ source_a <- tibble(
 )
 
 # nearly-identical to source_a, missing only the last row
-source_b <- source_a %>% slice(-n_row)
+source_b <- source_a[-c(n_row), ]
 
 # completely different amounts than source_a
 source_c <- tibble(

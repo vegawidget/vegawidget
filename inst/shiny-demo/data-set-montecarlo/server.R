@@ -97,7 +97,7 @@ spec <-
 
 # create all the data
 #  - we will choose how much of it to send to the chart
-data_all <- sample_uc(5000)
+data_points_all <- sample_uc(5000)
 
 server <- function(input, output) {
 
@@ -105,16 +105,16 @@ server <- function(input, output) {
   #
 
   # keep a portion of the dataset, according to the input
-  rct_data <- reactive({
-    data_all %>% slice(1L:input$n_points)
+  rct_points <- reactive({
+    data_points_all %>% slice(1L:input$n_points)
   })
 
   # observers
   #
 
   # update the datasets in the chart
-  vw_shiny_set_data("chart", "points", rct_data())
-  vw_shiny_set_data("chart", "estimates", est_pi(rct_data()))
+  vw_shiny_set_data("chart", "points", rct_points())
+  vw_shiny_set_data("chart", "estimates", est_pi(rct_points()))
 
   # outputs
   #

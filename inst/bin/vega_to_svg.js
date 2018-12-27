@@ -9,8 +9,7 @@ const svgHeader =
 
 // import required libraries
 const path = require('path'),
-fs = require('fs'),
-vm = require('vm');
+fs = require('fs');
 
 // Read in arguments
 // First argument is the directory of the R package -- where to find JS
@@ -20,15 +19,15 @@ const specFile = process.argv[3];
 // Third argument is random seed
 const seed = process.argv[4];
 // Fourth argument is base URL
-const base = process.argv[4];
+const base = process.argv[5];
+//const base = base_in !== undefined ? base_in + path.sep : null;
+//process.stderr.write(base);
 
 // Get paths to the JS files
 const vega_path = path.join(pkgDir, 'htmlwidgets','lib','vega','vega.js');
 
-// Load the JS and run
-const vega_js = fs.readFileSync(vega_path);
-vm.runInThisContext(vega_js);
-
+// Load the JS
+var vega = require(vega_path);
 
 function lcg(seed) {
   // Random numbers using a Linear Congruential Generator with seed value

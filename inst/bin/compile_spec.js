@@ -13,18 +13,14 @@ var specFile = process.argv[3];
 // Load modules (should be included with node)
 var fs = require('fs');
 var path = require('path');
-var vm = require('vm');
 
 // Get paths to the JS files
 var vega_path = path.join(pkgDir, 'htmlwidgets','lib','vega','vega.js');
 var vl_path = path.join(pkgDir, 'htmlwidgets','lib','vega-lite','vega-lite.min.js');
 
 // Load the JS and run
-var vega_js = fs.readFileSync(vega_path);
-var vl_js = fs.readFileSync(vl_path);
-
-vm.runInThisContext(vega_js);
-vm.runInThisContext(vl_js);
+var vega = require(vega_path);
+var vl = require(vl_path);
 
 // Now read in the spec and compile
 fs.readFile(specFile, 'utf8', function(err, text) {

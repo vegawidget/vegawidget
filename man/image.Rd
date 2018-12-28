@@ -3,11 +3,8 @@
 \name{image}
 \alias{image}
 \alias{vw_to_svg}
-\alias{vw_to_svg.default}
-\alias{vw_to_svg.vegawidget}
+\alias{.vw_to_svg.default}
 \alias{vw_to_png}
-\alias{vw_to_png.default}
-\alias{vw_to_png.vegawidget}
 \alias{vw_write_svg}
 \alias{vw_write_svg.default}
 \alias{vw_write_svg.vegawidget}
@@ -16,19 +13,11 @@
 \alias{vw_write_png.vegawidget}
 \title{Create or write image}
 \usage{
-vw_to_svg(...)
+vw_to_svg(spec, ...)
 
-\method{vw_to_svg}{default}(spec, scale = 1, embed = NULL,
-  width = NULL, height = NULL, ...)
+\method{.vw_to_svg}{default}(spec, ...)
 
-\method{vw_to_svg}{vegawidget}(widget, scale = 1, ...)
-
-vw_to_png(...)
-
-\method{vw_to_png}{default}(spec, scale = 1, embed = NULL,
-  width = NULL, height = NULL, ...)
-
-\method{vw_to_png}{vegawidget}(widget, scale = 1, ...)
+vw_to_png(spec, file, width = NULL, height = NULL, ...)
 
 vw_write_svg(...)
 
@@ -45,17 +34,9 @@ vw_write_png(...)
 \method{vw_write_png}{vegawidget}(widget, path, scale = 1, ...)
 }
 \arguments{
-\item{...}{other arguments passed to \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}}
-
 \item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
-\item{scale}{\code{numeric}, scale-factor for the image:
-ratio of the width (pixels) of the image to the
-width (pixels) of the rendered chart}
-
-\item{embed}{\code{list} to specify
-\href{https://github.com/vega/vega-embed#options}{vega-embed} options,
-see \strong{Details} on how this is set if \code{NULL}.}
+\item{...}{other arguments passed to \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}}
 
 \item{width}{\code{integer}, if specified, the total rendered width (in pixels)
 of the chart - valid only for single-view charts and layered charts;
@@ -65,9 +46,17 @@ the default is to use the width in the chart specification}
 of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification}
 
-\item{widget}{\code{vegawidget}, created using \code{\link[=vegawidget]{vegawidget()}}}
-
 \item{path}{\code{character}, local path to which to write file}
+
+\item{scale}{\code{numeric}, scale-factor for the image:
+ratio of the width (pixels) of the image to the
+width (pixels) of the rendered chart}
+
+\item{embed}{\code{list} to specify
+\href{https://github.com/vega/vega-embed#options}{vega-embed} options,
+see \strong{Details} on how this is set if \code{NULL}.}
+
+\item{widget}{\code{vegawidget}, created using \code{\link[=vegawidget]{vegawidget()}}}
 }
 \value{
 \describe{

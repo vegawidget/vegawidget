@@ -91,6 +91,7 @@ vw_to_svg <- function(spec, ...) {
 
   # Use processx to run the script
   res <- processx::run(script_path, args = c(pkg_path, spec_path, seed, base))
+
   if (res$stderr != "") {
     stop("Error in compiling to svg:\n", res$stderr)
   }

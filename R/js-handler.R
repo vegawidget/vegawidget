@@ -74,6 +74,11 @@ vw_handler_signal <- function(handler_body) {
     return(invisible(NULL))
   }
 
+  # if handler_body is a handler, return the handler
+  if (inherits(handler_body, "vw_handler")) {
+    return(handler_body)
+  }
+
   # get the handler_body
   handler_body <- vw_handler_body(handler_body, "signal")
 
@@ -93,6 +98,11 @@ vw_handler_event <- function(handler_body) {
   if (missing(handler_body)) {
     print(handler_type)
     return(invisible(NULL))
+  }
+
+  # if handler_body is a handler, return the handler
+  if (inherits(handler_body, "vw_handler")) {
+    return(handler_body)
   }
 
   # get the handler_body
@@ -185,6 +195,8 @@ vw_handler_add_effect <- function(vw_handler, handler_body, ...) {
 #' @export
 #'
 vw_handler_body_compose <- function(vw_handler, n_indent = 2L) {
+
+  print(vw_handler)
 
   body_value <-
     glue::glue_collapse(vw_handler$body_value, sep = "\n")

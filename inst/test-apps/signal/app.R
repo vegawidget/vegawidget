@@ -28,7 +28,6 @@ ui <- shiny::fluidPage(
 
 )
 
-
 # Define server logic
 server <- function(input, output) {
 

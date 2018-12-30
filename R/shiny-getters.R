@@ -76,8 +76,6 @@ vw_shiny_get_signal <- function(outputId, name, handler_body = "value") {
     shiny::isolate({
       # create unique inputId (set in enclosing environment)
       inputId_proposed <- glue::glue("{outputId}_signal_{name}")
-      print(inputId_proposed)
-      print(names(session$input))
       inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
 
       # compose_handler_body

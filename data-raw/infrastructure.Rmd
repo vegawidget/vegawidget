@@ -329,6 +329,66 @@ assign_js <- function(name, path_local, path_root) {
 pwalk(htmlwidgets_vegajs, assign_js, path_root = dir_lib)
 ```
 
+Vegawidget handlers:
+
+```{r}
+.vw_handler_library <-
+  list(
+    event = .vw_handler_def(
+      args = c("event", "item"),
+      bodies = list(
+        datum = .vw_handler_body(
+          text = c(
+            "// returns null if nothing there",
+            "if (item === null || item === undefined || item.datum === undefined) {",
+            "  return null;",
+            "}",
+            "",
+            "// returns the datum behind the mark associated with the event",
+            "return item.datum;"
+          )
+        )
+      )
+    ),
+    signal = .vw_handler_def(
+      args = c("name", "value"),
+      bodies = list(
+        value = .vw_handler_body(
+          text = c(
+            "// returns the value of the signal",
+            "return value;"
+          )
+        )
+      )
+    ),
+    effect = .vw_handler_def(
+      args = "x",
+      bodies = list(
+        shiny_input = .vw_handler_body(
+          params = "inputId",
+          text = c(
+            "// sets the Shiny-input named '${inputId}' to the value",
+            "Shiny.setInputValue('${inputId}', x);"
+          )
+        ),
+        console = .vw_handler_body(
+          text = c(
+            "// prints the value to the JS console",
+            "console.log(x);"
+          )
+        ),        
+        console_text = .vw_handler_body(
+          params = "text",
+          text = c(
+            "// prints '${text}' to the JS console",
+            "console.log('${text}');"
+          )
+        )
+      )
+    )
+  )
+```
+
 
 ```{r}
 devtools::use_data(
@@ -337,6 +397,7 @@ devtools::use_data(
   .vega_lite_js,
   .promise_js,
   .symbol_js,
+  .vw_handler_library,
   internal = TRUE, 
   overwrite = TRUE
 )

@@ -90,7 +90,7 @@ HTMLWidgets.widget({
         });
       },
 
-      // Data functions
+      // Data function
       changeData: function(name, data_insert, data_remove, run) {
 
         // set default, if not already FALSE
@@ -112,23 +112,8 @@ HTMLWidgets.widget({
 
         // invoke view.change
         this.callView("change", [name, changeset], run);
-      },
-
-      // Listener functions
-      addSignalListener: function(signal_name, handler) {
-        this.viewPromise.then(function(view) {
-          view.addSignalListener(signal_name, handler);
-        });
-      },
-
-      addEventListener: function(event_name, handler) {
-        this.viewPromise.then(function(view) {
-          view.addEventListener(event_name, handler);
-        });
       }
-
     };
-
   }
 });
 
@@ -143,7 +128,7 @@ var Vegawidget = {
   //
   findWidgetPromise: function(selector) {
 
-    return new Promise(function(resolve, reject){
+    return new Promise(function(resolve, reject) {
 
       // find and test the element in the document
       var vwEl = document.querySelector(selector);
@@ -234,19 +219,13 @@ if (HTMLWidgets.shinyMode) {
     //   `handlerBody` - the body of a function (name, value) that
     //      returns the value you want to bound to `inputId`
     //   `name` - name of the signal to bind
-    //   `inputId` - name of the shiny inputId to set
 
     // convert the handlerBody to a function
     var handler = new Function("name", "value", msg.handlerBody);
 
-    // wrap the handler in shiny "stuff"
-    var shinyHandler = function(name, value) {
-      Shiny.setInputValue(msg.inputId, handler(name, value));
-    };
-
     // get, then operate on the view
     Vegawidget.findViewPromise("#" + msg.outputId).then(function(view) {
-      view.addSignalListener(msg.name, shinyHandler);
+      view.addSignalListener(msg.name, handler);
     });
 
   });
@@ -263,19 +242,13 @@ if (HTMLWidgets.shinyMode) {
     //   `handlerBody` - the body of a function (name, value) that
     //      returns the value you want to bound to `inputId`
     //   `event` - name of the type of event to bind
-    //   `inputId` - name of the shiny inputId to set
 
     // convert the handlerBody to a function
     var handler = new Function("event", "item", msg.handlerBody);
 
-    // wrap the handler in shiny "stuff"
-    var shinyHandler = function(event, item) {
-      Shiny.setInputValue(msg.inputId, handler(event, item));
-    };
-
     // get, then operate on the view
     Vegawidget.findViewPromise("#" + msg.outputId).then(function(view) {
-      view.addEventListener(msg.event, shinyHandler);
+      view.addEventListener(msg.event, handler);
     });
 
   });

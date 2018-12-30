@@ -16,51 +16,53 @@
 #'
 #' When the signal changes, or when the event fires, Vega needs to know which
 #' information you want returned to Shiny. To do this, Vega requires that
-#' you provide a JavaScript `handler` function. The default functions are
-#' specified using the `vw_handler()` helper-function:
+#' you provide a JavaScript handler-function:
 #'
-#' - `vw_shiny_get_signal()`: the default `handler`, `vw_handler("value")`,
+#' - `vw_shiny_get_signal()`: the default `handler`,
+#'   `vw_handler_signal("value")`,
 #'   specifies that the value of the signal be returned.
 #'
-#' - `vw_shiny_get_event()`: the default `handler`, `vw_handler("datum")`,
+#' - `vw_shiny_get_event()`: the default `handler`,
+#'   `vw_handler_event("datum")`,
 #'   specifies that the single row of data associated with graphical mark
 #'   be returned. For example, if you are monitoring a `"click"` event,
 #'   Vega would return the row of data that backs any mark
 #'   (like a point) that you click.
 #'
 #' If you need to specify a different behavior for the handler, there are a
-#' couple of options. The [vw_handler()] function is intended to support
-#' a library of handler functions; use the [vw_handler_list()] function to
-#' list them. If it does not contain the handler you need, the `handler`
+#' couple of options. This package provides
+#' a library of handler-functions; call [vw_handler_signal()],
+#' [vw_handler_event()], or [vw_handler_add_effect()] without arguments to
+#' list them. If it does not contain the handler you need, the `handler_body`
 #' argument will also accept a character string which will be used as
 #' the **body** of the handler function.
 #'
 #' For example, these calls are equivalent:
 #'
-#' - `vw_shiny_get_signal(..., handler = vw_handler("value"))`
-#' - `vw_shiny_get_signal(..., handler = JS("return value;"))`
+#' - `vw_shiny_get_signal(..., handler_body = vw_handler_signal("value"))`
+#' - `vw_shiny_get_signal(..., handler_body = "return value;")`
 #'
 #' If you use a custom-handler that you think may be useful for the
-#' `vw_handler()` library, please
+#' handler-function library, please
 #' [file an issue](https://github.com/vegawidget/vegawidget/issues).
 #'
 #' @inheritParams shiny-setters
 #' @param name `character`, name of the signal (defined in Vega specification)
 #'   being monitored
-#' @param handler `vw_handler()` or `character`, the **body** of a JavaScript
+#' @param handler_body `character` or `JS_EVAL`, the **body** of a JavaScript
 #'   function that Vega will use to handle the signal or event; this function
 #'   must return a value
 #'
 #' @return [shiny::reactive()] function that returns the value returned by the
-#'  `handler` function
+#'  `handler_body` function
 #' @name shiny-getters
-#' @seealso [vw_handler()],
+#' @seealso [vw_handler_signal()], [vw_handler_event()],
 #'   vega-view:
 #'     [addSignalListener()](https://github.com/vega/vega-view#view_addSignalListener),
 #'     [addEventListener()](https://github.com/vega/vega-view#view_addEventListener)
 #' @export
 #'
-vw_shiny_get_signal <- function(outputId, name, handler = vw_handler("value")) {
+vw_shiny_get_signal <- function(outputId, name, handler_body = "value") {
 
   assert_packages("shiny")
 
@@ -68,26 +70,27 @@ vw_shiny_get_signal <- function(outputId, name, handler = vw_handler("value")) {
 
   inputId <- ""
 
-  # get hander_body
-  handler_body <- handler
-  if (is.function(handler)) {
-    handler_body <- handler("signal")
-  }
-
   # set up an observer to run *once* to add the listener
   shiny::observe({
 
     shiny::isolate({
       # create unique inputId (set in enclosing environment)
       inputId_proposed <- glue::glue("{outputId}_signal_{name}")
+      print(inputId_proposed)
+      print(names(session$input))
       inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
+
+      # compose_handler_body
+      handler_body <-
+        vw_handler_signal(handler_body) %>%
+        vw_handler_add_effect("shiny_input", inputId = inputId) %>%
+        vw_handler_body_compose(n_indent = 0L)
 
       # add listener
       vw_shiny_msg_addSignalListener(
         outputId,
         name = name,
-        handlerBody = handler_body,
-        inputId = inputId
+        handlerBody = handler_body
       )
     })
 
@@ -105,19 +108,13 @@ vw_shiny_get_signal <- function(outputId, name, handler = vw_handler("value")) {
 #'   [Vega Event-Stream reference](https://vega.github.io/vega/docs/event-streams/)
 #' @export
 #'
-vw_shiny_get_event <- function(outputId, event, handler = vw_handler("datum")) {
+vw_shiny_get_event <- function(outputId, event, handler_body = "datum") {
 
   assert_packages("shiny")
 
   session <- shiny::getDefaultReactiveDomain()
 
   inputId <- ""
-
-  # get hander_body
-  handler_body <- handler
-  if (is.function(handler)) {
-    handler_body <- handler("event")
-  }
 
   # set up an observer to run *once* to add the listener
   shiny::observe({
@@ -127,12 +124,17 @@ vw_shiny_get_event <- function(outputId, event, handler = vw_handler("datum")) {
       inputId_proposed <- glue::glue("{outputId}_event_{event}")
       inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
 
+      # compose handler_body
+      handler_body <-
+        vw_handler_event(handler_body) %>%
+        vw_handler_add_effect("shiny_input", inputId = inputId) %>%
+        vw_handler_body_compose(n_indent = 0L)
+
       # add listener
       vw_shiny_msg_addEventListener(
         outputId,
         event = event,
-        handlerBody = handler_body,
-        inputId = inputId
+        handlerBody = handler_body
       )
     })
 
@@ -156,63 +158,3 @@ get_unique_inputId <- function(inputId, names_input) {
   input_names_new[[1]]
 }
 
-
-.SHINY_EVENT_HANDLER <-
-"
-function(event, item) {
-  if (item !== null && item !== undefined && item.datum !== undefined){
-    Shiny.onInputChange(el.id + '_' + event.type, item.datum);
-  } else {
-    Shiny.onInputChange(el.id + '_' + event.type, null);
-  }
-}
-"
-
-.SHINY_SIGNAL_HANDLER <-
-"
-function(name, value) { Shiny.onInputChange(el.id + '_' + name, value) }
-"
-
-
-#' Event and Signal Listeners
-#'
-#' @param x a vegawidget object
-#' @param event name of an event, e.g. 'click'
-#' @param signal name of a signal specified in the vega spec (or created by
-#' vega-lite when compiling into vega)
-#' @param handler either "shiny" (default) to add a listener that will expose
-#' the relevant data to shiny via {output_id}_{event} or {output_id}_{signal}
-#' @rdname vega-listeners
-#' @name vega-listeners
-#' @export
-vw_add_event_listener <-  function(x, event, handler = "shiny") {
-
-  # This adds the listener to the widget at render time
-  # It may make sense to make this an S3 function
-  # If you gave it an ID, you would add the listener
-  # after rendering.  Not clear if there are many real-world use cases
-  # for that
-
-  # Alternatively, listeners could be provided in the vegawidget function itself...
-
-  if (handler == "shiny") {
-    handler <- .SHINY_EVENT_HANDLER
-  }
-
-  js_call <- paste0("function(el, x) {this.addEventListener('",
-                    event, "', ",handler,")}")
-  htmlwidgets::onRender(x, js_call)
-}
-
-
-#' @rdname vega-listeners
-#' @export
-vw_add_signal_listener <- function(x, signal, handler = "shiny"){
-  if (handler == "shiny") {
-    handler = .SHINY_SIGNAL_HANDLER
-  }
-
-  js_call = paste0("function(el, x) {this.addSignalListener('",
-                   signal, "', ",handler,")}")
-  htmlwidgets::onRender(x, js_call)
-}

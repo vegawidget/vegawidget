@@ -6,9 +6,9 @@
 \alias{vw_shiny_get_event}
 \title{Get information from a Vega chart}
 \usage{
-vw_shiny_get_signal(outputId, name, handler = vw_handler("value"))
+vw_shiny_get_signal(outputId, name, handler_body = "value")
 
-vw_shiny_get_event(outputId, event, handler = vw_handler("datum"))
+vw_shiny_get_event(outputId, event, handler_body = "datum")
 }
 \arguments{
 \item{outputId}{\code{character}, shiny \code{outputId} for the vegawidget}
@@ -16,7 +16,7 @@ vw_shiny_get_event(outputId, event, handler = vw_handler("datum"))
 \item{name}{\code{character}, name of the signal (defined in Vega specification)
 being monitored}
 
-\item{handler}{\code{vw_handler()} or \code{character}, the \strong{body} of a JavaScript
+\item{handler_body}{\code{character} or \code{JS_EVAL}, the \strong{body} of a JavaScript
 function that Vega will use to handle the signal or event; this function
 must return a value}
 
@@ -26,7 +26,7 @@ for list of supported events, please see
 }
 \value{
 \code{\link[shiny:reactive]{shiny::reactive()}} function that returns the value returned by the
-\code{handler} function
+\code{handler_body} function
 }
 \description{
 There are two types of information you can get from a Vega chart, a \emph{signal},
@@ -47,12 +47,13 @@ specification
 
 When the signal changes, or when the event fires, Vega needs to know which
 information you want returned to Shiny. To do this, Vega requires that
-you provide a JavaScript \code{handler} function. The default functions are
-specified using the \code{vw_handler()} helper-function:
+you provide a JavaScript handler-function:
 \itemize{
-\item \code{vw_shiny_get_signal()}: the default \code{handler}, \code{vw_handler("value")},
+\item \code{vw_shiny_get_signal()}: the default \code{handler},
+\code{vw_handler_signal("value")},
 specifies that the value of the signal be returned.
-\item \code{vw_shiny_get_event()}: the default \code{handler}, \code{vw_handler("datum")},
+\item \code{vw_shiny_get_event()}: the default \code{handler},
+\code{vw_handler_event("datum")},
 specifies that the single row of data associated with graphical mark
 be returned. For example, if you are monitoring a \code{"click"} event,
 Vega would return the row of data that backs any mark
@@ -60,24 +61,25 @@ Vega would return the row of data that backs any mark
 }
 
 If you need to specify a different behavior for the handler, there are a
-couple of options. The \code{\link[=vw_handler]{vw_handler()}} function is intended to support
-a library of handler functions; use the \code{\link[=vw_handler_list]{vw_handler_list()}} function to
-list them. If it does not contain the handler you need, the \code{handler}
+couple of options. This package provides
+a library of handler-functions; call \code{\link[=vw_handler_signal]{vw_handler_signal()}},
+\code{\link[=vw_handler_event]{vw_handler_event()}}, or \code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}} without arguments to
+list them. If it does not contain the handler you need, the \code{handler_body}
 argument will also accept a character string which will be used as
 the \strong{body} of the handler function.
 
 For example, these calls are equivalent:
 \itemize{
-\item \code{vw_shiny_get_signal(..., handler = vw_handler("value"))}
-\item \code{vw_shiny_get_signal(..., handler = JS("return value;"))}
+\item \code{vw_shiny_get_signal(..., handler_body = vw_handler_signal("value"))}
+\item \code{vw_shiny_get_signal(..., handler_body = "return value;")}
 }
 
 If you use a custom-handler that you think may be useful for the
-\code{vw_handler()} library, please
+handler-function library, please
 \href{https://github.com/vegawidget/vegawidget/issues}{file an issue}.
 }
 \seealso{
-\code{\link[=vw_handler]{vw_handler()}},
+\code{\link[=vw_handler_signal]{vw_handler_signal()}}, \code{\link[=vw_handler_event]{vw_handler_event()}},
 vega-view:
 \href{https://github.com/vega/vega-view#view_addSignalListener}{addSignalListener()},
 \href{https://github.com/vega/vega-view#view_addEventListener}{addEventListener()}

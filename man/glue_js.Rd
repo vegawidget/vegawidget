@@ -16,7 +16,7 @@ will be pasted into one character string)}
 the variables to be interpolated}
 }
 \value{
-\code{\link[htmlwidgets:JS]{htmlwidgets::JS()}} object, type of charatcter vector
+\code{glue::glue()} object
 }
 \description{
 Uses (ES6) JavaScript notation to interpolate (R) variables into a string.

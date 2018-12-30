@@ -3,17 +3,26 @@
 # It also binds a slider UI element to the signal, which is used in the spec
 # to filter the points.
 
-library(shiny)
-library(vegawidget)
-library(magrittr)
+library("shiny")
+library("vegawidget")
 
-
-spec <- jsonlite::fromJSON("example_vega_schema.json")
+spec <-
+  jsonlite::fromJSON("example_vega_schema.json") %>%
+  as_vegaspec()
 
 ui <- shiny::fluidPage(
 
   shiny::titlePanel("vegawidget signal example"),
-  shiny::fluidRow(shiny::sliderInput("slider", "Cylinders", min = 4, max = 8, step = 2, value = 4)),
+  shiny::fluidRow(
+    shiny::sliderInput(
+      "slider",
+      label = "Cylinders",
+      min = 4,
+      max = 8,
+      step = 2,
+      value = 4
+    )
+  ),
   shiny::fluidRow(vegawidgetOutput("chart")),
   shiny::fluidRow(shiny::verbatimTextOutput("cl"))
 
@@ -24,20 +33,16 @@ ui <- shiny::fluidPage(
 server <- function(input, output) {
 
   # reactives
-  rct_cyl <- vw_shiny_get_signal("chart", name = "cyl", handler = "return value;")
+  rct_cyl <-
+    vw_shiny_get_signal("chart", name = "cyl", handler_body = "return value;")
 
   # observers
   vw_shiny_set_signal("chart", name = "cyl", value = input$slider)
 
   # outputs
-  output$chart <- renderVegawidget({
-    vegawidget(spec)
-  })
+  output$chart <- renderVegawidget(spec)
 
-  output$cl <- renderPrint({
-    rct_cyl()
-  })
-
+  output$cl <- renderPrint(rct_cyl())
 }
 
 # Run the application

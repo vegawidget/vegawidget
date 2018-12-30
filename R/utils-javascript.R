@@ -26,14 +26,14 @@ print.JS_EVAL <- function(x, ...) {
 #' @param .envir `environment`, tells [glue::glue()] where to find
 #'   the variables to be interpolated
 #'
-#' @return [htmlwidgets::JS()] object, type of charatcter vector
+#' @return `glue::glue()` object
 #' @examples
 #'   x <- 123
 #'   glue_js("function(){return(${x});}")
 #' @export
 #'
 glue_js <- function(..., .open = "${", .envir = parent.frame()) {
-  glue::glue(JS(...), .open = .open, .envir = .envir)
+  x <- glue::glue(..., .open = .open, .envir = .envir, .sep = "\n")
 }
 
 # serialize to JS
@@ -41,4 +41,20 @@ ser_js <- function(x) {
   jsonlite::toJSON(x, auto_unbox = TRUE)
 }
 
+# indent a text string
+indent <- function(x, n = 0L) {
+
+  # generate the spaces
+  indent <- paste0(rep(" ", n), collapse = "")
+
+  # insert spaces at beginning of string
+  x <- paste0(indent, x)
+
+  # insert spaces after every newline
+  x <- gsub("\n", paste0("\n", indent), x)
+
+  # trim at the end if need be
+
+  x
+}
 

@@ -62,16 +62,13 @@ vw_shiny_msg_changeData <- function(outputId, name, data_insert,
 
 #' @rdname shiny-message
 #'
-#' @param handler `character`, either the name of a handler in the
-#'   Vegawidget JavaScript object or a the body of a handler function
+#' @param handlerBody `character` or `JS_EVAL`, the body of a handler function
 #'   for the given listener
-#' @param inputId `character`, shiny `inputId` where the value returned by
-#'   the handler will be stored
 #'
 #' @keywords internal
 #' @noRd
 #'
-vw_shiny_msg_addSignalListener <- function(outputId, name, handlerBody, inputId) {
+vw_shiny_msg_addSignalListener <- function(outputId, name, handlerBody) {
 
   type <- "addSignalListener"
   message <- as.list(environment())
@@ -86,7 +83,7 @@ vw_shiny_msg_addSignalListener <- function(outputId, name, handlerBody, inputId)
 #' @keywords internal
 #' @noRd
 #'
-vw_shiny_msg_addEventListener <- function(outputId, event, handlerBody, inputId) {
+vw_shiny_msg_addEventListener <- function(outputId, event, handlerBody) {
 
   type <- "addEventListener"
   message <- as.list(environment())

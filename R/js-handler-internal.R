@@ -141,16 +141,25 @@ vw_handler_body <- function(handler_body, type) {
 
   handler_type <- .vw_handler_library[[type]]
 
-  # if handler_body is a vw_handler, this is a no-op
-  if (inherits(handler_body, "vw_handler")) {
-    return(handler_body)
-  }
-
   # is this a name of a handler in the library?
   bodies <- handler_type$bodies
   if (handler_body %in% names(bodies)) {
     # use *that* handler_body
     handler_body <- bodies[[handler_body]]$text
+  }
+
+  # collapse into a single string
+  handler_body <- glue::glue_collapse(handler_body, sep = "\n")
+
+  # if this is has no whitespace, parentheses, or semicolons, issue a warning
+  js_pattern <- "(\\s|\\(|\\)|;)"
+  if (!grepl(js_pattern, handler_body)) {
+    warning(
+      "handler_body: '",
+      handler_body,
+      "' does not appear to contain valid JavaScript code, ",
+      "and it is not a known ", type, " handler."
+    )
   }
 
   handler_body

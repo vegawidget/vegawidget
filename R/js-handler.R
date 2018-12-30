@@ -45,7 +45,10 @@
 #' of JavaScript code you supply - any errors you make will not be apparent
 #' until your visualization is rendered in a browser.
 #'
-#' @param handler_body `character` the name of a defined handler-body,
+#' One last note, if `handler_body` is already a `vw_handler`, these functions
+#' are no-ops; they will return the `handler_body` unchanged.
+#'
+#' @param handler_body `character`, the name of a defined handler-body,
 #'   or the text of a handler-function
 #'
 #' @return object with S3 class `vw_handler`
@@ -195,8 +198,6 @@ vw_handler_add_effect <- function(vw_handler, handler_body, ...) {
 #' @export
 #'
 vw_handler_body_compose <- function(vw_handler, n_indent = 2L) {
-
-  print(vw_handler)
 
   body_value <-
     glue::glue_collapse(vw_handler$body_value, sep = "\n")

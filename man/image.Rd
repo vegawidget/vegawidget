@@ -90,7 +90,7 @@ you may also need to install PhantomJS; you can use
 \code{\link[webdriver:install_phantomjs]{webdriver::install_phantomjs()}}.
 
 Images are created using the
-\href{https://github.com/vega/vega-view#image-export}{vega-view} image-export
+\href{https://github.com/vega/vega/tree/master/packages/vega-view#image-export}{vega-view} image-export
 functions. These functions accept a scale factor, represented here as the
 \code{scale} argument. By specifying \code{scale = 2} for the PNG functions, a
 retina-ready image will be generated.
@@ -109,6 +109,6 @@ you want this PNG image as \code{raw} binary data, use \code{vw_to_png()} follow
 }
 \seealso{
 \code{\link[webdriver:install_phantomjs]{webdriver::install_phantomjs()}},
-\href{https://github.com/vega/vega-view#image-export}{vega-view library},
+\href{https://github.com/vega/vega/tree/master/packages/vega-view#image-export}{vega-view library},
 \code{\link[=vw_png_bin]{vw_png_bin()}}
 }

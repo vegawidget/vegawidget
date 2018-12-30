@@ -11,7 +11,7 @@
 #' [webdriver::install_phantomjs()].
 #'
 #' Images are created using the
-#' [vega-view](https://github.com/vega/vega-view#image-export) image-export
+#' [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view#image-export) image-export
 #' functions. These functions accept a scale factor, represented here as the
 #' `scale` argument. By specifying `scale = 2` for the PNG functions, a
 #' retina-ready image will be generated.
@@ -43,7 +43,7 @@
 #'   spec_mtcars %>% vw_to_png() %>% vw_png_bin()
 #' }
 #' @seealso [webdriver::install_phantomjs()],
-#' [vega-view library](https://github.com/vega/vega-view#image-export),
+#' [vega-view library](https://github.com/vega/vega/tree/master/packages/vega-view#image-export),
 #' [vw_png_bin()]
 #'
 

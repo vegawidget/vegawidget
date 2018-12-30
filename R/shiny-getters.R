@@ -58,8 +58,8 @@
 #' @name shiny-getters
 #' @seealso [vw_handler_signal()], [vw_handler_event()],
 #'   vega-view:
-#'     [addSignalListener()](https://github.com/vega/vega-view#view_addSignalListener),
-#'     [addEventListener()](https://github.com/vega/vega-view#view_addEventListener)
+#'     [addSignalListener()](https://github.com/vega/vega/tree/master/packages/vega-view#view_addSignalListener),
+#'     [addEventListener()](https://github.com/vega/vega/tree/master/packages/vega-view#view_addEventListener)
 #' @export
 #'
 vw_shiny_get_signal <- function(outputId, name, handler_body = "value") {

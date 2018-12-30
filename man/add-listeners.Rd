@@ -46,4 +46,7 @@ perform side-effects on the result.
 \seealso{
 \code{\link[=vw_handler_signal]{vw_handler_signal()}}, \code{\link[=vw_handler_event]{vw_handler_event()}},
 \code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}}
+vega-view:
+\href{https://github.com/vega/vega/tree/master/packages/vega-view#view_addSignalListener}{addSignalListener()},
+\href{https://github.com/vega/vega/tree/master/packages/vega-view#view_addEventListener}{addEventListener()}
 }

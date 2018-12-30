@@ -10,7 +10,7 @@ vw_handler_add_effect(vw_handler, handler_body, ...)
 \item{vw_handler}{\code{vw_handler} created using \code{\link[=vw_handler_signal]{vw_handler_signal()}} or
 \code{\link[=vw_handler_event]{vw_handler_event()}}}
 
-\item{handler_body}{\code{character} the name of a defined handler-body,
+\item{handler_body}{\code{character}, the name of a defined handler-body,
 or the text of a handler-function}
 
 \item{...}{additional \emph{named} parameters to be interpolated into the

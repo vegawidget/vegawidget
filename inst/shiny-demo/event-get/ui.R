@@ -20,8 +20,8 @@ ui <- fluidPage(
     ),
     mainPanel(
       vegawidgetOutput("chart"),
-      h4("Data returned as a result of signal"),
-      verbatimTextOutput("signal_out")
+      h4("Data returned as a result of event"),
+      verbatimTextOutput("event_out")
     )
   )
 )

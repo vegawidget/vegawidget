@@ -26,6 +26,9 @@
 #' @return modified copy of vegawidget object `x`
 #' @seealso [vw_handler_signal()], [vw_handler_event()],
 #'   [vw_handler_add_effect()]
+#'   vega-view:
+#'     [addSignalListener()](https://github.com/vega/vega/tree/master/packages/vega-view#view_addSignalListener),
+#'     [addEventListener()](https://github.com/vega/vega/tree/master/packages/vega-view#view_addEventListener)
 #' @export
 #'
 vw_add_signal_listener <- function(x, name, handler_body) {

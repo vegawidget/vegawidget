@@ -53,6 +53,9 @@
 #'
 #' @return object with S3 class `vw_handler`
 #' @seealso [vw_handler_add_effect()]
+#'   vega-view:
+#'     [addSignalListener()](https://github.com/vega/vega/tree/master/packages/vega-view#view_addSignalListener),
+#'     [addEventListener()](https://github.com/vega/vega/tree/master/packages/vega-view#view_addEventListener)
 #' @examples
 #'   # list all the available signal-handlers
 #'   vw_handler_signal()

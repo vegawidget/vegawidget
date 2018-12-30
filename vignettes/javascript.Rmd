@@ -8,13 +8,13 @@ output: rmarkdown::html_document
 library("vegawidget")
 ```
 
-The purpose of this article is to show how you can use JavaScript to extend Vega's capabilities. In these examples, we use the [vega-view](https://github.com/vega/vega-view) API to update the dataset using JavaScript. Clearly, this approach is not as intuitive as using Shiny, but it could be useful in situations where Shiny is not available or feasible.
+The purpose of this article is to show how you can use JavaScript to extend Vega's capabilities. In these examples, we use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to update the dataset using JavaScript. Clearly, this approach is not as intuitive as using Shiny, but it could be useful in situations where Shiny is not available or feasible.
 
 ## Demo: streaming data
 
 Here, we recreate this Vega-Lite [streaming tutorial](https://vega.github.io/vega-lite/tutorials/streaming.html). In this case we are using JavaScript both to create the new data, and to update the dataset in Vega.
 
-The point of the original Vega-Lite demo is to show how to use the [vega-view](https://github.com/vega/vega-view) API to modify a chart once it has been rendered. The point of this demo is to show the steps you can take to adapt the original Vega-Lite demo to the htmlwidgets context.
+The point of the original Vega-Lite demo is to show how to use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to modify a chart once it has been rendered. The point of this demo is to show the steps you can take to adapt the original Vega-Lite demo to the htmlwidgets context.
  
 Our first step is to create a vegaspec. Note that we have named a dataset to `"table"`, but we have not included any data.
 
@@ -50,9 +50,9 @@ TODO: Describe the `Vegawidget.find()` function, that it returns a promise to a 
 
 In the demo code, the `vegaEmbed()` function (described in the [vega-embed](https://github.com/vega/vega-embed) library) returns a promise object, a JavaScript object used for asynchronous execution. We do not have direct access to the creation of the promise in the HTML file, but the vegawidget JavaScript API provides a function `getVegaPromise()` that, given a CSS selector to find the enclosing element (hence the `elementId = "table"` earlier), returns the promise.
 
-The `.then()` call contains a function that takes a single argument, `result` - this is our promise object. A  [`vegaEmbed()`](https://github.com/vega/vega-embed#embed) promise object contains two objects: a [`view`](https://github.com/vega/vega-view#vega-view) instance and a copy of the `spec` used to create it. Although we are likely interested only in the view, we follow the vega-embed convention to return the entire object so that you refer to the view in the function as `result.view`.
+The `.then()` call contains a function that takes a single argument, `result` - this is our promise object. A  [`vegaEmbed()`](https://github.com/vega/vega-embed#embed) promise object contains two objects: a [`view`](https://github.com/vega/vega/tree/master/packages/vega-view) instance and a copy of the `spec` used to create it. Although we are likely interested only in the view, we follow the vega-embed convention to return the entire object so that you refer to the view in the function as `result.view`.
 
-The rest of the code is copied from the original demonstration. To change a dataset, we use vega-view's [change](https://github.com/vega/vega-view#view_change) method.
+The rest of the code is copied from the original demonstration. To change a dataset, we use vega-view's [change](https://github.com/vega/vega/tree/master/packages/vega-view#view_change) method.
 
 ```{js}
 // This is a JavaScript chunk, using {js} instead of {r}

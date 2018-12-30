@@ -81,6 +81,6 @@ handler-function library, please
 \seealso{
 \code{\link[=vw_handler_signal]{vw_handler_signal()}}, \code{\link[=vw_handler_event]{vw_handler_event()}},
 vega-view:
-\href{https://github.com/vega/vega-view#view_addSignalListener}{addSignalListener()},
-\href{https://github.com/vega/vega-view#view_addEventListener}{addEventListener()}
+\href{https://github.com/vega/vega/tree/master/packages/vega-view#view_addSignalListener}{addSignalListener()},
+\href{https://github.com/vega/vega/tree/master/packages/vega-view#view_addEventListener}{addEventListener()}
 }

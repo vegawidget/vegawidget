@@ -10,7 +10,7 @@ vw_handler_signal(handler_body)
 vw_handler_event(handler_body)
 }
 \arguments{
-\item{handler_body}{\code{character} the name of a defined handler-body,
+\item{handler_body}{\code{character}, the name of a defined handler-body,
 or the text of a handler-function}
 }
 \value{
@@ -65,6 +65,9 @@ please see the documentation for \code{\link[=vw_handler_add_effect]{vw_handler_
 Please be aware that these functions do \emph{not} check for the correctness
 of JavaScript code you supply - any errors you make will not be apparent
 until your visualization is rendered in a browser.
+
+One last note, if \code{handler_body} is already a \code{vw_handler}, these functions
+are no-ops; they will return the \code{handler_body} unchanged.
 }
 \examples{
   # list all the available signal-handlers
@@ -81,4 +84,7 @@ until your visualization is rendered in a browser.
 }
 \seealso{
 \code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}}
+vega-view:
+\href{https://github.com/vega/vega/tree/master/packages/vega-view#view_addSignalListener}{addSignalListener()},
+\href{https://github.com/vega/vega/tree/master/packages/vega-view#view_addEventListener}{addEventListener()}
 }

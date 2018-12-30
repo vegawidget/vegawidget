@@ -9,7 +9,7 @@ server <- function(input, output) {
 
   # the event returns the backing-data as a list
   rct_list_click <-
-    vw_shiny_get_event("chart", event = "click", handler = vw_handler("datum"))
+    vw_shiny_get_event("chart", event = "click", handler_body = "datum")
 
   # observers
   #
@@ -20,7 +20,7 @@ server <- function(input, output) {
   # uses the sample spec included in the vegawidget package
   output$chart <- renderVegawidget(spec_mtcars)
 
-  output$signal_out <- renderPrint({
+  output$event_out <- renderPrint({
     as_data_frame(rct_list_click())
   })
 

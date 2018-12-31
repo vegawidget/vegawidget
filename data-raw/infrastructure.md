@@ -150,10 +150,10 @@ to Vega-Lite 3, this code should be removed.
 
 ``` r
 vega_version_long$vega <- "4.0.0"
-vega_version_long$vega_embed <- "3.28.0"
+vega_version_long$vega_embed <- "3.25.0"
 
 vega_version_short$vega <- "4.0.0"
-vega_version_short$vega_embed <- "3.28.0"
+vega_version_short$vega_embed <- "3.25.0"
 ```
 
 ## htmlwidgets
@@ -236,7 +236,7 @@ htmlwidgets_downloads
     ## 5 vega/vega.min.js           https://cdn.jsdelivr.net/npm/vega@4.0.0      
     ## 6 vega/vega.js               https://cdn.jsdelivr.net/npm/vega@4.0.0/buil…
     ## 7 vega/LICENSE               https://raw.githubusercontent.com/vega/vega/…
-    ## 8 vega-embed/vega-embed.js   https://cdn.jsdelivr.net/npm/vega-embed@3.28…
+    ## 8 vega-embed/vega-embed.js   https://cdn.jsdelivr.net/npm/vega-embed@3.25…
     ## 9 vega-embed/LICENSE         https://raw.githubusercontent.com/vega/vega-…
 
 ``` r

@@ -102,10 +102,10 @@ This is a patch to get the "latest" version of vega-embed. Once we move to Vega-
 
 ```{r}
 vega_version_long$vega <- "4.0.0"
-vega_version_long$vega_embed <- "3.28.0"
+vega_version_long$vega_embed <- "3.25.0"
 
 vega_version_short$vega <- "4.0.0"
-vega_version_short$vega_embed <- "3.28.0"
+vega_version_short$vega_embed <- "3.25.0"
 ```
 
 

@@ -46,14 +46,10 @@
 #' @param loader	sets a custom Vega loader.
 #'   See [Vega docs](https://github.com/vega/vega-loader#loader)
 #'   for details.
-#' @param patch	`JS` function, object or string - A function to modify the Vega
+#' @param patch	`JS` function or object, A function to modify the Vega
 #'   specification before it is parsed. Alternatively, an object that is used
 #'   to patch the Vega specification. If you use Vega-Lite, the compiled Vega
-#'   will be patched. Alternatively to the function or the object,
-#'   a URL string from which to load the patch can be provided.
-#'   This URL will be subject to standard browser security restrictions.
-#'   Typically this URL will point to a file on the same host and port number
-#'   as the web page itself.
+#'   will be patched.
 #' @param width	`integer` sets the view width in pixels.
 #' See [Vega docs](https://vega.github.io/vega/docs/api/view/#view_width)
 #' for details.

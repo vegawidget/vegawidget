@@ -98,6 +98,14 @@ vega_version_long
 vega_version_short <- map(vega_version_long, ~sub("-\\w.*$", "", .x))
 ```
 
+This is a patch to get the "latest" version of vega-embed. Once we move to Vega-Lite 3, this code should be removed.
+
+```{r}
+vega_version_long$vega_embed <- "3.28.0"
+vega_version_short$vega_embed <- "3.28.0"
+```
+
+
 ## htmlwidgets 
 
 First, let's create a clean directory for the htmlwidget

@@ -145,6 +145,14 @@ vega_version_long
 vega_version_short <- map(vega_version_long, ~sub("-\\w.*$", "", .x))
 ```
 
+This is a patch to get the “latest” version of vega-embed. Once we move
+to Vega-Lite 3, this code should be removed.
+
+``` r
+vega_version_long$vega_embed <- "3.28.0"
+vega_version_short$vega_embed <- "3.28.0"
+```
+
 ## htmlwidgets
 
 First, let’s create a clean directory for the htmlwidget
@@ -225,7 +233,7 @@ htmlwidgets_downloads
     ## 5 vega/vega.min.js           https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.3 
     ## 6 vega/vega.js               https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.3…
     ## 7 vega/LICENSE               https://raw.githubusercontent.com/vega/vega/…
-    ## 8 vega-embed/vega-embed.js   https://cdn.jsdelivr.net/npm/vega-embed@3.16…
+    ## 8 vega-embed/vega-embed.js   https://cdn.jsdelivr.net/npm/vega-embed@3.28…
     ## 9 vega-embed/LICENSE         https://raw.githubusercontent.com/vega/vega-…
 
 ``` r

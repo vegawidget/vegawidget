@@ -6,10 +6,10 @@
 \usage{
 vega_embed(renderer = c("canvas", "svg"), actions = NULL,
   defaultStyle = TRUE, mode = NULL, theme = NULL, logLevel = NULL,
-  tooltip = NULL, loader = NULL, onBeforeParse = NULL,
-  width = NULL, height = NULL, padding = NULL, scaleFactor = NULL,
-  config = NULL, editorUrl = NULL, sourceHeader = NULL,
-  sourceFooter = NULL, hover = NULL, runAsync = NULL, i18n = NULL)
+  tooltip = NULL, loader = NULL, patch = NULL, width = NULL,
+  height = NULL, padding = NULL, scaleFactor = NULL, config = NULL,
+  editorUrl = NULL, sourceHeader = NULL, sourceFooter = NULL,
+  hover = NULL, runAsync = NULL, i18n = NULL)
 }
 \arguments{
 \item{renderer}{\code{character} the renderer to use for the view.
@@ -55,7 +55,14 @@ or disable the default handler.}
 See \href{https://github.com/vega/vega-loader#loader}{Vega docs}
 for details.}
 
-\item{onBeforeParse}{\code{JS} function, modifies the spec before being parsed.}
+\item{patch}{\code{JS} function, object or string - A function to modify the Vega
+specification before it is parsed. Alternatively, an object that is used
+to patch the Vega specification. If you use Vega-Lite, the compiled Vega
+will be patched. Alternatively to the function or the object,
+a URL string from which to load the patch can be provided.
+This URL will be subject to standard browser security restrictions.
+Typically this URL will point to a file on the same host and port number
+as the web page itself.}
 
 \item{width}{\code{integer} sets the view width in pixels.
 See \href{https://vega.github.io/vega/docs/api/view/#view_width}{Vega docs}

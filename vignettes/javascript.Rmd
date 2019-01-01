@@ -28,15 +28,16 @@ Let's consider an example with a dataset that has a single observation, and that
 First, we use the `tags` environment from the **htmltools** package to create a range input that we use to specify an angle - in our case 0 to 360 degrees. Our input is named `"angle"`.
 
 ```{r}
-input_angle <- tags$input(
-  type = "range", 
-  name = "angle", 
-  value = 0, 
-  min = 0, 
-  max = 360, 
-  step = 1,
-  style = "width: 400px; margin-bottom: 10px;"
-)
+input_angle <- 
+  tags$input(
+    type = "range", 
+    name = "angle", 
+    value = 0, 
+    min = 0, 
+    max = 360, 
+    step = 1,
+    style = "width: 400px; margin-bottom: 10px;"
+  )
 ```
 
 Next, we create a specification, then a vegawidget with an `elementId` of `"circle"`
@@ -124,6 +125,120 @@ on_angle()
 
 In a future release of this package, we will be able to listen to (and extract) datasets in a Vega chart.
 
+## Demo: setting and getting signals
+
+Some words about signals in Vega and how they are coming to be defined in Vega-Lite. Some more words about how when we use vega-view, we are dealing with Vega. Even more words about use-cases for signals. Signals are an essential part of selections.
+
+As you know, whenever you create a histogram it is a good idea to experiment with different bin-widths, to give yourself a chance to see all of the interesting structure in the data. Let's use the `data_seattle_hourly` dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010.
+
+This is not "legal" Vega-Lite, we are patching the compiled Vega. It is not yet clear how signals might come to be defined formally in Vega-Lite; as of the start of 2019, this is an active discussion. However, the patch option in vega-embed gives us a chance to experiemtent and, by doing so, to contribute to the conversation.
+
+```{r}
+input_bin_width <- 
+  tags$input(
+    type = "range", 
+    name = "bin_width", 
+    value = 0, 
+    min = -1, 
+    max = 1,
+    step = 0.01,
+    style = "width: 400px; margin-bottom: 10px;"
+  )
+```
+
+
+```{r}
+spec_histogram <- 
+  list(
+    `$schema` = vega_schema(),
+    width = 300,
+    height = 300,
+    data = list(values = data_seattle_hourly),
+    mark = "bar",
+    encoding = list(
+      x = list(
+        field = "temp",
+        type = "quantitative",
+        bin = list(step = list(signal = "bin_width")),
+        axis = list(format = ".1f")
+      ),
+      y = list(
+        aggregate = "count",
+        type = "quantitative"
+      )
+    )
+  ) %>%
+  as_vegaspec()
+
+patch <- 
+  list(
+    signals = list(
+      list(name = "bin_width", value = 0.5)
+    )
+  )
+
+output_histogram <- 
+  vegawidget(
+    spec_histogram, 
+    embed = vega_embed(patch = patch), 
+    elementId = "histogram"
+  )
+```
+
+```{r}
+output_bin_width <-
+  tags$p(
+    "The histogram bin-width is ",
+    tags$span(id = "output_bin_width", "1.0"),
+    "°F."
+  )
+
+handler_bin_width <-
+  vw_handler_signal("value") %>%
+  vw_handler_add_effect("console") %>%
+  vw_handler_add_effect(
+    "document.querySelector('#output_bin_width').innerText = x.toFixed(3)"
+  )
+
+output_histogram <- 
+  output_histogram %>%
+  vw_add_signal_listener("bin_width", handler_bin_width)
+```
+
+Here are the HTML elements:
+
+```{r}
+input_bin_width
+
+output_histogram
+
+output_bin_width
+```
+
+```{js}
+// JS reference to our slider-input
+var inp_bin_width = document.querySelector("[name=bin_width]");
+
+// define function to call when input changes
+function on_bin_width() {
+
+  // translate the input value to a bin_width
+  // our baseline bin_width is 1.0 °F
+  var bin_width = 1. * Math.pow(10., inp_bin_width.value);
+
+  // update Vega chart
+  Vegawidget.findViewPromise("#histogram").then(function(view) {
+    view.signal("bin_width", Number(bin_width)).run();  
+  });    
+
+}
+
+// connect the listener-function to the input 
+inp_bin_width.addEventListener("input", on_bin_width);
+
+// run the updating function *once* to initialize the input to the chart
+on_bin_width()
+```
 ## Demo: streaming data
 
 Here, we recreate this Vega-Lite [streaming tutorial](https://vega.github.io/vega-lite/tutorials/streaming.html). In this case we are using JavaScript both to create the new data, and to update the dataset in Vega.

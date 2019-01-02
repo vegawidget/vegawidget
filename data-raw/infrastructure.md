@@ -438,6 +438,12 @@ Vegawidget handlers:
     event = .vw_handler_def(
       args = c("event", "item"),
       bodies = list(
+        item = .vw_handler_body(
+          text = c(
+            "// returns the item",
+            "return item;"
+          )
+        ),
         datum = .vw_handler_body(
           text = c(
             "// returns null if nothing there",
@@ -483,6 +489,13 @@ Vegawidget handlers:
           text = c(
             "// prints '${text}' to the JS console",
             "console.log('${text}');"
+          )
+        ),
+        element_text = .vw_handler_body(
+          params = "selector",
+          text = c(
+            "// adds value as element text",
+            "document.querySelector('${selector}').innerText = x"
           )
         )
       )

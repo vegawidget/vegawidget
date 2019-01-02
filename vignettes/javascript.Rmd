@@ -11,13 +11,96 @@ library("htmltools")
 
 The purpose of this article is to show how you can use JavaScript to extend Vega's capabilities. In these examples, we use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to interact with a Vega chart using JavaScript. We explore similar ideas in an article on [extending using Shiny](shiny.Rmd).
 
-Using the vega-view API, there are three things we will focus on for this article:
+In this article, we will focus on:
 
+- an [introduction](#introduction) to vega-view
 - setting (and soon getting) [datasets](#data) 
-- setting and getting signals
-- getting events
+- setting and getting [signals](#signals)
+- getting [events](#events)
+- this package's [JavaScript API](#api)
 
-## Demo: setting (and soon getting) datasets {#data}
+## Introduction to vega-view
+
+We can use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to modify a chart once it has been rendered. 
+
+Here, we recreate this Vega-Lite [streaming demo](https://vega.github.io/vega-lite/tutorials/streaming.html).
+Our first step is to create a vegaspec. Note that we have named a dataset to `"table"`, but we have not included any data.
+
+```{r}
+spec_table <-
+  list(
+    `$schema` = vega_schema(),
+    width = 400,
+    data = list(name = "table"),
+    mark = "line",
+    encoding = list(
+      x = list(
+        field = "x", 
+        type = "quantitative",
+        scale = list(zero =  FALSE)
+      ),
+      y = list(field = "y", type = "quantitative"),
+      color = list(field = "category", type = "nominal")
+    )
+  ) %>%
+  as_vegaspec()
+```
+
+We use the `vegawidget()` function with an `elementId` argument, to specify the id of the HTML element containing the chart. This argument is not documented explicitly as a part of `vegawidget()`; rather it is passed on to `htmlwidget::createWidget()` using `...`. We need to specify this so that the JavaScript code we supply will know which Vega chart to modify. 
+
+```{r}
+vegawidget(spec_table, elementId = "streaming-demo")
+```
+
+Note that the chunk below is written in JavaScript - in the R Markdown file, this is a `{js}` chunk, rather than an `{r}` chunk. 
+
+```{js}
+// This is a JavaScript chunk, using {js} instead of {r}
+Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
+  /**
+   * Generates a new tuple with random walk.
+   */
+  function newGenerator() {
+      var counter = -1;
+      var previousY = [5, 5, 5, 5];
+      return function () {
+          counter++;
+          var newVals = previousY.map(function (v, c) { return ({
+              x: counter,
+              y: v + Math.round(Math.random() * 10 - c * 3),
+              category: c
+          }); });
+          previousY = newVals.map(function (v) { return v.y; });
+          return newVals;
+      };
+  }
+
+  var valueGenerator = newGenerator();
+  var minimumX = -100;
+  window.setInterval(function () {
+      minimumX++;
+      var data_insert = valueGenerator();
+      var data_remove = function(data_remove) {
+        return (data_remove.x < minimumX);
+      };
+      
+      var changeSet = vega.changeset()
+                          .insert(valueGenerator())
+                          .remove(function (t) { return t.x < minimumX; });
+                          
+      view.change('table', changeSet).run();
+  }, 1000);  
+});
+```
+
+The first part of the JavaScript code is a call to a function, `Vegawidget.findViewPromise()`. This package puts an object into the JavaScript namespace, `Vegawidget`, which contains a function `findViewPromise()`.  We use this function with a single argument, a CSS `selector`, to specify the HTML element that contains the chart we wish to access; hence the `elementId = "streaming-demo"` in the `vegawidget()` call above. The `findVewPromise()` function returns a JavaScript [promise](https://javascript.info/promise-basics) to the chart's `view` object.
+
+The `then()` call contains a function that takes a single argument, `view`, our view object, on which the 
+[vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view) operates. The `then()` code executes once the view promise is fulfilled.
+
+The rest of the code is adapted from the [original demonstration](https://vega.github.io/vega-lite/tutorials/streaming.html). To change a dataset, we use vega-view's [change()](https://github.com/vega/vega/tree/master/packages/vega-view#view_change) method.
+
+## Setting (and soon getting) datasets {#data}
 
 [Vega](https://vega.github.io/vega/docs/data/) and [Vega-Lite](https://vega.github.io/vega-lite/docs/data.html#named) both offer the ability to name datasets within a specification. 
 
@@ -90,7 +173,7 @@ var inp_angle = document.querySelector("[name=angle]");
 
 Next, we create a JavaScript function that, when run, reads the value of the input-slider, then updates the dataset in the Vega chart. This function has no arguments; instead, it refers-to and *changes* variables in the JavaScript environment.
 
-The first part of the function converts the value of `inp_andgle` into a dataset, `data_new`, with a single observation. The second part of the function modifies the chart. This package puts an object into JavaScript's global namespace, `Vegawidget`, which contains a function `findViewPromise()`. We use this function with a single argument, a css `selector`, to specify the HTML element that contains the chart we wish to access. The `findVewPromise()` function returns a JavaScript [promise](https://javascript.info/promise-basics) to which we supply a function with a single argument, the `view` of the chart we are accessing.
+The first part of the function converts the value of `inp_angle` into a dataset, `data_new`, with a single observation. The second part of the function modifies the chart.  
 
 The `view` is the object of the [vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view#view-api-reference). Here, we create a changeset inserting `data_new` and removing any existing data, then we [change](https://github.com/vega/vega/tree/master/packages/vega-view#view_change) the view's dataset named `"source"`, then we [run](https://github.com/vega/vega/tree/master/packages/vega-view#view_run) the view.
 
@@ -125,7 +208,7 @@ on_angle()
 
 In a future release of this package, we will be able to listen to (and extract) datasets in a Vega chart.
 
-## Demo: setting and getting signals
+## Setting and getting signals {#signals}
 
 Some words about signals in Vega and how they are coming to be defined in Vega-Lite. Some more words about how when we use vega-view, we are dealing with Vega. Even more words about use-cases for signals. Signals are an essential part of selections.
 
@@ -192,10 +275,11 @@ output_bin_width <-
     tags$span(id = "output_bin_width", "1.0"),
     "°F."
   )
+```
 
+```{r}
 handler_bin_width <-
   vw_handler_signal("value") %>%
-  vw_handler_add_effect("console") %>%
   vw_handler_add_effect(
     "document.querySelector('#output_bin_width').innerText = x.toFixed(3)"
   )
@@ -204,6 +288,8 @@ output_histogram <-
   output_histogram %>%
   vw_add_signal_listener("bin_width", handler_bin_width)
 ```
+
+Talk about the signal-handler library, and how we use effects.
 
 Here are the HTML elements:
 
@@ -239,88 +325,29 @@ inp_bin_width.addEventListener("input", on_bin_width);
 // run the updating function *once* to initialize the input to the chart
 on_bin_width()
 ```
-## Demo: streaming data
 
-Here, we recreate this Vega-Lite [streaming tutorial](https://vega.github.io/vega-lite/tutorials/streaming.html). In this case we are using JavaScript both to create the new data, and to update the dataset in Vega.
-
-The point of the original Vega-Lite demo is to show how to use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to modify a chart once it has been rendered. The point of this demo is to show the steps you can take to adapt the original Vega-Lite demo to the htmlwidgets context.
- 
-Our first step is to create a vegaspec. Note that we have named a dataset to `"table"`, but we have not included any data.
+## Getting events {#events}
 
 ```{r}
-spec_table <-
-  list(
-    `$schema` = vega_schema(),
-    width = 400,
-    data = list(name = "table"),
-    mark = "line",
-    encoding = list(
-      x = list(
-        field = "x", 
-        type = "quantitative",
-        scale = list(zero =  FALSE)
-      ),
-      y = list(field = "y", type = "quantitative"),
-      color = list(field = "category", type = "nominal")
-    )
-  ) %>%
-  as_vegaspec()
+output_datum <- 
+  tags$pre(id = "output-datum")
 ```
-
-We use `vegawidget()` function with an `elementId` argument, to specify the id of the HTML element. This argument is not documented as a part of `vegawidget()`; rather it is passed on to `htmlwidget::createWidget()` using `...`. We need to specify this so that the JavaScript code we write later will know which Vega chart to modify. 
 
 ```{r}
-vegawidget(spec_table, elementId = "streaming-demo")
+event_handler <-
+  vw_handler_event("datum") %>%
+  vw_handler_add_effect("x = JSON.stringify(x, null, '  ');") %>%
+  vw_handler_add_effect("element_text", selector = "#output-datum")
 ```
 
-In the absence of the code below, we would be left with an empty chart. Note that this is written in JavaScript - in the R Markdown file, this is a `{js}` chunk, rather than an `{r}` chunk. 
-
-TODO: Describe the `Vegawidget.find()` function, that it returns a promise to a vegawidget object, then you get the veg promise from it, and so on...
-
-In the demo code, the `vegaEmbed()` function (described in the [vega-embed](https://github.com/vega/vega-embed) library) returns a promise object, a JavaScript object used for asynchronous execution. We do not have direct access to the creation of the promise in the HTML file, but the vegawidget JavaScript API provides a function `getVegaPromise()` that, given a CSS selector to find the enclosing element (hence the `elementId = "table"` earlier), returns the promise.
-
-The `.then()` call contains a function that takes a single argument, `result` - this is our promise object. A  [`vegaEmbed()`](https://github.com/vega/vega-embed#embed) promise object contains two objects: a [`view`](https://github.com/vega/vega/tree/master/packages/vega-view) instance and a copy of the `spec` used to create it. Although we are likely interested only in the view, we follow the vega-embed convention to return the entire object so that you refer to the view in the function as `result.view`.
-
-The rest of the code is copied from the original demonstration. To change a dataset, we use vega-view's [change](https://github.com/vega/vega/tree/master/packages/vega-view#view_change) method.
-
-```{js}
-// This is a JavaScript chunk, using {js} instead of {r}
-Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
-  /**
-   * Generates a new tuple with random walk.
-   */
-  function newGenerator() {
-      var counter = -1;
-      var previousY = [5, 5, 5, 5];
-      return function () {
-          counter++;
-          var newVals = previousY.map(function (v, c) { return ({
-              x: counter,
-              y: v + Math.round(Math.random() * 10 - c * 3),
-              category: c
-          }); });
-          previousY = newVals.map(function (v) { return v.y; });
-          return newVals;
-      };
-  }
-
-  var valueGenerator = newGenerator();
-  var minimumX = -100;
-  window.setInterval(function () {
-      minimumX++;
-      var data_insert = valueGenerator();
-      var data_remove = function(data_remove) {
-        return (data_remove.x < minimumX);
-      };
-      
-      var changeSet = vega.changeset()
-                          .insert(valueGenerator())
-                          .remove(function (t) { return t.x < minimumX; });
-                          
-      view.change('table', changeSet).run();
-  }, 1000);  
-});
+```{r}
+vegawidget(spec_mtcars) %>%
+  vw_add_event_listener("click", handler_body = event_handler)
 ```
 
+```{r}
+output_datum
+```
 
+## Vegawidget JS API reference
 

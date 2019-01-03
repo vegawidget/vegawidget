@@ -32,12 +32,15 @@ vw_handler <- function(args, body_value, body_effect) {
   )
 }
 
+#' @keywords internal
+#' @export
+#'
 print.vw_handler <- function(x, ...) {
 
   # write out
-  cat(compose_list(x$args, "args"), "\n")
+  cat(compose_list(x$args, "arguments"), "\n")
   cat("body_value:\n")
-  cat(x$body_value %>% glue::glue_collapse(sep = "\n") %>% indent(2L))
+  cat(x$body_value$text %>% glue::glue_collapse(sep = "\n") %>% indent(2L))
   if (!is.null(x$body_effect)) {
     cat("\nbody_effect:\n")
     cat(x$body_effect %>% glue::glue_collapse(sep = "\n") %>% indent(2L))
@@ -71,10 +74,16 @@ print..vw_handler_def <- function(x, ...) {
 
   cat(compose_list(x$args, "arguments"), "\n")
 
+  if (identical(x$args, "x")) {
+    body_name <- "  body_effect"
+  } else {
+    body_name <- "  body_value"
+  }
+
   mapply(
     function(text, name) {
       cat("\n")
-      cat(compose_list(name, "  handler_body"), "\n")
+      cat(compose_list(name, body_name), "\n")
       print(text, n_indent = 2)
     },
     x$bodies,
@@ -119,11 +128,6 @@ print_list <- function(x) {
 
 print..vw_handler_body <- function(x, n_indent = 0L, ...) {
 
-  # local function to add spaces for indenting
-  ind <- function(x) {
-    indent(x, n = n_indent)
-  }
-
   # if there are parameters, print them
   if (length(x$params) > 0L) {
 
@@ -131,15 +135,15 @@ print..vw_handler_body <- function(x, n_indent = 0L, ...) {
       x$params %>%
       print_list() %>%
       compose_list("params") %>%
-      ind()
+      indent(n_indent + 2L)
 
     cat(text, "\n")
   }
 
   # print out the text of the body
-  delim <- ind("--------")
-  text <- ind(x$text)
-  cat(delim, text, delim, sep = "\n")
+  text <- indent(x$text, n = n_indent + 2L)
+  cat("\n")
+  cat(text, sep = "\n")
 
   invisible(x)
 }

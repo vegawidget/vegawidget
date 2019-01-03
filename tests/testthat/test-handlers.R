@@ -68,7 +68,7 @@ test_that("vw_handler_body_compose() works", {
 
   expect_identical(
     vw_handler_body_compose(handler_signal, n_indent = 0L),
-    handler_signal$body_value %>% as.character() %>% JS()
+    handler_signal$body_value$text %>% as.character() %>% JS()
   )
 
   expect_match(

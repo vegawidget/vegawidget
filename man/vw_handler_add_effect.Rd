@@ -4,14 +4,14 @@
 \alias{vw_handler_add_effect}
 \title{Add a side-effect to a JavaScript handler}
 \usage{
-vw_handler_add_effect(vw_handler, handler_body, ...)
+vw_handler_add_effect(vw_handler, body_effect, ...)
 }
 \arguments{
 \item{vw_handler}{\code{vw_handler} created using \code{\link[=vw_handler_signal]{vw_handler_signal()}} or
 \code{\link[=vw_handler_event]{vw_handler_event()}}}
 
-\item{handler_body}{\code{character}, the name of a defined handler-body,
-or the text of a handler-function}
+\item{body_effect}{\code{character}, the name of a defined handler-body,
+or the text of the body of a handler-function}
 
 \item{...}{additional \emph{named} parameters to be interpolated into the
 text of the handler_body}
@@ -30,7 +30,7 @@ The calculation of a value is meant to be separate from the
 production of a side-effect. This way, the code for a side-effect
 can be used for any type of handler.
 
-You are supplying the \code{handler_body} to an effect-handler. This
+You are supplying the \code{body_effect} to an effect-handler. This
 takes a single argument, \code{x}, representing the
 calculated value. Doing this allows us to chain side-effects together;
 be careful not to modify \code{x} in any of the code you provide.

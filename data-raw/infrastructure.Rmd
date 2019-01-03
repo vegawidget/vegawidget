@@ -358,7 +358,7 @@ Vegawidget handlers:
         datum = .vw_handler_body(
           params = list(),
           text = c(
-            "// returns null if nothing there",
+            "// if there is no item or no datum, return null",
             "if (item === null || item === undefined || item.datum === undefined) {",
             "  return null;",
             "}",
@@ -387,7 +387,7 @@ Vegawidget handlers:
         shiny_input = .vw_handler_body(
           params = list(inputId = NULL, expr = "x"),
           text = c(
-            "// sets the Shiny-input named `inputId` to `expr` (default `x`)",
+            "// sets the Shiny-input named `inputId` to `expr` (default \"x\")",
             "Shiny.setInputValue('${inputId}', ${expr});"
           )
         ),
@@ -396,14 +396,14 @@ Vegawidget handlers:
           text = c(
             "// if `label` is non-trivial, prints it to the JS console",
             "'${label}'.length > 0 ? console.log('${label}') : null;",
-            "// prints `expr` (default `x`) to the JS console",
+            "// prints `expr` (default \"x\") to the JS console",
             "console.log(${expr});"
           )
         ),        
         element_text = .vw_handler_body(
           params = list(selector = NULL, expr = "x"),
           text = c(
-            "// to element `selector`, adds text `expr` (default `x`)",
+            "// to element `selector`, adds text `expr` (default \"x\")",
             "document.querySelector('${selector}').innerText = ${expr}"
           )
         )

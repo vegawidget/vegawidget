@@ -3,7 +3,7 @@
 #' A Vega listener needs a JavaScript handler-function to call
 #' when the object-being-listened-to changes. For instance, [shiny-getters] and
 #' [add-listeners] functions each have an argument called
-#' `handler_body`, which these functions help you build.
+#' `body_value`, which these functions help you build.
 #'
 #' There are two types of handlers defined in this package's handler-library.
 #' To see the handlers that are defined for each, call the function
@@ -45,11 +45,11 @@
 #' of JavaScript code you supply - any errors you make will not be apparent
 #' until your visualization is rendered in a browser.
 #'
-#' One last note, if `handler_body` is already a `vw_handler`, these functions
-#' are no-ops; they will return the `handler_body` unchanged.
+#' One last note, if `body_value` is already a `vw_handler`, these functions
+#' are no-ops; they will return the `body_value` unchanged.
 #'
-#' @param handler_body `character`, the name of a defined handler-body,
-#'   or the text of a handler-function
+#' @param body_value `character`, the name of a defined handler-body,
+#'   or the text of the body of a handler-function
 #'
 #' @return object with S3 class `vw_handler`
 #' @seealso [vw_handler_add_effect()]
@@ -70,53 +70,53 @@
 #'   vw_handler_signal("return value;")
 #' @export
 #'
-vw_handler_signal <- function(handler_body) {
+vw_handler_signal <- function(body_value) {
 
   handler_type <- .vw_handler_library[["signal"]]
 
   # if handler_body is missing, print out available handlers
-  if (missing(handler_body)) {
+  if (missing(body_value)) {
     print(handler_type)
     return(invisible(NULL))
   }
 
   # if handler_body is a handler, return the handler
-  if (inherits(handler_body, "vw_handler")) {
-    return(handler_body)
+  if (inherits(body_value, "vw_handler")) {
+    return(body_value)
   }
 
   # get the handler_body
-  handler_body <- vw_handler_body(handler_body, "signal")
+  body_value <- vw_handler_body(body_value, "signal")
 
   # create the handler
   args <- handler_type$args
-  vw_handler(args, handler_body, NULL)
+  vw_handler(args, body_value, NULL)
 }
 
 #' @rdname vw_handler_signal
 #' @export
 #'
-vw_handler_event <- function(handler_body) {
+vw_handler_event <- function(body_value) {
 
   handler_type <- .vw_handler_library[["event"]]
 
   # if handler_body is missing, print out available handlers
-  if (missing(handler_body)) {
+  if (missing(body_value)) {
     print(handler_type)
     return(invisible(NULL))
   }
 
   # if handler_body is a handler, return the handler
-  if (inherits(handler_body, "vw_handler")) {
-    return(handler_body)
+  if (inherits(body_value, "vw_handler")) {
+    return(body_value)
   }
 
   # get the handler_body
-  handler_body <- vw_handler_body(handler_body, "event")
+  body_value <- vw_handler_body(body_value, "event")
 
   # create the handler
   args <- handler_type$args
-  vw_handler(args, handler_body, NULL)
+  vw_handler(args, body_value, NULL)
 }
 
 #' Add a side-effect to a JavaScript handler
@@ -130,7 +130,7 @@ vw_handler_event <- function(handler_body) {
 #' production of a side-effect. This way, the code for a side-effect
 #' can be used for any type of handler.
 #'
-#' You are supplying the `handler_body` to an effect-handler. This
+#' You are supplying the `body_effect` to an effect-handler. This
 #' takes a single argument, `x`, representing the
 #' calculated value. Doing this allows us to chain side-effects together;
 #' be careful not to modify `x` in any of the code you provide.
@@ -144,7 +144,8 @@ vw_handler_event <- function(handler_body) {
 #'
 #' @param vw_handler `vw_handler` created using [vw_handler_signal()] or
 #'   [vw_handler_event()]
-#' @inheritParams vw_handler_signal
+#' @param body_effect `character`, the name of a defined handler-body,
+#'   or the text of the body of a handler-function
 #' @param ... additional *named* parameters to be interpolated into the
 #'   text of the handler_body
 #'
@@ -162,7 +163,7 @@ vw_handler_event <- function(handler_body) {
 #'
 #' @export
 #'
-vw_handler_add_effect <- function(vw_handler, handler_body, ...) {
+vw_handler_add_effect <- function(vw_handler, body_effect, ...) {
 
   handler_type <- .vw_handler_library[["effect"]]
 
@@ -173,13 +174,13 @@ vw_handler_add_effect <- function(vw_handler, handler_body, ...) {
   }
 
   # get the handler_body
-  handler_body <- vw_handler_body(handler_body, "effect")
+  body_effect <- vw_handler_body(body_effect, "effect")
 
   # handler body needs to return text and a list of parameters
 
   # blend the parameters
   params_new <- list(...)
-  params_default <- handler_body$params
+  params_default <- body_effect$params
 
   names_common <-
     names(params_new)[names(params_new) %in% names(params_default)]
@@ -200,7 +201,7 @@ vw_handler_add_effect <- function(vw_handler, handler_body, ...) {
 
   # mix in the parameters
   handler_text <-
-    do.call(glue_js, c(as.list(handler_body$text), list(.envir = params)))
+    do.call(glue_js, c(as.list(body_effect$text), list(.envir = params)))
 
   # append the new effect
   vw_handler$body_effect <- c(vw_handler$body_effect, handler_text)
@@ -226,7 +227,7 @@ vw_handler_add_effect <- function(vw_handler, handler_body, ...) {
 vw_handler_body_compose <- function(vw_handler, n_indent = 2L) {
 
   body_value <-
-    glue::glue_collapse(vw_handler$body_value, sep = "\n")
+    glue::glue_collapse(vw_handler$body_value$text, sep = "\n")
 
   # does the handler-body have no effects?
   if (is.null(vw_handler$body_effect)) {

@@ -11,7 +11,7 @@ library("htmltools")
 
 The purpose of this article is to show how you can use JavaScript to extend Vega's capabilities. In these examples, we use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to interact with a Vega chart using JavaScript. We explore similar ideas in an article on [extending using Shiny](shiny.Rmd).
 
-In this article, we will focus on:
+This article has sections on:
 
 - an [introduction](#introduction) to vega-view
 - getting [events](#events)
@@ -19,12 +19,18 @@ In this article, we will focus on:
 - setting (and soon getting) [datasets](#data) 
 - this package's [JavaScript API](#api)
 
+It goes without saying that you will need to be comfortable with JavaScript to take advantage of this material. It will be apparent to many of you that my (Ian's) JavaScript is far from perfect; here are a couple of resources I have used to try to build up my JS capabilities:
+
+- [Eloquent JavaScript](https://eloquentjavascript.net), available as a free website or as a physical book; thanks to [Stuart Lee](https://github.com/sa-lee) for the tip! 
+
+- [Observable](https://beta.observablehq.com), Mike Bostock's latest endeavor, is an intereactive JS coding environment that emphasizes visualization.
+
 ## Introduction to vega-view
 
 We can use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to modify a chart once it has been rendered. 
 
 Here, we recreate this Vega-Lite [streaming demo](https://vega.github.io/vega-lite/tutorials/streaming.html).
-Our first step is to create a vegaspec. Note that we have named a dataset to `"table"`, but we have not included any data.
+Our first step is to create a vegaspec. Note that we have a dataset named `"table"`, but we have not included any data.
 
 ```{r}
 spec_table <-
@@ -52,7 +58,7 @@ We use the `vegawidget()` function with an `elementId` argument, to specify the 
 vegawidget(spec_table, elementId = "streaming-demo")
 ```
 
-Note that the chunk below is written in JavaScript - in the R Markdown file, this is a `{js}` chunk, rather than an `{r}` chunk. 
+The chunk below is written in JavaScript - in the R Markdown file, this is a `{js}` chunk, rather than an `{r}` chunk. 
 
 ```{js}
 // This is a JavaScript chunk, using {js} instead of {r}
@@ -93,46 +99,117 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 });
 ```
 
-The first part of the JavaScript code is a call to a function, `Vegawidget.findViewPromise()`. This package puts an object into the JavaScript namespace, `Vegawidget`, which contains a function `findViewPromise()`.  We use this function with a single argument, a CSS `selector`, to specify the HTML element that contains the chart we wish to access; hence the `elementId = "streaming-demo"` in the `vegawidget()` call above. The `findVewPromise()` function returns a JavaScript [promise](https://javascript.info/promise-basics) to the chart's `view` object.
+This package puts an object into the JavaScript namespace, `Vegawidget`, which contains a function `findViewPromise()`. The first part of the JavaScript code is a call to this function, with a single argument, a CSS `selector`, to specify the HTML element that contains the chart we wish to access. This reflects the `elementId = "streaming-demo"` in the `vegawidget()` call above. 
 
-The `then()` call executes once the view promise is fulfilled. It contains a function that takes a single argument, `view`, our view object, on which the 
+The `findVewPromise()` function returns a JavaScript [promise](https://javascript.info/promise-basics) to the chart's `view` object. The `then()` call executes once the view promise is fulfilled. It contains a function that takes a single argument, `view`, our view object, on which the 
 [vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view) operates. 
 
-The rest of the code is adapted from the [original demonstration](https://vega.github.io/vega-lite/tutorials/streaming.html). To change a dataset, we use vega-view's [change()](https://github.com/vega/vega/tree/master/packages/vega-view#view_change) method.
+Within this `then()` call, we can operate on the `view`. The rest of the code is adapted from the [original demonstration](https://vega.github.io/vega-lite/tutorials/streaming.html), where they use vega-view's [change()](https://github.com/vega/vega/tree/master/packages/vega-view#view_change) method to change the data periodically.
 
 ## Getting events {#events}
+
+Event streams are [used extensively within Vega](https://vega.github.io/vega/docs/event-streams), enabling interactivity. By [adding event-listners](https://vega.github.io/vega/docs/api/view/#view_addEventListener) to the `view`, we can specify actions to be taken in response to a particular type of event, such as `"hover"`, `"click"`, `"keypress"`, etc.
+
+In this section, we will make a "clickable" scatterplot; when we click on a point in the scatterplot, we will print the data-observation (datum) associated with that point. The rest of this section will be devoted to how we tell our `view` what to do in response to a `"click"`.
+
+Vega's [event-listener documentation](https://vega.github.io/vega/docs/api/view/#view_addEventListener) specifies that we supply a handler function to be "invoked with two arguments: the `event` instance and the currently active scenegraph `item` (which is null if the event target is the view component itself)."
+
+It can be difficult to write debug JavaScript code, especially if you are working from an R environment. To make this a little easier, this package offers functions to compose JavaScript handler-functions.
+
+### Building handler-functions
+
+In the example we are building, we want our handler function to do two things:
+
+- return the value of the datum (observation) associated with the event.
+- write that value into an element in the HTML document.
+
+These are two seperate "things"; the first suggests a function that returns a value, the second suggests a function that produces a side-effect. Accordingly, this package offers a set of JavaScript functions that return values, another set of JavaScript functions that produce side-effects, and a means to compose them.
+
+First, let's look at functions that return values from events. Because all event-handlers take the same two arguments, `event` and `item`, we can focus only on the *body* of the handler-function. This is the purpose of the `vw_handler_event()` function. 
+
+If we call it without arguments, it prints a list of available event-handlers that return values:
 
 ```{r}
 vw_handler_event()
 ```
 
+If we want to use a certain handler, we call for it by name:
+
+```{r}
+vw_handler_event("datum")
+```
+
+The handler has a print method that shows the arguments and the function body. If you want to supply a custom handler, you can provide your own function body. For example, this handler-function will be less-robust than the `"datum"` function from the "library":
+
+```{r}
+vw_handler_event("return item.datum;")
+```
+
+Let's create our event handler based on the `"datum"` function-body:
+
+```{r}
+handler_event <- vw_handler_event("datum")
+```
+
+We're halfway there - we have a function that will return a value, but not yet a function that will produce an effect. To add an effect to our function, we can use the function `vw_handler_add_effect()`. Calling it without arguments will list the available effect-handlers.
+
 ```{r}
 vw_handler_add_effect()
 ```
 
-```{r}
-output_datum <- 
-  tags$pre(id = "output-datum")
-```
+The effect-handlers are designed to be JavaScript functions of a single argument, `x`, which represents the value returned from the value-handler. Let's use the effect-handler for putting text into an HTML element: `"element_text"`. Note that there two parameters that we can supply, `selector`, to identify the HTML element, and `expr`, the JavaScript expression to use. The `selector` parameter is required; the `expr` parameter defaults to `"x"`, the value.
+
+We supply the parameters as additional arguments to `vw_handler_add_effect()`:
 
 ```{r}
-event_handler <-
-  vw_handler_event("datum") %>%
+vw_handler_event("datum") %>%
+  vw_handler_add_effect("element_text", selector = "#output-datum")
+```
+
+The R functions interpolate the parameters into the JavaScript function-bodies. If we were to use this `body_effect` as is, the text that appears in the HTML element would be `[Object object]`, which is not very informative. Instead, we will use the `expr` parameter to insert an expression to convert the JavaScript object to JSON text:
+
+```{r}
+handler_event <- 
+  handler_event %>%     # defined earlier as vw_handler_event("datum")
   vw_handler_add_effect(
     "element_text", 
     selector = "#output-datum",
     expr = "JSON.stringify(x, null, '  ');"
   )
+
+handler_event
 ```
+
+One last note on the effect-handlers: you can add as many (or as few) as you like to a handler-function by piping successive calls to `vw_handler_add_event()`.
+
+If we want to look at what the composed handler-function looks like, you can use the `vw_handler_compose()` function:
+
+```{r}
+vw_handler_compose(handler_event)
+```
+
+In practice, you are not compelled to use either this function or its friend, `vw_handler_body_compose()`; the listener functions will know what to do.
+
+### Building the interactive elements
+
+Now that we have build a handler function, we need the HTML element that we referred-to:
+
+```{r}
+output_datum <- tags$pre(id = "output-datum")
+```
+
+Let's create our vegawidget, then attach our handler using a listener-function, `vw_add_event_listener()`, specifying that we want to listen to `"click"` events, responding to them using our event-handler.
 
 ```{r}
 vegawidget(spec_mtcars) %>%
-  vw_add_event_listener("click", handler_body = event_handler)
+  vw_add_event_listener("click", handler_body = handler_event)
 ```
 
 ```{r}
 output_datum
 ```
+
+If you click on the plotting-area of the chart, you will get `null` if you had clicked on an empty space, and you will get the observation (datum) associated with any mark that you click. 
 
 ## Setting and getting signals {#signals}
 

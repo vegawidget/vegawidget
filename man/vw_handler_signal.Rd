@@ -5,13 +5,13 @@
 \alias{vw_handler_event}
 \title{Construct a JavaScript handler}
 \usage{
-vw_handler_signal(handler_body)
+vw_handler_signal(body_value)
 
-vw_handler_event(handler_body)
+vw_handler_event(body_value)
 }
 \arguments{
-\item{handler_body}{\code{character}, the name of a defined handler-body,
-or the text of a handler-function}
+\item{body_value}{\code{character}, the name of a defined handler-body,
+or the text of the body of a handler-function}
 }
 \value{
 object with S3 class \code{vw_handler}
@@ -20,7 +20,7 @@ object with S3 class \code{vw_handler}
 A Vega listener needs a JavaScript handler-function to call
 when the object-being-listened-to changes. For instance, \link{shiny-getters} and
 \link{add-listeners} functions each have an argument called
-\code{handler_body}, which these functions help you build.
+\code{body_value}, which these functions help you build.
 }
 \details{
 There are two types of handlers defined in this package's handler-library.
@@ -66,8 +66,8 @@ Please be aware that these functions do \emph{not} check for the correctness
 of JavaScript code you supply - any errors you make will not be apparent
 until your visualization is rendered in a browser.
 
-One last note, if \code{handler_body} is already a \code{vw_handler}, these functions
-are no-ops; they will return the \code{handler_body} unchanged.
+One last note, if \code{body_value} is already a \code{vw_handler}, these functions
+are no-ops; they will return the \code{body_value} unchanged.
 }
 \examples{
   # list all the available signal-handlers

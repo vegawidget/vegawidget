@@ -8,6 +8,9 @@
 #'
 NULL
 
+#' @keywords internal
+#' @export
+#'
 print.JS_EVAL <- function(x, ...) {
 
   cat(x)

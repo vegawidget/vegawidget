@@ -349,12 +349,14 @@ Vegawidget handlers:
       args = c("event", "item"),
       bodies = list(
         item = .vw_handler_body(
+          params = list(),
           text = c(
             "// returns the item",
             "return item;"
           )
         ),
         datum = .vw_handler_body(
+          params = list(),
           text = c(
             "// returns null if nothing there",
             "if (item === null || item === undefined || item.datum === undefined) {",
@@ -371,6 +373,7 @@ Vegawidget handlers:
       args = c("name", "value"),
       bodies = list(
         value = .vw_handler_body(
+          params = list(),
           text = c(
             "// returns the value of the signal",
             "return value;"
@@ -382,30 +385,26 @@ Vegawidget handlers:
       args = "x",
       bodies = list(
         shiny_input = .vw_handler_body(
-          params = "inputId",
+          params = list(inputId = NULL, expr = "x"),
           text = c(
-            "// sets the Shiny-input named '${inputId}' to the value",
-            "Shiny.setInputValue('${inputId}', x);"
+            "// sets the Shiny-input named `inputId` to `expr` (default `x`)",
+            "Shiny.setInputValue('${inputId}', ${expr});"
           )
         ),
         console = .vw_handler_body(
+          params = list(label = "", expr = "x"),
           text = c(
-            "// prints the value to the JS console",
-            "console.log(x);"
+            "// if `label` is non-trivial, prints it to the JS console",
+            "'${label}'.length > 0 ? console.log('${label}') : null;",
+            "// prints `expr` (default `x`) to the JS console",
+            "console.log(${expr});"
           )
         ),        
-        console_text = .vw_handler_body(
-          params = "text",
-          text = c(
-            "// prints '${text}' to the JS console",
-            "console.log('${text}');"
-          )
-        ),
         element_text = .vw_handler_body(
-          params = "selector",
+          params = list(selector = NULL, expr = "x"),
           text = c(
-            "// adds value as element text",
-            "document.querySelector('${selector}').innerText = x"
+            "// to element `selector`, adds text `expr` (default `x`)",
+            "document.querySelector('${selector}').innerText = ${expr}"
           )
         )
       )

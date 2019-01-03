@@ -106,6 +106,17 @@ print..vw_handler_def <- function(x, ...) {
   )
 }
 
+print_list <- function(x) {
+  # make a list print like the code that created it
+  x <- jsonlite::toJSON(x, auto_unbox = TRUE, null = "null")
+  x <- gsub(",", ", ", x) # put space after comma
+  x <- gsub("\\{(.*)\\}", "\\1", x) # remove {}
+  x <- gsub("\"([^\"]+)\":", "\\1 = ", x) # remove quotes
+  x <- gsub("null", "NULL", x) # capitalize NULL
+
+  x
+}
+
 print..vw_handler_body <- function(x, n_indent = 0L, ...) {
 
   # local function to add spaces for indenting
@@ -113,11 +124,12 @@ print..vw_handler_body <- function(x, n_indent = 0L, ...) {
     indent(x, n = n_indent)
   }
 
-  # if there are required parameters, print them
-  if (!is.null(x$params)) {
+  # if there are parameters, print them
+  if (length(x$params) > 0L) {
 
     text <-
       x$params %>%
+      print_list() %>%
       compose_list("params") %>%
       ind()
 
@@ -139,30 +151,32 @@ compose_list <- function(x, title) {
 
 vw_handler_body <- function(handler_body, type) {
 
-  handler_type <- .vw_handler_library[[type]]
+  text <- handler_body
+  params <- list()
 
   # is this a name of a handler in the library?
-  bodies <- handler_type$bodies
+  bodies <- .vw_handler_library[[type]][["bodies"]]
   if (handler_body %in% names(bodies)) {
     # use *that* handler_body
-    handler_body <- bodies[[handler_body]]$text
+    text <- bodies[[handler_body]]$text
+    params <- bodies[[handler_body]]$params
   }
 
   # collapse into a single string
-  handler_body <- glue::glue_collapse(handler_body, sep = "\n")
+  text <- glue::glue_collapse(text, sep = "\n")
 
   # if this is has no whitespace, parentheses, or semicolons, issue a warning
   js_pattern <- "(\\s|\\(|\\)|;)"
-  if (!grepl(js_pattern, handler_body)) {
+  if (!grepl(js_pattern, text)) {
     warning(
       "handler_body: '",
-      handler_body,
+      text,
       "' does not appear to contain valid JavaScript code, ",
       "and it is not a known ", type, " handler."
     )
   }
 
-  handler_body
+  list(text = text, params = params)
 }
 
 

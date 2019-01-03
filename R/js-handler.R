@@ -175,12 +175,35 @@ vw_handler_add_effect <- function(vw_handler, handler_body, ...) {
   # get the handler_body
   handler_body <- vw_handler_body(handler_body, "effect")
 
+  # handler body needs to return text and a list of parameters
+
+  # blend the parameters
+  params_new <- list(...)
+  params_default <- handler_body$params
+
+  names_common <-
+    names(params_new)[names(params_new) %in% names(params_default)]
+
+  params <- params_default
+  params[names_common] <- params_new[names_common]
+
+  # if any of the params are null, warn
+  index_null <- vapply(params, is.null, logical(1L))
+  names_null <- names(params[index_null])
+
+  if (length(names_null) > 0L) {
+    warning(
+      "params not set: ",
+      glue::glue_collapse(names_null, sep = ", ")
+    )
+  }
+
   # mix in the parameters
-  handler_body <-
-    do.call(glue_js, c(as.list(handler_body), list(.envir = list(...))))
+  handler_text <-
+    do.call(glue_js, c(as.list(handler_body$text), list(.envir = params)))
 
   # append the new effect
-  vw_handler$body_effect <- c(vw_handler$body_effect, handler_body)
+  vw_handler$body_effect <- c(vw_handler$body_effect, handler_text)
 
   vw_handler
 }

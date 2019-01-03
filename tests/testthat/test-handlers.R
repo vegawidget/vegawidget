@@ -3,10 +3,10 @@ context("test-handlers")
 test_that("vw_handler_body() works", {
 
   # retrieve a handler from the library
-  expect_match(vw_handler_body("value", "signal"), "return value;$")
+  expect_match(vw_handler_body("value", "signal")$text, "return value;$")
 
   # supply code for the body
-  expect_match(vw_handler_body("return value;", "signal"), "^return value;$")
+  expect_match(vw_handler_body("return value;", "signal")$text, "^return value;$")
 
   # supply "nonsense"
   expect_warning(vw_handler_body("_value", "signal"), "handler_body")
@@ -68,27 +68,7 @@ test_that("vw_handler_body_compose() works", {
 
   expect_identical(
     vw_handler_body_compose(handler_signal, n_indent = 0L),
-    JS(handler_signal$body_value)
-  )
-
-  expect_match(
-    vw_handler_body_compose(handler_signal_effect, n_indent = 0L),
-    "^\\(function \\(x\\)"
-  )
-
-})
-
-test_that("vw_handler_body_compose() works", {
-
-  handler_signal <-vw_handler_signal("value")
-
-  handler_signal_effect <-
-    handler_signal %>%
-    vw_handler_add_effect("console")
-
-  expect_identical(
-    vw_handler_body_compose(handler_signal, n_indent = 0L),
-    JS(handler_signal$body_value)
+    handler_signal$body_value %>% as.character() %>% JS()
   )
 
   expect_match(
@@ -108,6 +88,11 @@ test_that("vw_handler_compose() works", {
   expect_match(
     vw_handler_compose(handler_signal_effect),
     "^function \\(name, value\\)"
+  )
+
+  expect_warning(
+    handler_signal %>% vw_handler_add_effect("element_text"),
+    "params not set: selector"
   )
 })
 

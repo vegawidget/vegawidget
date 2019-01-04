@@ -17,7 +17,6 @@ This article has sections on:
 - getting [events](#events)
 - setting and getting [signals](#signals)
 - setting (and soon getting) [datasets](#data) 
-- this package's [JavaScript API](#api)
 
 It goes without saying that you will need to be comfortable with JavaScript to take advantage of this material. It will be apparent to many of you that my (Ian's) JavaScript is far from perfect; here are a couple of resources I have used to try to build up my JS capabilities:
 
@@ -213,25 +212,17 @@ If you click on the plotting-area of the chart, you will get `null` if you had c
 
 ## Setting and getting signals {#signals}
 
-Some words about signals in Vega and how they are coming to be defined in Vega-Lite. Some more words about how when we use vega-view, we are dealing with Vega. Even more words about use-cases for signals. Signals are an essential part of selections.
+Signals are a [formal part of the Vega specification](https://vega.github.io/vega/docs/signals), but not officially a part of the Vega-Lite specification. They are "dynamic variables that parameterize a visualization and can drive interactive behaviors. Signals can be used throughout a Vega specification, for example to define a mark property or data transform parameter."
 
-As you know, whenever you create a histogram it is a good idea to experiment with different bin-widths, to give yourself a chance to see all of the interesting structure in the data. Let's use the `data_seattle_hourly` dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010.
+Even though signals are not defined in Vega-Lite, this does not mean that we cannot use them. Before being rendered, Vega-Lite specifications are compiled into Vega specifications. Once rendered, we can interact with the Vega signals, as long as we know what they are named.
 
-This is not "legal" Vega-Lite, we are patching the compiled Vega. It is not yet clear how signals might come to be defined formally in Vega-Lite; as of the start of 2019, this is an active discussion. However, the patch option in vega-embed gives us a chance to experiemtent and, by doing so, to contribute to the conversation.
+For example, signals are used to drive the behavior of Vega-Lite [selections](https://vega.github.io/vega-lite/docs/selection.html). As of the start of 2019, the Vega-Lite development team are [discussing](https://github.com/vega/vega-lite/issues/3338) if, and how, signals might be introduced to Vega-Lite.
 
-```{r}
-input_bin_width <- 
-  tags$input(
-    type = "range", 
-    name = "bin_width", 
-    value = 0, 
-    min = -1, 
-    max = 1,
-    step = 0.01,
-    style = "width: 400px; margin-bottom: 10px;"
-  )
-```
+One way we can "hack" our way to a signal is to use the signal into the Vega-Lite specification, then *define* the signal by patching the compiled Vega specification. Vega-Lite developer Dominik Moritz demonstrates this technique in an [Observable notebook](https://beta.observablehq.com/@domoritz/rotating-earth). 
 
+Here, we will use the same technique to create an interactive histogram. As you know, whenever you create a histogram it is a good idea to experiment with different bin-widths, to give yourself a chance to see all of the interesting structure in the data. We will use the `data_seattle_hourly` dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010.
+
+Our first step is to create a Vega-Lite specification for a [histogram](https://vega.github.io/vega-lite/examples/histogram.html).
 
 ```{r}
 spec_histogram <- 
@@ -255,7 +246,12 @@ spec_histogram <-
     )
   ) %>%
   as_vegaspec()
+```
 
+In the Vega-Lite spec above, in the `x` `encoding`, we have defined the `bin` `step` as a `signal` named `"bin_width"`.This is not legal in Vega-Lite.
+To make this work, we have to patch the compiled Vega spec with a definition of the signal. We can include the patch as an option to `vega_embed()`.
+
+```{r}
 patch <- 
   list(
     signals = list(
@@ -271,20 +267,46 @@ output_histogram <-
   )
 ```
 
+Our `output_histogram` will be a vegawidget that is contained in an HTML element with id of `"histogram"`.
+
+The next step is to use the `tags` environment from the **htmltools** package to create a range input that we can use to specify the bin-width. The input will work logarithmically, where the center of the range will correspond to zero, or a baseline bin-width. The range of the input is from -1 to 1, which will correspond to one decade below the baseline
+bin-width, and one decade above.
+
+```{r}
+input_bin_width <- 
+  tags$input(
+    type = "range", 
+    name = "bin_width", 
+    value = 0, 
+    min = -1, 
+    max = 1,
+    step = 0.01,
+    style = "width: 400px; margin-bottom: 10px;"
+  )
+```
+
+We also define an output element to tell us the bin-width that Vega is using; we will hook this up using a [signal-listener](https://vega.github.io/vega/docs/api/view/#view_addSignalListener).
+
 ```{r}
 output_bin_width <-
   tags$p(
     "The histogram bin-width is ",
-    tags$span(id = "output_bin_width", "1.0"),
-    "°F."
+    tags$span(id = "output-bin-width", "foo"),
+    " °F."
   )
 ```
+
+A signal-handler is a JavaScript function that takes two arguments, the `name` of the signal and the `value` of the signal. Just like with the event-listener in the example above, we define a signal-handler that will return the value of the signal, then put the value into the HTML element with id `"output-bin-width"`, as its text. Note that we are using the `expr` parameter to specify that we want only three decimal places.
+
+We use the function `vw_add_signal_listener()` to add the signal-listener to the vegawidget. We specify that whenever the value of the `"bin-width"` signal changes, Vega will call the signal-handler function, which will update the text in `output_bin_width`.
 
 ```{r}
 handler_bin_width <-
   vw_handler_signal("value") %>%
   vw_handler_add_effect(
-    "document.querySelector('#output_bin_width').innerText = x.toFixed(3)"
+    "element_text",
+    selector = "#output-bin-width",
+    expr = "x.toFixed(3)"
   )
 
 output_histogram <- 
@@ -292,9 +314,7 @@ output_histogram <-
   vw_add_signal_listener("bin_width", handler_bin_width)
 ```
 
-Talk about the signal-handler library, and how we use effects.
-
-Here are the HTML elements:
+We can print the HTML elements to the document; these are "live", but it remains to define the actions that connect `input_bin_width` to the Vega histogram.
 
 ```{r}
 input_bin_width
@@ -304,7 +324,17 @@ output_histogram
 output_bin_width
 ```
 
+In the JavaScript chunk below, we define a function that we will want to call whenever the input represented by `input_bin_width` changes.
+
+In this function, `on_bin_width()`, we map the value of the input to the value of the bin-width. Then, using our `Vegawidget.finViewPromise()` function, we set the signal `"bin_width"` in the Vega chart and direct it to re-run.
+
+The `view` is the object of the [vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view#view-api-reference). Here  we [set the signal](https://vega.github.io/vega/docs/api/view/#view_signal) named `"bin_width"` to our new value, then re-[run](https://github.com/vega/vega/tree/master/packages/vega-view#view_run) the view.
+
+Once the function is defined, we direct it to run any time our input-slider changes, and we direct this function to run once at initialization.
+
 ```{js}
+// {js} chunk
+
 // JS reference to our slider-input
 var inp_bin_width = document.querySelector("[name=bin_width]");
 
@@ -317,7 +347,7 @@ function on_bin_width() {
 
   // update Vega chart
   Vegawidget.findViewPromise("#histogram").then(function(view) {
-    view.signal("bin_width", Number(bin_width)).run();  
+    view.signal("bin_width", bin_width).run();  
   });    
 
 }
@@ -329,22 +359,19 @@ inp_bin_width.addEventListener("input", on_bin_width);
 on_bin_width()
 ```
 
+Opinion time: admittedly, there are improvements that can be made, both to the visualization and input themselves, and to process by which we connect everything using R. Shiny seems like a fairly attractive option, in comparison.  Hopefully, by taking a few tentative steps with JavaScript, and by exposing them to the development community, we can work towards cleaner implementations. 
 
 ## Setting (and soon getting) datasets {#data}
 
-[Vega](https://vega.github.io/vega/docs/data/) and [Vega-Lite](https://vega.github.io/vega-lite/docs/data.html#named) both offer the ability to name datasets within a specification. 
+[Vega](https://vega.github.io/vega/docs/data/) and [Vega-Lite](https://vega.github.io/vega-lite/docs/data.html#named) both offer the ability to name datasets within a specification. We can use the vega-view API to [change a dataset](https://vega.github.io/vega/docs/api/view/#data-and-scales), and in a future version of this package, you will be able to listen to a dataset, i.e. to specify an action whenever a dataset changes.
 
-We can use the vega-view API to [change a dataset](https://vega.github.io/vega/docs/api/view/#data-and-scales), and in a future version of this package, you will be able to listen to a dataset, i.e. to specify an action whenever a dataset changes.
-
-Let's consider an example with a dataset that has a single observation, and that we can use an HTML input to change that observation.
-
-First, we use the `tags` environment from the **htmltools** package to create a range input that we use to specify an angle - in our case 0 to 360 degrees. Our input is named `"angle"`.
+Let's consider an example with a dataset that has a single observation, and that we can use an HTML input to change that observation. First, we create a range-input that to specify an angle - in our case 0 to 360 degrees. Our input is named `"inp_angle"`.
 
 ```{r}
 input_angle <- 
   tags$input(
     type = "range", 
-    name = "angle", 
+    name = "inp_angle", 
     value = 0, 
     min = 0, 
     max = 360, 
@@ -384,7 +411,7 @@ spec_circle <-
 output_chart <- vegawidget(spec_circle, elementId = "circle")
 ```
 
-Let's print out our HTML elements to the document, then we will add some JavaScript to define the interactions:
+Let's print out our HTML elements to the document, then, like in the signal-example, we will add some JavaScript to define the interactions:
 
 ```{r}
 input_angle
@@ -398,7 +425,7 @@ Our first job is to create a JavaScript variable that refers to the input slider
 // this is a {js} chunk
 
 // JS reference to our slider-input
-var inp_angle = document.querySelector("[name=angle]");
+var inp_angle = document.querySelector("[name=inp_angle]");
 ```
 
 Next, we create a JavaScript function that, when run, reads the value of the input-slider, then updates the dataset in the Vega chart. This function has no arguments; instead, it refers-to and *changes* variables in the JavaScript environment.
@@ -439,6 +466,4 @@ on_angle()
 In a future release of this package, we will be able to listen to (and extract) datasets in a Vega chart.
 
 
-
-## Vegawidget JS API reference
 

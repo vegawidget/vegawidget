@@ -1,21 +1,22 @@
 library("shiny")
 library("vegawidget")
 
-ui_slider_angle <-
-  sliderInput(
-    "angle",
-    label = "angle (°)",
-    min = 0,
-    max = 360,
-    value = 0,
-    animate = TRUE
+ui_select_dataset <-
+  selectInput(
+    "dataset",
+    label = "dataset",
+    choices = c(
+      "A (similar)" = "a",
+      "B (similar)" = "b",
+      "C (different)" = "c"
+    )
   )
 
 ui <- fluidPage(
   titlePanel("Vegawidget: setting data"),
   sidebarLayout(
     sidebarPanel(
-      ui_slider_angle
+      ui_select_dataset
     ),
     mainPanel(
       h4("Data sent to chart"),

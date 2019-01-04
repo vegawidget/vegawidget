@@ -2,44 +2,36 @@ library("shiny")
 library("vegawidget")
 library("tibble")
 
-set.seed(314159)
 
-# Create datasets
-#
-# We provide a list of three datasets: two of which have
-# nearly-identical data; the other one will have different
-# data. All three datasets will have the same format.
-#
-n_row <- 10
-source_a <- tibble(
-  category = letters[1:n_row],
-  amount = round(runif(n_row), 3)
-)
+data_angle <- function(x) {
 
-# nearly-identical to source_a, missing only the last row
-source_b <- source_a[-c(n_row), ]
+  theta = x * pi / 180.
 
-# completely different amounts than source_a
-source_c <- tibble(
-  category = letters[1:n_row],
-  amount = round(runif(n_row), 3)
-)
-
-list_data <- list(a = source_a, b = source_b, c = source_c)
+  data_frame(x = cos(theta), y = sin(theta))
+}
 
 # Create vegaspec
 #
-spec_bar <-
+spec_circle <-
   list(
     `$schema` = vega_schema(),
-    data = list(name = "source"),
-    mark = "bar",
+    width = 300,
+    height = 300,
+    data = list(
+      values = list(x = 1, y = 0),
+      name = "source"
+    ),
+    mark = "point",
     encoding = list(
-      x = list(field = "category", type = "ordinal"),
-      y = list(
-        field = "amount",
+      x = list(
+        field = "x",
         type = "quantitative",
-        scale = list(domain = list(0, 1))
+        scale = list(domain = list(-1, 1))
+      ),
+      y = list(
+        field = "y",
+        type = "quantitative",
+        scale = list(domain = list(-1, 1))
       )
     )
   ) %>%
@@ -49,7 +41,7 @@ server <- function(input, output) {
 
   # reactives
   #
-  rct_data <- reactive(list_data[[input$dataset]])
+  rct_data <- reactive(data_angle(input$angle))
 
   # observers
   #
@@ -59,9 +51,9 @@ server <- function(input, output) {
 
   # outputs
   #
-  output$data_in <- renderPrint(glimpse(rct_data()))
+  output$data_in <- renderPrint(rct_data())
 
-  output$chart <- renderVegawidget(spec_bar)
+  output$chart <- renderVegawidget(spec_circle)
 }
 
 

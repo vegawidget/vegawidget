@@ -2,6 +2,8 @@ library("shiny")
 library("tibble")
 library("vegawidget")
 
+spec_new <- spec_mtcars
+
 server <- function(input, output) {
 
   ## reactives
@@ -14,8 +16,10 @@ server <- function(input, output) {
 
   ## outputs
 
+  # use a sample-spec that comes with the package
   output$chart <- renderVegawidget(spec_mtcars)
 
+  # render as a data-frame
   output$event_out <- renderPrint({
     as_data_frame(rct_list_click())
   })

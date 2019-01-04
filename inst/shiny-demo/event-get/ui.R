@@ -10,12 +10,6 @@ ui <- fluidPage(
         "For some unknown reason, for the event-handling to work",
         "when the app is in display-mode, the code has to appear",
         "underneath the rest of the app."
-      ),
-      p(
-        "Also, it might be nice to figure out some sort of",
-        "hover-handler that could be used to change the cursor",
-        "into a pointer (hand with finger) whenever the cursor",
-        "covers a mark."
       )
     ),
     mainPanel(

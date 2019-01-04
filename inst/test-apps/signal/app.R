@@ -33,7 +33,7 @@ server <- function(input, output) {
 
   # reactives
   rct_cyl <-
-    vw_shiny_get_signal("chart", name = "cyl", handler_body = "return value;")
+    vw_shiny_get_signal("chart", name = "cyl", body_value = "return value;")
 
   # observers
   vw_shiny_set_signal("chart", name = "cyl", value = input$slider)

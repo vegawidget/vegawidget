@@ -33,14 +33,14 @@
 #' couple of options. This package provides
 #' a library of handler-functions; call [vw_handler_signal()],
 #' [vw_handler_event()], or [vw_handler_add_effect()] without arguments to
-#' list them. If it does not contain the handler you need, the `handler_body`
+#' list them. If it does not contain the handler you need, the `body_value`
 #' argument will also accept a character string which will be used as
 #' the **body** of the handler function.
 #'
 #' For example, these calls are equivalent:
 #'
-#' - `vw_shiny_get_signal(..., handler_body = vw_handler_signal("value"))`
-#' - `vw_shiny_get_signal(..., handler_body = "return value;")`
+#' - `vw_shiny_get_signal(..., body_value = vw_handler_signal("value"))`
+#' - `vw_shiny_get_signal(..., body_value = "return value;")`
 #'
 #' If you use a custom-handler that you think may be useful for the
 #' handler-function library, please
@@ -49,12 +49,12 @@
 #' @inheritParams shiny-setters
 #' @param name `character`, name of the signal (defined in Vega specification)
 #'   being monitored
-#' @param handler_body `character` or `JS_EVAL`, the **body** of a JavaScript
+#' @param body_value `character` or `JS_EVAL`, the **body** of a JavaScript
 #'   function that Vega will use to handle the signal or event; this function
 #'   must return a value
 #'
 #' @return [shiny::reactive()] function that returns the value returned by the
-#'  `handler_body` function
+#'  `body_value` function
 #' @name shiny-getters
 #' @seealso [vw_handler_signal()], [vw_handler_event()],
 #'   vega-view:
@@ -62,7 +62,7 @@
 #'     [addEventListener()](https://github.com/vega/vega/tree/master/packages/vega-view#view_addEventListener)
 #' @export
 #'
-vw_shiny_get_signal <- function(outputId, name, handler_body = "value") {
+vw_shiny_get_signal <- function(outputId, name, body_value = "value") {
 
   assert_packages("shiny")
 
@@ -80,7 +80,7 @@ vw_shiny_get_signal <- function(outputId, name, handler_body = "value") {
 
       # compose_handler_body
       handler_body <-
-        vw_handler_signal(handler_body) %>%
+        vw_handler_signal(body_value) %>%
         vw_handler_add_effect("shiny_input", inputId = inputId) %>%
         vw_handler_body_compose(n_indent = 0L)
 
@@ -106,7 +106,7 @@ vw_shiny_get_signal <- function(outputId, name, handler_body = "value") {
 #'   [Vega Event-Stream reference](https://vega.github.io/vega/docs/event-streams/)
 #' @export
 #'
-vw_shiny_get_event <- function(outputId, event, handler_body = "datum") {
+vw_shiny_get_event <- function(outputId, event, body_value = "datum") {
 
   assert_packages("shiny")
 
@@ -124,7 +124,7 @@ vw_shiny_get_event <- function(outputId, event, handler_body = "datum") {
 
       # compose handler_body
       handler_body <-
-        vw_handler_event(handler_body) %>%
+        vw_handler_event(body_value) %>%
         vw_handler_add_effect("shiny_input", inputId = inputId) %>%
         vw_handler_body_compose(n_indent = 0L)
 

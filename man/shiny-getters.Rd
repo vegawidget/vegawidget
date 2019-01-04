@@ -6,9 +6,9 @@
 \alias{vw_shiny_get_event}
 \title{Get information from a Vega chart}
 \usage{
-vw_shiny_get_signal(outputId, name, handler_body = "value")
+vw_shiny_get_signal(outputId, name, body_value = "value")
 
-vw_shiny_get_event(outputId, event, handler_body = "datum")
+vw_shiny_get_event(outputId, event, body_value = "datum")
 }
 \arguments{
 \item{outputId}{\code{character}, shiny \code{outputId} for the vegawidget}
@@ -16,7 +16,7 @@ vw_shiny_get_event(outputId, event, handler_body = "datum")
 \item{name}{\code{character}, name of the signal (defined in Vega specification)
 being monitored}
 
-\item{handler_body}{\code{character} or \code{JS_EVAL}, the \strong{body} of a JavaScript
+\item{body_value}{\code{character} or \code{JS_EVAL}, the \strong{body} of a JavaScript
 function that Vega will use to handle the signal or event; this function
 must return a value}
 
@@ -26,7 +26,7 @@ for list of supported events, please see
 }
 \value{
 \code{\link[shiny:reactive]{shiny::reactive()}} function that returns the value returned by the
-\code{handler_body} function
+\code{body_value} function
 }
 \description{
 There are two types of information you can get from a Vega chart, a \emph{signal},
@@ -64,14 +64,14 @@ If you need to specify a different behavior for the handler, there are a
 couple of options. This package provides
 a library of handler-functions; call \code{\link[=vw_handler_signal]{vw_handler_signal()}},
 \code{\link[=vw_handler_event]{vw_handler_event()}}, or \code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}} without arguments to
-list them. If it does not contain the handler you need, the \code{handler_body}
+list them. If it does not contain the handler you need, the \code{body_value}
 argument will also accept a character string which will be used as
 the \strong{body} of the handler function.
 
 For example, these calls are equivalent:
 \itemize{
-\item \code{vw_shiny_get_signal(..., handler_body = vw_handler_signal("value"))}
-\item \code{vw_shiny_get_signal(..., handler_body = "return value;")}
+\item \code{vw_shiny_get_signal(..., body_value = vw_handler_signal("value"))}
+\item \code{vw_shiny_get_signal(..., body_value = "return value;")}
 }
 
 If you use a custom-handler that you think may be useful for the

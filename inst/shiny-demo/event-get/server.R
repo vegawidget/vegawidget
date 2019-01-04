@@ -4,18 +4,15 @@ library("vegawidget")
 
 server <- function(input, output) {
 
-  # reactives
-  #
+  ## reactives
 
   # the event returns the backing-data as a list
   rct_list_click <-
     vw_shiny_get_event("chart", event = "click", body_value = "datum")
 
-  # observers
-  #
+  ## observers
 
-  # outputs
-  #
+  ## outputs
 
   output$chart <- renderVegawidget(spec_mtcars)
 

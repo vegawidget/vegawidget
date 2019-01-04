@@ -8,7 +8,8 @@ ui_slider_bin_width <-
     min = -1,
     max = 1,
     value = 0,
-    step = 0.01
+    step = 0.01,
+    animate = TRUE
   )
 
 ui <- fluidPage(

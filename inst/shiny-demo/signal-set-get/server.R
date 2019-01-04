@@ -66,7 +66,8 @@ server <- function(input, output) {
 
   # bin-width from chart
   output$bin_width_out <- renderPrint({
-    round(rct_bin_width_out(), 3L)
+    # protects against initial NULL
+    rct_bin_width_out() %>% as.numeric() %>% round(3L)
   })
 
 }

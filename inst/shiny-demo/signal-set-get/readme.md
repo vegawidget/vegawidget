@@ -1,4 +1,4 @@
-This example shows how we can design a chart using Vega-Lite, then use Shiny to set a signal and retrieve its value from the chart. The example we show is a histogram with a Shiny input to control the bin-width; we communicate the bin-width to the chart using a [signal](https://vega.github.io/vega/docs/signals).
+This example shows how we can design a chart using Vega-Lite, then use Shiny to set a signal and retrieve its value from the chart. This example shows a histogram with a Shiny input to control the bin-width; we communicate the bin-width to the chart using a [signal](https://vega.github.io/vega/docs/signals).
 
 The difference between using a signal and re-creating the chart in the `server()` function is that by using the signal, the chart is recalculated by Vega, in the client browser. Instead of communicating an entire chart-specification (including data) upon each change, Shiny has to communicate only a single number, the bin-width.
 

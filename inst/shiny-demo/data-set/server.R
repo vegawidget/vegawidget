@@ -2,25 +2,22 @@ library("shiny")
 library("vegawidget")
 library("tibble")
 
-
+# function to convert an angle to a dataset
 data_angle <- function(x) {
 
+  # degrees to radians
   theta = x * pi / 180.
 
   data_frame(x = cos(theta), y = sin(theta))
 }
 
-# Create vegaspec
-#
+# spec for the "circle"
 spec_circle <-
   list(
     `$schema` = vega_schema(),
     width = 300,
     height = 300,
-    data = list(
-      values = list(x = 1, y = 0),
-      name = "source"
-    ),
+    data = list(name = "source"),
     mark = "point",
     encoding = list(
       x = list(
@@ -41,6 +38,8 @@ server <- function(input, output) {
 
   # reactives
   #
+
+  # returns dataset in response to the angle-input
   rct_data <- reactive(data_angle(input$angle))
 
   # observers
@@ -51,8 +50,11 @@ server <- function(input, output) {
 
   # outputs
   #
+
+  # render the input data-frame
   output$data_in <- renderPrint(rct_data())
 
+  # render the chart
   output$chart <- renderVegawidget(spec_circle)
 }
 

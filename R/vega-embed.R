@@ -46,7 +46,10 @@
 #' @param loader	sets a custom Vega loader.
 #'   See [Vega docs](https://github.com/vega/vega-loader#loader)
 #'   for details.
-#' @param onBeforeParse	`JS` function, modifies the spec before being parsed.
+#' @param patch	`JS` function or object, A function to modify the Vega
+#'   specification before it is parsed. Alternatively, an object that is used
+#'   to patch the Vega specification. If you use Vega-Lite, the compiled Vega
+#'   will be patched.
 #' @param width	`integer` sets the view width in pixels.
 #' See [Vega docs](https://vega.github.io/vega/docs/api/view/#view_width)
 #' for details.
@@ -114,7 +117,7 @@ vega_embed <- function(renderer = c("canvas", "svg"),
                        logLevel = NULL,
                        tooltip = NULL,
                        loader = NULL,
-                       onBeforeParse = NULL,
+                       patch = NULL,
                        width = NULL,
                        height = NULL,
                        padding = NULL,
@@ -174,7 +177,7 @@ vega_embed <- function(renderer = c("canvas", "svg"),
       logLevel = logLevel,
       tooltip = tooltip,
       loader = loader,
-      onBeforeParse = onBeforeParse,
+      patch = patch,
       width = width,
       height = height,
       padding = padding,

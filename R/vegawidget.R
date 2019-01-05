@@ -95,7 +95,7 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
 #'
 #' @export
 #'
-vegawidgetOutput <- function(outputId, width = "100%", height = "400px") {
+vegawidgetOutput <- function(outputId, width = "auto", height = "auto") {
   htmlwidgets::shinyWidgetOutput(
     outputId,
     "vegawidget",
@@ -116,7 +116,14 @@ vegawidgetOutput <- function(outputId, width = "100%", height = "400px") {
 #' @export
 #'
 renderVegawidget <- function(expr, env = parent.frame(), quoted = FALSE) {
+
+  # if sent a vegaspec, convert to a vegawidget
+  if (inherits(expr, "vegaspec")) {
+    expr <- vegawidget(expr)
+  }
+
   if (!quoted) { expr <- substitute(expr) } # force quoted
+
   htmlwidgets::shinyRenderWidget(
     expr,
     vegawidgetOutput,

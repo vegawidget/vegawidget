@@ -8,6 +8,7 @@ library("readr")
 library("tibble")
 library("lubridate")
 library("magrittr")
+library("vegawidget")
 ```
 
 ## Categorical data
@@ -57,6 +58,7 @@ data_seattle_hourly$date <-
 glimpse(data_seattle_hourly)
 ```
 
+
 ## Write it out
 
 ```{r}
@@ -67,3 +69,6 @@ usethis::use_data(
   overwrite = TRUE  
 )
 ```
+
+
+

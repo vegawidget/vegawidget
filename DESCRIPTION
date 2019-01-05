@@ -1,5 +1,5 @@
 Package: vegawidget
-Version: 0.0.5.9000
+Version: 0.0.6.9000
 Title: Htmlwidget Renderer for Vega and Vega-Lite
 Description: Vega and Vega-Lite parse text in JSON notation to render 
   chart-specifications into HTML. This package is used to facilitate the 
@@ -71,5 +71,6 @@ Suggests:
     readr,
     tibble,
     lubridate,
-    learnr
+    learnr,
+    dplyr
 VignetteBuilder: knitr

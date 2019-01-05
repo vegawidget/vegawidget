@@ -248,7 +248,7 @@ spec_histogram <-
   as_vegaspec()
 ```
 
-In the Vega-Lite spec above, in the `x` `encoding`, we have defined the `bin` `step` as a `signal` named `"bin_width"`.This is not legal in Vega-Lite.
+In the Vega-Lite spec above, in the `x` `encoding`, we have defined the `bin` `step` as a `signal` named `"bin_width"`. This is not legal in Vega-Lite.
 To make this work, we have to patch the compiled Vega spec with a definition of the signal. We can include the patch as an option to `vega_embed()`.
 
 ```{r}

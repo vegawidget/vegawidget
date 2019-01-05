@@ -47,7 +47,8 @@ server <- function(input, output) {
   })
 
   # the signal returns the bin-width from the chart
-  rct_bin_width_out <- vw_shiny_get_signal("chart", name = "bin_width")
+  rct_bin_width_out <-
+    vw_shiny_get_signal("chart", name = "bin_width", body_value = "value")
 
   ## observers
 

@@ -45,9 +45,9 @@ rct_list_click <-
 
 The function is called with three arguments:
 
-- `outputId` - the scatterplot has the outputId `"chart"`
-- `event` - we want to respond to `"click"` events on the scatterplot
-- `body_value` - please see the following text...
+- `outputId`, the scatterplot has the outputId `"chart"`
+- `event`, we want to respond to `"click"` events on the scatterplot
+- `body_value`, please see the following text...
 
 The vega-view API requires that you supply a handler-function when you [add an event listener](https://vega.github.io/vega/docs/api/view/#view_addEventListener). Inconveniently for R users, this handler-function has to be JavaScript. This package does a few things to make working with JavaScript handlers a little easier.
 
@@ -67,48 +67,66 @@ Finally, the `vw_shiny_get_event()` function returns a reactive expression that 
 
 ## Setting and getting signals
 
+As with the events section, this is a shortened version of the [signals section](javascript.html#signals) in the [JavaScript article](JavaScript).
+
+Signals are a [formal part of the Vega specification](https://vega.github.io/vega/docs/signals), but not officially a part of the Vega-Lite specification. They are "dynamic variables that parameterize a visualization and can drive interactive behaviors. Signals can be used throughout a Vega specification, for example to define a mark property or data transform parameter."
+
+Even though signals are not defined in Vega-Lite, this does not mean that we cannot use them. Before being rendered, Vega-Lite specifications are compiled into Vega specifications. Once rendered, we can interact with the Vega signals, as long as we know what they are named.
+
+For example, signals are used to drive the behavior of Vega-Lite [selections](https://vega.github.io/vega-lite/docs/selection.html). As of the start of 2019, the Vega-Lite development team are [discussing](https://github.com/vega/vega-lite/issues/3338) if, and how, signals might be introduced to Vega-Lite.
+
+One way we can "hack" our way to a signal is to use the signal into the Vega-Lite specification, then *define* the signal by patching the compiled Vega specification. Vega-Lite developer Dominik Moritz demonstrates this technique in an [Observable notebook](https://beta.observablehq.com/@domoritz/rotating-earth). 
+
+Here, we will use the same technique to create an interactive histogram. As you know, whenever you create a histogram it is a good idea to experiment with different bin-widths, to give yourself a chance to see all of the interesting structure in the data. We will use the `data_seattle_hourly` dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010.
+
+You can see this in action by running:
+
+```r
+vw_shiny_demo("signal-set-get")
+```
+
+Using the display mode of the app you can see the R code used to build it. In the Vega-Lite spec, in the `x` `encoding`, we have defined the `bin` `step` as a `signal` named `"bin_width"`. This is not legal in Vega-Lite.
+To make this work, we have to patch the compiled Vega spec with a definition of the signal. We can include the patch as an option to `vega_embed()`.
+
+You also see in the code that we transform the value returned by the input, which varies between -1 and 1, to the bin-width which varies between 0.1 °F and 10.0 °F.
+
+To set the value of the signal in the Vega chart, we call the function `vw_shiny_set_signal()`. In the context of this app:
+
+```r
+# this sets the bin-width signal in the chart
+vw_shiny_set_signal("chart", name = "bin_width", value = rct_bin_width_in())
+```
+
+- `outputId`, the histogram has the outputId `"chart"`
+- `name`, the Vega signal we want to set has the name `"bin_width"`
+- `value`, we want to set the Vega signal to this value
+
+Note that we are supplying a reactive expression to the `value` argument. Internally, `vw_shiny_set_signal()` observes this value, then changes the signal in the Vega chart in response to changes in `value`. Accordingly, you should think of `vw_shiny_set_signal()` as equivalent to the `shiny::observeEvent()` function.
+
+Getting the value of the signal in a Vega chart is very similar to getting the information from an event, as described above.
+
+The operative function in the `server()` function is `vw_shiny_get_signal()`. Here it is in the context of the app:
+
+```r
+# the signal returns the bin-width from the chart
+rct_bin_width_out <- 
+  vw_shiny_get_signal("chart", name = "bin_width", body_value = "value")
+```
+
+The function is called with three arguments:
+
+- `outputId`, the scatterplot has the outputId `"chart"`
+- `name`, we want to access the signal named `"bin_width"`
+- `body_value`, like with the events, this is a little-bit involved...
+
+To get a signal from Vega we add a signal listener. This includes a signal-handler, a JavaScript function that Vega runs whenever the value of the signal changes. This is very similar to an event-handler. 
+
+For a signal-handler, the arguments are the `name` of the signal and the `value` of the signal. To make things simpler, the `vw_shiny_get_signal()` function asks for the body of a (JavaScript) function that returns the value that you want sent back to Shiny. You need only worry about returning a *value*, `vw_shiny_get_signal()` takes care of sending the *value* back to Shiny.
+
+To make things even simpler, `body_value` can also be the name of a signal-handler in this package's handler-library. You can see all the available signal-handlers by calling `vw_handler_signal()` without arguments.
+
+Finally, the `vw_shiny_get_signal()` function returns a reactive expression that evaluates to the latest *value* returned from the signal-handler.
+
 ## Setting (and soon getting) data
 
 
-Shiny interaction support in vegawidget and this vignette are still a work in progress.  
-
-Currently supported are:
-
-* `vw_add_event_listener` to add an event listener, where event is something like 'click' or 'hover'
-* `vw_add_signal_listener` to addd a signal listener to listen to a vega signal
-* `vw_bind_ui` to bind a shiny UI element to a vega signal, so that when the UI element is updated, the value is pushed to the signal 
-
-To see examples of `vw_add_event_listener` and `vw_bind_ui`, see the app in the test_app of the repository.
-
-## Listeners
-
-The two functions to create listeners by default add a listener that will push the relavant data from the interaction/signal to shiny. If the widget has been created as `output$chart` then a 'click' event will update ` input$chart_click`.  Similarly, a listener for a signal named 'mysignal' would update `input$chart_mysignal`.
-
-Alternatively, a custom listener function can be provided. That function should be a javascript with form `function(event,item)` for events and `function(name,value)` for signals.
-
-At the moment, listeners are added at render time -- there is no support for adding a listner dynamically after having created the chart.  That functionality may be added in future, especially if a salient use case arises.
-
-One would typically add a listener like this:
-
-```{r, eval = FALSE}
-vegawidget(spec) %>%
-      vw_add_event_listener("click")
-```
-
-## Binding UI elements
-
-`vw_bind_ui("chart", "slider", "cyl")` will bind the signal named "cyl" in the shiny output named "chart" to the value from the input named "slider".  Optionally, an input transformation function (in R) can be passed as well which will be applied to the input before passing it to the signal.
-
-## Potential future functionality
-
-### Selections
-
-At present, it is not straightforward to listen to 'selections' in vega-lite. If refactoring & updates in vega-lite make it easier to access and listen to selections, then that functionality should get added to this package.
-
-### insert and remove
-
-The vega view api includes methods to insert or remove data from a plot. The internal `vw_call_vega_view` should be helpful for implementing this, but the format of the arguments has to be just right...  
-
-### crosstalk or other inter-widget communication
-
-Another potential area of future work is compatibility with crosstalk package.

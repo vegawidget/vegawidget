@@ -1,0 +1,501 @@
+{
+  "input": {
+    "chart_signal_cyl": 4,
+    "slider": 4
+  },
+  "output": {
+    "chart": {
+      "x": {
+        "chart_spec": {
+          "$schema": "https://vega.github.io/schema/vega/v3.json",
+          "width": 200,
+          "height": 200,
+          "padding": 5,
+          "data": [
+            {
+              "name": "source",
+              "values": [
+                {
+                  "Name": "toyota corona mark ii",
+                  "Miles_per_Gallon": 24,
+                  "Cylinders": 4,
+                  "Displacement": 113,
+                  "Horsepower": 95,
+                  "Weight_in_lbs": 2372,
+                  "Acceleration": 15,
+                  "Year": "1970-01-01",
+                  "Origin": "Japan"
+                },
+                {
+                  "Name": "plymouth duster",
+                  "Miles_per_Gallon": 22,
+                  "Cylinders": 6,
+                  "Displacement": 198,
+                  "Horsepower": 95,
+                  "Weight_in_lbs": 2833,
+                  "Acceleration": 15.5,
+                  "Year": "1970-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "amc hornet",
+                  "Miles_per_Gallon": 18,
+                  "Cylinders": 6,
+                  "Displacement": 199,
+                  "Horsepower": 97,
+                  "Weight_in_lbs": 2774,
+                  "Acceleration": 15.5,
+                  "Year": "1970-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "ford maverick",
+                  "Miles_per_Gallon": 21,
+                  "Cylinders": 6,
+                  "Displacement": 200,
+                  "Horsepower": 85,
+                  "Weight_in_lbs": 2587,
+                  "Acceleration": 16,
+                  "Year": "1970-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "datsun pl510",
+                  "Miles_per_Gallon": 27,
+                  "Cylinders": 4,
+                  "Displacement": 97,
+                  "Horsepower": 88,
+                  "Weight_in_lbs": 2130,
+                  "Acceleration": 14.5,
+                  "Year": "1970-01-01",
+                  "Origin": "Japan"
+                },
+                {
+                  "Name": "volkswagen 1131 deluxe sedan",
+                  "Miles_per_Gallon": 26,
+                  "Cylinders": 4,
+                  "Displacement": 97,
+                  "Horsepower": 46,
+                  "Weight_in_lbs": 1835,
+                  "Acceleration": 20.5,
+                  "Year": "1970-01-01",
+                  "Origin": "Europe"
+                },
+                {
+                  "Name": "peugeot 504",
+                  "Miles_per_Gallon": 25,
+                  "Cylinders": 4,
+                  "Displacement": 110,
+                  "Horsepower": 87,
+                  "Weight_in_lbs": 2672,
+                  "Acceleration": 17.5,
+                  "Year": "1970-01-01",
+                  "Origin": "Europe"
+                },
+                {
+                  "Name": "audi 100 ls",
+                  "Miles_per_Gallon": 24,
+                  "Cylinders": 4,
+                  "Displacement": 107,
+                  "Horsepower": 90,
+                  "Weight_in_lbs": 2430,
+                  "Acceleration": 14.5,
+                  "Year": "1970-01-01",
+                  "Origin": "Europe"
+                },
+                {
+                  "Name": "saab 99e",
+                  "Miles_per_Gallon": 25,
+                  "Cylinders": 4,
+                  "Displacement": 104,
+                  "Horsepower": 95,
+                  "Weight_in_lbs": 2375,
+                  "Acceleration": 17.5,
+                  "Year": "1970-01-01",
+                  "Origin": "Europe"
+                },
+                {
+                  "Name": "bmw 2002",
+                  "Miles_per_Gallon": 26,
+                  "Cylinders": 4,
+                  "Displacement": 121,
+                  "Horsepower": 113,
+                  "Weight_in_lbs": 2234,
+                  "Acceleration": 12.5,
+                  "Year": "1970-01-01",
+                  "Origin": "Europe"
+                },
+                {
+                  "Name": "amc gremlin",
+                  "Miles_per_Gallon": 21,
+                  "Cylinders": 6,
+                  "Displacement": 199,
+                  "Horsepower": 90,
+                  "Weight_in_lbs": 2648,
+                  "Acceleration": 15,
+                  "Year": "1970-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "peugeot 504 (sw)",
+                  "Miles_per_Gallon": 21,
+                  "Cylinders": 4,
+                  "Displacement": 120,
+                  "Horsepower": 87,
+                  "Weight_in_lbs": 2979,
+                  "Acceleration": 19.5,
+                  "Year": "1972-01-01",
+                  "Origin": "Europe"
+                },
+                {
+                  "Name": "renault 12 (sw)",
+                  "Miles_per_Gallon": 26,
+                  "Cylinders": 4,
+                  "Displacement": 96,
+                  "Horsepower": 69,
+                  "Weight_in_lbs": 2189,
+                  "Acceleration": 18,
+                  "Year": "1972-01-01",
+                  "Origin": "Europe"
+                },
+                {
+                  "Name": "plymouth valiant",
+                  "Miles_per_Gallon": 18,
+                  "Cylinders": 6,
+                  "Displacement": 225,
+                  "Horsepower": 105,
+                  "Weight_in_lbs": 3121,
+                  "Acceleration": 16.5,
+                  "Year": "1973-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "chevrolet nova custom",
+                  "Miles_per_Gallon": 16,
+                  "Cylinders": 6,
+                  "Displacement": 250,
+                  "Horsepower": 100,
+                  "Weight_in_lbs": 3278,
+                  "Acceleration": 18,
+                  "Year": "1973-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "amc hornet",
+                  "Miles_per_Gallon": 18,
+                  "Cylinders": 6,
+                  "Displacement": 232,
+                  "Horsepower": 100,
+                  "Weight_in_lbs": 2945,
+                  "Acceleration": 16,
+                  "Year": "1973-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "ford maverick",
+                  "Miles_per_Gallon": 18,
+                  "Cylinders": 6,
+                  "Displacement": 250,
+                  "Horsepower": 88,
+                  "Weight_in_lbs": 3021,
+                  "Acceleration": 16.5,
+                  "Year": "1973-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "plymouth duster",
+                  "Miles_per_Gallon": 23,
+                  "Cylinders": 6,
+                  "Displacement": 198,
+                  "Horsepower": 95,
+                  "Weight_in_lbs": 2904,
+                  "Acceleration": 16,
+                  "Year": "1973-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "volkswagen super beetle",
+                  "Miles_per_Gallon": 26,
+                  "Cylinders": 4,
+                  "Displacement": 97,
+                  "Horsepower": 46,
+                  "Weight_in_lbs": 1950,
+                  "Acceleration": 21,
+                  "Year": "1973-01-01",
+                  "Origin": "Europe"
+                },
+                {
+                  "Name": "chevrolet impala",
+                  "Miles_per_Gallon": 11,
+                  "Cylinders": 8,
+                  "Displacement": 400,
+                  "Horsepower": 150,
+                  "Weight_in_lbs": 4997,
+                  "Acceleration": 14,
+                  "Year": "1973-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "ford country",
+                  "Miles_per_Gallon": 12,
+                  "Cylinders": 8,
+                  "Displacement": 400,
+                  "Horsepower": 167,
+                  "Weight_in_lbs": 4906,
+                  "Acceleration": 12.5,
+                  "Year": "1973-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "plymouth custom suburb",
+                  "Miles_per_Gallon": 13,
+                  "Cylinders": 8,
+                  "Displacement": 360,
+                  "Horsepower": 170,
+                  "Weight_in_lbs": 4654,
+                  "Acceleration": 13,
+                  "Year": "1973-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "amc gremlin",
+                  "Miles_per_Gallon": 18,
+                  "Cylinders": 6,
+                  "Displacement": 232,
+                  "Horsepower": 100,
+                  "Weight_in_lbs": 2789,
+                  "Acceleration": 15,
+                  "Year": "1973-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "toyota carina",
+                  "Miles_per_Gallon": 20,
+                  "Cylinders": 4,
+                  "Displacement": 97,
+                  "Horsepower": 88,
+                  "Weight_in_lbs": 2279,
+                  "Acceleration": 19,
+                  "Year": "1973-01-01",
+                  "Origin": "Japan"
+                },
+                {
+                  "Name": "chevrolet vega",
+                  "Miles_per_Gallon": 21,
+                  "Cylinders": 4,
+                  "Displacement": 140,
+                  "Horsepower": 72,
+                  "Weight_in_lbs": 2401,
+                  "Acceleration": 19.5,
+                  "Year": "1973-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "datsun 610",
+                  "Miles_per_Gallon": 22,
+                  "Cylinders": 4,
+                  "Displacement": 108,
+                  "Horsepower": 94,
+                  "Weight_in_lbs": 2379,
+                  "Acceleration": 16.5,
+                  "Year": "1973-01-01",
+                  "Origin": "Japan"
+                },
+                {
+                  "Name": "ford pinto",
+                  "Miles_per_Gallon": 19,
+                  "Cylinders": 4,
+                  "Displacement": 122,
+                  "Horsepower": 85,
+                  "Weight_in_lbs": 2310,
+                  "Acceleration": 18.5,
+                  "Year": "1973-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "mercury capri v6",
+                  "Miles_per_Gallon": 21,
+                  "Cylinders": 6,
+                  "Displacement": 155,
+                  "Horsepower": 107,
+                  "Weight_in_lbs": 2472,
+                  "Acceleration": 14,
+                  "Year": "1973-01-01",
+                  "Origin": "USA"
+                },
+                {
+                  "Name": "fiat 124 sport coupe",
+                  "Miles_per_Gallon": 26,
+                  "Cylinders": 4,
+                  "Displacement": 98,
+                  "Horsepower": 90,
+                  "Weight_in_lbs": 2265,
+                  "Acceleration": 15.5,
+                  "Year": "1973-01-01",
+                  "Origin": "Europe"
+                }
+              ],
+              "transform": [
+                {
+                  "type": "filter",
+                  "expr": "datum['Horsepower'] != null && datum['Miles_per_Gallon'] != null && datum['Acceleration'] != null"
+                },
+                {
+                  "type": "filter",
+                  "expr": "datum['Cylinders'] == cyl"
+                }
+              ]
+            }
+          ],
+          "signals": [
+            {
+              "name": "cyl",
+              "value": 6
+            }
+          ],
+          "scales": [
+            {
+              "name": "x",
+              "type": "linear",
+              "round": true,
+              "nice": true,
+              "zero": true,
+              "domain": {
+                "data": "source",
+                "field": "Horsepower"
+              },
+              "range": "width"
+            },
+            {
+              "name": "y",
+              "type": "linear",
+              "round": true,
+              "nice": true,
+              "zero": true,
+              "domain": {
+                "data": "source",
+                "field": "Miles_per_Gallon"
+              },
+              "range": "height"
+            },
+            {
+              "name": "size",
+              "type": "linear",
+              "round": true,
+              "nice": false,
+              "zero": true,
+              "domain": {
+                "data": "source",
+                "field": "Acceleration"
+              },
+              "range": [
+                4,
+                361
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "scale": "x",
+              "grid": true,
+              "domain": false,
+              "orient": "bottom",
+              "tickCount": 5,
+              "title": "Horsepower"
+            },
+            {
+              "scale": "y",
+              "grid": true,
+              "domain": false,
+              "orient": "left",
+              "title": "Miles_per_Gallon",
+              "titlePadding": 5
+            }
+          ],
+          "legends": [
+            {
+              "size": "size",
+              "title": "Acceleration",
+              "format": "s",
+              "encode": {
+                "symbols": {
+                  "update": {
+                    "strokeWidth": {
+                      "value": 2
+                    },
+                    "opacity": {
+                      "value": 0.5
+                    },
+                    "stroke": {
+                      "value": "#4682b4"
+                    },
+                    "shape": {
+                      "value": "circle"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "marks": [
+            {
+              "name": "marks",
+              "type": "symbol",
+              "from": {
+                "data": "source"
+              },
+              "encode": {
+                "update": {
+                  "x": {
+                    "scale": "x",
+                    "field": "Horsepower"
+                  },
+                  "y": {
+                    "scale": "y",
+                    "field": "Miles_per_Gallon"
+                  },
+                  "size": {
+                    "scale": "size",
+                    "field": "Acceleration"
+                  },
+                  "shape": {
+                    "value": "circle"
+                  },
+                  "strokeWidth": {
+                    "value": 2
+                  },
+                  "opacity": {
+                    "value": 0.5
+                  },
+                  "stroke": {
+                    "value": "#4682b4"
+                  },
+                  "fill": {
+                    "value": "transparent"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "embed_options": {
+          "defaultStyle": true,
+          "renderer": "canvas"
+        }
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+
+      ]
+    },
+    "cl": "[1] 4"
+  },
+  "export": {
+
+  }
+}

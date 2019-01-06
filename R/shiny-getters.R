@@ -1,4 +1,4 @@
-#' Get information from a Vega chart
+#' Get information from a Vega chart into Shiny
 #'
 #' There are two types of information you can get from a Vega chart, a *signal*,
 #' and information associated with an *event*. Any such signal

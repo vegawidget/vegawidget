@@ -3,8 +3,9 @@
 #' See \code{htmlwidgets::\link[htmlwidgets]{JS}} for details.
 #'
 #' @name JS
-#' @export
 #' @importFrom htmlwidgets JS
+#' @keywords internal
+#' @export
 #'
 NULL
 

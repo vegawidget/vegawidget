@@ -1,4 +1,4 @@
-#' Set information in a Vega chart
+#' Set information in a Vega chart from Shiny
 #'
 #' There are two ways to change a Vega chart: by setting
 #' a *signal* or by setting a *dataset*; you can also

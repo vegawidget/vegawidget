@@ -1,8 +1,7 @@
 #' Convert to Vega specification
 #'
-#' If the [**V8**](https://CRAN.R-project.org/package=V8) package is installed,
-#' use this function to translate a Vega-Lite specification to a
-#' Vega specification.
+#' If node is installed, used this function to convert a Vega-lite spec
+#' to a Vega spec.
 #'
 #' @inheritParams as_vegaspec
 #'
@@ -22,7 +21,7 @@ vw_to_vega <- function(spec) {
 }
 
 .vw_to_vega.default <- function(spec, ...) {
-  stop(".autosize(): no method for class ", class(spec), call. = FALSE)
+  stop(".vw_to_vega(): no method for class ", class(spec), call. = FALSE)
 }
 
 

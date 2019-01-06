@@ -1,35 +1,31 @@
 #' Create or write image
 #'
-#' If the [**webdriver**](https://cran.r-project.org/package=webdriver) package
-#' and PhantomJS are installed, these functions can be used to create
+#' If [**node**]() is installed, these functions can be used to create
 #' or write images as PNG or SVG, using a `vegaspec` or `vegawidget`.
 #'
 #' These functions can be called using (an object that can be coerced to)
-#' a `vegaspec` or a `vegawidget`. In addition to the
-#' [**webdriver**](https://cran.r-project.org/package=webdriver) package,
-#' you may also need to install PhantomJS; you can use
-#' [webdriver::install_phantomjs()].
+#' a `vegaspec`.
 #'
-#' Images are created using the
-#' [vega-view](https://github.com/vega/vega-view#image-export) image-export
-#' functions. These functions accept a scale factor, represented here as the
-#' `scale` argument. By specifying `scale = 2` for the PNG functions, a
-#' retina-ready image will be generated.
+#' For writing a `png`, the `rsvg` package is needed in addition to
+#' **node**.
 #'
-#' The `vw_to_png()` function returns a data-URI string for the PNG image. If
-#' you want this PNG image as `raw` binary data, use `vw_to_png()` followed by
-#' [vw_png_bin()].
+#' The **node** scripts used are adapted from the command line utilies in the
+#' vega-cli package.
+#'
 #'
 #' @name image
-#' @inheritParams vegawidget
+#' @param spec `vegaspec` object that is or can be coerced to a `vegaspec`,
+#'   e.g. a vegawidget object.
 #' @param path   `character`, local path to which to write file
-#' @param scale  `numeric`, scale-factor for the image:
-#'   ratio of the width (pixels) of the image to the
-#'   width (pixels) of the rendered chart
+#' @param dpi  `numeric`, numeric vector of length 1 or 2 specifying the
+#'   resolution of the image in DPI (dots per length) for x and y
+#'   (in that order). See \code{\link[png]{writePNG}}
+#' @param width,height `numeric`, output width and height in pixels (or NULL for
+#'   default) for bitmap or PNG output
 #' @param widget `vegawidget`, created using [vegawidget()]
 #'
 #' @return \describe{
-#'   \item{`vw_to_png()`}{`character`, data-URI string for PNG}
+#'   \item{`vw_to_png()`}{`array`, bitmap array}
 #'   \item{`vw_to_svg()`}{`character`, SVG string}
 #'   \item{`vw_write_png()`}{invisible `vegaspec` or `vegawidget`}
 #'   \item{`vw_write_svg()`}{invisible `vegaspec` or `vegawidget`}
@@ -39,45 +35,24 @@
 #' \dontrun{
 #'   # call any of these functions using either a vegaspec or a vegawidget
 #'   vw_to_svg(vegawidget(spec_mtcars))
-#'   write_png(spec_mtcars, "temp.png")
-#'   spec_mtcars %>% vw_to_png() %>% vw_png_bin()
+#'   vw_to_bitmap(spec_mtcars)
+#'   vw_write_png(spec_mtcars, "temp.png")
+#'   vw_write_svg(spec_mtcars, "temp.svg")
 #' }
-#' @seealso [webdriver::install_phantomjs()],
-#' [vega-view library](https://github.com/vega/vega-view#image-export),
-#' [vw_png_bin()]
+#' @seealso [vega-view library](https://github.com/vega/vega-view#image-export),
 #'
 
 #' @rdname image
 #' @export
 #'
-vw_to_svg <- function(spec, ...) {
-  .vw_to_svg(as_vegaspec(spec), ...)
-}
-
-.vw_to_svg <- function(spec, ...) {
-  UseMethod(".vw_to_svg")
-}
-
-#' @rdname image
-#' @export
-#'
-.vw_to_svg.default <- function(spec, ...) {
-  stop(".autosize(): no method for class ", class(spec), call. = FALSE)
-}
-
-.vw_to_svg.vegaspec_vega_lite <- function(spec, ...) {
-
-  vega_spec <- vw_to_vega(spec)
-  .vw_to_svg.vegaspec_vega(vega_spec, ...)
-}
-
-.vw_to_svg.vegaspec_vega <- function(spec, seed = 2018, base = "") {
+vw_to_svg <- function(spec, seed = sample(1e8, size = 1), base = "", width = NULL, height = NULL) {
 
   # Check dependencies
   assert_packages("processx")
   check_node_installed()
 
-  str_spec <- vw_as_json(spec, pretty = FALSE)
+  vega_spec <- vw_to_vega(.autosize(as_vegaspec(spec), width = width, height = height))
+  str_spec <- vw_as_json(vega_spec, pretty = FALSE)
 
   # Write the spec to a temporary file
   spec_path <- tempfile(fileext = ".json")
@@ -99,11 +74,14 @@ vw_to_svg <- function(spec, ...) {
 
 }
 
+
 #' @rdname image
 #' @export
 #'
-vw_to_png <- function(spec, file, width = NULL, height = NULL, ...) {
- svg_res <- vw_to_svg(spec, ...)
- rsvg::rsvg_png(charToRaw(svg_res), file = file, width = width, height = height)
+vw_to_bitmap <- function(spec, width = NULL, height = NULL, ...) {
+  assert_packages("rsvg")
+  svg_res <- vw_to_svg(spec, width = width, height = height, ...)
+  bm <- rsvg::rsvg(charToRaw(svg_res), width = width, height = height)
+  bm
 }
 

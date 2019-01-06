@@ -20,8 +20,9 @@ const specFile = process.argv[3];
 const seed = process.argv[4];
 // Fourth argument is base URL
 const base = process.argv[5];
-//const base = base_in !== undefined ? base_in + path.sep : null;
-//process.stderr.write(base);
+
+// Load fetch so that it can be used by vega for remote data
+fetch = require('node-fetch');
 
 // Get paths to the JS files
 const vega_path = path.join(pkgDir, 'htmlwidgets','lib','vega','vega.js');

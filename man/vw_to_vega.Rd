@@ -13,9 +13,8 @@ vw_to_vega(spec)
 S3 object of class \code{vegaspec_vega} and \code{vegaspec}
 }
 \description{
-If the \href{https://CRAN.R-project.org/package=V8}{V8} package is installed,
-use this function to translate a Vega-Lite specification to a
-Vega specification.
+If node is installed, used this function to convert a Vega-lite spec
+to a Vega spec.
 }
 \examples{
   vw_spec_version(spec_mtcars)

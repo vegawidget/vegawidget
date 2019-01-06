@@ -78,7 +78,9 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
       package = "vegawidget",
       sizingPolicy = htmlwidgets::sizingPolicy(
         defaultWidth = "auto",
-        defaultHeight = "auto"
+        defaultHeight = "auto",
+        viewer.fill = FALSE,
+        knitr.figure = FALSE
       ),
       ...
     )

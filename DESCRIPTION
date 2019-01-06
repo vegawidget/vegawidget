@@ -14,11 +14,17 @@ Authors@R: c(
     ),
     person("Vega/Vega-Lite Developers", role = c("aut")),
     person(
-      "Alicia", 
-      "Schep",
+      given = "Alicia", 
+      family = "Schep",
       email = "aschep@gmail.com",
       role = c("ctb"),
       comment = c(ORCID = "orcid.org/0000-0002-3915-0618")
+    ),
+    person(
+      given = "Stuart", 
+      family = "Lee", 
+      email = "lee.s@wehi.edu.au", 
+      role = c("ctb")
     ),
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("ctb"), 
       comment = c(ORCID = "0000-0003-4757-117X")

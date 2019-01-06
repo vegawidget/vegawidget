@@ -79,6 +79,7 @@ This is package a low-level interface to Vega-Lite and the Vega ecosystem, which
 
 - [Specify using vegaspec](https://vegawidget.github.io/vegawidget/articles/vegaspec.html): how to construct and render a vegaspec.
 - [Render using vegawidget](https://vegawidget.github.io/vegawidget/articles/vegawidget.html): advanced rendering options.
+- [Extend using Shiny](https://vegawidget.github.io/vegawidget/articles/shiny.html): how to interact with Vega charts using Shiny.
 - [Extend using JavaScript](https://vegawidget.github.io/vegawidget/articles/javascript.html): how to interact with Vega charts using JavaScript.
 - [Create Images](https://vegawidget.github.io/vegawidget/articles/image.html): how to create and save PNG or SVG images.
 - [Work with Dates and Times](https://vegawidget.github.io/vegawidget/articles/dates-times.html): dates and times in Vega(-Lite) work a little differently from R.
@@ -96,7 +97,7 @@ Accordingly, this package offers a templating function, `use_vegawidget()`, to h
  
 ## Acknowledgements
 
-- [Alicia Schep](https://github.com/AliciaSchep) has been instrumental in guiding the evolution of the API.
+- [Alicia Schep](https://github.com/AliciaSchep) has been instrumental in guiding the evolution of the API, and making headway into JavaScript and Shiny.
 - [Haley Jeppson](https://github.com/haleyjeppson) and [Stuart Lee](https://github.com/sa-lee) have provided valuable feedback throughout the package's development.
 - [Bob Rudis](https://github.com/hrbrmstr) and the [vegalite](https://github.com/hrbrmstr/vegalite) package provided a lot of the inspiration for this work, providing a high-level interface to Vega-Lite.
 - The [Altair](https://altair-viz.github.io) developers, for further popularizing the notion of using a programming language (Python) to create and render Vega-Lite specifications.  

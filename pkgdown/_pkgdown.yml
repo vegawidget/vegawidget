@@ -37,7 +37,7 @@ navbar:
 reference:
   - title: "Specifying: vegaspec"
     desc: >
-      The central *object* of this package is `vegaspec`, which is also
+      The central *object* of this package is a `vegaspec`, which is also
       a `list`. Use these functions to coerce to a `vegaspec`,
       format as JSON, or otherwise operate on a `vegaspec`. If the
       [**V8**](https://CRAN.R-project.org/package=V8) package is installed,

@@ -1,6 +1,6 @@
 #' Coerce to vegaspec
 #'
-#' Vega and Vega-Lite use JSON as the format for their specifications. Within R,
+#' Vega and Vega-Lite use JSON as their specification-format. Within R,
 #' it seems natural to work with these specifications as lists. Accordingly,
 #' a `vegaspec` is also a list. This family of functions is used to coerce lists,
 #' JSON, and character strings to `vegaspec`.
@@ -9,16 +9,15 @@
 #' \itemize{
 #'   \item{JSON string}
 #'   \item{A path to a local JSON file}
-#'   \item{A URL that contains a JSON file, requires [httr](https://CRAN.R-project.org/package=httr) be installed}
+#'   \item{A URL that contains a JSON file, requires that [httr](https://CRAN.R-project.org/package=httr) be installed}
 #' }
 #'
 #' For Vega and Vega-Lite, the translation between list and JSON is a little
 #' bit particular. This function, [as_vegaspec()], can be used to translate
 #' from JSON; [vw_as_json()] can be used to translate to JSON.
 #'
-#' A given `vegaspec` will be particular to either Vega or Vega-Lite. You can use
-#' the function [vw_spec_version()] to determine this. You can use
-#' [vw_to_vega()] to translate a Vega-Lite spec to Vega.
+#' You can use the function [vw_spec_version()] to determine if a `vegaspec` is built for
+#' Vega-Lite or Vega. You can use [vw_to_vega()] to translate a Vega-Lite spec to Vega.
 #'
 #' @param spec        object to be coerced to `vegaspec`, a Vega/Vega-Lite specification
 #' @param ...         other args (attempt to future-proof)

@@ -35,6 +35,9 @@
 #' @param embed   `list` to specify
 #'   [vega-embed](https://github.com/vega/vega-embed#options) options,
 #'   see **Details** on how this is set if `NULL`.
+#' @param elementId `character`, explicit element ID for the vegawidget,
+#'   useful if you have other JavaScript that needs to explicitly
+#'   discover and interact with a specific vegawidget
 #' @param ... other arguments passed to [htmlwidgets::createWidget()]
 #'
 #' @return S3 object of class `vegawidget` and `htmlwidget`
@@ -45,7 +48,8 @@
 #'
 #' @export
 #'
-vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
+vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
+                       elementId = NULL, ...) {
 
   # if `embed` is NULL, check for option
   embed <- embed %||% getOption("vega.embed")

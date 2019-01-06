@@ -116,12 +116,13 @@
 <p>The purpose of this article is to show how you can use JavaScript to extend Vega’s capabilities. In these examples, we use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view">vega-view</a> API to interact with a Vega chart using JavaScript. We explore similar ideas in an article on <a href="shiny.Rmd">extending using Shiny</a>.</p>
 <p>This article has sections on:</p>
 <ul>
-<li>an <a href="#introduction">introduction</a> to vega-view</li>
-<li>getting <a href="#events">events</a>
+<li>an <a href="#introduction">introduction</a> to vega-view, including a <a href="#demo-vega-view">demo</a>
 </li>
-<li>setting and getting <a href="#signals">signals</a>
+<li>getting <a href="#events">events</a>, including a <a href="#demo-event">demo</a>
 </li>
-<li>setting (and soon getting) <a href="#data">data</a>
+<li>setting and getting <a href="#signals">signals</a>, including a <a href="#demo-signals">demo</a>
+</li>
+<li>setting (and soon getting) <a href="#data">data</a>, including a <a href="">demo</a>
 </li>
 </ul>
 <p>It goes without saying that you will need to be comfortable with JavaScript to take advantage of this material. It will be apparent to many of you that my (Ian’s) JavaScript is far from perfect; here are a couple of resources I have used to try to build up my JS capabilities:</p>
@@ -151,6 +152,9 @@
 <a class="sourceLine" id="cb2-15" data-line-number="15">    )</a>
 <a class="sourceLine" id="cb2-16" data-line-number="16">  ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
+<div id="demo-vega-view" class="section level3">
+<h3 class="hasAnchor">
+<a href="#demo-vega-view" class="anchor"></a>Demo: vega-view</h3>
 <p>We use the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function with an <code>elementId</code> argument, to specify the id of the HTML element containing the chart. This argument is not documented explicitly as a part of <code><a href="../reference/vegawidget.html">vegawidget()</a></code>; rather it is passed on to <code>htmlwidget::createWidget()</code> using <code>...</code>. We need to specify this so that the JavaScript code we supply will know which Vega chart to modify.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_table, <span class="dt">elementId =</span> <span class="st">"streaming-demo"</span>)</a></code></pre></div>
 <div id="streaming-demo" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
@@ -184,7 +188,8 @@
     "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script><p>The chunk below is written in JavaScript - in the R Markdown file, this is a <code>{js}</code> chunk, rather than an <code>{r}</code> chunk.</p>
+},"evals":[],"jsHooks":[]}</script><hr>
+<p>The chunk below is written in JavaScript - in the R Markdown file, this is a <code>{js}</code> chunk, rather than an <code>{r}</code> chunk.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">// This is a JavaScript chunk, using {js} instead of {r}</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">'#streaming-demo'</span>).<span class="at">then</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span>(view) <span class="op">{</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="co">/**</span></a>
@@ -261,6 +266,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 </script><p>This package puts an object into the JavaScript namespace, <code>Vegawidget</code>, which contains a function <code>findViewPromise()</code>. The first part of the JavaScript code is a call to this function, with a single argument, a CSS <code>selector</code>, to specify the HTML element that contains the chart we wish to access. This reflects the <code>elementId = "streaming-demo"</code> in the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> call above.</p>
 <p>The <code>findVewPromise()</code> function returns a JavaScript <a href="https://javascript.info/promise-basics">promise</a> to the chart’s <code>view</code> object. The <code>then()</code> call executes once the view promise is fulfilled. It contains a function that takes a single argument, <code>view</code>, our view object, on which the <a href="https://github.com/vega/vega/tree/master/packages/vega-view">vega-view API</a> operates.</p>
 <p>Within this <code>then()</code> call, we can operate on the <code>view</code>. The rest of the code is adapted from the <a href="https://vega.github.io/vega-lite/tutorials/streaming.html">original demonstration</a>, where they use vega-view’s <a href="https://github.com/vega/vega/tree/master/packages/vega-view#view_change">change()</a> method to change the data periodically.</p>
+</div>
 </div>
 <div id="events" class="section level2">
 <h2 class="hasAnchor">
@@ -402,11 +408,15 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <a href="#building-the-interactive-elements" class="anchor"></a>Building the interactive elements</h3>
 <p>Now that we have build a handler function, we need the HTML element that we referred-to:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">output_datum &lt;-<span class="st"> </span>tags<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/htmltools/topics/builder">pre</a></span>(<span class="dt">id =</span> <span class="st">"output-datum"</span>)</a></code></pre></div>
+</div>
+<div id="demo-event" class="section level3">
+<h3 class="hasAnchor">
+<a href="#demo-event" class="anchor"></a>Demo</h3>
 <p>Let’s create our vegawidget, then attach our handler using a listener-function, <code><a href="../reference/add-listeners.html">vw_add_event_listener()</a></code>, specifying that we want to listen to <code>"click"</code> events, responding to them using our event-handler.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/add-listeners.html">vw_add_event_listener</a></span>(<span class="st">"click"</span>, <span class="dt">handler_body =</span> handler_event)</a></code></pre></div>
-<div id="htmlwidget-dae9d7aa770975b4a9dc" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dae9d7aa770975b4a9dc">{"x":{
+<div id="htmlwidget-caaded7f706c87fcd1a0" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-caaded7f706c87fcd1a0">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -886,6 +896,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
   }
 },"evals":[],"jsHooks":{"render":[{"code":"function(el, x) {\n  this.viewPromise.then(function(view) {\n    view.addEventListener('click', function(event, item) {\n      (function (x) {\n        // to element `selector`, adds text `expr` (default \"x\")\n        document.querySelector('#output-datum').innerText = JSON.stringify(x, null, '  ');\n      })(\n        (function () {\n          // if there is no item or no datum, return null\n          if (item === null || item === undefined || item.datum === undefined) {\n            return null;\n          }\n          \n          // returns the datum behind the mark associated with the event\n          return item.datum;\n        })()\n      )\n    });\n  });\n}","data":null}]}}</script><div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">output_datum</a></code></pre></div>
 <pre id="output-datum"></pre>
+<hr>
 <p>If you click on the plotting-area of the chart, you will get <code>null</code> if you had clicked on an empty space, and you will get the observation (datum) associated with any mark that you click.</p>
 </div>
 </div>
@@ -965,6 +976,9 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <a class="sourceLine" id="cb27-9" data-line-number="9">output_histogram &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb27-10" data-line-number="10"><span class="st">  </span>output_histogram <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb27-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="../reference/add-listeners.html">vw_add_signal_listener</a></span>(<span class="st">"bin_width"</span>, handler_bin_width)</a></code></pre></div>
+<div id="demo-signals" class="section level3">
+<h3 class="hasAnchor">
+<a href="#demo-signals" class="anchor"></a>Demo: signals</h3>
 <p>We can print the HTML elements to the document; these are “live”, but it remains to define the actions that connect <code>input_bin_width</code> to the Vega histogram.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">input_bin_width</a></code></pre></div>
 <input type="range" name="bin_width" value="0" min="-1" max="1" step="0.01" style="width: 400px; margin-bottom: 10px;"><div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">output_histogram</a></code></pre></div>
@@ -36052,6 +36066,7 @@ The histogram bin-width is
 <span id="output-bin-width">foo</span>
  °F.
 </p>
+<hr>
 <p>In the JavaScript chunk below, we define a function that we will want to call whenever the input represented by <code>input_bin_width</code> changes.</p>
 <p>In this function, <code>on_bin_width()</code>, we map the value of the input to the value of the bin-width. Then, using our <code>Vegawidget.finViewPromise()</code> function, we set the signal <code>"bin_width"</code> in the Vega chart and direct it to re-run.</p>
 <p>The <code>view</code> is the object of the <a href="https://github.com/vega/vega/tree/master/packages/vega-view#view-api-reference">vega-view API</a>. Here we <a href="https://vega.github.io/vega/docs/api/view/#view_signal">set the signal</a> named <code>"bin_width"</code> to our new value, then re-<a href="https://github.com/vega/vega/tree/master/packages/vega-view#view_run">run</a> the view.</p>
@@ -36107,6 +36122,7 @@ inp_bin_width.addEventListener("input", on_bin_width);
 on_bin_width()
 </script><p>Opinion time: admittedly, there are improvements that can be made, both to the visualization and input themselves, and to process by which we connect everything using R. Shiny seems like a fairly attractive option, in comparison. Hopefully, by taking a few tentative steps with JavaScript, and by exposing them to the development community, we can work towards cleaner implementations.</p>
 </div>
+</div>
 <div id="data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data" class="anchor"></a>Setting (and soon getting) data</h2>
@@ -36149,6 +36165,9 @@ on_bin_width()
 <a class="sourceLine" id="cb33-24" data-line-number="24"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb33-25" data-line-number="25"></a>
 <a class="sourceLine" id="cb33-26" data-line-number="26">output_chart &lt;-<span class="st"> </span><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_circle, <span class="dt">elementId =</span> <span class="st">"circle"</span>)</a></code></pre></div>
+<div id="demo-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#demo-data" class="anchor"></a>Demo: data</h3>
 <p>Let’s print out our HTML elements to the document, then, like in the signal-example, we will add some JavaScript to define the interactions:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">input_angle</a></code></pre></div>
 <input type="range" name="inp_angle" value="0" min="0" max="360" step="1" style="width: 400px; margin-bottom: 10px;"><div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">output_chart</a></code></pre></div>
@@ -36193,7 +36212,8 @@ on_bin_width()
     "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script><p>Our first job is to create a JavaScript variable that refers to the input slider we created above; we call it <code>inp_angle</code> to keep it distinct (in our heads) from the R varaible <code>input_angle</code>. Please note that the next few code-chunks are <code>{js}</code> chunks rather than <code>{r}</code> chunks.</p>
+},"evals":[],"jsHooks":[]}</script><hr>
+<p>Our first job is to create a JavaScript variable that refers to the input slider we created above; we call it <code>inp_angle</code> to keep it distinct (in our heads) from the R varaible <code>input_angle</code>. Please note that the next few code-chunks are <code>{js}</code> chunks rather than <code>{r}</code> chunks.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co">// this is a {js} chunk</span></a>
 <a class="sourceLine" id="cb36-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb36-3" data-line-number="3"><span class="co">// JS reference to our slider-input</span></a>
@@ -36252,6 +36272,7 @@ inp_angle.addEventListener("input", on_angle);
 // run the updating function *once* to initialize the input to the data
 on_angle()
 </script><p>In a future release of this package, we will be able to listen to (and extract) datasets in a Vega chart.</p>
+</div>
 </div>
   </div>
 

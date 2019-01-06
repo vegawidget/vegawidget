@@ -224,15 +224,13 @@ names of the parameters. See the examples for details.</p>
   <span class='co'># build a signal handler that prints some text,</span>
   <span class='co'># then the value, to the console</span>
   <span class='fu'><a href='vw_handler_signal.html'>vw_handler_signal</a></span>(<span class='st'>"value"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>vw_handler_add_effect</span>(<span class='st'>"console_text"</span>, <span class='kw'>text</span> <span class='kw'>=</span> <span class='st'>"signal value:"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>vw_handler_add_effect</span>(<span class='st'>"console"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: handler_body: 'console_text' does not appear to contain valid JavaScript code, and it is not a known effect handler.</span></div><div class='output co'>#&gt; arguments: name, value 
+    <span class='fu'>vw_handler_add_effect</span>(<span class='st'>"console"</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"signal value:"</span>)</div><div class='output co'>#&gt; arguments: name, value 
 #&gt; body_value:
 #&gt;   // returns the value of the signal
 #&gt;   return value;
 #&gt; body_effect:
-#&gt;   console_text
 #&gt;   // if `label` is non-trivial, prints it to the JS console
-#&gt;   ''.length &gt; 0 ? console.log('') : null;
+#&gt;   'signal value:'.length &gt; 0 ? console.log('signal value:') : null;
 #&gt;   // prints `expr` (default "x") to the JS console
 #&gt;   console.log(x);</div><div class='input'>
 </div></pre>

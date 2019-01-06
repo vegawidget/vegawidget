@@ -117,20 +117,7 @@ reference:
     - use_vegawidget
     - vw_serialize_data
     - vega_version
-  - title: Sharing (deprecated)
-    desc: >
-      These functions are now part of the
-      [**vegablock**](https://vegawidget.github.io/vegablock) package.
 
-      These functions, to create and retrieve [blocks](https://bl.ocks.org),
-      require the [**gistr**](https://CRAN.R-project.org/package=gistr) and
-      [**fs**](https://CRAN.R-project.org/package=fs) packages, also the
-      [**webdriver**](https://CRAN.R-project.org/package=webdriver) package
-      and PhantomJS if you want upload images to your block.
-    contents:
-    - vw_create_block
-    - vw_block_config
-    - vw_retrieve_block
 
 
 

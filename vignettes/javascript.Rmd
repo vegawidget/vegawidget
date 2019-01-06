@@ -13,10 +13,10 @@ The purpose of this article is to show how you can use JavaScript to extend Vega
 
 This article has sections on:
 
-- an [introduction](#introduction) to vega-view
-- getting [events](#events)
-- setting and getting [signals](#signals)
-- setting (and soon getting) [data](#data) 
+- an [introduction](#introduction) to vega-view, including a [demo](#demo-vega-view)
+- getting [events](#events), including a [demo](#demo-event)
+- setting and getting [signals](#signals), including a [demo](#demo-signals)
+- setting (and soon getting) [data](#data), including a [demo]() 
 
 It goes without saying that you will need to be comfortable with JavaScript to take advantage of this material. It will be apparent to many of you that my (Ian's) JavaScript is far from perfect; here are a couple of resources I have used to try to build up my JS capabilities:
 
@@ -51,11 +51,15 @@ spec_table <-
   as_vegaspec()
 ```
 
+### Demo: vega-view {#demo-vega-view}
+
 We use the `vegawidget()` function with an `elementId` argument, to specify the id of the HTML element containing the chart. This argument is not documented explicitly as a part of `vegawidget()`; rather it is passed on to `htmlwidget::createWidget()` using `...`. We need to specify this so that the JavaScript code we supply will know which Vega chart to modify. 
 
 ```{r}
 vegawidget(spec_table, elementId = "streaming-demo")
 ```
+
+---
 
 The chunk below is written in JavaScript - in the R Markdown file, this is a `{js}` chunk, rather than an `{r}` chunk. 
 
@@ -197,6 +201,8 @@ Now that we have build a handler function, we need the HTML element that we refe
 output_datum <- tags$pre(id = "output-datum")
 ```
 
+### Demo {#demo-event}
+
 Let's create our vegawidget, then attach our handler using a listener-function, `vw_add_event_listener()`, specifying that we want to listen to `"click"` events, responding to them using our event-handler.
 
 ```{r}
@@ -207,6 +213,8 @@ vegawidget(spec_mtcars) %>%
 ```{r}
 output_datum
 ```
+
+---
 
 If you click on the plotting-area of the chart, you will get `null` if you had clicked on an empty space, and you will get the observation (datum) associated with any mark that you click. 
 
@@ -314,6 +322,8 @@ output_histogram <-
   vw_add_signal_listener("bin_width", handler_bin_width)
 ```
 
+### Demo: signals {#demo-signals}
+
 We can print the HTML elements to the document; these are "live", but it remains to define the actions that connect `input_bin_width` to the Vega histogram.
 
 ```{r}
@@ -323,6 +333,8 @@ output_histogram
 
 output_bin_width
 ```
+
+---
 
 In the JavaScript chunk below, we define a function that we will want to call whenever the input represented by `input_bin_width` changes.
 
@@ -411,6 +423,8 @@ spec_circle <-
 output_chart <- vegawidget(spec_circle, elementId = "circle")
 ```
 
+### Demo: data {#demo-data}
+
 Let's print out our HTML elements to the document, then, like in the signal-example, we will add some JavaScript to define the interactions:
 
 ```{r}
@@ -418,6 +432,8 @@ input_angle
 
 output_chart
 ```
+
+---
 
 Our first job is to create a JavaScript variable that refers to the input slider we created above; we call it `inp_angle` to keep it distinct (in our heads) from the R varaible `input_angle`. Please note that the next few code-chunks are `{js}` chunks rather than `{r}` chunks.
 

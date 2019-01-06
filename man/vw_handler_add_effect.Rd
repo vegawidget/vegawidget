@@ -49,8 +49,7 @@ names of the parameters. See the examples for details.
   # build a signal handler that prints some text,
   # then the value, to the console
   vw_handler_signal("value") \%>\%
-    vw_handler_add_effect("console_text", text = "signal value:") \%>\%
-    vw_handler_add_effect("console")
+    vw_handler_add_effect("console", label = "signal value:")
 
 }
 \seealso{

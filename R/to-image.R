@@ -85,7 +85,7 @@ vw_to_svg.vegawidget <- function(widget, scale = 1, ...) {
   js_string <-
     paste0(
      "var done = arguments[0];
-      Vegawidget.findVewPromise('.vegawidget')
+      Vegawidget.findViewPromise('.vegawidget')
         .then(function(view) { return view.toSVG(", scale, "); })
         .then(function(svg) { done(svg) })
         .catch(function(err) { console.error(err) });"

@@ -8,7 +8,7 @@ output: rmarkdown::html_document
 library("vegawidget")
 ```
 
-The purpose of this article is to show how you can use Shiny to extend Vega's capabilities. In these examples, we use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to interact with a Vega chart using Shiny We explore similar ideas in an article on [extending using JavaScript](javascript.Rmd).
+The purpose of this article is to show how you can use Shiny to extend Vega's capabilities. In these examples, we use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to interact with a Vega chart using Shiny We explore similar ideas in an article on [extending using JavaScript](javascript.html).
 
 Because this article is an HTML document (as opposed to a Shiny app), we cannot show the app directly in this document. However, this package offers a function `vw_shiny_demo()` that, when called without arguments, lists all of the demonstration apps included with this package; to run a particular app, simply use its name as the argument:
 

@@ -94,6 +94,9 @@
       <a href="../articles/vegawidget.html">Render using vegawidget</a>
     </li>
     <li>
+      <a href="../articles/shiny.html">Extend using Shiny</a>
+    </li>
+    <li>
       <a href="../articles/javascript.html">Extend using JavaScript</a>
     </li>
     <li>
@@ -143,7 +146,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-specifying-vegaspec" class="hasAnchor"><a href="#section-specifying-vegaspec" class="anchor"></a>Specifying: vegaspec</h2>
-          <p class="section-desc"><p>The central <em>object</em> of this package is <code>vegaspec</code>, which is also a <code>list</code>. Use these functions to coerce to a <code>vegaspec</code>, format as JSON, or otherwise operate on a <code>vegaspec</code>. If the <a href="https://CRAN.R-project.org/package=V8"><strong>V8</strong></a> package is installed, you can translate a Vega-Lite specification to a Vega specification.</p></p>
+          <p class="section-desc"><p>The central <em>object</em> of this package is <code>vegaspec</code>, which is also a <code>list</code>. Use these functions to coerce to a <code>vegaspec</code>, format as JSON, or otherwise operate on a <code>vegaspec</code>. If the <a href="https://CRAN.R-project.org/package=V8"><strong>V8</strong></a> package is installed, you can compile a Vega-Lite specification to a Vega specification.</p></p>
         </th>
       </tr>
       <tr>
@@ -225,7 +228,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-shiny" class="hasAnchor"><a href="#section-shiny" class="anchor"></a>Shiny</h2>
-          <p class="section-desc"><p>Some basic functionality is provided now; more is on the way.</p></p>
+          <p class="section-desc"><p>Access Vega datasets, signals, and events from Shiny.</p></p>
         </th>
       </tr>
       <tr>
@@ -240,6 +243,56 @@
           <p><code><a href="vegawidgetOutput.html">vegawidgetOutput()</a></code> </p>
         </td>
         <td><p>Shiny-output for vegawidget</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="shiny-setters.html">vw_shiny_set_signal()</a></code> <code><a href="shiny-setters.html">vw_shiny_set_data()</a></code> <code><a href="shiny-setters.html">vw_shiny_run()</a></code> </p>
+        </td>
+        <td><p>Set information in a Vega chart from Shiny</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="shiny-getters.html">vw_shiny_get_signal()</a></code> <code><a href="shiny-getters.html">vw_shiny_get_event()</a></code> </p>
+        </td>
+        <td><p>Get information from a Vega chart into Shiny</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_shiny_demo.html">vw_shiny_demo()</a></code> </p>
+        </td>
+        <td><p>Run Shiny demonstration-apps</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-javascript" class="hasAnchor"><a href="#section-javascript" class="anchor"></a>JavaScript</h2>
+          <p class="section-desc"><p>Adding JavaScript listners and composing JavaScript handlers.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="vw_handler_signal.html">vw_handler_signal()</a></code> <code><a href="vw_handler_signal.html">vw_handler_event()</a></code> </p>
+        </td>
+        <td><p>Construct a JavaScript handler</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_handler_add_effect.html">vw_handler_add_effect()</a></code> </p>
+        </td>
+        <td><p>Add a side-effect to a JavaScript handler</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="add-listeners.html">vw_add_signal_listener()</a></code> <code><a href="add-listeners.html">vw_add_event_listener()</a></code> </p>
+        </td>
+        <td><p>Add JavaScript listeners</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="glue_js.html">glue_js()</a></code> </p>
+        </td>
+        <td><p>Interpolate into a JavaScript string</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -355,6 +408,7 @@
       <li><a href="#section-specifying-vegaspec">Specifying: vegaspec</a></li>
       <li><a href="#section-rendering-vegawidget">Rendering: vegawidget</a></li>
       <li><a href="#section-shiny">Shiny</a></li>
+      <li><a href="#section-javascript">JavaScript</a></li>
       <li><a href="#section-data">Data</a></li>
       <li><a href="#section-images">Images</a></li>
       <li><a href="#section-utilities">Utilities</a></li>
@@ -369,7 +423,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

@@ -21,7 +21,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-home">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -65,6 +65,9 @@
       <a href="articles/vegawidget.html">Render using vegawidget</a>
     </li>
     <li>
+      <a href="articles/shiny.html">Extend using Shiny</a>
+    </li>
+    <li>
       <a href="articles/javascript.html">Extend using JavaScript</a>
     </li>
     <li>
@@ -95,8 +98,13 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
-  <div class="contents col-md-9">
+      </header><script src="index_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="index_files/vega-4.0.0/promise.min.js"></script><script src="index_files/vega-4.0.0/symbol.min.js"></script><script src="index_files/vega-4.0.0/vega.js"></script><script src="index_files/vega-lite-2.6.0/vega-lite.min.js"></script><link href="index_files/vega-embed-3.25.0/vega-embed.css" rel="stylesheet">
+<script src="index_files/vega-embed-3.25.0/vega-embed-modified.js"></script><script src="index_files/vegawidget-binding-0.0.6.9000/vegawidget.js"></script><div class="row">
+  <div class="col-md-9 contents">
+    
+
+    
+    
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <div id="vegawidget" class="section level1">
@@ -146,8 +154,8 @@
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
 <p>The <code><a href="reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; many of this package’s functions are built to support, and render, vegaspecs:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-d73316653b02ee5cea39" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d73316653b02ee5cea39">{"x":{
+<div id="htmlwidget-9f87cac2389e1ec085a8" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9f87cac2389e1ec085a8">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "description": "An mtcars example.",
@@ -675,7 +683,7 @@
 </div>
   </div>
 
-  <div class="col-md-3" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
@@ -702,7 +710,7 @@
 </ul>
 </div>
 
-  <div class="dev-status">
+      <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
@@ -711,6 +719,7 @@
 </ul>
 </div>
 </div>
+
 </div>
 
 
@@ -719,7 +728,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
 </div>

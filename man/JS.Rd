@@ -6,3 +6,4 @@
 \description{
 See \code{htmlwidgets::\link[htmlwidgets]{JS}} for details.
 }
+\keyword{internal}

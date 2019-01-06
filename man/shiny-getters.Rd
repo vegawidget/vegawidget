@@ -4,7 +4,7 @@
 \alias{shiny-getters}
 \alias{vw_shiny_get_signal}
 \alias{vw_shiny_get_event}
-\title{Get information from a Vega chart}
+\title{Get information from a Vega chart into Shiny}
 \usage{
 vw_shiny_get_signal(outputId, name, body_value = "value")
 

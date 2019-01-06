@@ -5,7 +5,7 @@
 \alias{vw_shiny_set_signal}
 \alias{vw_shiny_set_data}
 \alias{vw_shiny_run}
-\title{Set information in a Vega chart}
+\title{Set information in a Vega chart from Shiny}
 \usage{
 vw_shiny_set_signal(outputId, name, value, run = TRUE, ...)
 

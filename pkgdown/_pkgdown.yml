@@ -20,6 +20,8 @@ navbar:
           href: articles/vegaspec.html
         - text: Render using vegawidget
           href: articles/vegawidget.html
+        - text: Extend using Shiny
+          href: articles/shiny.html
         - text: Extend using JavaScript
           href: articles/javascript.html
         - text: Create Images
@@ -39,7 +41,7 @@ reference:
       a `list`. Use these functions to coerce to a `vegaspec`,
       format as JSON, or otherwise operate on a `vegaspec`. If the
       [**V8**](https://CRAN.R-project.org/package=V8) package is installed,
-      you can translate a Vega-Lite specification to a Vega specification.
+      you can compile a Vega-Lite specification to a Vega specification.
     contents:
       - as_vegaspec
       - vw_examine
@@ -67,10 +69,21 @@ reference:
     - knit_print.vegaspec
   - title: Shiny
     desc: >
-      Some basic functionality is provided now; more is on the way.
+      Access Vega datasets, signals, and events from Shiny.
     contents:
     - renderVegawidget
     - vegawidgetOutput
+    - shiny-setters
+    - shiny-getters
+    - vw_shiny_demo
+  - title: JavaScript
+    desc: >
+      Adding JavaScript listners and composing JavaScript handlers.
+    contents:
+    - vw_handler_signal
+    - vw_handler_add_effect
+    - add-listeners
+    - glue_js
   - title: Data
     desc: >
       This package provides some sample specifications and datasets.

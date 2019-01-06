@@ -30,7 +30,7 @@ as_vegaspec(spec, ...)
 S3 object of class \code{vegaspec}
 }
 \description{
-Vega and Vega-Lite use JSON as the format for their specifications. Within R,
+Vega and Vega-Lite use JSON as their specification-format. Within R,
 it seems natural to work with these specifications as lists. Accordingly,
 a \code{vegaspec} is also a list. This family of functions is used to coerce lists,
 JSON, and character strings to \code{vegaspec}.
@@ -40,16 +40,15 @@ The \code{character} method for this function will take:
 \itemize{
 \item{JSON string}
 \item{A path to a local JSON file}
-\item{A URL that contains a JSON file, requires \href{https://CRAN.R-project.org/package=httr}{httr} be installed}
+\item{A URL that contains a JSON file, requires that \href{https://CRAN.R-project.org/package=httr}{httr} be installed}
 }
 
 For Vega and Vega-Lite, the translation between list and JSON is a little
 bit particular. This function, \code{\link[=as_vegaspec]{as_vegaspec()}}, can be used to translate
 from JSON; \code{\link[=vw_as_json]{vw_as_json()}} can be used to translate to JSON.
 
-A given \code{vegaspec} will be particular to either Vega or Vega-Lite. You can use
-the function \code{\link[=vw_spec_version]{vw_spec_version()}} to determine this. You can use
-\code{\link[=vw_to_vega]{vw_to_vega()}} to translate a Vega-Lite spec to Vega.
+You can use the function \code{\link[=vw_spec_version]{vw_spec_version()}} to determine if a \code{vegaspec} is built for
+Vega-Lite or Vega. You can use \code{\link[=vw_to_vega]{vw_to_vega()}} to translate a Vega-Lite spec to Vega.
 }
 \examples{
   \dontrun{

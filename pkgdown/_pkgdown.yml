@@ -69,7 +69,8 @@ reference:
     - knit_print.vegaspec
   - title: Shiny
     desc: >
-      Access Vega datasets, signals, and events from Shiny.
+      Render vegawidgets in Shiny; also, access Vega datasets, signals,
+      and events from Shiny.
     contents:
     - renderVegawidget
     - vegawidgetOutput

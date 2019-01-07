@@ -36,7 +36,7 @@
 
 <meta property="og:description" content="There are two ways to change a Vega chart: by setting
 a signal or by setting a dataset; you can also
-direct it to run. Any signal or
+direct a Vega chart to re-run itself. Any signal or
 dataset you set must first be defined and named in the vegaspec.
 These functions are called from within
 a Shiny server() function, where they act like
@@ -149,7 +149,7 @@ shiny::observe() or shiny::observeEvent()." />
     
     <p>There are two ways to change a Vega chart: by setting
 a <em>signal</em> or by setting a <em>dataset</em>; you can also
-direct it to run. Any signal or
+direct a Vega chart to re-run itself. Any signal or
 dataset you set must first be defined and <strong>named</strong> in the vegaspec.
 These functions are called from within
 a Shiny <code>server()</code> function, where they act like
@@ -197,6 +197,11 @@ reactive-expression <code>value</code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>To see these functions in action, you can a shiny-demo:</p><ul>
+<li><p><code>vw_shiny_set_signal()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("signal-set-get")</a></code></p></li>
+<li><p><code>vw_shiny_set_data()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("data-set")</a></code></p></li>
+<li><p><code>vw_shiny_run()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("data-set-swap-run")</a></code></p></li>
+</ul>
     <p>For the signal and data setters, in addition to the chart <code>outputId</code>,
 you will need to provide:</p><ul>
 <li><p>the <code>name</code> of the signal or dataset you wish to keep updated</p></li>

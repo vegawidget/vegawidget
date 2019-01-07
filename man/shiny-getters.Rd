@@ -25,8 +25,8 @@ for list of supported events, please see
 \href{https://vega.github.io/vega/docs/event-streams/}{Vega Event-Stream reference}}
 }
 \value{
-\code{\link[shiny:reactive]{shiny::reactive()}} function that returns the value returned by the
-\code{body_value} function
+\code{\link[shiny:reactive]{shiny::reactive()}} function that returns the value returned by
+\code{body_value}
 }
 \description{
 There are two types of information you can get from a Vega chart, a \emph{signal},
@@ -37,6 +37,12 @@ a Shiny \code{server()} function, where they act like
 \code{\link[shiny:reactive]{shiny::reactive()}}, returning a reactive expression.
 }
 \details{
+To see these functions in action, you can a shiny-demo:
+\itemize{
+\item \code{vw_shiny_get_signal()}: call \code{vw_shiny_demo("signal-set-get")}
+\item \code{vw_shiny_get_event()}: call \code{vw_shiny_demo("event-get")}
+}
+
 In addition to the chart \code{outputId}, you will need to provide:
 \itemize{
 \item \code{vw_shiny_get_signal()}: the \code{name} of the signal, as defined in the Vega
@@ -46,13 +52,13 @@ specification
 }
 
 When the signal changes, or when the event fires, Vega needs to know which
-information you want returned to Shiny. To do this, Vega requires that
+information you want returned to Shiny. To do this,
 you provide a JavaScript handler-function:
 \itemize{
-\item \code{vw_shiny_get_signal()}: the default \code{handler},
+\item \code{vw_shiny_get_signal()}: the default handler,
 \code{vw_handler_signal("value")},
 specifies that the value of the signal be returned.
-\item \code{vw_shiny_get_event()}: the default \code{handler},
+\item \code{vw_shiny_get_event()}: the default handler,
 \code{vw_handler_event("datum")},
 specifies that the single row of data associated with graphical mark
 be returned. For example, if you are monitoring a \code{"click"} event,
@@ -63,13 +69,16 @@ Vega would return the row of data that backs any mark
 If you need to specify a different behavior for the handler, there are a
 couple of options. This package provides
 a library of handler-functions; call \code{\link[=vw_handler_signal]{vw_handler_signal()}},
-\code{\link[=vw_handler_event]{vw_handler_event()}}, or \code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}} without arguments to
-list them. If it does not contain the handler you need, the \code{body_value}
+\code{\link[=vw_handler_event]{vw_handler_event()}}, or without arguments to
+list them.
+
+If it does not contain the handler you need, the \code{body_value}
 argument will also accept a character string which will be used as
 the \strong{body} of the handler function.
 
 For example, these calls are equivalent:
 \itemize{
+\item \code{vw_shiny_get_signal(..., body_value = "value")}
 \item \code{vw_shiny_get_signal(..., body_value = vw_handler_signal("value"))}
 \item \code{vw_shiny_get_signal(..., body_value = "return value;")}
 }

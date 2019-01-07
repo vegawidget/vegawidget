@@ -34,7 +34,7 @@
   
 <meta property="og:title" content="Coerce to vegaspec — as_vegaspec" />
 
-<meta property="og:description" content="Vega and Vega-Lite use JSON as the format for their specifications. Within R,
+<meta property="og:description" content="Vega and Vega-Lite use JSON as their specification-format. Within R,
 it seems natural to work with these specifications as lists. Accordingly,
 a vegaspec is also a list. This family of functions is used to coerce lists,
 JSON, and character strings to vegaspec." />
@@ -144,7 +144,7 @@ JSON, and character strings to vegaspec." />
 
     <div class="ref-description">
     
-    <p>Vega and Vega-Lite use JSON as the format for their specifications. Within R,
+    <p>Vega and Vega-Lite use JSON as their specification-format. Within R,
 it seems natural to work with these specifications as lists. Accordingly,
 a <code>vegaspec</code> is also a list. This family of functions is used to coerce lists,
 JSON, and character strings to <code>vegaspec</code>.</p>
@@ -190,14 +190,13 @@ JSON, and character strings to <code>vegaspec</code>.</p>
     <p>The <code>character</code> method for this function will take:</p><ul>
 <li><p>JSON string</p></li>
 <li><p>A path to a local JSON file</p></li>
-<li><p>A URL that contains a JSON file, requires <a href='https://CRAN.R-project.org/package=httr'>httr</a> be installed</p></li>
+<li><p>A URL that contains a JSON file, requires that <a href='https://CRAN.R-project.org/package=httr'>httr</a> be installed</p></li>
 </ul>
     <p>For Vega and Vega-Lite, the translation between list and JSON is a little
 bit particular. This function, <code>as_vegaspec()</code>, can be used to translate
 from JSON; <code><a href='vw_as_json.html'>vw_as_json()</a></code> can be used to translate to JSON.</p>
-<p>A given <code>vegaspec</code> will be particular to either Vega or Vega-Lite. You can use
-the function <code><a href='vw_spec_version.html'>vw_spec_version()</a></code> to determine this. You can use
-<code><a href='vw_to_vega.html'>vw_to_vega()</a></code> to translate a Vega-Lite spec to Vega.</p>
+<p>You can use the function <code><a href='vw_spec_version.html'>vw_spec_version()</a></code> to determine if a <code>vegaspec</code> is built for
+Vega-Lite or Vega. You can use <code><a href='vw_to_vega.html'>vw_to_vega()</a></code> to translate a Vega-Lite spec to Vega.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

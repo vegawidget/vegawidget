@@ -139,8 +139,8 @@
 <h1 class="page-header">
 <a href="#vegawidget-0-0-6-9000" class="anchor"></a>vegawidget 0.0.6.9000</h1>
 <ul>
-<li><p>adds function <code><a href="../reference/vw_shiny_demo.html">vw_shiny_demo()</a></code> to showcase demonstration-apps</p></li>
-<li><p>compiles Shiny demonstration apps in <code>inst/shiny-demo</code></p></li>
+<li><p>adds <code>elementId</code> argument to <code><a href="../reference/vegawidget.html">vegawidget()</a></code>; had been available as part of <code>...</code> passed to <code><a href="https://www.rdocumentation.org/packages/htmlwidgets/topics/createWidget">htmlwidgets::createWidget()</a></code></p></li>
+<li><p>compiles Shiny demonstration apps in <code>inst/shiny-demo</code>, adds function <code><a href="../reference/vw_shiny_demo.html">vw_shiny_demo()</a></code> to access them</p></li>
 <li><p>adds Shiny setter-functions: <code><a href="../reference/shiny-setters.html">vw_shiny_set_signal()</a></code>, <code><a href="../reference/shiny-setters.html">vw_shiny_set_data()</a></code>, <code><a href="../reference/shiny-setters.html">vw_shiny_run()</a></code>, getter-functions: <code><a href="../reference/shiny-getters.html">vw_shiny_get_signal()</a></code>, <code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code>, and handler helper-functions <code><a href="../reference/vw_handler_signal.html">vw_handler_signal()</a></code>, <code><a href="../reference/vw_handler_signal.html">vw_handler_event()</a></code>, <code><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect()</a></code>, <code><a href="../reference/vw_handler_body_compose.html">vw_handler_compose()</a></code>, and <code><a href="../reference/vw_handler_body_compose.html">vw_handler_body_compose()</a></code></p></li>
 </ul>
 </div>
@@ -201,7 +201,7 @@
 </li>
 <li>changes <code>block_create()</code> -&gt; <code>vw_create_block()</code>
 </li>
-<li>changes <code>block_config()</code> -&gt; <code><a href="../reference/vw_block_config.html">vw_block_config()</a></code><br>
+<li>changes <code>block_config()</code> -&gt; <code>vw_block_config()</code><br>
 </li>
 <li>changes <code>autosize()</code> -&gt; <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code>
 </li>

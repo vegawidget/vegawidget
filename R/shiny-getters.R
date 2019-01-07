@@ -7,6 +7,11 @@
 #' a Shiny `server()` function, where they act like
 #' [shiny::reactive()], returning a reactive expression.
 #'
+#' To see these functions in action, you can a shiny-demo:
+#'
+#' - `vw_shiny_get_signal()`: call `vw_shiny_demo("signal-set-get")`
+#' - `vw_shiny_get_event()`: call `vw_shiny_demo("event-get")`
+#'
 #' In addition to the chart `outputId`, you will need to provide:
 #'
 #' - `vw_shiny_get_signal()`: the `name` of the signal, as defined in the Vega
@@ -15,14 +20,14 @@
 #'    [Vega Event-Stream reference](https://vega.github.io/vega/docs/event-streams/)
 #'
 #' When the signal changes, or when the event fires, Vega needs to know which
-#' information you want returned to Shiny. To do this, Vega requires that
+#' information you want returned to Shiny. To do this,
 #' you provide a JavaScript handler-function:
 #'
-#' - `vw_shiny_get_signal()`: the default `handler`,
+#' - `vw_shiny_get_signal()`: the default handler,
 #'   `vw_handler_signal("value")`,
 #'   specifies that the value of the signal be returned.
 #'
-#' - `vw_shiny_get_event()`: the default `handler`,
+#' - `vw_shiny_get_event()`: the default handler,
 #'   `vw_handler_event("datum")`,
 #'   specifies that the single row of data associated with graphical mark
 #'   be returned. For example, if you are monitoring a `"click"` event,
@@ -32,13 +37,16 @@
 #' If you need to specify a different behavior for the handler, there are a
 #' couple of options. This package provides
 #' a library of handler-functions; call [vw_handler_signal()],
-#' [vw_handler_event()], or [vw_handler_add_effect()] without arguments to
-#' list them. If it does not contain the handler you need, the `body_value`
+#' [vw_handler_event()], or without arguments to
+#' list them.
+#'
+#' If it does not contain the handler you need, the `body_value`
 #' argument will also accept a character string which will be used as
 #' the **body** of the handler function.
 #'
 #' For example, these calls are equivalent:
 #'
+#' - `vw_shiny_get_signal(..., body_value = "value")`
 #' - `vw_shiny_get_signal(..., body_value = vw_handler_signal("value"))`
 #' - `vw_shiny_get_signal(..., body_value = "return value;")`
 #'
@@ -53,8 +61,8 @@
 #'   function that Vega will use to handle the signal or event; this function
 #'   must return a value
 #'
-#' @return [shiny::reactive()] function that returns the value returned by the
-#'  `body_value` function
+#' @return [shiny::reactive()] function that returns the value returned by
+#'  `body_value`
 #' @name shiny-getters
 #' @seealso [vw_handler_signal()], [vw_handler_event()],
 #'   vega-view:

@@ -187,11 +187,15 @@ for list of supported events, please see
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='https://www.rdocumentation.org/packages/shiny/topics/reactive'>shiny::reactive()</a></code> function that returns the value returned by the
-<code>body_value</code> function</p>
+    <p><code><a href='https://www.rdocumentation.org/packages/shiny/topics/reactive'>shiny::reactive()</a></code> function that returns the value returned by
+<code>body_value</code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>To see these functions in action, you can a shiny-demo:</p><ul>
+<li><p><code>vw_shiny_get_signal()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("signal-set-get")</a></code></p></li>
+<li><p><code>vw_shiny_get_event()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("event-get")</a></code></p></li>
+</ul>
     <p>In addition to the chart <code>outputId</code>, you will need to provide:</p><ul>
 <li><p><code>vw_shiny_get_signal()</code>: the <code>name</code> of the signal, as defined in the Vega
 specification</p></li>
@@ -199,12 +203,12 @@ specification</p></li>
 <a href='https://vega.github.io/vega/docs/event-streams/'>Vega Event-Stream reference</a></p></li>
 </ul>
     <p>When the signal changes, or when the event fires, Vega needs to know which
-information you want returned to Shiny. To do this, Vega requires that
+information you want returned to Shiny. To do this,
 you provide a JavaScript handler-function:</p><ul>
-<li><p><code>vw_shiny_get_signal()</code>: the default <code>handler</code>,
+<li><p><code>vw_shiny_get_signal()</code>: the default handler,
 <code><a href='vw_handler_signal.html'>vw_handler_signal("value")</a></code>,
 specifies that the value of the signal be returned.</p></li>
-<li><p><code>vw_shiny_get_event()</code>: the default <code>handler</code>,
+<li><p><code>vw_shiny_get_event()</code>: the default handler,
 <code><a href='vw_handler_signal.html'>vw_handler_event("datum")</a></code>,
 specifies that the single row of data associated with graphical mark
 be returned. For example, if you are monitoring a <code>"click"</code> event,
@@ -214,11 +218,13 @@ Vega would return the row of data that backs any mark
     <p>If you need to specify a different behavior for the handler, there are a
 couple of options. This package provides
 a library of handler-functions; call <code><a href='vw_handler_signal.html'>vw_handler_signal()</a></code>,
-<code><a href='vw_handler_signal.html'>vw_handler_event()</a></code>, or <code><a href='vw_handler_add_effect.html'>vw_handler_add_effect()</a></code> without arguments to
-list them. If it does not contain the handler you need, the <code>body_value</code>
+<code><a href='vw_handler_signal.html'>vw_handler_event()</a></code>, or without arguments to
+list them.</p>
+<p>If it does not contain the handler you need, the <code>body_value</code>
 argument will also accept a character string which will be used as
 the <strong>body</strong> of the handler function.</p>
 <p>For example, these calls are equivalent:</p><ul>
+<li><p><code>vw_shiny_get_signal(..., body_value = "value")</code></p></li>
 <li><p><code>vw_shiny_get_signal(..., body_value = vw_handler_signal("value"))</code></p></li>
 <li><p><code>vw_shiny_get_signal(..., body_value = "return value;")</code></p></li>
 </ul>

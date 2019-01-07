@@ -33,13 +33,20 @@ reactive-expression \code{value}
 \description{
 There are two ways to change a Vega chart: by setting
 a \emph{signal} or by setting a \emph{dataset}; you can also
-direct it to run. Any signal or
+direct a Vega chart to re-run itself. Any signal or
 dataset you set must first be defined and \strong{named} in the vegaspec.
 These functions are called from within
 a Shiny \code{server()} function, where they act like
 \code{\link[shiny:observe]{shiny::observe()}} or \code{\link[shiny:observeEvent]{shiny::observeEvent()}}.
 }
 \details{
+To see these functions in action, you can a shiny-demo:
+\itemize{
+\item \code{vw_shiny_set_signal()}: call \code{vw_shiny_demo("signal-set-get")}
+\item \code{vw_shiny_set_data()}: call \code{vw_shiny_demo("data-set")}
+\item \code{vw_shiny_run()}: call \code{vw_shiny_demo("data-set-swap-run")}
+}
+
 For the signal and data setters, in addition to the chart \code{outputId},
 you will need to provide:
 \itemize{

@@ -2,11 +2,17 @@
 #'
 #' There are two ways to change a Vega chart: by setting
 #' a *signal* or by setting a *dataset*; you can also
-#' direct it to run. Any signal or
+#' direct a Vega chart to re-run itself. Any signal or
 #' dataset you set must first be defined and **named** in the vegaspec.
 #' These functions are called from within
 #' a Shiny `server()` function, where they act like
 #' [shiny::observe()] or [shiny::observeEvent()].
+#'
+#' To see these functions in action, you can a shiny-demo:
+#'
+#' - `vw_shiny_set_signal()`: call `vw_shiny_demo("signal-set-get")`
+#' - `vw_shiny_set_data()`: call `vw_shiny_demo("data-set")`
+#' - `vw_shiny_run()`: call `vw_shiny_demo("data-set-swap-run")`
 #'
 #' For the signal and data setters, in addition to the chart `outputId`,
 #' you will need to provide:
@@ -66,7 +72,7 @@ vw_shiny_set_signal <- function(outputId, name, value, run = TRUE, ...) {
 #'
 vw_shiny_set_data <- function(outputId, name, value, run = TRUE, ...) {
 
-  # until we sort things out with Vega, cacheing deos not work
+  # until we sort things out with Vega, cacheing will not work
   use_cache <- FALSE
 
   # if we are caching the data, we need dplyr

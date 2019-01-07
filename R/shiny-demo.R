@@ -6,8 +6,8 @@
 #'
 #' @return invisible NULL, called for side-effects
 #' @examples
-#' \dontrun{
 #'   vw_shiny_demo() # returns available examples
+#' \dontrun{
 #'   vw_shiny_demo("data-set")
 #' }
 #' @export

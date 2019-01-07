@@ -21,9 +21,12 @@ print.JS_EVAL <- function(x, ...) {
 
 #' Interpolate into a JavaScript string
 #'
-#' Uses (ES6) JavaScript notation to interpolate (R) variables into a string.
+#' Uses JavaScript notation to interpolate R variables into a string
+#' intended to be interpreted as JS.
 #'
-#' This is a wrapper to both [htmlwidgets::JS()] and [glue::glue()].
+#' This is a wrapper to [glue::glue()], but it uses the notation used by
+#' [JavaScript's template-literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals),
+#' `${}`.
 #'
 #' @inheritParams htmlwidgets::JS
 #' @param .open `character`, opening delimeter used by [glue::glue()]
@@ -33,7 +36,7 @@ print.JS_EVAL <- function(x, ...) {
 #' @return `glue::glue()` object
 #' @examples
 #'   x <- 123
-#'   glue_js("function(){return(${x});}")
+#'   glue_js("function(){return(${x});}") %>% print()
 #' @export
 #'
 glue_js <- function(..., .open = "${", .envir = parent.frame()) {

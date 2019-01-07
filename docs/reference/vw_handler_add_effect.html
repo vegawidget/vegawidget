@@ -188,8 +188,11 @@ calculated value. Doing this allows us to chain side-effects together;
 be careful not to modify <code>x</code> in any of the code you provide.</p>
 <p>To see what side-effects are available in this package's handler-library,
 call <code>vw_handler_add_effect()</code> without any arguments. You may notice that
-some of the effects, like <code>"console_text"</code>, require additional parameters,
-in this case, <code>text</code>. To provide the parameters, call
+some of the effects, like <code>"element_text"</code>, require additional parameters,
+in this case, <code>selector</code>.</p>
+<p>Those parameters with a default value of <code>NULL</code> require you to supply
+a value; those with sensible defaults are optional.</p>
+<p>To provide the parameters, call
 <code>vw_handler_add_effect()</code> with <em>named</em> arguments corresponding to the
 names of the parameters. See the examples for details.</p>
     

@@ -19,12 +19,15 @@ the variables to be interpolated}
 \code{glue::glue()} object
 }
 \description{
-Uses (ES6) JavaScript notation to interpolate (R) variables into a string.
+Uses JavaScript notation to interpolate R variables into a string
+intended to be interpreted as JS.
 }
 \details{
-This is a wrapper to both \code{\link[htmlwidgets:JS]{htmlwidgets::JS()}} and \code{\link[glue:glue]{glue::glue()}}.
+This is a wrapper to \code{\link[glue:glue]{glue::glue()}}, but it uses the notation used by
+\href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals}{JavaScript's template-literals},
+\code{${}}.
 }
 \examples{
   x <- 123
-  glue_js("function(){return(${x});}")
+  glue_js("function(){return(${x});}") \%>\% print()
 }

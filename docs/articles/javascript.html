@@ -128,7 +128,7 @@
 <p>It goes without saying that you will need to be comfortable with JavaScript to take advantage of this material. It will be apparent to many of you that my (Ian’s) JavaScript is far from perfect; here are a couple of resources I have used to try to build up my JS capabilities:</p>
 <ul>
 <li><p><a href="https://eloquentjavascript.net">Eloquent JavaScript</a>, available as a free website or as a physical book; thanks to <a href="https://github.com/sa-lee">Stuart Lee</a> for the tip!</p></li>
-<li><p><a href="https://beta.observablehq.com">Observable</a>, Mike Bostock’s latest endeavor, is an intereactive JS coding environment that emphasizes visualization.</p></li>
+<li><p><a href="https://beta.observablehq.com">Observable</a>, Mike Bostock’s latest endeavor, is an interactive JS coding environment that emphasizes visualization.</p></li>
 </ul>
 <div id="introduction-to-vega-view" class="section level2">
 <h2 class="hasAnchor">
@@ -283,7 +283,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <li>return the value of the datum (observation) associated with the event.</li>
 <li>write that value into an element within the HTML document.</li>
 </ul>
-<p>These are two seperate “things”; the first suggests code that returns a value, the second suggests code that produces a side-effect. Accordingly, this package offers a set JavaScript code-snippets that return values, another set of JavaScript code-snippets that produce side-effects, and a means to compose them.</p>
+<p>These are two separate “things”; the first suggests code that returns a value, the second suggests code that produces a side-effect. Accordingly, this package offers a set JavaScript code-snippets that return values, another set of JavaScript code-snippets that produce side-effects, and a means to compose them.</p>
 <p>First, let’s look at snippets that return values from events. Because all event-handlers take the same two arguments, <code>event</code> and <code>item</code>, we can focus only on the <em>body</em> of the handler-function. This is the purpose of the <code><a href="../reference/vw_handler_signal.html">vw_handler_event()</a></code> function.</p>
 <p>If we call it without arguments, it prints a list of available event-handlers that return values:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span>()</a></code></pre></div>
@@ -416,11 +416,11 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 </div>
 <div id="demo-events" class="section level3">
 <h3 class="hasAnchor">
-<a href="#demo-events" class="anchor"></a>Demo</h3>
+<a href="#demo-events" class="anchor"></a>Demo: events</h3>
 <p>When you click anywhere in the plotting-rectangle, the observation associated with the mark (if any) where you clicked will be printed below.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">output_scatterplot</a></code></pre></div>
-<div id="htmlwidget-a96c1fd5eabdeb457c98" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a96c1fd5eabdeb457c98">{"x":{
+<div id="htmlwidget-651654ef02aa2d83f3cf" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-651654ef02aa2d83f3cf">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -909,7 +909,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <p>Signals are a <a href="https://vega.github.io/vega/docs/signals">formal part of the Vega definition</a>, but are not a part of the Vega-Lite definition. They are “dynamic variables that parameterize a visualization and can drive interactive behaviors. Signals can be used throughout a Vega specification, for example to define a mark property or data transform parameter.”</p>
 <p>Even though signals are not defined in Vega-Lite, we can still use them. Before being rendered, Vega-Lite specifications are compiled into Vega specifications. Once rendered, we can interact with the Vega signals, as long as we know what they are named.</p>
 <p>For example, signals are used to drive the behavior of Vega-Lite <a href="https://vega.github.io/vega-lite/docs/selection.html">selections</a>. As of the start of 2019, the Vega-Lite development team are <a href="https://github.com/vega/vega-lite/issues/3338">discussing</a> if, and how, signals might be introduced, formally, to Vega-Lite.</p>
-<p>Fow now, we can “hack” our way to a signal by using it in the Vega-Lite specification, then <em>defining</em> the signal by patching the compiled Vega specification. Vega-Lite developer Dominik Moritz demonstrates this technique in an <a href="https://beta.observablehq.com/@domoritz/rotating-earth">Observable notebook</a>.</p>
+<p>For now, we can “hack” our way to a signal by using it in the Vega-Lite specification, then <em>defining</em> the signal by patching the compiled Vega specification. Vega-Lite developer Dominik Moritz demonstrates this technique in an <a href="https://beta.observablehq.com/@domoritz/rotating-earth">Observable notebook</a>.</p>
 <p>Here, we will use the same technique to create an interactive histogram. We will use the <code>data_seattle_hourly</code> dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010. In addition to the histogram, we will provide a slider-input to specify the bin-width and we will print the bin-width to an element of the HTML document.</p>
 <p>Our first step is to create a Vega-Lite specification for a <a href="https://vega.github.io/vega-lite/examples/histogram.html">histogram</a>.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">spec_histogram &lt;-<span class="st"> </span></a>
@@ -966,7 +966,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <a class="sourceLine" id="cb27-4" data-line-number="4">    tags<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/htmltools/topics/builder">span</a></span>(<span class="dt">id =</span> <span class="st">"output-bin-width"</span>, <span class="st">"foo"</span>),</a>
 <a class="sourceLine" id="cb27-5" data-line-number="5">    <span class="st">" °F."</span></a>
 <a class="sourceLine" id="cb27-6" data-line-number="6">  )</a></code></pre></div>
-<p>Like the event-listenter above, we have to supply a signal-handler to the signal-listener.</p>
+<p>Like the event-listener above, we have to supply a signal-handler to the signal-listener.</p>
 <p>A signal-handler is a JavaScript function that takes two arguments, the <code>name</code> of the signal and the <code>value</code> of the signal. Like the example above, we define a signal-handler to return the value of the signal, then put the value into the HTML element with ID <code>"output-bin-width"</code>, as its text. Note that we are using the <code>expr</code> parameter to specify that we want only three decimal places.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">handler_bin_width &lt;-</a>
 <a class="sourceLine" id="cb28-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/vw_handler_signal.html">vw_handler_signal</a></span>(<span class="st">"value"</span>) <span class="op">%&gt;%</span></a>
@@ -984,7 +984,8 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <div id="demo-signals" class="section level3">
 <h3 class="hasAnchor">
 <a href="#demo-signals" class="anchor"></a>Demo: signals</h3>
-<p>Use the slider to adjust the bin-width for the histogram. The value of the bin-width is printed to the text below the histogram.</p>
+<p>You can use the slider to adjust the bin-width for the histogram of temperature observations in Seattle. The slider works on a logarithmic scale; the baseline bin-width is 1.0 °F, its range is from 0.1 °F to 10.0 °F.</p>
+<p>The value of the bin-width is printed to as text below the histogram.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">input_bin_width</a></code></pre></div>
 <input type="range" name="bin_width" value="0" min="-1" max="1" step="0.01" style="width: 400px; margin-bottom: 10px;"><div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">output_histogram</a></code></pre></div>
 <div id="histogram" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
@@ -36072,13 +36073,14 @@ The histogram bin-width is
  °F.
 </p>
 <hr>
-<p>In the JavaScript chunk below, we define a function that we will want to call whenever the input represented by <code>input_bin_width</code> changes.</p>
-<p>In this function, <code>on_bin_width()</code>, we map the value of the input to the value of the bin-width. Then, using our <code>Vegawidget.findViewPromise()</code> function, we set the signal <code>"bin_width"</code> in the Vega chart and direct it to re-run.</p>
-<p>The <code>view</code> is the object of the <a href="https://github.com/vega/vega/tree/master/packages/vega-view#view-api-reference">vega-view API</a>. Here we <a href="https://vega.github.io/vega/docs/api/view/#view_signal">set the signal</a> named <code>"bin_width"</code> to our new value, then re-<a href="https://github.com/vega/vega/tree/master/packages/vega-view#view_run">run</a> the view.</p>
-<p>Once the function is defined, we direct it to run any time our input-slider changes. Also, we direct this function to run once at initialization.</p>
+<p>To connect the input-slider to the histogram, we need to provide a JavaScript function that will run whenever the input-slider changes.</p>
+<p>In R Markdown, we can specify JavaScript chunks using <code>{js}</code> just like we specify R chunks using <code>{r}</code>. This is what we do in the code-chunk below.</p>
+<p>In this code, we define a JavaScript function, <code>on_bin_width()</code>, that transforms the value of the input to the value of the bin-width (recall the slider has a logarithmic scale). Then, using <code>Vegawidget.findViewPromise()</code>, we <a href="https://vega.github.io/vega/docs/api/view/#view_signal">set the signal</a> <code>"bin_width"</code> in the Vega chart and direct the chart to re-<a href="https://github.com/vega/vega/tree/master/packages/vega-view#view_run">run</a>.</p>
+<p>We add an <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener">event listener</a> to our input-slider, specifying <code>on_bin_width()</code> to run any time the input changes.</p>
+<p>Also, we direct this <code>on_bin_width()</code> to run once at initialization.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co">// {js} chunk</span></a>
 <a class="sourceLine" id="cb32-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="co">// JS reference to our slider-input</span></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="co">// JS reference to the HTML element for the slider-input</span></a>
 <a class="sourceLine" id="cb32-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> inp_bin_width <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">"[name=bin_width]"</span>)<span class="op">;</span></a>
 <a class="sourceLine" id="cb32-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb32-6" data-line-number="6"><span class="co">// define function to call when input changes</span></a>
@@ -36103,7 +36105,7 @@ The histogram bin-width is
 <script type="text/javascript">
 // {js} chunk
 
-// JS reference to our slider-input
+// JS reference to the HTML element for the slider-input
 var inp_bin_width = document.querySelector("[name=bin_width]");
 
 // define function to call when input changes
@@ -36131,8 +36133,10 @@ on_bin_width()
 <div id="data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data" class="anchor"></a>Setting (and soon getting) data</h2>
-<p><a href="https://vega.github.io/vega/docs/data/">Vega</a> and <a href="https://vega.github.io/vega-lite/docs/data.html#named">Vega-Lite</a> both offer the ability to name datasets within a specification. We can use the vega-view API to <a href="https://vega.github.io/vega/docs/api/view/#data-and-scales">change a dataset</a>, and in a future version of this package, you will be able to listen to a dataset, i.e. to specify an action whenever a dataset changes.</p>
-<p>Let’s consider an example with a dataset that has a single observation, and that we can use an HTML input to change that observation. First, we create a range-input that to specify an angle - in our case 0 to 360 degrees. Our input is named <code>"inp_angle"</code>.</p>
+<p><a href="https://vega.github.io/vega/docs/data/">Vega</a> and <a href="https://vega.github.io/vega-lite/docs/data.html#named">Vega-Lite</a> both offer the ability to name datasets within a specification. We can use the vega-view API to <a href="https://vega.github.io/vega/docs/api/view/#data-and-scales">change a dataset</a>, as was done in the <a href="#demo-vega-view">first example</a> in this article.</p>
+<p>In a future version of this package, you will be able to listen to a dataset, i.e. to specify an action whenever a dataset changes.</p>
+<p>Let’s consider an example with a dataset that has a single observation, and that observation falls on the unit-circle. We will use an input-slider to change the angle of the observation.</p>
+<p>First, we create a range-input that to specify an angle - in our case 0 to 360 degrees. In the HTML document, our input is named <code>"inp_angle"</code>.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">input_angle &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb33-2" data-line-number="2"><span class="st">  </span>tags<span class="op">$</span><span class="kw">input</span>(</a>
 <a class="sourceLine" id="cb33-3" data-line-number="3">    <span class="dt">type =</span> <span class="st">"range"</span>, </a>
@@ -36170,10 +36174,11 @@ on_bin_width()
 <a class="sourceLine" id="cb34-24" data-line-number="24"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb34-25" data-line-number="25"></a>
 <a class="sourceLine" id="cb34-26" data-line-number="26">output_chart &lt;-<span class="st"> </span><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_circle, <span class="dt">elementId =</span> <span class="st">"circle"</span>)</a></code></pre></div>
+<p>We can print out our HTML elements to the document, then, like in the signal-example, we will add some JavaScript to define the interactions.</p>
 <div id="demo-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#demo-data" class="anchor"></a>Demo: data</h3>
-<p>Let’s print out our HTML elements to the document, then, like in the signal-example, we will add some JavaScript to define the interactions:</p>
+<p>A dataset has a single observation, bound to the unit circle. You can use the input-slider to specify the angle of the observation.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">input_angle</a></code></pre></div>
 <input type="range" name="inp_angle" value="0" min="0" max="360" step="1" style="width: 400px; margin-bottom: 10px;"><div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">output_chart</a></code></pre></div>
 <div id="circle" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
@@ -36218,40 +36223,45 @@ on_bin_width()
     "renderer": "canvas"
   }
 },"evals":[],"jsHooks":[]}</script><hr>
-<p>Our first job is to create a JavaScript variable that refers to the input slider we created above; we call it <code>inp_angle</code> to keep it distinct (in our heads) from the R varaible <code>input_angle</code>. Please note that the next few code-chunks are <code>{js}</code> chunks rather than <code>{r}</code> chunks.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co">// this is a {js} chunk</span></a>
+<p>Please note that the next few code-chunks are <code>{js}</code> chunks rather than <code>{r}</code> chunks.</p>
+<p>Like above, we create a JavaScript variable, <code>angle</code> that refers to the input-slider.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co">// {js}</span></a>
 <a class="sourceLine" id="cb37-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb37-3" data-line-number="3"><span class="co">// JS reference to our slider-input</span></a>
-<a class="sourceLine" id="cb37-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> inp_angle <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">"[name=inp_angle]"</span>)<span class="op">;</span></a></code></pre></div>
+<a class="sourceLine" id="cb37-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> angle <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">"[name=inp_angle]"</span>)<span class="op">;</span></a></code></pre></div>
 <script type="text/javascript">
-// this is a {js} chunk
+// {js}
 
 // JS reference to our slider-input
-var inp_angle = document.querySelector("[name=inp_angle]");
+var angle = document.querySelector("[name=inp_angle]");
 </script><p>Next, we create a JavaScript function that, when run, reads the value of the input-slider, then updates the dataset in the Vega chart. This function has no arguments; instead, it refers-to and <em>changes</em> variables in the JavaScript environment.</p>
-<p>The first part of the function converts the value of <code>inp_angle</code> into a dataset, <code>data_new</code>, with a single observation. The second part of the function modifies the chart.</p>
-<p>The <code>view</code> is the object of the <a href="https://github.com/vega/vega/tree/master/packages/vega-view#view-api-reference">vega-view API</a>. Here, we create a changeset inserting <code>data_new</code> and removing any existing data, then we <a href="https://github.com/vega/vega/tree/master/packages/vega-view#view_change">change</a> the view’s dataset named <code>"source"</code>, then we <a href="https://github.com/vega/vega/tree/master/packages/vega-view#view_run">run</a> the view.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span> <span class="at">on_angle</span>() <span class="op">{</span></a>
+<p>The first part of the function converts the value of <code>inp_angle</code> into a dataset, <code>data_new</code>, with a single observation, coordinates on the unit-circle.</p>
+<p>The second part of the function modifies the chart. Here, we create a changeset inserting <code>data_new</code>, and removing any existing data. Then we <a href="https://github.com/vega/vega/tree/master/packages/vega-view#view_change">change</a> the view’s dataset named <code>"source"</code>, then we re-<a href="https://github.com/vega/vega/tree/master/packages/vega-view#view_run">run</a> the view.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="co">// {js}</span></a>
 <a class="sourceLine" id="cb38-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb38-3" data-line-number="3">  <span class="co">// translate the input value to x-y coordinates in a new dataset</span></a>
-<a class="sourceLine" id="cb38-4" data-line-number="4">  <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> theta <span class="op">=</span> <span class="va">inp_angle</span>.<span class="at">value</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">PI</span> / <span class="dv">180</span><span class="op">;</span></a>
-<a class="sourceLine" id="cb38-5" data-line-number="5">  <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> data_new <span class="op">=</span> [<span class="op">{</span><span class="dt">x</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">cos</span>(theta)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">sin</span>(theta)<span class="op">}</span>]<span class="op">;</span></a>
-<a class="sourceLine" id="cb38-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb38-7" data-line-number="7">  <span class="co">// changes Vega chart</span></a>
-<a class="sourceLine" id="cb38-8" data-line-number="8">  <span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">"#circle"</span>).<span class="at">then</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span>(view) <span class="op">{</span></a>
-<a class="sourceLine" id="cb38-9" data-line-number="9">    <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> changeSet <span class="op">=</span> <span class="va">vega</span>.<span class="at">changeset</span>()</a>
-<a class="sourceLine" id="cb38-10" data-line-number="10">                        .<span class="at">insert</span>(data_new)</a>
-<a class="sourceLine" id="cb38-11" data-line-number="11">                        .<span class="at">remove</span>(<span class="va">vega</span>.<span class="at">truthy</span>)<span class="op">;</span></a>
-<a class="sourceLine" id="cb38-12" data-line-number="12">                          </a>
-<a class="sourceLine" id="cb38-13" data-line-number="13">    <span class="va">view</span>.<span class="at">change</span>(<span class="st">"source"</span><span class="op">,</span> changeSet).<span class="at">run</span>()<span class="op">;</span>  </a>
-<a class="sourceLine" id="cb38-14" data-line-number="14">  <span class="op">}</span>)<span class="op">;</span>  </a>
-<a class="sourceLine" id="cb38-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb38-16" data-line-number="16"><span class="op">}</span></a></code></pre></div>
+<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span> <span class="at">on_angle</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb38-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb38-5" data-line-number="5">  <span class="co">// translate the input value to x-y coordinates in a new dataset</span></a>
+<a class="sourceLine" id="cb38-6" data-line-number="6">  <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> theta <span class="op">=</span> <span class="va">angle</span>.<span class="at">value</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">PI</span> / <span class="dv">180</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb38-7" data-line-number="7">  <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> data_new <span class="op">=</span> [<span class="op">{</span><span class="dt">x</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">cos</span>(theta)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">sin</span>(theta)<span class="op">}</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb38-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb38-9" data-line-number="9">  <span class="co">// changes Vega chart</span></a>
+<a class="sourceLine" id="cb38-10" data-line-number="10">  <span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">"#circle"</span>).<span class="at">then</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span>(view) <span class="op">{</span></a>
+<a class="sourceLine" id="cb38-11" data-line-number="11">    <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> changeSet <span class="op">=</span> <span class="va">vega</span>.<span class="at">changeset</span>()</a>
+<a class="sourceLine" id="cb38-12" data-line-number="12">                        .<span class="at">insert</span>(data_new)</a>
+<a class="sourceLine" id="cb38-13" data-line-number="13">                        .<span class="at">remove</span>(<span class="va">vega</span>.<span class="at">truthy</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb38-14" data-line-number="14">                          </a>
+<a class="sourceLine" id="cb38-15" data-line-number="15">    <span class="va">view</span>.<span class="at">change</span>(<span class="st">"source"</span><span class="op">,</span> changeSet).<span class="at">run</span>()<span class="op">;</span>  </a>
+<a class="sourceLine" id="cb38-16" data-line-number="16">  <span class="op">}</span>)<span class="op">;</span>  </a>
+<a class="sourceLine" id="cb38-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb38-18" data-line-number="18"><span class="op">}</span></a></code></pre></div>
 <script type="text/javascript">
+// {js}
+
 function on_angle() {
 
   // translate the input value to x-y coordinates in a new dataset
-  var theta = inp_angle.value * Math.PI / 180;
+  var theta = angle.value * Math.PI / 180;
   var data_new = [{x: Math.cos(theta), y: Math.sin(theta)}];
 
   // changes Vega chart
@@ -36264,15 +36274,20 @@ function on_angle() {
   });  
 
 }
-</script><p>Finally, we specify when our <code>on_angle()</code> function should run: we <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener">add an event listener</a> to <code>input_angle</code> so that the function runs whenever <code>input_angle</code> changes, we run the function <em>once</em> at initialization.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co">// whenever the input changes, run the updating function</span></a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="va">inp_angle</span>.<span class="at">addEventListener</span>(<span class="st">"input"</span><span class="op">,</span> on_angle)<span class="op">;</span></a>
-<a class="sourceLine" id="cb39-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="co">// run the updating function *once* to initialize the input to the data</span></a>
-<a class="sourceLine" id="cb39-5" data-line-number="5"><span class="at">on_angle</span>()</a></code></pre></div>
+</script><p>Finally, we specify when our <code>on_angle()</code> function should run. Like above, we add an event listener to the input-slider so that <code>on_angle()</code> runs whenever <code>angle</code> changes.</p>
+<p>Lastly, we run the function <em>once</em> at initialization.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co">// {js}</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="co">// whenever the input changes, run the updating function</span></a>
+<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="va">angle</span>.<span class="at">addEventListener</span>(<span class="st">"input"</span><span class="op">,</span> on_angle)<span class="op">;</span></a>
+<a class="sourceLine" id="cb39-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb39-6" data-line-number="6"><span class="co">// run the updating function *once* to initialize the input to the data</span></a>
+<a class="sourceLine" id="cb39-7" data-line-number="7"><span class="at">on_angle</span>()</a></code></pre></div>
 <script type="text/javascript">
+// {js}
+
 // whenever the input changes, run the updating function
-inp_angle.addEventListener("input", on_angle);
+angle.addEventListener("input", on_angle);
 
 // run the updating function *once* to initialize the input to the data
 on_angle()

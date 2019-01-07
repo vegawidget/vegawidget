@@ -22,7 +22,7 @@ It goes without saying that you will need to be comfortable with JavaScript to t
 
 - [Eloquent JavaScript](https://eloquentjavascript.net), available as a free website or as a physical book; thanks to [Stuart Lee](https://github.com/sa-lee) for the tip! 
 
-- [Observable](https://beta.observablehq.com), Mike Bostock's latest endeavor, is an intereactive JS coding environment that emphasizes visualization.
+- [Observable](https://beta.observablehq.com), Mike Bostock's latest endeavor, is an interactive JS coding environment that emphasizes visualization.
 
 ## Introduction to vega-view
 
@@ -127,7 +127,7 @@ In the example we are building, we want our handler function to do two things:
 - return the value of the datum (observation) associated with the event.
 - write that value into an element within the HTML document.
 
-These are two seperate "things"; the first suggests code that returns a value, the second suggests code that produces a side-effect. Accordingly, this package offers a set JavaScript code-snippets that return values, another set of JavaScript code-snippets that produce side-effects, and a means to compose them.
+These are two separate "things"; the first suggests code that returns a value, the second suggests code that produces a side-effect. Accordingly, this package offers a set JavaScript code-snippets that return values, another set of JavaScript code-snippets that produce side-effects, and a means to compose them.
 
 First, let's look at snippets that return values from events. Because all event-handlers take the same two arguments, `event` and `item`, we can focus only on the *body* of the handler-function. This is the purpose of the `vw_handler_event()` function. 
 
@@ -212,7 +212,7 @@ We create our element that will contain the output of the event-handler:
 output_datum <- tags$pre(id = "output-datum")
 ```
 
-### Demo {#demo-events}
+### Demo: events {#demo-events}
 
 When you click anywhere in the plotting-rectangle, the observation associated with the mark (if any) where you clicked will be printed below.
 
@@ -234,7 +234,7 @@ Even though signals are not defined in Vega-Lite, we can still use them. Before 
 
 For example, signals are used to drive the behavior of Vega-Lite [selections](https://vega.github.io/vega-lite/docs/selection.html). As of the start of 2019, the Vega-Lite development team are [discussing](https://github.com/vega/vega-lite/issues/3338) if, and how, signals might be introduced, formally, to Vega-Lite.
 
-Fow now, we can "hack" our way to a signal by using it in the Vega-Lite specification, then *defining* the signal by patching the compiled Vega specification. Vega-Lite developer Dominik Moritz demonstrates this technique in an [Observable notebook](https://beta.observablehq.com/@domoritz/rotating-earth). 
+For now, we can "hack" our way to a signal by using it in the Vega-Lite specification, then *defining* the signal by patching the compiled Vega specification. Vega-Lite developer Dominik Moritz demonstrates this technique in an [Observable notebook](https://beta.observablehq.com/@domoritz/rotating-earth). 
 
 Here, we will use the same technique to create an interactive histogram. We will use the `data_seattle_hourly` dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010. In addition to the histogram, we will provide a slider-input to specify the bin-width and we will print the bin-width to an element of the HTML document.
 
@@ -311,7 +311,7 @@ output_bin_width <-
   )
 ```
 
-Like the event-listenter above, we have to supply a signal-handler to the signal-listener.
+Like the event-listener above, we have to supply a signal-handler to the signal-listener.
 
 A signal-handler is a JavaScript function that takes two arguments, the `name` of the signal and the `value` of the signal. Like the example above, we define a signal-handler to return the value of the signal, then put the value into the HTML element with ID `"output-bin-width"`, as its text. Note that we are using the `expr` parameter to specify that we want only three decimal places.
 
@@ -335,7 +335,9 @@ We can print the HTML elements to the document; these are "live", but it remains
 
 ### Demo: signals {#demo-signals}
 
-Use the slider to adjust the bin-width for the histogram. The value of the bin-width is printed to the text below the histogram.
+You can use the slider to adjust the bin-width for the histogram of temperature observations in Seattle. The slider works on a logarithmic scale; the baseline bin-width is 1.0 °F, its range is from 0.1 °F to 10.0 °F.
+
+The value of the bin-width is printed to as text below the histogram.
 
 ```{r}
 input_bin_width
@@ -347,18 +349,20 @@ output_bin_width
 
 ---
 
-In the JavaScript chunk below, we define a function that we will want to call whenever the input represented by `input_bin_width` changes.
+To connect the input-slider to the histogram, we need to provide a JavaScript function that will run whenever the input-slider changes. 
 
-In this function, `on_bin_width()`, we map the value of the input to the value of the bin-width. Then, using our `Vegawidget.findViewPromise()` function, we set the signal `"bin_width"` in the Vega chart and direct it to re-run.
+In R Markdown, we can specify JavaScript chunks using `{js}` just like we specify R chunks using `{r}`. This is what we do in the code-chunk below.
 
-The `view` is the object of the [vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view#view-api-reference). Here  we [set the signal](https://vega.github.io/vega/docs/api/view/#view_signal) named `"bin_width"` to our new value, then re-[run](https://github.com/vega/vega/tree/master/packages/vega-view#view_run) the view.
+In this code, we define a JavaScript function, `on_bin_width()`, that transforms the value of the input to the value of the bin-width (recall the slider has a logarithmic scale). Then, using `Vegawidget.findViewPromise()`, we [set the signal](https://vega.github.io/vega/docs/api/view/#view_signal) `"bin_width"` in the Vega chart and direct the chart to re-[run](https://github.com/vega/vega/tree/master/packages/vega-view#view_run).
 
-Once the function is defined, we direct it to run any time our input-slider changes. Also, we direct this function to run once at initialization.
+We add an [event listener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) to our input-slider, specifying `on_bin_width()` to run any time the input changes. 
+
+Also, we direct this `on_bin_width()` to run once at initialization.
 
 ```{js}
 // {js} chunk
 
-// JS reference to our slider-input
+// JS reference to the HTML element for the slider-input
 var inp_bin_width = document.querySelector("[name=bin_width]");
 
 // define function to call when input changes
@@ -386,9 +390,13 @@ Opinion time: admittedly, there are improvements that can be made, both to the v
 
 ## Setting (and soon getting) data {#data}
 
-[Vega](https://vega.github.io/vega/docs/data/) and [Vega-Lite](https://vega.github.io/vega-lite/docs/data.html#named) both offer the ability to name datasets within a specification. We can use the vega-view API to [change a dataset](https://vega.github.io/vega/docs/api/view/#data-and-scales), and in a future version of this package, you will be able to listen to a dataset, i.e. to specify an action whenever a dataset changes.
+[Vega](https://vega.github.io/vega/docs/data/) and [Vega-Lite](https://vega.github.io/vega-lite/docs/data.html#named) both offer the ability to name datasets within a specification. We can use the vega-view API to [change a dataset](https://vega.github.io/vega/docs/api/view/#data-and-scales), as was done in the [first example](#demo-vega-view) in this article. 
 
-Let's consider an example with a dataset that has a single observation, and that we can use an HTML input to change that observation. First, we create a range-input that to specify an angle - in our case 0 to 360 degrees. Our input is named `"inp_angle"`.
+In a future version of this package, you will be able to listen to a dataset, i.e. to specify an action whenever a dataset changes.
+
+Let's consider an example with a dataset that has a single observation, and that observation falls on the unit-circle. We will use an input-slider to change the angle of the observation. 
+
+First, we create a range-input that to specify an angle - in our case 0 to 360 degrees. In the HTML document, our input is named `"inp_angle"`.
 
 ```{r}
 input_angle <- 
@@ -434,9 +442,11 @@ spec_circle <-
 output_chart <- vegawidget(spec_circle, elementId = "circle")
 ```
 
+We can print out our HTML elements to the document, then, like in the signal-example, we will add some JavaScript to define the interactions.
+
 ### Demo: data {#demo-data}
 
-Let's print out our HTML elements to the document, then, like in the signal-example, we will add some JavaScript to define the interactions:
+A dataset has a single observation, bound to the unit circle. You can use the input-slider to specify the angle of the observation.
 
 ```{r}
 input_angle
@@ -446,26 +456,31 @@ output_chart
 
 ---
 
-Our first job is to create a JavaScript variable that refers to the input slider we created above; we call it `inp_angle` to keep it distinct (in our heads) from the R varaible `input_angle`. Please note that the next few code-chunks are `{js}` chunks rather than `{r}` chunks.
+
+Please note that the next few code-chunks are `{js}` chunks rather than `{r}` chunks.
+
+Like above, we create a JavaScript variable, `angle` that refers to the input-slider.
 
 ```{js}
-// this is a {js} chunk
+// {js}
 
 // JS reference to our slider-input
-var inp_angle = document.querySelector("[name=inp_angle]");
+var angle = document.querySelector("[name=inp_angle]");
 ```
 
 Next, we create a JavaScript function that, when run, reads the value of the input-slider, then updates the dataset in the Vega chart. This function has no arguments; instead, it refers-to and *changes* variables in the JavaScript environment.
 
-The first part of the function converts the value of `inp_angle` into a dataset, `data_new`, with a single observation. The second part of the function modifies the chart.  
+The first part of the function converts the value of `inp_angle` into a dataset, `data_new`, with a single observation, coordinates on the unit-circle. 
 
-The `view` is the object of the [vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view#view-api-reference). Here, we create a changeset inserting `data_new` and removing any existing data, then we [change](https://github.com/vega/vega/tree/master/packages/vega-view#view_change) the view's dataset named `"source"`, then we [run](https://github.com/vega/vega/tree/master/packages/vega-view#view_run) the view.
+The second part of the function modifies the chart. Here, we create a changeset inserting `data_new`, and removing any existing data.  Then we [change](https://github.com/vega/vega/tree/master/packages/vega-view#view_change) the view's dataset named `"source"`, then we re-[run](https://github.com/vega/vega/tree/master/packages/vega-view#view_run) the view.
 
 ```{js}
+// {js}
+
 function on_angle() {
 
   // translate the input value to x-y coordinates in a new dataset
-  var theta = inp_angle.value * Math.PI / 180;
+  var theta = angle.value * Math.PI / 180;
   var data_new = [{x: Math.cos(theta), y: Math.sin(theta)}];
 
   // changes Vega chart
@@ -480,11 +495,15 @@ function on_angle() {
 }
 ```
 
-Finally, we specify when our `on_angle()` function should run: we [add an event listener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) to `input_angle` so that the function runs whenever `input_angle` changes, we run the function *once* at initialization. 
+Finally, we specify when our `on_angle()` function should run. Like above, we add an event listener to the input-slider so that `on_angle()` runs whenever `angle` changes.
+
+Lastly, we run the function *once* at initialization. 
 
 ```{js}
+// {js}
+
 // whenever the input changes, run the updating function
-inp_angle.addEventListener("input", on_angle);
+angle.addEventListener("input", on_angle);
 
 // run the updating function *once* to initialize the input to the data
 on_angle()

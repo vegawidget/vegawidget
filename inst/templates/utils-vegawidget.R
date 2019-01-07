@@ -137,9 +137,10 @@ NULL
 #' See \code{vegawidget::\link[vegawidget]{shiny-getters}} for details.
 #'
 #' @name vw-shiny-getters
-#' @rdname vw-shiny-getters
-#' @importFrom vegawidget vw_shiny_get_event vw_shiny_get_signal
-#' @export vw_shiny_get_event vw_shiny_get_signal
+#' @importFrom vegawidget
+#'           vw_shiny_get_event vw_shiny_get_signal
+#' @aliases  vw_shiny_get_event vw_shiny_get_signal
+#' @export   vw_shiny_get_event vw_shiny_get_signal
 #'
 NULL
 
@@ -148,9 +149,10 @@ NULL
 #' See \code{vegawidget::\link[vegawidget]{shiny-setters}} for details.
 #'
 #' @name vw-shiny-setters
-#' @rdname vw-shiny-setters
-#' @importFrom vegawidget vw_shiny_set_data vw_shiny_get_signal
-#' @export vw_shiny_set_data vw_shiny_set_signal
+#' @importFrom vegawidget
+#'          vw_shiny_set_data vw_shiny_set_signal
+#' @aliases vw_shiny_set_data vw_shiny_set_signal
+#' @export  vw_shiny_set_data vw_shiny_set_signal
 #'
 NULL
 
@@ -161,9 +163,10 @@ NULL
 #' See \code{vegawidget::\link[vegawidget]{add-listeners}} for details.
 #'
 #' @name vw-add-listeners
-#' @rdname vw-add-listeners
-#' @importFrom vegawidget vw_add_event_listener vw_add_signal_listener
-#' @export vw_add_event_listener vw_add_signal_listener
+#' @importFrom vegawidget
+#'          vw_add_event_listener vw_add_signal_listener
+#' @aliases vw_add_event_listener vw_add_signal_listener
+#' @export  vw_add_event_listener vw_add_signal_listener
 #'
 NULL
 
@@ -175,10 +178,10 @@ NULL
 #'   \code{vegawidget::\link[vegawidget]{vw_handler_add_effect}}, for details.
 #'
 #' @name vw-handlers
-#' @rdname vw-handlers
 #' @importFrom vegawidget
-#'             vw_handler_signal vw_handler_event vw_handler_add_effect
-#' @export vw_handler_signal vw_handler_event vw_handler_add_effect
+#'           vw_handler_signal vw_handler_event vw_handler_add_effect
+#' @aliases  vw_handler_signal vw_handler_event vw_handler_add_effect
+#' @export   vw_handler_signal vw_handler_event vw_handler_add_effect
 #'
 NULL
 
@@ -195,39 +198,6 @@ NULL
 #'
 NULL
 
-#' Create gist to use as block
-#'
-#' See \code{vegawidget::\link[vegawidget]{vw_create_block}} for details.
-#'
-#' @name vw_create_block
-#' @rdname vw_create_block
-#' @importFrom vegawidget vw_create_block vw_create_block_gistid
-#' @export
-#'
-NULL
-
-#' Specify block-configuration
-#'
-#' See \code{vegawidget::\link[vegawidget]{vw_block_config}} for details.
-#'
-#' @name vw_block_config
-#' @rdname vw_block_config
-#' @importFrom vegawidget vw_block_config
-#' @export
-#'
-NULL
-
-#' Retrieve vegaspec from block
-#'
-#' See \code{vegawidget::\link[vegawidget]{vw_retrieve_block}} for details.
-#'
-#' @name vw_retrieve_block
-#' @rdname vw_retrieve_block
-#' @importFrom vegawidget vw_retrieve_block
-#' @export
-#'
-NULL
-
 #### image functions ####
 
 #' Create or write image
@@ -235,9 +205,10 @@ NULL
 #' See \code{vegawidget::\link[vegawidget]{image}} for details.
 #'
 #' @name image
-#' @aliases vw_to_png vw_to_svg vw_write_png vw_write_svg
-#' @importFrom vegawidget vw_to_png vw_to_svg vw_write_png vw_write_svg
-#' @export                vw_to_png vw_to_svg vw_write_png vw_write_svg
+#' @importFrom vegawidget
+#'           vw_to_png vw_to_svg vw_write_png vw_write_svg
+#' @aliases  vw_to_png vw_to_svg vw_write_png vw_write_svg
+#' @export   vw_to_png vw_to_svg vw_write_png vw_write_svg
 #'
 NULL
 

@@ -18,12 +18,14 @@ knitr::opts_chunk$set(
 
 # vegawidget
 
-The goal of vegawidget is to render Vega-Lite and Vega specifications into htmlwidgets. Its ambition is to be a *low-level* interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications. This is the key difference with the [**vegalite**](https://github.com/hrbrmstr/vegalite) package: it provides a set of higher-level functions to compose specifications, whereas **vegawidget** concerns itself mainly with the rendering of the htmlwidget. 
+The goal of vegawidget is to render Vega-Lite and Vega specifications as htmlwidgets. Its ambition is to be a *low-level* interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications. This is the key difference with the [**vegalite**](https://github.com/hrbrmstr/vegalite) package: it provides a set of higher-level functions to compose specifications, whereas **vegawidget** concerns itself mainly with the rendering of the htmlwidget. 
 
 To be clear, although Vega-Lite offers a grammar-of-graphics, this package does not offer a user-friendly framework as provided by ggplot2. That being noted, this package may be useful to:
 
 - build re-usable Vega and Vega-Lite specifications for deployment elsewhere, if you can tolerate the frustration of building specifications using lists.
 - develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as a foundation (or inspiration).
+
+In short, this package may be of more interest to developers than to folks who are looking.
 
 ## Installation
 
@@ -97,7 +99,7 @@ Accordingly, this package offers a templating function, `use_vegawidget()`, to h
  
 ## Acknowledgements
 
-- [Alicia Schep](https://github.com/AliciaSchep) has been instrumental in guiding the evolution of the API, and making headway into JavaScript and Shiny.
+- [Alicia Schep](https://github.com/AliciaSchep) has been instrumental in guiding the evolution of the API, and in making headway into JavaScript and Shiny.
 - [Haley Jeppson](https://github.com/haleyjeppson) and [Stuart Lee](https://github.com/sa-lee) have provided valuable feedback throughout the package's development.
 - [Bob Rudis](https://github.com/hrbrmstr) and the [vegalite](https://github.com/hrbrmstr/vegalite) package provided a lot of the inspiration for this work, providing a high-level interface to Vega-Lite.
 - The [Altair](https://altair-viz.github.io) developers, for further popularizing the notion of using a programming language (Python) to create and render Vega-Lite specifications.  

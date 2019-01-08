@@ -5,7 +5,8 @@
 ^data-raw$
 ^\.travis\.yml$
 ^docs$
-^inst/tutorials/overview/rsconnect/*$
+^inst/tutorials/.*/.*\.html$
+^inst/tutorials/.*/rsconnect/*$
 ^pkgdown$
 ^vignettes/autosize-.*\.png$
 ^vignettes/blocks\.Rmd$
@@ -20,5 +21,7 @@
 ^vignettes/visual-regression-.*\.png$
 ^vignettes/visual-regression-.*\.svg$
 ^\.V8history$
+^vignettes/shiny\.Rmd$
+^test_app$
 ^CODE_OF_CONDUCT\.md$
 ^CONTRIBUTING\.md$

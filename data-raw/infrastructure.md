@@ -145,6 +145,17 @@ vega_version_long
 vega_version_short <- map(vega_version_long, ~sub("-\\w.*$", "", .x))
 ```
 
+This is a patch to get the “latest” version of vega-embed. Once we move
+to Vega-Lite 3, this code should be removed.
+
+``` r
+vega_version_long$vega <- "4.0.0"
+vega_version_long$vega_embed <- "3.25.0"
+
+vega_version_short$vega <- "4.0.0"
+vega_version_short$vega_embed <- "3.25.0"
+```
+
 ## htmlwidgets
 
 First, let’s create a clean directory for the htmlwidget
@@ -222,10 +233,10 @@ htmlwidgets_downloads
     ## 2 vega-lite/LICENSE          https://raw.githubusercontent.com/vega/vega-…
     ## 3 vega/promise.min.js        https://vega.github.io/vega/assets/promise.m…
     ## 4 vega/symbol.min.js         https://vega.github.io/vega/assets/symbol.mi…
-    ## 5 vega/vega.min.js           https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.3 
-    ## 6 vega/vega.js               https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.3…
+    ## 5 vega/vega.min.js           https://cdn.jsdelivr.net/npm/vega@4.0.0      
+    ## 6 vega/vega.js               https://cdn.jsdelivr.net/npm/vega@4.0.0/buil…
     ## 7 vega/LICENSE               https://raw.githubusercontent.com/vega/vega/…
-    ## 8 vega-embed/vega-embed.js   https://cdn.jsdelivr.net/npm/vega-embed@3.16…
+    ## 8 vega-embed/vega-embed.js   https://cdn.jsdelivr.net/npm/vega-embed@3.25…
     ## 9 vega-embed/LICENSE         https://raw.githubusercontent.com/vega/vega-…
 
 ``` r
@@ -324,7 +335,7 @@ schema
     ## # A tibble: 2 x 2
     ##   path_local            path_remote                                       
     ##   <chr>                 <chr>                                             
-    ## 1 vega/v4.0.0-rc.3.json https://vega.github.io/schema/vega/v4.0.0-rc.3.js…
+    ## 1 vega/v4.0.0.json      https://vega.github.io/schema/vega/v4.0.0.json    
     ## 2 vega-lite/v2.6.0.json https://vega.github.io/schema/vega-lite/v2.6.0.js…
 
 ``` r
@@ -419,6 +430,78 @@ assign_js <- function(name, path_local, path_root) {
 pwalk(htmlwidgets_vegajs, assign_js, path_root = dir_lib)
 ```
 
+Vegawidget handlers:
+
+``` r
+.vw_handler_library <-
+  list(
+    event = .vw_handler_def(
+      args = c("event", "item"),
+      bodies = list(
+        item = .vw_handler_body(
+          params = list(),
+          text = c(
+            "// returns the item",
+            "return item;"
+          )
+        ),
+        datum = .vw_handler_body(
+          params = list(),
+          text = c(
+            "// if there is no item or no datum, return null",
+            "if (item === null || item === undefined || item.datum === undefined) {",
+            "  return null;",
+            "}",
+            "",
+            "// returns the datum behind the mark associated with the event",
+            "return item.datum;"
+          )
+        )
+      )
+    ),
+    signal = .vw_handler_def(
+      args = c("name", "value"),
+      bodies = list(
+        value = .vw_handler_body(
+          params = list(),
+          text = c(
+            "// returns the value of the signal",
+            "return value;"
+          )
+        )
+      )
+    ),
+    effect = .vw_handler_def(
+      args = "x",
+      bodies = list(
+        shiny_input = .vw_handler_body(
+          params = list(inputId = NULL, expr = "x"),
+          text = c(
+            "// sets the Shiny-input named `inputId` to `expr` (default \"x\")",
+            "Shiny.setInputValue('${inputId}', ${expr});"
+          )
+        ),
+        console = .vw_handler_body(
+          params = list(label = "", expr = "x"),
+          text = c(
+            "// if `label` is non-trivial, prints it to the JS console",
+            "'${label}'.length > 0 ? console.log('${label}') : null;",
+            "// prints `expr` (default \"x\") to the JS console",
+            "console.log(${expr});"
+          )
+        ),        
+        element_text = .vw_handler_body(
+          params = list(selector = NULL, expr = "x"),
+          text = c(
+            "// to element `selector`, adds text `expr` (default \"x\")",
+            "document.querySelector('${selector}').innerText = ${expr}"
+          )
+        )
+      )
+    )
+  )
+```
+
 ``` r
 devtools::use_data(
   .vega_version, 
@@ -426,9 +509,10 @@ devtools::use_data(
   .vega_lite_js,
   .promise_js,
   .symbol_js,
+  .vw_handler_library,
   internal = TRUE, 
   overwrite = TRUE
 )
 ```
 
-    ## Saving .vega_version, .vega_js, .vega_lite_js, .promise_js, .symbol_js as sysdata.rda to /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget/R
+    ## Saving .vega_version, .vega_js, .vega_lite_js, .promise_js, .symbol_js, .vw_handler_library as sysdata.rda to /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget/R

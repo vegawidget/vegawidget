@@ -35,6 +35,9 @@
 #' @param embed   `list` to specify
 #'   [vega-embed](https://github.com/vega/vega-embed#options) options,
 #'   see **Details** on how this is set if `NULL`.
+#' @param elementId `character`, explicit element ID for the vegawidget,
+#'   useful if you have other JavaScript that needs to explicitly
+#'   discover and interact with a specific vegawidget
 #' @param ... other arguments passed to [htmlwidgets::createWidget()]
 #'
 #' @return S3 object of class `vegawidget` and `htmlwidget`
@@ -45,7 +48,8 @@
 #'
 #' @export
 #'
-vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
+vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
+                       elementId = NULL, ...) {
 
   # if `embed` is NULL, check for option
   embed <- embed %||% getOption("vega.embed")
@@ -78,8 +82,11 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
       package = "vegawidget",
       sizingPolicy = htmlwidgets::sizingPolicy(
         defaultWidth = "auto",
-        defaultHeight = "auto"
+        defaultHeight = "auto",
+        viewer.fill = FALSE,
+        knitr.figure = FALSE
       ),
+      elementId = elementId,
       ...
     )
 
@@ -88,14 +95,17 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
 
 #' Shiny-output for vegawidget
 #'
+#' Use this function in the UI part of your Shiny app.
+#'
 #' @param outputId output variable to read from
 #' @param width,height Must be a valid CSS unit (like \code{"100\%"},
 #'   \code{"400px"}, \code{"auto"}) or a number, which will be coerced to a
-#'   string and have \code{"px"} appended.#'
+#'   string and have \code{"px"} appended. For vegawidgets, numbers may be the
+#'   most useful.
 #'
 #' @export
 #'
-vegawidgetOutput <- function(outputId, width = "100%", height = "400px") {
+vegawidgetOutput <- function(outputId, width = "auto", height = "auto") {
   htmlwidgets::shinyWidgetOutput(
     outputId,
     "vegawidget",
@@ -107,8 +117,10 @@ vegawidgetOutput <- function(outputId, width = "100%", height = "400px") {
 
 #' Render shiny-output for vegawidget
 #'
-#' @param expr An expression that generates an HTML widget (or a
-#'   \href{https://rstudio.github.io/promises/}{promise} of an HTML widget).
+#' Use this function in the server part of your Shiny app.
+#'
+#' @param expr expression that generates a vegawidget. This can be
+#'   a `vegawidget` or a `vegaspec`.
 #' @param env The environment in which to evaluate \code{expr}.
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
@@ -116,7 +128,14 @@ vegawidgetOutput <- function(outputId, width = "100%", height = "400px") {
 #' @export
 #'
 renderVegawidget <- function(expr, env = parent.frame(), quoted = FALSE) {
+
+  # if sent a vegaspec, convert to a vegawidget
+  if (inherits(expr, "vegaspec")) {
+    expr <- vegawidget(expr)
+  }
+
   if (!quoted) { expr <- substitute(expr) } # force quoted
+
   htmlwidgets::shinyRenderWidget(
     expr,
     vegawidgetOutput,

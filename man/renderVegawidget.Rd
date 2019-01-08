@@ -7,8 +7,8 @@
 renderVegawidget(expr, env = parent.frame(), quoted = FALSE)
 }
 \arguments{
-\item{expr}{An expression that generates an HTML widget (or a
-\href{https://rstudio.github.io/promises/}{promise} of an HTML widget).}
+\item{expr}{expression that generates a vegawidget. This can be
+a \code{vegawidget} or a \code{vegaspec}.}
 
 \item{env}{The environment in which to evaluate \code{expr}.}
 
@@ -16,5 +16,5 @@ renderVegawidget(expr, env = parent.frame(), quoted = FALSE)
 is useful if you want to save an expression in a variable.}
 }
 \description{
-Render shiny-output for vegawidget
+Use this function in the server part of your Shiny app.
 }

@@ -1,9 +1,10 @@
 Package: vegawidget
-Version: 0.0.5.9000
+Version: 0.0.6.9000
 Title: Htmlwidget Renderer for Vega and Vega-Lite
 Description: Vega and Vega-Lite parse text in JSON notation to render 
   chart-specifications into HTML. This package is used to facilitate the 
-  rendering.
+  rendering. It also provides a means to interact with signals, events,
+  and datasets in a Vega chart using JavaScript or Shiny.
 Authors@R: c(
     person(
       given = "Ian", 
@@ -14,11 +15,17 @@ Authors@R: c(
     ),
     person("Vega/Vega-Lite Developers", role = c("aut")),
     person(
-      "Alicia", 
-      "Schep",
+      given = "Alicia", 
+      family = "Schep",
       email = "aschep@gmail.com",
       role = c("ctb"),
       comment = c(ORCID = "orcid.org/0000-0002-3915-0618")
+    ),
+    person(
+      given = "Stuart", 
+      family = "Lee", 
+      email = "lee.s@wehi.edu.au", 
+      role = c("ctb")
     ),
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("ctb"), 
       comment = c(ORCID = "0000-0003-4757-117X")
@@ -45,7 +52,8 @@ Imports:
     assertthat,
     rlang,
     glue,
-    magrittr
+    magrittr,
+    shiny
 Suggests:
     knitr,
     rmarkdown,
@@ -63,10 +71,11 @@ Suggests:
     clipr,
     desc,
     clisymbols,
+    shinytest,
     readr,
     tibble,
     lubridate,
     learnr,
     processx,
-    rsvg
-VignetteBuilder: knitr
+    rsvg,
+    dplyr

@@ -49,6 +49,7 @@ or write images as PNG or SVG, using a \code{vegaspec} or \code{vegawidget}.
 These functions can be called using (an object that can be coerced to)
 a \code{vegaspec}.
 
+
 For writing a \code{png}, the \code{rsvg} package is needed in addition to
 \strong{node}.
 

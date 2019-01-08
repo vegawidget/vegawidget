@@ -4,7 +4,8 @@
 \alias{vegawidget}
 \title{Create a Vega/Vega-Lite htmlwidget}
 \usage{
-vegawidget(spec, embed = NULL, width = NULL, height = NULL, ...)
+vegawidget(spec, embed = NULL, width = NULL, height = NULL,
+  elementId = NULL, ...)
 }
 \arguments{
 \item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
@@ -20,6 +21,10 @@ the default is to use the width in the chart specification}
 \item{height}{\code{integer}, if specified, the total rendered height (in pixels)
 of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification}
+
+\item{elementId}{\code{character}, explicit element ID for the vegawidget,
+useful if you have other JavaScript that needs to explicitly
+discover and interact with a specific vegawidget}
 
 \item{...}{other arguments passed to \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}}
 }

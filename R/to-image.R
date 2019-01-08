@@ -12,7 +12,6 @@
 #' The **node** scripts used are adapted from the command line utilies in the
 #' vega-cli package.
 #'
-#'
 #' @name image
 #' @param spec `vegaspec` object that is or can be coerced to a `vegaspec`,
 #'   e.g. a vegawidget object.
@@ -25,7 +24,7 @@
 #' @param widget `vegawidget`, created using [vegawidget()]
 #'
 #' @return \describe{
-#'   \item{`vw_to_png()`}{`array`, bitmap array}
+#'   \item{`vw_to_bitmap()`}{`array`, bitmap array}
 #'   \item{`vw_to_svg()`}{`character`, SVG string}
 #'   \item{`vw_write_png()`}{invisible `vegaspec` or `vegawidget`}
 #'   \item{`vw_write_svg()`}{invisible `vegaspec` or `vegawidget`}

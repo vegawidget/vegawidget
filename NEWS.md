@@ -1,3 +1,11 @@
+# vegawidget 0.0.6.9000
+
+* adds `elementId` argument to `vegawidget()`; had been available as part of `...` passed to `htmlwidgets::createWidget()`
+
+* compiles Shiny demonstration apps in `inst/shiny-demo`, adds function `vw_shiny_demo()`  to access them
+
+* adds Shiny setter-functions: `vw_shiny_set_signal()`, `vw_shiny_set_data()`, `vw_shiny_run()`, getter-functions: `vw_shiny_get_signal()`, `vw_shiny_get_event()`, and handler helper-functions `vw_handler_signal()`, `vw_handler_event()`, `vw_handler_add_effect()`, `vw_handler_compose()`, and `vw_handler_body_compose()`
+
 # vegawidget 0.0.5.9000
 
 * tries a kinder, gentler method for enforcing sizing by implementing a sizing policy rather than overwriting the enclosing element

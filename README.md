@@ -9,8 +9,8 @@ status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project
 
 # vegawidget
 
-The goal of vegawidget is to render Vega-Lite and Vega specifications
-into htmlwidgets. Its ambition is to be a *low-level* interface to the
+The goal of vegawidget is to render Vega-Lite and Vega specifications as
+htmlwidgets. Its ambition is to be a *low-level* interface to the
 Vega(-Lite) API, such that other packages can build upon it to offer
 higher-level functions to compose Vega(-Lite) specifications. This is
 the key difference with the
@@ -20,8 +20,8 @@ whereas **vegawidget** concerns itself mainly with the rendering of the
 htmlwidget.
 
 To be clear, although Vega-Lite offers a grammar-of-graphics, this
-package does not offer a user-friendly framework as provided by ggplot2.
-That being noted, this package may be useful to:
+package does not offer a user-friendly framework, as provided by
+ggplot2. However, this package may be useful to:
 
   - build re-usable Vega and Vega-Lite specifications for deployment
     elsewhere, if you can tolerate the frustration of building
@@ -54,11 +54,22 @@ vega_version()
 #> [1] "3.25.0"
 ```
 
+The *first* released version of vegawidget supports Vega-Lite 2.6.0, the
+*last* release of Vega-Lite that will run using JavaScript version ES5.
+The next version of Vega-Lite, 3.0.0, will use JavaScript ES6.
+
+In practical terms, this means that this version of vegawidget will be
+the *only* version that will display properly using version 1.1.x of the
+RStudio IDE.
+
+As soon as Vega-Lite makes its 3.0.0 release, we will make another
+vegawidget release - for which you will need to use a (presently
+preview) version of the RStudio IDE at least 1.2.x.
+
 ## Introduction
 
-For a comprehensive introduction to Vega-Lite, please visit the
-project’s [web site](https://vega.github.io/vega-lite). An
-[interactive
+For a comprehensive introduction to Vega-Lite, please visit the its [web
+site](https://vega.github.io/vega-lite). An [interactive
 tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) to
 vegawidget is available at shinyapps.io.
 
@@ -151,10 +162,11 @@ functions for the [altair](https://vegawidget.github.io/altair) package.
 ## Acknowledgements
 
   - [Alicia Schep](https://github.com/AliciaSchep) has been instrumental
-    in guiding the evolution of the API.
+    in guiding the evolution of the API, and in making headway into
+    JavaScript and Shiny.
   - [Haley Jeppson](https://github.com/haleyjeppson) and [Stuart
-    Lee](https://github.com/sa-lee) have provided valuable feedback
-    throughout the package’s development.
+    Lee](https://github.com/sa-lee) have provided valuable feedback and
+    contributions throughout the package’s development.
   - [Bob Rudis](https://github.com/hrbrmstr) and the
     [vegalite](https://github.com/hrbrmstr/vegalite) package provided a
     lot of the inspiration for this work, providing a high-level

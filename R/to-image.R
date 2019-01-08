@@ -21,7 +21,9 @@
 #'   (in that order). See \code{\link[png]{writePNG}}
 #' @param width,height `numeric`, output width and height in pixels (or NULL for
 #'   default) for bitmap or PNG output
-#' @param widget `vegawidget`, created using [vegawidget()]
+#' @param seed the random seed for a vega spec
+#' @param base_url the base url for a data file. Useful for specifying a local
+#'   directory
 #'
 #' @return \describe{
 #'   \item{`vw_to_bitmap()`}{`array`, bitmap array}
@@ -44,7 +46,7 @@
 #' @rdname image
 #' @export
 #'
-vw_to_svg <- function(spec, seed = sample(1e8, size = 1), base = "", width = NULL, height = NULL) {
+vw_to_svg <- function(spec, seed = sample(1e8, size = 1), base_url = "", width = NULL, height = NULL) {
 
   # Check dependencies
   assert_packages("processx")
@@ -64,7 +66,7 @@ vw_to_svg <- function(spec, seed = sample(1e8, size = 1), base = "", width = NUL
   script_path <-  system.file("bin/vega_to_svg.js", package = "vegawidget")
 
   # Use processx to run the script
-  res <- processx::run(script_path, args = c(pkg_path, spec_path, seed, base))
+  res <- processx::run(script_path, args = c(pkg_path, spec_path, seed, base_url))
 
   if (res$stderr != "") {
     stop("Error in compiling to svg:\n", res$stderr)

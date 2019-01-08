@@ -97,9 +97,9 @@ as_vegaspec.character <- function(spec, ...) {
 #' @rdname as_vegaspec
 #' @export
 #'
-as_vegaspec.vegawidget <- function(x, ...) {
+as_vegaspec.vegawidget <- function(spec, ...) {
   # Pull out the spec from a widget object
-  spec <- .as_list(x$x)$chart_spec
+  spec <- .as_list(spec$x)$chart_spec
   .as_vegaspec(spec)
 }
 

@@ -78,4 +78,5 @@ Suggests:
     learnr,
     processx,
     rsvg,
-    dplyr
+    dplyr,
+    png

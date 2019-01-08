@@ -8,7 +8,7 @@
 \alias{vw_write_png}
 \title{Create or write image}
 \usage{
-vw_to_svg(spec, seed = sample(1e+08, size = 1), base = "",
+vw_to_svg(spec, seed = sample(1e+08, size = 1), base_url = "",
   width = NULL, height = NULL)
 
 vw_to_bitmap(spec, width = NULL, height = NULL, ...)
@@ -22,6 +22,11 @@ vw_write_png(spec, path, width = NULL, height = NULL, dpi = NULL,
 \item{spec}{\code{vegaspec} object that is or can be coerced to a \code{vegaspec},
 e.g. a vegawidget object.}
 
+\item{seed}{the random seed for a vega spec}
+
+\item{base_url}{the base url for a data file. Useful for specifying a local
+directory}
+
 \item{width, height}{\code{numeric}, output width and height in pixels (or NULL for
 default) for bitmap or PNG output}
 
@@ -30,12 +35,10 @@ default) for bitmap or PNG output}
 \item{dpi}{\code{numeric}, numeric vector of length 1 or 2 specifying the
 resolution of the image in DPI (dots per length) for x and y
 (in that order). See \code{\link[png]{writePNG}}}
-
-\item{widget}{\code{vegawidget}, created using \code{\link[=vegawidget]{vegawidget()}}}
 }
 \value{
 \describe{
-\item{\code{vw_to_png()}}{\code{array}, bitmap array}
+\item{\code{vw_to_bitmap()}}{\code{array}, bitmap array}
 \item{\code{vw_to_svg()}}{\code{character}, SVG string}
 \item{\code{vw_write_png()}}{invisible \code{vegaspec} or \code{vegawidget}}
 \item{\code{vw_write_svg()}}{invisible \code{vegaspec} or \code{vegawidget}}
@@ -48,7 +51,6 @@ or write images as PNG or SVG, using a \code{vegaspec} or \code{vegawidget}.
 \details{
 These functions can be called using (an object that can be coerced to)
 a \code{vegaspec}.
-
 
 For writing a \code{png}, the \code{rsvg} package is needed in addition to
 \strong{node}.

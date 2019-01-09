@@ -29,7 +29,7 @@ As we go through the examples, please keep in mind:
 
 ## Getting events {#events}
 
-This is a shortened version of the [events section](javascript.html#events) in the [JavaScript article](JavaScript); the concepts are the same, but the implementation is far simpler using Shiny. 
+This is a shortened version of the [events section](javascript.html#events) in the [JavaScript article](javascript.Rmd); the concepts are the same, but the implementation is far simpler using Shiny. 
 
 Event streams are [used extensively within Vega](https://vega.github.io/vega/docs/event-streams), enabling interactivity. By [adding event-listeners](https://vega.github.io/vega/docs/api/view/#view_addEventListener) to the `view`, we can specify actions to be taken in response to a particular type of event, such as `"mouseover"`, `"click"`, `"keypress"`, etc.
 

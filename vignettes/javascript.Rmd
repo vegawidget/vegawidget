@@ -1,4 +1,4 @@
----
+\---
 title: "Extend using JavaScript"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_document
@@ -22,7 +22,7 @@ It goes without saying that you will need to be comfortable with JavaScript to t
 
 - [Eloquent JavaScript](https://eloquentjavascript.net), available as a free website or as a physical book; thanks to [Stuart Lee](https://github.com/sa-lee) for the tip! 
 
-- [Observable](https://beta.observablehq.com), Mike Bostock's latest endeavor, is an intereactive JS coding environment that emphasizes visualization.
+- [Observable](https://beta.observablehq.com), Mike Bostock's latest endeavor, is an interactive JS coding environment that emphasizes visualization.
 
 ## Introduction to vega-view
 
@@ -122,7 +122,7 @@ In the example we are building, we want our handler function to do two things:
 - return the value of the datum (observation) associated with the event.
 - write that value into an element in the HTML document.
 
-These are two seperate "things"; the first suggests a function that returns a value, the second suggests a function that produces a side-effect. Accordingly, this package offers a set of JavaScript functions that return values, another set of JavaScript functions that produce side-effects, and a means to compose them.
+These are two separate "things"; the first suggests a function that returns a value, the second suggests a function that produces a side-effect. Accordingly, this package offers a set of JavaScript functions that return values, another set of JavaScript functions that produce side-effects, and a means to compose them.
 
 First, let's look at functions that return values from events. Because all event-handlers take the same two arguments, `event` and `item`, we can focus only on the *body* of the handler-function. This is the purpose of the `vw_handler_event()` function. 
 
@@ -419,7 +419,7 @@ input_angle
 output_chart
 ```
 
-Our first job is to create a JavaScript variable that refers to the input slider we created above; we call it `inp_angle` to keep it distinct (in our heads) from the R varaible `input_angle`. Please note that the next few code-chunks are `{js}` chunks rather than `{r}` chunks.
+Our first job is to create a JavaScript variable that refers to the input slider we created above; we call it `inp_angle` to keep it distinct (in our heads) from the R variable `input_angle`. Please note that the next few code-chunks are `{js}` chunks rather than `{r}` chunks.
 
 ```{js}
 // this is a {js} chunk

@@ -69,14 +69,17 @@ vega-cli package.
   vw_write_svg(spec_mtcars, "temp.svg")
 
   # To specify the path to a local file, use base_url
-  spec_precip <- '{
-  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
-  "data": {"url": "seattle-weather.csv"},
-  "mark": "tick",
-  "encoding": {
-    "x": {"field": "precipitation", "type": "quantitative"}
-  }
-  }"'
+  spec_precip <-
+    list(
+      `$schema` = vega_schema(),
+      data = list(url = "seattle-weather.csv"),
+      mark = "tick",
+      encoding = list(
+        x = list(field = "precipitation", type = "quantitative")
+      )
+    ) \%>\%
+    as_vegaspec()
+
   data_dir <- system.file("example-data/", package = "vegawidget")
   vw_write_png(spec_precip, "temp-local.png", base_url = data_dir)
 

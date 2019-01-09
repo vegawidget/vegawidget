@@ -36,12 +36,11 @@ function lcg(seed) {
   return function() {
     seed = (1103515245 * seed + 12345) % 2147483647;
     return seed / 2147483647;
-};
+  };
 }
 
 // Plug-in a deterministic random number generator for testing.
 vega.setRandom(lcg(seed));
-
 
 fs.readFile(specFile, 'utf8', function(err, text) {
   if (err) throw err;
@@ -64,6 +63,7 @@ function render(spec) {
 }
 
 function writeSVG(svg) {
+  console.log(svgHeader);
   svg = svgHeader + svg;
   process.stdout.write(svg);
 }

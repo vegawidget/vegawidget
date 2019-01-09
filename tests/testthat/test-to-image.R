@@ -17,6 +17,10 @@ test_that("vw_to_svg works with vega spec", {
     substr(svg_res, 1, 50),
     substr(expected_svg, 1, 50)
   )
+  expect_identical(
+    nchar(svg_res),
+    nchar(expected_svg)
+  )
   #expect_identical(svg_res, expected_svg)
 
 })

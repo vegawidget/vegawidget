@@ -23,7 +23,8 @@ vw_write_png <- function(
     vw_to_bitmap(
       spec,
       width = width,
-      height = height
+      height = height,
+      ...
     )
 
   png::writePNG(bm, target =  path, dpi = dpi)

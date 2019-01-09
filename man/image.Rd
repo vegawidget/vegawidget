@@ -8,8 +8,8 @@
 \alias{vw_write_png}
 \title{Create or write image}
 \usage{
-vw_to_svg(spec, seed = sample(1e+08, size = 1), base_url = "",
-  width = NULL, height = NULL)
+vw_to_svg(spec, width = NULL, height = NULL, base_url = "",
+  seed = sample(1e+08, size = 1))
 
 vw_to_bitmap(spec, width = NULL, height = NULL, ...)
 
@@ -19,16 +19,18 @@ vw_write_png(spec, path, width = NULL, height = NULL, dpi = NULL,
   ...)
 }
 \arguments{
-\item{spec}{\code{vegaspec} object that is or can be coerced to a \code{vegaspec},
+\item{spec}{\code{vegaspec}, object that is or can be coerced to a \code{vegaspec},
 e.g. a vegawidget object.}
 
-\item{seed}{the random seed for a vega spec}
-
-\item{base_url}{the base url for a data file. Useful for specifying a local
-directory}
-
 \item{width, height}{\code{numeric}, output width and height in pixels (or NULL for
-default) for bitmap or PNG output}
+default)}
+
+\item{base_url}{\code{character}, the base url for a data file. Useful for
+specifying a local directory}
+
+\item{seed}{\code{integer}, the random seed for a vega spec}
+
+\item{...}{additional argument to pass to \code{vw_to_svg}}
 
 \item{path}{\code{character}, local path to which to write file}
 
@@ -65,6 +67,19 @@ vega-cli package.
   vw_to_bitmap(spec_mtcars)
   vw_write_png(spec_mtcars, "temp.png")
   vw_write_svg(spec_mtcars, "temp.svg")
+
+  # To specify the path to a local file, use base_url
+  spec_precip <- '{
+  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "data": {"url": "seattle-weather.csv"},
+  "mark": "tick",
+  "encoding": {
+    "x": {"field": "precipitation", "type": "quantitative"}
+  }
+  }"'
+  data_dir <- system.file("example-data/", package = "vegawidget")
+  vw_write_png(spec_precip, "temp-local.png", base_url = data_dir)
+
 }
 }
 \seealso{

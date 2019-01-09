@@ -13,17 +13,18 @@
 #' vega-cli package.
 #'
 #' @name image
-#' @param spec `vegaspec` object that is or can be coerced to a `vegaspec`,
+#' @param spec `vegaspec`, object that is or can be coerced to a `vegaspec`,
 #'   e.g. a vegawidget object.
 #' @param path   `character`, local path to which to write file
+#' @param width,height `numeric`, output width and height in pixels (or NULL for
+#'   default)
 #' @param dpi  `numeric`, numeric vector of length 1 or 2 specifying the
 #'   resolution of the image in DPI (dots per length) for x and y
 #'   (in that order). See \code{\link[png]{writePNG}}
-#' @param width,height `numeric`, output width and height in pixels (or NULL for
-#'   default) for bitmap or PNG output
-#' @param seed the random seed for a vega spec
-#' @param base_url the base url for a data file. Useful for specifying a local
-#'   directory
+#' @param base_url `character`, the base url for a data file. Useful for
+#'   specifying a local directory
+#' @param seed `integer`, the random seed for a vega spec
+#' @param ... additional argument to pass to `vw_to_svg`
 #'
 #' @return \describe{
 #'   \item{`vw_to_bitmap()`}{`array`, bitmap array}
@@ -39,6 +40,19 @@
 #'   vw_to_bitmap(spec_mtcars)
 #'   vw_write_png(spec_mtcars, "temp.png")
 #'   vw_write_svg(spec_mtcars, "temp.svg")
+#'
+#'   # To specify the path to a local file, use base_url
+#'   spec_precip <- '{
+#'   "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+#'   "data": {"url": "seattle-weather.csv"},
+#'   "mark": "tick",
+#'   "encoding": {
+#'     "x": {"field": "precipitation", "type": "quantitative"}
+#'   }
+#'   }"'
+#'   data_dir <- system.file("example-data/", package = "vegawidget")
+#'   vw_write_png(spec_precip, "temp-local.png", base_url = data_dir)
+#'
 #' }
 #' @seealso [vega-view library](https://github.com/vega/vega-view#image-export),
 #'
@@ -46,7 +60,8 @@
 #' @rdname image
 #' @export
 #'
-vw_to_svg <- function(spec, seed = sample(1e8, size = 1), base_url = "", width = NULL, height = NULL) {
+vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = "",
+                      seed = sample(1e8, size = 1)) {
 
   # Check dependencies
   assert_packages("processx")

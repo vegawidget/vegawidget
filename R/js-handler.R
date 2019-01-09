@@ -137,8 +137,13 @@ vw_handler_event <- function(body_value) {
 #'
 #' To see what side-effects are available in this package's handler-library,
 #' call `vw_handler_add_effect()` without any arguments. You may notice that
-#' some of the effects, like `"console_text"`, require additional parameters,
-#' in this case, `text`. To provide the parameters, call
+#' some of the effects, like `"element_text"`, require additional parameters,
+#' in this case, `selector`.
+#'
+#' Those parameters with a default value of `NULL` require you to supply
+#' a value; those with sensible defaults are optional.
+#'
+#' To provide the parameters, call
 #' `vw_handler_add_effect()` with *named* arguments corresponding to the
 #' names of the parameters. See the examples for details.
 #'
@@ -158,8 +163,7 @@ vw_handler_event <- function(body_value) {
 #'   # build a signal handler that prints some text,
 #'   # then the value, to the console
 #'   vw_handler_signal("value") %>%
-#'     vw_handler_add_effect("console_text", text = "signal value:") %>%
-#'     vw_handler_add_effect("console")
+#'     vw_handler_add_effect("console", label = "signal value:")
 #'
 #' @export
 #'

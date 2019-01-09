@@ -19,8 +19,8 @@ invisible NULL, called for side-effects
 Run Shiny demonstration-apps
 }
 \examples{
-\dontrun{
   vw_shiny_demo() # returns available examples
+\dontrun{
   vw_shiny_demo("data-set")
 }
 }

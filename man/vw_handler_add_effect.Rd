@@ -37,8 +37,13 @@ be careful not to modify \code{x} in any of the code you provide.
 
 To see what side-effects are available in this package's handler-library,
 call \code{vw_handler_add_effect()} without any arguments. You may notice that
-some of the effects, like \code{"console_text"}, require additional parameters,
-in this case, \code{text}. To provide the parameters, call
+some of the effects, like \code{"element_text"}, require additional parameters,
+in this case, \code{selector}.
+
+Those parameters with a default value of \code{NULL} require you to supply
+a value; those with sensible defaults are optional.
+
+To provide the parameters, call
 \code{vw_handler_add_effect()} with \emph{named} arguments corresponding to the
 names of the parameters. See the examples for details.
 }
@@ -49,8 +54,7 @@ names of the parameters. See the examples for details.
   # build a signal handler that prints some text,
   # then the value, to the console
   vw_handler_signal("value") \%>\%
-    vw_handler_add_effect("console_text", text = "signal value:") \%>\%
-    vw_handler_add_effect("console")
+    vw_handler_add_effect("console", label = "signal value:")
 
 }
 \seealso{

@@ -9,8 +9,8 @@ status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project
 
 # vegawidget
 
-The goal of vegawidget is to render Vega-Lite and Vega specifications
-into htmlwidgets. Its ambition is to be a *low-level* interface to the
+The goal of vegawidget is to render Vega-Lite and Vega specifications as
+htmlwidgets. Its ambition is to be a *low-level* interface to the
 Vega(-Lite) API, such that other packages can build upon it to offer
 higher-level functions to compose Vega(-Lite) specifications. This is
 the key difference with the
@@ -20,8 +20,8 @@ whereas **vegawidget** concerns itself mainly with the rendering of the
 htmlwidget.
 
 To be clear, although Vega-Lite offers a grammar-of-graphics, this
-package does not offer a user-friendly framework as provided by ggplot2.
-That being noted, this package may be useful to:
+package does not offer a user-friendly framework, as provided by
+ggplot2. However, this package may be useful to:
 
   - build re-usable Vega and Vega-Lite specifications for deployment
     elsewhere, if you can tolerate the frustration of building
@@ -48,17 +48,28 @@ vega_version()
 #> [1] "2.6.0"
 #> 
 #> $vega
-#> [1] "4.0.0-rc.3"
+#> [1] "4.0.0"
 #> 
 #> $vega_embed
-#> [1] "3.16.0"
+#> [1] "3.25.0"
 ```
+
+The *first* released version of vegawidget supports Vega-Lite 2.6.0, the
+*last* release of Vega-Lite that will run using JavaScript version ES5.
+The next version of Vega-Lite, 3.0.0, will use JavaScript ES6.
+
+In practical terms, this means that this version of vegawidget will be
+the *only* version that will display properly using version 1.1.x of the
+RStudio IDE.
+
+As soon as Vega-Lite makes its 3.0.0 release, we will make another
+vegawidget release - for which you will need to use a (presently
+preview) version of the RStudio IDE at least 1.2.x.
 
 ## Introduction
 
-For a comprehensive introduction to Vega-Lite, please visit the
-project’s [web site](https://vega.github.io/vega-lite). An
-[interactive
+For a comprehensive introduction to Vega-Lite, please visit the its [web
+site](https://vega.github.io/vega-lite). An [interactive
 tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) to
 vegawidget is available at shinyapps.io.
 
@@ -111,12 +122,11 @@ series of articles:
     vegawidget](https://vegawidget.github.io/vegawidget/articles/vegawidget.html):
     advanced rendering options.
   - [Extend using
+    Shiny](https://vegawidget.github.io/vegawidget/articles/shiny.html):
+    how to interact with Vega charts using Shiny.
+  - [Extend using
     JavaScript](https://vegawidget.github.io/vegawidget/articles/javascript.html):
     how to interact with Vega charts using JavaScript.
-  - [Share with
-    bl.ocks.org](https://vegawidget.github.io/vegawidget/articles/blocks.html):
-    using GitHub, you can deploy and retrieve vegaspecs to/from
-    [bl.ocks.org](https://bl.ocks.org).
   - [Create
     Images](https://vegawidget.github.io/vegawidget/articles/image.html):
     how to create and save PNG or SVG images.
@@ -127,6 +137,10 @@ series of articles:
     Packages](https://vegawidget.github.io/vegawidget/articles/import.html):
     how to import vegawidget functions into your package, then re-export
     them.
+
+To share your Vega(-Lite) creation on the [Blocks](https://bl.ocks.org)
+website, you can use the
+[**vegablock**](https://vegawidget.github.io/vegablock) package.
 
 ## Integration with other packages
 
@@ -148,7 +162,11 @@ functions for the [altair](https://vegawidget.github.io/altair) package.
 ## Acknowledgements
 
   - [Alicia Schep](https://github.com/AliciaSchep) has been instrumental
-    in guiding the evolution of the API.
+    in guiding the evolution of the API, and in making headway into
+    JavaScript and Shiny.
+  - [Haley Jeppson](https://github.com/haleyjeppson) and [Stuart
+    Lee](https://github.com/sa-lee) have provided valuable feedback and
+    contributions throughout the package’s development.
   - [Bob Rudis](https://github.com/hrbrmstr) and the
     [vegalite](https://github.com/hrbrmstr/vegalite) package provided a
     lot of the inspiration for this work, providing a high-level

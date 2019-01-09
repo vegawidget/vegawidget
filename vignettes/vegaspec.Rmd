@@ -58,20 +58,7 @@ We also have a function, `vw_examine()`, that you can use to, well, examine a ve
 vw_examine(spec_category)
 ```
 
-You might note that, here, the `data$values` element of the vegaspec has a column-major format. In R, data frames are lists of vectors; each of the columns is a vector. In the Vega framework, data sets have a row-major format. What we see above is the specification *before* it is rendered. In the rendering process, data-frames are converted to row-major data. 
-
-## Converting to JSON
-
-When a vegaspec is rendered as a vegawidget, the spec is coerced automatically to JSON by the `vegawidget()` function. Like other JSON-based systems, Vega and Vega-Lite have their own particularities in their JSON format. These are taken into account by the function `vw_as_json()`, which wraps `jsonlite::toJSON()` with the correct defaults for Vega(-Lite). You may find this handy if you want to write a vegaspec to disk or elsewhere.
-
-Let's examine the JSON for our example code:
-
-```{r}
-spec_category %>% 
-  vw_as_json() %>% 
-  vw_examine()
-```
-Here, the `data$values` element has been transposed. The function `vw_as_json()` takes care of this so that the spec will render properly. 
+You might note that, using `str()`, the `data$values` element of the vegaspec has a column-major format. In R, data frames are lists of vectors; each of the columns is a vector. In the Vega framework, data sets have a row-major format. When rendering, this package converts data-frames automatically to row-major data. 
 
 ## Sizing
 

@@ -18,7 +18,7 @@ of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification}
 }
 \value{
-object with S3 class \code{vegaspec}
+S3 object wiith class \code{vegaspec}
 }
 \description{
 The arguments \code{width} and \code{height} are used to override the width and height
@@ -45,6 +45,6 @@ warning that there will be no effect on the specification when rendered.
   vw_autosize(spec_mtcars, width = 350, height = 350)
 }
 \seealso{
-\href{https://vegawidget.github.io/vegawidget/articles/vegaspec.html#sizing}{vegaspec article},
+\href{https://vegawidget.github.io/vegawidget/articles/vegaspec.html#sizing}{Article on vegaspec (sizing)},
 \href{https://vega.github.io/vega-lite/docs/size.html#autosize}{Vega documentation on sizing}
 }

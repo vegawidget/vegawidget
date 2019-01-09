@@ -8,7 +8,7 @@ output: rmarkdown::html_document
 library("vegawidget")
 ```
 
-The purpose of this article is to show how you can use Shiny to extend Vega's capabilities. In these examples, we use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to interact with a Vega chart using Shiny We explore similar ideas in an article on [extending using JavaScript](javascript.Rmd).
+The purpose of this article is to show how you can use Shiny to extend Vega's capabilities. In these examples, we use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to interact with a Vega chart using Shiny We explore similar ideas in an article on [extending using JavaScript](javascript.html).
 
 Because this article is an HTML document (as opposed to a Shiny app), we cannot show the app directly in this document. However, this package offers a function `vw_shiny_demo()` that, when called without arguments, lists all of the demonstration apps included with this package; to run a particular app, simply use its name as the argument:
 
@@ -16,7 +16,7 @@ Because this article is an HTML document (as opposed to a Shiny app), we cannot 
 vw_shiny_demo("data-set")
 ```
 
-Once a Vega chart is built, there are three things you can access:
+Once a Vega chart is built, there are three things you can access through Shiny:
 
 - [events](https://vega.github.io/vega/docs/api/view/#event-handling): using `vw_shiny_get_event()`
 - [signals](https://vega.github.io/vega/docs/api/view/#signals): using `vw_shiny_get_signal()` and `vw_shiny_set_signal()`
@@ -33,9 +33,15 @@ This is a shortened version of the [events section](javascript.html#events) in t
 
 Event streams are [used extensively within Vega](https://vega.github.io/vega/docs/event-streams), enabling interactivity. By [adding event-listeners](https://vega.github.io/vega/docs/api/view/#view_addEventListener) to the `view`, we can specify actions to be taken in response to a particular type of event, such as `"mouseover"`, `"click"`, `"keypress"`, etc.
 
-The Shiny demo, `vw_shiny_demo("event-get")`, features a scatterplot. When a mark on the chart is clicked, it returns to Shiny the data observation (datum) associated with that mark.
+The Shiny demo for events features a scatterplot. When a mark on the chart is clicked, it returns to Shiny the data observation (datum) associated with that mark.
 
-The operative function in the `server()` function is `vw_shiny_get_event()`. Here it is in the context of the app:
+You can see this in action by running:
+
+```r
+vw_shiny_demo("event-get")
+```
+
+The operative function in the `server()` function is `vw_shiny_get_event()`:
 
 ```r
 # the event returns the backing-data as a list
@@ -51,7 +57,7 @@ The function is called with three arguments:
 
 The vega-view API requires that you supply a handler-function when you [add an event listener](https://vega.github.io/vega/docs/api/view/#view_addEventListener). Inconveniently for R users, this handler-function has to be JavaScript. This package does a few things to make working with JavaScript handlers a little easier.
 
-An event-handler function is expected to have two arguments, `event` instance and the scenegraph `item`. Because all possible event handlers will have the same arguments, we need only specify the *body* of the function in `vw_shiny_get_event()`.
+An event-handler function is expected to have two arguments, `event` instance and the scenegraph `item`. Because all possible event-handlers will have the same arguments, we need specify only the *body* of the function in `vw_shiny_get_event()`.
 
 Instead of specifying the entire body of a JavaScript function, this package provides a library of bodies of (what we think are) commonly-used handler functions. To see the available event-handlers, call `vw_handler_event()` without arguments:
 
@@ -59,13 +65,25 @@ Instead of specifying the entire body of a JavaScript function, this package pro
 vw_handler_event()
 ```
 
-We wish to return the data-observation behind the mark associated with the event, so we can specify to `"datum"` handler. The `vw_shiny_get_event()` function knows to check the library first, so you can either supply the entire body of a JavaScript handler-function, or you can supply the name of a handler-function in the library.
+We wish to return the data-observation behind the mark associated with the event, so we can specify to use `"datum"` handler. The `vw_shiny_get_event()` function knows to check the library first, so you can either supply the entire body of a JavaScript handler-function, or you can supply the name of a handler-function in the library.
+
+As such, the following calls are equivalent:
+
+```r
+# name of a body in the event-handler library
+vw_shiny_get_event(..., body_value = "item") 
+
+# body of a JavaScript function
+vw_shiny_get_event(..., body_value = "return item;") 
+```
+
+Similarly for `vw_shiny_get_event()`, these 
 
 The code supplied for `body_value` need only return a *value* - the `vw_shiny_get_event()` function will take care of composing this with additional code that will make that *value* available to Shiny.
 
 Finally, the `vw_shiny_get_event()` function returns a reactive expression that evaluates to the latest *value* returned from the event-handler.
 
-To see the same logic implemented in pure JavaScript, see the [events section](javascript.html#events) of the JavaScript article.
+To see the same logic implemented in pure JavaScript, see the [events demo](javascript.html#demo-events) of the JavaScript article.
 
 ## Setting and getting signals
 
@@ -77,7 +95,7 @@ Even though signals are not defined in Vega-Lite, this does not mean that we can
 
 For example, signals are used to drive the behavior of Vega-Lite [selections](https://vega.github.io/vega-lite/docs/selection.html). As of the start of 2019, the Vega-Lite development team are [discussing](https://github.com/vega/vega-lite/issues/3338) if, and how, signals might be introduced to Vega-Lite.
 
-One way we can "hack" our way to a signal is to use the signal into the Vega-Lite specification, then *define* the signal by patching the compiled Vega specification. Vega-Lite developer Dominik Moritz demonstrates this technique in an [Observable notebook](https://beta.observablehq.com/@domoritz/rotating-earth). 
+One way we can "hack" our way to a signal is to use the signal the Vega-Lite specification, then *define* the signal by patching the compiled Vega specification. Vega-Lite developer Dominik Moritz demonstrates this technique in an [Observable notebook](https://beta.observablehq.com/@domoritz/rotating-earth). 
 
 Here, we will use the same technique to create an interactive histogram. As you know, whenever you create a histogram it is a good idea to experiment with different bin-widths, to give yourself a chance to see all of the interesting structure in the data. We will use the `data_seattle_hourly` dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010.
 
@@ -129,7 +147,7 @@ To make things even simpler, `body_value` can also be the name of a signal-handl
 
 Finally, the `vw_shiny_get_signal()` function returns a reactive expression that evaluates to the latest *value* returned from the signal-handler.
 
-To see the same logic implemented in pure JavaScript, see the [signals section](javascript.html#signals) of the JavaScript article.
+To see the same logic implemented in pure JavaScript, see the [signals demo](javascript.html#demo-signals) of the JavaScript article.
 
 ## Setting (and soon getting) data
 
@@ -160,4 +178,4 @@ vw_shiny_set_data("chart", name = "source", value = rct_data())
 
 Note that we are supplying a reactive expression to the `value` argument. Internally, `vw_shiny_set_data()` observes this value, then changes the dataset in the Vega chart in response to changes in `value`. Accordingly, you should think of `vw_shiny_set_data()` as equivalent to the `shiny::observeEvent()` function.
 
-To see the same logic implemented in pure JavaScript, see the [data section](javascript.html#signals) of the JavaScript article.
+To see the same logic implemented in pure JavaScript, see the [data demo](javascript.html#demo-data) of the JavaScript article.

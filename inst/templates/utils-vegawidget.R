@@ -132,6 +132,56 @@ NULL
 #'
 NULL
 
+#' Shiny getters for vegawidget
+#'
+#' See \code{vegawidget::\link[vegawidget]{shiny-getters}} for details.
+#'
+#' @name vw-shiny-getters
+#' @rdname vw-shiny-getters
+#' @importFrom vegawidget vw_shiny_get_event vw_shiny_get_signal
+#' @export vw_shiny_get_event vw_shiny_get_signal
+#'
+NULL
+
+#' Shiny setters for vegawidget
+#'
+#' See \code{vegawidget::\link[vegawidget]{shiny-setters}} for details.
+#'
+#' @name vw-shiny-setters
+#' @rdname vw-shiny-setters
+#' @importFrom vegawidget vw_shiny_set_data vw_shiny_get_signal
+#' @export vw_shiny_set_data vw_shiny_set_signal
+#'
+NULL
+
+#### listener functions ####
+
+#' JavaScript listeners for vegawidget
+#'
+#' See \code{vegawidget::\link[vegawidget]{add-listeners}} for details.
+#'
+#' @name vw-add-listeners
+#' @rdname vw-add-listeners
+#' @importFrom vegawidget vw_add_event_listener vw_add_signal_listener
+#' @export vw_add_event_listener vw_add_signal_listener
+#'
+NULL
+
+#### handler functions ####
+
+#' JavaScript handlers for vegawidget
+#'
+#' See \code{vegawidget::\link[vegawidget]{vw_handler_signal}},
+#'   \code{vegawidget::\link[vegawidget]{vw_handler_add_effect}}, for details.
+#'
+#' @name vw-handlers
+#' @rdname vw-handlers
+#' @importFrom vegawidget
+#'             vw_handler_signal vw_handler_event vw_handler_add_effect
+#' @export vw_handler_signal vw_handler_event vw_handler_add_effect
+#'
+NULL
+
 #### debug/share functions ####
 
 #' Examine vegaspec

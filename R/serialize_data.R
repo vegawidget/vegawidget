@@ -1,5 +1,7 @@
 #' Serialize data-frame time-columns
 #'
+#' **Please think of this as an experimental function**
+#'
 #' In Vega, for now, there are only two time-zones available: the local
 #' time-zone of the browser where the spec is rendered, and UTC. This differs
 #' from R, where a time-zone attribute is available to `POSIXct` vectors.
@@ -63,6 +65,17 @@
 #'
 #' @return object with the same type as `data`
 #' @seealso [Vega-Lite Time Unit (UTC)](https://vega.github.io/vega-lite/docs/timeunit.html#utc)
+#' @examples
+#'   # datetimes
+#'   data_seattle_hourly %>% head()
+#'   data_seattle_hourly %>% head() %>% vw_serialize_data(iso_dttm = TRUE)
+#'   data_seattle_hourly %>% head() %>% vw_serialize_data(iso_dttm = FALSE)
+#'
+#'   # dates
+#'   data_seattle_daily %>% head()
+#'   data_seattle_daily %>% head() %>% vw_serialize_data(iso_date = TRUE)
+#'   data_seattle_daily %>% head() %>% vw_serialize_data(iso_date = FALSE)
+#'
 #' @export
 #'
 vw_serialize_data <- function(data, iso_dttm = FALSE, iso_date = TRUE) {

@@ -4,7 +4,7 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 ---
 
-The central object of this package is a *vegaspec*, short for "Vega specification". This can refer to either a Vega or Vega-Lite specification; in our examples, we work almost exclusively with Vega-Lite.
+The central *object* of this package is a *vegaspec*, short for "Vega specification". This can refer to either a Vega or Vega-Lite specification; in our examples, we work almost exclusively with Vega-Lite.
 
 This article will showcase functions that:
 
@@ -20,9 +20,9 @@ The article ends with some "gotchas" (please contribute more as you find them).
 
 A vegaspec is created using the constructor `as_vegaspec()`, which takes a `list`, `character` or a **jsonlite** `json` object. 
 
-Vega and Vega-Lite expect JSON. However, within R, it is easier to work with lists. This is one of the underpinnings of this package: a vegaspec "lives" as a list, and then is coerced to JSON when rendered as a vegawidget.
+Vega and Vega-Lite expect JSON. Because it is easier, in R, to work with lists, a vegaspec "lives" as a list, and then is coerced to JSON when rendered as a vegawidget.
 
-Let's start with a bar-chart example:
+Let's start with a bar-chart example. The `data_category` object is a sample dataset included in this package:
 
 ```{r}
 library("vegawidget")
@@ -48,12 +48,11 @@ Looking at the structure of `spec_category`, we see that the `vegaspec` S3 class
 str(spec_category)
 ```
 
-Note the helper function, `vega_schema()`, that you can use to generate the string for the `$schema` element. This can be useful if you are writing a vegaspec manually. 
-
+You can use the helper function `vega_schema()` to generate the string for the `$schema` element, which can be useful if you are writing a vegaspec manually. 
 
 ## Examining
 
-We also have a function, `vw_examine()`, that you can use to, well, examine a vegaspec.
+We also have a function, `vw_examine()`, that you can use to, well, examine a vegaspec. It is a thin wrapper around the `listviewer::jsonedit()` function:
 
 ```{r}
 vw_examine(spec_category)
@@ -63,7 +62,7 @@ You might note that, here, the `data$values` element of the vegaspec has a colum
 
 ## Converting to JSON
 
-When a vegaspec is rendered as a vegawidget, the spec is coerced automatically to JSON by the `vegawidget()` function. Like other JSON-based systems, Vega and Vega-Lite have their own particularities in their JSON format. These are taken into account by the function `vw_as_json()`, which is a wrapper around `jsonlite::toJSON()`. You may find this handy if you want to write a vegaspec to disk or elsewhere.
+When a vegaspec is rendered as a vegawidget, the spec is coerced automatically to JSON by the `vegawidget()` function. Like other JSON-based systems, Vega and Vega-Lite have their own particularities in their JSON format. These are taken into account by the function `vw_as_json()`, which wraps `jsonlite::toJSON()` with the correct defaults for Vega(-Lite). You may find this handy if you want to write a vegaspec to disk or elsewhere.
 
 Let's examine the JSON for our example code:
 
@@ -74,11 +73,11 @@ spec_category %>%
 ```
 Here, the `data$values` element has been transposed. The function `vw_as_json()` takes care of this so that the spec will render properly. 
 
-## Resizing
+## Sizing
 
 Sizing can be a tricky issue in Vega-Lite. 
 
-The first thing to keep in mind is that the default interpretation of width and height refers to the dimensions of the plotting area. For example, we can set `width` and `height` of our example spec:
+The first thing to keep in mind is that the default interpretation of width and height refers to the dimensions of the data rectangle. For example, we can set `width` and `height` of our example spec:
 
 ```{r}
 spec_category_size <- spec_category
@@ -89,7 +88,19 @@ spec_category_size$height <- 300
 spec_category_size
 ```
 
-Here, the plotting area is 300 $\times$ 300. If we want to set the dimension of the entire plot, we can use the `vw_autosize()` function:
+Here, the data rectangle is 300 $\times$ 300 pixels, according to our specification. 
+
+```{r echo=FALSE, out.width=710}
+knitr::include_graphics("autosize-off.png")
+```
+
+As you can see above, Vega adds on more "room" for axes, labels, legends, etc., so that the entire chart is 357 $\times$ 347 pixels.
+
+If we want to specify the dimensions of the entire chart, we can use the `vw_autosize()` function. The term "autosize" is taken directly from the Vega [documentation](https://vega.github.io/vega-lite/docs/size.html#autosize) for sizing. In this context, the term "autosize" does **not** mean that Vega will try to find the optimal sizing for your chart. 
+
+Instead, it means that if you have a requirement for the dimensions of the entire chart, Vega will try to adjust the chart to meet these sizing requirements. The `vw_autosize()` function modifies the vegaspec to provide Vega these instructions.
+
+Here's an example:
 
 ```{r}
 spec_category_autosize <- 
@@ -99,15 +110,21 @@ spec_category_autosize <-
 spec_category_autosize
 ```
 
-In this context, the `width` and `height` are defined as the dimensions of the entire plot including axes, labels, padding, etc.
+In this context, the `width` and `height` are defined as the dimensions of the entire plot including axes, labels, padding, etc. Here, we have specified the overall dimensions to be 300 $\times$ 300 pixels:
+
+```{r echo=FALSE, out.width=710}
+knitr::include_graphics("autosize-on.png")
+```
+
+As you can see above, Vega takes into account the "room" needed for axes, labels, legends, etc., so that the data rectangle is 243 $\times$ 253 pixels.
 
 There are limitations to autosizing; the most prominent is that specifying width and height is [effective only for single-view and layered specifications](https://vega.github.io/vega-lite/docs/size.html#limitations). It will not work for specifications with multiple views (e.g. `hconcat`, `vconcat`, `facet`, `` `repeat` ``); this will issue a warning that there will be no effect on the specification when rendered.
 
-For more information, see the Vega-Lite documentation on [sizing](https://vega.github.io/vega-lite/docs/size.html#limitations).
+For more information, see the Vega-Lite documentation on [autosizing](https://vega.github.io/vega-lite/docs/size.html#autosize).
 
 ## Compile to Vega
 
-When rendering a Vega-Lite specification, the vega-lite JavaScript library will compile the Vega-Lite specification into Vega. If you have the **V8** package installed, and want to compile a Vega-Lite specification to Vega, for your own purposes, you can use the `vw_to_vega()` function.
+When rendering a Vega-Lite specification, the vega-lite JavaScript library will compile the Vega-Lite specification into Vega. If you have the [**V8**](https://cran.r-project.org/package=V8) package installed, and want to compile a Vega-Lite specification to Vega, for your own purposes, you can use the `vw_to_vega()` function.
 
 To be clear, if you are using only Vega-Lite, this is not something you should ever need to do. This may be useful if you need to design a specification using Vega, and you want get things started using a Vega-Lite specification.
 

@@ -4,56 +4,68 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 ---
 
-The principal motivation for the **vegawidget** package is to provide other packages that build Vega or Vega-Lite specifications a resuable set of functions.
+The **vegawidget** package is designed to be a low-level interface to the Vega and Vega-Lite visualization frameworks. As such, we hope that the functions provided here can serve as a foundation for other, presumably higher-level, packages. To make it easier for authors of such packages, we offer a function `use_vegawidget()` to help incorporate vegawidget functions into those packages.
 
-To make this truly resuable... `use_pipe()`...
+## Example: altair
 
-Your package might have an S3 class. For *altair*, this is `altair.vegalite.v2.api.TopLevelMixin`.
+For example, the [**altair**](https://vegawidget.github.io/altair) package provides an R interface to the [**Altair**](https://altair-viz.github.io) Python package. The altair package itself provides the connection to Python, using [**reticulate**](https://rstudio.github.io/reticulate); altair's focus is to provide a means to build a Vega-Lite specification - using higher-level abstractions than lists. 
 
-Call `use_vegawidget()`, it will:
+The rendering part of altair is handled by this package. A number of vegawidget functions are imported into altair, then re-exported. From altair's perspective, this import-export operation is handled by a single vegawidget function: `use_vegawidget()`. 
 
-- ...
+### Inspiration: `usethis::use_pipe()`
 
-You need to adapt one thing, then everything else "just works".
+A lot of packages use the pipe (`%>%`) function, so much so that the [**usethis**](http://usethis.r-lib.org) package offers the function `usethis::use_pipe()` for package authors to make the pipe part of their package's offer:
 
-```{r s3}
-spec_mtcars_s3 <- structure(
-  spec_mtcars,
-  class = c("my_class_name")
-)
+- adds the **magrittr** package to the "Imports" section of the package's DESCRIPTION file
+- creates a new file in the package's `R` directory, `utils-pipe.R`
 
-class(spec_mtcars_s3)
+This new file contains roxygen directives that will handle the importing and exporting the next time you build the package's documentation. Now, people who install this package will have access to the pipe operator without having to refer explicitly to the magrittr package. It "just works".
+
+### Implementation: altair
+
+We wish to bring a similar robustness and ease-of-use to package authors who want to incorporate vegawidget. To demonstrate how to do this, we will show the process that is already in place with the altair package.
+
+The `use_vegawidget()` function makes a couple of related assumptions about your package. It assumes that your package builds Vega and Vega-Lite specifications, and that the object that you use to contain a specification object is an S3 object. In the case of altair, the name of this S3 class is `"altair.vegalite.v2.api.TopLevelMixin"`.
+
+The first step is generic. With your package-project open, with your R working directory being the package's root directory. When you run `use_vegawidget()`, you will have to provide to provide the name of the S3 class. In the case of altair, we would run:
+
+```{r eval=FALSE}
+vegawidget::use_vegawidget("altair.vegalite.v2.api.TopLevelMixin")
 ```
 
-To take full advantage of these rendering functions, we have to define a method, `as_vegaspec()` for this class, and also define `print()` and `knit_print()` methods.
+Like the `usethis::use_pipe()` example, this call does two things:
 
-```{r methods}
-as_vegaspec.my_class_name <- function(spec, ...) {
-  
-  # reverts to list
-  spec <- unclass(spec)
+- adds the **vegawidget** package to the "Imports" section of the package's DESCRIPTION file
+- creates a new file in the package's `R` directory, `utils-vegawidget.R`
 
-  # as_vegaspec has a list method
+However, you have a little bit more work to do before you're done. You need to edit your new copy of `utils-vegawidget.R` to tell it how to convert your S3 class to a `vegaspec`. The part of the file that you need to edit is at the very top.
+
+In the case of altair, the name of the function is `as_vegaspec.altair.vegalite.v2.api.TopLevelMixin()`; the `use_vegawidget()` function has already named it using the class-name provided.
+
+```r
+as_vegaspec.altair.vegalite.v2.api.TopLevelMixin <- function(spec, ...) {
+
+  # TODO: if needed, insert code to convert your object to
+  # something that can be coerced to a vegaspec.
+  #
+  # e.g.:
+  # spec <- spec$to_json()
+
   vegawidget::as_vegaspec(spec, ...)
 }
+```
 
-print.my_class_name <- function(x, ...) {
-  
-  x <- vegawidget::as_vegaspec(x)
-  
-  print(x, ...)
-}
+Here, the commented example code is exactly what is needed. The altair "chart" object, `altair.vegalite.v2.api.TopLevelMixin`, has a method, `to_json()` to write out the specification to JSON. The vegawidget `as_vegaspec()` generic has a method for JSON-formatted strings (it also has a method for lists). So our "finished" product looks like:
 
-knit_print.my_class_name <- function(x, ..., options = NULL){
-  
-  x <- vegawidget::as_vegaspec(x)
+```r
+as_vegaspec.altair.vegalite.v2.api.TopLevelMixin <- function(spec, ...) {
 
-  knitr::knit_print(x, ..., options = options)
+  spec <- spec$to_json()
+
+  vegawidget::as_vegaspec(spec, ...)
 }
 ```
 
-With these defined, you can render your specification by printing:
+At this point, once you document and re-build the package, vegawidget is fully integrated.
 
-```{r}
-spec_mtcars_s3
-```
+One final note, when you open your copy of `utils-vegawidget.R`, you will notice that a *lot* of functions are imported and exported. If there are functions that you do not wish to incorporate into your package, you can delete the reference to them in this file, then re-document and rebuild.

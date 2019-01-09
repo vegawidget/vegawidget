@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -32,12 +34,8 @@
   
 <meta property="og:title" content="Create gist to use as block — vw_create_block" />
 
-<meta property="og:description" content="These functions require that fs
-and  gistr be installed.
-If you want to include a thumbnail or preview image, you will need the
-magick package,
-webdriver package,
-and PhantomJS installed." />
+<meta property="og:description" content="Note: These functions are deprecated; they have been moved to a new package:
+vegablock" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -66,7 +64,7 @@ and PhantomJS installed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.4</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.5.9000</span>
       </span>
     </div>
 
@@ -92,30 +90,22 @@ and PhantomJS installed." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/first-example.html">First Example</a>
-    </li>
-    <li class="divider"></li>
-    <li>
       <a href="../articles/vegaspec.html">Specify using vegaspec</a>
     </li>
     <li>
       <a href="../articles/vegawidget.html">Render using vegawidget</a>
     </li>
     <li>
-      <a href="../articles/blocks.html">Share with bl.ocks.org</a>
+      <a href="../articles/javascript.html">Extend using JavaScript</a>
     </li>
     <li>
       <a href="../articles/image.html">Create Images</a>
     </li>
     <li>
+      <a href="../articles/dates-times.html">Work with Dates and Times</a>
+    </li>
+    <li>
       <a href="../articles/import.html">Import into Other Packages</a>
-    </li>
-    <li>
-      <a href="../articles/utilities.html">Utilities</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="../articles/visual-regression.html">Visual Regression</a>
     </li>
   </ul>
 </li>
@@ -147,12 +137,8 @@ and PhantomJS installed." />
 
     <div class="ref-description">
     
-    <p>These functions require that <a href='https://cran.r-project.org/package=fs'>fs</a>
-and  <a href='https://cran.r-project.org/package=gistr'>gistr</a> be installed.
-If you want to include a thumbnail or preview image, you will need the
-<a href='https://cran.r-project.org/package=magick'>magick</a> package,
-<a href='https://cran.r-project.org/package=webdriver'>webdriver</a> package,
-and PhantomJS installed.</p>
+    <p>Note: These functions are deprecated; they have been moved to a new package:
+<a href='https://vegawidget.github.io/vegablock'>vegablock</a></p>
     
     </div>
 
@@ -261,7 +247,13 @@ when complete</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These functions do the same thing: create a gist; they differ only in what
+    <p>These functions require that <a href='https://cran.r-project.org/package=fs'>fs</a>
+and  <a href='https://cran.r-project.org/package=gistr'>gistr</a> be installed.
+If you want to include a thumbnail or preview image, you will need the
+<a href='https://cran.r-project.org/package=magick'>magick</a> package,
+<a href='https://cran.r-project.org/package=webdriver'>webdriver</a> package,
+and PhantomJS installed.</p>
+<p>These functions do the same thing: create a gist; they differ only in what
 they return. <code>vw_create_block()</code> returns a copy of <code>spec</code> so that it can be
 used in a pipe; <code>vw_create_block_gistid()</code> returns a list of information
 about the newly-created gist.</p>

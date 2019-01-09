@@ -10,12 +10,25 @@ status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project
 # vegawidget
 
 The goal of vegawidget is to render Vega-Lite and Vega specifications
-into htmlwidgets. Its ambition is to be a low-level interface to the
+into htmlwidgets. Its ambition is to be a *low-level* interface to the
 Vega(-Lite) API, such that other packages can build upon it to offer
 higher-level functions to compose Vega(-Lite) specifications. This is
 the key difference with the
-[vegalite](https://github.com/hrbrmstr/vegalite) package; this package
-provides a but minimal interface to Vega-Lite.
+[**vegalite**](https://github.com/hrbrmstr/vegalite) package: it
+provides a set of higher-level functions to compose specifications,
+whereas **vegawidget** concerns itself mainly with the rendering of the
+htmlwidget.
+
+To be clear, although Vega-Lite offers a grammar-of-graphics, this
+package does not offer a user-friendly framework as provided by ggplot2.
+That being noted, this package may be useful to:
+
+  - build re-usable Vega and Vega-Lite specifications for deployment
+    elsewhere, if you can tolerate the frustration of building
+    specifications using lists.
+  - develop higher-level, user-friendly packages to build specific types
+    of plots, or even to build a general ggplot2-like framework, using
+    this package as a foundation (or inspiration).
 
 ## Installation
 
@@ -26,18 +39,33 @@ You can install vegawidget from GitHub with:
 devtools::install_github("vegawidget/vegawidget")
 ```
 
-An [interactive
-tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) is
-available at shinyapps.io.
-
-## Introduction
-
-Vega(-Lite) specifications are just text, formatted as JSON. However, in
-R, we can use lists to build such specifications:
+This package supports these versions of Vega libraries:
 
 ``` r
 library("vegawidget")
+vega_version()
+#> $vega_lite
+#> [1] "2.6.0"
+#> 
+#> $vega
+#> [1] "4.0.0-rc.3"
+#> 
+#> $vega_embed
+#> [1] "3.16.0"
+```
 
+## Introduction
+
+For a comprehensive introduction to Vega-Lite, please visit the
+project’s [web site](https://vega.github.io/vega-lite). An
+[interactive
+tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) to
+vegawidget is available at shinyapps.io.
+
+Vega(-Lite) specifications are just text, formatted as JSON. However, in
+R, we can use lists to build specifications:
+
+``` r
 spec_mtcars <-
   list(
     `$schema` = vega_schema(), # specifies Vega-Lite
@@ -54,8 +82,8 @@ spec_mtcars <-
 ```
 
 The `as_vegaspec()` function is used to turn the list into a *vegaspec*;
-a good many of the functions in this package are built to support, and
-render, vegaspecs:
+many of this package’s functions are built to support, and render,
+vegaspecs:
 
 ``` r
 spec_mtcars
@@ -63,52 +91,61 @@ spec_mtcars
 
 ![](man/figures/README-vegawidget-1.png)<!-- -->
 
-If you are reading this document on the GitHub code site, it is further
-rendered into a PNG. In the background, the vegaspec print-method
-converts the vegaspec to JSON, using `vw_as_json()`, then renders it as
-an htmlwidget using `vegawidget()`.
+The appearance of the chart above depends on where you are reading it:
 
-If you wish to examine a vegaspec, you may use the `vw_examine()`
-function, which is a thin wrapper around the `jsonedit()` function from
-the **listviewer** package.
+  - On this package’s [pkgdown
+    site](https://vegawidget.github.io/vegawidget), it is rendered as
+    part of an HTML environment, showing its full capabilities.
 
-``` r
-vw_examine(spec_mtcars)
-```
+  - At its [GitHub code site](https://github.com/vegawidget/vegawidget),
+    the chart is further rendered as a static PNG.
 
-![](man/figures/README-unnamed-chunk-2-1.png)<!-- -->
+This is package a low-level interface to Vega-Lite and the Vega
+ecosystem, which has a lot of powerful capabilities, highlighted in this
+series of articles:
 
-If you wish to deploy a vegaspec to be rendered on
-[bl.ocks.org](https://bl.ocks.org/), you can do that, provided you have
-a GitHub account.
-
-``` r
-vw_create_block(spec_mtcars)
-```
-
-Similarly, if a block has a `.json` file with a JSON specification, you
-can retrieve and put into a
-vegaspec:
-
-``` r
-spec_new <- vw_retrieve_block("ijlyttle/06a512525fbe7a96e1a2028e1871b61c")
-```
+  - [Specify using
+    vegaspec](https://vegawidget.github.io/vegawidget/articles/vegaspec.html):
+    how to construct and render a vegaspec.
+  - [Render using
+    vegawidget](https://vegawidget.github.io/vegawidget/articles/vegawidget.html):
+    advanced rendering options.
+  - [Extend using
+    JavaScript](https://vegawidget.github.io/vegawidget/articles/javascript.html):
+    how to interact with Vega charts using JavaScript.
+  - [Share with
+    bl.ocks.org](https://vegawidget.github.io/vegawidget/articles/blocks.html):
+    using GitHub, you can deploy and retrieve vegaspecs to/from
+    [bl.ocks.org](https://bl.ocks.org).
+  - [Create
+    Images](https://vegawidget.github.io/vegawidget/articles/image.html):
+    how to create and save PNG or SVG images.
+  - [Work with Dates and
+    Times](https://vegawidget.github.io/vegawidget/articles/dates-times.html):
+    dates and times in Vega(-Lite) work a little differently from R.
+  - [Import into Other
+    Packages](https://vegawidget.github.io/vegawidget/articles/import.html):
+    how to import vegawidget functions into your package, then re-export
+    them.
 
 ## Integration with other packages
 
+Although there is an
+[article](https://vegawidget.github.io/vegawidget/articles/import.html)
+dedicated to this aspect of the package, it warrants further emphasis.
+
 This package provides functions to render Vega(-Lite) specifications;
-although it provides some helpers, it dos not provide higher-level
+although it provides some helpers, it does not provide higher-level
 functions to build specifications. Rather, this is left to other
 packages. Even though you can use its functions directly, you are
 invited to import and re-export them for use in *your* package.
 
 Accordingly, this package offers a templating function,
 `use_vegawidget()`, to help you integrate vegawidget functions into your
-package. This function is used to [import and re-export vegawidget
-functions](https://github.com/vegawidget/altair/blob/master/R/utils-vegawidget.R)
-for the [altair](https://vegawidget.github.io/altair) package.
+package. For example, it is used to import and re-export vegawidget
+functions for the [altair](https://vegawidget.github.io/altair) package.
 
-## Acknowlegdements
+## Acknowledgements
 
   - [Alicia Schep](https://github.com/AliciaSchep) has been instrumental
     in guiding the evolution of the API.

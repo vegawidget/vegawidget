@@ -11,7 +11,7 @@
 #' [webdriver::install_phantomjs()].
 #'
 #' Images are created using the
-#' [vega-view](https://github.com/vega/vega-view#image-export) image-export
+#' [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view#image-export) image-export
 #' functions. These functions accept a scale factor, represented here as the
 #' `scale` argument. By specifying `scale = 2` for the PNG functions, a
 #' retina-ready image will be generated.
@@ -43,7 +43,7 @@
 #'   spec_mtcars %>% vw_to_png() %>% vw_png_bin()
 #' }
 #' @seealso [webdriver::install_phantomjs()],
-#' [vega-view library](https://github.com/vega/vega-view#image-export),
+#' [vega-view library](https://github.com/vega/vega/tree/master/packages/vega-view#image-export),
 #' [vw_png_bin()]
 #'
 
@@ -85,8 +85,8 @@ vw_to_svg.vegawidget <- function(widget, scale = 1, ...) {
   js_string <-
     paste0(
      "var done = arguments[0];
-      getVegaPromise('.vegawidget')
-        .then(function(result) { return result.view.toSVG(", scale, "); })
+      Vegawidget.findVewPromise('.vegawidget')
+        .then(function(view) { return view.toSVG(", scale, "); })
         .then(function(svg) { done(svg) })
         .catch(function(err) { console.error(err) });"
     )
@@ -153,8 +153,8 @@ vw_to_png.vegawidget <- function(widget, scale = 1, ...) {
   js_string <-
     paste0(
       "var done = arguments[0];
-      getVegaPromise('.vegawidget')
-        .then(function(result){ return result.view.toCanvas(", scale, "); })
+       Vegawidget.findViewPromise('.vegawidget')
+        .then(function(view){ return view.toCanvas(", scale, "); })
         .then(function(canvas) { return canvas.toDataURL('image/png', 0); })
         .then(done)
         .catch(function(err) { console.error(err) });"

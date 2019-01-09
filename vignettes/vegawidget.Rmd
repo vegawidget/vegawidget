@@ -4,11 +4,24 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 ---
 
-The central *side-effect* of this package is to render a *vegawidget*, which is also an htmlwidget. A vegawidget is built by the `vegawidget()` function, using a `vegaspec`. 
+The central *side-effect* of this package is to render a *vegawidget*, an htmlwidget. 
 
-The `vegawidget()` function lets you call is provided for [vega-embed](https://github.com/vega/vega-embed) options. These options can be specified as an argument to the `vegawidget()` function, or as an R option, `vega.embed`. The R options `vega,embed`, `vega.height`, and `vega.width` can be useful when printing or creating an image from a spec. 
+A vegawidget is built by the `vegawidget()` function, using a `vegaspec`. However, in many cases, your call to `vegawidget()` may be implied in a `print` method, rather than being made explicitly. 
 
-If the [**webshot**](https://CRAN.R-project.org/package=webshot) package and PhantomJS are installed, knitting to a non-html format should "just work".
+The `vegawidget()` function has three main arguments:
+
+- `embed` - to provide [vega-embed](https://github.com/vega/vega-embed)
+- `width`, `height` - to provide width and height to `vw_autosize()`
+
+Because your call to vegawidget may be implicit, there are a number of ways to provide these arguments.
+
+- using explicit arguments (`embed`, `width`, `height`) to the `vegawidget()` function 
+- setting R options (`vega.embed`, `vega.width`, and `vega.height`) in a knitr chunk
+- setting R options using `options()`
+
+These methods are listed in order of precedence; the `embed` argument to the `vegawidget()` function will be used in favor of `getOption("vega.embed")`. Furthermore, if you specify the `embed` argument, `vegawidget()` will ignore any part of the embed-object that may have been set in `getOption("vega.embed")`.
+
+These options make the most sense if you are rendering an HTML document. If you are rendering to a non-HTML format, you can use the [**webshot**](https://CRAN.R-project.org/package=webshot) package with PhantomJS installed, so that knitting to a non-HTML format should "just work".
 
 ## Using vegawidget arguments
 
@@ -17,36 +30,37 @@ When you print a `vegaspec`, its print method calls `vegawidget()`.
 ```{r}
 library("vegawidget")
 
-vegawidget(spec_mtcars) 
+spec_mtcars 
 ```
  
- In addition to `spec`, the function `vegawidget()` has arguments to `embed` and to specify the overall dimensions, `width` and `height`. 
+In addition to `spec`, the function `vegawidget()` has arguments to `embed` and to specify the overall dimensions, `width` and `height`. Setting the options using `vegawidget()` arguments will override options set any other way.
 
 The `embed` argument is used to specify the embedding options, according to the API to the [vega-embed library](https://github.com/vega/vega-embed#options). There are a lot of options; to make things easier, you can use the helper function `vega_embed()`, it mirrors the options available to the version of the vega-embed library supported by this package (see `vega_version()`). The most important arguments are:
 
 - `renderer`: `character`, either `"canvas"` (default) or `"svg"`
 - `actions`: named `list` of logicals to indicate the presence of action-links; names (default value) can be `export` (`TRUE`), `source` (`TRUE`), `compiled` (`FALSE`), or `editor` (`TRUE`).
 
-Here are some examples of various options:
+For example, you can change the renderer to SVG:
 
 ```{r}
 vegawidget(spec_mtcars, embed = vega_embed(renderer = "svg"))
 ```
 
+You can remove the actions "bug" that is otherwise placed at the top-right of the chart:
+
 ```{r}
 vegawidget(spec_mtcars, embed = vega_embed(actions = FALSE))
 ```
 
-The arguments `width` and `height` in `vegawidget()` are used to autosize the `spec` before rendering, using `vw_autosize()`.
+The arguments `width` and `height` in `vegawidget()` are used to autosize the `spec` before rendering, using `vw_autosize()`:
 
 ```{r}
 vegawidget(spec_mtcars, width = 300, height = 300)
 ```
 
-Here, the `width` and `height` refer to the overall dimensions of the rendered vegaspec.
-Please see the [vegaspec article](vegaspec.html) for more details on how sizing works.
+Here, the `width` and `height` refer to the overall dimensions of the rendered vegaspec. Please see the [vegaspec article](vegaspec.html) for more details on how sizing works.
 
-## Using knitr chunk-options
+## Setting R options using knitr chunk-options
 
 In the previous section, you saw how to specify the rendering options using the `vegawidget()` function explicitly. You may wish to set the options implicitly: you can do so using the R options `vega.embed`, `vega.width`, and `vega.height`.
 
@@ -68,71 +82,25 @@ spec_mtcars
 spec_mtcars
 ```
 
-## Extending using JavaScript
+## Setting R options using `options()`
 
-Here, we recreate this Vega-Lite [streaming tutorial](https://vega.github.io/vega-lite/tutorials/streaming.html).
+We can set options explicitly using the `options()` function. There are a few ways of the ways you can do this:
 
-```{r}
-spec_table <-
-  list(
-    `$schema` = vega_schema(),
-    width = 400,
-    data = list(name = "table"),
-    mark = "line",
-    encoding = list(
-      x = list(
-        field = "x", 
-        type = "quantitative",
-        scale = list(zero =  FALSE)
-      ),
-      y = list(field = "y", type = "quantitative"),
-      color = list(field = "category", type = "nominal")
-    )
-  ) %>%
-  as_vegaspec()
-```
+- put an `options()` call in your `.Rprofile`
+- put an `options()` call in a code chunk in your `.Rmd` file
+- use the [**config**](https://cran.r-project.org/package=config), with `!expr options(...)` in your YML configuration file.
 
-The `elementId` argument is passed on to `htmlwidget::createWidget()`. 
+Here, we use a variation of the second option, making an explicit `options()` call to set the width and height:
 
 ```{r}
-vegawidget(spec_table, elementId = "streaming-demo")
-```
+# set new options while capturing the existing options
+options_old <- options(vega.width = 300, vega.height = 300)
 
-```{js}
-// This is a JavaScript chunk, using {js} instead of {r}
+# print a vegaspec using the new options
+spec_mtcars
 
-HTMLWidgets.addPostRenderHandler(function() {
-
-  getVegaPromise('#streaming-demo')
-    .then(function(result) {
-      /**
-       * Generates a new tuple with random walk.
-       */
-      function newGenerator() {
-          var counter = -1;
-          var previousY = [5, 5, 5, 5];
-          return function () {
-              counter++;
-              var newVals = previousY.map(function (v, c) { return ({
-                  x: counter,
-                  y: v + Math.round(Math.random() * 10 - c * 3),
-                  category: c
-              }); });
-              previousY = newVals.map(function (v) { return v.y; });
-              return newVals;
-          };
-      }
-  
-      var valueGenerator = newGenerator();
-      var minimumX = -100;
-      window.setInterval(function () {
-          minimumX++;
-          var changeSet = vega.changeset().insert(valueGenerator()).remove(function (t) { return t.x < minimumX; });
-          result.view.change('table', changeSet).run();
-      }, 1000);  
-    });
-
-});
+# restore the old options
+options(options_old)
 ```
 
 

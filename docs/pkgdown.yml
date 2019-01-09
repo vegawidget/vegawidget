@@ -1,13 +1,11 @@
 pandoc: 2.2.1
-pkgdown: 1.0.0.9000
-pkgdown_sha: ec07721af836595483aa678822a26c3f285c5ffa
+pkgdown: 1.1.0
+pkgdown_sha: ~
 articles:
-  blocks: blocks.html
-  first-example: first-example.html
+  dates-times: dates-times.html
   image: image.html
   import: import.html
-  time: time.html
-  utilities: utilities.html
+  javascript: javascript.html
   vegaspec: vegaspec.html
   vegawidget: vegawidget.html
   visual-regression: visual-regression.html

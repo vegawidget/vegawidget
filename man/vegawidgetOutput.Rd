@@ -4,18 +4,14 @@
 \alias{vegawidgetOutput}
 \title{Shiny-output for vegawidget}
 \usage{
-vegawidgetOutput(outputId, width = "100\%", height = "400px")
+vegawidgetOutput(outputId, width = "auto", height = "auto")
 }
 \arguments{
 \item{outputId}{output variable to read from}
 
-\item{width}{Must be a valid CSS unit (like \code{"100\%"},
+\item{width, height}{Must be a valid CSS unit (like \code{"100\%"},
 \code{"400px"}, \code{"auto"}) or a number, which will be coerced to a
-string and have \code{"px"} appended.}
-
-\item{height}{Must be a valid CSS unit (like \code{"100\%"},
-\code{"400px"}, \code{"auto"}) or a number, which will be coerced to a
-string and have \code{"px"} appended.}
+string and have \code{"px"} appended.#'}
 }
 \description{
 Shiny-output for vegawidget

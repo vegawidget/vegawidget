@@ -19,14 +19,16 @@ formatted using ISO-8601}
 object with the same type as \code{data}
 }
 \description{
+\strong{Please think of this as an experimental function}
+}
+\details{
 In Vega, for now, there are only two time-zones available: the local
 time-zone of the browser where the spec is rendered, and UTC. This differs
 from R, where a time-zone attribute is available to \code{POSIXct} vectors.
 Accordingly, when designing a vegaspec that uses time, you have to make some
 some compromises. This function helps you to implement your compromise in
 a principled way, as explained in the opinions below.
-}
-\details{
+
 Let's assume that your \code{POSIXct} data has a time-zone attached.
 There are three different scenarios for rendering this data:
 \itemize{
@@ -75,6 +77,18 @@ This is why the default for \code{iso_date} is \code{TRUE}. In this scenario,
 you need not specify to Vega how to parse the date; because of its
 ISO-8601 format, it will parse to UTC. As with the other UTC cases,
 you should use UTC time-scales and local time-units.
+}
+\examples{
+  # datetimes
+  data_seattle_hourly \%>\% head()
+  data_seattle_hourly \%>\% head() \%>\% vw_serialize_data(iso_dttm = TRUE)
+  data_seattle_hourly \%>\% head() \%>\% vw_serialize_data(iso_dttm = FALSE)
+
+  # dates
+  data_seattle_daily \%>\% head()
+  data_seattle_daily \%>\% head() \%>\% vw_serialize_data(iso_date = TRUE)
+  data_seattle_daily \%>\% head() \%>\% vw_serialize_data(iso_date = FALSE)
+
 }
 \seealso{
 \href{https://vega.github.io/vega-lite/docs/timeunit.html#utc}{Vega-Lite Time Unit (UTC)}

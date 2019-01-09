@@ -53,6 +53,10 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
   # if `embed` is still NULL, set using empty call to vega_embed()
   embed <- embed %||% vega_embed()
 
+  # set width, height if available from an option
+  width <- width %||% getOption("vega.width")
+  height <- height %||% getOption("vega.height")
+
   # autosize (if needed)
   spec <- vw_autosize(spec, width = width, height = height)
 
@@ -72,6 +76,10 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
       width = width,
       height = height,
       package = "vegawidget",
+      sizingPolicy = htmlwidgets::sizingPolicy(
+        defaultWidth = "auto",
+        defaultHeight = "auto"
+      ),
       ...
     )
 
@@ -80,11 +88,14 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL, ...) {
 
 #' Shiny-output for vegawidget
 #'
-#' @inheritParams htmlwidgets::shinyWidgetOutput
+#' @param outputId output variable to read from
+#' @param width,height Must be a valid CSS unit (like \code{"100\%"},
+#'   \code{"400px"}, \code{"auto"}) or a number, which will be coerced to a
+#'   string and have \code{"px"} appended.#'
 #'
 #' @export
 #'
-vegawidgetOutput <- function(outputId, width = "100%", height = "400px") {
+vegawidgetOutput <- function(outputId, width = "auto", height = "auto") {
   htmlwidgets::shinyWidgetOutput(
     outputId,
     "vegawidget",
@@ -96,12 +107,23 @@ vegawidgetOutput <- function(outputId, width = "100%", height = "400px") {
 
 #' Render shiny-output for vegawidget
 #'
-#' @inheritParams htmlwidgets::shinyRenderWidget
+#' @param expr An expression that generates an HTML widget (or a
+#'   \href{https://rstudio.github.io/promises/}{promise} of an HTML widget).
+#' @param env The environment in which to evaluate \code{expr}.
+#' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
+#'   is useful if you want to save an expression in a variable.
 #'
 #' @export
 #'
 renderVegawidget <- function(expr, env = parent.frame(), quoted = FALSE) {
+
+  # if sent a vegaspec, convert to a vegawidget
+  if (inherits(expr, "vegaspec")) {
+    expr <- vegawidget(expr)
+  }
+
   if (!quoted) { expr <- substitute(expr) } # force quoted
+
   htmlwidgets::shinyRenderWidget(
     expr,
     vegawidgetOutput,

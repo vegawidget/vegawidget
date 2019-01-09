@@ -14,8 +14,8 @@ test_that("vw_to_svg works with vega spec", {
 
   svg_res <- vw_to_svg(spec_mtcars_vega)
   expect_identical(
-    substr(svg_res, 1, 140),
-    substr(expected_svg, 1, 140)
+    substr(svg_res, 1, 200),
+    substr(expected_svg, 1, 200)
   )
   # expect_identical(
   #   nchar(svg_res),

@@ -63,6 +63,6 @@ function render(spec) {
 }
 
 function writeSVG(svg) {
-  svg = svgHeader + svg;
+//  svg = svgHeader + svg;
   process.stdout.write(svg);
 }

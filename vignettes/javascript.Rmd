@@ -454,9 +454,6 @@ input_angle
 output_chart
 ```
 
----
-
-
 Please note that the next few code-chunks are `{js}` chunks rather than `{r}` chunks.
 
 Like above, we create a JavaScript variable, `angle` that refers to the input-slider.

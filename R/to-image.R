@@ -16,15 +16,14 @@
 #' @param spec `vegaspec`, object that is or can be coerced to a `vegaspec`,
 #'   e.g. a vegawidget object.
 #' @param path   `character`, local path to which to write file
+#' @param scale  `numeric`, useful for specifying increased resolution for
+#'   retina displays
 #' @param width,height `numeric`, output width and height in pixels (or NULL for
 #'   default)
-#' @param dpi  `numeric`, numeric vector of length 1 or 2 specifying the
-#'   resolution of the image in DPI (dots per length) for x and y
-#'   (in that order). See \code{\link[png]{writePNG}}
 #' @param base_url `character`, the base url for a data file. Useful for
 #'   specifying a local directory
 #' @param seed `integer`, the random seed for a vega spec
-#' @param ... additional argument to pass to `vw_to_svg`
+#' @param ... additional arguments passed to `vw_to_svg()`
 #'
 #' @return \describe{
 #'   \item{`vw_to_bitmap()`}{`array`, bitmap array}
@@ -69,7 +68,8 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = "",
   assert_packages("processx")
   check_node_installed()
 
-  vega_spec <- vw_to_vega(.autosize(as_vegaspec(spec), width = width, height = height))
+  spec <- vw_autosize(spec, width = width, height = height)
+  vega_spec <- vw_to_vega(spec)
   str_spec <- vw_as_json(vega_spec, pretty = FALSE)
 
   # Write the spec to a temporary file
@@ -96,10 +96,37 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = "",
 #' @rdname image
 #' @export
 #'
-vw_to_bitmap <- function(spec, width = NULL, height = NULL, ...) {
+vw_to_bitmap <- function(spec, scale = 1, width = NULL, height = NULL, ...) {
+
   assert_packages("rsvg")
+
+  # create the svg
   svg_res <- vw_to_svg(spec, width = width, height = height, ...)
-  bm <- rsvg::rsvg(charToRaw(svg_res), width = width, height = height)
+
+  # determine the dimensions of the image using `scale`
+  dim_svg <- svg_dim(svg_res)
+  width_img <- dim_svg$width * scale
+  height_img <- dim_svg$height * scale
+
+  bm <- rsvg::rsvg(charToRaw(svg_res), width = width_img, height = height_img)
+
   bm
 }
 
+# internal function to scrape the text of an SVG string
+#  to return a list of `width` and `height`
+#
+svg_dim <- function(svg) {
+
+  # grab the contents of the viewBox string
+  s <- gsub(".*viewBox=\"([^\"]+)\".*", "\\1", svg)
+
+  # split string using spaced
+  s <- strsplit(s, " ")
+  num <- as.numeric(s[[1]])
+
+  # extract the width and height into a list
+  dim <- list(width = num[[3]], height = num[[4]])
+
+  dim
+}

@@ -11,12 +11,11 @@
 vw_to_svg(spec, width = NULL, height = NULL, base_url = "",
   seed = sample(1e+08, size = 1))
 
-vw_to_bitmap(spec, width = NULL, height = NULL, ...)
+vw_to_bitmap(spec, scale = 1, width = NULL, height = NULL, ...)
 
-vw_write_svg(spec, path, ...)
+vw_write_svg(spec, path, width = NULL, height = NULL, ...)
 
-vw_write_png(spec, path, width = NULL, height = NULL, dpi = NULL,
-  ...)
+vw_write_png(spec, path, scale = 1, width = NULL, height = NULL, ...)
 }
 \arguments{
 \item{spec}{\code{vegaspec}, object that is or can be coerced to a \code{vegaspec},
@@ -30,13 +29,12 @@ specifying a local directory}
 
 \item{seed}{\code{integer}, the random seed for a vega spec}
 
-\item{...}{additional argument to pass to \code{vw_to_svg}}
+\item{scale}{\code{numeric}, useful for specifying increased resolution for
+retina displays}
+
+\item{...}{additional arguments passed to \code{vw_to_svg()}}
 
 \item{path}{\code{character}, local path to which to write file}
-
-\item{dpi}{\code{numeric}, numeric vector of length 1 or 2 specifying the
-resolution of the image in DPI (dots per length) for x and y
-(in that order). See \code{\link[png]{writePNG}}}
 }
 \value{
 \describe{

@@ -83,6 +83,11 @@ The `vw_to_bitmap()` function returns a bitmap array. We can see the dimensions 
 vw_to_bitmap(spec_mtcars) %>% dim()
 ```
 
+
+```{r}
+vw_to_bitmap(spec_mtcars, scale = 2) %>% dim()
+```
+
 ### PNG output
 
 The rest of the PNG demonstration focuses on the image-writing function, `vw_write_png()`, which uses `vw_to_bitmap()`. In the examples that follow, we use a couple of internal helper-functions, `path_write()` and `path_read()`, to manage the file-locations within the **pkgdown** framework. For the purpose of this demonstration please disregard these functions, please interpret this only as a means to provide a `path`.
@@ -101,6 +106,21 @@ vw_write_png(spec_mtcars, path = path_write(filename))
 knitr::include_graphics(path_read(filename))
 ```
 
+```{r}
+filename <- "mtcars-retina.png"
+  
+vw_write_png(spec_mtcars, path_write(filename), scale = 2)
+
+# using knitr::include_graphics() with dpi not working, 
+#  hacking a workaround
+
+# determine the width of the image
+meta <- png::readPNG(path_write(filename), info = TRUE)
+width <- attr(meta, "info")[["dim"]][1]
+
+# display width at half of image width
+tags$img(src = path_read(filename), style = glue("width: {width / 2}px;"))
+```
 
 ### Using vegawidget
 

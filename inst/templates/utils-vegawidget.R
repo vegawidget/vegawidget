@@ -206,9 +206,9 @@ NULL
 #'
 #' @name image
 #' @importFrom vegawidget
-#'           vw_to_png vw_to_svg vw_write_png vw_write_svg
-#' @aliases  vw_to_png vw_to_svg vw_write_png vw_write_svg
-#' @export   vw_to_png vw_to_svg vw_write_png vw_write_svg
+#'           vw_to_svg vw_to_bitmap vw_write_png vw_write_svg
+#' @aliases  vw_to_svg vw_to_bitmap vw_write_png vw_write_svg
+#' @export   vw_to_svg vw_to_bitmap vw_write_png vw_write_svg
 #'
 NULL
 

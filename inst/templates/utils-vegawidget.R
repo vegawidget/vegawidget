@@ -212,17 +212,6 @@ NULL
 #'
 NULL
 
-#' Coerce data-URI string to raw binary
-#'
-#' See \code{vegawidget::\link[vegawidget]{vw_png_bin}} for details.
-#'
-#' @name vw_png_bin
-#' @rdname vw_png_bin
-#' @importFrom vegawidget vw_png_bin
-#' @export
-#'
-NULL
-
 #### utility functions ####
 
 #' Determine Vega JavaScript versions

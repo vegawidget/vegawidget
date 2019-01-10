@@ -95,16 +95,14 @@ reference:
     - data_seattle_hourly
   - title: Images
     desc: >
-      If you have the
-      [**webdriver**](https://CRAN.R-project.org/package=webdriver) package
-      and PhantomJS installed, you can convert and write a `vegaspec` or a
-      `vegawidget` to PNG or SVG format.
+      If you have [**nodejs**](https://nodejs.org/en/)
+      installed, you can convert and write a `vegaspec` or a
+      `vegawidget` to SVG, convert to a bitmap, or write to a PNG file.
     contents:
-    - vw_to_png
     - vw_to_svg
-    - vw_write_png
+    - vw_to_bitmap
     - vw_write_svg
-    - vw_png_bin
+    - vw_write_png
   - title: Utilities
     desc: >
       You can use `use_vegawidget()` to bring this package's functionality to

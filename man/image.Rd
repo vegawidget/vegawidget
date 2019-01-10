@@ -21,8 +21,8 @@ vw_write_png(spec, path, scale = 1, width = NULL, height = NULL, ...)
 \item{spec}{\code{vegaspec}, object that is or can be coerced to a \code{vegaspec},
 e.g. a vegawidget object.}
 
-\item{width, height}{\code{numeric}, output width and height in pixels (or NULL for
-default)}
+\item{width, height}{\code{numeric}, output width and height in pixels
+(or \code{NULL} for default)}
 
 \item{base_url}{\code{character}, the base url for a data file. Useful for
 specifying a local directory}

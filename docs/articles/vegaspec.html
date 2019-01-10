@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.6.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.7.9000</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
     <div class="page-header toc-ignore">
       <h1>Specify using vegaspec</h1>
             
-            <h4 class="date">2019-01-06</h4>
+            <h4 class="date">2019-01-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/vegaspec.Rmd"><code>vignettes/vegaspec.Rmd</code></a></small>
       <div class="hidden name"><code>vegaspec.Rmd</code></div>
@@ -148,8 +148,8 @@
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb1-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb1-15" data-line-number="15">spec_category</a></code></pre></div>
-<div id="htmlwidget-0ef151f6459e2461299e" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0ef151f6459e2461299e">{"x":{
+<div id="htmlwidget-4a2e64404df58b9f5760" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4a2e64404df58b9f5760">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "data": {
@@ -236,8 +236,8 @@
 <a href="#examining" class="anchor"></a>Examining</h2>
 <p>We also have a function, <code><a href="../reference/vw_examine.html">vw_examine()</a></code>, that you can use to, well, examine a vegaspec. It is a thin wrapper around the <code><a href="https://www.rdocumentation.org/packages/listviewer/topics/jsonedit">listviewer::jsonedit()</a></code> function:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/vw_examine.html">vw_examine</a></span>(spec_category)</a></code></pre></div>
-<div id="htmlwidget-9e393d2be0b661522ca1" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9e393d2be0b661522ca1">{"x":{"data":{
+<div id="htmlwidget-4ea0ba3a92f7c147aa71" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4ea0ba3a92f7c147aa71">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
   "data": {
     "values": [
@@ -307,8 +307,8 @@
 <a class="sourceLine" id="cb5-4" data-line-number="4">spec_category_size<span class="op">$</span>height &lt;-<span class="st"> </span><span class="dv">300</span></a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">spec_category_size</a></code></pre></div>
-<div id="htmlwidget-88860a8b64394566e2b9" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-88860a8b64394566e2b9">{"x":{
+<div id="htmlwidget-c7ab5aef36e016426cb4" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c7ab5aef36e016426cb4">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "data": {
@@ -384,8 +384,8 @@
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/vw_autosize.html">vw_autosize</a></span>(<span class="dt">width =</span> <span class="dv">300</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">spec_category_autosize</a></code></pre></div>
-<div id="htmlwidget-1aad55ceacbb39f420b8" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1aad55ceacbb39f420b8">{"x":{
+<div id="htmlwidget-06e08a406ff48b927397" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-06e08a406ff48b927397">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "data": {
@@ -469,13 +469,13 @@
 <div id="compile-to-vega" class="section level2">
 <h2 class="hasAnchor">
 <a href="#compile-to-vega" class="anchor"></a>Compile to Vega</h2>
-<p>When rendering a Vega-Lite specification, the vega-lite JavaScript library will compile the Vega-Lite specification into Vega. If you have the <a href="https://cran.r-project.org/package=V8"><strong>V8</strong></a> package installed, and want to compile a Vega-Lite specification to Vega, for your own purposes, you can use the <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code> function.</p>
+<p>When rendering a Vega-Lite specification, the vega-lite JavaScript library will compile the Vega-Lite specification into Vega. If you have the <a href="https://nodejs.org/en/"><strong>node</strong></a> installed, and want to compile a Vega-Lite specification to Vega, for your own purposes, you can use the <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code> function.</p>
 <p>To be clear, if you are using only Vega-Lite, this is not something you should ever need to do. This may be useful if you need to design a specification using Vega, and you want get things started using a Vega-Lite specification.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">spec_category_vega &lt;-<span class="st"> </span><span class="kw"><a href="../reference/vw_to_vega.html">vw_to_vega</a></span>(spec_category)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">spec_category_vega</a></code></pre></div>
-<div id="htmlwidget-fa62b4c7200117c04aaa" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fa62b4c7200117c04aaa">{"x":{
+<div id="htmlwidget-d7e2723df60f48dda748" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d7e2723df60f48dda748">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega/v3.json",
     "autosize": "pad",
@@ -692,8 +692,8 @@
 ## [1] "3"</code></pre>
 <p>You can examine the result to see how much-more verbose is the Vega specification, compared to the Vega-Lite specification.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/vw_examine.html">vw_examine</a></span>(spec_category_vega)</a></code></pre></div>
-<div id="htmlwidget-43ec2c171912fbc7a21c" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-43ec2c171912fbc7a21c">{"x":{"data":{
+<div id="htmlwidget-1a2d9ba54d254733f686" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1a2d9ba54d254733f686">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega/v3.json",
   "autosize": "pad",
   "padding": 5,

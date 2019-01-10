@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.6.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.7.9000</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@
     <div class="page-header toc-ignore">
       <h1>Extend using Shiny</h1>
             
-            <h4 class="date">2019-01-06</h4>
+            <h4 class="date">2019-01-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/shiny.Rmd"><code>vignettes/shiny.Rmd</code></a></small>
       <div class="hidden name"><code>shiny.Rmd</code></div>
@@ -134,7 +134,7 @@
 <div id="events" class="section level2">
 <h2 class="hasAnchor">
 <a href="#events" class="anchor"></a>Getting events</h2>
-<p>This is a shortened version of the <a href="javascript.html#events">events section</a> in the <a href="JavaScript">JavaScript article</a>; the concepts are the same, but the implementation is far simpler using Shiny.</p>
+<p>This is a shortened version of the <a href="javascript.html#events">events section</a> in the <a href="javascript.Rmd">JavaScript article</a>; the concepts are the same, but the implementation is far simpler using Shiny.</p>
 <p>Event streams are <a href="https://vega.github.io/vega/docs/event-streams">used extensively within Vega</a>, enabling interactivity. By <a href="https://vega.github.io/vega/docs/api/view/#view_addEventListener">adding event-listeners</a> to the <code>view</code>, we can specify actions to be taken in response to a particular type of event, such as <code>"mouseover"</code>, <code>"click"</code>, <code>"keypress"</code>, etc.</p>
 <p>The Shiny demo for events features a scatterplot. When a mark on the chart is clicked, it returns to Shiny the data observation (datum) associated with that mark.</p>
 <p>You can see this in action by running:</p>

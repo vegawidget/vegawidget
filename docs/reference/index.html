@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.6.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.7.9000</span>
       </span>
     </div>
 
@@ -336,15 +336,171 @@
       <tr>
         
         <td>
-          <p><code><a href="image.html">vw_to_svg()</a></code> <code><a href="image.html">vw_to_png()</a></code> <code><a href="image.html">vw_write_svg()</a></code> <code><a href="image.html">vw_write_png()</a></code> </p>
+          <p><code><a href="add-listeners.html">vw_add_signal_listener()</a></code> <code><a href="add-listeners.html">vw_add_event_listener()</a></code> </p>
+        </td>
+        <td><p>Add JavaScript listeners</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as_vegaspec.html">as_vegaspec()</a></code> </p>
+        </td>
+        <td><p>Coerce to vegaspec</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="data_category.html">data_category</a></code> </p>
+        </td>
+        <td><p>Example dataset: Categorical data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="data_seattle_daily.html">data_seattle_daily</a></code> </p>
+        </td>
+        <td><p>Example dataset: Seattle daily weather</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="data_seattle_hourly.html">data_seattle_hourly</a></code> </p>
+        </td>
+        <td><p>Example dataset: Seattle hourly temperatures</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="glue_js.html">glue_js()</a></code> </p>
+        </td>
+        <td><p>Interpolate into a JavaScript string</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="image.html">vw_to_svg()</a></code> <code><a href="image.html">vw_to_bitmap()</a></code> <code><a href="image.html">vw_write_svg()</a></code> <code><a href="image.html">vw_write_png()</a></code> </p>
         </td>
         <td><p>Create or write image</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="vw_png_bin.html">vw_png_bin()</a></code> </p>
+          <p><code><a href="knit_print.vegaspec.html">knit_print.vegaspec()</a></code> </p>
         </td>
-        <td><p>Coerce data-URI string to raw binary</p></td>
+        <td><p>Knit-print method</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="renderVegawidget.html">renderVegawidget()</a></code> </p>
+        </td>
+        <td><p>Render shiny-output for vegawidget</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="shiny-getters.html">vw_shiny_get_signal()</a></code> <code><a href="shiny-getters.html">vw_shiny_get_event()</a></code> </p>
+        </td>
+        <td><p>Get information from a Vega chart into Shiny</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="shiny-setters.html">vw_shiny_set_signal()</a></code> <code><a href="shiny-setters.html">vw_shiny_set_data()</a></code> <code><a href="shiny-setters.html">vw_shiny_run()</a></code> </p>
+        </td>
+        <td><p>Set information in a Vega chart from Shiny</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spec_mtcars.html">spec_mtcars</a></code> </p>
+        </td>
+        <td><p>Example vegaspec: mtcars scatterplot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="use_vegawidget.html">use_vegawidget()</a></code> </p>
+        </td>
+        <td><p>Add vegawidget functions to your package</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vega_embed.html">vega_embed()</a></code> </p>
+        </td>
+        <td><p>Vega embed options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vega_schema.html">vega_schema()</a></code> </p>
+        </td>
+        <td><p>Create string for schema-URL</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vega_version.html">vega_version()</a></code> </p>
+        </td>
+        <td><p>Determine Vega JavaScript versions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vegawidget.html">vegawidget()</a></code> </p>
+        </td>
+        <td><p>Create a Vega/Vega-Lite htmlwidget</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vegawidgetOutput.html">vegawidgetOutput()</a></code> </p>
+        </td>
+        <td><p>Shiny-output for vegawidget</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_as_json.html">vw_as_json()</a></code> </p>
+        </td>
+        <td><p>Coerce vegaspec to JSON</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_autosize.html">vw_autosize()</a></code> </p>
+        </td>
+        <td><p>Autosize vegaspec</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_examine.html">vw_examine()</a></code> </p>
+        </td>
+        <td><p>Examine vegaspec</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_handler_add_effect.html">vw_handler_add_effect()</a></code> </p>
+        </td>
+        <td><p>Add a side-effect to a JavaScript handler</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_handler_signal.html">vw_handler_signal()</a></code> <code><a href="vw_handler_signal.html">vw_handler_event()</a></code> </p>
+        </td>
+        <td><p>Construct a JavaScript handler</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_rename_datasets.html">vw_rename_datasets()</a></code> </p>
+        </td>
+        <td><p>Rename datasets in a vegaspec</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_serialize_data.html">vw_serialize_data()</a></code> </p>
+        </td>
+        <td><p>Serialize data-frame time-columns</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_shiny_demo.html">vw_shiny_demo()</a></code> </p>
+        </td>
+        <td><p>Run Shiny demonstration-apps</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_spec_version.html">vw_spec_version()</a></code> </p>
+        </td>
+        <td><p>Determine vegaspec version</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vw_to_vega.html">vw_to_vega()</a></code> </p>
+        </td>
+        <td><p>Convert to Vega specification</p></td>
       </tr>
     </tbody><tbody>
       <tr>

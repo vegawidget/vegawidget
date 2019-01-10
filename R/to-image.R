@@ -83,19 +83,11 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = "",
   script_path <-  system.file("bin/vega_to_svg.js", package = "vegawidget")
 
   # Use processx to run the script
-  if (identical(.Platform$OS.type, "windows")) {
-    res <-
-      processx::run(
-        "node",
-        args = c(script_path, pkg_path, spec_path, seed, base_url)
-      )
-  } else {
-    res <-
-      processx::run(
-        script_path,
-        args = c(pkg_path, spec_path, seed, base_url)
-      )
-  }
+  res <-
+    processx::run(
+      "node",
+      args = c(script_path, pkg_path, spec_path, seed, base_url)
+    )
 
   if (res$stderr != "") {
     stop("Error in compiling to svg:\n", res$stderr)

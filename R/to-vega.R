@@ -49,11 +49,7 @@ vw_to_vega <- function(spec) {
   script_path <-  system.file("bin/compile_spec.js", package = "vegawidget")
 
   # Use processx to run the script
-  if (identical(.Platform$OS.type, "windows")) {
-    res <- processx::run("node", args = c(script_path, pkg_path, spec_path))
-  } else {
-    res <- processx::run(script_path, args = c(pkg_path, spec_path))
-  }
+  res <- processx::run("node", args = c(script_path, pkg_path, spec_path))
 
   str_vgspec <- res$stdout
 

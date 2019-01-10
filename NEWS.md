@@ -1,3 +1,7 @@
+# vegawidget 0.0.7.9000
+
+* changes API and implementation for "image" functions: `vw_to_svg()`, `vw_to_bitmap()`, `vw_write_svg()` , and `vw_write_png()` - these functions require that you have [node](https://nodejs.org/en/) installed on your computer
+
 # vegawidget 0.0.6.9000
 
 * adds `elementId` argument to `vegawidget()`; had been available as part of `...` passed to `htmlwidgets::createWidget()`

@@ -34,7 +34,8 @@ Authors@R: c(
     person("Dominik", "Moritz", comment = "Vega/Vega-Lite library", role = c("ctb")),
     person("Arvind", "Satyanarayan", comment = "Vega/Vega-Lite library", role = c("ctb")),
     person("Jeffrey", "Heer", comment = "Vega/Vega-Lite library", role = c("ctb")),
-    person("Mike", "Bostock", comment = "D3 library", role = c("ctb"))
+    person("Mike", "Bostock", comment = "D3 library", role = c("ctb")),
+    person("David", "Frank", comment = "node-fetch library", role = c("ctb"))
   )
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -43,7 +44,7 @@ ByteCompile: true
 URL: https://github.com/vegawidget/vegawidget
 BugReports: https://github.com/vegawidget/vegawidget/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Depends:
     R (>= 2.10)
 Imports:
@@ -63,10 +64,7 @@ Suggests:
     yaml,
     fs,
     gistr,
-    V8,
     webshot,
-    webdriver,
-    base64enc,
     magick,
     usethis,
     whisker,
@@ -79,5 +77,7 @@ Suggests:
     tibble,
     lubridate,
     learnr,
-    dplyr
-
+    processx,
+    rsvg,
+    dplyr,
+    png

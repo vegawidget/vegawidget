@@ -7,6 +7,7 @@
 \alias{as_vegaspec.list}
 \alias{as_vegaspec.json}
 \alias{as_vegaspec.character}
+\alias{as_vegaspec.vegawidget}
 \title{Coerce to vegaspec}
 \usage{
 as_vegaspec(spec, ...)
@@ -20,6 +21,8 @@ as_vegaspec(spec, ...)
 \method{as_vegaspec}{json}(spec, ...)
 
 \method{as_vegaspec}{character}(spec, ...)
+
+\method{as_vegaspec}{vegawidget}(spec, ...)
 }
 \arguments{
 \item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}

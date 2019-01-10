@@ -94,6 +94,16 @@ as_vegaspec.character <- function(spec, ...) {
   spec
 }
 
+#' @rdname as_vegaspec
+#' @export
+#'
+as_vegaspec.vegawidget <- function(spec, ...) {
+  # Pull out the spec from a widget object
+  spec <- .as_list(spec$x)$chart_spec
+  .as_vegaspec(spec)
+}
+
+
 #' Coerce vegaspec to JSON
 #'
 #' For Vega and Vega-Lite, the translation between list and JSON is a little

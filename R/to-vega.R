@@ -1,8 +1,7 @@
 #' Convert to Vega specification
 #'
-#' If the [**V8**](https://CRAN.R-project.org/package=V8) package is installed,
-#' use this function to translate a Vega-Lite specification to a
-#' Vega specification.
+#' If node is installed, used this function to convert a Vega-lite spec
+#' to a Vega spec.
 #'
 #' @inheritParams as_vegaspec
 #'
@@ -22,36 +21,38 @@ vw_to_vega <- function(spec) {
 }
 
 .vw_to_vega.default <- function(spec, ...) {
-  stop(".autosize(): no method for class ", class(spec), call. = FALSE)
+  stop(".vw_to_vega(): no method for class ", class(spec), call. = FALSE)
 }
+
 
 .vw_to_vega.vegaspec_vega_lite <- function(spec, ...) {
 
+  # Check dependencies
+  assert_packages("processx")
+  check_node_installed()
+
   # It is easy to do the wrong thing, converting between JSON and R objects.
-  # Instead of using the V8 conversion, we use our functions for
-  # the conversion: vw_as_json() and as_vegaspec().
+  # So we use our functions for the conversion: vw_as_json() and as_vegaspec().
   #
   # hence this tweet: https://twitter.com/ijlyttle/status/1019290316195627008
 
-  assert_packages("V8")
-  JS <- V8::JS
-  ct <- V8::v8()
-
   str_vlspec <- vw_as_json(spec, pretty = FALSE)
 
-  # load the vega-lite library (.vega_lite_js is internal package data)
-  ct$eval(.vega_lite_js)
+  # Write the spec to a temporary file
+  spec_path <- tempfile(fileext = ".json")
+  cat(str_vlspec, file = spec_path)
 
-  # import the vega-lite JSON string, parse into JSON
-  ct$assign('str_vlspec', str_vlspec)
-  ct$assign('vlspec', JS('JSON.parse(str_vlspec)'))
+  # Get the package location -- used as argument
+  pkg_path <- system.file(package = "vegawidget")
 
-  # compile into vega-lite, convert to JSON string
-  ct$assign('vgspec', JS('vl.compile(vlspec).spec'))
-  ct$assign('str_vgspec', JS('JSON.stringify(vgspec)'))
+  # Get the script location for the node script that does stuff
+  script_path <-  system.file("bin/compile_spec.js", package = "vegawidget")
 
-  # retrieve json string, convert to vegaspec
-  str_vgspec <- ct$get('str_vgspec')
+  # Use processx to run the script
+  res <- processx::run("node", args = c(script_path, pkg_path, spec_path))
+
+  str_vgspec <- res$stdout
+
   vgspec <- as_vegaspec(str_vgspec)
 
   vgspec

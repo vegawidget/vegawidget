@@ -1,35 +1,32 @@
 #' Create or write image
 #'
-#' If the [**webdriver**](https://cran.r-project.org/package=webdriver) package
-#' and PhantomJS are installed, these functions can be used to create
+#' If [**node**]() is installed, these functions can be used to create
 #' or write images as PNG or SVG, using a `vegaspec` or `vegawidget`.
 #'
 #' These functions can be called using (an object that can be coerced to)
-#' a `vegaspec` or a `vegawidget`. In addition to the
-#' [**webdriver**](https://cran.r-project.org/package=webdriver) package,
-#' you may also need to install PhantomJS; you can use
-#' [webdriver::install_phantomjs()].
+#' a `vegaspec`.
 #'
-#' Images are created using the
-#' [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view#image-export) image-export
-#' functions. These functions accept a scale factor, represented here as the
-#' `scale` argument. By specifying `scale = 2` for the PNG functions, a
-#' retina-ready image will be generated.
+#' For writing a `png`, the `rsvg` package is needed in addition to
+#' **node**.
 #'
-#' The `vw_to_png()` function returns a data-URI string for the PNG image. If
-#' you want this PNG image as `raw` binary data, use `vw_to_png()` followed by
-#' [vw_png_bin()].
+#' The **node** scripts used are adapted from the command line utilies in the
+#' vega-cli package.
 #'
 #' @name image
-#' @inheritParams vegawidget
+#' @param spec `vegaspec`, object that is or can be coerced to a `vegaspec`,
+#'   e.g. a vegawidget object.
 #' @param path   `character`, local path to which to write file
-#' @param scale  `numeric`, scale-factor for the image:
-#'   ratio of the width (pixels) of the image to the
-#'   width (pixels) of the rendered chart
-#' @param widget `vegawidget`, created using [vegawidget()]
+#' @param scale  `numeric`, useful for specifying increased resolution for
+#'   retina displays
+#' @param width,height `numeric`, output width and height in pixels
+#'   (or `NULL` for default)
+#' @param base_url `character`, the base url for a data file. Useful for
+#'   specifying a local directory
+#' @param seed `integer`, the random seed for a vega spec
+#' @param ... additional arguments passed to `vw_to_svg()`
 #'
 #' @return \describe{
-#'   \item{`vw_to_png()`}{`character`, data-URI string for PNG}
+#'   \item{`vw_to_bitmap()`}{`array`, bitmap array}
 #'   \item{`vw_to_svg()`}{`character`, SVG string}
 #'   \item{`vw_write_png()`}{invisible `vegaspec` or `vegawidget`}
 #'   \item{`vw_write_svg()`}{invisible `vegaspec` or `vegawidget`}
@@ -39,156 +36,101 @@
 #' \dontrun{
 #'   # call any of these functions using either a vegaspec or a vegawidget
 #'   vw_to_svg(vegawidget(spec_mtcars))
-#'   write_png(spec_mtcars, "temp.png")
-#'   spec_mtcars %>% vw_to_png() %>% vw_png_bin()
+#'   vw_to_bitmap(spec_mtcars)
+#'   vw_write_png(spec_mtcars, "temp.png")
+#'   vw_write_svg(spec_mtcars, "temp.svg")
+#'
+#'   # To specify the path to a local file, use base_url
+#'   spec_precip <-
+#'     list(
+#'       `$schema` = vega_schema(),
+#'       data = list(url = "seattle-weather.csv"),
+#'       mark = "tick",
+#'       encoding = list(
+#'         x = list(field = "precipitation", type = "quantitative")
+#'       )
+#'     ) %>%
+#'     as_vegaspec()
+#'
+#'   data_dir <- system.file("example-data/", package = "vegawidget")
+#'   vw_write_png(spec_precip, "temp-local.png", base_url = data_dir)
+#'
 #' }
-#' @seealso [webdriver::install_phantomjs()],
-#' [vega-view library](https://github.com/vega/vega/tree/master/packages/vega-view#image-export),
-#' [vw_png_bin()]
+#' @seealso [vega-view library](https://github.com/vega/vega-view#image-export),
 #'
-
 #' @rdname image
 #' @export
 #'
-vw_to_svg <- function(...) {
-  UseMethod("vw_to_svg")
-}
+vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = "",
+                      seed = sample(1e8, size = 1)) {
 
-#' @rdname image
-#' @export
-#'
-vw_to_svg.default <-
-  function(spec, scale = 1, embed = NULL, width = NULL, height = NULL, ...) {
+  # Check dependencies
+  assert_packages("processx")
+  check_node_installed()
 
-  widget <-
-    vegawidget(
-      spec,
-      embed = embed,
-      width = width,
-      height = height,
-      ...
+  spec <- vw_autosize(spec, width = width, height = height)
+  vega_spec <- vw_to_vega(spec)
+  str_spec <- vw_as_json(vega_spec, pretty = FALSE)
+
+  # Write the spec to a temporary file
+  spec_path <- tempfile(fileext = ".json")
+  cat(str_spec, file = spec_path)
+
+  # Get the package location -- used as argument
+  pkg_path <- system.file(package = "vegawidget")
+
+  # Get the script location for the node script that does stuff
+  script_path <-  system.file("bin/vega_to_svg.js", package = "vegawidget")
+
+  # Use processx to run the script
+  res <-
+    processx::run(
+      "node",
+      args = c(script_path, pkg_path, spec_path, seed, base_url)
     )
 
-  svg <- vw_to_svg(widget, scale = scale)
+  if (res$stderr != "") {
+    stop("Error in compiling to svg:\n", res$stderr)
+  }
+  res$stdout
 
-  svg
 }
+
 
 #' @rdname image
 #' @export
 #'
-vw_to_svg.vegawidget <- function(widget, scale = 1, ...) {
+vw_to_bitmap <- function(spec, scale = 1, width = NULL, height = NULL, ...) {
 
-  # just to be safe
-  scale <- as.numeric(scale)
+  assert_packages("rsvg")
 
-  js_string <-
-    paste0(
-     "var done = arguments[0];
-      Vegawidget.findViewPromise('.vegawidget')
-        .then(function(view) { return view.toSVG(", scale, "); })
-        .then(function(svg) { done(svg) })
-        .catch(function(err) { console.error(err) });"
-    )
+  # create the svg
+  svg_res <- vw_to_svg(spec, width = width, height = height, ...)
 
-  svg <- get_image(widget, js_string)
+  # determine the dimensions of the image using `scale`
+  dim_svg <- svg_dim(svg_res)
+  width_img <- dim_svg$width * scale
+  height_img <- dim_svg$height * scale
 
-  svg
+  bm <- rsvg::rsvg(charToRaw(svg_res), width = width_img, height = height_img)
+
+  bm
 }
 
-#' @rdname image
-#' @export
-#'
-vw_to_png <- function(...) {
-  UseMethod("vw_to_png")
-}
+# internal function to scrape the text of an SVG string
+#  to return a list of `width` and `height`
+#
+svg_dim <- function(svg) {
 
-#' @rdname image
-#' @export
-#'
-vw_to_png.default <-
-  function(spec, scale = 1, embed = NULL, width = NULL, height = NULL, ...){
+  # grab the contents of the viewBox string
+  s <- gsub(".*viewBox=\"([^\"]+)\".*", "\\1", svg)
 
-    widget <-
-      vegawidget(
-        spec,
-        embed = embed,
-        width = width,
-        height = height,
-        ...
-      )
+  # split string using spaced
+  s <- strsplit(s, " ")
+  num <- as.numeric(s[[1]])
 
-    png <- vw_to_png(widget, scale = scale)
+  # extract the width and height into a list
+  dim <- list(width = num[[3]], height = num[[4]])
 
-    png
-}
-
-#' @rdname image
-#' @export
-#'
-vw_to_png.vegawidget <- function(widget, scale = 1, ...) {
-
-  # just to be safe
-  scale <- as.numeric(scale)
-
-  # NOTE
-  #
-  # We are supplying a "quality" argument to `toDataURL()`,
-  # which is not defined for image/png in the HTML5 standard.
-  #
-  # However, not supplying a value results in a large, uncompressed
-  # PNG string.
-  #
-  # This is noted here: https://github.com/ariya/phantomjs/issues/10455
-  #
-  # For the version of phantomJS that comes with webdriver/webshot,
-  # the workaround of supplying a value for PNG works.
-  #
-  # In the issue, the problem is claimed to be fixed, but I don't know
-  # if that fix is implemented in the packaged version of phantomJS,
-  # or, if not, if the fix will mean that this workaround will stop working.
-  #
-  # If we start to get some large PNG files, this will be a place to look.
-
-  js_string <-
-    paste0(
-      "var done = arguments[0];
-       Vegawidget.findViewPromise('.vegawidget')
-        .then(function(view){ return view.toCanvas(", scale, "); })
-        .then(function(canvas) { return canvas.toDataURL('image/png', 0); })
-        .then(done)
-        .catch(function(err) { console.error(err) });"
-    )
-
-  png <- get_image(widget, js_string)
-
-  png
-}
-
-#' Get image data
-#'
-#' Be warned: this function is not type-stable, and should
-#' be used only internally to this package.
-#'
-#' @param widget    vegawidget
-#' @param js_string Javascript string to extract image
-#'
-#' @return depends on `js_string` - could be SVG string or raw PNG data
-#' @noRd
-#'
-get_image <- function(widget, js_string) {
-
-  assert_packages("webdriver")
-
-  html_file <- tempfile(pattern = "vegawidget-", fileext = ".html")
-  htmlwidgets::saveWidget(widget, html_file)
-  on.exit(unlink(html_file))
-
-  pjs <- webdriver::run_phantomjs()
-  ses <- webdriver::Session$new(port = pjs$port)
-  ses$go(html_file)
-  ses$setTimeout(500)
-  img <- ses$executeScriptAsync(js_string)
-
-  img
+  dim
 }

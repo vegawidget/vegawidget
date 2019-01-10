@@ -31,6 +31,7 @@
   spec
 }
 
+
 .as_list <- function(x, ...) {
   UseMethod(".as_list")
 }
@@ -79,7 +80,6 @@
 
   x
 }
-
 
 
 

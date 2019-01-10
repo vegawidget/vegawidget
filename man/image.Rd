@@ -3,112 +3,86 @@
 \name{image}
 \alias{image}
 \alias{vw_to_svg}
-\alias{vw_to_svg.default}
-\alias{vw_to_svg.vegawidget}
-\alias{vw_to_png}
-\alias{vw_to_png.default}
-\alias{vw_to_png.vegawidget}
+\alias{vw_to_bitmap}
 \alias{vw_write_svg}
-\alias{vw_write_svg.default}
-\alias{vw_write_svg.vegawidget}
 \alias{vw_write_png}
-\alias{vw_write_png.default}
-\alias{vw_write_png.vegawidget}
 \title{Create or write image}
 \usage{
-vw_to_svg(...)
+vw_to_svg(spec, width = NULL, height = NULL, base_url = "",
+  seed = sample(1e+08, size = 1))
 
-\method{vw_to_svg}{default}(spec, scale = 1, embed = NULL,
-  width = NULL, height = NULL, ...)
+vw_to_bitmap(spec, scale = 1, width = NULL, height = NULL, ...)
 
-\method{vw_to_svg}{vegawidget}(widget, scale = 1, ...)
+vw_write_svg(spec, path, width = NULL, height = NULL, ...)
 
-vw_to_png(...)
-
-\method{vw_to_png}{default}(spec, scale = 1, embed = NULL,
-  width = NULL, height = NULL, ...)
-
-\method{vw_to_png}{vegawidget}(widget, scale = 1, ...)
-
-vw_write_svg(...)
-
-\method{vw_write_svg}{default}(spec, path, scale = 1, embed = NULL,
-  width = NULL, height = NULL, ...)
-
-\method{vw_write_svg}{vegawidget}(widget, path, scale = 1, ...)
-
-vw_write_png(...)
-
-\method{vw_write_png}{default}(spec, path, scale = 1, embed = NULL,
-  width = NULL, height = NULL, ...)
-
-\method{vw_write_png}{vegawidget}(widget, path, scale = 1, ...)
+vw_write_png(spec, path, scale = 1, width = NULL, height = NULL, ...)
 }
 \arguments{
-\item{...}{other arguments passed to \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}}
+\item{spec}{\code{vegaspec}, object that is or can be coerced to a \code{vegaspec},
+e.g. a vegawidget object.}
 
-\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
+\item{width, height}{\code{numeric}, output width and height in pixels
+(or \code{NULL} for default)}
 
-\item{scale}{\code{numeric}, scale-factor for the image:
-ratio of the width (pixels) of the image to the
-width (pixels) of the rendered chart}
+\item{base_url}{\code{character}, the base url for a data file. Useful for
+specifying a local directory}
 
-\item{embed}{\code{list} to specify
-\href{https://github.com/vega/vega-embed#options}{vega-embed} options,
-see \strong{Details} on how this is set if \code{NULL}.}
+\item{seed}{\code{integer}, the random seed for a vega spec}
 
-\item{width}{\code{integer}, if specified, the total rendered width (in pixels)
-of the chart - valid only for single-view charts and layered charts;
-the default is to use the width in the chart specification}
+\item{scale}{\code{numeric}, useful for specifying increased resolution for
+retina displays}
 
-\item{height}{\code{integer}, if specified, the total rendered height (in pixels)
-of the chart - valid only for single-view charts and layered charts;
-the default is to use the height in the chart specification}
-
-\item{widget}{\code{vegawidget}, created using \code{\link[=vegawidget]{vegawidget()}}}
+\item{...}{additional arguments passed to \code{vw_to_svg()}}
 
 \item{path}{\code{character}, local path to which to write file}
 }
 \value{
 \describe{
-\item{\code{vw_to_png()}}{\code{character}, data-URI string for PNG}
+\item{\code{vw_to_bitmap()}}{\code{array}, bitmap array}
 \item{\code{vw_to_svg()}}{\code{character}, SVG string}
 \item{\code{vw_write_png()}}{invisible \code{vegaspec} or \code{vegawidget}}
 \item{\code{vw_write_svg()}}{invisible \code{vegaspec} or \code{vegawidget}}
 }
 }
 \description{
-If the \href{https://cran.r-project.org/package=webdriver}{webdriver} package
-and PhantomJS are installed, these functions can be used to create
+If \url{node} is installed, these functions can be used to create
 or write images as PNG or SVG, using a \code{vegaspec} or \code{vegawidget}.
 }
 \details{
 These functions can be called using (an object that can be coerced to)
-a \code{vegaspec} or a \code{vegawidget}. In addition to the
-\href{https://cran.r-project.org/package=webdriver}{webdriver} package,
-you may also need to install PhantomJS; you can use
-\code{\link[webdriver:install_phantomjs]{webdriver::install_phantomjs()}}.
+a \code{vegaspec}.
 
-Images are created using the
-\href{https://github.com/vega/vega/tree/master/packages/vega-view#image-export}{vega-view} image-export
-functions. These functions accept a scale factor, represented here as the
-\code{scale} argument. By specifying \code{scale = 2} for the PNG functions, a
-retina-ready image will be generated.
+For writing a \code{png}, the \code{rsvg} package is needed in addition to
+\strong{node}.
 
-The \code{vw_to_png()} function returns a data-URI string for the PNG image. If
-you want this PNG image as \code{raw} binary data, use \code{vw_to_png()} followed by
-\code{\link[=vw_png_bin]{vw_png_bin()}}.
+The \strong{node} scripts used are adapted from the command line utilies in the
+vega-cli package.
 }
 \examples{
 \dontrun{
   # call any of these functions using either a vegaspec or a vegawidget
   vw_to_svg(vegawidget(spec_mtcars))
-  write_png(spec_mtcars, "temp.png")
-  spec_mtcars \%>\% vw_to_png() \%>\% vw_png_bin()
+  vw_to_bitmap(spec_mtcars)
+  vw_write_png(spec_mtcars, "temp.png")
+  vw_write_svg(spec_mtcars, "temp.svg")
+
+  # To specify the path to a local file, use base_url
+  spec_precip <-
+    list(
+      `$schema` = vega_schema(),
+      data = list(url = "seattle-weather.csv"),
+      mark = "tick",
+      encoding = list(
+        x = list(field = "precipitation", type = "quantitative")
+      )
+    ) \%>\%
+    as_vegaspec()
+
+  data_dir <- system.file("example-data/", package = "vegawidget")
+  vw_write_png(spec_precip, "temp-local.png", base_url = data_dir)
+
 }
 }
 \seealso{
-\code{\link[webdriver:install_phantomjs]{webdriver::install_phantomjs()}},
-\href{https://github.com/vega/vega/tree/master/packages/vega-view#image-export}{vega-view library},
-\code{\link[=vw_png_bin]{vw_png_bin()}}
+\href{https://github.com/vega/vega-view#image-export}{vega-view library},
 }

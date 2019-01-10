@@ -18,8 +18,8 @@
 #' @param path   `character`, local path to which to write file
 #' @param scale  `numeric`, useful for specifying increased resolution for
 #'   retina displays
-#' @param width,height `numeric`, output width and height in pixels (or NULL for
-#'   default)
+#' @param width,height `numeric`, output width and height in pixels
+#'   (or `NULL` for default)
 #' @param base_url `character`, the base url for a data file. Useful for
 #'   specifying a local directory
 #' @param seed `integer`, the random seed for a vega spec
@@ -83,7 +83,19 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = "",
   script_path <-  system.file("bin/vega_to_svg.js", package = "vegawidget")
 
   # Use processx to run the script
-  res <- processx::run(script_path, args = c(pkg_path, spec_path, seed, base_url))
+  if (identical(.Platform$OS.type, "windows")) {
+    res <-
+      processx::run(
+        "node",
+        args = c(script_path, pkg_path, spec_path, seed, base_url)
+      )
+  } else {
+    res <-
+      processx::run(
+        script_path,
+        args = c(pkg_path, spec_path, seed, base_url)
+      )
+  }
 
   if (res$stderr != "") {
     stop("Error in compiling to svg:\n", res$stderr)

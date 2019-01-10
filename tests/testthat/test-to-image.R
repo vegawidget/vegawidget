@@ -13,15 +13,7 @@ test_that("vw_to_svg works with vega spec", {
   skip_on_cran() # Need to have node installed
 
   svg_res <- vw_to_svg(spec_mtcars_vega)
-  expect_identical(
-    substr(svg_res, nchar(svg_res) - 40, nchar(svg_res)),
-    substr(expected_svg, nchar(expected_svg) - 40, nchar(expected_svg))
-  )
-  # expect_identical(
-  #   nchar(svg_res),
-  #   nchar(expected_svg)
-  # )
-  #expect_identical(svg_res, expected_svg)
+  expect_identical(trimws(svg_res), trimws(expected_svg))
 
 })
 
@@ -30,7 +22,7 @@ test_that("vw_to_svg works with vega-lite spec", {
   skip_on_cran() # Need to have node installed
 
   svg_res <- vw_to_svg(spec_mtcars)
-  #expect_identical(svg_res, expected_svg)
+  expect_identical(trimws(svg_res), trimws(expected_svg))
 
 })
 

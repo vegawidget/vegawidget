@@ -45,6 +45,11 @@ HTMLWidgets.widget({
       // x, object to instantitate htmlwidget
       renderValue: function(x) {
 
+        // if x has base_url use it
+        if (x.base_url !== null){
+          x.embed_options.loader = vega.loader({baseURL: x.base_url});
+        }
+
         // initialise promise
         view_promise =
           vegaEmbed(el, x.chart_spec, opt = x.embed_options)

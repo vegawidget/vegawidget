@@ -43,10 +43,10 @@ increased-resolution of retina displays}
 }
 \value{
 \describe{
-\item{\code{vw_to_bitmap()}}{\code{array}, bitmap array}
 \item{\code{vw_to_svg()}}{\code{character}, SVG string}
-\item{\code{vw_write_png()}}{invisible \code{vegaspec} or \code{vegawidget}, called for side-effects}
+\item{\code{vw_to_bitmap()}}{\code{array}, bitmap array}
 \item{\code{vw_write_svg()}}{invisible \code{vegaspec} or \code{vegawidget}, called for side-effects}
+\item{\code{vw_write_png()}}{invisible \code{vegaspec} or \code{vegawidget}, called for side-effects}
 }
 }
 \description{

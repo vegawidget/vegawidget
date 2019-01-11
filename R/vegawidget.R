@@ -38,6 +38,9 @@
 #' @param elementId `character`, explicit element ID for the vegawidget,
 #'   useful if you have other JavaScript that needs to explicitly
 #'   discover and interact with a specific vegawidget
+#' @param base_url `character` The base url for a spec. This could be the path
+#'   to a local directory with a local file that is referenced in the spec,
+#'   or a base remote url. See examples.
 #' @param ... other arguments passed to [htmlwidgets::createWidget()]
 #'
 #' @return S3 object of class `vegawidget` and `htmlwidget`
@@ -46,10 +49,34 @@
 #' @examples
 #'   vegawidget(spec_mtcars, width = 350, height = 350)
 #'
+#'   # Remote url as base_url
+#'   spec_precip <-
+#'     list(
+#'       `$schema` = vega_schema(),
+#'       data = list(url = "seattle-weather.csv"),
+#'       mark = "tick",
+#'       encoding = list(
+#'         x = list(field = "precipitation", type = "quantitative")
+#'       )
+#'     ) %>%
+#'     as_vegaspec()
+#'
+#'   vegawidget(
+#'     spec_precip,
+#'     base_url =
+#'       "https://raw.githubusercontent.com/vegawidget/vegawidget/master/inst/example-data/"
+#'   )
+#'
+#'   # Local data file
+#'   local_path <- system.file("example-data/", package = "vegawidget")
+#'   vegawidget(
+#'     spec_precip,
+#'     base_url = local_path
+#'   )
 #' @export
 #'
 vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
-                       elementId = NULL, ...) {
+                       elementId = NULL, base_url = NULL, ...) {
 
   # if `embed` is NULL, check for option
   embed <- embed %||% getOption("vega.embed")
@@ -64,14 +91,38 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
   # autosize (if needed)
   spec <- vw_autosize(spec, width = width, height = height)
 
-  # use internal methods here because spec has already been validated
-  x <-
-    .as_json(
-      list(
-        chart_spec = .as_list(spec),
-        embed_options = embed
-      )
+  # if base_url is a local directory need to create a depencency
+  if (!is.null(base_url) && dir.exists(base_url)){
+    urls <- .find_urls(spec)
+    full_urls <- file.path(normalizePath(base_url), urls)
+    if (!file.exists(full_urls)) {
+        stop("Local file suggested by base_url and urls in spec does not exist:",
+             full_urls[which(!file.exists(full_urls))])
+    }
+
+    data_dependency <- htmltools::htmlDependency(
+      name = "data",
+      version = "0.0.0",
+      src = c(file = normalizePath(base_url)),
+      attachment = basename(full_urls),
+      all_files = FALSE
     )
+    base_url <- "lib/data-0.0.0/"
+  } else {
+    data_dependency = NULL
+  }
+
+  # use internal methods here because spec has already been validated
+
+  x <- list(
+    chart_spec = .as_list(spec),
+    embed_options = embed
+  )
+
+  x$base_url <- base_url # Don't include if not there
+
+  x <- .as_json(x)
+
 
   vegawidget <-
     htmlwidgets::createWidget(
@@ -87,6 +138,10 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
         knitr.figure = FALSE
       ),
       elementId = elementId,
+      # Note -- this blocks the user from being able to specify additional
+      # dependencies themselves through ... but there likely wouldn't be
+      # reason to do so...
+      dependencies = data_dependency,
       ...
     )
 

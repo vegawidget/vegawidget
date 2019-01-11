@@ -81,6 +81,13 @@
   x
 }
 
+# Method for vegaspec
+.find_urls <- function(spec){
+  unlisted <- unlist(.as_list(spec), recursive = TRUE, use.names = TRUE)
+  url_ix <- grep("^(.*[[:punct:]])*url$", names(unlisted))
+  urls <- unname(unlisted[url_ix])
+  urls
+}
 
 
 

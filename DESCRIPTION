@@ -54,7 +54,8 @@ Imports:
     rlang,
     glue,
     magrittr,
-    shiny
+    shiny,
+    htmltools
 Suggests:
     knitr,
     rmarkdown,

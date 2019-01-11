@@ -86,7 +86,7 @@ of the \strong{entire} rendered chart, including axes, labels, etc.
   vegawidget(
     spec_precip,
     base_url =
-      "https://raw.githubusercontent.com/vegawidget/vegawidget/master/inst/example-data/seattle-weather.csv"
+      "https://raw.githubusercontent.com/vegawidget/vegawidget/master/inst/example-data/"
   )
 
   # Local data file

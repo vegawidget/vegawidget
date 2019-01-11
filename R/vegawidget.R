@@ -64,7 +64,7 @@
 #'   vegawidget(
 #'     spec_precip,
 #'     base_url =
-#'       "https://raw.githubusercontent.com/vegawidget/vegawidget/master/inst/example-data/seattle-weather.csv"
+#'       "https://raw.githubusercontent.com/vegawidget/vegawidget/master/inst/example-data/"
 #'   )
 #'
 #'   # Local data file
@@ -114,14 +114,14 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
 
   # use internal methods here because spec has already been validated
 
-  x <-
-    .as_json(
-      list(
-        chart_spec = .as_list(spec),
-        embed_options = embed,
-        base_url = base_url
-      )
-    )
+  x <- list(
+    chart_spec = .as_list(spec),
+    embed_options = embed
+  )
+
+  x$base_url <- base_url # Don't include if not there
+
+  x <- .as_json(x)
 
 
   vegawidget <-

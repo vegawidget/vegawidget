@@ -15,12 +15,12 @@
 #' a `vegaspec`.
 #'
 #' The nodejs scripts used are adapted from the Vega
-#' [command line utilites](https://vega.github.io/vega/usage/#cli).
+#' [command line utilities](https://vega.github.io/vega/usage/#cli).
 #'
 #' @name image
 #' @inheritParams vw_autosize
 #' @param path   `character`, local path to which to write the file
-#' @param scale  `numeric`, useful for specifying larger images supporing the
+#' @param scale  `numeric`, useful for specifying larger images supporting the
 #'   increased-resolution of retina displays
 #' @param base_url `character`, the base URL for a data file, useful for
 #'   specifying a local directory; defaults to an empty string

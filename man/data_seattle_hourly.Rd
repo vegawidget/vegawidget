@@ -16,7 +16,7 @@
 data_seattle_hourly
 }
 \description{
-This dataset containse hourly temperature observations from Seattle for the
+This dataset contains hourly temperature observations from Seattle for the
 year 2010.
 }
 \keyword{datasets}

@@ -28,7 +28,7 @@
 #'   of the chart - valid only for single-view charts and layered charts;
 #'   the default is to use the height in the chart specification
 #'
-#' @return S3 object wiith class `vegaspec`
+#' @return S3 object with class `vegaspec`
 #' @examples
 #'   vw_autosize(spec_mtcars, width = 350, height = 350)
 #' @seealso [Article on vegaspec (sizing)](https://vegawidget.github.io/vegawidget/articles/vegaspec.html#sizing),

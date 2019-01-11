@@ -22,7 +22,7 @@
 #' - Specifying `width` and `height` is
 #' [effective only for single-view charts and layered charts](
 #' https://vega.github.io/vega-lite/docs/size.html#limitations).
-#' It will not work for contatenated, faceted, or repeated charts.
+#' It will not work for concatenated, faceted, or repeated charts.
 #'
 #' - In the `spec`, the default interpretation of width and height
 #' is to describe the dimensions of the
@@ -43,7 +43,7 @@
 #' @param elementId `character`, explicit element ID for the vegawidget,
 #'   useful if you have other JavaScript that needs to explicitly
 #'   discover and interact with a specific vegawidget
-#' @param base_url `character`, the base URL to prepent to data-URL elements
+#' @param base_url `character`, the base URL to prepend to data-URL elements
 #'   in the vegaspec. This could be the path
 #'   to a local directory that contains a local file referenced in the spec.
 #'   It could be the base for a remote URL. Please note that by specifying

@@ -16,6 +16,6 @@ S3 object of class \code{vegaspec}
 If a vegaspec has named datasets, it may be useful to rename them.
 This function will return a vegaspec with datasets named \code{data_001},
 \code{data_002}, and so on. It will go through the spec and replace the
-refernces to the names. A future version of this function may give you
+references to the names. A future version of this function may give you
 the more control over the names used.
 }

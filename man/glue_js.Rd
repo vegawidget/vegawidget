@@ -10,7 +10,7 @@ glue_js(..., .open = "${", .envir = parent.frame())
 \item{...}{character vectors as the JavaScript source code (all arguments
 will be pasted into one character string)}
 
-\item{.open}{\code{character}, opening delimeter used by \code{\link[glue:glue]{glue::glue()}}}
+\item{.open}{\code{character}, opening delimiter used by \code{\link[glue:glue]{glue::glue()}}}
 
 \item{.envir}{\code{environment}, tells \code{\link[glue:glue]{glue::glue()}} where to find
 the variables to be interpolated}

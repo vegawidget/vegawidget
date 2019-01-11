@@ -34,7 +34,7 @@ specifying a local directory; defaults to an empty string}
 \item{seed}{\code{integer}, the random seed for a Vega specification,
 defaults to a "random" integer}
 
-\item{scale}{\code{numeric}, useful for specifying larger images supporing the
+\item{scale}{\code{numeric}, useful for specifying larger images supporting the
 increased-resolution of retina displays}
 
 \item{...}{additional arguments passed to \code{vw_to_svg()}}
@@ -66,7 +66,7 @@ These functions can be called using (an object that can be coerced to)
 a \code{vegaspec}.
 
 The nodejs scripts used are adapted from the Vega
-\href{https://vega.github.io/vega/usage/#cli}{command line utilites}.
+\href{https://vega.github.io/vega/usage/#cli}{command line utilities}.
 }
 \examples{
 \dontrun{

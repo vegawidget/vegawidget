@@ -38,7 +38,7 @@ There are three different scenarios for rendering this data:
 }
 
 If you intend to display the data using the \strong{time-zone of the browser},
-or using \strong{UTC}, you should serialze datetimes using ISO-8601, i.e.
+or using \strong{UTC}, you should serialize datetimes using ISO-8601, i.e.
 \code{iso_dttm = TRUE}. In the rest of your vegaspec, you should choose
 local or UTC time-scales accordingly. However, in either case, you should
 use local time-units. No compromise is necessary.
@@ -64,8 +64,7 @@ data should be used because it is no longer trustworthy. For this,
 you will gain the ability to show the data in the context of its
 time-zone.
 
-Dates can be different creatures than datetimes. I think that is appropriate
-to serialize dates in an ISO format because, I think, UTC is the
+Dates can be different creatures than datetimes. I think that can be
 "common currency" for dates. I think this is because it is more common to
 compare across different locations using dates as a common index. For
 example, you might compare daily stock-market data from NYSE, CAC-40, and

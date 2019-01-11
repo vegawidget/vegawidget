@@ -1,7 +1,7 @@
 #' Examine vegaspec
 #'
 #' This is a thin wrapper to [listviewer::jsonedit()],
-#' use to interactvely examine a Vega or Vega-Lite specification.
+#' use to interactively examine a Vega or Vega-Lite specification.
 #'
 #' @inheritParams listviewer::jsonedit
 #' @inheritParams as_vegaspec

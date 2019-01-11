@@ -60,6 +60,43 @@ vegawidget(spec_mtcars, width = 300, height = 300)
 
 Here, the `width` and `height` refer to the overall dimensions of the rendered vegaspec. Please see the [vegaspec article](vegaspec.html) for more details on how sizing works.
 
+The `base_url` argument lets you specify the a common root for when you specify data using a URL. Consider this vegaspec:
+
+```{r}
+spec_precip <-
+  list(
+    `$schema` = vega_schema(),
+    data = list(url = "seattle-weather.csv"),
+    mark = "tick",
+    encoding = list(
+     x = list(field = "precipitation", type = "quantitative")
+    )
+  ) %>%
+  as_vegaspec()
+```
+
+We have included this file as an example dataset for this package; it is also available as a part of **[vega-datasets](https://github.com/vega/vega-datasets)**
+
+```{r}
+path_local <- system.file("example-data/", package = "vegawidget")
+url_remote <- "https://vega.github.io/vega-datasets/data"
+```
+
+By using a `base_url`, you can specify the file-location at rendering, rather than as a part of the specification:
+
+```{r, eval=FALSE}
+# not run
+vegawidget(spec_precip, base_url = path_local)
+```
+
+Using a local path will not work properly in this article because you do not have the same path on your computer. Local paths should be used only for local work; this is a variation on Jenny Bryan's famous [safety-tip](https://twitter.com/hadleywickham/status/940021008764846080).
+
+If you are sharing your work, using a remote URL will be more robust.
+
+```{r}
+vegawidget(spec_precip, base_url = url_remote)
+```
+
 ## Setting R options using knitr chunk-options
 
 In the previous section, you saw how to specify the rendering options using the `vegawidget()` function explicitly. You may wish to set the options implicitly: you can do so using the R options `vega.embed`, `vega.width`, and `vega.height`.

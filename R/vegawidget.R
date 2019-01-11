@@ -30,6 +30,11 @@
 #' etc. Here, `width` and `height` describe the dimensions
 #' of the **entire** rendered chart, including axes, labels, etc.
 #'
+#' Please note that if you are using a remote URL to refer to a dataset in
+#' your vegaspec, it will not render properly in the RStudio IDE. This
+#' is due to a security policy set by RStudio. If you open the chart in a
+#' browser, it should render properly.
+#'
 #' @inheritParams as_vegaspec
 #' @inheritParams vw_autosize
 #' @param embed   `list` to specify
@@ -52,7 +57,7 @@
 #' @examples
 #'   vegawidget(spec_mtcars, width = 350, height = 350)
 #'
-#'   # Remote url as base_url
+#'   # vegaspec with a data URL
 #'   spec_precip <-
 #'     list(
 #'       `$schema` = vega_schema(),
@@ -64,17 +69,18 @@
 #'     ) %>%
 #'     as_vegaspec()
 #'
-#'   vegawidget(
-#'     spec_precip,
-#'     base_url = "https://vega.github.io/vega-datasets/data"
-#'   )
+#'   # define local and remote paths to file
+#'   path_local <- system.file("example-data/", package = "vegawidget")
+#'   url_remote <- "https://vega.github.io/vega-datasets/data"
 #'
-#'   # Local data file
-#'   local_path <- system.file("example-data/", package = "vegawidget")
-#'   vegawidget(
-#'     spec_precip,
-#'     base_url = local_path
-#'   )
+#'   # render using local path
+#'   vegawidget(spec_precip, base_url = path_local)
+#'
+#'\dontrun{
+#'   # render using remote URL
+#'   # note: does not render in RStudio IDE; open using browser
+#'   vegawidget(spec_precip, base_url = url_remote)
+#'}
 #' @export
 #'
 vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,

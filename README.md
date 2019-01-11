@@ -181,8 +181,8 @@ URLs](https://vega.github.io/vega-lite/docs/data.html#url):
 ## Acknowledgements
 
   - [Alicia Schep](https://github.com/AliciaSchep) has been instrumental
-    in guiding the evolution of the API, and in making headway into
-    JavaScript and Shiny.
+    in guiding the evolution of the API, and for introducing new
+    features, particularly the JavaScript and Shiny functions.
   - [Haley Jeppson](https://github.com/haleyjeppson) and [Stuart
     Lee](https://github.com/sa-lee) have provided valuable feedback and
     contributions throughout the package’s development.

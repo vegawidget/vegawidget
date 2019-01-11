@@ -73,8 +73,8 @@ of the \strong{entire} rendered chart, including axes, labels, etc.
 
 Please note that if you are using a remote URL to refer to a dataset in
 your vegaspec, it will not render properly in the RStudio IDE. This
-is a security policy set by RStudio. If you open the chart in a browser,
-it should render properly.
+is due to a security policy set by RStudio. If you open the chart in a
+browser, it should render properly.
 }
 \examples{
   vegawidget(spec_mtcars, width = 350, height = 350)
@@ -92,7 +92,7 @@ it should render properly.
     as_vegaspec()
 
   # define local and remote paths to file
-  path_local <- system.file("example-data", package = "vegawidget")
+  path_local <- system.file("example-data/", package = "vegawidget")
   url_remote <- "https://vega.github.io/vega-datasets/data"
 
   # render using local path

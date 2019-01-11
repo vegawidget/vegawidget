@@ -225,6 +225,10 @@ is to describe the dimensions of the
 etc. Here, <code>width</code> and <code>height</code> describe the dimensions
 of the <strong>entire</strong> rendered chart, including axes, labels, etc.</p></li>
 </ul>
+    <p>Please note that if you are using a remote URL to refer to a dataset in
+your vegaspec, it will not render properly in the RStudio IDE. This
+is due to a security policy set by RStudio. If you open the chart in a
+browser, it should render properly.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -235,7 +239,7 @@ of the <strong>entire</strong> rendered chart, including axes, labels, etc.</p><
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>  <span class='fu'>vegawidget</span>(<span class='no'>spec_mtcars</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>350</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>350</span>)
 
-  <span class='co'># Remote url as base_url</span>
+  <span class='co'># vegaspec with a data URL</span>
   <span class='no'>spec_precip</span> <span class='kw'>&lt;-</span>
     <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
       <span class='kw'>`$schema`</span> <span class='kw'>=</span> <span class='fu'><a href='vega_schema.html'>vega_schema</a></span>(),
@@ -247,17 +251,16 @@ of the <strong>entire</strong> rendered chart, including axes, labels, etc.</p><
     ) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='as_vegaspec.html'>as_vegaspec</a></span>()
 
-  <span class='fu'>vegawidget</span>(
-    <span class='no'>spec_precip</span>,
-    <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='st'>"https://vega.github.io/vega-datasets/data"</span>
-  )
+  <span class='co'># define local and remote paths to file</span>
+  <span class='no'>path_local</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"example-data/"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"vegawidget"</span>)
+  <span class='no'>url_remote</span> <span class='kw'>&lt;-</span> <span class='st'>"https://vega.github.io/vega-datasets/data"</span>
 
-  <span class='co'># Local data file</span>
-  <span class='no'>local_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"example-data/"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"vegawidget"</span>)
-  <span class='fu'>vegawidget</span>(
-    <span class='no'>spec_precip</span>,
-    <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='no'>local_path</span>
-  )</div></pre>
+  <span class='co'># render using local path</span>
+  <span class='fu'>vegawidget</span>(<span class='no'>spec_precip</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='no'>path_local</span>)</div><span class='co'># NOT RUN {</span>
+  <span class='co'># render using remote URL</span>
+  <span class='co'># note: does not render in RStudio IDE; open using browser</span>
+  <span class='fu'>vegawidget</span>(<span class='no'>spec_precip</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='no'>url_remote</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

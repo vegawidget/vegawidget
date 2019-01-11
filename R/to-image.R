@@ -1,35 +1,33 @@
 #' Create or write image
 #'
-#' If [**node**]() is installed, these functions can be used to create
+#' If you have  **[nodejs](https://nodejs.org/en/)** installed,
+#' you can use these functions can to create
 #' or write images as PNG or SVG, using a `vegaspec` or `vegawidget`.
+#' To convert to a bitmap, or write a PNG file, you will additionally need
+#' the  **[rsvg](https://CRAN.R-project.org/package=rsvg)** package.
 #'
 #' These functions can be called using (an object that can be coerced to)
 #' a `vegaspec`.
 #'
-#' For writing a `png`, the `rsvg` package is needed in addition to
-#' **node**.
-#'
-#' The **node** scripts used are adapted from the command line utilies in the
-#' vega-cli package.
+#' The nodejs scripts used are adapted from the Vega
+#' [command line utilites](https://vega.github.io/vega/usage/#cli).
 #'
 #' @name image
-#' @param spec `vegaspec`, object that is or can be coerced to a `vegaspec`,
-#'   e.g. a vegawidget object.
-#' @param path   `character`, local path to which to write file
-#' @param scale  `numeric`, useful for specifying increased resolution for
-#'   retina displays
-#' @param width,height `numeric`, output width and height in pixels
-#'   (or `NULL` for default)
-#' @param base_url `character`, the base url for a data file. Useful for
-#'   specifying a local directory
-#' @param seed `integer`, the random seed for a vega spec
+#' @inheritParams vw_autosize
+#' @param path   `character`, local path to which to write the file
+#' @param scale  `numeric`, useful for specifying larger images supporing the
+#'   increased-resolution of retina displays
+#' @param base_url `character`, the base URL for a data file, useful for
+#'   specifying a local directory; defaults to an empty string
+#' @param seed `integer`, the random seed for a Vega specification,
+#'   defaults to a "random" integer
 #' @param ... additional arguments passed to `vw_to_svg()`
 #'
 #' @return \describe{
-#'   \item{`vw_to_bitmap()`}{`array`, bitmap array}
 #'   \item{`vw_to_svg()`}{`character`, SVG string}
-#'   \item{`vw_write_png()`}{invisible `vegaspec` or `vegawidget`}
-#'   \item{`vw_write_svg()`}{invisible `vegaspec` or `vegawidget`}
+#'   \item{`vw_to_bitmap()`}{`array`, bitmap array}
+#'   \item{`vw_write_svg()`}{invisible `vegaspec` or `vegawidget`, called for side-effects}
+#'   \item{`vw_write_png()`}{invisible `vegaspec` or `vegawidget`, called for side-effects}
 #' }
 #'
 #' @examples
@@ -56,17 +54,21 @@
 #'   vw_write_png(spec_precip, "temp-local.png", base_url = data_dir)
 #'
 #' }
-#' @seealso [vega-view library](https://github.com/vega/vega-view#image-export),
+#' @seealso [vega-view library](https://github.com/vega/vega-view#image-export)
 #'
 #' @rdname image
 #' @export
 #'
-vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = "",
-                      seed = sample(1e8, size = 1)) {
+vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
+                      seed = NULL) {
 
   # Check dependencies
   assert_packages("processx")
   check_node_installed()
+
+  # set defaults
+  base_url = base_url %||% ""
+  seed = seed %||% sample(1e8, size = 1)
 
   spec <- vw_autosize(spec, width = width, height = height)
   vega_spec <- vw_to_vega(spec)

@@ -1,5 +1,5 @@
 ---
-title: "Import into Other Packages"
+title: "Import into other packages"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 ---

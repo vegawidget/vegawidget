@@ -8,8 +8,8 @@
 \alias{vw_write_png}
 \title{Create or write image}
 \usage{
-vw_to_svg(spec, width = NULL, height = NULL, base_url = "",
-  seed = sample(1e+08, size = 1))
+vw_to_svg(spec, width = NULL, height = NULL, base_url = NULL,
+  seed = NULL)
 
 vw_to_bitmap(spec, scale = 1, width = NULL, height = NULL, ...)
 
@@ -18,45 +18,50 @@ vw_write_svg(spec, path, width = NULL, height = NULL, ...)
 vw_write_png(spec, path, scale = 1, width = NULL, height = NULL, ...)
 }
 \arguments{
-\item{spec}{\code{vegaspec}, object that is or can be coerced to a \code{vegaspec},
-e.g. a vegawidget object.}
+\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
-\item{width, height}{\code{numeric}, output width and height in pixels
-(or \code{NULL} for default)}
+\item{width}{\code{integer}, if specified, the total rendered width (in pixels)
+of the chart - valid only for single-view charts and layered charts;
+the default is to use the width in the chart specification}
 
-\item{base_url}{\code{character}, the base url for a data file. Useful for
-specifying a local directory}
+\item{height}{\code{integer}, if specified, the total rendered height (in pixels)
+of the chart - valid only for single-view charts and layered charts;
+the default is to use the height in the chart specification}
 
-\item{seed}{\code{integer}, the random seed for a vega spec}
+\item{base_url}{\code{character}, the base URL for a data file, useful for
+specifying a local directory; defaults to an empty string}
 
-\item{scale}{\code{numeric}, useful for specifying increased resolution for
-retina displays}
+\item{seed}{\code{integer}, the random seed for a Vega specification,
+defaults to a "random" integer}
+
+\item{scale}{\code{numeric}, useful for specifying larger images supporing the
+increased-resolution of retina displays}
 
 \item{...}{additional arguments passed to \code{vw_to_svg()}}
 
-\item{path}{\code{character}, local path to which to write file}
+\item{path}{\code{character}, local path to which to write the file}
 }
 \value{
 \describe{
 \item{\code{vw_to_bitmap()}}{\code{array}, bitmap array}
 \item{\code{vw_to_svg()}}{\code{character}, SVG string}
-\item{\code{vw_write_png()}}{invisible \code{vegaspec} or \code{vegawidget}}
-\item{\code{vw_write_svg()}}{invisible \code{vegaspec} or \code{vegawidget}}
+\item{\code{vw_write_png()}}{invisible \code{vegaspec} or \code{vegawidget}, called for side-effects}
+\item{\code{vw_write_svg()}}{invisible \code{vegaspec} or \code{vegawidget}, called for side-effects}
 }
 }
 \description{
-If \url{node} is installed, these functions can be used to create
+If you have  \strong{\href{https://nodejs.org/en/}{nodejs}} installed,
+you can use these functions can to create
 or write images as PNG or SVG, using a \code{vegaspec} or \code{vegawidget}.
+To convert to a bitmap, or write a PNG file, you will additionally need
+the  \strong{\href{https://CRAN.R-project.org/package=rsvg}{rsvg}} package.
 }
 \details{
 These functions can be called using (an object that can be coerced to)
 a \code{vegaspec}.
 
-For writing a \code{png}, the \code{rsvg} package is needed in addition to
-\strong{node}.
-
-The \strong{node} scripts used are adapted from the command line utilies in the
-vega-cli package.
+The nodejs scripts used are adapted from the Vega
+\href{https://vega.github.io/vega/usage/#cli}{command line utilites}.
 }
 \examples{
 \dontrun{
@@ -84,5 +89,5 @@ vega-cli package.
 }
 }
 \seealso{
-\href{https://github.com/vega/vega-view#image-export}{vega-view library},
+\href{https://github.com/vega/vega-view#image-export}{vega-view library}
 }

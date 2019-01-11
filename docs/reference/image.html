@@ -34,8 +34,11 @@
   
 <meta property="og:title" content="Create or write image — image" />
 
-<meta property="og:description" content="If node is installed, these functions can be used to create
-or write images as PNG or SVG, using a vegaspec or vegawidget." />
+<meta property="og:description" content="If you have  nodejs installed,
+you can use these functions can to create
+or write images as PNG or SVG, using a vegaspec or vegawidget.
+To convert to a bitmap, or write a PNG file, you will additionally need
+the  rsvg package." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -142,13 +145,16 @@ or write images as PNG or SVG, using a vegaspec or vegawidget." />
 
     <div class="ref-description">
     
-    <p>If <a href='node'>node</a> is installed, these functions can be used to create
-or write images as PNG or SVG, using a <code>vegaspec</code> or <code>vegawidget</code>.</p>
+    <p>If you have  <strong><a href='https://nodejs.org/en/'>nodejs</a></strong> installed,
+you can use these functions can to create
+or write images as PNG or SVG, using a <code>vegaspec</code> or <code>vegawidget</code>.
+To convert to a bitmap, or write a PNG file, you will additionally need
+the  <strong><a href='https://CRAN.R-project.org/package=rsvg'>rsvg</a></strong> package.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>vw_to_svg</span>(<span class='no'>spec</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fl'>1e+08</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+    <pre class="usage"><span class='fu'>vw_to_svg</span>(<span class='no'>spec</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>vw_to_bitmap</span>(<span class='no'>spec</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
@@ -161,27 +167,34 @@ or write images as PNG or SVG, using a <code>vegaspec</code> or <code>vegawidget
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>spec</th>
-      <td><p><code>vegaspec</code>, object that is or can be coerced to a <code>vegaspec</code>,
-e.g. a vegawidget object.</p></td>
+      <td><p>object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></td>
     </tr>
     <tr>
-      <th>width, height</th>
-      <td><p><code>numeric</code>, output width and height in pixels
-(or <code>NULL</code> for default)</p></td>
+      <th>width</th>
+      <td><p><code>integer</code>, if specified, the total rendered width (in pixels)
+of the chart - valid only for single-view charts and layered charts;
+the default is to use the width in the chart specification</p></td>
+    </tr>
+    <tr>
+      <th>height</th>
+      <td><p><code>integer</code>, if specified, the total rendered height (in pixels)
+of the chart - valid only for single-view charts and layered charts;
+the default is to use the height in the chart specification</p></td>
     </tr>
     <tr>
       <th>base_url</th>
-      <td><p><code>character</code>, the base url for a data file. Useful for
-specifying a local directory</p></td>
+      <td><p><code>character</code>, the base URL for a data file, useful for
+specifying a local directory; defaults to an empty string</p></td>
     </tr>
     <tr>
       <th>seed</th>
-      <td><p><code>integer</code>, the random seed for a vega spec</p></td>
+      <td><p><code>integer</code>, the random seed for a Vega specification,
+defaults to a "random" integer</p></td>
     </tr>
     <tr>
       <th>scale</th>
-      <td><p><code>numeric</code>, useful for specifying increased resolution for
-retina displays</p></td>
+      <td><p><code>numeric</code>, useful for specifying larger images supporing the
+increased-resolution of retina displays</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -189,7 +202,7 @@ retina displays</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p><code>character</code>, local path to which to write file</p></td>
+      <td><p><code>character</code>, local path to which to write the file</p></td>
     </tr>
     </table>
     
@@ -199,8 +212,8 @@ retina displays</p></td>
 <dl class='dl-horizontal'>
 <dt><code>vw_to_bitmap()</code></dt><dd><p><code>array</code>, bitmap array</p></dd>
 <dt><code>vw_to_svg()</code></dt><dd><p><code>character</code>, SVG string</p></dd>
-<dt><code>vw_write_png()</code></dt><dd><p>invisible <code>vegaspec</code> or <code>vegawidget</code></p></dd>
-<dt><code>vw_write_svg()</code></dt><dd><p>invisible <code>vegaspec</code> or <code>vegawidget</code></p></dd>
+<dt><code>vw_write_png()</code></dt><dd><p>invisible <code>vegaspec</code> or <code>vegawidget</code>, called for side-effects</p></dd>
+<dt><code>vw_write_svg()</code></dt><dd><p>invisible <code>vegaspec</code> or <code>vegawidget</code>, called for side-effects</p></dd>
 </dl>
 
     
@@ -208,14 +221,12 @@ retina displays</p></td>
 
     <p>These functions can be called using (an object that can be coerced to)
 a <code>vegaspec</code>.</p>
-<p>For writing a <code>png</code>, the <code>rsvg</code> package is needed in addition to
-<strong>node</strong>.</p>
-<p>The <strong>node</strong> scripts used are adapted from the command line utilies in the
-vega-cli package.</p>
+<p>The nodejs scripts used are adapted from the Vega
+<a href='https://vega.github.io/vega/usage/#cli'>command line utilites</a>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://github.com/vega/vega-view#image-export'>vega-view library</a>,</p></div>
+    <div class='dont-index'><p><a href='https://github.com/vega/vega-view#image-export'>vega-view library</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

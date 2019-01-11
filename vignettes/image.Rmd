@@ -4,25 +4,24 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 ---
 
-The main purpose of this article is to demonstrate use this package's image-generating functions. A secondary purpose is  to help the package's developers confirm that these functions continue to work when things get changed. 
+The main purpose of this article is to demonstrate use this package's image-generating functions. A secondary purpose is to help the package's developers confirm that these functions continue to work when things get changed. 
 
-If [**node**]() is installed, you can use these image-generating functions to convert specs (or widgets) into SVG or bitmaps. With the [**rsvg**]() package additionally installed, one can write out to PNG format.  
+If you have **[nodejs](https://nodejs.org/en/)** installed, you can use these image-generating functions to convert vegaspecs (or vegawidgets) into SVG strings or write SVG files. With the **[rsvg](https://CRAN.R-project.org/package=rsvg)** package installed, you can get a bitmap array, or write PNG files.  
 
-We have four image-generating functions; they each take either a vegaspec or a vegawidget as their argument:
+We have four image-generating functions; they each take either a vegaspec or a vegawidget as their main argument:
 
-- `vw_to_bitmap()` returns a bitmap array that can be written to a PNG file
 - `vw_to_svg()` returns a string for a SVG image
-- `vw_write_png()` writes a PNG file, invisibly returns the vegaspec or vegawidget
+- `vw_to_bitmap()` returns a bitmap array that can be written to a PNG file
 - `vw_write_svg()` writes an SVG file, invisibly returns the vegaspec or vegawidget
+- `vw_write_png()` writes a PNG file, invisibly returns the vegaspec or vegawidget
 
 As you can see, the function name indicates the action taken and the image-format.
 
 In addition to a vegaspec or vegawidget, these are the principal arguments:
 
-- `path`, for the image-writing functions, indicates the local path to which the file is to be written.
-
-- `dpi`,`width`, and `height`, settings for the size and resolution of a PNG output image.
-
+- `width`, and `height`, sent to `vw_autosize()` to specify the display dimensions. These refer to the *overall* dimensions of the image - not the dimensions of the plotting area.
+- `scale`, to support display at retina resolutions. The default value is 1; for a retina image, you can specify a value of 2.
+- `path`, for the image-writing functions, this indicates the local path to which the file is to be written.
 
 As you are most likely already aware, there is a tradeoff between PNG and SVG. The PNG format is an image with finite resolution. The SVG format is a set of instructions on how to render an image, so it has no resolution limitations. In general, the size of an SVG file scales with the number of graphical marks it contains, whereas a PNG file scales with its pixel-width and pixel-height.
 
@@ -40,7 +39,7 @@ library("conflicted")
 
 # note to developers - the only way that this html file will 
 # compile properly is to use pkgdown::build_site() or 
-# pkgdown::build_article() - do not use the knit button
+# pkgdown::build_article("image") - do not use the knit button
 
 prefix_image <- "visual-regression"
 dir_write <- here::here("docs", "reference", "figures")
@@ -67,7 +66,7 @@ file_delete(to_delete)
 
 ## Reference 
 
-For the purpose of comparing later renderings, our reference is this `mtcars` scatterplot. It is rendered with a plotting area of `width = 300` and `height = 300`.
+For the purpose of comparing later renderings, our reference is this `mtcars` scatterplot. It is rendered, in HTML, with a plotting area of `width = 300` and `height = 300`.
 
 ```{r}
 spec_mtcars
@@ -75,14 +74,19 @@ spec_mtcars
 
 ## Bitmap & PNG
 
+To use the bitmap and PNG functions, you will need the **[rsvg](https://CRAN.R-project.org/package=rsvg)** package.
+
 ### To bitmap
 
-The `vw_to_bitmap()` function returns a bitmap array. We can see the dimensions of the array:
+The `vw_to_bitmap()` function returns a bitmap array. The package uses it primarly for converting the SVG to PNG; you may have other uses. 
+
+We can show the effect of the `scale` argument by inspecting the dimensions of the bitmap array. Using the default, `scale = 1`:
 
 ```{r}
 vw_to_bitmap(spec_mtcars) %>% dim()
 ```
 
+At `scale = 2`:
 
 ```{r}
 vw_to_bitmap(spec_mtcars, scale = 2) %>% dim()
@@ -90,7 +94,7 @@ vw_to_bitmap(spec_mtcars, scale = 2) %>% dim()
 
 ### PNG output
 
-The rest of the PNG demonstration focuses on the image-writing function, `vw_write_png()`, which uses `vw_to_bitmap()`. In the examples that follow, we use a couple of internal helper-functions, `path_write()` and `path_read()`, to manage the file-locations within the **pkgdown** framework. For the purpose of this demonstration please disregard these functions, please interpret this only as a means to provide a `path`.
+The function `vw_write_png()` uses `vw_to_bitmap()` to write an image-file. In the examples that follow, we use a couple of internal helper-functions, `path_write()` and `path_read()`, to manage the file-locations within the **pkgdown** framework. For the purpose of this demonstration please disregard these functions, please interpret this only as a means to provide a `path`.
 
 ### Normal scale
 
@@ -105,6 +109,12 @@ vw_write_png(spec_mtcars, path = path_write(filename))
 
 knitr::include_graphics(path_read(filename))
 ```
+
+We note that the PNG appears slightly different from the HTML rendering. We suspect this is because the SVG-rendering engine, **[librsvg](https://github.com/GNOME/librsvg)**, works differently from your browser. In the future, we would like to find a way to make the rendering more-similar.
+
+### Retina scale
+
+By increasing the `scale` to 2, then decreasing the display-size by a factor of two, we can show this image at "retina" resolution. The code below is a little tortured, there should be an easier way. In the future, we would like for this to be the default method for knitting to a non-HTML medium (using PNG or SVG), and that it "just work".
 
 ```{r}
 filename <- "mtcars-retina.png"
@@ -124,7 +134,7 @@ tags$img(src = path_read(filename), style = glue("width: {width / 2}px;"))
 
 ### Using vegawidget
 
-This demonstrates how to use `vw_write_png()` with vegawidgets. 
+This demonstrates that we can use `vw_write_png()` with vegawidgets. 
 
 **Expectation**: this image will appear at the same size as the [reference](#reference).
 
@@ -176,28 +186,11 @@ vw_write_svg(spec_mtcars, path = path_write(filename), width = 600, height = 300
 knitr::include_graphics(path_read(filename))
 ```
 
-
-### Vegawidget
-
-As above, this demonstrates that we can expect use `vw_write_svg()` with vegawidgets. 
-
-**Expectation**: this image will appear at the same size as the [reference](#reference).
-
-```{r}
-filename <- "mtcars-widget.svg"
-
-vw_write_svg(vegawidget(spec_mtcars), path = path_write(filename))
-
-knitr::include_graphics(path_read(filename))
-```
-
 ## Other visual-regressions
 
 Although the rest of these do not use images, they are included in this article to make it easier to verify that things render as we expect.
 
 ### Autosize 
-
-Next, we test using `vw_autosize()`. 
 
 **Expectation**: the rendered spec will have a *total* size of `width = 600` and `height = 300`.
 

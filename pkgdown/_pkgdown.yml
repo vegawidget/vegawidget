@@ -39,8 +39,8 @@ reference:
     desc: >
       The central *object* of this package is a `vegaspec`, which is also
       a `list`. Use these functions to coerce to a `vegaspec`,
-      format as JSON, or otherwise operate on a `vegaspec`. If the
-      [**V8**](https://CRAN.R-project.org/package=V8) package is installed,
+      format as JSON, or otherwise operate on a `vegaspec`. If you have
+      [**nodejs**](https://nodejs.org/en/) installed,
       you can compile a Vega-Lite specification to a Vega specification.
     contents:
       - as_vegaspec
@@ -70,7 +70,10 @@ reference:
   - title: Shiny
     desc: >
       Render vegawidgets in Shiny; also, access Vega datasets, signals,
-      and events from Shiny.
+      and events from Shiny. The function `vw_shiny_demo()` lets you
+      run any of this package's demo apps; call it without arguments
+      to see the list of available apps. There is also an
+      [article](../articles/shiny.html) that goes into some detail.
     contents:
     - renderVegawidget
     - vegawidgetOutput
@@ -80,10 +83,14 @@ reference:
   - title: JavaScript
     desc: >
       Adding JavaScript listners and composing JavaScript handlers.
+      These provide you the same capability to access Vega charts
+      as with Shiny, but *you* are responsible for providing all the
+      HTML and JS code to make it work. To see some examples, please
+      see this [article](../articles/javascript.html).
     contents:
+    - add-listeners
     - vw_handler_signal
     - vw_handler_add_effect
-    - add-listeners
     - glue_js
   - title: Data
     desc: >
@@ -97,7 +104,9 @@ reference:
     desc: >
       If you have [**nodejs**](https://nodejs.org/en/)
       installed, you can convert and write a `vegaspec` or a
-      `vegawidget` to SVG, convert to a bitmap, or write to a PNG file.
+      `vegawidget` to SVG. To convert to a bitmap, or to write
+      to a PNG file, you will need the
+      [**rsvg**](https://CRAN.R-project.org/package=rsvg) package.
     contents:
     - vw_to_svg
     - vw_to_bitmap
@@ -108,10 +117,9 @@ reference:
       You can use `use_vegawidget()` to bring this package's functionality to
       yours. Much like `usethis::use_pipe()` allows you to re-export the pipe
       in your package's namespace, `use_vegawidget()` does this for many of
-      these functions.
-
-      The other functions deal serializing date-times, and versions of Vega's
-      JavaScript libraries.
+      these functions, as detailed in this [article](../articles/import.html).
+      The other functions deal with serializing date-times,
+      and versions of Vega's JavaScript libraries.
     contents:
     - use_vegawidget
     - vw_serialize_data

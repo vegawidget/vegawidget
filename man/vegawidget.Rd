@@ -26,9 +26,12 @@ the default is to use the height in the chart specification}
 useful if you have other JavaScript that needs to explicitly
 discover and interact with a specific vegawidget}
 
-\item{base_url}{\code{character} The base url for a spec. This could be the path
-to a local directory with a local file that is referenced in the spec,
-or a base remote url. See examples.}
+\item{base_url}{\code{character}, the base URL to prepent to data-URL elements
+in the vegaspec. This could be the path
+to a local directory that contains a local file referenced in the spec.
+It could be the base for a remote URL. Please note that by specifying
+the \code{base_url} here, you will override any \code{loader} that you specify
+using \code{vega_embed()}. See examples.}
 
 \item{...}{other arguments passed to \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}}
 }
@@ -85,8 +88,7 @@ of the \strong{entire} rendered chart, including axes, labels, etc.
 
   vegawidget(
     spec_precip,
-    base_url =
-      "https://raw.githubusercontent.com/vegawidget/vegawidget/master/inst/example-data/"
+    base_url = "https://vega.github.io/vega-datasets/data"
   )
 
   # Local data file

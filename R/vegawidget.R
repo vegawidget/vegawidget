@@ -38,9 +38,12 @@
 #' @param elementId `character`, explicit element ID for the vegawidget,
 #'   useful if you have other JavaScript that needs to explicitly
 #'   discover and interact with a specific vegawidget
-#' @param base_url `character` The base url for a spec. This could be the path
-#'   to a local directory with a local file that is referenced in the spec,
-#'   or a base remote url. See examples.
+#' @param base_url `character`, the base URL to prepent to data-URL elements
+#'   in the vegaspec. This could be the path
+#'   to a local directory that contains a local file referenced in the spec.
+#'   It could be the base for a remote URL. Please note that by specifying
+#'   the `base_url` here, you will override any `loader` that you specify
+#'   using `vega_embed()`. See examples.
 #' @param ... other arguments passed to [htmlwidgets::createWidget()]
 #'
 #' @return S3 object of class `vegawidget` and `htmlwidget`
@@ -63,8 +66,7 @@
 #'
 #'   vegawidget(
 #'     spec_precip,
-#'     base_url =
-#'       "https://raw.githubusercontent.com/vegawidget/vegawidget/master/inst/example-data/"
+#'     base_url = "https://vega.github.io/vega-datasets/data"
 #'   )
 #'
 #'   # Local data file
@@ -91,6 +93,8 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
   # autosize (if needed)
   spec <- vw_autosize(spec, width = width, height = height)
 
+  # (note for later, we should take into account the possibility
+  # that `base_url` is specified using vega_embed())
   # if base_url is a local directory need to create a depencency
   if (!is.null(base_url) && dir.exists(base_url)){
     urls <- .find_urls(spec)
@@ -122,7 +126,6 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
   x$base_url <- base_url # Don't include if not there
 
   x <- .as_json(x)
-
 
   vegawidget <-
     htmlwidgets::createWidget(

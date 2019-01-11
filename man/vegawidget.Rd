@@ -5,7 +5,7 @@
 \title{Create a Vega/Vega-Lite htmlwidget}
 \usage{
 vegawidget(spec, embed = NULL, width = NULL, height = NULL,
-  elementId = NULL, ...)
+  elementId = NULL, base_url = NULL, ...)
 }
 \arguments{
 \item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
@@ -25,6 +25,13 @@ the default is to use the height in the chart specification}
 \item{elementId}{\code{character}, explicit element ID for the vegawidget,
 useful if you have other JavaScript that needs to explicitly
 discover and interact with a specific vegawidget}
+
+\item{base_url}{\code{character}, the base URL to prepent to data-URL elements
+in the vegaspec. This could be the path
+to a local directory that contains a local file referenced in the spec.
+It could be the base for a remote URL. Please note that by specifying
+the \code{base_url} here, you will override any \code{loader} that you specify
+using \code{vega_embed()}. See examples.}
 
 \item{...}{other arguments passed to \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}}
 }
@@ -67,6 +74,29 @@ of the \strong{entire} rendered chart, including axes, labels, etc.
 \examples{
   vegawidget(spec_mtcars, width = 350, height = 350)
 
+  # Remote url as base_url
+  spec_precip <-
+    list(
+      `$schema` = vega_schema(),
+      data = list(url = "seattle-weather.csv"),
+      mark = "tick",
+      encoding = list(
+        x = list(field = "precipitation", type = "quantitative")
+      )
+    ) \%>\%
+    as_vegaspec()
+
+  vegawidget(
+    spec_precip,
+    base_url = "https://vega.github.io/vega-datasets/data"
+  )
+
+  # Local data file
+  local_path <- system.file("example-data/", package = "vegawidget")
+  vegawidget(
+    spec_precip,
+    base_url = local_path
+  )
 }
 \seealso{
 \href{https://github.com/vega/vega-embed#options}{vega-embed options},

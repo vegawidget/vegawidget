@@ -100,7 +100,7 @@
 
       
       </header><script src="index_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="index_files/vega-4.0.0/promise.min.js"></script><script src="index_files/vega-4.0.0/symbol.min.js"></script><script src="index_files/vega-4.0.0/vega.js"></script><script src="index_files/vega-lite-2.6.0/vega-lite.min.js"></script><link href="index_files/vega-embed-3.25.0/vega-embed.css" rel="stylesheet">
-<script src="index_files/vega-embed-3.25.0/vega-embed-modified.js"></script><script src="index_files/vegawidget-binding-0.0.6.9000/vegawidget.js"></script><div class="row">
+<script src="index_files/vega-embed-3.25.0/vega-embed-modified.js"></script><script src="index_files/vegawidget-binding-0.0.7.9000/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     
 
@@ -111,8 +111,9 @@
 <div id="vegawidget" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#vegawidget" class="anchor"></a>vegawidget</h1></div>
-<p>The goal of vegawidget is to render Vega-Lite and Vega specifications as htmlwidgets. Its ambition is to be a <em>low-level</em> interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications. This is the key difference with the <a href="https://github.com/hrbrmstr/vegalite"><strong>vegalite</strong></a> package: it provides a set of higher-level functions to compose specifications, whereas <strong>vegawidget</strong> concerns itself mainly with the rendering of the htmlwidget.</p>
-<p>To be clear, although Vega-Lite offers a grammar-of-graphics, this package does not offer a user-friendly framework, as provided by ggplot2. However, this package may be useful to:</p>
+<p>The goal of vegawidget is to render Vega-Lite and Vega specifications as htmlwidgets, and to provide you a means to communicate with a Vega chart using JavaScript or Shiny. Its ambition is to be a <em>low-level</em> interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications.</p>
+<p>This is the key difference with the <a href="https://github.com/hrbrmstr/vegalite"><strong>vegalite</strong></a> package: it provides a set of higher-level functions to compose specifications, whereas <strong>vegawidget</strong> concerns itself mainly with the rendering of the htmlwidget.</p>
+<p>To be clear, although Vega-Lite offers a grammar-of-graphics, this package does not offer a user-friendly framework to compose graphics, like those provided by <strong><a href="https://ggplot2.tidyverse.org">ggplot2</a></strong> or <strong><a href="https://ggvis.rstudio.com">ggvis</a></strong>. However, this package may be useful to:</p>
 <ul>
 <li>build re-usable Vega and Vega-Lite specifications for deployment elsewhere, if you can tolerate the frustration of building specifications using lists.</li>
 <li>develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as a foundation (or inspiration).</li>
@@ -158,8 +159,8 @@
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
 <p>The <code><a href="reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; many of this package’s functions are built to support, and render, vegaspecs:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-e8924c72a93d06b9ff48" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e8924c72a93d06b9ff48">{"x":{
+<div id="htmlwidget-fa32341af798c0c8e754" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fa32341af798c0c8e754">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "description": "An mtcars example.",
@@ -665,6 +666,15 @@
 <p>Although there is an <a href="https://vegawidget.github.io/vegawidget/articles/import.html">article</a> dedicated to this aspect of the package, it warrants further emphasis.</p>
 <p>This package provides functions to render Vega(-Lite) specifications; although it provides some helpers, it does not provide higher-level functions to build specifications. Rather, this is left to other packages. Even though you can use its functions directly, you are invited to import and re-export them for use in <em>your</em> package.</p>
 <p>Accordingly, this package offers a templating function, <code><a href="reference/use_vegawidget.html">use_vegawidget()</a></code>, to help you integrate vegawidget functions into your package. For example, it is used to import and re-export vegawidget functions for the <a href="https://vegawidget.github.io/altair">altair</a> package.</p>
+</div>
+<div id="known-limitations" class="section level2">
+<h2 class="hasAnchor">
+<a href="#known-limitations" class="anchor"></a>Known limitations</h2>
+<p>The two biggest known limitations are both associated with vegaspecs that contain <a href="https://vega.github.io/vega-lite/docs/data.html#url">datasets specified using remote URLs</a>:</p>
+<ul>
+<li><p>The RStudio IDE does not let you access remote URLs for security reasons. A chart that accesses remote data will not render in the IDE; it <em>will</em> render in a browser window.</p></li>
+<li><p>The image functions use <strong>nodejs</strong> to create SVG strings. We are not able to configure the proxy in our node scripts, so if your computer uses a proxy to access remote data, our functions will not create the images properly.</p></li>
+</ul>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2 class="hasAnchor">

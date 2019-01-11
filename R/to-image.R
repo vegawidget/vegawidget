@@ -6,6 +6,11 @@
 #' To convert to a bitmap, or write a PNG file, you will additionally need
 #' the  **[rsvg](https://CRAN.R-project.org/package=rsvg)** package.
 #'
+#' There is a known limitation to these functions - if you are using a vegaspec
+#' that has dataset loaded from a remote URL. The `nodejs` scripts are not
+#' able to use a proxy, so if your computer uses a proxy to access the remote URL,
+#' the data will not load.
+#'
 #' These functions can be called using (an object that can be coerced to)
 #' a `vegaspec`.
 #'

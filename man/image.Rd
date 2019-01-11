@@ -43,10 +43,10 @@ increased-resolution of retina displays}
 }
 \value{
 \describe{
-\item{\code{vw_to_bitmap()}}{\code{array}, bitmap array}
 \item{\code{vw_to_svg()}}{\code{character}, SVG string}
-\item{\code{vw_write_png()}}{invisible \code{vegaspec} or \code{vegawidget}, called for side-effects}
+\item{\code{vw_to_bitmap()}}{\code{array}, bitmap array}
 \item{\code{vw_write_svg()}}{invisible \code{vegaspec} or \code{vegawidget}, called for side-effects}
+\item{\code{vw_write_png()}}{invisible \code{vegaspec} or \code{vegawidget}, called for side-effects}
 }
 }
 \description{
@@ -57,6 +57,11 @@ To convert to a bitmap, or write a PNG file, you will additionally need
 the  \strong{\href{https://CRAN.R-project.org/package=rsvg}{rsvg}} package.
 }
 \details{
+There is a known limitation to these functions - if you are using a vegaspec
+that has dataset loaded from a remote URL. The \code{nodejs} scripts are not
+able to use a proxy, so if your computer uses a proxy to access the remote URL,
+the data will not load.
+
 These functions can be called using (an object that can be coerced to)
 a \code{vegaspec}.
 

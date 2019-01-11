@@ -210,16 +210,20 @@ increased-resolution of retina displays</p></td>
 
     
 <dl class='dl-horizontal'>
-<dt><code>vw_to_bitmap()</code></dt><dd><p><code>array</code>, bitmap array</p></dd>
 <dt><code>vw_to_svg()</code></dt><dd><p><code>character</code>, SVG string</p></dd>
-<dt><code>vw_write_png()</code></dt><dd><p>invisible <code>vegaspec</code> or <code>vegawidget</code>, called for side-effects</p></dd>
+<dt><code>vw_to_bitmap()</code></dt><dd><p><code>array</code>, bitmap array</p></dd>
 <dt><code>vw_write_svg()</code></dt><dd><p>invisible <code>vegaspec</code> or <code>vegawidget</code>, called for side-effects</p></dd>
+<dt><code>vw_write_png()</code></dt><dd><p>invisible <code>vegaspec</code> or <code>vegawidget</code>, called for side-effects</p></dd>
 </dl>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These functions can be called using (an object that can be coerced to)
+    <p>There is a known limitation to these functions - if you are using a vegaspec
+that has dataset loaded from a remote URL. The <code>nodejs</code> scripts are not
+able to use a proxy, so if your computer uses a proxy to access the remote URL,
+the data will not load.</p>
+<p>These functions can be called using (an object that can be coerced to)
 a <code>vegaspec</code>.</p>
 <p>The nodejs scripts used are adapted from the Vega
 <a href='https://vega.github.io/vega/usage/#cli'>command line utilites</a>.</p>

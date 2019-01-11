@@ -10,18 +10,22 @@ status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project
 # vegawidget
 
 The goal of vegawidget is to render Vega-Lite and Vega specifications as
-htmlwidgets. Its ambition is to be a *low-level* interface to the
-Vega(-Lite) API, such that other packages can build upon it to offer
-higher-level functions to compose Vega(-Lite) specifications. This is
-the key difference with the
+htmlwidgets, and to provide you a means to communicate with a Vega chart
+using JavaScript or Shiny. Its ambition is to be a *low-level* interface
+to the Vega(-Lite) API, such that other packages can build upon it to
+offer higher-level functions to compose Vega(-Lite) specifications.
+
+This is the key difference with the
 [**vegalite**](https://github.com/hrbrmstr/vegalite) package: it
 provides a set of higher-level functions to compose specifications,
 whereas **vegawidget** concerns itself mainly with the rendering of the
 htmlwidget.
 
 To be clear, although Vega-Lite offers a grammar-of-graphics, this
-package does not offer a user-friendly framework, as provided by
-ggplot2. However, this package may be useful to:
+package does not offer a user-friendly framework to compose graphics,
+like those provided by **[ggplot2](https://ggplot2.tidyverse.org)** or
+**[ggvis](https://ggvis.rstudio.com)**. However, this package may be
+useful to:
 
   - build re-usable Vega and Vega-Lite specifications for deployment
     elsewhere, if you can tolerate the frustration of building
@@ -158,6 +162,21 @@ Accordingly, this package offers a templating function,
 `use_vegawidget()`, to help you integrate vegawidget functions into your
 package. For example, it is used to import and re-export vegawidget
 functions for the [altair](https://vegawidget.github.io/altair) package.
+
+## Known limitations
+
+The two biggest known limitations are both associated with vegaspecs
+that contain [datasets specified using remote
+URLs](https://vega.github.io/vega-lite/docs/data.html#url):
+
+  - The RStudio IDE does not let you access remote URLs for security
+    reasons. A chart that accesses remote data will not render in the
+    IDE; it *will* render in a browser window.
+
+  - The image functions use **nodejs** to create SVG strings. We are not
+    able to configure the proxy in our node scripts, so if your computer
+    uses a proxy to access remote data, our functions will not create
+    the images properly.
 
 ## Acknowledgements
 

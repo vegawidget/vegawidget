@@ -135,6 +135,7 @@
 <code>path</code>, for the image-writing functions, this indicates the local path to which the file is to be written.</li>
 </ul>
 <p>As you are most likely already aware, there is a tradeoff between PNG and SVG. The PNG format is an image with finite resolution. The SVG format is a set of instructions on how to render an image, so it has no resolution limitations. In general, the size of an SVG file scales with the number of graphical marks it contains, whereas a PNG file scales with its pixel-width and pixel-height.</p>
+<p>Please be aware that there is a known limitation to these functions - if you are using a vegaspec that has dataset loaded from a remote URL. The <code>nodejs</code> scripts are not able to use a proxy, so if if your computer uses a proxy to access the remote URL, the data will not load.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"vegawidget"</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"htmltools"</span>)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"glue"</span>)</a></code></pre></div>
@@ -143,8 +144,8 @@
 <a href="#reference" class="anchor"></a>Reference</h2>
 <p>For the purpose of comparing later renderings, our reference is this <code>mtcars</code> scatterplot. It is rendered, in HTML, with a plotting area of <code>width = 300</code> and <code>height = 300</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-c337282c755886811cb6" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c337282c755886811cb6">{"x":{
+<div id="htmlwidget-b5dfcfc353bcdded5963" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b5dfcfc353bcdded5963">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 300,
@@ -631,7 +632,7 @@
 <div id="to-bitmap" class="section level3">
 <h3 class="hasAnchor">
 <a href="#to-bitmap" class="anchor"></a>To bitmap</h3>
-<p>The <code><a href="../reference/image.html">vw_to_bitmap()</a></code> function returns a bitmap array. The package uses it primarly for converting the SVG a PNG; you may have other uses.</p>
+<p>The <code><a href="../reference/image.html">vw_to_bitmap()</a></code> function returns a bitmap array. The package uses it primarly for converting the SVG to PNG; you may have other uses.</p>
 <p>We can show the effect of the <code>scale</code> argument by inspecting the dimensions of the bitmap array. Using the default, <code>scale = 1</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/image.html">vw_to_bitmap</a></span>(spec_mtcars) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/dim">dim</a></span>()</a></code></pre></div>
 <pre><code>## [1] 351 402   4</code></pre>
@@ -679,7 +680,7 @@
 <div id="using-vegawidget" class="section level3">
 <h3 class="hasAnchor">
 <a href="#using-vegawidget" class="anchor"></a>Using vegawidget</h3>
-<p>This demonstrates how to use <code><a href="../reference/image.html">vw_write_png()</a></code> with vegawidgets.</p>
+<p>This demonstrates that we can use <code><a href="../reference/image.html">vw_write_png()</a></code> with vegawidgets.</p>
 <p><strong>Expectation</strong>: this image will appear at the same size as the <a href="#reference">reference</a>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">filename &lt;-<span class="st"> "mtcars-widget.png"</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">  </a>
@@ -724,18 +725,6 @@
 <a class="sourceLine" id="cb14-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="kw">path_read</span>(filename))</a></code></pre></div>
 <p><img src="../reference/figures/visual-regression-mtcars-wide.svg"><!-- --></p>
 </div>
-<div id="vegawidget" class="section level3">
-<h3 class="hasAnchor">
-<a href="#vegawidget" class="anchor"></a>Vegawidget</h3>
-<p>As above, this demonstrates that we can expect use <code><a href="../reference/image.html">vw_write_svg()</a></code> with vegawidgets.</p>
-<p><strong>Expectation</strong>: this image will appear at the same size as the <a href="#reference">reference</a>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">filename &lt;-<span class="st"> "mtcars-widget.svg"</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw"><a href="../reference/image.html">vw_write_svg</a></span>(<span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars), <span class="dt">path =</span> <span class="kw">path_write</span>(filename))</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="kw">path_read</span>(filename))</a></code></pre></div>
-<p><img src="../reference/figures/visual-regression-mtcars-widget.svg"><!-- --></p>
-</div>
 </div>
 <div id="other-visual-regressions" class="section level2">
 <h2 class="hasAnchor">
@@ -744,11 +733,10 @@
 <div id="autosize-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#autosize-1" class="anchor"></a>Autosize</h3>
-<p>Next, we test using <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code>.</p>
 <p><strong>Expectation</strong>: the rendered spec will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="../reference/vw_autosize.html">vw_autosize</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-8d65504b875d70b59309" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8d65504b875d70b59309">{"x":{
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../reference/vw_autosize.html">vw_autosize</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
+<div id="htmlwidget-166c68eaba708286fd52" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-166c68eaba708286fd52">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1237,9 +1225,9 @@
     "renderer": "canvas"
   }
 },"evals":[],"jsHooks":[]}</script><p><strong>Expectation</strong>: we will get the same result using the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-6f447b0387c9d995d0e1" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6f447b0387c9d995d0e1">{"x":{
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
+<div id="htmlwidget-f831142ecadb96b34021" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f831142ecadb96b34021">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1731,9 +1719,9 @@
 <pre><code>```{r vega.width=600, vega.height=300}
 spec_mtcars
 ```</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-2200a225a9bd61fcaca8" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2200a225a9bd61fcaca8">{"x":{
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">spec_mtcars</a></code></pre></div>
+<div id="htmlwidget-c44bd6f11e1b49058ebf" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c44bd6f11e1b49058ebf">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -2227,9 +2215,9 @@ spec_mtcars
 <h3 class="hasAnchor">
 <a href="#vega" class="anchor"></a>Vega</h3>
 <p><strong>Expectation</strong>: this will be identical to the <a href="#reference">reference</a> case, using the <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code> function to compile to a Vega specification:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw"><a href="../reference/vw_to_vega.html">vw_to_vega</a></span>(spec_mtcars)</a></code></pre></div>
-<div id="htmlwidget-d16229cd3e6fe76cdb35" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d16229cd3e6fe76cdb35">{"x":{
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw"><a href="../reference/vw_to_vega.html">vw_to_vega</a></span>(spec_mtcars)</a></code></pre></div>
+<div id="htmlwidget-6639c74e8b5d7d90b732" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6639c74e8b5d7d90b732">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega/v3.json",
     "description": "An mtcars example.",

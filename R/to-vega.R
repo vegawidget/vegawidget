@@ -1,14 +1,17 @@
 #' Convert to Vega specification
 #'
-#' If node is installed, used this function to convert a Vega-lite spec
-#' to a Vega spec.
+#' If you have  **[nodejs](https://nodejs.org/en/)** installed,
+#' you can use this function to compile a Vega-Lite specification
+#' into a Vega specification.
 #'
 #' @inheritParams as_vegaspec
 #'
 #' @return S3 object of class `vegaspec_vega` and `vegaspec`
 #' @examples
 #'   vw_spec_version(spec_mtcars)
+#' \dontrun{
 #'   vw_spec_version(vw_to_vega(spec_mtcars))
+#' }
 #' @export
 #'
 vw_to_vega <- function(spec) {

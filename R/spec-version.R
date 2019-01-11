@@ -14,7 +14,9 @@
 #' @return `list` with elements `library`, `version`
 #' @examples
 #'   vw_spec_version(spec_mtcars)
+#' \dontrun{
 #'   vw_spec_version(vw_to_vega(spec_mtcars))
+#' }
 #' @export
 #'
 vw_spec_version <- function(spec) {

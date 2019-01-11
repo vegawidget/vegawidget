@@ -3,7 +3,7 @@ template:
     bootswatch: sandstone
 
 development:
-  mode: unreleased
+  mode: release
 
 navbar:
   title: "vegawidget"
@@ -69,11 +69,12 @@ reference:
     - knit_print.vegaspec
   - title: Shiny
     desc: >
-      Render vegawidgets in Shiny; also, access Vega datasets, signals,
+      This package lets you render vegawidgets in Shiny. Once renrdered,
+      it also provides functions to access Vega datasets, signals,
       and events from Shiny. The function `vw_shiny_demo()` lets you
       run any of this package's demo apps; call it without arguments
-      to see the list of available apps. There is also an
-      [article](../articles/shiny.html) that goes into some detail.
+      to see the list of available apps. This
+      [article on Shiny](../articles/shiny.html) goes into some detail.
     contents:
     - renderVegawidget
     - vegawidgetOutput
@@ -82,11 +83,12 @@ reference:
     - vw_shiny_demo
   - title: JavaScript
     desc: >
-      Adding JavaScript listners and composing JavaScript handlers.
-      These provide you the same capability to access Vega charts
-      as with Shiny, but *you* are responsible for providing all the
+      In addition to Shiny, this package provides functions to
+      add JavaScript listeners to Vega charts and to compose
+      JavaScript handlers. This lets you create interactivity in RMarkdown
+      documents, but *you* are responsible for providing all the additional
       HTML and JS code to make it work. To see some examples, please
-      see this [article](../articles/javascript.html).
+      see this [article on JavaScript](../articles/javascript.html).
     contents:
     - add-listeners
     - vw_handler_signal

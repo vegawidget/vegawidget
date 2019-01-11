@@ -15,7 +15,7 @@ vw_as_json(spec, pretty = TRUE)
 \code{jsonlite::json} object
 }
 \description{
-For Vega and Vega-Lite, the translation between list and JSON is a little
+For Vega and Vega-Lite, the translation between lists and JSON is a little
 bit particular. This function, \code{\link[=vw_as_json]{vw_as_json()}}, can be used to translate
 to JSON; \code{\link[=as_vegaspec]{as_vegaspec()}} can be used to translate from JSON.
 }

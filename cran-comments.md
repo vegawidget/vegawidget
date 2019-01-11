@@ -8,4 +8,17 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release.
+Maintainer: 'Ian Lyttle <ian.lyttle@schneider-electric.com>'
+
+New submission
+
+Possibly mis-spelled words in DESCRIPTION:
+  Htmlwidget (3:8)
+  JSON (4:47)
+  Renderer (3:19)
+  
+* This is a new submission
+  
+* I believe the first note to be normal; as for the possibly mis-spelled words in DESCRIPTION:
+  - "Htmlwidget" and "JSON" are current terms-of-art.
+  - "Renderer" is unusual, but correct.

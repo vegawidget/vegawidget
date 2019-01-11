@@ -37,7 +37,7 @@ a Shiny \code{server()} function, where they act like
 \code{\link[shiny:reactive]{shiny::reactive()}}, returning a reactive expression.
 }
 \details{
-To see these functions in action, you can a shiny-demo:
+To see these functions in action, you can run a shiny-demo:
 \itemize{
 \item \code{vw_shiny_get_signal()}: call \code{vw_shiny_demo("signal-set-get")}
 \item \code{vw_shiny_get_event()}: call \code{vw_shiny_demo("event-get")}

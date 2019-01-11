@@ -29,12 +29,15 @@ spec_mtcars_autosize$config <-
   )
 # ===
 
+has_node <- unname(nchar(Sys.which("node")) > 0L)
+
 test_that("is_multiple_view works", {
   expect_false(is_multiple_view(spec_mtcars))
   expect_true(is_multiple_view(spec_mtcars_hconcat))
 })
 
 test_that("autosize warns", {
+
   expect_warning(
     vw_autosize(spec_mtcars_hconcat, width = 300),
     "no effect on rendering\\.$"
@@ -43,12 +46,16 @@ test_that("autosize warns", {
 
 test_that("autosize works", {
 
-  vgspec_mtcars <- vw_to_vega(spec_mtcars)
-
   expect_identical(
     vw_autosize(spec_mtcars, width = 300, height = 300),
     spec_mtcars_autosize
   )
+
+  # Need to have node installed
+  skip_on_cran()
+  skip_if_not(has_node)
+
+  vgspec_mtcars <- vw_to_vega(spec_mtcars)
 
   # autosize works on Vega (vs Vega-Lite)
   expect_identical(

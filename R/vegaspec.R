@@ -12,7 +12,7 @@
 #'   \item{A URL that contains a JSON file, requires that [httr](https://CRAN.R-project.org/package=httr) be installed}
 #' }
 #'
-#' For Vega and Vega-Lite, the translation between list and JSON is a little
+#' For Vega and Vega-Lite, the translation between lists and JSON is a little
 #' bit particular. This function, [as_vegaspec()], can be used to translate
 #' from JSON; [vw_as_json()] can be used to translate to JSON.
 #'
@@ -106,7 +106,7 @@ as_vegaspec.vegawidget <- function(spec, ...) {
 
 #' Coerce vegaspec to JSON
 #'
-#' For Vega and Vega-Lite, the translation between list and JSON is a little
+#' For Vega and Vega-Lite, the translation between lists and JSON is a little
 #' bit particular. This function, [vw_as_json()], can be used to translate
 #' to JSON; [as_vegaspec()] can be used to translate from JSON.
 #'

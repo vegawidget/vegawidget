@@ -18,17 +18,7 @@ vw_examine(spec, mode = "view", modes = c("view", "code", "form",
 will be the default, since these are all the modes
 currently supported by \strong{\code{jsoneditor}}.}
 
-\item{...}{\code{list} of other options for \code{jsoneditor}.  This is a temporary way
-of trying other options in \code{jsoneditor}.  In the future, this will be eliminated
-in favor of specific, more self-documenting and helpful arguments.}
-
-\item{width}{integer in pixels defining the width of the \code{div} container.}
-
-\item{height}{integer in pixels defining the height of the \code{div} container.}
-
-\item{elementId}{character to specify valid \code{CSS} id of the
-htmlwidget for special situations in which you want a non-random
-identifier.}
+\item{...}{other args (attempt to future-proof)}
 }
 \value{
 S3 object of class \code{jsonedit} and \code{htmlwidget}

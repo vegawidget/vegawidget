@@ -54,7 +54,21 @@ You can use the function \code{\link[=vw_spec_version]{vw_spec_version()}} to de
 Vega-Lite or Vega. You can use \code{\link[=vw_to_vega]{vw_to_vega()}} to translate a Vega-Lite spec to Vega.
 }
 \examples{
+  spec <- list(
+    `$schema` = vega_schema(),
+    data = list(values = mtcars),
+    mark = "point",
+    encoding = list(
+      x = list(field = "wt", type = "quantitative"),
+      y = list(field = "mpg", type = "quantitative"),
+      color = list(field = "cyl", type = "nominal")
+    )
+  )
+
+  as_vegaspec(spec)
+
   \dontrun{
+    # requires network-access
     as_vegaspec("https://vega.github.io/vega-lite/examples/specs/bar.vl.json")
   }
 }

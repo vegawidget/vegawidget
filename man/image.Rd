@@ -70,11 +70,16 @@ The nodejs scripts used are adapted from the Vega
 }
 \examples{
 \dontrun{
+  # requires nodejs to be installed
+
+  # files will be written to the temporary directory
+  temp_dir <- tempdir()
+
   # call any of these functions using either a vegaspec or a vegawidget
   vw_to_svg(vegawidget(spec_mtcars))
   vw_to_bitmap(spec_mtcars)
-  vw_write_png(spec_mtcars, "temp.png")
-  vw_write_svg(spec_mtcars, "temp.svg")
+  vw_write_png(spec_mtcars, file.path(temp_dir, "temp.png"))
+  vw_write_svg(spec_mtcars, file.path(temp_dir, "temp.svg"))
 
   # To specify the path to a local file, use base_url
   spec_precip <-
@@ -89,7 +94,11 @@ The nodejs scripts used are adapted from the Vega
     as_vegaspec()
 
   data_dir <- system.file("example-data/", package = "vegawidget")
-  vw_write_png(spec_precip, "temp-local.png", base_url = data_dir)
+  vw_write_png(
+    spec_precip,
+    file.path(temp_dir, "temp-local.png"),
+    base_url = data_dir
+  )
 
 }
 }

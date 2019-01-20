@@ -20,6 +20,7 @@ into a Vega specification.
 \examples{
   vw_spec_version(spec_mtcars)
 \dontrun{
+  # requires nodejs to be installed
   vw_spec_version(vw_to_vega(spec_mtcars))
 }
 }

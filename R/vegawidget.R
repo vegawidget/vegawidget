@@ -69,15 +69,19 @@
 #'     ) %>%
 #'     as_vegaspec()
 #'
-#'   # define local and remote paths to file
+#'   # define local path to file
 #'   path_local <- system.file("example-data/", package = "vegawidget")
-#'   url_remote <- "https://vega.github.io/vega-datasets/data"
 #'
 #'   # render using local path
 #'   vegawidget(spec_precip, base_url = path_local)
 #'
 #'\dontrun{
-#'   # render using remote URL
+#'   # requires network-access
+#'
+#'   # define remote path to file
+#'   url_remote <- "https://vega.github.io/vega-datasets/data"
+#'
+#'   # render using remote path
 #'   # note: does not render in RStudio IDE; open using browser
 #'   vegawidget(spec_precip, base_url = url_remote)
 #'}

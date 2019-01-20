@@ -24,7 +24,21 @@
 #'
 #' @return S3 object of class `vegaspec`
 #' @examples
+#'   spec <- list(
+#'     `$schema` = vega_schema(),
+#'     data = list(values = mtcars),
+#'     mark = "point",
+#'     encoding = list(
+#'       x = list(field = "wt", type = "quantitative"),
+#'       y = list(field = "mpg", type = "quantitative"),
+#'       color = list(field = "cyl", type = "nominal")
+#'     )
+#'   )
+#'
+#'   as_vegaspec(spec)
+#'
 #'   \dontrun{
+#'     # requires network-access
 #'     as_vegaspec("https://vega.github.io/vega-lite/examples/specs/bar.vl.json")
 #'   }
 #' @seealso [Vega](https://vega.github.io/vega/),

@@ -17,7 +17,7 @@
 #'   assert_packages("base", "utils")
 #'
 #' \dontrun{
-#'   # demonstrates throwing an error for absent package
+#'   # intentionally invokes error-behavior
 #'   assert_packages("utils2")
 #' }
 #'

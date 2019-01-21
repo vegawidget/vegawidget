@@ -251,13 +251,17 @@ browser, it should render properly.</p>
     ) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='as_vegaspec.html'>as_vegaspec</a></span>()
 
-  <span class='co'># define local and remote paths to file</span>
+  <span class='co'># define local path to file</span>
   <span class='no'>path_local</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"example-data/"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"vegawidget"</span>)
-  <span class='no'>url_remote</span> <span class='kw'>&lt;-</span> <span class='st'>"https://vega.github.io/vega-datasets/data"</span>
 
   <span class='co'># render using local path</span>
   <span class='fu'>vegawidget</span>(<span class='no'>spec_precip</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='no'>path_local</span>)</div><span class='co'># NOT RUN {</span>
-  <span class='co'># render using remote URL</span>
+  <span class='co'># requires network-access</span>
+
+  <span class='co'># define remote path to file</span>
+  <span class='no'>url_remote</span> <span class='kw'>&lt;-</span> <span class='st'>"https://vega.github.io/vega-datasets/data"</span>
+
+  <span class='co'># render using remote path</span>
   <span class='co'># note: does not render in RStudio IDE; open using browser</span>
   <span class='fu'>vegawidget</span>(<span class='no'>spec_precip</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='no'>url_remote</span>)
 <span class='co'># }</span></pre>

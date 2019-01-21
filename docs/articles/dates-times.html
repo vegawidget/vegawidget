@@ -102,7 +102,7 @@
     <div class="page-header toc-ignore">
       <h1>Work with dates and times</h1>
             
-            <h4 class="date">2019-01-11</h4>
+            <h4 class="date">2019-01-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/dates-times.Rmd"><code>vignettes/dates-times.Rmd</code></a></small>
       <div class="hidden name"><code>dates-times.Rmd</code></div>
@@ -138,8 +138,8 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(data_seattle_hourly)</a></code></pre></div>
 <pre><code>## Observations: 8,759
 ## Variables: 2
-## $ date &lt;dttm&gt; 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:...
-## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39....</code></pre>
+## $ date &lt;dttm&gt; 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:00…
+## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2,…</code></pre>
 <p>This dataset contains hourly observations of Seattle temperature (°F) for the year 2010. Let’s inspect the time zone of the <code>date</code> variable:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="http://lubridate.tidyverse.org/reference/tz.html">tz</a></span>(data_seattle_hourly<span class="op">$</span>date)</a></code></pre></div>
 <pre><code>## [1] "America/Los_Angeles"</code></pre>
@@ -152,8 +152,8 @@
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
 <pre><code>## Observations: 24
 ## Variables: 2
-## $ date &lt;dttm&gt; 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:...
-## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39....</code></pre>
+## $ date &lt;dttm&gt; 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:00…
+## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2,…</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">spec_local &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../reference/vega_schema.html">vega_schema</a></span>(),</a>
@@ -177,8 +177,8 @@
 <a class="sourceLine" id="cb8-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb8-22" data-line-number="22"></a>
 <a class="sourceLine" id="cb8-23" data-line-number="23">spec_local</a></code></pre></div>
-<div id="htmlwidget-9e4499221b4cc2edc324" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9e4499221b4cc2edc324">{"x":{
+<div id="htmlwidget-72e668ca183309542085" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-72e668ca183309542085">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -329,8 +329,8 @@
 <a class="sourceLine" id="cb11-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
 <pre><code>## Observations: 24
 ## Variables: 2
-## $ date &lt;chr&gt; "2010-01-01T08:00:00.000Z", "2010-01-01T09:00:00.000Z", "...
-## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39....</code></pre>
+## $ date &lt;chr&gt; "2010-01-01T08:00:00.000Z", "2010-01-01T09:00:00.000Z", "20…
+## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2,…</code></pre>
 <p>You can see that we have changed the <code>date</code> variable from a datetime to a character string. Its values show <code>date</code>:</p>
 <ul>
 <li>in the ISO-8601 format (according to the <code>iso_dttm</code> argument).</li>
@@ -343,8 +343,8 @@
 <a class="sourceLine" id="cb13-3" data-line-number="3">spec_iso_local<span class="op">$</span>data<span class="op">$</span>values &lt;-<span class="st"> </span>data_seattle_hourly_short_iso</a>
 <a class="sourceLine" id="cb13-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">spec_iso_local</a></code></pre></div>
-<div id="htmlwidget-f900f1d62d7cebc2f1fb" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f900f1d62d7cebc2f1fb">{"x":{
+<div id="htmlwidget-bee41a724a943b96f3ce" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bee41a724a943b96f3ce">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -478,8 +478,8 @@
 <a class="sourceLine" id="cb14-3" data-line-number="3">spec_iso_utc<span class="op">$</span>encoding<span class="op">$</span>x<span class="op">$</span>scale &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>) </a>
 <a class="sourceLine" id="cb14-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb14-5" data-line-number="5">spec_iso_utc</a></code></pre></div>
-<div id="htmlwidget-50d0975563e65c916c3e" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-50d0975563e65c916c3e">{"x":{
+<div id="htmlwidget-801252a9d04430cccbd0" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-801252a9d04430cccbd0">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -636,24 +636,24 @@
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(data_seattle_daily)</a></code></pre></div>
 <pre><code>## Observations: 1,461
 ## Variables: 6
-## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04,...
-## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1...
-## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4...
-## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6...
-## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4...
-## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain...</code></pre>
+## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04, 2…
+## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0…
+## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, …
+## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, …
+## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, …
+## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain",…</code></pre>
 <p>The default JSON-serializer for dates uses the ISO-8601 format for dates. If we wanted to use a non-ISO-8601 format, we could use <code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code> using <code>iso_date = FALSE</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">data_seattle_daily <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/vw_serialize_data.html">vw_serialize_data</a></span>(<span class="dt">iso_date =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
 <pre><code>## Observations: 1,461
 ## Variables: 6
-## $ date          &lt;chr&gt; "2012/01/01", "2012/01/02", "2012/01/03", "2012/...
-## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1...
-## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4...
-## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6...
-## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4...
-## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain...</code></pre>
+## $ date          &lt;chr&gt; "2012/01/01", "2012/01/02", "2012/01/03", "2012/01…
+## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0…
+## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, …
+## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, …
+## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, …
+## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain",…</code></pre>
 <p>For the purpose of making some examples of how to work with UTC dates, let’s filter the original dataset, with ISO-8601 formatting, keeping the first month:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">data_seattle_daily_short &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span>data_seattle_daily <span class="op">%&gt;%</span></a>
@@ -661,12 +661,12 @@
 <a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
 <pre><code>## Observations: 31
 ## Variables: 6
-## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04,...
-## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1...
-## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4...
-## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6...
-## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4...
-## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain...</code></pre>
+## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04, 2…
+## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0…
+## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, …
+## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, …
+## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, …
+## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain",…</code></pre>
 <p>Let’s look at a line-plot of the daily maximum-temperatures:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">spec_tempmax_local &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
@@ -692,8 +692,8 @@
 <a class="sourceLine" id="cb21-22" data-line-number="22"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb21-23" data-line-number="23"></a>
 <a class="sourceLine" id="cb21-24" data-line-number="24">spec_tempmax_local</a></code></pre></div>
-<div id="htmlwidget-4174a012ec6a2f27540f" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4174a012ec6a2f27540f">{"x":{
+<div id="htmlwidget-8034d6a65c13eccc0888" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8034d6a65c13eccc0888">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -981,8 +981,8 @@
 <a class="sourceLine" id="cb22-4" data-line-number="4">spec_tempmax_utc<span class="op">$</span>encoding<span class="op">$</span>tooltip[[<span class="dv">1</span>]]<span class="op">$</span>scale &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>)</a>
 <a class="sourceLine" id="cb22-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb22-6" data-line-number="6">spec_tempmax_utc</a></code></pre></div>
-<div id="htmlwidget-fab36c08b65aefb52f93" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fab36c08b65aefb52f93">{"x":{
+<div id="htmlwidget-8f46be44f02b6864b2d7" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8f46be44f02b6864b2d7">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1383,8 +1383,8 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb28-36" data-line-number="36"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb28-37" data-line-number="37"></a>
 <a class="sourceLine" id="cb28-38" data-line-number="38">spec_daily</a></code></pre></div>
-<div id="htmlwidget-40244479d5bd3edfa8cc" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-40244479d5bd3edfa8cc">{"x":{
+<div id="htmlwidget-38530994e164813a5394" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-38530994e164813a5394">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1446,8 +1446,8 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb29-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
 <pre><code>## Observations: 48
 ## Variables: 2
-## $ yearmonth &lt;date&gt; 2012-01-01, 2012-02-01, 2012-03-01, 2012-04-01, 201...
-## $ temp_max  &lt;dbl&gt; 12.8, 16.1, 15.6, 23.3, 26.7, 24.4, 28.3, 34.4, 32.2...</code></pre>
+## $ yearmonth &lt;date&gt; 2012-01-01, 2012-02-01, 2012-03-01, 2012-04-01, 2012-…
+## $ temp_max  &lt;dbl&gt; 12.8, 16.1, 15.6, 23.3, 26.7, 24.4, 28.3, 34.4, 32.2, …</code></pre>
 <p>We could then plot this data. However, we can make these data transformations within Vega-Lite. We will show this as a series of steps; the first step is to map the values of <code>date</code> to the beginning of the month.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># copy the previous spec</span></a>
 <a class="sourceLine" id="cb31-2" data-line-number="2">spec_yearmonth &lt;-<span class="st"> </span>spec_daily</a>
@@ -1474,8 +1474,8 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb31-23" data-line-number="23"></a>
 <a class="sourceLine" id="cb31-24" data-line-number="24"></a>
 <a class="sourceLine" id="cb31-25" data-line-number="25">spec_yearmonth</a></code></pre></div>
-<div id="htmlwidget-a0f0b847eca7bf2dc9ae" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a0f0b847eca7bf2dc9ae">{"x":{
+<div id="htmlwidget-1b07b0cc647e0a45ce65" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1b07b0cc647e0a45ce65">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1555,8 +1555,8 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb32-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb32-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb32-12" data-line-number="12">spec_yearmonth_aggregate</a></code></pre></div>
-<div id="htmlwidget-7d4b6e26bcb8253456e8" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7d4b6e26bcb8253456e8">{"x":{
+<div id="htmlwidget-3e47d5a639be3a9b504b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3e47d5a639be3a9b504b">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1635,8 +1635,8 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb33-23" data-line-number="23"></a>
 <a class="sourceLine" id="cb33-24" data-line-number="24"></a>
 <a class="sourceLine" id="cb33-25" data-line-number="25">spec_yearmonth_aggregate_color</a></code></pre></div>
-<div id="htmlwidget-4f9a64fe3acecce0ba4c" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4f9a64fe3acecce0ba4c">{"x":{
+<div id="htmlwidget-55b0b09316e852f120d7" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-55b0b09316e852f120d7">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,
@@ -1709,8 +1709,8 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb34-5" data-line-number="5">spec_month_aggregate_color<span class="op">$</span>encoding<span class="op">$</span>tooltip[[<span class="dv">2</span>]]<span class="op">$</span>timeUnit &lt;-<span class="st"> "utcmonth"</span></a>
 <a class="sourceLine" id="cb34-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb34-7" data-line-number="7">spec_month_aggregate_color</a></code></pre></div>
-<div id="htmlwidget-261f4778c47498aa3a12" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-261f4778c47498aa3a12">{"x":{
+<div id="htmlwidget-c91307eacd9cc597ad2e" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c91307eacd9cc597ad2e">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "width": 600,

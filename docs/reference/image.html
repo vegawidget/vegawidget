@@ -235,11 +235,13 @@ a <code>vegaspec</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
+  <span class='co'># requires nodejs to be installed</span>
+
   <span class='co'># call any of these functions using either a vegaspec or a vegawidget</span>
   <span class='fu'>vw_to_svg</span>(<span class='fu'><a href='vegawidget.html'>vegawidget</a></span>(<span class='no'>spec_mtcars</span>))
   <span class='fu'>vw_to_bitmap</span>(<span class='no'>spec_mtcars</span>)
-  <span class='fu'>vw_write_png</span>(<span class='no'>spec_mtcars</span>, <span class='st'>"temp.png"</span>)
-  <span class='fu'>vw_write_svg</span>(<span class='no'>spec_mtcars</span>, <span class='st'>"temp.svg"</span>)
+  <span class='fu'>vw_write_png</span>(<span class='no'>spec_mtcars</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>"temp.png"</span>))
+  <span class='fu'>vw_write_svg</span>(<span class='no'>spec_mtcars</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>"temp.svg"</span>))
 
   <span class='co'># To specify the path to a local file, use base_url</span>
   <span class='no'>spec_precip</span> <span class='kw'>&lt;-</span>
@@ -254,7 +256,11 @@ a <code>vegaspec</code>.</p>
     <span class='fu'><a href='as_vegaspec.html'>as_vegaspec</a></span>()
 
   <span class='no'>data_dir</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"example-data/"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"vegawidget"</span>)
-  <span class='fu'>vw_write_png</span>(<span class='no'>spec_precip</span>, <span class='st'>"temp-local.png"</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='no'>data_dir</span>)
+  <span class='fu'>vw_write_png</span>(
+    <span class='no'>spec_precip</span>,
+    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>"temp-local.png"</span>),
+    <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='no'>data_dir</span>
+  )
 
 <span class='co'># }</span></pre>
   </div>

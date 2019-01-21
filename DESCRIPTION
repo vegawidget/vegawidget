@@ -81,4 +81,5 @@ Suggests:
     processx,
     rsvg,
     dplyr,
-    png
+    png,
+    conflicted

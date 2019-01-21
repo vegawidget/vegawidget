@@ -19,8 +19,11 @@ Pursuant to Uwe's email of 2019-01-19:
 ## Test environments
 * local OS X install, R 3.5.2
 * local Windows install, R 3.5.2
+* Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+* Ubuntu Linux 16.04 LTS, R-release, GCC
+* Fedora Linux, R-devel, clang, gfortran
 * ubuntu 14.04 (on travis-ci), R (oldrel, release, and devel)
-* win-builder (devel and release)
+* win-builder (release)
 
 ## R CMD check results
 

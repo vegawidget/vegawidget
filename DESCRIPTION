@@ -1,10 +1,10 @@
 Package: vegawidget
-Version: 0.1.0
-Title: Htmlwidget Renderer for Vega and Vega-Lite
-Description: Vega and Vega-Lite parse text in JSON notation to render 
-  chart-specifications into HTML. This package is used to facilitate the 
+Version: 0.1.0.9000
+Title: 'Htmlwidget' Renderer for 'Vega' and 'Vega-Lite'
+Description: 'Vega' and 'Vega-Lite' parse text in 'JSON' notation to render 
+  chart-specifications into 'HTML'. This package is used to facilitate the 
   rendering. It also provides a means to interact with signals, events,
-  and datasets in a Vega chart using JavaScript or Shiny.
+  and datasets in a 'Vega' chart using 'JavaScript' or 'Shiny'.
 Authors@R: c(
     person(
       given = "Ian", 

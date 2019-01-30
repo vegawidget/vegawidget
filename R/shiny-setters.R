@@ -8,7 +8,7 @@
 #' a Shiny `server()` function, where they act like
 #' [shiny::observe()] or [shiny::observeEvent()].
 #'
-#' To see these functions in action, you can a shiny-demo:
+#' To see these functions in action, you can run a shiny-demo:
 #'
 #' - `vw_shiny_set_signal()`: call `vw_shiny_demo("signal-set-get")`
 #' - `vw_shiny_set_data()`: call `vw_shiny_demo("data-set")`

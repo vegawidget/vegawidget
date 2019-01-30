@@ -7,7 +7,7 @@
 #' a Shiny `server()` function, where they act like
 #' [shiny::reactive()], returning a reactive expression.
 #'
-#' To see these functions in action, you can a shiny-demo:
+#' To see these functions in action, you can run a shiny-demo:
 #'
 #' - `vw_shiny_get_signal()`: call `vw_shiny_demo("signal-set-get")`
 #' - `vw_shiny_get_event()`: call `vw_shiny_demo("event-get")`

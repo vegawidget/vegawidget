@@ -35,7 +35,7 @@ S3 object of class \code{jsonedit} and \code{htmlwidget}
 }
 \description{
 This is a thin wrapper to \code{\link[listviewer:jsonedit]{listviewer::jsonedit()}},
-use to interactvely examine a Vega or Vega-Lite specification.
+use to interactively examine a Vega or Vega-Lite specification.
 }
 \examples{
   vw_examine(spec_mtcars)

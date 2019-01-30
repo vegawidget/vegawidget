@@ -10,17 +10,20 @@
 #'
 #' @return `logical` indicating success
 #' @examples
-#' \dontrun{
 #'   # put packages in a character vector
 #'   assert_packages(c("base", "utils"))
 #'
 #'   # or by themselves
 #'   assert_packages("base", "utils")
 #'
+#' \dontrun{
+#'   # intentionally invokes error-behavior
+#'   assert_packages("utils2")
 #' }
+#'
 #' @seealso [R Packages book](http://r-pkgs.had.co.nz/description.html#dependencies)
 #' @keywords internal
-#'
+#' @noRd
 #'
 assert_packages <- function(packages, ...) {
 

@@ -36,7 +36,13 @@ useful to:
 
 ## Installation
 
-You can install vegawidget from GitHub with:
+You can install vegawidget from CRAN with:
+
+``` r
+install.packages("vegawidget")
+```
+
+You can also install vegawidget from GitHub with:
 
 ``` r
 # install.packages("devtools")

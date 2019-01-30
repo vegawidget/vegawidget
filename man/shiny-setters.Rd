@@ -40,7 +40,7 @@ a Shiny \code{server()} function, where they act like
 \code{\link[shiny:observe]{shiny::observe()}} or \code{\link[shiny:observeEvent]{shiny::observeEvent()}}.
 }
 \details{
-To see these functions in action, you can a shiny-demo:
+To see these functions in action, you can run a shiny-demo:
 \itemize{
 \item \code{vw_shiny_set_signal()}: call \code{vw_shiny_demo("signal-set-get")}
 \item \code{vw_shiny_set_data()}: call \code{vw_shiny_demo("data-set")}

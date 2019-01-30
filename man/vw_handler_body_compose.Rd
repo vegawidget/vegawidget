@@ -21,7 +21,7 @@ function-body
 }
 \description{
 These functions are used to compose a \code{vw_handler} object into
-text that will be interpreted either as a complete JavaSctipt
+text that will be interpreted either as a complete JavaScript
 function, or a function-body.
 }
 \keyword{internal}

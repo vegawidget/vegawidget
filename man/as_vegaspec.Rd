@@ -46,7 +46,7 @@ The \code{character} method for this function will take:
 \item{A URL that contains a JSON file, requires that \href{https://CRAN.R-project.org/package=httr}{httr} be installed}
 }
 
-For Vega and Vega-Lite, the translation between list and JSON is a little
+For Vega and Vega-Lite, the translation between lists and JSON is a little
 bit particular. This function, \code{\link[=as_vegaspec]{as_vegaspec()}}, can be used to translate
 from JSON; \code{\link[=vw_as_json]{vw_as_json()}} can be used to translate to JSON.
 
@@ -54,7 +54,21 @@ You can use the function \code{\link[=vw_spec_version]{vw_spec_version()}} to de
 Vega-Lite or Vega. You can use \code{\link[=vw_to_vega]{vw_to_vega()}} to translate a Vega-Lite spec to Vega.
 }
 \examples{
+  spec <- list(
+    `$schema` = vega_schema(),
+    data = list(values = mtcars),
+    mark = "point",
+    encoding = list(
+      x = list(field = "wt", type = "quantitative"),
+      y = list(field = "mpg", type = "quantitative"),
+      color = list(field = "cyl", type = "nominal")
+    )
+  )
+
+  as_vegaspec(spec)
+
   \dontrun{
+    # requires network-access
     as_vegaspec("https://vega.github.io/vega-lite/examples/specs/bar.vl.json")
   }
 }

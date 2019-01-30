@@ -28,7 +28,7 @@
 
 #' Example dataset: Seattle hourly temperatures
 #'
-#' This dataset containse hourly temperature observations from Seattle for the
+#' This dataset contains hourly temperature observations from Seattle for the
 #' year 2010.
 #'
 #' @format A data frame with 8759 observations of two variables

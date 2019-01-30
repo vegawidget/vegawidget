@@ -26,7 +26,7 @@ the default is to use the height in the chart specification}
 useful if you have other JavaScript that needs to explicitly
 discover and interact with a specific vegawidget}
 
-\item{base_url}{\code{character}, the base URL to prepent to data-URL elements
+\item{base_url}{\code{character}, the base URL to prepend to data-URL elements
 in the vegaspec. This could be the path
 to a local directory that contains a local file referenced in the spec.
 It could be the base for a remote URL. Please note that by specifying
@@ -63,7 +63,7 @@ important provisions:
 \itemize{
 \item Specifying \code{width} and \code{height} is
 \href{https://vega.github.io/vega-lite/docs/size.html#limitations}{effective only for single-view charts and layered charts}.
-It will not work for contatenated, faceted, or repeated charts.
+It will not work for concatenated, faceted, or repeated charts.
 \item In the \code{spec}, the default interpretation of width and height
 is to describe the dimensions of the
 \strong{plotting rectangle}, not including the space used by the axes, labels,
@@ -91,15 +91,19 @@ browser, it should render properly.
     ) \%>\%
     as_vegaspec()
 
-  # define local and remote paths to file
+  # define local path to file
   path_local <- system.file("example-data/", package = "vegawidget")
-  url_remote <- "https://vega.github.io/vega-datasets/data"
 
   # render using local path
   vegawidget(spec_precip, base_url = path_local)
 
 \dontrun{
-  # render using remote URL
+  # requires network-access
+
+  # define remote path to file
+  url_remote <- "https://vega.github.io/vega-datasets/data"
+
+  # render using remote path
   # note: does not render in RStudio IDE; open using browser
   vegawidget(spec_precip, base_url = url_remote)
 }

@@ -29,7 +29,7 @@ print.JS_EVAL <- function(x, ...) {
 #' `${}`.
 #'
 #' @inheritParams htmlwidgets::JS
-#' @param .open `character`, opening delimeter used by [glue::glue()]
+#' @param .open `character`, opening delimiter used by [glue::glue()]
 #' @param .envir `environment`, tells [glue::glue()] where to find
 #'   the variables to be interpolated
 #'

@@ -15,12 +15,12 @@
 #' a `vegaspec`.
 #'
 #' The nodejs scripts used are adapted from the Vega
-#' [command line utilites](https://vega.github.io/vega/usage/#cli).
+#' [command line utilities](https://vega.github.io/vega/usage/#cli).
 #'
 #' @name image
 #' @inheritParams vw_autosize
 #' @param path   `character`, local path to which to write the file
-#' @param scale  `numeric`, useful for specifying larger images supporing the
+#' @param scale  `numeric`, useful for specifying larger images supporting the
 #'   increased-resolution of retina displays
 #' @param base_url `character`, the base URL for a data file, useful for
 #'   specifying a local directory; defaults to an empty string
@@ -37,11 +37,13 @@
 #'
 #' @examples
 #' \dontrun{
+#'   # requires nodejs to be installed
+#'
 #'   # call any of these functions using either a vegaspec or a vegawidget
 #'   vw_to_svg(vegawidget(spec_mtcars))
 #'   vw_to_bitmap(spec_mtcars)
-#'   vw_write_png(spec_mtcars, "temp.png")
-#'   vw_write_svg(spec_mtcars, "temp.svg")
+#'   vw_write_png(spec_mtcars, file.path(tempdir(), "temp.png"))
+#'   vw_write_svg(spec_mtcars, file.path(tempdir(), "temp.svg"))
 #'
 #'   # To specify the path to a local file, use base_url
 #'   spec_precip <-
@@ -56,7 +58,11 @@
 #'     as_vegaspec()
 #'
 #'   data_dir <- system.file("example-data/", package = "vegawidget")
-#'   vw_write_png(spec_precip, "temp-local.png", base_url = data_dir)
+#'   vw_write_png(
+#'     spec_precip,
+#'     file.path(tempdir(), "temp-local.png"),
+#'     base_url = data_dir
+#'   )
 #'
 #' }
 #' @seealso [vega-view library](https://github.com/vega/vega-view#image-export)

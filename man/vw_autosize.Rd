@@ -18,7 +18,7 @@ of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification}
 }
 \value{
-S3 object wiith class \code{vegaspec}
+S3 object with class \code{vegaspec}
 }
 \description{
 The arguments \code{width} and \code{height} are used to override the width and height

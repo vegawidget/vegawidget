@@ -34,7 +34,7 @@ specifying a local directory; defaults to an empty string}
 \item{seed}{\code{integer}, the random seed for a Vega specification,
 defaults to a "random" integer}
 
-\item{scale}{\code{numeric}, useful for specifying larger images supporing the
+\item{scale}{\code{numeric}, useful for specifying larger images supporting the
 increased-resolution of retina displays}
 
 \item{...}{additional arguments passed to \code{vw_to_svg()}}
@@ -66,15 +66,17 @@ These functions can be called using (an object that can be coerced to)
 a \code{vegaspec}.
 
 The nodejs scripts used are adapted from the Vega
-\href{https://vega.github.io/vega/usage/#cli}{command line utilites}.
+\href{https://vega.github.io/vega/usage/#cli}{command line utilities}.
 }
 \examples{
 \dontrun{
+  # requires nodejs to be installed
+
   # call any of these functions using either a vegaspec or a vegawidget
   vw_to_svg(vegawidget(spec_mtcars))
   vw_to_bitmap(spec_mtcars)
-  vw_write_png(spec_mtcars, "temp.png")
-  vw_write_svg(spec_mtcars, "temp.svg")
+  vw_write_png(spec_mtcars, file.path(tempdir(), "temp.png"))
+  vw_write_svg(spec_mtcars, file.path(tempdir(), "temp.svg"))
 
   # To specify the path to a local file, use base_url
   spec_precip <-
@@ -89,7 +91,11 @@ The nodejs scripts used are adapted from the Vega
     as_vegaspec()
 
   data_dir <- system.file("example-data/", package = "vegawidget")
-  vw_write_png(spec_precip, "temp-local.png", base_url = data_dir)
+  vw_write_png(
+    spec_precip,
+    file.path(tempdir(), "temp-local.png"),
+    base_url = data_dir
+  )
 
 }
 }

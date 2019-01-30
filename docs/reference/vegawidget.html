@@ -67,7 +67,7 @@ using a vegaspec." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.7.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -185,7 +185,7 @@ discover and interact with a specific vegawidget</p></td>
     </tr>
     <tr>
       <th>base_url</th>
-      <td><p><code>character</code>, the base URL to prepent to data-URL elements
+      <td><p><code>character</code>, the base URL to prepend to data-URL elements
 in the vegaspec. This could be the path
 to a local directory that contains a local file referenced in the spec.
 It could be the base for a remote URL. Please note that by specifying
@@ -218,7 +218,7 @@ is used to override the width and height of the <code>spec</code>. There are som
 important provisions:</p><ul>
 <li><p>Specifying <code>width</code> and <code>height</code> is
 <a href='https://vega.github.io/vega-lite/docs/size.html#limitations'>effective only for single-view charts and layered charts</a>.
-It will not work for contatenated, faceted, or repeated charts.</p></li>
+It will not work for concatenated, faceted, or repeated charts.</p></li>
 <li><p>In the <code>spec</code>, the default interpretation of width and height
 is to describe the dimensions of the
 <strong>plotting rectangle</strong>, not including the space used by the axes, labels,
@@ -251,13 +251,17 @@ browser, it should render properly.</p>
     ) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='as_vegaspec.html'>as_vegaspec</a></span>()
 
-  <span class='co'># define local and remote paths to file</span>
+  <span class='co'># define local path to file</span>
   <span class='no'>path_local</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"example-data/"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"vegawidget"</span>)
-  <span class='no'>url_remote</span> <span class='kw'>&lt;-</span> <span class='st'>"https://vega.github.io/vega-datasets/data"</span>
 
   <span class='co'># render using local path</span>
   <span class='fu'>vegawidget</span>(<span class='no'>spec_precip</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='no'>path_local</span>)</div><span class='co'># NOT RUN {</span>
-  <span class='co'># render using remote URL</span>
+  <span class='co'># requires network-access</span>
+
+  <span class='co'># define remote path to file</span>
+  <span class='no'>url_remote</span> <span class='kw'>&lt;-</span> <span class='st'>"https://vega.github.io/vega-datasets/data"</span>
+
+  <span class='co'># render using remote path</span>
   <span class='co'># note: does not render in RStudio IDE; open using browser</span>
   <span class='fu'>vegawidget</span>(<span class='no'>spec_precip</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='no'>url_remote</span>)
 <span class='co'># }</span></pre>

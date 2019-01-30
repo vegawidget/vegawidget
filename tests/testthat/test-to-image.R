@@ -15,10 +15,14 @@ ws <- function(x) {
   x
 }
 
+has_node <- unname(nchar(Sys.which("node")) > 0L)
+
 # Test SVG
 test_that("vw_to_svg works with vega spec", {
 
-  skip_on_cran() # Need to have node installed
+  # Need to have node installed
+  skip_on_cran()
+  skip_if_not(has_node)
 
   svg_res <- vw_to_svg(spec_mtcars_vega)
   expect_identical(ws(svg_res), ws(expected_svg))
@@ -27,7 +31,9 @@ test_that("vw_to_svg works with vega spec", {
 
 test_that("vw_to_svg works with vega-lite spec", {
 
-  skip_on_cran() # Need to have node installed
+  # Need to have node installed
+  skip_on_cran()
+  skip_if_not(has_node)
 
   svg_res <- vw_to_svg(spec_mtcars)
   expect_identical(ws(svg_res), ws(expected_svg))

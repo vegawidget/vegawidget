@@ -6,13 +6,13 @@
 #'
 #' @return `list` with elements `vega_lite`, `vega`, `vega_embed`
 #'
-#' @keywords internal
 #' @examples
 #' \dontrun{
+#'   # requires network-access
 #'   get_vega_version(vega_lite_version = "2.5.0")
 #' }
-#'
-#' @export
+#' @keywords internal
+#' @noRd
 #'
 get_vega_version <- function(vega_lite_version) {
 

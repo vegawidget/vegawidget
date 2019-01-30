@@ -216,7 +216,7 @@ vw_handler_add_effect <- function(vw_handler, body_effect, ...) {
 #' Compose a JavaScript handler
 #'
 #' These functions are used to compose a `vw_handler` object into
-#' text that will be interpreted either as a complete JavaSctipt
+#' text that will be interpreted either as a complete JavaScript
 #' function, or a function-body.
 #'
 #' @inheritParams vw_handler_add_effect

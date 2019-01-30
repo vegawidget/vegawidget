@@ -29,9 +29,15 @@ To be clear, although Vega-Lite offers a grammar-of-graphics, this package does 
 
 ## Installation
 
-You can install vegawidget from GitHub with:
+You can install vegawidget from CRAN with:
 
-```{r gh-installation, eval = FALSE}
+```{r cran-installation, eval=FALSE}
+install.packages("vegawidget")
+```
+
+You can also install vegawidget from GitHub with:
+
+```{r gh-installation, eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("vegawidget/vegawidget")
 ```

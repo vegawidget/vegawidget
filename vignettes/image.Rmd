@@ -79,7 +79,7 @@ To use the bitmap and PNG functions, you will need the **[rsvg](https://CRAN.R-p
 
 ### To bitmap
 
-The `vw_to_bitmap()` function returns a bitmap array. The package uses it primarly for converting the SVG to PNG; you may have other uses. 
+The `vw_to_bitmap()` function returns a bitmap array. The package uses it primarily for converting the SVG to PNG; you may have other uses. 
 
 We can show the effect of the `scale` argument by inspecting the dimensions of the bitmap array. Using the default, `scale = 1`:
 
@@ -104,7 +104,7 @@ The function `vw_write_png()` generates an image at 96 DPI. We will write out a 
 **Expectation**: the image will be rendered at the same size as the [reference](#reference). 
 
 ```{r}
-filename <- "mtcars-refrence.png"
+filename <- "mtcars-reference.png"
 
 vw_write_png(spec_mtcars, path = path_write(filename))
 
@@ -168,7 +168,7 @@ HTML(vw_to_svg(spec_mtcars))
 **Expectation**: this image will appear identical to the [reference](#reference): 
 
 ```{r}
-filename <- "mtcars-refrence.svg"
+filename <- "mtcars-reference.svg"
 
 vw_write_svg(spec_mtcars, path = path_write(filename))
 

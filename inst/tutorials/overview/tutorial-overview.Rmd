@@ -357,7 +357,7 @@ glimpse(data_category)
 
 Let's make this bar chart! In the template below:
 
-- set the `value` for `data` to `data_category`
+- set the `values` for `data` to `data_category`
 - set the `mark` to `"bar"`
 - for the `x` `encoding`, set the `field` to `"category"` and the `type` to `"nominal"` 
 - for the `y` `encoding`, set the `field` to `"number"` and the `type` to `"quantitative"` 

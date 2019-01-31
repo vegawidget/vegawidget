@@ -8,7 +8,7 @@ data_angle <- function(x) {
   # degrees to radians
   theta = x * pi / 180.
 
-  data_frame(x = cos(theta), y = sin(theta))
+  tibble(x = cos(theta), y = sin(theta))
 }
 
 # spec for the "circle"

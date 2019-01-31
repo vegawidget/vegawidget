@@ -21,7 +21,7 @@ server <- function(input, output) {
 
   # render as a data-frame
   output$event_out <- renderPrint({
-    as_data_frame(rct_list_click())
+    as_tibble(rct_list_click())
   })
 
 }

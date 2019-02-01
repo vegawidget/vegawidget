@@ -27,7 +27,13 @@ We will build Vega-Lite specifications from R, by hand, using lists of lists. I 
 
 One thing to keep in mind if you are a user of **ggplot2**: your grammar-of-graphics knowledge will help you understand what is going on in Vega-Lite, but your knowledge of ggplot2 syntax may frustrate you as you learn the Vega-Lite syntax. As you will see, Vega-Lite approaches the grammar-of-graphics differently from ggplot2.
 
-If you want to work with the vegawidget package on your own computer, it is not yet on CRAN. You can install it from GitHub, using **devtools**:
+If you want to work with the vegawidget package on your own computer you can install it from CRAN:
+
+```{r eval=FALSE}
+install.packages("vegawidget")
+```
+
+There is also a development version you can install from GitHub, using **devtools**:
 
 ```{r eval=FALSE}
 devtools::install_github("vegawidget/vegawidget")

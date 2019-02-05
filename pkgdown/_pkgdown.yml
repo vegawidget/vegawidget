@@ -31,7 +31,7 @@ navbar:
         - text: Import into Other Packages
           href: articles/import.html
   right:
-    - icon: fa-github fa-2x
+    - icon: fa-github fa-lg
       href: https://github.com/vegawidget/vegawidget
 
 reference:

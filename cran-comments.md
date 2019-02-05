@@ -1,4 +1,4 @@
-## Resubmission  
+## Resubmission
 
 Pursuant to Uwe's email of 2019-01-19:
 

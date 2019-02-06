@@ -6,4 +6,7 @@ inst/do
 inst/tutorials/*/rsconnect
 inst/tutorials/*/*.html
 inst/shiny-demo/*/rsconnect
-docs/
+docs/*
+!docs/reference
+docs/reference/*
+!docs/reference/figures

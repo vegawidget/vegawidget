@@ -225,3 +225,11 @@ spec_mtcars
 ```{r}
 vw_to_vega(spec_mtcars)
 ```
+
+### Write out listing
+
+```{r}
+path_write
+
+fs::dir_info()[seq(1, 5)]
+```

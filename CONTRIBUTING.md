@@ -26,6 +26,10 @@ In the documentation, we use *specification* or *spec* to describe the JSON or t
 
 ## Development strategy
 
+In summary, now that we are on CRAN, I would like to route our development work through the `develop` branch - we will merge into `master` sparingly - once features are ironed-out, or for bug-fixes. The intent is that `master` be for stable versions. 
+
+Please build pkgdown as much as you would like - the `docs` folder is git-ignored; the pkgdown site is built and deployed automatically upon update of the GitHub `master` branch. The CRAN version of the documentation is at the "root" of the documentation site; the latest `master` version will be deployed to the `dev` directory of the "root".
+
 ### Versioning
 
 The first digit indicates the maturity of this package's API. For the time being, it will be `0`.
@@ -34,7 +38,7 @@ The second digit will be incremented upon each CRAN release and assigned a GitHu
 
 ### Vega versions 
 
-We will aim for CRAN releases to coincide with new releases of [Altair](https://altair-viz.github.io). To update the JavaScript files for Vega, Vega-Lite, and vega-embed, a mainainter will render the R markdown document found at `data-raw/infrastructure.Rmd`. The key parameter to adjust is `vega_lite_version`, in the YAML header:
+To update the JavaScript files for Vega, Vega-Lite, and vega-embed, a mainainter will render the R markdown document found at `data-raw/infrastructure.Rmd`. The key parameter to adjust is `vega_lite_version`, in the YAML header:
 
 ```yaml
 ---
@@ -45,7 +49,7 @@ params:
 ---
 ```
 
-At present, we choose the version of Vega-Lite according to the version used by the currently-released version of [Altair](https://altair-viz.github.io), and set it accodingly. The code in the Rmd file will determine the versions of Vega and vega-embed that are concurrent with this version of Vega-Lite.
+The code in the Rmd file will determine the versions of Vega and vega-embed that are concurrent with this version of Vega-Lite.
 
 ### Pull requests
 
@@ -59,7 +63,7 @@ adding vignette            | `develop`            | Yes                   | 😀
 helping with a new feature | `<feature-branch>`   | No                    | 😃
 proposing a new feature    | `develop`            | Yes                   | 😃
 
-Please roxygenize as a part of your pull-request, however, please do not commit your changes to pkgdown. Maintainers will do that after merging the PR.
+Please roxygenize as a part of your pull-request. Let's all (myself included) do our best to keep to the current CRAN verision of roxygen2.
 
 
 

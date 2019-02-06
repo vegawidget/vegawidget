@@ -42,12 +42,16 @@ You can install vegawidget from CRAN with:
 install.packages("vegawidget")
 ```
 
-You can also install vegawidget from GitHub with:
+The development version of vegawidget is available from GitHub with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("vegawidget/vegawidget")
 ```
+
+**Note:** There are documentation websites for both the [CRAN
+version](https://vegawidget.github.io/vegawidget) and the [development
+version](https://vegawidget.github.io/vegawidget/dev) of this package.
 
 This package supports these versions of Vega libraries:
 
@@ -64,16 +68,16 @@ vega_version()
 #> [1] "3.25.0"
 ```
 
-The *first* released version of vegawidget supports Vega-Lite 2.6.0, the
+The *first* CRAN version of vegawidget supports Vega-Lite 2.6.0, the
 *last* release of Vega-Lite that will run using JavaScript version ES5.
 The next version of Vega-Lite, 3.0.0, will use JavaScript ES6.
 
 In practical terms, this means that this version of vegawidget will be
-the *only* version that will display properly using version 1.1.x of the
-RStudio IDE.
+the *only* CRAN version that will display properly using version 1.1.x
+of the RStudio IDE.
 
 As soon as Vega-Lite makes its 3.0.0 release, we will make another
-vegawidget release - for which you will need to use a (presently
+vegawidget release on CRAN - for which you will need to use a (presently
 preview) version of the RStudio IDE at least 1.2.x.
 
 ## Introduction

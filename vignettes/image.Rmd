@@ -46,6 +46,9 @@ prefix_image <- "visual-regression"
 dir_write <- here::here("docs", "reference", "figures")
 dir_read <- here::here("reference", "figures")
 
+# ensure the dir_write path exists
+fs::dir_create(dir_write)
+
 path_write <- function(x) {
   fs::path(dir_write, glue::glue("{prefix_image}-{x}"))
 }

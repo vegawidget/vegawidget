@@ -229,7 +229,7 @@ vw_to_vega(spec_mtcars)
 ### Write out listing
 
 ```{r}
-path_write
+dir_write
 
-fs::dir_info()[seq(1, 5)]
+fs::dir_info(dir_write)[seq(1, 5)]
 ```

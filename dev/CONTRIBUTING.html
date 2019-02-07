@@ -164,6 +164,8 @@
 <div id="development-strategy" class="section level2">
 <h2 class="hasAnchor">
 <a href="#development-strategy" class="anchor"></a>Development strategy</h2>
+<p>In summary, now that we are on CRAN, I would like to route our development work through the <code>develop</code> branch - we will merge into <code>master</code> sparingly - once features are ironed-out, or for bug-fixes. The intent is that <code>master</code> be for stable versions.</p>
+<p>Please build pkgdown as much as you would like - the <code>docs</code> folder is git-ignored; the pkgdown site is built and deployed automatically upon update of the GitHub <code>master</code> branch. The CRAN version of the documentation is at the “root” of the documentation site; the latest <code>master</code> version will be deployed to the <code>dev</code> directory of the “root”.</p>
 <div id="versioning" class="section level3">
 <h3 class="hasAnchor">
 <a href="#versioning" class="anchor"></a>Versioning</h3>
@@ -173,14 +175,14 @@
 <div id="vega-versions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#vega-versions" class="anchor"></a>Vega versions</h3>
-<p>We will aim for CRAN releases to coincide with new releases of <a href="https://altair-viz.github.io">Altair</a>. To update the JavaScript files for Vega, Vega-Lite, and vega-embed, a mainainter will render the R markdown document found at <code>data-raw/infrastructure.Rmd</code>. The key parameter to adjust is <code>vega_lite_version</code>, in the YAML header:</p>
+<p>To update the JavaScript files for Vega, Vega-Lite, and vega-embed, a mainainter will render the R markdown document found at <code>data-raw/infrastructure.Rmd</code>. The key parameter to adjust is <code>vega_lite_version</code>, in the YAML header:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="ot">---</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="fu">title:</span><span class="at"> Package infrastrucure</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="fu">output:</span><span class="at"> github_document</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="fu">params:</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">  <span class="fu">vega_lite_version:</span><span class="at"> </span><span class="st">"2.6.0"</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="ot">---</span></a></code></pre></div>
-<p>At present, we choose the version of Vega-Lite according to the version used by the currently-released version of <a href="https://altair-viz.github.io">Altair</a>, and set it accodingly. The code in the Rmd file will determine the versions of Vega and vega-embed that are concurrent with this version of Vega-Lite.</p>
+<p>The code in the Rmd file will determine the versions of Vega and vega-embed that are concurrent with this version of Vega-Lite.</p>
 </div>
 <div id="pull-requests" class="section level3">
 <h3 class="hasAnchor">
@@ -226,7 +228,7 @@
 </tr>
 </tbody>
 </table>
-<p>Please roxygenize as a part of your pull-request, however, please do not commit your changes to pkgdown. Maintainers will do that after merging the PR.</p>
+<p>Please roxygenize as a part of your pull-request. Let’s all (myself included) do our best to keep to the current CRAN verision of roxygen2.</p>
 </div>
 </div>
 </div>

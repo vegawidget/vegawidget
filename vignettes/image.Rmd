@@ -28,44 +28,10 @@ As you are most likely already aware, there is a tradeoff between PNG and SVG. T
 Please be aware that there is a known limitation to these functions - if you are using a vegaspec that has dataset loaded from a remote URL. The `nodejs` scripts are not able to use a proxy, so if if your computer uses a proxy to access the remote URL, the data will not load.
 
 ```{r, message=FALSE}
+library("conflicted")
 library("vegawidget")
 library("htmltools")
 library("glue")
-```
-
-```{r include=FALSE}
-library("fs")
-library("here")
-library("conflicted")
-
-# note to developers - the only way that this html file will 
-# compile properly is to use pkgdown::build_site() or 
-# pkgdown::build_article("image") - do not use the knit button
-
-prefix_image <- "visual-regression"
-dir_write <- here::here("docs", "reference", "figures")
-dir_read <- here::here("reference", "figures")
-
-# ensure the dir_write path exists
-fs::dir_create(dir_write)
-
-path_write <- function(x) {
-  fs::path(dir_write, glue::glue("{prefix_image}-{x}"))
-}
-
-path_read <- function(x) {
-  fs::path(dir_read, glue::glue("{prefix_image}-{x}"))
-}
-
-# clean out old files
-to_delete <- 
-  dir_ls(
-    dir_write, 
-    regexp = glue::glue("^{fs::path(dir_write, prefix_image)}")
-  )
-
-path_rel(to_delete, start = here())
-file_delete(to_delete)
 ```
 
 ## Reference 
@@ -98,20 +64,20 @@ vw_to_bitmap(spec_mtcars, scale = 2) %>% dim()
 
 ### PNG output
 
-The function `vw_write_png()` uses `vw_to_bitmap()` to write an image-file. In the examples that follow, we use a couple of internal helper-functions, `path_write()` and `path_read()`, to manage the file-locations within the **pkgdown** framework. For the purpose of this demonstration please disregard these functions, please interpret this only as a means to provide a `path`.
+The function `vw_write_png()` uses `vw_to_bitmap()` to write an image-file. 
 
 ### Normal scale
 
 The function `vw_write_png()` generates an image at 96 DPI. We will write out a PNG file, then display it at the same resolution.
 
-**Expectation**: the image will be rendered at the same size as the [reference](#reference). 
+**Expectation**: the image will be rendered at the same size as the [reference](#reference), but **not** at retina resolution.
 
 ```{r}
-filename <- "mtcars-reference.png"
+tmp_file <- tempfile(fileext = ".png")
 
-vw_write_png(spec_mtcars, path = path_write(filename))
+vw_write_png(spec_mtcars, path = tmp_file)
 
-knitr::include_graphics(path_read(filename))
+tags$img(src = knitr::image_uri(tmp_file))
 ```
 
 We note that the PNG appears slightly different from the HTML rendering. We suspect this is because the SVG-rendering engine, **[librsvg](https://github.com/GNOME/librsvg)**, works differently from your browser. In the future, we would like to find a way to make the rendering more-similar.
@@ -120,34 +86,32 @@ We note that the PNG appears slightly different from the HTML rendering. We susp
 
 By increasing the `scale` to 2, then decreasing the display-size by a factor of two, we can show this image at "retina" resolution. The code below is a little tortured, there should be an easier way. In the future, we would like for this to be the default method for knitting to a non-HTML medium (using PNG or SVG), and that it "just work".
 
+**Expectation**: the image will be rendered at the same size as the [reference](#reference), at retina resolution.
+
+
 ```{r}
-filename <- "mtcars-retina.png"
+tmp_file <- tempfile(fileext = ".png")
   
-vw_write_png(spec_mtcars, path_write(filename), scale = 2)
+vw_write_png(spec_mtcars, path = tmp_file, scale = 2)
 
-# using knitr::include_graphics() with dpi not working, 
-#  hacking a workaround
-
-# determine the width of the image
-meta <- png::readPNG(path_write(filename), info = TRUE)
-width <- attr(meta, "info")[["dim"]][1]
-
-# display width at half of image width
-tags$img(src = path_read(filename), style = glue("width: {width / 2}px;"))
+tags$img(
+  src = knitr::image_uri(tmp_file), 
+  onload = "this.width/=2;this.onload=null;"
+)
 ```
 
 ### Using vegawidget
 
 This demonstrates that we can use `vw_write_png()` with vegawidgets. 
 
-**Expectation**: this image will appear at the same size as the [reference](#reference).
+**Expectation**: the image will be rendered at the same size as the [reference](#reference), but **not** at retina resolution.
 
 ```{r}
-filename <- "mtcars-widget.png"
+tmp_file <- tempfile(fileext = ".png")
   
-vw_write_png(vegawidget(spec_mtcars), path = path_write(filename))
+vw_write_png(vegawidget(spec_mtcars), path = tmp_file)
 
-knitr::include_graphics(path_read(filename))
+tags$img(src = knitr::image_uri(tmp_file))
 ```
 
 ## SVG
@@ -157,13 +121,13 @@ knitr::include_graphics(path_read(filename))
 The `vw_to_svg()` function returns an HTML string:
 
 ```{r}
-vw_to_svg(spec_mtcars)
+vw_to_svg(spec_mtcars) %>% str()
 ```
 
 This string can be rendered as standard HTML:
 
 ```{r}
-HTML(vw_to_svg(spec_mtcars))
+vw_to_svg(spec_mtcars) %>% HTML()
 ```
 
 ### Normal scale
@@ -171,11 +135,7 @@ HTML(vw_to_svg(spec_mtcars))
 **Expectation**: this image will appear identical to the [reference](#reference): 
 
 ```{r}
-filename <- "mtcars-reference.svg"
-
-vw_write_svg(spec_mtcars, path = path_write(filename))
-
-knitr::include_graphics(path_read(filename))
+vw_to_svg(spec_mtcars) %>% HTML()
 ```
 
 ### Autosize
@@ -183,11 +143,7 @@ knitr::include_graphics(path_read(filename))
 **Expectation**: We expect that the rendered image will have a *total* size of `width = 600` and `height = 300`, and to appear at retina resolution.
 
 ```{r}
-filename <- "mtcars-wide.svg"
-
-vw_write_svg(spec_mtcars, path = path_write(filename), width = 600, height = 300)
-
-knitr::include_graphics(path_read(filename))
+vw_to_svg(spec_mtcars, width = 600, height = 300) %>% HTML()
 ```
 
 ## Other visual-regressions
@@ -226,10 +182,3 @@ spec_mtcars
 vw_to_vega(spec_mtcars)
 ```
 
-### Write out listing
-
-```{r}
-dir_write
-
-fs::dir_info(dir_write)[seq(1, 5)]
-```

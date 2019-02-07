@@ -1,3 +1,7 @@
+# vegawidget 0.1.0.9000
+
+* bumps version for development
+
 # vegawidget 0.1.0
 
 * CRAN release

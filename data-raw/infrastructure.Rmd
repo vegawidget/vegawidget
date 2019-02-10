@@ -2,7 +2,7 @@
 title: Package infrastrucure
 output: github_document
 params:
-  vega_lite_version: "2.6.0"
+  vega_lite_version: "3.0.0-rc12"
 ---
 
 This purpose of this document is to build the package infrastucture. 
@@ -38,10 +38,8 @@ Package infrastucture incudes:
 - an htmlwidget named "vegawidget"
 - internal package data: 
   - list of version numbers: `.vega_version`
-  - strings of minified javascript libraries: `.vega_js`, `.vega_polyfill_symbol_js`, `.vega_polyfill_promise_js`, `.vega_lite_js` (perhaps the js libraries could use the htmldependency and memoise)
 - public package data:
   - `spec_mtcars` vegaspec for an mtcars scatterplot
-- files to create a [block](https://bl.ocks.org)
 - files to validate the schema
 
 Perhaps this could be a series of documents - it remains as an exercise to see what can be cleaved away.
@@ -89,7 +87,7 @@ These packages are not listed in the `Suggests` section of the `DESCRIPTION` fil
 We need to know which versions of the libraries (vega, vega-lite, and vega-embed) to download. We do this by inspecting the manifest of a specific version of the vega-lite library. This package has an internal function, `vega_version()` to help us do this:  
 
 ```{r version}
-vega_version_long <- get_vega_version(params$vega_lite_version)
+vega_version_long <- vegawidget:::get_vega_version(params$vega_lite_version)
 
 vega_version_long
 
@@ -100,7 +98,7 @@ vega_version_short <- map(vega_version_long, ~sub("-\\w.*$", "", .x))
 
 This is a patch to get the "latest" version of vega-embed. Once we move to Vega-Lite 3, this code should be removed.
 
-```{r}
+```{r eval=FALSE}
 vega_version_long$vega <- "4.0.0"
 vega_version_long$vega_embed <- "3.25.0"
 
@@ -220,23 +218,6 @@ readr::write_file(vega_mod, path(dir_lib, "vega-embed/vega-embed-modified.js"))
 fs::file_delete(vega_embed_path)
 ```
 
-## Block
-
-
-These are the files used with `create_block()`
-
-```{r vegawidget-block}
-dir_block <- here("inst", "block")
-create_clean(dir_block)
-```
-
-```{r}
-fs::file_copy(
-  fs::path(dir_templates, "index.html"), 
-  fs::path(dir_block, "index.html")
-)
-```
-
 ## Schema
 
 One of the purposes of this package is to provide a means to validate a spec. 
@@ -275,7 +256,7 @@ The data are documented in `R/data.R`.
 spec_mtcars <-
   as_vegaspec(
     list(
-      `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
+      `$schema` = "https://vega.github.io/schema/vega-lite/v3.json",
       width = 300L,
       height = 300L,
       description = "An mtcars example.",
@@ -416,10 +397,6 @@ Vegawidget handlers:
 ```{r}
 devtools::use_data(
   .vega_version, 
-  .vega_js,
-  .vega_lite_js,
-  .promise_js,
-  .symbol_js,
   .vw_handler_library,
   internal = TRUE, 
   overwrite = TRUE

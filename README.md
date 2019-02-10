@@ -59,13 +59,13 @@ This package supports these versions of Vega libraries:
 library("vegawidget")
 vega_version()
 #> $vega_lite
-#> [1] "2.6.0"
+#> [1] "3.0.0-rc12"
 #> 
 #> $vega
-#> [1] "4.0.0"
+#> [1] "4.4.0"
 #> 
 #> $vega_embed
-#> [1] "3.25.0"
+#> [1] "3.28.0"
 ```
 
 The *first* CRAN version of vegawidget supports Vega-Lite 2.6.0, the

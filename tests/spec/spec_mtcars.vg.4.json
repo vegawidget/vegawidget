@@ -1,5 +1,5 @@
 {
-  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "$schema": "https://vega.github.io/schema/vega/v4.json",
   "description": "An mtcars example.",
   "autosize": "pad",
   "padding": 5,
@@ -459,18 +459,6 @@
           "_row": "Volvo 142E"
         }
       ]
-    },
-    {
-      "name": "data_0",
-      "source": "source_0",
-      "transform": [
-        {"type": "formula", "expr": "toNumber(datum[\"wt\"])", "as": "wt"},
-        {"type": "formula", "expr": "toNumber(datum[\"mpg\"])", "as": "mpg"},
-        {
-          "type": "filter",
-          "expr": "datum[\"wt\"] !== null && !isNaN(datum[\"wt\"]) && datum[\"mpg\"] !== null && !isNaN(datum[\"mpg\"])"
-        }
-      ]
     }
   ],
   "marks": [
@@ -478,12 +466,27 @@
       "name": "marks",
       "type": "symbol",
       "style": ["point"],
-      "from": {"data": "data_0"},
+      "from": {"data": "source_0"},
       "encode": {
         "update": {
           "opacity": {"value": 0.7},
-          "fill": {"value": "transparent"},
-          "stroke": {"scale": "color", "field": "cyl"},
+          "fill": [
+            {
+              "test": "datum[\"wt\"] === null || isNaN(datum[\"wt\"]) || datum[\"mpg\"] === null || isNaN(datum[\"mpg\"])",
+              "value": null
+            },
+            {"value": "transparent"}
+          ],
+          "stroke": [
+            {
+              "test": "datum[\"wt\"] === null || isNaN(datum[\"wt\"]) || datum[\"mpg\"] === null || isNaN(datum[\"mpg\"])",
+              "value": null
+            },
+            {"scale": "color", "field": "cyl"}
+          ],
+          "tooltip": {
+            "signal": "{\"wt\": format(datum[\"wt\"], \"\"), \"mpg\": format(datum[\"mpg\"], \"\"), \"cyl\": ''+datum[\"cyl\"]}"
+          },
           "x": {"scale": "x", "field": "wt"},
           "y": {"scale": "y", "field": "mpg"}
         }
@@ -494,7 +497,7 @@
     {
       "name": "x",
       "type": "linear",
-      "domain": {"data": "data_0", "field": "wt"},
+      "domain": {"data": "source_0", "field": "wt"},
       "range": [0, {"signal": "width"}],
       "nice": true,
       "zero": true
@@ -502,7 +505,7 @@
     {
       "name": "y",
       "type": "linear",
-      "domain": {"data": "data_0", "field": "mpg"},
+      "domain": {"data": "source_0", "field": "mpg"},
       "range": [{"signal": "height"}, 0],
       "nice": true,
       "zero": true
@@ -510,7 +513,7 @@
     {
       "name": "color",
       "type": "ordinal",
-      "domain": {"data": "data_0", "field": "cyl", "sort": true},
+      "domain": {"data": "source_0", "field": "cyl", "sort": true},
       "range": "category"
     }
   ],
@@ -528,9 +531,9 @@
     {
       "scale": "x",
       "orient": "bottom",
+      "gridScale": "y",
       "grid": true,
       "tickCount": {"signal": "ceil(width/40)"},
-      "gridScale": "y",
       "domain": false,
       "labels": false,
       "maxExtent": 0,
@@ -550,9 +553,9 @@
     {
       "scale": "y",
       "orient": "left",
+      "gridScale": "x",
       "grid": true,
       "tickCount": {"signal": "ceil(height/40)"},
-      "gridScale": "x",
       "domain": false,
       "labels": false,
       "maxExtent": 0,
@@ -564,6 +567,7 @@
   "legends": [
     {
       "stroke": "color",
+      "gradientLength": {"signal": "clamp(height, 64, 200)"},
       "title": "cyl",
       "encode": {
         "symbols": {

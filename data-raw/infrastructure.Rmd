@@ -159,8 +159,6 @@ htmlwidgets_downloads <-
     ~path_local,                         ~path_remote,
     "vega-lite/vega-lite.min.js",        "https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite}",
     "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/master/LICENSE",
-    "vega/promise.min.js",               "https://vega.github.io/vega/assets/promise.min.js",
-    "vega/symbol.min.js",                "https://vega.github.io/vega/assets/symbol.min.js",
     "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
     "vega/vega.js",                      "https://cdn.jsdelivr.net/npm/vega@{vega}/build/vega.js",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",

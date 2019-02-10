@@ -207,8 +207,6 @@ htmlwidgets_downloads <-
     ~path_local,                         ~path_remote,
     "vega-lite/vega-lite.min.js",        "https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite}",
     "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/master/LICENSE",
-    "vega/promise.min.js",               "https://vega.github.io/vega/assets/promise.min.js",
-    "vega/symbol.min.js",                "https://vega.github.io/vega/assets/symbol.min.js",
     "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
     "vega/vega.js",                      "https://cdn.jsdelivr.net/npm/vega@{vega}/build/vega.js",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
@@ -222,18 +220,16 @@ htmlwidgets_downloads <-
 htmlwidgets_downloads
 ```
 
-    ## # A tibble: 9 x 2
+    ## # A tibble: 7 x 2
     ##   path_local             path_remote                                       
     ##   <chr>                  <chr>                                             
     ## 1 vega-lite/vega-lite.m… https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc12 
     ## 2 vega-lite/LICENSE      https://raw.githubusercontent.com/vega/vega-lite/…
-    ## 3 vega/promise.min.js    https://vega.github.io/vega/assets/promise.min.js 
-    ## 4 vega/symbol.min.js     https://vega.github.io/vega/assets/symbol.min.js  
-    ## 5 vega/vega.min.js       https://cdn.jsdelivr.net/npm/vega@4.4.0           
-    ## 6 vega/vega.js           https://cdn.jsdelivr.net/npm/vega@4.4.0/build/veg…
-    ## 7 vega/LICENSE           https://raw.githubusercontent.com/vega/vega/maste…
-    ## 8 vega-embed/vega-embed… https://cdn.jsdelivr.net/npm/vega-embed@3.28.0    
-    ## 9 vega-embed/LICENSE     https://raw.githubusercontent.com/vega/vega-embed…
+    ## 3 vega/vega.min.js       https://cdn.jsdelivr.net/npm/vega@4.4.0           
+    ## 4 vega/vega.js           https://cdn.jsdelivr.net/npm/vega@4.4.0/build/veg…
+    ## 5 vega/LICENSE           https://raw.githubusercontent.com/vega/vega/maste…
+    ## 6 vega-embed/vega-embed… https://cdn.jsdelivr.net/npm/vega-embed@3.28.0    
+    ## 7 vega-embed/LICENSE     https://raw.githubusercontent.com/vega/vega-embed…
 
 ``` r
 get_file <- function(path_local, path_remote, path_local_root) {
@@ -387,13 +383,11 @@ htmlwidgets_vegajs <-
 htmlwidgets_vegajs  
 ```
 
-    ## # A tibble: 4 x 2
+    ## # A tibble: 2 x 2
     ##   name          path_local                
     ##   <chr>         <chr>                     
     ## 1 .vega_lite_js vega-lite/vega-lite.min.js
-    ## 2 .promise_js   vega/promise.min.js       
-    ## 3 .symbol_js    vega/symbol.min.js        
-    ## 4 .vega_js      vega/vega.min.js
+    ## 2 .vega_js      vega/vega.min.js
 
 We need to put these into the local environment. This smells like a
 side-effect.

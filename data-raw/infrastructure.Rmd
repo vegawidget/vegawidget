@@ -160,7 +160,7 @@ htmlwidgets_downloads <-
     "vega-lite/vega-lite.min.js",        "https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite}",
     "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/master/LICENSE",
     "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
-    "vega/vega.js",                      "https://cdn.jsdelivr.net/npm/vega@{vega}/build/vega.js",
+    # "vega/vega.js",                      "https://cdn.jsdelivr.net/npm/vega@{vega}/build/vega.js",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
     "vega-embed/vega-embed.js",          "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
     "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
@@ -205,7 +205,8 @@ pwalk(htmlwidgets_downloads, get_file, path_local_root = dir_lib)
 
 Here, Alicia Schep noticed that there was a problem to render vega charts within the RStudio IDE, and she figured out a workaround (as well as a PR for the RStudio IDE to fix the problem). Here's her patch for older versions of the IDE: 
 
-```{r}
+```{r eval=FALSE}
+# disabling for now - to see if this works without the patch
 vega_embed_path <- path(dir_lib, "vega-embed/vega-embed.js")
 vega_embed <- readr::read_file(vega_embed_path)
 

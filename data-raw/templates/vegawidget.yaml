@@ -3,7 +3,7 @@ dependencies:
     version: "{vega}"
     src: htmlwidgets/lib/vega
     script:
-      - vega.js
+      - vega.min.js
   - name: vega-lite
     version: "{vega_lite}"
     src: htmlwidgets/lib/vega-lite
@@ -13,6 +13,6 @@ dependencies:
     version: "{vega_embed}"
     src: htmlwidgets/lib/vega-embed
     script:
-      - vega-embed-modified.js
+      - vega-embed.js
     style:
       - vega-embed.css

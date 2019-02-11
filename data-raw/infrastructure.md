@@ -208,7 +208,7 @@ htmlwidgets_downloads <-
     "vega-lite/vega-lite.min.js",        "https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite}",
     "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/master/LICENSE",
     "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
-    "vega/vega.js",                      "https://cdn.jsdelivr.net/npm/vega@{vega}/build/vega.js",
+    # "vega/vega.js",                      "https://cdn.jsdelivr.net/npm/vega@{vega}/build/vega.js",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
     "vega-embed/vega-embed.js",          "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
     "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
@@ -220,16 +220,15 @@ htmlwidgets_downloads <-
 htmlwidgets_downloads
 ```
 
-    ## # A tibble: 7 x 2
+    ## # A tibble: 6 x 2
     ##   path_local             path_remote                                       
     ##   <chr>                  <chr>                                             
     ## 1 vega-lite/vega-lite.m… https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc12 
     ## 2 vega-lite/LICENSE      https://raw.githubusercontent.com/vega/vega-lite/…
     ## 3 vega/vega.min.js       https://cdn.jsdelivr.net/npm/vega@4.4.0           
-    ## 4 vega/vega.js           https://cdn.jsdelivr.net/npm/vega@4.4.0/build/veg…
-    ## 5 vega/LICENSE           https://raw.githubusercontent.com/vega/vega/maste…
-    ## 6 vega-embed/vega-embed… https://cdn.jsdelivr.net/npm/vega-embed@3.28.0    
-    ## 7 vega-embed/LICENSE     https://raw.githubusercontent.com/vega/vega-embed…
+    ## 4 vega/LICENSE           https://raw.githubusercontent.com/vega/vega/maste…
+    ## 5 vega-embed/vega-embed… https://cdn.jsdelivr.net/npm/vega-embed@3.28.0    
+    ## 6 vega-embed/LICENSE     https://raw.githubusercontent.com/vega/vega-embed…
 
 ``` r
 get_file <- function(path_local, path_remote, path_local_root) {
@@ -269,6 +268,7 @@ as a PR for the RStudio IDE to fix the problem). Here’s her patch for
 older versions of the IDE:
 
 ``` r
+# disabling for now - to see if this works without the patch
 vega_embed_path <- path(dir_lib, "vega-embed/vega-embed.js")
 vega_embed <- readr::read_file(vega_embed_path)
 

@@ -15,7 +15,7 @@ var fs = require('fs');
 var path = require('path');
 
 // Get paths to the JS files
-var vega_path = path.join(pkgDir, 'htmlwidgets','lib','vega','vega.js');
+var vega_path = path.join(pkgDir, 'htmlwidgets','lib','vega','vega.min.js');
 var vl_path = path.join(pkgDir, 'htmlwidgets','lib','vega-lite','vega-lite.min.js');
 
 // Load the JS and run

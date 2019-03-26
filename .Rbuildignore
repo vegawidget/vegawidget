@@ -8,6 +8,7 @@
 ^docs$
 ^inst/tutorials/.*/.*\.html$
 ^inst/tutorials/.*/rsconnect/*$
+^inst/shiny-demo/.*.dcf$
 ^pkgdown$
 ^vignettes/autosize-.*\.png$
 ^vignettes/blocks\.Rmd$

@@ -1,6 +1,6 @@
 # vegawidget 0.2.0.9000
 
-* Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.0.0-rc12 (#65)
+* Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.0.2 (#65)
 
 * bumps version for development
 

@@ -2,7 +2,7 @@
 
 language: R
 sudo: false
-cache: packages
+#cache: packages
 
 # managing node in a project for another language
 # https://austinpray.com/ops/2015/09/20/change-travis-node-version.html

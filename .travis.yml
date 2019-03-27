@@ -4,8 +4,9 @@ language: R
 sudo: false
 cache: packages
 
-node_js:
-  - "8"
+before_install:
+ - echo "***node***"
+ - node --version
 
 matrix:
   include:

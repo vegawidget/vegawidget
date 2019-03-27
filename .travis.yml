@@ -6,7 +6,10 @@ cache: packages
 
 # managing node in a project for another language
 # https://austinpray.com/ops/2015/09/20/change-travis-node-version.html
-install:
+#
+# doing this becuase Vega-Lite needs node 8 and the R Travis container uses node 6
+# (there has to be a cleaner way to do this)
+before_install:
   - echo "***node***"
   - node --version
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 8

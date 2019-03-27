@@ -4,9 +4,17 @@ language: R
 sudo: false
 cache: packages
 
-before_install:
- - echo "***node***"
- - node --version
+# managing node in a project for another language
+# https://austinpray.com/ops/2015/09/20/change-travis-node-version.html
+env:
+  - TRAVIS_NODE_VERSION="8"
+
+install:
+  - echo "***node***"
+  - node --version  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
+  - npm install
+  - echo "***node***"
+  - node --version
 
 matrix:
   include:
@@ -22,7 +30,6 @@ matrix:
 addons:
   apt:
     packages:
-      - nodejs          # needs at least node 8
       - libv8-dev       # for V8
       - valgrind        # for V8
       - libmagick++-dev # magick

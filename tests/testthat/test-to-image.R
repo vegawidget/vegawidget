@@ -1,7 +1,7 @@
 context("test-to-image.R")
 
 spec_mtcars_vega <-
-  "../spec/spec_mtcars.vg.3.json" %>%
+  "../spec/spec_mtcars.vg.5.json" %>%
   readLines() %>%
   as_vegaspec()
 

@@ -61,13 +61,8 @@ Package infrastucture incudes:
   - an htmlwidget named “vegawidget”
   - internal package data:
       - list of version numbers: `.vega_version`
-      - strings of minified javascript libraries: `.vega_js`,
-        `.vega_polyfill_symbol_js`, `.vega_polyfill_promise_js`,
-        `.vega_lite_js` (perhaps the js libraries could use the
-        htmldependency and memoise)
   - public package data:
       - `spec_mtcars` vegaspec for an mtcars scatterplot
-  - files to create a [block](https://bl.ocks.org)
   - files to validate the schema
 
 Perhaps this could be a series of documents - it remains as an exercise
@@ -122,38 +117,28 @@ These packages are not listed in the `Suggests` section of the
 We need to know which versions of the libraries (vega, vega-lite, and
 vega-embed) to download. We do this by inspecting the manifest of a
 specific version of the vega-lite library. This package has an internal
-function, `vega_version()` to help us do this:
+function, `vega_version()` to help us do
+this:
 
 ``` r
-vega_version_long <- get_vega_version(params$vega_lite_version)
+vega_version_long <- vegawidget:::get_vega_version(params$vega_lite_version)
 
 vega_version_long
 ```
 
     ## $vega_lite
-    ## [1] "2.6.0"
+    ## [1] "3.0.2"
     ## 
     ## $vega
-    ## [1] "4.0.0-rc.3"
+    ## [1] "5.3.2"
     ## 
     ## $vega_embed
-    ## [1] "3.16.0"
+    ## [1] "4.0.0-rc1"
 
 ``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
 # "-\\w.*$"   hyphen, followed by a letter, followed by anything, then end 
 vega_version_short <- map(vega_version_long, ~sub("-\\w.*$", "", .x))
-```
-
-This is a patch to get the “latest” version of vega-embed. Once we move
-to Vega-Lite 3, this code should be removed.
-
-``` r
-vega_version_long$vega <- "4.0.0"
-vega_version_long$vega_embed <- "3.25.0"
-
-vega_version_short$vega <- "4.0.0"
-vega_version_short$vega_embed <- "3.25.0"
 ```
 
 ## htmlwidgets
@@ -211,10 +196,8 @@ htmlwidgets_downloads <-
     ~path_local,                         ~path_remote,
     "vega-lite/vega-lite.min.js",        "https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite}",
     "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/master/LICENSE",
-    "vega/promise.min.js",               "https://vega.github.io/vega/assets/promise.min.js",
-    "vega/symbol.min.js",                "https://vega.github.io/vega/assets/symbol.min.js",
     "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
-    "vega/vega.js",                      "https://cdn.jsdelivr.net/npm/vega@{vega}/build/vega.js",
+    # "vega/vega.js",                      "https://cdn.jsdelivr.net/npm/vega@{vega}/build/vega.js",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
     "vega-embed/vega-embed.js",          "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
     "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
@@ -226,18 +209,15 @@ htmlwidgets_downloads <-
 htmlwidgets_downloads
 ```
 
-    ## # A tibble: 9 x 2
-    ##   path_local                 path_remote                                  
-    ##   <chr>                      <chr>                                        
-    ## 1 vega-lite/vega-lite.min.js https://cdn.jsdelivr.net/npm/vega-lite@2.6.0 
-    ## 2 vega-lite/LICENSE          https://raw.githubusercontent.com/vega/vega-…
-    ## 3 vega/promise.min.js        https://vega.github.io/vega/assets/promise.m…
-    ## 4 vega/symbol.min.js         https://vega.github.io/vega/assets/symbol.mi…
-    ## 5 vega/vega.min.js           https://cdn.jsdelivr.net/npm/vega@4.0.0      
-    ## 6 vega/vega.js               https://cdn.jsdelivr.net/npm/vega@4.0.0/buil…
-    ## 7 vega/LICENSE               https://raw.githubusercontent.com/vega/vega/…
-    ## 8 vega-embed/vega-embed.js   https://cdn.jsdelivr.net/npm/vega-embed@3.25…
-    ## 9 vega-embed/LICENSE         https://raw.githubusercontent.com/vega/vega-…
+    ## # A tibble: 6 x 2
+    ##   path_local             path_remote                                       
+    ##   <chr>                  <chr>                                             
+    ## 1 vega-lite/vega-lite.m… https://cdn.jsdelivr.net/npm/vega-lite@3.0.2      
+    ## 2 vega-lite/LICENSE      https://raw.githubusercontent.com/vega/vega-lite/…
+    ## 3 vega/vega.min.js       https://cdn.jsdelivr.net/npm/vega@5.3.2           
+    ## 4 vega/LICENSE           https://raw.githubusercontent.com/vega/vega/maste…
+    ## 5 vega-embed/vega-embed… https://cdn.jsdelivr.net/npm/vega-embed@4.0.0-rc1 
+    ## 6 vega-embed/LICENSE     https://raw.githubusercontent.com/vega/vega-embed…
 
 ``` r
 get_file <- function(path_local, path_remote, path_local_root) {
@@ -277,6 +257,7 @@ as a PR for the RStudio IDE to fix the problem). Here’s her patch for
 older versions of the IDE:
 
 ``` r
+# disabling for now - to see if this works without the patch
 vega_embed_path <- path(dir_lib, "vega-embed/vega-embed.js")
 vega_embed <- readr::read_file(vega_embed_path)
 
@@ -285,22 +266,6 @@ vega_mod <- stringr::str_replace_all(vega_mod, '"<\\/head>','"</he"+"ad>')
 
 readr::write_file(vega_mod, path(dir_lib, "vega-embed/vega-embed-modified.js"))
 fs::file_delete(vega_embed_path)
-```
-
-## Block
-
-These are the files used with `create_block()`
-
-``` r
-dir_block <- here("inst", "block")
-create_clean(dir_block)
-```
-
-``` r
-fs::file_copy(
-  fs::path(dir_templates, "index.html"), 
-  fs::path(dir_block, "index.html")
-)
 ```
 
 ## Schema
@@ -333,10 +298,10 @@ schema
 ```
 
     ## # A tibble: 2 x 2
-    ##   path_local            path_remote                                       
-    ##   <chr>                 <chr>                                             
-    ## 1 vega/v4.0.0.json      https://vega.github.io/schema/vega/v4.0.0.json    
-    ## 2 vega-lite/v2.6.0.json https://vega.github.io/schema/vega-lite/v2.6.0.js…
+    ##   path_local            path_remote                                        
+    ##   <chr>                 <chr>                                              
+    ## 1 vega/v5.3.2.json      https://vega.github.io/schema/vega/v5.3.2.json     
+    ## 2 vega-lite/v3.0.2.json https://vega.github.io/schema/vega-lite/v3.0.2.json
 
 ``` r
 pwalk(schema, get_file, path_local_root = dir_schema)
@@ -350,7 +315,7 @@ The data are documented in `R/data.R`.
 spec_mtcars <-
   as_vegaspec(
     list(
-      `$schema` = "https://vega.github.io/schema/vega-lite/v2.json",
+      `$schema` = "https://vega.github.io/schema/vega-lite/v3.json",
       width = 300L,
       height = 300L,
       description = "An mtcars example.",
@@ -407,13 +372,11 @@ htmlwidgets_vegajs <-
 htmlwidgets_vegajs  
 ```
 
-    ## # A tibble: 4 x 2
+    ## # A tibble: 2 x 2
     ##   name          path_local                
     ##   <chr>         <chr>                     
     ## 1 .vega_lite_js vega-lite/vega-lite.min.js
-    ## 2 .promise_js   vega/promise.min.js       
-    ## 3 .symbol_js    vega/symbol.min.js        
-    ## 4 .vega_js      vega/vega.min.js
+    ## 2 .vega_js      vega/vega.min.js
 
 We need to put these into the local environment. This smells like a
 side-effect.
@@ -505,14 +468,14 @@ Vegawidget handlers:
 ``` r
 devtools::use_data(
   .vega_version, 
-  .vega_js,
-  .vega_lite_js,
-  .promise_js,
-  .symbol_js,
   .vw_handler_library,
   internal = TRUE, 
   overwrite = TRUE
 )
 ```
 
-    ## Saving .vega_version, .vega_js, .vega_lite_js, .promise_js, .symbol_js, .vw_handler_library as sysdata.rda to /Users/ijlyttle/Documents/git/github/vegawidget/vegawidget/R
+    ## Warning: 'devtools::use_data' is deprecated.
+    ## Use 'usethis::use_data()' instead.
+    ## See help("Deprecated") and help("devtools-deprecated").
+
+    ## ✔ Saving '.vega_version', '.vw_handler_library' to 'R/sysdata.rda'

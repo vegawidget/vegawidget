@@ -25,7 +25,7 @@ const base = process.argv[5];
 fetch = require('node-fetch');
 
 // Get paths to the JS files
-const vega_path = path.join(pkgDir, 'htmlwidgets','lib','vega','vega.js');
+const vega_path = path.join(pkgDir, 'htmlwidgets','lib','vega','vega.min.js');
 
 // Load the JS
 var vega = require(vega_path);

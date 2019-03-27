@@ -4,6 +4,16 @@ language: R
 sudo: false
 cache: packages
 
+# managing node in a project for another language
+# https://austinpray.com/ops/2015/09/20/change-travis-node-version.html
+install:
+  - echo "***node***"
+  - node --version
+  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 8
+  - npm install
+  - echo "***node***"
+  - node --version
+
 matrix:
   include:
   - r: devel

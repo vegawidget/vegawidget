@@ -1,4 +1,4 @@
-context("to-vega")
+context("test-to-vega.R")
 
 library("magrittr")
 
@@ -11,7 +11,7 @@ test_that("vw_to_vega works", {
   skip_if_not(has_node)
 
   spec_mtcars_vega <-
-    "../spec/spec_mtcars.vg.3.json" %>%
+    "../spec/spec_mtcars.vg.5.json" %>%
     readLines() %>%
     as_vegaspec()
 

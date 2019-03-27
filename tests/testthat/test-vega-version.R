@@ -11,12 +11,12 @@ test_that("get_vega_version works correctly", {
   skip_on_cran()
 
   vega_vers <- list(
-    vega_lite = "2.6.0",
-    vega = "4.0.0-rc.3",
-    vega_embed = "3.16.0"
+    vega_lite = "3.0.2",
+    vega = "5.3.2",
+    vega_embed = "4.0.0-rc1"
   )
 
-  expect_identical(get_vega_version("2.6.0"), vega_vers)
+  expect_identical(get_vega_version("3.0.2"), vega_vers)
 
 })
 

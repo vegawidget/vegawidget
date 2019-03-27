@@ -4,6 +4,8 @@ language: R
 sudo: false
 #cache:
 #  packages: true
+repos:
+  CRAN: https://cloud.r-project.org
 
 # managing node in a project for another language
 # https://austinpray.com/ops/2015/09/20/change-travis-node-version.html

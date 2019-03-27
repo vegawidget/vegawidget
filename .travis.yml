@@ -4,6 +4,9 @@ language: R
 sudo: false
 cache: packages
 
+node_js:
+  - "8"
+
 matrix:
   include:
   - r: devel

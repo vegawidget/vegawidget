@@ -22,7 +22,7 @@ matrix:
 addons:
   apt:
     packages:
-      - node            # needs at least node 8
+      - nodejs          # needs at least node 8
       - libv8-dev       # for V8
       - valgrind        # for V8
       - libmagick++-dev # magick

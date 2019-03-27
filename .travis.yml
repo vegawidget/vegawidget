@@ -4,12 +4,11 @@ language: R
 sudo: false
 #cache:
 #  packages: true
-repos:
-  CRAN: https://cloud.r-project.org
+
 
 # managing node in a project for another language
 # https://austinpray.com/ops/2015/09/20/change-travis-node-version.html
-install:
+before_install:
   - echo "***node***"
   - node --version
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 8

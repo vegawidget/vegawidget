@@ -41,7 +41,7 @@ get_vega_version <- function(vega_lite_version) {
   package <- jsonlite::fromJSON(text)
 
   # get versions
-  vega_version <- sub("\\^", "", package$devDependencies$vega)
+  vega_version <- sub("\\^", "", package$peerDependencies$vega)
   vega_embed_version <- sub("\\^", "", package$devDependencies$`vega-embed`)
 
   vega_version <- list(

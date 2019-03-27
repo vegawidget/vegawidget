@@ -1,9 +1,9 @@
 context("test-spec-version.R")
 
-schema_vega <- "https://vega.github.io/schema/vega/v4.json"
+schema_vega <- "https://vega.github.io/schema/vega/v5.json"
 schema_vega_lite <- "https://vega.github.io/schema/vega-lite/v3.json"
 
-vega <- list(library = "vega", version = "4")
+vega <- list(library = "vega", version = "5")
 vega_lite <- list(library = "vega_lite", version = "3")
 
 test_that(".schema_type warns", {

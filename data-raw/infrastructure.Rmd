@@ -2,7 +2,7 @@
 title: Package infrastrucure
 output: github_document
 params:
-  vega_lite_version: "3.0.0-rc12"
+  vega_lite_version: "3.0.2"
 ---
 
 This purpose of this document is to build the package infrastucture. 
@@ -95,17 +95,6 @@ vega_version_long
 # "-\\w.*$"   hyphen, followed by a letter, followed by anything, then end 
 vega_version_short <- map(vega_version_long, ~sub("-\\w.*$", "", .x))
 ```
-
-This is a patch to get the "latest" version of vega-embed. Once we move to Vega-Lite 3, this code should be removed.
-
-```{r eval=FALSE}
-vega_version_long$vega <- "4.0.0"
-vega_version_long$vega_embed <- "3.25.0"
-
-vega_version_short$vega <- "4.0.0"
-vega_version_short$vega_embed <- "3.25.0"
-```
-
 
 ## htmlwidgets 
 

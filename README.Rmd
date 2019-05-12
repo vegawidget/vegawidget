@@ -52,11 +52,11 @@ library("vegawidget")
 vega_version()
 ```
 
-The *first* CRAN version of vegawidget supports Vega-Lite 2.6.0, the *last* release of Vega-Lite that will run using JavaScript version ES5. The next version of Vega-Lite, 3.0.0, will use JavaScript ES6. 
+The *first* CRAN version of vegawidget supports Vega-Lite 2.6.0, the *last* release of Vega-Lite that will run using JavaScript version ES5. The current version major-version of Vega-Lite, 3, uses JavaScript ES6. 
 
 In practical terms, this means that the initial CRAN-version (0.1.0) of vegawidget will be the *only* CRAN version that will display properly using version 1.1.x of the RStudio IDE. 
 
-This development version of vegawidget uses a release-candidate version of Vega-Lite 3.0.0. The *next* CRAN release of vegawidget will be made shortly after the Vega-Lite team make their offical 3.0.0 release.
+This development version of vegawidget uses Vega-Lite 3, as will the *next* CRAN release of vegawidget.
  
 ## Introduction
 

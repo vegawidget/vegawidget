@@ -307,6 +307,15 @@ schema
 pwalk(schema, get_file, path_local_root = dir_schema)
 ```
 
+We want to add a newline to the end of each of these files.
+
+``` r
+walk(
+  schema$path_local,
+  ~write("\n", file = file.path(dir_schema, .x), append = TRUE)
+)
+```
+
 ## Public data
 
 The data are documented in `R/data.R`.

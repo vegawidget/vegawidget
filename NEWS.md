@@ -1,4 +1,6 @@
-# vegawidget 0.2.0.9001
+# vegawidget (development version)
+
+* Modify contribution guidelines; use `master` as reference branch for all pull-requests.
 
 * Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.0.2 (#65)
 

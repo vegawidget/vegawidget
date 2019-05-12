@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9001</span>
       </span>
     </div>
 
@@ -102,7 +102,7 @@
     <div class="page-header toc-ignore">
       <h1>Import into other packages</h1>
             
-            <h4 class="date">2019-03-27</h4>
+            <h4 class="date">2019-05-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/import.Rmd"><code>vignettes/import.Rmd</code></a></small>
       <div class="hidden name"><code>import.Rmd</code></div>
@@ -119,9 +119,9 @@
 <p>The rendering part of altair is handled by this package. A number of vegawidget functions are imported into altair, then re-exported. From altair’s perspective, this import-export operation is handled by a single vegawidget function: <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code>.</p>
 <div id="inspiration-usethisuse_pipe" class="section level3">
 <h3 class="hasAnchor">
-<a href="#inspiration-usethisuse_pipe" class="anchor"></a>Inspiration: <code><a href="https://www.rdocumentation.org/packages/usethis/topics/use_pipe">usethis::use_pipe()</a></code>
+<a href="#inspiration-usethisuse_pipe" class="anchor"></a>Inspiration: <code><a href="https://usethis.r-lib.org/reference/use_pipe.html">usethis::use_pipe()</a></code>
 </h3>
-<p>A lot of packages use the pipe (<code>%&gt;%</code>) function, so much so that the <a href="http://usethis.r-lib.org"><strong>usethis</strong></a> package offers the function <code><a href="https://www.rdocumentation.org/packages/usethis/topics/use_pipe">usethis::use_pipe()</a></code> for package authors to make the pipe part of their package’s offer:</p>
+<p>A lot of packages use the pipe (<code>%&gt;%</code>) function, so much so that the <a href="http://usethis.r-lib.org"><strong>usethis</strong></a> package offers the function <code><a href="https://usethis.r-lib.org/reference/use_pipe.html">usethis::use_pipe()</a></code> for package authors to make the pipe part of their package’s offer:</p>
 <ul>
 <li>adds the <strong>magrittr</strong> package to the “Imports” section of the package’s DESCRIPTION file</li>
 <li>creates a new file in the package’s <code>R</code> directory, <code>utils-pipe.R</code>
@@ -136,7 +136,7 @@
 <p>The <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> function makes a couple of related assumptions about your package. It assumes that your package builds Vega and Vega-Lite specifications, and that the object that you use to contain a specification object is an S3 object. In the case of altair, the name of this S3 class is <code>"altair.vegalite.v2.api.TopLevelMixin"</code>.</p>
 <p>The first step is generic. With your package-project open, with your R working directory being the package’s root directory. When you run <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code>, you will have to provide to provide the name of the S3 class. In the case of altair, we would run:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">vegawidget<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/vegawidget/topics/use_vegawidget">use_vegawidget</a></span>(<span class="st">"altair.vegalite.v2.api.TopLevelMixin"</span>)</a></code></pre></div>
-<p>Like the <code><a href="https://www.rdocumentation.org/packages/usethis/topics/use_pipe">usethis::use_pipe()</a></code> example, this call does two things:</p>
+<p>Like the <code><a href="https://usethis.r-lib.org/reference/use_pipe.html">usethis::use_pipe()</a></code> example, this call does two things:</p>
 <ul>
 <li>adds the <strong>vegawidget</strong> package to the “Imports” section of the package’s DESCRIPTION file</li>
 <li>creates a new file in the package’s <code>R</code> directory, <code>utils-vegawidget.R</code>

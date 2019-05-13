@@ -459,6 +459,16 @@
           "_row": "Volvo 142E"
         }
       ]
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum[\"wt\"] !== null && !isNaN(datum[\"wt\"]) && datum[\"mpg\"] !== null && !isNaN(datum[\"mpg\"])"
+        }
+      ]
     }
   ],
   "marks": [
@@ -466,24 +476,12 @@
       "name": "marks",
       "type": "symbol",
       "style": ["point"],
-      "from": {"data": "source_0"},
+      "from": {"data": "data_0"},
       "encode": {
         "update": {
           "opacity": {"value": 0.7},
-          "fill": [
-            {
-              "test": "datum[\"wt\"] === null || isNaN(datum[\"wt\"]) || datum[\"mpg\"] === null || isNaN(datum[\"mpg\"])",
-              "value": null
-            },
-            {"value": "transparent"}
-          ],
-          "stroke": [
-            {
-              "test": "datum[\"wt\"] === null || isNaN(datum[\"wt\"]) || datum[\"mpg\"] === null || isNaN(datum[\"mpg\"])",
-              "value": null
-            },
-            {"scale": "color", "field": "cyl"}
-          ],
+          "fill": {"value": "transparent"},
+          "stroke": {"scale": "color", "field": "cyl"},
           "tooltip": {
             "signal": "{\"wt\": format(datum[\"wt\"], \"\"), \"mpg\": format(datum[\"mpg\"], \"\"), \"cyl\": ''+datum[\"cyl\"]}"
           },
@@ -497,7 +495,7 @@
     {
       "name": "x",
       "type": "linear",
-      "domain": {"data": "source_0", "field": "wt"},
+      "domain": {"data": "data_0", "field": "wt"},
       "range": [0, {"signal": "width"}],
       "nice": true,
       "zero": true
@@ -505,7 +503,7 @@
     {
       "name": "y",
       "type": "linear",
-      "domain": {"data": "source_0", "field": "mpg"},
+      "domain": {"data": "data_0", "field": "mpg"},
       "range": [{"signal": "height"}, 0],
       "nice": true,
       "zero": true
@@ -513,9 +511,8 @@
     {
       "name": "color",
       "type": "ordinal",
-      "domain": {"data": "source_0", "field": "cyl", "sort": true},
-      "range": "category",
-      "interpolate": "hcl"
+      "domain": {"data": "data_0", "field": "cyl", "sort": true},
+      "range": "category"
     }
   ],
   "axes": [

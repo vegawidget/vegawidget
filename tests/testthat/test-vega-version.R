@@ -3,7 +3,11 @@ context("test-vega-version.R")
 test_that("get_vega_version errors correctly", {
   skip_on_cran()
 
-  expect_error(get_vega_version("foo"), "Failed to retrieve Vega-Lite manifest")
+  expect_error(
+    get_vega_version("foo"),
+    "Failed to retrieve Vega-Lite manifest",
+    class = "http_404"
+  )
 })
 
 test_that("get_vega_version works correctly", {

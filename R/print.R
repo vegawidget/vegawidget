@@ -66,8 +66,7 @@ knit_print.vegaspec <- function(spec, ..., options = NULL){
   height <- to_int(options$vega.height)
 
   fmt <- knitr::opts_knit$get("rmarkdown.pandoc.to")
-  html_format <- fmt %in% c("html", "html4", "html5", "revealjs", "s5", "slideous", "slidy")
-  if (html_format) {
+  if (knitr::is_html_output(fmt)) {
     knitr::knit_print(
       vegawidget(spec, embed = embed, width = width, height = height)
     )

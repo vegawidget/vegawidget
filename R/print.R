@@ -65,9 +65,9 @@ knit_print.vegaspec <- function(spec, ..., options = NULL){
   width <- to_int(options$vega.width)
   height <- to_int(options$vega.height)
 
-  fmt = knitr::opts_knit$get("rmarkdown.pandoc.to")
-  html_format = fmt %in% c('html', 'html4', 'html5', 'revealjs', 's5', 'slideous', 'slidy')
-  if (html_format){
+  fmt <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+  html_format <- fmt %in% c("html", "html4", "html5", "revealjs", "s5", "slideous", "slidy")
+  if (html_format) {
     knitr::knit_print(
       vegawidget(spec, embed = embed, width = width, height = height)
     )
@@ -78,14 +78,15 @@ knit_print.vegaspec <- function(spec, ..., options = NULL){
     tryCatch({
       f <- tempfile()
       on.exit({unlink(f)})
+      knitr::opts_chunk$set(out.width = 100)
       vw_write_png(spec, path = f, width = width, height = height)
-      res = readBin(f, 'raw', file.info(f)[, 'size'])
+      res <- readBin(f, "raw", file.info(f)[, "size"])
       structure(
         list(image = res, extension = ".png"),
-        class = 'html_screenshot'
+        class = "html_screenshot"
       )
     }, error = function(e) {
-      err_msg <- c("Error pinting vegawidget in non-html format:",
+      err_msg <- c("Error printing vegawidget in non-HTML format:",
                        conditionMessage(e))
       knitr::knit_print(err_msg)}
     )

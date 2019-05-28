@@ -27,7 +27,7 @@ keys (\code{export}, \code{source}, \code{compiled}, \code{editor}) to logical v
 if each action link should be shown. By default, \code{export}, \code{source},
 and \code{editor} are \code{TRUE} and \code{compiled} is \code{FALSE}, but these defaults
 can be overridden. For example, if \code{actions} is
-\code{list(export =  FALSE, source = TRUE)}, the embedded visualization will
+\code{list(export = FALSE, source = TRUE)}, the embedded visualization will
 have two links – "View Source" and "Open in Vega Editor".}
 
 \item{defaultStyle}{\code{logical} or \code{character}

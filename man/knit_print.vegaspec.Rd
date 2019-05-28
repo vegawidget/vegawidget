@@ -21,9 +21,8 @@ Currently, the only supported options are \code{vega.width},
 When knitting to an HTML-based format, the \code{spec} is rendered as normal.
 
 When knitting to an non-html format, if the
-\href{https://cran.r-project.org/package=webshot}{webshot} package
-and PhantomJS are installed, an image will be generated instead. You
-may find \code{\link[webshot:install_phantomjs]{webshot::install_phantomjs()}} to be useful.
+required packages needed to be able to print to png are installed
+(see \code{\link[=vw_write_png]{vw_write_png()}}) then a static png will be printed instead.
 
 This function has potential to be developed further; it
 calls \code{\link[=vegawidget]{vegawidget()}} using the options \code{vega.width},

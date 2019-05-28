@@ -20,9 +20,8 @@ format.vegaspec <- function(x, ...) {
 #' When knitting to an HTML-based format, the `spec` is rendered as normal.
 #'
 #' When knitting to an non-html format, if the
-#' [**webshot**](https://cran.r-project.org/package=webshot) package
-#' and PhantomJS are installed, an image will be generated instead. You
-#' may find [webshot::install_phantomjs()] to be useful.
+#' required packages needed to be able to print to png are installed
+#' (see [vw_write_png()]) then a static png will be printed instead.
 #'
 #' This function has potential to be developed further; it
 #' calls [vegawidget()] using the options `vega.width`,
@@ -66,9 +65,31 @@ knit_print.vegaspec <- function(spec, ..., options = NULL){
   width <- to_int(options$vega.width)
   height <- to_int(options$vega.height)
 
-  knitr::knit_print(
-    vegawidget(spec, embed = embed, width = width, height = height)
-  )
+  fmt = knitr::opts_knit$get("rmarkdown.pandoc.to")
+  html_format = fmt %in% c('html', 'html4', 'html5', 'revealjs', 's5', 'slideous', 'slidy')
+  if (html_format){
+    knitr::knit_print(
+      vegawidget(spec, embed = embed, width = width, height = height)
+    )
+  } else {
+    # knitr's default screenshoting won't work due to incompatibility with
+    # es6 JS code and webshot. Thus interecept here and do the conversion to
+    # static image ourselves...
+    tryCatch({
+      f <- tempfile()
+      on.exit({unlink(f)})
+      vw_write_png(spec, path = f, width = width, height = height)
+      res = readBin(f, 'raw', file.info(f)[, 'size'])
+      structure(
+        list(image = res, extension = ".png"),
+        class = 'html_screenshot'
+      )
+    }, error = function(e) {
+      err_msg <- c("Error pinting vegawidget in non-html format:",
+                       conditionMessage(e))
+      knitr::knit_print(err_msg)}
+    )
+  }
 }
 
 # tells us if we are knitting or not (knot?)

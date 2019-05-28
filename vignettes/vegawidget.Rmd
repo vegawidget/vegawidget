@@ -21,7 +21,7 @@ Because your call to vegawidget may be implicit, there are a number of ways to p
 
 These methods are listed in order of precedence; the `embed` argument to the `vegawidget()` function will be used in favor of `getOption("vega.embed")`. Furthermore, if you specify the `embed` argument, `vegawidget()` will ignore any part of the embed-object that may have been set in `getOption("vega.embed")`.
 
-These options make the most sense if you are rendering an HTML document. If you are rendering to a non-HTML format, you can use the [**webshot**](https://CRAN.R-project.org/package=webshot) package with PhantomJS installed, so that knitting to a non-HTML format should "just work".
+These options make the most sense if you are rendering an HTML document. If you are rendering to a non-HTML format, this package's image-writing functions will conspire to try to do the right thing.
 
 ## Using vegawidget arguments
 

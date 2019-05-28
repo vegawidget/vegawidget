@@ -36,5 +36,5 @@ coerced to numeric, so it is ineffective to specify a percentage.
 }
 }
 \seealso{
-\code{\link[webshot:install_phantomjs]{webshot::install_phantomjs()}}, \code{\link[=vw_autosize]{vw_autosize()}}, \code{\link[=vega_embed]{vega_embed()}}
+\code{\link[=vw_autosize]{vw_autosize()}}, \code{\link[=vega_embed]{vega_embed()}}
 }

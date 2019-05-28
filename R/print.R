@@ -38,7 +38,7 @@ format.vegaspec <- function(x, ...) {
 #' @param ... other arguments
 #' @param options `list`, knitr options
 #'
-#' @seealso [webshot::install_phantomjs()], [vw_autosize()], [vega_embed()]
+#' @seealso [vw_autosize()], [vega_embed()]
 #' @export
 #'
 knit_print.vegaspec <- function(spec, ..., options = NULL){

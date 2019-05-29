@@ -61,6 +61,8 @@ as_vegaspec.default <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.vegaspec <- function(spec, ...) {
+  spec <- .as_list(spec)
+  spec <- .as_vegaspec(spec)
   spec
 }
 

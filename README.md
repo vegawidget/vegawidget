@@ -113,7 +113,7 @@ vegaspecs:
 spec_mtcars
 ```
 
-![](man/figures/README-vegawidget-1.png)<!-- -->
+![](man/figures/README-vegawidget-1.svg)<!-- -->
 
 The appearance of the chart above depends on where you are reading it:
 

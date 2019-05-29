@@ -120,7 +120,12 @@ spec_mtcars <-
       )
     )     
   )
+
+class(spec_mtcars)
 ```
+
+    ## [1] "vegaspec_unit"      "vegaspec_vega_lite" "vegaspec"          
+    ## [4] "list"
 
 ## Write it out
 

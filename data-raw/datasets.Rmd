@@ -79,6 +79,8 @@ spec_mtcars <-
       )
     )     
   )
+
+class(spec_mtcars)
 ```
 
 ## Write it out

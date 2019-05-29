@@ -79,4 +79,5 @@ Suggests:
     dplyr,
     png,
     conflicted,
-    here
+    here,
+    withr

@@ -14,25 +14,40 @@ format.vegaspec <- function(x, ...) {
 
 #' Knit-print method
 #'
-#' Currently, the only supported options are `vega.width`,
-#' `vega.height` (as pixels) and `vega.embed` (as a list).
+#' If you are knitting to an HTML-based format, the only supported options are
+#' `vega.width`, `vega.height` (as pixels) and `vega.embed` (as a list).
+#' If you are knitting to a non-HTML-based format, you additionally
+#' have the options `dev`, `out.width` and `out.height` available.
 #'
-#' When knitting to an HTML-based format, the `spec` is rendered as normal.
+#' The biggest thing to keep in mind about a Vega visualization is that
+#' very often, the chart tells you how much space it needs, rather
+#' than than you tell it how much space it has available. In the future, it
+#' may reveal itself how to manage better this "conversation".
 #'
-#' When knitting to an non-html format, if the
-#' required packages needed to be able to print to png are installed
-#' (see [vw_write_png()]) then a static png will be printed instead.
-#'
-#' This function has potential to be developed further; it
-#' calls [vegawidget()] using the options `vega.width`,
-#' `vega.height` and `vega.embed`:
+#' @section HTML-based:
+#' When knitting to an HTML-based format, the `spec` is rendered as normal,
+#' it calls [vegawidget()] using the options `vega.width`, `vega.height`
+#' and `vega.embed`:
 #'
 #'  - `vega.width` and `vega.height` are passed to [vegawidget()]
-#'  as `width` and `height`, respectively. These are
-#'  coerced to numeric, so it is ineffective to specify a percentage.
+#'  as `width` and `height`, respectively. These values are coerced to numeric,
+#'  so it is ineffective to specify a percentage. They are passed to
+#'  [vw_autosize()] to resize the chart, if
+#'  [possible](https://vega.github.io/vega-lite/docs/size.html#limitations).
 #'
 #'  - `vega.embed` is passed to [vegawidget()] as `embed`. The function
 #'  [vega_embed()] can be useful to set `vega.embed`.
+#'
+#' @section Non-HTML-based:
+#' When knitting to an non-HTML-based format, e.g. `github_document` or
+#' `pdf_document`, this function will convert the chart to an image, then knitr
+#' will incorporate the image into your document. You have the additional
+#' knitr options `dev`, `out.width`, and `out.height`:
+#'
+#'  - The supported values of `dev` are `"png"`, `"svg"`, and `"pdf"`.
+#'  - To scale the image within your document, you can use  `out.width` or
+#'  `out.height`. Because the image will already have an aspect ratio,
+#'  it is recommended to specify no more than one of these.
 #'
 #' @inheritParams as_vegaspec
 #' @param ... other arguments

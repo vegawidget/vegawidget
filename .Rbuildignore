@@ -27,3 +27,4 @@
 ^test_app$
 ^CODE_OF_CONDUCT\.md$
 ^CONTRIBUTING\.md$
+^CONTRIBUTING\.Rmd$

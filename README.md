@@ -59,13 +59,13 @@ This package supports these versions of Vega libraries:
 library("vegawidget")
 vega_version()
 #> $vega_lite
-#> [1] "3.0.2"
+#> [1] "3.2.1"
 #> 
 #> $vega
-#> [1] "5.3.2"
+#> [1] "5.3.3"
 #> 
 #> $vega_embed
-#> [1] "4.0.0-rc1"
+#> [1] "4.0.0"
 ```
 
 The *first* CRAN version of vegawidget supports Vega-Lite 2.6.0, the
@@ -113,7 +113,7 @@ vegaspecs:
 spec_mtcars
 ```
 
-![](man/figures/README-vegawidget-1.png)<!-- -->
+![](man/figures/README-vegawidget-1.svg)<!-- -->
 
 The appearance of the chart above depends on where you are reading it:
 

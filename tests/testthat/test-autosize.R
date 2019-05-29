@@ -31,11 +31,6 @@ spec_mtcars_autosize$config <-
 
 has_node <- unname(nchar(Sys.which("node")) > 0L)
 
-test_that("is_multiple_view works", {
-  expect_false(is_multiple_view(spec_mtcars))
-  expect_true(is_multiple_view(spec_mtcars_hconcat))
-})
-
 test_that("autosize warns", {
 
   expect_warning(

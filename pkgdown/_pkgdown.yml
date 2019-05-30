@@ -19,7 +19,7 @@ navbar:
         - text: Specify using vegaspec
           href: articles/vegaspec.html
         - text: Render using vegawidget
-          href: articles/vegawidget.html
+          href: articles/render-vegawidget.html
         - text: Extend using Shiny
           href: articles/shiny.html
         - text: Extend using JavaScript

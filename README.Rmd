@@ -96,7 +96,7 @@ The appearance of the chart above depends on where you are reading it:
 This is package a low-level interface to Vega-Lite and the Vega ecosystem, which has a lot of powerful capabilities, highlighted in this series of articles:
 
 - [Specify using vegaspec](https://vegawidget.github.io/vegawidget/articles/vegaspec.html): how to construct and render a vegaspec.
-- [Render using vegawidget](https://vegawidget.github.io/vegawidget/articles/vegawidget.html): advanced rendering options.
+- [Render using vegawidget](https://vegawidget.github.io/vegawidget/articles/render-vegawidget.html): advanced rendering options.
 - [Extend using Shiny](https://vegawidget.github.io/vegawidget/articles/shiny.html): how to interact with Vega charts using Shiny.
 - [Extend using JavaScript](https://vegawidget.github.io/vegawidget/articles/javascript.html): how to interact with Vega charts using JavaScript.
 - [Create Images](https://vegawidget.github.io/vegawidget/articles/image.html): how to create and save PNG or SVG images.

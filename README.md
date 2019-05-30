@@ -132,7 +132,7 @@ series of articles:
     vegaspec](https://vegawidget.github.io/vegawidget/articles/vegaspec.html):
     how to construct and render a vegaspec.
   - [Render using
-    vegawidget](https://vegawidget.github.io/vegawidget/articles/vegawidget.html):
+    vegawidget](https://vegawidget.github.io/vegawidget/articles/render-vegawidget.html):
     advanced rendering options.
   - [Extend using
     Shiny](https://vegawidget.github.io/vegawidget/articles/shiny.html):

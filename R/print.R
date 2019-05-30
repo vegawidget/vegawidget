@@ -44,7 +44,10 @@ format.vegaspec <- function(x, ...) {
 #' will incorporate the image into your document. You have the additional
 #' knitr options `dev`, `out.width`, and `out.height`:
 #'
-#'  - The supported values of `dev` are `"png"`, `"svg"`, and `"pdf"`.
+#'  - The supported values of `dev` are `"png"`, `"svg"`, and `"pdf"`. If you
+#'   are knitting to a LaTeX format (e.g. `pdf_document`) and you specify `dev`
+#'   as `"svg"`, it will be implemented as `"pdf"`.
+#'
 #'  - To scale the image within your document, you can use  `out.width` or
 #'  `out.height`. Because the image will already have an aspect ratio,
 #'  it is recommended to specify no more than one of these.

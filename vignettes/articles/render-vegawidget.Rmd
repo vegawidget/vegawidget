@@ -141,9 +141,11 @@ withr::with_options(
 
 In some situations, you may knit to an HTML-based format, like `html_document`, or you can knit to a non-HTML-based format, like `github_document`, or `pdf_document`. 
 
-If you are knitting to an HTML-based format, the only supported options are `vega.width`, `vega.height` (as pixels) and `vega.embed` (as a list). If you are knitting to a non-HTML-based format, you additionally have the options `dev`, `out.width` and `out.height` available.
+If you are knitting to an HTML-based format, the only supported options are `vega.width`, `vega.height` (as pixels) and `vega.embed` (as a list). If you are knitting to a non-HTML-based format, you additionally have the options `dev`, `out.width` and `out.height` available. 
 
-The biggest thing to keep in mind about a Vega visualization is that very often the chart tells you how much space it needs, rather than than you tell it how much space it has available. In the future, it may reveal itself how to manage better this "conversation" between you and the chart.
+The biggest thing to keep in mind about a Vega visualization is that very often the chart tells you how much space it needs, rather than than you tell it how much space it has available. In the future, it may reveal itself how to manage better this "conversation" between you and the chart. 
+
+One consequence of this "Vega-tells-you" sizing philosophy is that the options `fig.width` and `fig.height` are not useful. Either the chart will tell you the size based on its defaults, or you will specify some dimensions, such as `width`, `height` or size of rectangles in the vegaspec. If your chart is a single view, i.e. not faceted, concatenated, or repeated, you can specify the size of the chart using the options `vega.width` and `vega.height`.
 
 When knitting to an HTML-based format, the `spec` is rendered as normal, it calls `vegawidget()` using the options `vega.width`, `vega.height` and `vega.embed`:
 

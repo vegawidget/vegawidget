@@ -1,12 +1,14 @@
 # vegawidget (0.2.0 development version)
 
+* Modify `knit_print()` to handle non-HTML formats. Instead of using the [webshot](https://github.com/wch/webshot) package, the `knit_print()` function converts charts to either `png`, `svg` (useful for `github_document`), or `pdf` (useful for `pdf_document`) format. (#44, @AliciaSchep)
+
 * (Of interest to developers) modify the class-naming for Vega-Lite specs, adding a another level of S3 class that describes the type of chart, e.g. unit, layer, facet, etc. (#77)
 
 * Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.2.1 (#65)
 
 * Modify contribution guidelines; use `master` as reference branch for all pull-requests.
 
-* Bump version for development
+* Bump version for development.
 
 # vegawidget 0.1.0
 

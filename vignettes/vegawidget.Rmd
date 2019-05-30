@@ -1,145 +1,73 @@
 ---
-title: "Render using vegawidget"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_document
+title: "Getting Started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-The central *side-effect* of this package is to render a *vegawidget*, an htmlwidget. 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  dev = "svg"
+)
+```
 
-A vegawidget is built by the `vegawidget()` function, using a `vegaspec`. However, in many cases, your call to `vegawidget()` may be implied in a `print` method, rather than being made explicitly. 
+For a comprehensive introduction to Vega-Lite, please visit the its [web site](https://vega.github.io/vega-lite). An [interactive tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) to vegawidget is available at shinyapps.io.
 
-The `vegawidget()` function has three main arguments:
+Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build specifications:
 
-- `embed` - to provide [vega-embed](https://github.com/vega/vega-embed)
-- `width`, `height` - to provide width and height to `vw_autosize()`
-
-Because your call to vegawidget may be implicit, there are a number of ways to provide these arguments.
-
-- using explicit arguments (`embed`, `width`, `height`) to the `vegawidget()` function 
-- setting R options (`vega.embed`, `vega.width`, and `vega.height`) in a knitr chunk
-- setting R options using `options()`
-
-These methods are listed in order of precedence; the `embed` argument to the `vegawidget()` function will be used in favor of `getOption("vega.embed")`. Furthermore, if you specify the `embed` argument, `vegawidget()` will ignore any part of the embed-object that may have been set in `getOption("vega.embed")`.
-
-These options make the most sense if you are rendering an HTML document. If you are rendering to a non-HTML format, you can use the [**webshot**](https://CRAN.R-project.org/package=webshot) package with PhantomJS installed, so that knitting to a non-HTML format should "just work".
-
-## Using vegawidget arguments
-
-When you print a `vegaspec`, its print method calls `vegawidget()`.
-
-```{r}
+```{r spec}
 library("vegawidget")
 
-spec_mtcars 
-```
- 
-In addition to `spec`, the function `vegawidget()` has arguments to `embed` and to specify the overall dimensions, `width` and `height`. Setting the options using `vegawidget()` arguments will override options set any other way.
-
-The `embed` argument is used to specify the embedding options, according to the API to the [vega-embed library](https://github.com/vega/vega-embed#options). There are a lot of options; to make things easier, you can use the helper function `vega_embed()`, it mirrors the options available to the version of the vega-embed library supported by this package (see `vega_version()`). The most important arguments are:
-
-- `renderer`: `character`, either `"canvas"` (default) or `"svg"`
-- `actions`: named `list` of logicals to indicate the presence of action-links; names (default value) can be `export` (`TRUE`), `source` (`TRUE`), `compiled` (`FALSE`), or `editor` (`TRUE`).
-
-For example, you can change the renderer to SVG:
-
-```{r}
-vegawidget(spec_mtcars, embed = vega_embed(renderer = "svg"))
-```
-
-You can remove the actions "bug" that is otherwise placed at the top-right of the chart:
-
-```{r}
-vegawidget(spec_mtcars, embed = vega_embed(actions = FALSE))
-```
-
-The arguments `width` and `height` in `vegawidget()` are used to autosize the `spec` before rendering, using `vw_autosize()`:
-
-```{r}
-vegawidget(spec_mtcars, width = 300, height = 300)
-```
-
-Here, the `width` and `height` refer to the overall dimensions of the rendered vegaspec. Please see the [vegaspec article](vegaspec.html) for more details on how sizing works.
-
-The `base_url` argument lets you specify the a common root for when you specify data using a URL. Consider this vegaspec:
-
-```{r}
-spec_precip <-
+spec_mtcars <-
   list(
-    `$schema` = vega_schema(),
-    data = list(url = "seattle-weather.csv"),
-    mark = "tick",
+    `$schema` = vega_schema(), # specifies Vega-Lite
+    description = "An mtcars example.",
+    data = list(values = mtcars),
+    mark = "point",
     encoding = list(
-     x = list(field = "precipitation", type = "quantitative")
+      x = list(field = "wt", type = "quantitative"),
+      y = list(field = "mpg", type = "quantitative"),
+      color = list(field = "cyl", type = "nominal")
     )
-  ) %>%
+  ) %>% 
   as_vegaspec()
 ```
 
-We have included this file as an example dataset for this package; it is also available as a part of **[vega-datasets](https://github.com/vega/vega-datasets)**
+The `as_vegaspec()` function is used to turn the list into a *vegaspec*; many of this package's functions are built to support, and render, vegaspecs: 
 
-```{r}
-path_local <- system.file("example-data/", package = "vegawidget")
-url_remote <- "https://vega.github.io/vega-datasets/data"
-```
-
-By using a `base_url`, you can specify the file-location at rendering, rather than as a part of the specification:
-
-```{r, eval=FALSE}
-# not run
-vegawidget(spec_precip, base_url = path_local)
-```
-
-Using a local path will not work properly in this article because you do not have the same path on your computer. Local paths should be used only for local work; this is a variation on Jenny Bryan's famous [safety-tip](https://twitter.com/hadleywickham/status/940021008764846080).
-
-If you are sharing your work, using a remote URL will be more robust.
-
-```{r}
-vegawidget(spec_precip, base_url = url_remote)
-```
-
-## Setting R options using knitr chunk-options
-
-In the previous section, you saw how to specify the rendering options using the `vegawidget()` function explicitly. You may wish to set the options implicitly: you can do so using the R options `vega.embed`, `vega.width`, and `vega.height`.
-
-One way to set these options is in a knitr chunk:
-
-    ```{r vega.embed=vegawidget::vega_embed(actions = FALSE)}
-    spec_mtcars
-    ```
-
-```{r vega.embed=vegawidget::vega_embed(actions = FALSE), echo=FALSE}
+```{r vegawidget}
 spec_mtcars
 ```
 
-    ```{r vega.width=300, vega.height=300}
-    spec_mtcars
-    ```
+This package is a low-level interface to Vega-Lite and the Vega ecosystem, which has a lot of powerful capabilities, highlighted in this series of articles:
 
-```{r vega.width=300, vega.height=300, echo=FALSE}
-spec_mtcars
-```
+- [Specify using vegaspec](https://vegawidget.github.io/vegawidget/articles/vegaspec.html): how to construct and render a vegaspec.
+- [Render using vegawidget](https://vegawidget.github.io/vegawidget/articles/render-vegawidget.html): advanced rendering options.
+- [Extend using Shiny](https://vegawidget.github.io/vegawidget/articles/shiny.html): how to interact with Vega charts using Shiny.
+- [Extend using JavaScript](https://vegawidget.github.io/vegawidget/articles/javascript.html): how to interact with Vega charts using JavaScript.
+- [Create Images](https://vegawidget.github.io/vegawidget/articles/image.html): how to create and save PNG or SVG images.
+- [Work with Dates and Times](https://vegawidget.github.io/vegawidget/articles/dates-times.html): dates and times in Vega(-Lite) work a little differently from R.
+- [Import into Other Packages](https://vegawidget.github.io/vegawidget/articles/import.html): how to import vegawidget functions into your package, then re-export them.
 
-## Setting R options using `options()`
+To share your Vega(-Lite) creation on the [Blocks](https://bl.ocks.org) website, you can use the [**vegablock**](https://vegawidget.github.io/vegablock) package.
 
-We can set options explicitly using the `options()` function. There are a few ways of the ways you can do this:
+## Integration with other packages
 
-- put an `options()` call in your `.Rprofile`
-- put an `options()` call in a code chunk in your `.Rmd` file
-- use the [**config**](https://cran.r-project.org/package=config), with `!expr options(...)` in your YML configuration file.
+Although there is an [article](https://vegawidget.github.io/vegawidget/articles/import.html) dedicated to this aspect of the package, it warrants further emphasis. 
 
-Here, we use a variation of the second option, making an explicit `options()` call to set the width and height:
+This package provides functions to render Vega(-Lite) specifications; although it provides some helpers, it does not provide higher-level functions to build specifications. Rather, this is left to other packages. Even though you can use its functions directly, you are invited to import and re-export them for use in *your* package. 
 
-```{r}
-# set new options while capturing the existing options
-options_old <- options(vega.width = 300, vega.height = 300)
+Accordingly, this package offers a templating function, `use_vegawidget()`, to help you integrate vegawidget functions into your package. For example, it is used to import and re-export vegawidget functions for the [altair](https://vegawidget.github.io/altair) package.
 
-# print a vegaspec using the new options
-spec_mtcars
+## Known limitations
 
-# restore the old options
-options(options_old)
-```
+The two biggest known limitations are both associated with vegaspecs that contain [datasets specified using remote URLs](https://vega.github.io/vega-lite/docs/data.html#url):
 
+- The RStudio IDE does not let you access remote URLs for security reasons. A chart that accesses remote data will not render in the IDE; it *will* render in a browser window.
 
-
-
+- The image functions use **nodejs** to create SVG strings. We are not able to configure the proxy in our node scripts, so if your computer uses a proxy to access remote data, our functions will not create the images properly.
+ 

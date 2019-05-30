@@ -59,13 +59,13 @@ This package supports these versions of Vega libraries:
 library("vegawidget")
 vega_version()
 #> $vega_lite
-#> [1] "3.0.2"
+#> [1] "3.2.1"
 #> 
 #> $vega
-#> [1] "5.3.2"
+#> [1] "5.3.3"
 #> 
 #> $vega_embed
-#> [1] "4.0.0-rc1"
+#> [1] "4.0.0"
 ```
 
 The *first* CRAN version of vegawidget supports Vega-Lite 2.6.0, the
@@ -81,15 +81,12 @@ This development version of vegawidget uses Vega-Lite 3, as will the
 
 ## Introduction
 
-For a comprehensive introduction to Vega-Lite, please visit the its [web
-site](https://vega.github.io/vega-lite). An [interactive
-tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) to
-vegawidget is available at shinyapps.io.
-
 Vega(-Lite) specifications are just text, formatted as JSON. However, in
 R, we can use lists to build specifications:
 
 ``` r
+library("vegawidget")
+
 spec_mtcars <-
   list(
     `$schema` = vega_schema(), # specifies Vega-Lite
@@ -113,26 +110,35 @@ vegaspecs:
 spec_mtcars
 ```
 
-![](man/figures/README-vegawidget-1.png)<!-- -->
+![](man/figures/README-vegawidget-1.svg)<!-- -->
 
-The appearance of the chart above depends on where you are reading it:
+The rendering of the chart above depends on where you are reading it:
 
   - On this package’s [pkgdown
     site](https://vegawidget.github.io/vegawidget), it is rendered as
     part of an HTML environment, showing its full capabilities.
 
   - At its [GitHub code site](https://github.com/vegawidget/vegawidget),
-    the chart is further rendered as a static PNG.
+    the chart is further rendered to a static SVG file, then
+    incorporated into the Markdown rendering.
 
-This is package a low-level interface to Vega-Lite and the Vega
-ecosystem, which has a lot of powerful capabilities, highlighted in this
-series of articles:
+For more, please see our [Getting
+Started](https://vegawidget.github.io/vegawidget/articles/vegawidget.html)
+article. For other introductory material, please see:
+
+  - [Vega-Lite website](https://vega.github.io/vega-lite) has a
+    comprehensive introduction
+  - An [interactive learnr
+    tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) at
+    shinyapps.io
+
+Other articles for this package:
 
   - [Specify using
     vegaspec](https://vegawidget.github.io/vegawidget/articles/vegaspec.html):
     how to construct and render a vegaspec.
   - [Render using
-    vegawidget](https://vegawidget.github.io/vegawidget/articles/vegawidget.html):
+    vegawidget](https://vegawidget.github.io/vegawidget/articles/render-vegawidget.html):
     advanced rendering options.
   - [Extend using
     Shiny](https://vegawidget.github.io/vegawidget/articles/shiny.html):
@@ -150,42 +156,6 @@ series of articles:
     Packages](https://vegawidget.github.io/vegawidget/articles/import.html):
     how to import vegawidget functions into your package, then re-export
     them.
-
-To share your Vega(-Lite) creation on the [Blocks](https://bl.ocks.org)
-website, you can use the
-[**vegablock**](https://vegawidget.github.io/vegablock) package.
-
-## Integration with other packages
-
-Although there is an
-[article](https://vegawidget.github.io/vegawidget/articles/import.html)
-dedicated to this aspect of the package, it warrants further emphasis.
-
-This package provides functions to render Vega(-Lite) specifications;
-although it provides some helpers, it does not provide higher-level
-functions to build specifications. Rather, this is left to other
-packages. Even though you can use its functions directly, you are
-invited to import and re-export them for use in *your* package.
-
-Accordingly, this package offers a templating function,
-`use_vegawidget()`, to help you integrate vegawidget functions into your
-package. For example, it is used to import and re-export vegawidget
-functions for the [altair](https://vegawidget.github.io/altair) package.
-
-## Known limitations
-
-The two biggest known limitations are both associated with vegaspecs
-that contain [datasets specified using remote
-URLs](https://vega.github.io/vega-lite/docs/data.html#url):
-
-  - The RStudio IDE does not let you access remote URLs for security
-    reasons. A chart that accesses remote data will not render in the
-    IDE; it *will* render in a browser window.
-
-  - The image functions use **nodejs** to create SVG strings. We are not
-    able to configure the proxy in our node scripts, so if your computer
-    uses a proxy to access remote data, our functions will not create
-    the images properly.
 
 ## Acknowledgements
 

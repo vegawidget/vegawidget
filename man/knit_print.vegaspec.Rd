@@ -14,28 +14,49 @@ knit_print.vegaspec(spec, ..., options = NULL)
 \item{options}{\code{list}, knitr options}
 }
 \description{
-Currently, the only supported options are \code{vega.width},
-\code{vega.height} (as pixels) and \code{vega.embed} (as a list).
+If you are knitting to an HTML-based format, the only supported options are
+\code{vega.width}, \code{vega.height} (as pixels) and \code{vega.embed} (as a list).
+If you are knitting to a non-HTML-based format, you additionally
+have the options \code{dev}, \code{out.width} and \code{out.height} available.
 }
 \details{
-When knitting to an HTML-based format, the \code{spec} is rendered as normal.
+The biggest thing to keep in mind about a Vega visualization is that
+very often, the chart tells you how much space it needs, rather
+than than you tell it how much space it has available. In the future, it
+may reveal itself how to manage better this "conversation".
+}
+\section{HTML-based}{
 
-When knitting to an non-html format, if the
-\href{https://cran.r-project.org/package=webshot}{webshot} package
-and PhantomJS are installed, an image will be generated instead. You
-may find \code{\link[webshot:install_phantomjs]{webshot::install_phantomjs()}} to be useful.
-
-This function has potential to be developed further; it
-calls \code{\link[=vegawidget]{vegawidget()}} using the options \code{vega.width},
-\code{vega.height} and \code{vega.embed}:
+When knitting to an HTML-based format, the \code{spec} is rendered as normal,
+it calls \code{\link[=vegawidget]{vegawidget()}} using the options \code{vega.width}, \code{vega.height}
+and \code{vega.embed}:
 \itemize{
 \item \code{vega.width} and \code{vega.height} are passed to \code{\link[=vegawidget]{vegawidget()}}
-as \code{width} and \code{height}, respectively. These are
-coerced to numeric, so it is ineffective to specify a percentage.
+as \code{width} and \code{height}, respectively. These values are coerced to numeric,
+so it is ineffective to specify a percentage. They are passed to
+\code{\link[=vw_autosize]{vw_autosize()}} to resize the chart, if
+\href{https://vega.github.io/vega-lite/docs/size.html#limitations}{possible}.
 \item \code{vega.embed} is passed to \code{\link[=vegawidget]{vegawidget()}} as \code{embed}. The function
 \code{\link[=vega_embed]{vega_embed()}} can be useful to set \code{vega.embed}.
 }
 }
+
+\section{Non-HTML-based}{
+
+When knitting to an non-HTML-based format, e.g. \code{github_document} or
+\code{pdf_document}, this function will convert the chart to an image, then knitr
+will incorporate the image into your document. You have the additional
+knitr options \code{dev}, \code{out.width}, and \code{out.height}:
+\itemize{
+\item The supported values of \code{dev} are \code{"png"}, \code{"svg"}, and \code{"pdf"}. If you
+are knitting to a LaTeX format (e.g. \code{pdf_document}) and you specify \code{dev}
+as \code{"svg"}, it will be implemented as \code{"pdf"}.
+\item To scale the image within your document, you can use  \code{out.width} or
+\code{out.height}. Because the image will already have an aspect ratio,
+it is recommended to specify no more than one of these.
+}
+}
+
 \seealso{
-\code{\link[webshot:install_phantomjs]{webshot::install_phantomjs()}}, \code{\link[=vw_autosize]{vw_autosize()}}, \code{\link[=vega_embed]{vega_embed()}}
+\code{\link[=vw_autosize]{vw_autosize()}}, \code{\link[=vega_embed]{vega_embed()}}
 }

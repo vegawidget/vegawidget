@@ -10,25 +10,27 @@ navbar:
   left:
     - icon: fa-home fa-lg
       href: index.html
+    - text: "Getting Started"
+      href: articles/vegawidget.html
     - text: "Reference"
-      href: "reference/index.html"
+      href: reference/index.html
     - text: "Changelog"
-      href: "news/index.html"
-    - text: Articles
+      href: news/index.html
+    - text: "Articles"
       menu:
-        - text: Specify using vegaspec
+        - text: "Specify using vegaspec"
           href: articles/vegaspec.html
-        - text: Render using vegawidget
-          href: articles/vegawidget.html
-        - text: Extend using Shiny
+        - text: "Render using vegawidget"
+          href: articles/render-vegawidget.html
+        - text: "Extend using Shiny"
           href: articles/shiny.html
-        - text: Extend using JavaScript
+        - text: "Extend using JavaScript"
           href: articles/javascript.html
-        - text: Create Images
+        - text: "Create Images"
           href: articles/image.html
-        - text: Work with Dates and Times
+        - text: "Work with Dates and Times"
           href: articles/dates-times.html
-        - text: Import into Other Packages
+        - text: "Import into Other Packages"
           href: articles/import.html
   right:
     - icon: fa-github fa-lg
@@ -67,7 +69,7 @@ reference:
     - vegawidget
     - vega_embed
     - knit_print.vegaspec
-  - title: Shiny
+  - title: "Shiny"
     desc: >
       This package lets you render vegawidgets in Shiny. Once renrdered,
       it also provides functions to access Vega datasets, signals,
@@ -81,7 +83,7 @@ reference:
     - shiny-setters
     - shiny-getters
     - vw_shiny_demo
-  - title: JavaScript
+  - title: "JavaScript"
     desc: >
       In addition to Shiny, this package provides functions to
       add JavaScript listeners to Vega charts and to compose
@@ -94,7 +96,7 @@ reference:
     - vw_handler_signal
     - vw_handler_add_effect
     - glue_js
-  - title: Data
+  - title: "Data"
     desc: >
       This package provides some sample specifications and datasets.
     contents:
@@ -102,7 +104,7 @@ reference:
     - data_category
     - data_seattle_daily
     - data_seattle_hourly
-  - title: Images
+  - title: "Images"
     desc: >
       If you have [**nodejs**](https://nodejs.org/en/)
       installed, you can convert and write a `vegaspec` or a
@@ -114,7 +116,7 @@ reference:
     - vw_to_bitmap
     - vw_write_svg
     - vw_write_png
-  - title: Utilities
+  - title: "Utilities"
     desc: >
       You can use `use_vegawidget()` to bring this package's functionality to
       yours. Much like `usethis::use_pipe()` allows you to re-export the pipe

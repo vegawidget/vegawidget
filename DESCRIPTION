@@ -1,5 +1,5 @@
 Package: vegawidget
-Version: 0.2.0.9003
+Version: 0.2.0.9004
 Title: 'Htmlwidget' Renderer for 'Vega' and 'Vega-Lite'
 Description: 'Vega' and 'Vega-Lite' parse text in 'JSON' notation to render 
   chart-specifications into 'HTML'. This package is used to facilitate the 
@@ -45,6 +45,7 @@ URL: https://github.com/vegawidget/vegawidget
 BugReports: https://github.com/vegawidget/vegawidget/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
+VignetteBuilder: knitr
 Depends:
     R (>= 2.10)
 Imports:
@@ -64,16 +65,12 @@ Suggests:
     testthat,
     yaml,
     fs,
-    gistr,
-    webshot,
-    magick,
     usethis,
     whisker,
     crayon,
     clipr,
     desc,
     clisymbols,
-    shinytest,
     readr,
     tibble,
     lubridate,
@@ -83,4 +80,5 @@ Suggests:
     dplyr,
     png,
     conflicted,
-    here
+    here,
+    withr

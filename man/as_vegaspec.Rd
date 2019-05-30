@@ -25,12 +25,12 @@ as_vegaspec(spec, ...)
 \method{as_vegaspec}{vegawidget}(spec, ...)
 }
 \arguments{
-\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
+\item{spec}{An object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
-\item{...}{other args (attempt to future-proof)}
+\item{...}{Other arguments (attempt to future-proof)}
 }
 \value{
-S3 object of class \code{vegaspec}
+An object with S3 class \code{vegaspec}
 }
 \description{
 Vega and Vega-Lite use JSON as their specification-format. Within R,

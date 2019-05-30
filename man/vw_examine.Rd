@@ -9,7 +9,7 @@ vw_examine(spec, mode = "view", modes = c("view", "code", "form",
   elementId = NULL)
 }
 \arguments{
-\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
+\item{spec}{An object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
 \item{mode}{\code{string} for the initial view from modes.
 \code{'view'} is the default.}

@@ -8,7 +8,7 @@ vegawidget(spec, embed = NULL, width = NULL, height = NULL,
   elementId = NULL, base_url = NULL, ...)
 }
 \arguments{
-\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
+\item{spec}{An object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
 \item{embed}{\code{list} to specify
 \href{https://github.com/vega/vega-embed#options}{vega-embed} options,

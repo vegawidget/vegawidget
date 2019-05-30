@@ -18,7 +18,7 @@ vw_write_svg(spec, path, width = NULL, height = NULL, ...)
 vw_write_png(spec, path, scale = 1, width = NULL, height = NULL, ...)
 }
 \arguments{
-\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
+\item{spec}{An object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
 \item{width}{\code{integer}, if specified, the total rendered width (in pixels)
 of the chart - valid only for single-view charts and layered charts;

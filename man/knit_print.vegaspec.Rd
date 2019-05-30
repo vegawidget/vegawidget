@@ -7,7 +7,7 @@
 knit_print.vegaspec(spec, ..., options = NULL)
 }
 \arguments{
-\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
+\item{spec}{An object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
 \item{...}{other arguments}
 

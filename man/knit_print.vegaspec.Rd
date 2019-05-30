@@ -48,7 +48,9 @@ When knitting to an non-HTML-based format, e.g. \code{github_document} or
 will incorporate the image into your document. You have the additional
 knitr options \code{dev}, \code{out.width}, and \code{out.height}:
 \itemize{
-\item The supported values of \code{dev} are \code{"png"}, \code{"svg"}, and \code{"pdf"}.
+\item The supported values of \code{dev} are \code{"png"}, \code{"svg"}, and \code{"pdf"}. If you
+are knitting to a LaTeX format (e.g. \code{pdf_document}) and you specify \code{dev}
+as \code{"svg"}, it will be implemented as \code{"pdf"}.
 \item To scale the image within your document, you can use  \code{out.width} or
 \code{out.height}. Because the image will already have an aspect ratio,
 it is recommended to specify no more than one of these.

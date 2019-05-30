@@ -143,7 +143,7 @@ In some situations, you may knit to an HTML-based format, like `html_document`, 
 
 If you are knitting to an HTML-based format, the only supported options are `vega.width`, `vega.height` (as pixels) and `vega.embed` (as a list). If you are knitting to a non-HTML-based format, you additionally have the options `dev`, `out.width` and `out.height` available.
 
-The biggest thing to keep in mind about a Vega visualization is that very often, the chart tells you how much space it needs, rather than than you tell it how much space it has available. In the future, it may reveal itself how to manage better this "conversation".
+The biggest thing to keep in mind about a Vega visualization is that very often the chart tells you how much space it needs, rather than than you tell it how much space it has available. In the future, it may reveal itself how to manage better this "conversation" between you and the chart.
 
 When knitting to an HTML-based format, the `spec` is rendered as normal, it calls `vegawidget()` using the options `vega.width`, `vega.height` and `vega.embed`:
 
@@ -151,10 +151,12 @@ When knitting to an HTML-based format, the `spec` is rendered as normal, it call
 
   - `vega.embed` is passed to `vegawidget()` as `embed`. The function `vega_embed()` can be useful to set `vega.embed`.
   
-When knitting to an non-HTML-based format, e.g. `github_document` [example](https://github.com/vegawidget/vegawidget) or `pdf_document`, this function will convert the chart to an image, then knitr will incorporate the image into your document. You have the additional knitr options `dev`, `out.width`, and `out.height`:
+  - setting the values of `out.width` and `out.height` will not affect the rendered size of your chart.
+  
+When knitting to an non-HTML-based format, e.g. `github_document` [example](https://github.com/vegawidget/vegawidget) or `pdf_document`, the chart will be converted to an image, then knitr will incorporate the image into your document. You have the additional knitr options `dev`, `out.width`, and `out.height`:
 
-  - The supported values of `dev` are `"png"`, `"svg"`, and `"pdf"`.
-  - To scale the image within your document, you can use  `out.width` or `out.height`. Because the image will already have an aspect ratio,  it is recommended to specify no more than one of these.
+  - The supported values of `dev` are `"png"`, `"svg"`, and `"pdf"`. If you are knitting to a LaTeX format (e.g. `pdf_document`) and you specify `dev` as `"svg"`, it will be implemented as `"pdf"`.
+  - To scale the image within your document, you can use  `out.width` or `out.height`. Because the image will already have an aspect ratio, it is recommended to specify no more than one of these.
 
 
 

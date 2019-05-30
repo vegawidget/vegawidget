@@ -8,3 +8,4 @@ inst/tutorials/*/*.html
 inst/shiny-demo/*/rsconnect
 docs/*
 
+inst/doc

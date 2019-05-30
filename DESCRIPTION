@@ -1,5 +1,5 @@
 Package: vegawidget
-Version: 0.2.0.9002
+Version: 0.2.0.9003
 Title: 'Htmlwidget' Renderer for 'Vega' and 'Vega-Lite'
 Description: 'Vega' and 'Vega-Lite' parse text in 'JSON' notation to render 
   chart-specifications into 'HTML'. This package is used to facilitate the 

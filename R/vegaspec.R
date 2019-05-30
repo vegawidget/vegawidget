@@ -19,10 +19,10 @@
 #' You can use the function [vw_spec_version()] to determine if a `vegaspec` is built for
 #' Vega-Lite or Vega. You can use [vw_to_vega()] to translate a Vega-Lite spec to Vega.
 #'
-#' @param spec        object to be coerced to `vegaspec`, a Vega/Vega-Lite specification
-#' @param ...         other args (attempt to future-proof)
+#' @param spec        An object to be coerced to `vegaspec`, a Vega/Vega-Lite specification
+#' @param ...         Other arguments (attempt to future-proof)
 #'
-#' @return S3 object of class `vegaspec`
+#' @return An object with S3 class `vegaspec`
 #' @examples
 #'   spec <- list(
 #'     `$schema` = vega_schema(),
@@ -61,6 +61,8 @@ as_vegaspec.default <- function(spec, ...) {
 #' @export
 #'
 as_vegaspec.vegaspec <- function(spec, ...) {
+  spec <- .as_list(spec)
+  spec <- .as_vegaspec(spec)
   spec
 }
 

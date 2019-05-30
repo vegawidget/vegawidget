@@ -16,6 +16,7 @@ library("lubridate")
 
 ``` r
 library("magrittr")
+library("vegawidget")
 ```
 
 ## Categorical data
@@ -73,8 +74,8 @@ data_seattle_hourly <-
 
     ## Observations: 8,759
     ## Variables: 2
-    ## $ date <chr> "2010/01/01 00:00", "2010/01/01 01:00", "2010/01/01 02:00...
-    ## $ temp <dbl> 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39....
+    ## $ date <chr> "2010/01/01 00:00", "2010/01/01 01:00", "2010/01/01 02:00",…
+    ## $ temp <dbl> 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2,…
 
 ``` r
 # need to correct one of the times (this instant does not exist in local time)
@@ -95,8 +96,36 @@ glimpse(data_seattle_hourly)
 
     ## Observations: 8,759
     ## Variables: 2
-    ## $ date <dttm> 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:...
-    ## $ temp <dbl> 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39....
+    ## $ date <dttm> 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:00…
+    ## $ temp <dbl> 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2,…
+
+## Mtcars
+
+The data are documented in `R/data.R`.
+
+``` r
+spec_mtcars <-
+  as_vegaspec(
+    list(
+      `$schema` = "https://vega.github.io/schema/vega-lite/v3.json",
+      width = 300L,
+      height = 300L,
+      description = "An mtcars example.",
+      data = list(values = mtcars),
+      mark = "point",
+      encoding = list(
+        x = list(field = "wt", type = "quantitative"),
+        y = list(field = "mpg", type = "quantitative"),
+        color = list(field = "cyl", type = "nominal")
+      )
+    )     
+  )
+
+class(spec_mtcars)
+```
+
+    ## [1] "vegaspec_unit"      "vegaspec_vega_lite" "vegaspec"          
+    ## [4] "list"
 
 ## Write it out
 
@@ -105,10 +134,10 @@ usethis::use_data(
   data_category,
   data_seattle_daily,
   data_seattle_hourly,
+  spec_mtcars,
   overwrite = TRUE  
 )
 ```
 
-    ## ✔ Saving data_category to data/data_category.rda
-    ## ✔ Saving data_seattle_daily to data/data_seattle_daily.rda
-    ## ✔ Saving data_seattle_hourly to data/data_seattle_hourly.rda
+    ## ✔ Setting active project to '/Users/sesa19001/Documents/repos/public/vegawidget/vegawidget'
+    ## ✔ Saving 'data_category', 'data_seattle_daily', 'data_seattle_hourly', 'spec_mtcars' to 'data/data_category.rda', 'data/data_seattle_daily.rda', 'data/data_seattle_hourly.rda', 'data/spec_mtcars.rda'

@@ -7,7 +7,7 @@
 vw_spec_version(spec)
 }
 \arguments{
-\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
+\item{spec}{An object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 }
 \value{
 \code{list} with elements \code{library}, \code{version}

@@ -97,14 +97,13 @@ knit_print.vegaspec <- function(spec, ..., options = NULL){
   # es6 JS code and webshot. Thus interecept here and do the conversion to
   # static image ourselves...
 
-  # I don't know that we need this here, because knitr seems very good about
-  # always supplying a value for `dev`.
-  dev_default <- "svg"
-  if (knitr::is_latex_output()) {
-    dev_default <- "pdf"
-  }
+  # determine the graphics-device
+  dev <- options$dev %||% knitr::opts_chunk$get("dev")
 
-  dev <- options$dev %||% knitr::opts_chunk$get("dev") %||% dev_default
+  # if specifying svg and using LaTeX, use pdf
+  if (identical(dev, "svg") && knitr::is_latex_output()) {
+    dev <- "pdf"
+  }
 
   # choose writing-function
   fn_write <- switch(

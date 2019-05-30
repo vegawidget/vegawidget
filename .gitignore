@@ -7,5 +7,7 @@ inst/tutorials/*/rsconnect
 inst/tutorials/*/*.html
 inst/shiny-demo/*/rsconnect
 docs/*
-
+.DS_Store
 inst/doc
+doc
+Meta

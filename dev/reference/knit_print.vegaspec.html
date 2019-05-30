@@ -34,8 +34,10 @@
   
 <meta property="og:title" content="Knit-print method — knit_print.vegaspec" />
 
-<meta property="og:description" content="Currently, the only supported options are vega.width,
-vega.height (as pixels) and vega.embed (as a list)." />
+<meta property="og:description" content="If you are knitting to an HTML-based format, the only supported options are
+vega.width, vega.height (as pixels) and vega.embed (as a list).
+If you are knitting to a non-HTML-based format, you additionally
+have the options dev, out.width and out.height available." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
@@ -66,7 +68,7 @@ vega.height (as pixels) and vega.embed (as a list)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9003</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9004</span>
       </span>
     </div>
 
@@ -77,6 +79,9 @@ vega.height (as pixels) and vega.embed (as a list)." />
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/vegawidget.html">Getting Started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -95,7 +100,7 @@ vega.height (as pixels) and vega.embed (as a list)." />
       <a href="../articles/vegaspec.html">Specify using vegaspec</a>
     </li>
     <li>
-      <a href="../articles/vegawidget.html">Render using vegawidget</a>
+      <a href="../articles/render-vegawidget.html">Render using vegawidget</a>
     </li>
     <li>
       <a href="../articles/shiny.html">Extend using Shiny</a>
@@ -142,8 +147,10 @@ vega.height (as pixels) and vega.embed (as a list)." />
 
     <div class="ref-description">
     
-    <p>Currently, the only supported options are <code>vega.width</code>,
-<code>vega.height</code> (as pixels) and <code>vega.embed</code> (as a list).</p>
+    <p>If you are knitting to an HTML-based format, the only supported options are
+<code>vega.width</code>, <code>vega.height</code> (as pixels) and <code>vega.embed</code> (as a list).
+If you are knitting to a non-HTML-based format, you additionally
+have the options <code>dev</code>, <code>out.width</code> and <code>out.height</code> available.</p>
     
     </div>
 
@@ -168,24 +175,44 @@ vega.height (as pixels) and vega.embed (as a list)." />
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>When knitting to an HTML-based format, the <code>spec</code> is rendered as normal.</p>
-<p>When knitting to an non-html format, if the
-<a href='https://cran.r-project.org/package=webshot'>webshot</a> package
-and PhantomJS are installed, an image will be generated instead. You
-may find <code><a href='https://www.rdocumentation.org/packages/webshot/topics/install_phantomjs'>webshot::install_phantomjs()</a></code> to be useful.</p>
-<p>This function has potential to be developed further; it
-calls <code><a href='vegawidget.html'>vegawidget()</a></code> using the options <code>vega.width</code>,
-<code>vega.height</code> and <code>vega.embed</code>:</p><ul>
+    <p>The biggest thing to keep in mind about a Vega visualization is that
+very often, the chart tells you how much space it needs, rather
+than than you tell it how much space it has available. In the future, it
+may reveal itself how to manage better this "conversation".</p>
+    
+    <h2 class="hasAnchor" id="html-based"><a class="anchor" href="#html-based"></a>HTML-based</h2>
+
+    
+    <p>When knitting to an HTML-based format, the <code>spec</code> is rendered as normal,
+it calls <code><a href='vegawidget.html'>vegawidget()</a></code> using the options <code>vega.width</code>, <code>vega.height</code>
+and <code>vega.embed</code>:</p><ul>
 <li><p><code>vega.width</code> and <code>vega.height</code> are passed to <code><a href='vegawidget.html'>vegawidget()</a></code>
-as <code>width</code> and <code>height</code>, respectively. These are
-coerced to numeric, so it is ineffective to specify a percentage.</p></li>
+as <code>width</code> and <code>height</code>, respectively. These values are coerced to numeric,
+so it is ineffective to specify a percentage. They are passed to
+<code><a href='vw_autosize.html'>vw_autosize()</a></code> to resize the chart, if
+<a href='https://vega.github.io/vega-lite/docs/size.html#limitations'>possible</a>.</p></li>
 <li><p><code>vega.embed</code> is passed to <code><a href='vegawidget.html'>vegawidget()</a></code> as <code>embed</code>. The function
 <code><a href='vega_embed.html'>vega_embed()</a></code> can be useful to set <code>vega.embed</code>.</p></li>
 </ul>
     
+    <h2 class="hasAnchor" id="non-html-based"><a class="anchor" href="#non-html-based"></a>Non-HTML-based</h2>
+
+    
+    <p>When knitting to an non-HTML-based format, e.g. <code>github_document</code> or
+<code>pdf_document</code>, this function will convert the chart to an image, then knitr
+will incorporate the image into your document. You have the additional
+knitr options <code>dev</code>, <code>out.width</code>, and <code>out.height</code>:</p><ul>
+<li><p>The supported values of <code>dev</code> are <code>"png"</code>, <code>"svg"</code>, and <code>"pdf"</code>. If you
+are knitting to a LaTeX format (e.g. <code>pdf_document</code>) and you specify <code>dev</code>
+as <code>"svg"</code>, it will be implemented as <code>"pdf"</code>.</p></li>
+<li><p>To scale the image within your document, you can use  <code>out.width</code> or
+<code>out.height</code>. Because the image will already have an aspect ratio,
+it is recommended to specify no more than one of these.</p></li>
+</ul>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/webshot/topics/install_phantomjs'>webshot::install_phantomjs()</a></code>, <code><a href='vw_autosize.html'>vw_autosize()</a></code>, <code><a href='vega_embed.html'>vega_embed()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='vw_autosize.html'>vw_autosize()</a></code>, <code><a href='vega_embed.html'>vega_embed()</a></code></p></div>
     
 
   </div>
@@ -195,6 +222,10 @@ coerced to numeric, so it is ineffective to specify a percentage.</p></li>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#html-based">HTML-based</a></li>
+
+      <li><a href="#non-html-based">Non-HTML-based</a></li>
 
       <li><a href="#see-also">See also</a></li>
           </ul>

@@ -24,7 +24,12 @@
 
   class_library <- paste0("vegaspec_", library)
 
-  class_new <- unique(c(class_library, "vegaspec", class(x)))
+  subclass <- NULL
+  if (identical(class_library, "vegaspec_vega_lite")) {
+    subclass <- .get_subclass(x)
+  }
+
+  class_new <- unique(c(subclass, class_library, "vegaspec", class(x)))
 
   spec <- structure(x, class = class_new)
 
@@ -89,5 +94,38 @@
   urls
 }
 
+# spec has to be a (nascent) vegaspec
+.get_subclass <- function(spec) {
+
+  # subclasses: vegaspec_unit, vegaspec_layer, vegaspec_facet, vegaspec_repeat,
+  #  vegaspec_concat, vegaspec_hconcat, vegaspec_vconcat
+  names <- names(spec)
+
+  if ("concat" %in% names) {
+    return("vegaspec_concat")
+  }
+
+  if ("hconcat" %in% names) {
+    return("vegaspec_hconcat")
+  }
+
+  if ("vconcat" %in% names) {
+    return("vegaspec_vconcat")
+  }
+
+  if ("repeat" %in% names) {
+    return("vegaspec_repeat")
+  }
+
+  if ("facet" %in% names) {
+    return("vegaspec_facet")
+  }
+
+  if ("layer" %in% names) {
+    return("vegaspec_layer")
+  }
+
+  return("vegaspec_unit")
+}
 
 

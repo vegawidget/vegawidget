@@ -1,5 +1,7 @@
 # vegawidget (0.2.0 development version)
 
+* (Of interest to developers) modify the class-naming for Vega-Lite specs, adding a another level of S3 class that describes the type of chart, e.g. unit, layer, facet, etc. (#77)
+
 * Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.2.1 (#65)
 
 * Modify contribution guidelines; use `master` as reference branch for all pull-requests.

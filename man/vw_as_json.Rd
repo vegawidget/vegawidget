@@ -7,7 +7,7 @@
 vw_as_json(spec, pretty = TRUE)
 }
 \arguments{
-\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
+\item{spec}{An object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
 \item{pretty}{\code{logical} indicates to use pretty (vs. minified) formatting}
 }

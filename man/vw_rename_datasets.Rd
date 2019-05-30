@@ -7,7 +7,7 @@
 vw_rename_datasets(spec)
 }
 \arguments{
-\item{spec}{object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
+\item{spec}{An object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 }
 \value{
 S3 object of class \code{vegaspec}

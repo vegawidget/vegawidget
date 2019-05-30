@@ -17,11 +17,14 @@ Guide](http://style.tidyverse.org), with some minor modifications.
   - [Documenting
     parameters](http://style.tidyverse.org/code-documentation.html#documenting-parameters):
     
-    For `@param` and `@return`, the text should be an uncapitalized
-    sentence clause, starting with the expected class (or possible
-    classes) of the argument or return value.
+    For `@param` and `@return`, the text should starting with the
+    expected class (or possible classes) of the argument or return
+    value, followed by a comma, then the (uncapitalized) description. If
+    omitting the class name, then begin the description with a capital
+    letter.
     
     ``` r
+    #' @param spec  An object to be coerced to `vegaspec`, a Vega/Vega-Lite specification
     #' @param width `integer`, sets the view width in pixels
     #'
     #' @return `logical` indicating success
@@ -44,7 +47,7 @@ reference](https://usethis.r-lib.org/reference/pr_init.html).
 
 We will wish for `master` to contain only stable versions. We will not
 normally merge a pull-request that does not pass the CI checks. Further,
-we will indent that each commit to master will have a incremented
+we will intend that each commit to master will have a incremented
 version number; we will manage this as a part of the pull-request
 process.
 
@@ -53,6 +56,25 @@ git-ignored; the pkgdown site is built and deployed automatically upon
 update of the GitHub `master` branch. The CRAN version of the
 documentation is at the “root” of the documentation site; the latest
 `master` version will be deployed to the `dev` directory of the “root”.
+
+### Pull requests
+
+Pull requests are very welcome. The branch to which you should make a
+pull-request will depend on the
+situation:
+
+| Situation                  | Reference branch   | Add item to NEWS.md | Appreciated |
+| -------------------------- | ------------------ | ------------------- | ----------- |
+| bug-fix                    | `master`           | ✅                   | 😁           |
+| improving documentation    | `master`           | ❎                   | 😁           |
+| adding vignette            | `master`           | ✅                   | 😁           |
+| helping with a new feature | `<feature-branch>` | ❎                   | 😁           |
+| proposing a new feature    | `master`           | ✅                   | 😁           |
+
+<br>
+
+Please roxygenize as a part of your pull-request. Let’s all do our best
+to keep to the current CRAN verision of roxygen2.
 
 ### Versioning
 
@@ -81,19 +103,59 @@ params:
 The code in the `.Rmd` file will determine the versions of Vega and
 vega-embed that are concurrent with this version of Vega-Lite.
 
-### Pull requests
+When updating the Vega libraries for this package, please keep in mind
+that you may also have to:
 
-Pull requests are very welcome. The branch to which you should make a
-pull-request will depend on the
-situation:
+  - rebuild & reinstall your new version of this package
+  - rebuild the datasets (next section)
+  - rebuild some of the test specs and reference images, found in
+    `tests/spec` and `tests/reference`
 
-| Situation                  | Reference branch   | Add item to NEWS.md | Appreciated |
-| -------------------------- | ------------------ | ------------------- | ----------- |
-| bug-fix                    | `master`           | Yes                 | 😁           |
-| improving documentation    | `master`           | No                  | 😁           |
-| adding vignette            | `master`           | Yes                 | 😁           |
-| helping with a new feature | `<feature-branch>` | No                  | 😁           |
-| proposing a new feature    | `master`           | Yes                 | 😁           |
+One day, this will be better automated.
 
-Please roxygenize as a part of your pull-request. Let’s all (myself
-included) do our best to keep to the current CRAN verision of roxygen2.
+### Datasets
+
+The sample specifications and datasets are build using the R markdown
+document found at `data-raw/infrastructure.Rmd`.
+
+## Development philosophy
+
+### S3 class system
+
+In R, a vegaspec lives as a list, but can be imported from or exported
+to JSON text. Because a vegaspec is a list, we add S3 classes on top of
+`list`.
+
+For example:
+
+``` r
+library("vegawidget")
+class(spec_mtcars)
+```
+
+    ## [1] "vegaspec_unit"      "vegaspec_vega_lite" "vegaspec"          
+    ## [4] "list"
+
+We see that in addition to list we have classes for:
+
+  - `vegaspec`: to include all Vega and Vega-Lite specification
+  - `vegaspec_vega_lite`: denotes that this is a Vega-Lite specification
+  - `vegaspec_unit`: denotes that this is a unit specification
+
+This last (or top) class is used to distinguish [different compositions
+of Vega-Lite
+specifications](https://vega.github.io/vega-lite/docs/composition.html).
+In this case, a unit-specification is one that is a single non-layered
+view.
+
+The possible classes are: `vegaspec_unit`, `vegaspec_layer`,
+`vegaspec_facet`, `vegaspec_repeat`, `vegaspec_concat`,
+`vegaspec_hconcat`, `vegaspec_vconcat`.
+
+For Vega specifications, the situation is simpler:
+
+``` r
+class(vw_to_vega(spec_mtcars))
+```
+
+    ## [1] "vegaspec_vega" "vegaspec"      "list"

@@ -4,7 +4,7 @@
 
 * (Of interest to developers) modify the class-naming for Vega-Lite specs, adding a another level of S3 class that describes the type of chart, e.g. unit, layer, facet, etc. (#77)
 
-* Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.2.1 (#65)
+* Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.2.1. Add functions to support `addDataListener()` method offered by [vega-view](https://github.com/vega/vega-view#view_addDataListener), use `vw_shiny_demo("data-set-get")` for more information. (#65)
 
 * Modify contribution guidelines; use `master` as reference branch for all pull-requests.
 

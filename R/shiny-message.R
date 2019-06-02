@@ -12,6 +12,7 @@
 #'   \item{`vw_shiny_msg_callView`}{this is a multipurpose call}
 #'   \item{`vw_shiny_msg_changeData`}{}
 #'   \item{`vw_shiny_msg_addSignalListener`}{}
+#'   \item{`vw_shiny_msg_addDataListener`}{}
 #'   \item{`vw_shiny_msg_addEventListener`}{}
 #' }
 #'
@@ -71,6 +72,22 @@ vw_shiny_msg_changeData <- function(outputId, name, data_insert,
 vw_shiny_msg_addSignalListener <- function(outputId, name, handlerBody) {
 
   type <- "addSignalListener"
+  message <- as.list(environment())
+
+  vw_shiny_message(type, message)
+}
+
+#' @rdname shiny-message
+#'
+#' @param handlerBody `character` or `JS_EVAL`, the body of a handler function
+#'   for the given listener
+#'
+#' @keywords internal
+#' @noRd
+#'
+vw_shiny_msg_addDataListener <- function(outputId, name, handlerBody) {
+
+  type <- "addDataListener"
   message <- as.list(environment())
 
   vw_shiny_message(type, message)

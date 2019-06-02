@@ -43,8 +43,7 @@ server <- function(input, output) {
   rct_data <- reactive(data_angle(input$angle))
 
   # the signal returns the bin-width from the chart
-  rct_data_out <-
-    vw_shiny_get_data("chart", name = "source", body_value = "value")
+  rct_data_out <- vw_shiny_get_data("chart", name = "source", body_value = "value")
 
   # observers
   #
@@ -62,7 +61,7 @@ server <- function(input, output) {
   output$chart <- renderVegawidget(spec_circle)
 
   # render the input data-frame
-  output$data_out <- renderPrint(rct_data_out())
+  output$data_out <- renderPrint(rct_data_out() %>% as_tibble())
 
 }
 

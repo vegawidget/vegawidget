@@ -142,7 +142,7 @@ vw_shiny_get_data <- function(outputId, name, body_value = "value") {
         vw_handler_body_compose(n_indent = 0L)
 
       # add listener
-      vw_shiny_msg_addSignalListener(
+      vw_shiny_msg_addDataListener(
         outputId,
         name = name,
         handlerBody = handler_body
@@ -153,7 +153,14 @@ vw_shiny_get_data <- function(outputId, name, body_value = "value") {
 
   # return a reactive that listens to our "private" input
   shiny::reactive({
-    session$input[[inputId]]
+    x <- session$input[[inputId]]
+
+    # coerce this to a data.frame, if need be
+    if (!is.data.frame(x)) {
+      x <- data.frame(as.list(x), stringsAsFactors = FALSE)
+    }
+
+    x
   })
 }
 

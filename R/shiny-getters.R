@@ -137,7 +137,7 @@ vw_shiny_get_data <- function(outputId, name, body_value = "value") {
       inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
       # compose_handler_body
       handler_body <-
-        vw_handler_signal(body_value) %>%
+        vw_handler_data(body_value) %>%
         vw_handler_add_effect("shiny_input", inputId = inputId) %>%
         vw_handler_body_compose(n_indent = 0L)
 

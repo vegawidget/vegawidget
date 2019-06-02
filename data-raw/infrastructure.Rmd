@@ -334,8 +334,8 @@ Vegawidget handlers:
         value = .vw_handler_body(
           params = list(),
           text = c(
-            "// returns the value of the data",
-            "return value;"
+            "// returns a copy of the data",
+            "return value.slice();"
           )
         )
       )

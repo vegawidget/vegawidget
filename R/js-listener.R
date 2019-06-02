@@ -69,7 +69,7 @@ vw_add_data_listener <- function(x, name, handler_body) {
     glue_js(
       "function(el, x) {",
       "  this.viewPromise.then(function(view) {",
-      "    view.addSignalListener('${name}', function(name, value) {",
+      "    view.addDataListener('${name}', function(name, value) {",
       "${handler_body}",
       "    });",
       "  });",

@@ -1,5 +1,5 @@
 Package: vegawidget
-Version: 0.2.0.9005
+Version: 0.2.0.9006
 Title: 'Htmlwidget' Renderer for 'Vega' and 'Vega-Lite'
 Description: 'Vega' and 'Vega-Lite' parse text in 'JSON' notation to render 
   chart-specifications into 'HTML'. This package is used to facilitate the 
@@ -55,7 +55,6 @@ Imports:
     rlang,
     glue,
     magrittr,
-    shiny,
     htmltools
 Suggests:
     knitr,
@@ -81,4 +80,6 @@ Suggests:
     png,
     conflicted,
     here,
-    withr
+    withr,
+    shiny
+

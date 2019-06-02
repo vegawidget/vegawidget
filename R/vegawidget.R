@@ -175,6 +175,9 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
 #' @export
 #'
 vegawidgetOutput <- function(outputId, width = "auto", height = "auto") {
+
+  assert_packages("shiny")
+
   htmlwidgets::shinyWidgetOutput(
     outputId,
     "vegawidget",
@@ -197,6 +200,8 @@ vegawidgetOutput <- function(outputId, width = "auto", height = "auto") {
 #' @export
 #'
 renderVegawidget <- function(expr, env = parent.frame(), quoted = FALSE) {
+
+  assert_packages("shiny")
 
   # if sent a vegaspec, convert to a vegawidget
   if (inherits(expr, "vegaspec")) {

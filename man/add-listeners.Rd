@@ -16,10 +16,11 @@ vw_add_event_listener(x, event, handler_body)
 \arguments{
 \item{x}{vegawidget object to be monitored}
 
-\item{name}{\code{character}, name of the signal to be monitored}
+\item{name}{\code{character}, name of the signal or dataset to be monitored}
 
 \item{handler_body}{\code{character} or \code{JS_EVAL}, text of the body of
-the JavaScript handler-function to be called}
+the JavaScript handler-function to be called when the signal or dataset
+changes, or the event fires}
 
 \item{event}{\code{character}, name of the type of event to be monitored,
 e.g. \code{"click"}}

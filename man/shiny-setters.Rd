@@ -43,7 +43,7 @@ a Shiny \code{server()} function, where they act like
 To see these functions in action, you can run a shiny-demo:
 \itemize{
 \item \code{vw_shiny_set_signal()}: call \code{vw_shiny_demo("signal-set-get")}
-\item \code{vw_shiny_set_data()}: call \code{vw_shiny_demo("data-set")}
+\item \code{vw_shiny_set_data()}: call \code{vw_shiny_demo("data-set-get")}
 \item \code{vw_shiny_run()}: call \code{vw_shiny_demo("data-set-swap-run")}
 }
 

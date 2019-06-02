@@ -42,8 +42,8 @@ server <- function(input, output) {
   # returns dataset in response to the angle-input
   rct_data <- reactive(data_angle(input$angle))
 
-  # the signal returns the bin-width from the chart
-  rct_data_out <- vw_shiny_get_data("chart", name = "source", body_value = "value")
+  # returns the dataset in `"chart"` named `"source"`
+  rct_data_out <- vw_shiny_get_data("chart", name = "source")
 
   # observers
   #

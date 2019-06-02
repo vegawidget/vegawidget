@@ -19,9 +19,10 @@
 #' @name add-listeners
 #'
 #' @param x vegawidget object to be monitored
-#' @param name `character`, name of the signal to be monitored
+#' @param name `character`, name of the signal or dataset to be monitored
 #' @param handler_body `character` or `JS_EVAL`, text of the body of
-#'  the JavaScript handler-function to be called
+#'  the JavaScript handler-function to be called when the signal or dataset
+#'  changes, or the event fires
 #'
 #' @return modified copy of vegawidget object `x`
 #' @seealso [vw_handler_signal()], [vw_handler_data()], [vw_handler_event()],

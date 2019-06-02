@@ -42,6 +42,9 @@ server <- function(input, output) {
   # returns dataset in response to the angle-input
   rct_data <- reactive(data_angle(input$angle))
 
+  # returns the dataset in `"chart"` named `"source"`
+  rct_data_out <- vw_shiny_get_data("chart", name = "source")
+
   # observers
   #
 
@@ -56,6 +59,10 @@ server <- function(input, output) {
 
   # render the chart
   output$chart <- renderVegawidget(spec_circle)
+
+  # render the input data-frame
+  output$data_out <- renderPrint(rct_data_out() %>% as_tibble())
+
 }
 
 

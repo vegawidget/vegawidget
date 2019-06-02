@@ -20,7 +20,9 @@ ui <- fluidPage(
     mainPanel(
       h4("Data sent to chart"),
       verbatimTextOutput("data_in"),
-      vegawidgetOutput("chart")
+      vegawidgetOutput("chart"),
+      h4("Data received from chart"),
+      verbatimTextOutput("data_out")
     )
   )
 )

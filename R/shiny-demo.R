@@ -10,7 +10,7 @@
 #'
 #'   # Run only in interactive R sessions
 #'   if (interactive()) {
-#'     vw_shiny_demo("data-set")
+#'     vw_shiny_demo("data-set-get")
 #'   }
 #' @export
 #'

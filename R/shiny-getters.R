@@ -1,8 +1,10 @@
 #' Get information from a Vega chart into Shiny
 #'
-#' There are two types of information you can get from a Vega chart, a *signal*,
-#' and information associated with an *event*. Any such signal
-#' must first be defined and **named** in the vegaspec.
+#' There are three types of information you can get from a Vega chart,
+#' a *signal*, *data* (i.e. a dataset), and information associated with
+#' an *event*.  A dataset or a signal must first be defined and **named**
+#' in the vegaspec.
+#'
 #' These getter-functions are called from within
 #' a Shiny `server()` function, where they act like
 #' [shiny::reactive()], returning a reactive expression.
@@ -10,22 +12,29 @@
 #' To see these functions in action, you can run a shiny-demo:
 #'
 #' - `vw_shiny_get_signal()`: call `vw_shiny_demo("signal-set-get")`
+#' - `vw_shiny_get_data()`: call `vw_shiny_demo("data-set-get")`
 #' - `vw_shiny_get_event()`: call `vw_shiny_demo("event-get")`
 #'
 #' In addition to the chart `outputId`, you will need to provide:
 #'
 #' - `vw_shiny_get_signal()`: the `name` of the signal, as defined in the Vega
 #'    specification
+#' - `vw_shiny_get_data()`: the `name` of the dataset, as defined in the Vega
+#'    specification
 #' - `vw_shiny_get_event()`: the `event` type, as defined in the
 #'    [Vega Event-Stream reference](https://vega.github.io/vega/docs/event-streams/)
 #'
-#' When the signal changes, or when the event fires, Vega needs to know which
-#' information you want returned to Shiny. To do this,
+#' When the signal or data changes, or when the event fires, Vega needs to
+#' know which information you want returned to Shiny. To do this,
 #' you provide a JavaScript handler-function:
 #'
 #' - `vw_shiny_get_signal()`: the default handler,
 #'   `vw_handler_signal("value")`,
 #'   specifies that the value of the signal be returned.
+#'
+#' - `vw_shiny_get_data()`: the default handler,
+#'   `vw_handler_data("value")`,
+#'   specifies that the entire dataset be returned.
 #'
 #' - `vw_shiny_get_event()`: the default handler,
 #'   `vw_handler_event("datum")`,
@@ -37,10 +46,10 @@
 #' If you need to specify a different behavior for the handler, there are a
 #' couple of options. This package provides
 #' a library of handler-functions; call [vw_handler_signal()],
-#' [vw_handler_event()], or without arguments to
-#' list them.
+#' [vw_handler_data()], or [vw_handler_event()] without arguments to
+#' list the available handlers.
 #'
-#' If it does not contain the handler you need, the `body_value`
+#' If the library does not contain the handler you need, the `body_value`
 #' argument will also accept a character string which will be used as
 #' the **body** of the handler function.
 #'
@@ -105,6 +114,53 @@ vw_shiny_get_signal <- function(outputId, name, body_value = "value") {
   # return a reactive that listens to our "private" input
   shiny::reactive({
     session$input[[inputId]]
+  })
+}
+
+#' @name shiny-getters
+#' @export
+#'
+vw_shiny_get_data <- function(outputId, name, body_value = "value") {
+
+  assert_packages("shiny")
+
+  session <- shiny::getDefaultReactiveDomain()
+
+  inputId <- ""
+
+  # set up an observer to run *once* to add the listener
+  shiny::observe({
+
+    shiny::isolate({
+      # create unique inputId (set in enclosing environment)
+      inputId_proposed <- glue::glue("{outputId}_data_{name}")
+      inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
+      # compose_handler_body
+      handler_body <-
+        vw_handler_data(body_value) %>%
+        vw_handler_add_effect("shiny_input", inputId = inputId) %>%
+        vw_handler_body_compose(n_indent = 0L)
+
+      # add listener
+      vw_shiny_msg_addDataListener(
+        outputId,
+        name = name,
+        handlerBody = handler_body
+      )
+    })
+
+  })
+
+  # return a reactive that listens to our "private" input
+  shiny::reactive({
+    x <- session$input[[inputId]]
+
+    # coerce this to a data.frame, if need be
+    if (!is.data.frame(x)) {
+      x <- data.frame(as.list(x), stringsAsFactors = FALSE)
+    }
+
+    x
   })
 }
 

@@ -61,8 +61,6 @@ Package infrastucture incudes:
   - an htmlwidget named “vegawidget”
   - internal package data:
       - list of version numbers: `.vega_version`
-  - public package data:
-      - `spec_mtcars` vegaspec for an mtcars scatterplot
   - files to validate the schema
 
 Perhaps this could be a series of documents - it remains as an exercise
@@ -316,38 +314,6 @@ walk(
 )
 ```
 
-## Public data
-
-The data are documented in `R/data.R`.
-
-``` r
-spec_mtcars <-
-  as_vegaspec(
-    list(
-      `$schema` = "https://vega.github.io/schema/vega-lite/v3.json",
-      width = 300L,
-      height = 300L,
-      description = "An mtcars example.",
-      data = list(values = mtcars),
-      mark = "point",
-      encoding = list(
-        x = list(field = "wt", type = "quantitative"),
-        y = list(field = "mpg", type = "quantitative"),
-        color = list(field = "cyl", type = "nominal")
-      )
-    )     
-  )
-```
-
-``` r
-usethis::use_data(spec_mtcars, overwrite = TRUE)
-```
-
-    ## ✔ Setting active project to '/Users/sesa19001/Documents/repos/public/vegawidget/vegawidget'
-    ## ✔ Saving 'spec_mtcars' to 'data/spec_mtcars.rda'
-
-## Internal data
-
 ### Versions
 
 We use this to support the `vega_version()` function.
@@ -443,6 +409,18 @@ Vegawidget handlers:
         )
       )
     ),
+    data = .vw_handler_def(
+      args = c("name", "value"),
+      bodies = list(
+        value = .vw_handler_body(
+          params = list(),
+          text = c(
+            "// returns a copy of the data",
+            "return value.slice();"
+          )
+        )
+      )
+    ),
     effect = .vw_handler_def(
       args = "x",
       bodies = list(
@@ -487,4 +465,5 @@ devtools::use_data(
     ## Use 'usethis::use_data()' instead.
     ## See help("Deprecated") and help("devtools-deprecated").
 
+    ## ✔ Setting active project to '/Users/sesa19001/Documents/repos/public/vegawidget/vegawidget'
     ## ✔ Saving '.vega_version', '.vw_handler_library' to 'R/sysdata.rda'

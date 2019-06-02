@@ -3,10 +3,13 @@
 \name{shiny-getters}
 \alias{shiny-getters}
 \alias{vw_shiny_get_signal}
+\alias{vw_shiny_get_data}
 \alias{vw_shiny_get_event}
 \title{Get information from a Vega chart into Shiny}
 \usage{
 vw_shiny_get_signal(outputId, name, body_value = "value")
+
+vw_shiny_get_data(outputId, name, body_value = "value")
 
 vw_shiny_get_event(outputId, event, body_value = "datum")
 }
@@ -29,17 +32,20 @@ for list of supported events, please see
 \code{body_value}
 }
 \description{
-There are two types of information you can get from a Vega chart, a \emph{signal},
-and information associated with an \emph{event}. Any such signal
-must first be defined and \strong{named} in the vegaspec.
+There are three types of information you can get from a Vega chart,
+a \emph{signal}, \emph{data} (i.e. a dataset), and information associated with
+an \emph{event}.  A dataset or a signal must first be defined and \strong{named}
+in the vegaspec.
+}
+\details{
 These getter-functions are called from within
 a Shiny \code{server()} function, where they act like
 \code{\link[shiny:reactive]{shiny::reactive()}}, returning a reactive expression.
-}
-\details{
+
 To see these functions in action, you can run a shiny-demo:
 \itemize{
 \item \code{vw_shiny_get_signal()}: call \code{vw_shiny_demo("signal-set-get")}
+\item \code{vw_shiny_get_data()}: call \code{vw_shiny_demo("data-set-get")}
 \item \code{vw_shiny_get_event()}: call \code{vw_shiny_demo("event-get")}
 }
 
@@ -47,17 +53,22 @@ In addition to the chart \code{outputId}, you will need to provide:
 \itemize{
 \item \code{vw_shiny_get_signal()}: the \code{name} of the signal, as defined in the Vega
 specification
+\item \code{vw_shiny_get_data()}: the \code{name} of the dataset, as defined in the Vega
+specification
 \item \code{vw_shiny_get_event()}: the \code{event} type, as defined in the
 \href{https://vega.github.io/vega/docs/event-streams/}{Vega Event-Stream reference}
 }
 
-When the signal changes, or when the event fires, Vega needs to know which
-information you want returned to Shiny. To do this,
+When the signal or data changes, or when the event fires, Vega needs to
+know which information you want returned to Shiny. To do this,
 you provide a JavaScript handler-function:
 \itemize{
 \item \code{vw_shiny_get_signal()}: the default handler,
 \code{vw_handler_signal("value")},
 specifies that the value of the signal be returned.
+\item \code{vw_shiny_get_data()}: the default handler,
+\code{vw_handler_data("value")},
+specifies that the entire dataset be returned.
 \item \code{vw_shiny_get_event()}: the default handler,
 \code{vw_handler_event("datum")},
 specifies that the single row of data associated with graphical mark
@@ -69,10 +80,10 @@ Vega would return the row of data that backs any mark
 If you need to specify a different behavior for the handler, there are a
 couple of options. This package provides
 a library of handler-functions; call \code{\link[=vw_handler_signal]{vw_handler_signal()}},
-\code{\link[=vw_handler_event]{vw_handler_event()}}, or without arguments to
-list them.
+\code{\link[=vw_handler_data]{vw_handler_data()}}, or \code{\link[=vw_handler_event]{vw_handler_event()}} without arguments to
+list the available handlers.
 
-If it does not contain the handler you need, the \code{body_value}
+If the library does not contain the handler you need, the \code{body_value}
 argument will also accept a character string which will be used as
 the \strong{body} of the handler function.
 

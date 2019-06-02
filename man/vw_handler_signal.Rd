@@ -2,10 +2,13 @@
 % Please edit documentation in R/js-handler.R
 \name{vw_handler_signal}
 \alias{vw_handler_signal}
+\alias{vw_handler_data}
 \alias{vw_handler_event}
 \title{Construct a JavaScript handler}
 \usage{
 vw_handler_signal(body_value)
+
+vw_handler_data(body_value)
 
 vw_handler_event(body_value)
 }
@@ -28,6 +31,7 @@ To see the handlers that are defined for each, call the function
 without any arguments:
 \itemize{
 \item \code{vw_handler_signal()}
+\item \code{vw_handler_data()}
 \item \code{vw_handler_event()}
 }
 
@@ -73,6 +77,9 @@ are no-ops; they will return the \code{body_value} unchanged.
   # list all the available signal-handlers
   vw_handler_signal()
 
+  # list all the available data-handlers
+  vw_handler_data()
+
   # list all the available event-handlers
   vw_handler_event()
 
@@ -86,5 +93,6 @@ are no-ops; they will return the \code{body_value} unchanged.
 \code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}}
 vega-view:
 \href{https://github.com/vega/vega/tree/master/packages/vega-view#view_addSignalListener}{addSignalListener()},
+\href{https://github.com/vega/vega/tree/master/packages/vega-view#view_addDataListener}{addDataListener()},
 \href{https://github.com/vega/vega/tree/master/packages/vega-view#view_addEventListener}{addEventListener()}
 }

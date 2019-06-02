@@ -13,19 +13,19 @@ The purpose of this article is to show how you can use Shiny to extend Vega's ca
 Because this article is an HTML document (as opposed to a Shiny app), we cannot show the app directly in this document. However, this package offers a function `vw_shiny_demo()` that, when called without arguments, lists all of the demonstration apps included with this package; to run a particular app, simply use its name as the argument:
 
 ```r
-vw_shiny_demo("data-set")
+vw_shiny_demo("data-set-get")
 ```
 
 Once a Vega chart is built, there are three things you can access through Shiny:
 
 - [events](https://vega.github.io/vega/docs/api/view/#event-handling): using `vw_shiny_get_event()`
 - [signals](https://vega.github.io/vega/docs/api/view/#signals): using `vw_shiny_get_signal()` and `vw_shiny_set_signal()`
-- [data](https://vega.github.io/vega/docs/api/view/#data-and-scales): using `vw_shiny_set_data()`
+- [data](https://vega.github.io/vega/docs/api/view/#data-and-scales): using `vw_shiny_get_data()` and `vw_shiny_set_data()`
 
 As we go through the examples, please keep in mind:
 
-- the `vw_shiny_get_*()` functions **return reactive expressions**.
-- the `vw_shiny_set_*()` functions **act as Shiny observers**.
+- the `vw_shiny_get_*()` functions **return reactive expressions**; these reactives return values.
+- the `vw_shiny_set_*()` functions **act as Shiny observers**; these observers carry out side-effects.
 
 ## Getting events {#events}
 
@@ -149,7 +149,7 @@ Finally, the `vw_shiny_get_signal()` function returns a reactive expression that
 
 To see the same logic implemented in pure JavaScript, see the [signals demo](javascript.html#demo-signals) of the JavaScript article.
 
-## Setting (and soon getting) data
+## Setting and getting data
 
 As with events and signals, you can [change datasets](https://vega.github.io/vega/docs/api/view/#view_change) in a Vega chart. In a future version of this package, you will also be able to retrieve datasets from a Vega chart.
 
@@ -158,7 +158,7 @@ Again, we will follow the example used in the [data section](javascript.html#sig
 To run the demonstration:
 
 ```r
-vw_shiny_demo("data-set")
+vw_shiny_demo("data-set-get")
 ```
 
 To be able to access a dataset in Vega(-Lite), it has to be **named** in the specification. For more information on naming datasets, please see the [Vega](https://vega.github.io/vega/docs/data) and [Vega-Lite](https://vega.github.io/vega-lite/docs/data.html#named) documentation on datasets.
@@ -177,5 +177,12 @@ vw_shiny_set_data("chart", name = "source", value = rct_data())
 - `value`, we want to set the Vega dataset to this value
 
 Note that we are supplying a reactive expression to the `value` argument. Internally, `vw_shiny_set_data()` observes this value, then changes the dataset in the Vega chart in response to changes in `value`. Accordingly, you should think of `vw_shiny_set_data()` as equivalent to the `shiny::observeEvent()` function.
+
+To get a reactive copy of a named dataset from Vega, we can use the `vw_shiny_get_data()` function. When that named dataset changes in Vega, it will update the reactive returned by this function. In the context of this app:
+
+```r
+# returns the dataset in `"chart"` named `"source"`
+rct_data_out <- vw_shiny_get_data("chart", name = "source")
+```
 
 To see the same logic implemented in pure JavaScript, see the [data demo](javascript.html#demo-data) of the JavaScript article.

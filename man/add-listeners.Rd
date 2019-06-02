@@ -3,20 +3,24 @@
 \name{add-listeners}
 \alias{add-listeners}
 \alias{vw_add_signal_listener}
+\alias{vw_add_data_listener}
 \alias{vw_add_event_listener}
 \title{Add JavaScript listeners}
 \usage{
 vw_add_signal_listener(x, name, handler_body)
+
+vw_add_data_listener(x, name, handler_body)
 
 vw_add_event_listener(x, event, handler_body)
 }
 \arguments{
 \item{x}{vegawidget object to be monitored}
 
-\item{name}{\code{character}, name of the signal to be monitored}
+\item{name}{\code{character}, name of the signal or dataset to be monitored}
 
 \item{handler_body}{\code{character} or \code{JS_EVAL}, text of the body of
-the JavaScript handler-function to be called}
+the JavaScript handler-function to be called when the signal or dataset
+changes, or the event fires}
 
 \item{event}{\code{character}, name of the type of event to be monitored,
 e.g. \code{"click"}}
@@ -34,19 +38,20 @@ The \code{handler_body} can be the text of the \emph{body} of a JavaScript funct
 the arguments to this function will vary according to the type of listener
 you are adding:
 \itemize{
-\item signal-handler arguments: \code{name}, \code{value}
+\item signal-handler and data-handler arguments: \code{name}, \code{value}
 \item event-handler arguments: \code{event}, \code{item}
 }
 
 This package offers some functions to make it easier to build JavaScript
-handler functions from R: \code{\link[=vw_handler_signal]{vw_handler_signal()}} and \code{\link[=vw_handler_event]{vw_handler_event()}}.
-You can pipe one of these functions to \code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}} to
-perform side-effects on the result.
+handler functions from R: \code{\link[=vw_handler_signal]{vw_handler_signal()}}, \code{\link[=vw_handler_data]{vw_handler_data()}},
+and \code{\link[=vw_handler_event]{vw_handler_event()}}. You can pipe one of these functions to
+\code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}} to perform side-effects on the result.
 }
 \seealso{
-\code{\link[=vw_handler_signal]{vw_handler_signal()}}, \code{\link[=vw_handler_event]{vw_handler_event()}},
+\code{\link[=vw_handler_signal]{vw_handler_signal()}}, \code{\link[=vw_handler_data]{vw_handler_data()}}, \code{\link[=vw_handler_event]{vw_handler_event()}},
 \code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}}
 vega-view:
 \href{https://github.com/vega/vega/tree/master/packages/vega-view#view_addSignalListener}{addSignalListener()},
+\href{https://github.com/vega/vega/tree/master/packages/vega-view#view_addDataListener}{addDataListener()},
 \href{https://github.com/vega/vega/tree/master/packages/vega-view#view_addEventListener}{addEventListener()}
 }

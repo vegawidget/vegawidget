@@ -16,7 +16,7 @@ This article has sections on:
 - an [introduction](#introduction) to vega-view, including a [demo](#demo-vega-view)
 - getting [events](#events), including a [demo](#demo-events)
 - setting and getting [signals](#signals), including a [demo](#demo-signals)
-- setting (and soon getting) [data](#data), including a [demo](#demo-data) 
+- setting and getting [data](#data), including a [demo](#demo-data) 
 
 It goes without saying that you will need to be comfortable with JavaScript to take advantage of this material. It will be apparent to many of you that my (Ian's) JavaScript is far from perfect; here are a couple of resources I have used to try to build up my JS capabilities:
 
@@ -388,11 +388,9 @@ on_bin_width()
 
 Opinion time: admittedly, there are improvements that can be made, both to the visualization and input themselves, and to process by which we connect everything using R. Shiny seems like a fairly attractive option, in comparison.  Hopefully, by taking a few tentative steps with JavaScript, and by exposing them to the development community, we can work towards cleaner implementations. 
 
-## Setting (and soon getting) data {#data}
+## Setting data {#data}
 
 [Vega](https://vega.github.io/vega/docs/data/) and [Vega-Lite](https://vega.github.io/vega-lite/docs/data.html#named) both offer the ability to name datasets within a specification. We can use the vega-view API to [change a dataset](https://vega.github.io/vega/docs/api/view/#data-and-scales), as was done in the [first example](#demo-vega-view) in this article. 
-
-In a future version of this package, you will be able to listen to a dataset, i.e. to specify an action whenever a dataset changes.
 
 Let's consider an example with a dataset that has a single observation, and that observation falls on the unit-circle. We will use an input-slider to change the angle of the observation. 
 
@@ -411,7 +409,23 @@ input_angle <-
   )
 ```
 
-Next, we create a specification, then a vegawidget with an `elementId` of `"circle"`
+Next, we define our data-ouput and the data-handler. For the output, we provide an `id`, `"output-data"`, to identify where in this document to write the data. Our handler function the data set to it, convert it to JSON (with a little formatting), then put the JSON string into our output element named `"output-data"`. 
+
+```{r}
+output_data <- tags$pre(id = "output-data")
+```
+
+```{r}
+handler_data <-
+  vw_handler_data("value") %>%
+  vw_handler_add_effect(
+    "element_text",
+    selector = "#output-data",
+    expr = "JSON.stringify(x, null, '  ');"
+  )
+```
+
+Finally, we create a specification, use it to create a vegawidget with an `elementId` of `"circle"`, then and add our data-listener to it.
 
 ```{r}
 spec_circle <- 
@@ -439,19 +453,23 @@ spec_circle <-
   ) %>%
   as_vegaspec()
 
-output_chart <- vegawidget(spec_circle, elementId = "circle")
+output_chart <- 
+  vegawidget(spec_circle, elementId = "circle") %>%
+  vw_add_data_listener("source", handler_data)
 ```
 
 We can print out our HTML elements to the document, then, like in the signal-example, we will add some JavaScript to define the interactions.
 
 ### Demo: data {#demo-data}
 
-A dataset has a single observation, bound to the unit circle. You can use the input-slider to specify the angle of the observation.
+A dataset has a single observation, bound to the unit circle. You can use the input-slider to specify the angle of the observation; you will see the JSON representation of the dataset below the chart.
 
 ```{r}
 input_angle
 
 output_chart
+
+output_data
 ```
 
 Please note that the next few code-chunks are `{js}` chunks rather than `{r}` chunks.
@@ -505,8 +523,6 @@ angle.addEventListener("input", on_angle);
 // run the updating function *once* to initialize the input to the data
 on_angle()
 ```
-
-In a future release of this package, we will be able to listen to (and extract) datasets in a Vega chart.
 
 
 

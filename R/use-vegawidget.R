@@ -19,7 +19,7 @@
 #'
 use_vegawidget <- function(s3_class_name) {
 
-  assert_packages("usethis", "whisker", "crayon", "clipr", "desc", "clisymbols")
+  assert_packages("usethis")
 
   data <- list(s3_class_name = s3_class_name)
 
@@ -31,12 +31,12 @@ use_vegawidget <- function(s3_class_name) {
     package = "vegawidget"
   )
 
-  val_fnname <- value(glue::glue("as_vegaspec.{s3_class_name}()"))
-  val_filename <- value("R/utils-vegawidget.R")
+  val_fnname <- usethis::ui_value(glue::glue("as_vegaspec.{s3_class_name}()"))
+  val_filename <- usethis::ui_value("R/utils-vegawidget.R")
 
-  todo(glue::glue("Adapt function {val_fnname}"))
-  todo(glue::glue("Remove unwanted functions from {val_filename}"))
-  todo("Document and rebuild package")
+  usethis::ui_todo("Adapt function {val_fnname}")
+  usethis::ui_todo("Remove unwanted functions from {val_filename}")
+  usethis::ui_todo("Document and rebuild package")
 
   invisible(NULL)
 }

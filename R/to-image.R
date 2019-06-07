@@ -4,7 +4,8 @@
 #' you can use these functions can to create
 #' or write images as PNG or SVG, using a `vegaspec` or `vegawidget`.
 #' To convert to a bitmap, or write a PNG file, you will additionally need
-#' the  **[rsvg](https://CRAN.R-project.org/package=rsvg)** package.
+#' the **[rsvg](https://CRAN.R-project.org/package=rsvg)** and
+#' **[png](https://CRAN.R-project.org/package=png)** packages.
 #'
 #' There is a known limitation to these functions - if you are using a vegaspec
 #' that has dataset loaded from a remote URL. The `nodejs` scripts are not

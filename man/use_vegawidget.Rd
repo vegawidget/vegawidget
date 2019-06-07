@@ -4,24 +4,26 @@
 \alias{use_vegawidget}
 \title{Add vegawidget functions to your package}
 \usage{
-use_vegawidget(s3_class_name)
+use_vegawidget(s3_class_name = NULL)
 }
 \arguments{
 \item{s3_class_name}{\code{character}, name of an S3 class for object to
-be coerced to a \code{vegaspec}}
+be coerced to a \code{vegaspec}; default (NULL) implies no additional class}
 }
 \value{
 invisible \code{NULL}, called for side effects
 }
 \description{
-This function does the setup for your package to use vegawidget functions:
+Two functions are offered to
+}
+\details{
+To add vegawidget functions to your package, these functions:
 \itemize{
-\item adds \strong{vegawidget} to "Imports" in your package's DESCRIPTION file
+\item adds \strong{vegawidget} to your package's DESCRIPTION file
 \item creates \code{R/utils-vegawidget.R}
 \item encourages you to take the steps outlined in \strong{Details}
 }
-}
-\details{
+
 You will have to edit \code{R/utils-vegawidget.R}:
 \itemize{
 \item add the code within your class's method for

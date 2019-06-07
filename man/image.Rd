@@ -54,7 +54,8 @@ If you have  \strong{\href{https://nodejs.org/en/}{nodejs}} installed,
 you can use these functions can to create
 or write images as PNG or SVG, using a \code{vegaspec} or \code{vegawidget}.
 To convert to a bitmap, or write a PNG file, you will additionally need
-the  \strong{\href{https://CRAN.R-project.org/package=rsvg}{rsvg}} package.
+the \strong{\href{https://CRAN.R-project.org/package=rsvg}{rsvg}} and
+\strong{\href{https://CRAN.R-project.org/package=png}{png}} packages.
 }
 \details{
 There is a known limitation to these functions - if you are using a vegaspec

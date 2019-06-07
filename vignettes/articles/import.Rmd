@@ -6,6 +6,14 @@ output: rmarkdown::html_document
 
 The **vegawidget** package is designed to be a low-level interface to the Vega and Vega-Lite visualization frameworks. As such, we hope that the functions provided here can serve as a foundation for other, presumably higher-level, packages. To make it easier for authors of such packages, we offer a function `use_vegawidget()` to help incorporate vegawidget functions into those packages.
 
+Use this function to import and re-export from vegawidget:
+
+- local versions of: `as_vegaspec()`, `print()`, `knit_print()`
+- `vw_as_json()`  
+- `vegawidget()`
+- `vega_embed()`
+- image functions: `vw_to_svg()`, `vw_to_bitmap()`, `vw_write_svg()`, `vw_write_png()`
+
 ## Example: altair
 
 For example, the [**altair**](https://vegawidget.github.io/altair) package provides an R interface to the [**Altair**](https://altair-viz.github.io) Python package. The altair package itself provides the connection to Python, using [**reticulate**](https://rstudio.github.io/reticulate); altair's focus is to provide a means to build a Vega-Lite specification - using higher-level abstractions than lists. 
@@ -21,7 +29,7 @@ A lot of packages use the pipe (`%>%`) function, so much so that the [**usethis*
 
 This new file contains roxygen directives that will handle the importing and exporting the next time you build the package's documentation. Now, people who install this package will have access to the pipe operator without having to refer explicitly to the magrittr package. It "just works".
 
-### Implementation: altair
+### Implementation
 
 We wish to bring a similar robustness and ease-of-use to package authors who want to incorporate vegawidget. To demonstrate how to do this, we will show the process that is already in place with the altair package.
 
@@ -68,4 +76,3 @@ as_vegaspec.altair.vegalite.v2.api.TopLevelMixin <- function(spec, ...) {
 
 At this point, once you document and re-build the package, vegawidget is fully integrated.
 
-One final note, when you open your copy of `utils-vegawidget.R`, you will notice that a *lot* of functions are imported and exported. If there are functions that you do not wish to incorporate into your package, you can delete the reference to them in this file, then re-document and rebuild.

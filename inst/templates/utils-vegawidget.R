@@ -1,5 +1,16 @@
 #### vegaspec functions ####
 
+#' Coerce to vegaspec
+#'
+#' See \code{vegawidget::\link[vegawidget]{as_vegaspec}} for details.
+#'
+#' @name as_vegaspec
+#' @rdname as_vegaspec
+#' @importFrom vegawidget as_vegaspec
+#' @export
+#'
+NULL
+
 #' Coerce vegaspec to JSON
 #'
 #' See \code{vegawidget::\link[vegawidget]{vw_as_json}} for details.
@@ -12,16 +23,6 @@
 NULL
 
 #### print functions ####
-
-#' @importFrom vegawidget print.vegaspec
-#' @export
-#'
-NULL
-
-#' @importFrom vegawidget format.vegaspec
-#' @export
-#'
-NULL
 
 #' Knit-print method
 #'
@@ -103,10 +104,8 @@ NULL
 #'
 #' See \code{vegawidget::\link[vegawidget]{spec_mtcars}} for details.
 #'
-#' @name spec
-#' @importFrom vegawidget
-#'          spec_mtcars
-#' @aliases spec_mtcars
-#' @export  spec_mtcars
+#' @name spec_mtcars
+#' @export
 #'
-NULL
+spec_mtcars <- vegawidget::spec_mtcars
+

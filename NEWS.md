@@ -1,6 +1,8 @@
 # vegawidget (0.2.0 development version)
 
-* Move **shiny** from an `Imports` dependency to a `Suggests` dependency (#83). 
+* Updates templating functions, splitting to two functions: `use_vegawidget()` and `use_vegawidget_interactive()`, which let you import and re-export basic-rendering and interactive functions, respectively. If your package keeps its version of a spec in its own S3 class, you can call `use_vegawidget()` with that class' name. (#83)
+
+* Move **shiny** from an `Imports` dependency to a `Suggests` dependency. (#82)
 
 * Modify `knit_print()` to handle non-HTML formats. Instead of using the [webshot](https://github.com/wch/webshot) package, the `knit_print()` function converts charts to either `png`, `svg` (useful for `github_document`), or `pdf` (useful for `pdf_document`) format. (#44, @AliciaSchep)
 

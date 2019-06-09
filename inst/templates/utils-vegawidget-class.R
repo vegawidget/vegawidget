@@ -1,9 +1,5 @@
-#' Coerce to vegaspec
-#'
-#' See \code{vegawidget::\link[vegawidget]{as_vegaspec}} for details.
-#'
 #' @inheritParams vegawidget::as_vegaspec
-#' @return S3 object of class `vegaspec`
+#' @rdname as_vegaspec
 #' @export
 #'
 as_vegaspec.{{s3_class_name}} <- function(spec, ...) {
@@ -17,8 +13,6 @@ as_vegaspec.{{s3_class_name}} <- function(spec, ...) {
   vegawidget::as_vegaspec(spec, ...)
 }
 
-#' @export
-#'
 print.{{s3_class_name}} <- function(x, ...) {
 
   x <- as_vegaspec(x)
@@ -26,8 +20,6 @@ print.{{s3_class_name}} <- function(x, ...) {
   print(x, ...)
 }
 
-#' @export
-#'
 format.{{s3_class_name}} <- function(x, ...) {
 
   x <- as_vegaspec(x)
@@ -35,6 +27,7 @@ format.{{s3_class_name}} <- function(x, ...) {
   format(x, ...)
 }
 
+#' @inheritParams vegawidget::knit_print.vegaspec
 #' @rdname knit_print.vegaspec
 #' @export
 #'

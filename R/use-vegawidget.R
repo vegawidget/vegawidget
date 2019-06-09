@@ -25,16 +25,35 @@ use_vegawidget <- function(s3_class_name = NULL) {
 
   usethis::use_package("vegawidget", type = "Imports")
 
-  usethis::use_package("httr", type = "Suggests")      # spec
-  usethis::use_package("knitr", type = "Suggests")     # vignettes
-  usethis::use_package("rmarkdown", type = "Suggests")
-  usethis::use_package("processx", type = "Suggests")  # images
-  usethis::use_package("rsvg", type = "Suggests")
-  usethis::use_package("png", type = "Suggests")
-  usethis::use_package("fs", type = "Suggests")
+  suggests <- c("processx", "rsvg", "png", "fs")
 
-  val_filename <- usethis::ui_value("R/utils-vegawidget.R")
-  usethis::ui_todo("Remove unwanted functions from {val_filename}")
+  usethis::ui_todo(
+    "To render images, {usethis::ui_value('vegawidget')} \\
+    uses the packages {usethis::ui_value(suggests)}. \\
+    You may wish to add them to this package's \"Suggests\". \\
+    As well, your package's users will require \\
+    {usethis::ui_value('nodejs')} be installed on their computer."
+  )
+
+  # usethis::use_package("httr", type = "Suggests")      # spec
+  # usethis::use_package("knitr", type = "Suggests")     # vignettes
+  # usethis::use_package("rmarkdown", type = "Suggests")
+  # usethis::use_package("processx", type = "Suggests")  # images
+  # usethis::use_package("rsvg", type = "Suggests")
+  # usethis::use_package("png", type = "Suggests")
+  # usethis::use_package("fs", type = "Suggests")
+
+  filename <- glue::glue("R/utils-vegawidget.R")
+  usethis::ui_todo(
+    "Remove unwanted functions from {usethis::ui_value(filename)}"
+  )
+
+  usethis::use_template(
+    "utils-vegawidget.R",
+    save_as = filename,
+    open = TRUE,
+    package = "vegawidget"
+  )
 
   # if we have an S3 class
   if (!is.null(s3_class_name)) {
@@ -69,7 +88,7 @@ use_vegawidget_interactive <- function() {
   assert_packages("usethis")
 
   usethis::use_package("shiny", type = "Suggests")  # shiny
-  usethis::use_package("dplyr", type = "Suggests")  #
+  usethis::use_package("dplyr", type = "Suggests")
 
   filename <- glue::glue("R/utils-vegawidget-interactive.R")
   usethis::ui_todo(

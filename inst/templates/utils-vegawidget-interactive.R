@@ -6,9 +6,9 @@
 #'
 #' @name vw-add-listeners
 #' @importFrom vegawidget
-#'          vw_add_event_listener vw_add_data_listener vw_add_signal_listener
-#' @aliases vw_add_event_listener vw_add_data_listener vw_add_signal_listener
-#' @export  vw_add_event_listener vw_add_data_listener vw_add_signal_listener
+#'          vw_add_data_listener vw_add_signal_listener vw_add_event_listener
+#' @aliases vw_add_data_listener vw_add_signal_listener vw_add_event_listener
+#' @export  vw_add_data_listener vw_add_signal_listener vw_add_event_listener
 #'
 NULL
 
@@ -21,11 +21,11 @@ NULL
 #'
 #' @name vw-handlers
 #' @importFrom vegawidget
-#'   vw_handler_signal vw_handler_data vw_handler_event vw_handler_add_effect
+#'   vw_handler_data vw_handler_signal vw_handler_event vw_handler_add_effect
 #' @aliases
-#'   vw_handler_signal vw_handler_data vw_handler_event vw_handler_add_effect
+#'   vw_handler_data vw_handler_signal vw_handler_event vw_handler_add_effect
 #' @export
-#'   vw_handler_signal vw_handler_data vw_handler_event vw_handler_add_effect
+#'   vw_handler_data vw_handler_signal vw_handler_event vw_handler_add_effect
 #'
 NULL
 
@@ -37,9 +37,9 @@ NULL
 #'
 #' @name vw-shiny-getters
 #' @importFrom vegawidget
-#'           vw_shiny_get_event vw_shiny_get_signal
-#' @aliases  vw_shiny_get_event vw_shiny_get_signal
-#' @export   vw_shiny_get_event vw_shiny_get_signal
+#'           vw_shiny_get_data vw_shiny_get_signal vw_shiny_get_event
+#' @aliases  vw_shiny_get_data vw_shiny_get_signal vw_shiny_get_event
+#' @export   vw_shiny_get_data vw_shiny_get_signal vw_shiny_get_event
 #'
 NULL
 

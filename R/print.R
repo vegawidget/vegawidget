@@ -1,5 +1,3 @@
-# see zzz.R for "creation" of the alt object
-
 #' @export
 print.vegaspec <- function(x, ...) {
   print(vegawidget(x, ...))

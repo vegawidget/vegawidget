@@ -33,9 +33,9 @@ has_node <- unname(nchar(Sys.which("node")) > 0L)
 
 test_that("autosize warns", {
 
-  expect_warning(
+  expect_message(
     vw_autosize(spec_mtcars_hconcat, width = 300),
-    "no effect on rendering\\.$"
+    "no effect on rendering"
   )
 })
 

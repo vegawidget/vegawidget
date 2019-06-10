@@ -27,9 +27,6 @@ Authors@R: c(
       email = "lee.s@wehi.edu.au", 
       role = c("ctb")
     ),
-    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("ctb"), 
-      comment = c(ORCID = "0000-0003-4757-117X")
-    ),
     person("Kanit", "Wongsuphasawat", comment = "Vega/Vega-Lite library", role = c("ctb")),
     person("Dominik", "Moritz", comment = "Vega/Vega-Lite library", role = c("ctb")),
     person("Arvind", "Satyanarayan", comment = "Vega/Vega-Lite library", role = c("ctb")),
@@ -64,12 +61,7 @@ Suggests:
     testthat,
     yaml,
     fs,
-    usethis,
-    whisker,
-    crayon,
-    clipr,
-    desc,
-    clisymbols,
+    usethis (>= 1.5.0),
     readr,
     tibble,
     lubridate,

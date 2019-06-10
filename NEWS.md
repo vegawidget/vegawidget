@@ -1,6 +1,6 @@
 # vegawidget (0.2.0 development version)
 
-* Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.20.
+* Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0.
 
 * Move **shiny** from an `Imports` dependency to a `Suggests` dependency (#83). 
 

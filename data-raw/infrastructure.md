@@ -125,13 +125,13 @@ vega_version_long
 ```
 
     ## $vega_lite
-    ## [1] "3.2.1"
+    ## [1] "3.3.0"
     ## 
     ## $vega
-    ## [1] "5.3.3"
+    ## [1] "5.4.0"
     ## 
     ## $vega_embed
-    ## [1] "4.0.0"
+    ## [1] "4.2.0"
 
 ``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
@@ -210,11 +210,11 @@ htmlwidgets_downloads
     ## # A tibble: 6 x 2
     ##   path_local             path_remote                                       
     ##   <chr>                  <chr>                                             
-    ## 1 vega-lite/vega-lite.m… https://cdn.jsdelivr.net/npm/vega-lite@3.2.1      
+    ## 1 vega-lite/vega-lite.m… https://cdn.jsdelivr.net/npm/vega-lite@3.3.0      
     ## 2 vega-lite/LICENSE      https://raw.githubusercontent.com/vega/vega-lite/…
-    ## 3 vega/vega.min.js       https://cdn.jsdelivr.net/npm/vega@5.3.3           
+    ## 3 vega/vega.min.js       https://cdn.jsdelivr.net/npm/vega@5.4.0           
     ## 4 vega/LICENSE           https://raw.githubusercontent.com/vega/vega/maste…
-    ## 5 vega-embed/vega-embed… https://cdn.jsdelivr.net/npm/vega-embed@4.0.0     
+    ## 5 vega-embed/vega-embed… https://cdn.jsdelivr.net/npm/vega-embed@4.2.0     
     ## 6 vega-embed/LICENSE     https://raw.githubusercontent.com/vega/vega-embed…
 
 ``` r
@@ -298,8 +298,8 @@ schema
     ## # A tibble: 2 x 2
     ##   path_local            path_remote                                        
     ##   <chr>                 <chr>                                              
-    ## 1 vega/v5.3.3.json      https://vega.github.io/schema/vega/v5.3.3.json     
-    ## 2 vega-lite/v3.2.1.json https://vega.github.io/schema/vega-lite/v3.2.1.json
+    ## 1 vega/v5.4.0.json      https://vega.github.io/schema/vega/v5.4.0.json     
+    ## 2 vega-lite/v3.3.0.json https://vega.github.io/schema/vega-lite/v3.3.0.json
 
 ``` r
 pwalk(schema, get_file, path_local_root = dir_schema)

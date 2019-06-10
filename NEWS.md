@@ -1,5 +1,7 @@
 # vegawidget (0.2.0 development version)
 
+* Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.20.
+
 * Move **shiny** from an `Imports` dependency to a `Suggests` dependency (#83). 
 
 * Modify `knit_print()` to handle non-HTML formats. Instead of using the [webshot](https://github.com/wch/webshot) package, the `knit_print()` function converts charts to either `png`, `svg` (useful for `github_document`), or `pdf` (useful for `pdf_document`) format. (#44, @AliciaSchep)

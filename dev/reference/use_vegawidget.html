@@ -34,11 +34,7 @@
   
 <meta property="og:title" content="Add vegawidget functions to your package — use_vegawidget" />
 
-<meta property="og:description" content="This function does the setup for your package to use vegawidget functions:
-adds vegawidget to &quot;Imports&quot; in your package's DESCRIPTION file
-creates R/utils-vegawidget.R
-encourages you to take the steps outlined in Details
-" />
+<meta property="og:description" content="Two functions are offered to" />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
@@ -148,15 +144,11 @@ encourages you to take the steps outlined in Details
 
     <div class="ref-description">
     
-    <p>This function does the setup for your package to use vegawidget functions:</p><ul>
-<li><p>adds <strong>vegawidget</strong> to "Imports" in your package's DESCRIPTION file</p></li>
-<li><p>creates <code>R/utils-vegawidget.R</code></p></li>
-<li><p>encourages you to take the steps outlined in <strong>Details</strong></p></li>
-</ul>
+    <p>Two functions are offered to</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>use_vegawidget</span>(<span class='no'>s3_class_name</span>)</pre>
+    <pre class="usage"><span class='fu'>use_vegawidget</span>(<span class='kw'>s3_class_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,7 +156,7 @@ encourages you to take the steps outlined in Details
     <tr>
       <th>s3_class_name</th>
       <td><p><code>character</code>, name of an S3 class for object to
-be coerced to a <code>vegaspec</code></p></td>
+be coerced to a <code>vegaspec</code>; default (NULL) implies no additional class</p></td>
     </tr>
     </table>
     
@@ -174,6 +166,11 @@ be coerced to a <code>vegaspec</code></p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>To add vegawidget functions to your package, these functions:</p><ul>
+<li><p>adds <strong>vegawidget</strong> to your package's DESCRIPTION file</p></li>
+<li><p>creates <code>R/utils-vegawidget.R</code></p></li>
+<li><p>encourages you to take the steps outlined in <strong>Details</strong></p></li>
+</ul>
     <p>You will have to edit <code>R/utils-vegawidget.R</code>:</p><ul>
 <li><p>add the code within your class's method for
 to coerce your object to a <code>vegaspec</code>.</p></li>

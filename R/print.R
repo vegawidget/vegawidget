@@ -111,6 +111,7 @@ knit_print.vegaspec <- function(spec, ..., options = NULL){
     dev,
     png = vw_write_png,
     svg = vw_write_svg,
+    svglite = vw_write_svg,
     pdf = {
       assert_packages("rsvg")
       function(spec, path, ...) {
@@ -124,13 +125,19 @@ knit_print.vegaspec <- function(spec, ..., options = NULL){
     }
   )
 
+  # TODO: make this a function
+  ext <- dev
+  if (identical(ext, "svg-vegawidget")) {
+    ext <- "svg"
+  }
+
   tryCatch({
       f <- tempfile()
       on.exit({unlink(f)})
       fn_write(spec, path = f, width = width, height = height)
       res <- readBin(f, "raw", file.info(f)[, "size"])
       structure(
-        list(image = res, extension = paste0(".", dev)),
+        list(image = res, extension = paste0(".", ext)),
         class = "html_screenshot"
       )
     },

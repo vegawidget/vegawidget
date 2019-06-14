@@ -1,5 +1,7 @@
 # vegawidget 0.2.0 (development version)
 
+* Create a new `dev` option for knitr, when rendering to a non-html format: `svg-vegawidget`. If you are using knitr 1.23, and are using a Mac, this can help you avoid installing XQuartz, which would not be used in this case. (#92)
+
 * Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0.
 
 * Updates templating functions, splitting to two functions: `use_vegawidget()` and `use_vegawidget_interactive()`, which let you import and re-export basic-rendering and interactive functions, respectively. If your package keeps its version of a spec in its own S3 class, you can call `use_vegawidget()` with that class' name. (#83)

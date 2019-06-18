@@ -13,6 +13,8 @@ as_vegaspec.{{s3_class_name}} <- function(spec, ...) {
   vegawidget::as_vegaspec(spec, ...)
 }
 
+#' @export
+#'
 print.{{s3_class_name}} <- function(x, ...) {
 
   x <- as_vegaspec(x)
@@ -20,6 +22,8 @@ print.{{s3_class_name}} <- function(x, ...) {
   print(x, ...)
 }
 
+#' @export
+#'
 format.{{s3_class_name}} <- function(x, ...) {
 
   x <- as_vegaspec(x)

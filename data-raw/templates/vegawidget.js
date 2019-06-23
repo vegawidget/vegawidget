@@ -45,10 +45,15 @@ HTMLWidgets.widget({
       // x, object to instantitate htmlwidget
       renderValue: function(x) {
 
+        console.log(x.embed_options.loader);
+
         // if x has base_url use it
-        if (x.base_url !== null){
+        if (x.base_url !== null && typeof x.base_url !== 'undefined'){
           x.embed_options.loader = vega.loader({baseURL: x.base_url});
         }
+
+        console.log(x.base_url);
+        console.log(x.embed_options.loader);
 
         // initialise promise
         view_promise =

@@ -34,6 +34,32 @@ useful to:
     of plots, or even to build a general ggplot2-like framework, using
     this package as a foundation (or inspiration).
 
+## New in vegawidget 0.2
+
+  - vegawidget offers Vega-Lite 3.3.0 and Vega 5.4.0. Consequently, this
+    package works only with broswers that support ES6. This includes all
+    modern browsers and the 1.2 version of the RStudio IDE.
+
+  - When knitting to a non-HTML format, e.g. `github_document`, this
+    package provides a `knit_print()` function that will intercept the
+    normal renderer (phantomjs), using instead its own renderer. This
+    allows you to specify the `"svg"` or `"png"` `dev` (device) in
+    knitr. However, it requires that you have
+    [nodejs](https://nodejs.org) installed on your system, as well as
+    the packages [rsvg](https://cran.r-project.org/package=rsvg) and
+    [png](https://cran.r-project.org/package=png).
+    
+    For an example, see the GitHub rendering of this [README
+    file](https://github.com/vegawidget/vegawidget#introduction).
+
+  - For interactive applications, there are now functions to support
+    vega-view’s
+    [`addDataListener()`](https://vega.github.io/vega/docs/api/view/#view_addDataListener)
+    function:
+    [`vw_add_data_listener()`](https://vegawidget.github.io/vegawidget/reference/add-listeners.html),
+    and
+    [`vw_shiny_get_data()`](https://vegawidget.github.io/vegawidget/reference/shiny-getters.html).
+
 ## Installation
 
 You can install vegawidget from CRAN with:
@@ -177,7 +203,8 @@ Other articles for this package:
 
 ## Contributing
 
-Contributions are welcome, please see this [guide](CONTRIBUTING.md).
+Contributions are welcome, please see this
+[guide](https://vegawidget.github.io/vegawidget/CONTRIBUTING.html).
 Please note that this project is released with a [Contributor Code of
-Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree
-to abide by its terms.
+Conduct](https://vegawidget.github.io/vegawidget/CODE_OF_CONDUCT.html).
+By participating in this project you agree to abide by its terms.

@@ -55,10 +55,10 @@ HTMLWidgets.widget({
         // fulfill promise by rendering the visualisation
         view_promise
           .then(function(view) {
-            // By removing the style (width and height) of the
+            // By specifying the style (width and height) of the
             // enclosing element, we let the "chart" decide the space it
             // will occupy.
-            // el.setAttribute("style", "");
+            el.setAttribute("style", "width:auto;height:auto;");
             // console.log(el);
           })
           .catch(console.error);

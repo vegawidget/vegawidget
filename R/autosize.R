@@ -56,27 +56,24 @@ vw_autosize <- function(spec, width = NULL, height = NULL) {
 }
 
 .autosize.vegaspec_hconcat <- function(spec, width = NULL, height = NULL) {
-  .message_autosize(class(spec))
+  # the message that used to be here, and in the other autosize methods,
+  # seemed too chatty
   NextMethod()
 }
 
 .autosize.vegaspec_vconcat <- function(spec, width = NULL, height = NULL) {
-  .message_autosize(class(spec))
   NextMethod()
 }
 
 .autosize.vegaspec_concat <- function(spec, width = NULL, height = NULL) {
-  .message_autosize(class(spec))
   NextMethod()
 }
 
 .autosize.vegaspec_facet <- function(spec, width = NULL, height = NULL) {
-  .message_autosize(class(spec))
   NextMethod()
 }
 
 .autosize.vegaspec_repeat <- function(spec, width = NULL, height = NULL) {
-  .message_autosize(class(spec))
   NextMethod()
 }
 
@@ -125,12 +122,3 @@ vw_autosize <- function(spec, width = NULL, height = NULL) {
   spec
 }
 
-.message_autosize <- function(class) {
-  message(
-    glue::glue(
-      "This vegaspec has class `{class[[1]]}`, which implies multiple views. ",
-      "Specifying the width or height of a ",
-      "vegaspec with multiple views has no effect on rendering."
-    )
-  )
-}

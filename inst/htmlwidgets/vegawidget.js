@@ -45,11 +45,6 @@ HTMLWidgets.widget({
       // x, object to instantitate htmlwidget
       renderValue: function(x) {
 
-        // if x has base_url use it
-        if (x.base_url !== null){
-          x.embed_options.loader = vega.loader({baseURL: x.base_url});
-        }
-
         // initialise promise
         view_promise =
           vegaEmbed(el, x.chart_spec, opt = x.embed_options)
@@ -60,10 +55,10 @@ HTMLWidgets.widget({
         // fulfill promise by rendering the visualisation
         view_promise
           .then(function(view) {
-            // By removing the style (width and height) of the
+            // By specifying the style (width and height) of the
             // enclosing element, we let the "chart" decide the space it
             // will occupy.
-            // el.setAttribute("style", "");
+            el.setAttribute("style", "width:auto;height:auto;");
             // console.log(el);
           })
           .catch(console.error);

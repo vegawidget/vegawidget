@@ -103,27 +103,45 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
   # autosize (if needed)
   spec <- vw_autosize(spec, width = width, height = height)
 
-  # (note for later, we should take into account the possibility
-  # that `base_url` is specified using vega_embed())
+  ## base_url
+  #
+  # if `base_url` is specified here, it overrides the loader specified
+  # in `embed`
+
+  # if specified, set base_url in embed-loader
+  if (!is.null(base_url)) {
+    embed[["loader"]] <- embed[["loader"]] %||% list()
+    embed[["loader"]][["baseURL"]] <- base_url
+  }
+
+  # check for `baseURL` in `embed[["loader"]`
+  baseURL <- embed[["loader"]][["baseURL"]]
+
   # if base_url is a local directory need to create a depencency
-  if (!is.null(base_url) && dir.exists(base_url)){
+  if (!is.null(baseURL) && dir.exists(baseURL)) {
+
+    # make sure that all the URL's in the spec will be sensible
     urls <- .find_urls(spec)
-    full_urls <- file.path(normalizePath(base_url), urls)
+    full_urls <- file.path(normalizePath(baseURL), urls)
     if (!file.exists(full_urls)) {
-        stop("Local file suggested by base_url and urls in spec does not exist:",
-             full_urls[which(!file.exists(full_urls))])
+      stop(
+        "Local file suggested by base_url and urls in spec does not exist:",
+        full_urls[which(!file.exists(full_urls))]
+      )
     }
 
+    # set data-dependency for this chart
     data_dependency <- htmltools::htmlDependency(
       name = "data",
       version = "0.0.0",
-      src = c(file = normalizePath(base_url)),
+      src = c(file = normalizePath(baseURL)),
       attachment = basename(full_urls),
       all_files = FALSE
     )
-    base_url <- "lib/data-0.0.0/"
+    # set loader to refer to new location
+    embed[["loader"]][["baseURL"]] <- "lib/data-0.0.0/"
   } else {
-    data_dependency = NULL
+    data_dependency <- NULL
   }
 
   # use internal methods here because spec has already been validated
@@ -132,8 +150,6 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
     chart_spec = .as_list(spec),
     embed_options = embed
   )
-
-  x$base_url <- base_url # Don't include if not there
 
   x <- .as_json(x)
 

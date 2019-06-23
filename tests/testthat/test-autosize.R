@@ -31,14 +31,6 @@ spec_mtcars_autosize$config <-
 
 has_node <- unname(nchar(Sys.which("node")) > 0L)
 
-test_that("autosize warns", {
-
-  expect_message(
-    vw_autosize(spec_mtcars_hconcat, width = 300),
-    "no effect on rendering"
-  )
-})
-
 test_that("autosize works", {
 
   expect_identical(

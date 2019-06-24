@@ -1,17 +1,45 @@
 #' Add vegawidget functions to your package
 #'
-#' Two functions are offered to
+#' These functions are offered to help you import and re-export vegawidget
+#' functions in your package.
 #'
-#' To add vegawidget functions to your package, these functions:
-#' - adds **vegawidget** to your package's DESCRIPTION file
+#'  `use_vegawidget()`:
+#'
+#' Adds vegawidget functions:
+#'  - [as_vegaspec()], [vw_as_json()]
+#'  - [vegawidget()], [knit_print()]
+#'  - [vega_embed()]
+#'  - [vw_to_svg()] and other image functions
+#'  - [vegawidgetOutput()], [renderVegawidget()]
+#'  - [spec_mtcars]
+#'
+#' In practical terms:
+#' - adds **vegawidget** to `Imports` in your package's DESCRIPTION file.
+#' - adds **processx**, **rsvg**, **png**, **fs** to `Suggests`
+#'   in your package's DESCRIPTION file.
 #' - creates `R/utils-vegawidget.R`
-#' - encourages you to take the steps outlined in **Details**
+#' - at your discretion, delete references to functions you do not want
+#'   to re-export.
 #'
-#' You will have to edit `R/utils-vegawidget.R`:
+#' If you have your own S3 class for a spec, specify the `s3_class_name`
+#' argument. You will have to edit `R/utils-vegawidget-<s3_class_name>.R`:
 #' - add the code within your class's method for
 #'  to coerce your object to a `vegaspec`.
+#'
+#' `use_vegawidget_interactive()`:
+#'
+#' If you want to add the JavaScript and Shiny functions,
+#' use this after running `use_vegawidget()`. It adds:
+#'  - [vw_add_data_listener()] and other listener-functions.
+#'  - [vw_handler_data()] and other handler functions.
+#'  - [vw_shiny_get_data()] and other Shiny getters.
+#'  - [vw_shiny_set_data()] and other Shiny setters.
+#'
+#' In practical terms:
+#' - adds **shiny**, **dplyr**, to `Suggests`.
+#' - creates `R/utils-vegawidget-interactive.R`.
 #' - at your discretion, delete references to functions you do not want
-#' to re-export.
+#'   to re-export.
 #'
 #' @param s3_class_name `character`, name of an S3 class for object to
 #'   be coerced to a `vegaspec`; default (NULL) implies no additional class
@@ -81,6 +109,9 @@ use_vegawidget <- function(s3_class_name = NULL) {
   invisible(NULL)
 }
 
+#' @rdname use_vegawidget
+#' @export
+#'
 use_vegawidget_interactive <- function() {
 
   # Assumes you already have run use_vegawidget

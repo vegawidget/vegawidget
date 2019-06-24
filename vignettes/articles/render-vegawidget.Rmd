@@ -97,7 +97,7 @@ If you are sharing your work, using a remote URL will be more robust, but requir
 vegawidget(spec_precip, base_url = url_remote)
 ```
 
-## Setting R options using knitr chunk-options
+## Setting R options
 
 In the previous section, you saw how to specify the rendering options using the `vegawidget()` function explicitly. You may wish to set the options implicitly: you can do so using the R options `vega.embed`, `vega.width`, and `vega.height`.
 
@@ -118,8 +118,6 @@ spec_mtcars
 ```{r vega.width=300, vega.height=300, echo=FALSE}
 spec_mtcars
 ```
-
-## Setting R options
 
 We can set options explicitly using the `options()` function. There are a few ways of the ways you can do this:
 

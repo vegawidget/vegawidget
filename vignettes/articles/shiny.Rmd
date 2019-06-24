@@ -77,8 +77,6 @@ vw_shiny_get_event(..., body_value = "item")
 vw_shiny_get_event(..., body_value = "return item;") 
 ```
 
-Similarly for `vw_shiny_get_event()`, these 
-
 The code supplied for `body_value` need only return a *value* - the `vw_shiny_get_event()` function will take care of composing this with additional code that will make that *value* available to Shiny.
 
 Finally, the `vw_shiny_get_event()` function returns a reactive expression that evaluates to the latest *value* returned from the event-handler.

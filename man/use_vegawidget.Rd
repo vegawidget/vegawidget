@@ -2,9 +2,12 @@
 % Please edit documentation in R/use-vegawidget.R
 \name{use_vegawidget}
 \alias{use_vegawidget}
+\alias{use_vegawidget_interactive}
 \title{Add vegawidget functions to your package}
 \usage{
 use_vegawidget(s3_class_name = NULL)
+
+use_vegawidget_interactive()
 }
 \arguments{
 \item{s3_class_name}{\code{character}, name of an S3 class for object to
@@ -14,20 +17,54 @@ be coerced to a \code{vegaspec}; default (NULL) implies no additional class}
 invisible \code{NULL}, called for side effects
 }
 \description{
-Two functions are offered to
+These functions are offered to help you import and re-export vegawidget
+functions in your package.
 }
 \details{
-To add vegawidget functions to your package, these functions:
+\code{use_vegawidget()}:
+
+Adds vegawidget functions:
 \itemize{
-\item adds \strong{vegawidget} to your package's DESCRIPTION file
-\item creates \code{R/utils-vegawidget.R}
-\item encourages you to take the steps outlined in \strong{Details}
+\item \code{\link[=as_vegaspec]{as_vegaspec()}}, \code{\link[=vw_as_json]{vw_as_json()}}
+\item \code{\link[=vegawidget]{vegawidget()}}, \code{\link[=knit_print]{knit_print()}}
+\item \code{\link[=vega_embed]{vega_embed()}}
+\item \code{\link[=vw_to_svg]{vw_to_svg()}} and other image functions
+\item \code{\link[=vegawidgetOutput]{vegawidgetOutput()}}, \code{\link[=renderVegawidget]{renderVegawidget()}}
+\item \link{spec_mtcars}
 }
 
-You will have to edit \code{R/utils-vegawidget.R}:
+In practical terms:
+\itemize{
+\item adds \strong{vegawidget} to \code{Imports} in your package's DESCRIPTION file.
+\item adds \strong{processx}, \strong{rsvg}, \strong{png}, \strong{fs} to \code{Suggests}
+in your package's DESCRIPTION file.
+\item creates \code{R/utils-vegawidget.R}
+\item at your discretion, delete references to functions you do not want
+to re-export.
+}
+
+If you have your own S3 class for a spec, specify the \code{s3_class_name}
+argument. You will have to edit \code{R/utils-vegawidget-<s3_class_name>.R}:
 \itemize{
 \item add the code within your class's method for
 to coerce your object to a \code{vegaspec}.
+}
+
+\code{use_vegawidget_interactive()}:
+
+If you want to add the JavaScript and Shiny functions,
+use this after running \code{use_vegawidget()}. It adds:
+\itemize{
+\item \code{\link[=vw_add_data_listener]{vw_add_data_listener()}} and other listener-functions.
+\item \code{\link[=vw_handler_data]{vw_handler_data()}} and other handler functions.
+\item \code{\link[=vw_shiny_get_data]{vw_shiny_get_data()}} and other Shiny getters.
+\item \code{\link[=vw_shiny_set_data]{vw_shiny_set_data()}} and other Shiny setters.
+}
+
+In practical terms:
+\itemize{
+\item adds \strong{shiny}, \strong{dplyr}, to \code{Suggests}.
+\item creates \code{R/utils-vegawidget-interactive.R}.
 \item at your discretion, delete references to functions you do not want
 to re-export.
 }

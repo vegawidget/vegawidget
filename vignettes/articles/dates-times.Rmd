@@ -14,7 +14,7 @@ library("dplyr")
 
 Dates and times can be tricky, even within the familiar confines of R. Vega and Vega-Lite are run in JavaScript, which has its own philosophy for dates and times. In R, we have access to the entire time-zone database; in JavaScript, using the `Date` object, there are only *two* time zones available: the local time zone used by the client browser and UTC.  
 
-If you are working with time-based data, this mismatch of capabilities introduces a lot of "opportunities" to create a Vega(-Lite) visualizations that do not behave as intended. The purposes of this article are 
+If you are working with time-based data, this mismatch of capabilities introduces a lot of "opportunities" to create Vega(-Lite) visualizations that do not behave as intended. The purposes of this article are 
 
 - to walk through the pit-falls of translating dates and times from R to JavaScript.
 - to describe the in-and-outs of Vega-Lite [time-units](https://vega.github.io/vega-lite/docs/timeunit.html).

@@ -19,3 +19,4 @@
 ^Meta$
 ^vignettes/foo\.Rmd$
 ^revdep$
+^CRAN-RELEASE$

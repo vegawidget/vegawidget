@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9016</span>
       </span>
     </div>
 
@@ -145,7 +145,7 @@
 <ul>
 <li><p>Improves implementation of the <code>base_url</code> argument in <code><a href="../reference/vegawidget.html">vegawidget()</a></code>; it works for both local and remote paths. (<a href='https://github.com/vegawidget/vegawidget/issues/63'>#63</a>, with <a href='https://github.com/AliciaSchep'>@AliciaSchep</a>)</p></li>
 <li><p>Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0.</p></li>
-<li><p>Updates templating functions, splitting to two functions: <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> and <code>use_vegawidget_interactive()</code>, which let you import and re-export basic-rendering and interactive functions, respectively. If your package keeps its version of a spec in its own S3 class, you can call <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> with that class’ name. (<a href='https://github.com/vegawidget/vegawidget/issues/83'>#83</a>)</p></li>
+<li><p>Updates templating functions, splitting to two functions: <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> and <code><a href="../reference/use_vegawidget.html">use_vegawidget_interactive()</a></code>, which let you import and re-export basic-rendering and interactive functions, respectively. If your package keeps its version of a spec in its own S3 class, you can call <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> with that class’ name. (<a href='https://github.com/vegawidget/vegawidget/issues/83'>#83</a>)</p></li>
 <li><p>Move <strong>shiny</strong> from an <code>Imports</code> dependency to a <code>Suggests</code> dependency. (<a href='https://github.com/vegawidget/vegawidget/issues/82'>#82</a>)</p></li>
 <li><p>Modify <code>knit_print()</code> to handle non-HTML formats. Instead of using the <a href="https://github.com/wch/webshot">webshot</a> package, the <code>knit_print()</code> function converts charts to either <code>png</code>, <code>svg</code> (useful for <code>github_document</code>), or <code>pdf</code> (useful for <code>pdf_document</code>) format. (<a href='https://github.com/vegawidget/vegawidget/issues/44'>#44</a>, <a href='https://github.com/AliciaSchep'>@AliciaSchep</a>)</p></li>
 <li><p>(Of interest to developers) modify the class-naming for Vega-Lite specs, adding a another level of S3 class that describes the type of chart, e.g. unit, layer, facet, etc. (<a href='https://github.com/vegawidget/vegawidget/issues/77'>#77</a>)</p></li>

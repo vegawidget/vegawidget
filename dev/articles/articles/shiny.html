@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9016</span>
       </span>
     </div>
 
@@ -184,7 +184,6 @@
 <a class="sourceLine" id="cb7-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co"># body of a JavaScript function</span></a>
 <a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw"><a href="../../reference/shiny-getters.html">vw_shiny_get_event</a></span>(..., <span class="dt">body_value =</span> <span class="st">"return item;"</span>) </a></code></pre></div>
-<p>Similarly for <code><a href="../../reference/shiny-getters.html">vw_shiny_get_event()</a></code>, these</p>
 <p>The code supplied for <code>body_value</code> need only return a <em>value</em> - the <code><a href="../../reference/shiny-getters.html">vw_shiny_get_event()</a></code> function will take care of composing this with additional code that will make that <em>value</em> available to Shiny.</p>
 <p>Finally, the <code><a href="../../reference/shiny-getters.html">vw_shiny_get_event()</a></code> function returns a reactive expression that evaluates to the latest <em>value</em> returned from the event-handler.</p>
 <p>To see the same logic implemented in pure JavaScript, see the <a href="javascript.html#demo-events">events demo</a> of the JavaScript article.</p>

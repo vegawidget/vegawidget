@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9011</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9012</span>
       </span>
     </div>
 
@@ -101,12 +101,12 @@
 
       
       </header><script src="render-vegawidget_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="render-vegawidget_files/vega-5.4.0/vega.min.js"></script><script src="render-vegawidget_files/vega-lite-3.3.0/vega-lite.min.js"></script><link href="render-vegawidget_files/vega-embed-4.2.0/vega-embed.css" rel="stylesheet">
-<script src="render-vegawidget_files/vega-embed-4.2.0/vega-embed.js"></script><script src="render-vegawidget_files/vegawidget-binding-0.2.0.9011/vegawidget.js"></script><div class="row">
+<script src="render-vegawidget_files/vega-embed-4.2.0/vega-embed.js"></script><script src="render-vegawidget_files/vegawidget-binding-0.2.0.9012/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Render using vegawidget</h1>
             
-            <h4 class="date">2019-06-23</h4>
+            <h4 class="date">2019-06-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/render-vegawidget.Rmd"><code>vignettes/articles/render-vegawidget.Rmd</code></a></small>
       <div class="hidden name"><code>render-vegawidget.Rmd</code></div>
@@ -142,8 +142,8 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"vegawidget"</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">spec_mtcars </a></code></pre></div>
-<div id="htmlwidget-dc3e1287c05bf38f731a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dc3e1287c05bf38f731a">{"x":{
+<div id="htmlwidget-51146b7507c3a6ece089" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-51146b7507c3a6ece089">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "width": 300,
@@ -632,8 +632,8 @@
 </ul>
 <p>For example, you can change the renderer to SVG:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">embed =</span> <span class="kw"><a href="../../reference/vega_embed.html">vega_embed</a></span>(<span class="dt">renderer =</span> <span class="st">"svg"</span>))</a></code></pre></div>
-<div id="htmlwidget-4081ffd425178a52cd47" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4081ffd425178a52cd47">{"x":{
+<div id="htmlwidget-d2f7ae140901b153c4fe" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d2f7ae140901b153c4fe">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "width": 300,
@@ -1113,8 +1113,8 @@
   }
 },"evals":[],"jsHooks":[]}</script><p>You can remove the actions “bug” that is otherwise placed at the top-right of the chart:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">embed =</span> <span class="kw"><a href="../../reference/vega_embed.html">vega_embed</a></span>(<span class="dt">actions =</span> <span class="ot">FALSE</span>))</a></code></pre></div>
-<div id="htmlwidget-8e303fc8799aa91671aa" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8e303fc8799aa91671aa">{"x":{
+<div id="htmlwidget-586dd1f25d621f50b8f1" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-586dd1f25d621f50b8f1">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "width": 300,
@@ -1595,8 +1595,8 @@
   }
 },"evals":[],"jsHooks":[]}</script><p>The arguments <code>width</code> and <code>height</code> in <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> are used to autosize the <code>spec</code> before rendering, using <code><a href="../../reference/vw_autosize.html">vw_autosize()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">300</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-58f05ac85b966f46b956" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-58f05ac85b966f46b956">{"x":{
+<div id="htmlwidget-d901109307d3ea8b4a8e" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d901109307d3ea8b4a8e">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "width": 300,
@@ -2097,16 +2097,16 @@
 <a class="sourceLine" id="cb5-9" data-line-number="9">  ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
 <p>We have included this file as an example dataset for this package; it is also available as a part of <strong><a href="https://github.com/vega/vega-datasets">vega-datasets</a></strong></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">path_local &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"example-data/"</span>, <span class="dt">package =</span> <span class="st">"vegawidget"</span>)</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">path_local &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"example-data"</span>, <span class="dt">package =</span> <span class="st">"vegawidget"</span>)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">url_remote &lt;-<span class="st"> "https://vega.github.io/vega-datasets/data"</span></a></code></pre></div>
 <p>By using a <code>base_url</code>, you can specify the file-location at rendering, rather than as a part of the specification:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># not run</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(spec_precip, <span class="dt">base_url =</span> path_local)</a></code></pre></div>
 <p>Using a local path will not work properly in this article because you do not have the same path on your computer. Local paths should be used only for local work; this is a variation on Jenny Bryan’s famous <a href="https://twitter.com/hadleywickham/status/940021008764846080">safety-tip</a>.</p>
-<p>If you are sharing your work, using a remote URL will be more robust.</p>
+<p>If you are sharing your work, using a remote URL will be more robust, but requires that the data be publicly accessible.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(spec_precip, <span class="dt">base_url =</span> url_remote)</a></code></pre></div>
-<div id="htmlwidget-a2adfb01e2f8f07451bd" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a2adfb01e2f8f07451bd">{"x":{
+<div id="htmlwidget-c8b0516f999df01f9c7d" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c8b0516f999df01f9c7d">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "data": {
@@ -2137,8 +2137,8 @@
 <pre><code>```{r vega.embed=vegawidget::vega_embed(actions = FALSE)}
 spec_mtcars
 ```</code></pre>
-<div id="htmlwidget-97234de5d56015f8eba3" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-97234de5d56015f8eba3">{"x":{
+<div id="htmlwidget-6de2114438a1fdfc84fa" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6de2114438a1fdfc84fa">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "width": 300,
@@ -2620,8 +2620,8 @@ spec_mtcars
 },"evals":[],"jsHooks":[]}</script><pre><code>```{r vega.width=300, vega.height=300}
 spec_mtcars
 ```</code></pre>
-<div id="htmlwidget-3ec7db8cdcdc8e9c6150" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3ec7db8cdcdc8e9c6150">{"x":{
+<div id="htmlwidget-30b434a656437a8f0911" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-30b434a656437a8f0911">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "width": 300,
@@ -3111,16 +3111,15 @@ spec_mtcars
   }
 },"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="setting-r-options-using-options" class="section level2">
+<div id="setting-r-options" class="section level2">
 <h2 class="hasAnchor">
-<a href="#setting-r-options-using-options" class="anchor"></a>Setting R options using <code><a href="https://www.rdocumentation.org/packages/base/topics/options">options()</a></code>
-</h2>
+<a href="#setting-r-options" class="anchor"></a>Setting R options</h2>
 <p>We can set options explicitly using the <code><a href="https://www.rdocumentation.org/packages/base/topics/options">options()</a></code> function. There are a few ways of the ways you can do this:</p>
 <ul>
 <li>put an <code><a href="https://www.rdocumentation.org/packages/base/topics/options">options()</a></code> call in your <code>.Rprofile</code>
 </li>
 <li>put an <code><a href="https://www.rdocumentation.org/packages/base/topics/options">options()</a></code> call in a code chunk in your <code>.Rmd</code> file</li>
-<li>use the <a href="https://cran.r-project.org/package=config"><strong>config</strong></a>, with <code>!expr options(...)</code> in your YML configuration file.</li>
+<li>use the <a href="https://cran.r-project.org/package=config"><strong>config</strong></a> package, with <code>!expr options(...)</code> in your YML configuration file.</li>
 </ul>
 <p>Here, we use a variation of the second option, making an explicit <code><a href="https://www.rdocumentation.org/packages/base/topics/options">options()</a></code> call to set the width and height:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># render spec using temporary options</span></a>
@@ -3128,8 +3127,8 @@ spec_mtcars
 <a class="sourceLine" id="cb11-3" data-line-number="3">  <span class="dt">new =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">vega.width =</span> <span class="dv">300</span>, <span class="dt">vega.height =</span> <span class="dv">300</span>),</a>
 <a class="sourceLine" id="cb11-4" data-line-number="4">  <span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars)</a>
 <a class="sourceLine" id="cb11-5" data-line-number="5">)</a></code></pre></div>
-<div id="htmlwidget-77190b725273e51a9abd" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-77190b725273e51a9abd">{"x":{
+<div id="htmlwidget-f7fd8274d3013ae4044b" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f7fd8274d3013ae4044b">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "width": 300,
@@ -3622,21 +3621,37 @@ spec_mtcars
 <div id="knitting-strategies" class="section level2">
 <h2 class="hasAnchor">
 <a href="#knitting-strategies" class="anchor"></a>Knitting strategies</h2>
-<p>In some situations, you may knit to an HTML-based format, like <code>html_document</code>, or you can knit to a non-HTML-based format, like <code>github_document</code>, or <code>pdf_document</code>.</p>
-<p>If you are knitting to an HTML-based format, the only supported options are <code>vega.width</code>, <code>vega.height</code> (as pixels) and <code>vega.embed</code> (as a list). If you are knitting to a non-HTML-based format, you additionally have the options <code>dev</code>, <code>out.width</code> and <code>out.height</code> available.</p>
-<p>The biggest thing to keep in mind about a Vega visualization is that very often the chart tells you how much space it needs, rather than than you tell it how much space it has available. In the future, it may reveal itself how to manage better this “conversation” between you and the chart.</p>
-<p>One consequence of this “Vega-tells-you” sizing philosophy is that the options <code>fig.width</code> and <code>fig.height</code> are not useful. Either the chart will tell you the size based on its defaults, or you will specify some dimensions, such as <code>width</code>, <code>height</code> or size of rectangles in the vegaspec. If your chart is a single view, i.e. not faceted, concatenated, or repeated, you can specify the size of the chart using the options <code>vega.width</code> and <code>vega.height</code>.</p>
-<p>When knitting to an HTML-based format, the <code>spec</code> is rendered as normal, it calls <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> using the options <code>vega.width</code>, <code>vega.height</code> and <code>vega.embed</code>:</p>
+<p>There are two things to keep in mind when knitting a document that contains a vegawidget:</p>
 <ul>
-<li><p><code>vega.width</code> and <code>vega.height</code> are passed to <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> as <code>width</code> and <code>height</code>, respectively. These values are coerced to numeric, so it is ineffective to specify a percentage. They are passed to <code><a href="../../reference/vw_autosize.html">vw_autosize()</a></code> to resize the chart, if <a href="https://vega.github.io/vega-lite/docs/size.html#limitations">possible</a>.</p></li>
-<li><p><code>vega.embed</code> is passed to <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> as <code>embed</code>. The function <code><a href="../../reference/vega_embed.html">vega_embed()</a></code> can be useful to set <code>vega.embed</code>.</p></li>
-<li><p>setting the values of <code>out.width</code> and <code>out.height</code> will not affect the rendered size of your chart.</p></li>
+<li>the type of document: HTML-based format or non-HTML-based format.</li>
+<li>the sizing of the vegawidget: different formats have different sizing options available.</li>
 </ul>
-<p>When knitting to an non-HTML-based format, e.g. <code>github_document</code> <a href="https://github.com/vegawidget/vegawidget">example</a> or <code>pdf_document</code>, the chart will be converted to an image, then knitr will incorporate the image into your document. You have the additional knitr options <code>dev</code>, <code>out.width</code>, and <code>out.height</code>:</p>
+<div id="format" class="section level3">
+<h3 class="hasAnchor">
+<a href="#format" class="anchor"></a>Format</h3>
+<p>In some situations, you may knit to an HTML-based format, like <code>html_document</code>; in others you may knit to a non-HTML-based format, like <code>github_document</code>, or <code>pdf_document</code>. This article is an example of knitting to an <code>html_document</code>; this package’s <a href="https://github.com/vegawidget/vegawidget/blob/master/README.md">GitHub README</a> is an example of knitting to a <code>github_document</code> (using SVG).</p>
+<p>If you are knitting to an HTML-based format, the only supported options are <code>vega.width</code>, <code>vega.height</code> (as pixels) and <code>vega.embed</code> options (as a list).</p>
+<p>If you are knitting to a <strong>non</strong>-HTML-based format, you additionally have the options <code>dev</code> (<code>"png"</code>, <code>"svg"</code>, or <code>"pdf"</code>), <code>out.width</code> and <code>out.height</code>; sizing is discussed in the following section.</p>
+<p>Knitting to a non-HTML-based format calls this package’s <a href="image.html">image</a> functions. This requires:</p>
 <ul>
-<li>The supported values of <code>dev</code> are <code>"png"</code>, <code>"svg"</code>, and <code>"pdf"</code>. If you are knitting to a LaTeX format (e.g. <code>pdf_document</code>) and you specify <code>dev</code> as <code>"svg"</code>, it will be implemented as <code>"pdf"</code>.</li>
-<li>To scale the image within your document, you can use <code>out.width</code> or <code>out.height</code>. Because the image will already have an aspect ratio, it is recommended to specify no more than one of these.</li>
+<li>
+<strong><a href="https://nodejs.org">nodejs</a></strong> to be installed on your computer.</li>
+<li>the packages <strong><a href="https://CRAN.R-project.org/package=rsvg">rsvg</a></strong> and <strong><a href="https://CRAN.R-project.org/package=png">png</a></strong>.</li>
+<li>if you are using MacOS, knitr’s SVG device will require an X11 system, such as <a href="https://www.xquartz.org">XQuartz</a>, to be installed.</li>
 </ul>
+<p>If you are knitting to a LaTeX format (e.g. <code>pdf_document</code>) and you specify <code>dev</code> as <code>"svg"</code>, it will be implemented as <code>"pdf"</code>.</p>
+</div>
+<div id="sizing" class="section level3">
+<h3 class="hasAnchor">
+<a href="#sizing" class="anchor"></a>Sizing</h3>
+<p>The biggest thing to keep in mind about sizing a Vega visualization is that very often the chart tells you how much space it needs, rather than than you tell it how much space it has available. In the future, it may reveal itself how to manage better this “conversation” between you and the chart.</p>
+<p>One consequence of this “Vega-tells-you” sizing philosophy is that the options <code>fig.width</code> and <code>fig.height</code> are not useful. Either the chart will tell you the size based on its defaults, or you will specify some dimensions in the vegaspec: <code>width</code>, <code>height</code>, or size of rectangles. If your chart is a single view, i.e. not faceted, concatenated, or repeated, you can specify the size of the chart using the options <code>vega.width</code> and <code>vega.height</code>.</p>
+<ul>
+<li><p><code>vega.width</code> and <code>vega.height</code> are passed to <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> as <code>width</code> and <code>height</code>, respectively. These values are coerced to numeric, so it is ineffective to specify a percentage. They are passed to <code><a href="../../reference/vw_autosize.html">vw_autosize()</a></code>, which will resize the chart, if <a href="https://vega.github.io/vega-lite/docs/size.html#limitations">possible</a>.</p></li>
+<li><p>For HTML-formats, setting the values of <code>out.width</code> and <code>out.height</code> will not affect the rendered size of your chart.</p></li>
+<li><p>For non-HTML-formats, you can use <code>out.width</code> or <code>out.height</code> to scale the size of the image within your document. Because the image will already have an aspect ratio, it is recommended to specify no more than one of these.</p></li>
+</ul>
+</div>
 </div>
   </div>
 
@@ -3647,7 +3662,7 @@ spec_mtcars
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#using-vegawidget-arguments">Using vegawidget arguments</a></li>
       <li><a href="#setting-r-options-using-knitr-chunk-options">Setting R options using knitr chunk-options</a></li>
-      <li><a href="#setting-r-options-using-options">Setting R options using <code><a href="https://www-rdocumentation-org/packages/base/topics/options">options()</a></code></a></li>
+      <li><a href="#setting-r-options">Setting R options</a></li>
       <li><a href="#knitting-strategies">Knitting strategies</a></li>
       </ul>
 </div>

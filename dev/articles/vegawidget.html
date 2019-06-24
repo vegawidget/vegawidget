@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9011</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9012</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@
 
       
       </header><script src="vegawidget_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="vegawidget_files/vega-5.4.0/vega.min.js"></script><script src="vegawidget_files/vega-lite-3.3.0/vega-lite.min.js"></script><link href="vegawidget_files/vega-embed-4.2.0/vega-embed.css" rel="stylesheet">
-<script src="vegawidget_files/vega-embed-4.2.0/vega-embed.js"></script><script src="vegawidget_files/vegawidget-binding-0.2.0.9011/vegawidget.js"></script><div class="row">
+<script src="vegawidget_files/vega-embed-4.2.0/vega-embed.js"></script><script src="vegawidget_files/vegawidget-binding-0.2.0.9012/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Getting Started</h1>
@@ -133,8 +133,8 @@
 <a class="sourceLine" id="cb1-15" data-line-number="15"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
 <p>The <code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; many of this package’s functions are built to support, and render, vegaspecs:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-92eeb0c129cc7710a03b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-92eeb0c129cc7710a03b">{"x":{
+<div id="htmlwidget-6066fa680f3933ecf2a9" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6066fa680f3933ecf2a9">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "description": "An mtcars example.",
@@ -613,25 +613,25 @@
 },"evals":[],"jsHooks":[]}</script><p>This package is a low-level interface to Vega-Lite and the Vega ecosystem, which has a lot of powerful capabilities, highlighted in this series of articles:</p>
 <ul>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/vegaspec.html">Specify using vegaspec</a>: how to construct and render a vegaspec.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/vegaspec.html">Specify using vegaspec</a>: how to construct and render a vegaspec.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/render-vegawidget.html">Render using vegawidget</a>: advanced rendering options.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/render-vegawidget.html">Render using vegawidget</a>: advanced rendering options.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/shiny.html">Extend using Shiny</a>: how to interact with Vega charts using Shiny.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/shiny.html">Extend using Shiny</a>: how to interact with Vega charts using Shiny.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/javascript.html">Extend using JavaScript</a>: how to interact with Vega charts using JavaScript.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/javascript.html">Extend using JavaScript</a>: how to interact with Vega charts using JavaScript.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/image.html">Create Images</a>: how to create and save PNG or SVG images.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/image.html">Create Images</a>: how to create and save PNG or SVG images.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/dates-times.html">Work with Dates and Times</a>: dates and times in Vega(-Lite) work a little differently from R.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/dates-times.html">Work with Dates and Times</a>: dates and times in Vega(-Lite) work a little differently from R.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/import.html">Import into Other Packages</a>: how to import vegawidget functions into your package, then re-export them.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/import.html">Import into Other Packages</a>: how to import vegawidget functions into your package, then re-export them.</li>
 </ul>
 <p>To share your Vega(-Lite) creation on the <a href="https://bl.ocks.org">Blocks</a> website, you can use the <a href="https://vegawidget.github.io/vegablock"><strong>vegablock</strong></a> package.</p>
 <div id="integration-with-other-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#integration-with-other-packages" class="anchor"></a>Integration with other packages</h2>
-<p>Although there is an <a href="https://vegawidget.github.io/vegawidget/articles/import.html">article</a> dedicated to this aspect of the package, it warrants further emphasis.</p>
+<p>Although there is an <a href="https://vegawidget.github.io/vegawidget/articles/articles/import.html">article</a> dedicated to this aspect of the package, it warrants further emphasis.</p>
 <p>This package provides functions to render Vega(-Lite) specifications; although it provides some helpers, it does not provide higher-level functions to build specifications. Rather, this is left to other packages. Even though you can use its functions directly, you are invited to import and re-export them for use in <em>your</em> package.</p>
 <p>Accordingly, this package offers a templating function, <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code>, to help you integrate vegawidget functions into your package. For example, it is used to import and re-export vegawidget functions for the <a href="https://vegawidget.github.io/altair">altair</a> package.</p>
 </div>
@@ -640,7 +640,7 @@
 <a href="#known-limitations" class="anchor"></a>Known limitations</h2>
 <p>The two biggest known limitations are both associated with vegaspecs that contain <a href="https://vega.github.io/vega-lite/docs/data.html#url">datasets specified using remote URLs</a>:</p>
 <ul>
-<li><p>The RStudio IDE does not let you access remote URLs for security reasons. A chart that accesses remote data will not render in the IDE; it <em>will</em> render in a browser window.</p></li>
+<li><p>The RStudio IDE may not let you access remote URLs for security reasons. A chart that accesses remote data may not render in the IDE; it <em>will</em> render in a browser window.</p></li>
 <li><p>The image functions use <strong>nodejs</strong> to create SVG strings. We are not able to configure the proxy in our node scripts, so if your computer uses a proxy to access remote data, our functions will not create the images properly.</p></li>
 </ul>
 </div>

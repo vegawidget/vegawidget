@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9011</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9012</span>
       </span>
     </div>
 
@@ -143,6 +143,7 @@
 <a href="#vegawidget-0-2-0-development-version" class="anchor"></a>vegawidget 0.2.0 (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>Improves implementation of the <code>base_url</code> argument in <code><a href="../reference/vegawidget.html">vegawidget()</a></code>; it works for both local and remote paths. (<a href='https://github.com/vegawidget/vegawidget/issues/63'>#63</a>, with <a href='https://github.com/AliciaSchep'>@AliciaSchep</a>)</p></li>
 <li><p>Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0.</p></li>
 <li><p>Updates templating functions, splitting to two functions: <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> and <code>use_vegawidget_interactive()</code>, which let you import and re-export basic-rendering and interactive functions, respectively. If your package keeps its version of a spec in its own S3 class, you can call <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> with that class’ name. (<a href='https://github.com/vegawidget/vegawidget/issues/83'>#83</a>)</p></li>
 <li><p>Move <strong>shiny</strong> from an <code>Imports</code> dependency to a <code>Suggests</code> dependency. (<a href='https://github.com/vegawidget/vegawidget/issues/82'>#82</a>)</p></li>
@@ -197,7 +198,7 @@
 <li><p>adds learnr tutorial, “Overview”</p></li>
 <li><p>adds datasets: <code>data_seattle_hourly</code>, <code>data_seattle_daily</code>, <code>data_category</code></p></li>
 <li><p>changes default-display for <code><a href="../reference/vw_examine.html">vw_examine()</a></code></p></li>
-<li><p>adds function <code>vw_rename_data()</code> to reanme named datasets within a vegaspec (<a href='https://github.com/vegawidget/vegawidget/issues/34'>#34</a>)</p></li>
+<li><p>adds function <code>vw_rename_data()</code> to rename named datasets within a vegaspec (<a href='https://github.com/vegawidget/vegawidget/issues/34'>#34</a>)</p></li>
 </ul>
 </div>
     <div id="vegawidget-0-0-4" class="section level1">

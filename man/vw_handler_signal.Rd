@@ -94,5 +94,5 @@ are no-ops; they will return the \code{body_value} unchanged.
 vega-view:
 \href{https://vega.github.io/vega/docs/api/view#view_addSignalListener}{addSignalListener()},
 \href{https://vega.github.io/vega/docs/api/view#view_addDataListener}{addDataListener()},
-\href{hhttps://vega.github.io/vega/docs/api/view#view_addEventListener}{addEventListener()}
+\href{https://vega.github.io/vega/docs/api/view#view_addEventListener}{addEventListener()}
 }

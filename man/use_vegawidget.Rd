@@ -26,7 +26,7 @@ functions in your package.
 Adds vegawidget functions:
 \itemize{
 \item \code{\link[=as_vegaspec]{as_vegaspec()}}, \code{\link[=vw_as_json]{vw_as_json()}}
-\item \code{\link[=vegawidget]{vegawidget()}}, \code{\link[=knit_print]{knit_print()}}
+\item \code{\link[=vegawidget]{vegawidget()}}, \code{knit_print()}
 \item \code{\link[=vega_embed]{vega_embed()}}
 \item \code{\link[=vw_to_svg]{vw_to_svg()}} and other image functions
 \item \code{\link[=vegawidgetOutput]{vegawidgetOutput()}}, \code{\link[=renderVegawidget]{renderVegawidget()}}

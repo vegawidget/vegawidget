@@ -7,7 +7,7 @@
 #'
 #' Adds vegawidget functions:
 #'  - [as_vegaspec()], [vw_as_json()]
-#'  - [vegawidget()], [knit_print()]
+#'  - [vegawidget()], `knit_print()`
 #'  - [vega_embed()]
 #'  - [vw_to_svg()] and other image functions
 #'  - [vegawidgetOutput()], [renderVegawidget()]

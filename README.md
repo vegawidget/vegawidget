@@ -126,7 +126,7 @@ The rendering of the chart above depends on where you are reading it:
     incorporated into the Markdown rendering.
 
 For more, please see our [Getting
-Started](https://vegawidget.github.io/vegawidget/articles/articles/vegawidget.html)
+Started](https://vegawidget.github.io/vegawidget/articles/vegawidget.html)
 article. For other introductory material, please see:
 
   - [Vega-Lite website](https://vega.github.io/vega-lite) has a

@@ -1,22 +1,24 @@
-# vegawidget 0.2.0 (development version)
+# vegawidget 0.2.1
 
-* Improves implementation of the `base_url` argument in `vegawidget()`; it works for both local and remote paths. (#63, with @AliciaSchep)
+* Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0. This is supported by all modern browsers and RStudio IDE 1.2.
 
-* Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0.
-
-* Updates templating functions, splitting to two functions: `use_vegawidget()` and `use_vegawidget_interactive()`, which let you import and re-export basic-rendering and interactive functions, respectively. If your package keeps its version of a spec in its own S3 class, you can call `use_vegawidget()` with that class' name. (#83)
-
-* Move **shiny** from an `Imports` dependency to a `Suggests` dependency. (#82)
-
-* Modify `knit_print()` to handle non-HTML formats. Instead of using the [webshot](https://github.com/wch/webshot) package, the `knit_print()` function converts charts to either `png`, `svg` (useful for `github_document`), or `pdf` (useful for `pdf_document`) format. (#44, @AliciaSchep)
-
-* (Of interest to developers) modify the class-naming for Vega-Lite specs, adding a another level of S3 class that describes the type of chart, e.g. unit, layer, facet, etc. (#77)
+## New features
 
 * Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.2.1. Add functions to support `addDataListener()` method offered by [vega-view](https://github.com/vega/vega-view#view_addDataListener), use `vw_shiny_demo("data-set-get")` for more information. (#65)
 
-* Modify contribution guidelines; use `master` as reference branch for all pull-requests.
+## Improvements and fixes
 
-* Bump version for development.
+* Modify `knit_print()` to handle non-HTML formats. Instead of using the [webshot](https://github.com/wch/webshot) package, the `knit_print()` function converts charts to either `png`, `svg` (useful for `github_document`), or `pdf` (useful for `pdf_document`) format. (#44, @AliciaSchep)
+
+* Improve implementation of the `base_url` argument in `vegawidget()`; it works for both local and remote paths. (#63, with @AliciaSchep)
+
+* Update templating functions, splitting to two functions: `use_vegawidget()` and `use_vegawidget_interactive()`, which let you import and re-export basic-rendering and interactive functions, respectively. If your package keeps its version of a spec in its own S3 class, you can call `use_vegawidget()` with that class' name. (#83)
+
+* Move **shiny** from an `Imports` dependency to a `Suggests` dependency. (#82)
+
+* (Of interest to developers) modify the class-naming for Vega-Lite specs, adding a another level of S3 class that describes the type of chart, e.g. unit, layer, facet, etc. (#77)
+
+* Modify contribution guidelines; use `master` as reference branch for all pull-requests.
 
 # vegawidget 0.1.0
 

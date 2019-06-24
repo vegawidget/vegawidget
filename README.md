@@ -42,15 +42,18 @@ useful to:
 
   - When knitting to a non-HTML format, e.g. `github_document`, this
     package provides a `knit_print()` function that will intercept the
-    normal renderer (phantomjs), using instead its own renderer. This
-    allows you to specify the `"svg"` or `"png"` `dev` (device) in
-    knitr. However, it requires that you have
-    [nodejs](https://nodejs.org) installed on your system, as well as
-    the packages [rsvg](https://cran.r-project.org/package=rsvg) and
-    [png](https://cran.r-project.org/package=png).
+    normal renderer, using instead its own renderer. This allows you to
+    specify `"png"` , `"svg"` or `"pdf"`. It requires that
+    [nodejs](https://nodejs.org) be installed on your system, as well as
+    the R packages [rsvg](https://cran.r-project.org/package=rsvg) and
+    [png](https://cran.r-project.org/package=png). MacOS users will
+    require an X11 system, such as [XQuartz](https://www.xquartz.org),
+    to be installed.
     
     For an example, see the GitHub rendering of this [README
-    file](https://github.com/vegawidget/vegawidget#introduction).
+    file](https://github.com/vegawidget/vegawidget/blob/master/README.md).
+    For more details, please see the [Render Using Vegawidget
+    article](https://vegawidget.github.io/vegawidget/articles/render-vegawidget.html#knitting-strategies).
 
   - For interactive applications, there are now functions to support
     vega-view’s

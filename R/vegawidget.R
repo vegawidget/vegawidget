@@ -70,7 +70,7 @@
 #'     as_vegaspec()
 #'
 #'   # define local path to file
-#'   path_local <- system.file("example-data/", package = "vegawidget")
+#'   path_local <- system.file("example-data", package = "vegawidget")
 #'
 #'   # render using local path
 #'   vegawidget(spec_precip, base_url = path_local)

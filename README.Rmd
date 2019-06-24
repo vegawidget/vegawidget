@@ -36,9 +36,9 @@ To be clear, although Vega-Lite offers a grammar-of-graphics, this package does 
 
 - vegawidget offers Vega-Lite `r vegawidget::vega_version()$vega_lite` and Vega `r vegawidget::vega_version()$vega`. Consequently, this package works only with broswers that support ES6. This includes all modern browsers and the 1.2 version of the RStudio IDE.
 
-- When knitting to a non-HTML format, e.g. `github_document`, this package provides a `knit_print()` function that will intercept the normal renderer (phantomjs), using instead its own renderer. This allows you to specify the `"png"` or `"svg"` knitr `dev` (device). However, it requires that you have [nodejs](https://nodejs.org) installed on your system, as well as the R packages [rsvg](https://cran.r-project.org/package=rsvg) and [png](https://cran.r-project.org/package=png).
+- When knitting to a non-HTML format, e.g. `github_document`, this package provides a `knit_print()` function that will intercept the normal renderer, using instead its own renderer. This allows you to specify `"png"` , `"svg"` or `"pdf"`. It requires that [nodejs](https://nodejs.org) be installed on your system, as well as the R packages [rsvg](https://cran.r-project.org/package=rsvg) and [png](https://cran.r-project.org/package=png). MacOS users will require an X11 system, such as [XQuartz](https://www.xquartz.org), to be installed.
 
-  For an example, see the GitHub rendering of this [README file](https://github.com/vegawidget/vegawidget#introduction).
+  For an example, see the GitHub rendering of this [README file](https://github.com/vegawidget/vegawidget/blob/master/README.md). For more details, please see the [Render Using Vegawidget article](`r url_local("articles/render-vegawidget.html#knitting-strategies")`).
   
 - For interactive applications, there are now functions to support vega-view's [`addDataListener()`](https://vega.github.io/vega/docs/api/view/#view_addDataListener) function: [`vw_add_data_listener()`](`r url_local("reference/add-listeners.html")`), and [`vw_shiny_get_data()`](`r url_local("reference/shiny-getters.html")`).
 

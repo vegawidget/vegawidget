@@ -2,7 +2,7 @@
 
 * Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0. This is supported by all modern browsers and RStudio IDE 1.2.
 
-## New features
+## New features 
 
 * Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.2.1. Add functions to support `addDataListener()` method offered by [vega-view](https://github.com/vega/vega-view#view_addDataListener), use `vw_shiny_demo("data-set-get")` for more information. (#65)
 

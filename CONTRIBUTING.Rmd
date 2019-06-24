@@ -57,7 +57,7 @@ proposing a new feature    | `master`             | `r mark_yes`             | `
 
 <br>
 
-Please roxygenize as a part of your pull-request. Let's all do our best to keep to the current CRAN verision of roxygen2.
+Please roxygenize as a part of your pull-request. Let's all do our best to keep to the current CRAN version of roxygen2.
 
 ### Versioning
 
@@ -67,7 +67,7 @@ The second digit will be incremented upon each CRAN release and assigned a GitHu
 
 ### Vega versions 
 
-To update the JavaScript files for Vega, Vega-Lite, and vega-embed, a mainainter will render the R markdown document found at `data-raw/infrastructure.Rmd`. The key parameter to adjust is `vega_lite_version`, in the YAML header:
+To update the JavaScript files for Vega, Vega-Lite, and vega-embed, a maintainer will render the R markdown document found at `data-raw/infrastructure.Rmd`. The key parameter to adjust is `vega_lite_version`, in the YAML header:
 
 ```yaml
 ---

@@ -26,7 +26,7 @@ It goes without saying that you will need to be comfortable with JavaScript to t
 
 ## Introduction to vega-view
 
-We can use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to modify a chart once it has been rendered. 
+We can use the [vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view) to modify a chart once it has been rendered. 
 
 Here, we recreate this Vega-Lite [streaming demo](https://vega.github.io/vega-lite/tutorials/streaming.html).
 Our first step is to create a vegaspec. Note that we have a dataset named `"table"`, but we have not included any data.
@@ -390,7 +390,7 @@ Opinion time: admittedly, there are improvements that can be made, both to the v
 
 ## Setting data {#data}
 
-[Vega](https://vega.github.io/vega/docs/data/) and [Vega-Lite](https://vega.github.io/vega-lite/docs/data.html#named) both offer the ability to name datasets within a specification. We can use the vega-view API to [change a dataset](https://vega.github.io/vega/docs/api/view/#data-and-scales), as was done in the [first example](#demo-vega-view) in this article. 
+[Vega](https://vega.github.io/vega/docs/data/) and [Vega-Lite](https://vega.github.io/vega-lite/docs/data.html#named) both offer the ability to name datasets within a specification. We can use the vega-view API to [change a dataset](https://vega.github.io/vega/docs/api/view/#view_change), as was done in the [first example](#demo-vega-view) in this article. 
 
 Let's consider an example with a dataset that has a single observation, and that observation falls on the unit-circle. We will use an input-slider to change the angle of the observation. 
 
@@ -409,7 +409,7 @@ input_angle <-
   )
 ```
 
-Next, we define our data-ouput and the data-handler. For the output, we provide an `id`, `"output-data"`, to identify where in this document to write the data. Our handler function the data set to it, convert it to JSON (with a little formatting), then put the JSON string into our output element named `"output-data"`. 
+Next, we define our data-output and the data-handler. For the output, we provide an `id`, `"output-data"`, to identify where in this document to write the data. Our handler function the data set to it, convert it to JSON (with a little formatting), then put the JSON string into our output element named `"output-data"`. 
 
 ```{r}
 output_data <- tags$pre(id = "output-data")
@@ -487,7 +487,7 @@ Next, we create a JavaScript function that, when run, reads the value of the inp
 
 The first part of the function converts the value of `inp_angle` into a dataset, `data_new`, with a single observation, coordinates on the unit-circle. 
 
-The second part of the function modifies the chart. Here, we create a changeset inserting `data_new`, and removing any existing data.  Then we [change](https://github.com/vega/vega/tree/master/packages/vega-view#view_change) the view's dataset named `"source"`, then we re-[run](https://github.com/vega/vega/tree/master/packages/vega-view#view_run) the view.
+The second part of the function modifies the chart. Here, we create a changeset inserting `data_new`, and removing any existing data.  Then we [change](https://vega.github.io/vega/docs/api/view/#view_change) the view's dataset named `"source"`, then we re-[run](https://vega.github.io/vega/docs/api/view/#view_run) the view.
 
 ```{js}
 // {js}

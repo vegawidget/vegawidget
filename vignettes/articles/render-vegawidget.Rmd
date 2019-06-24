@@ -78,7 +78,7 @@ spec_precip <-
 We have included this file as an example dataset for this package; it is also available as a part of **[vega-datasets](https://github.com/vega/vega-datasets)**
 
 ```{r}
-path_local <- system.file("example-data/", package = "vegawidget")
+path_local <- system.file("example-data", package = "vegawidget")
 url_remote <- "https://vega.github.io/vega-datasets/data"
 ```
 
@@ -91,7 +91,7 @@ vegawidget(spec_precip, base_url = path_local)
 
 Using a local path will not work properly in this article because you do not have the same path on your computer. Local paths should be used only for local work; this is a variation on Jenny Bryan's famous [safety-tip](https://twitter.com/hadleywickham/status/940021008764846080).
 
-If you are sharing your work, using a remote URL will be more robust.
+If you are sharing your work, using a remote URL will be more robust, but requires that the data be publicly accessible.
 
 ```{r}
 vegawidget(spec_precip, base_url = url_remote)
@@ -119,13 +119,13 @@ spec_mtcars
 spec_mtcars
 ```
 
-## Setting R options using `options()`
+## Setting R options
 
 We can set options explicitly using the `options()` function. There are a few ways of the ways you can do this:
 
 - put an `options()` call in your `.Rprofile`
 - put an `options()` call in a code chunk in your `.Rmd` file
-- use the [**config**](https://cran.r-project.org/package=config), with `!expr options(...)` in your YML configuration file.
+- use the [**config**](https://cran.r-project.org/package=config) package, with `!expr options(...)` in your YML configuration file.
 
 Here, we use a variation of the second option, making an explicit `options()` call to set the width and height:
 
@@ -139,26 +139,37 @@ withr::with_options(
 
 ## Knitting strategies
 
-In some situations, you may knit to an HTML-based format, like `html_document`, or you can knit to a non-HTML-based format, like `github_document`, or `pdf_document`. 
+There are two things to keep in mind when knitting a document that contains a vegawidget:
 
-If you are knitting to an HTML-based format, the only supported options are `vega.width`, `vega.height` (as pixels) and `vega.embed` (as a list). If you are knitting to a non-HTML-based format, you additionally have the options `dev`, `out.width` and `out.height` available. 
+- the type of document: HTML-based format or non-HTML-based format.
+- the sizing of the vegawidget: different formats have different sizing options available.
 
-The biggest thing to keep in mind about a Vega visualization is that very often the chart tells you how much space it needs, rather than than you tell it how much space it has available. In the future, it may reveal itself how to manage better this "conversation" between you and the chart. 
+### Format
 
-One consequence of this "Vega-tells-you" sizing philosophy is that the options `fig.width` and `fig.height` are not useful. Either the chart will tell you the size based on its defaults, or you will specify some dimensions, such as `width`, `height` or size of rectangles in the vegaspec. If your chart is a single view, i.e. not faceted, concatenated, or repeated, you can specify the size of the chart using the options `vega.width` and `vega.height`.
+In some situations, you may knit to an HTML-based format, like `html_document`; in others you may knit to a non-HTML-based format, like `github_document`, or `pdf_document`. This article is an example of knitting to an `html_document`; this package's [GitHub README](https://github.com/vegawidget/vegawidget/blob/master/README.md) is an example of knitting to a `github_document` (using SVG).
 
-When knitting to an HTML-based format, the `spec` is rendered as normal, it calls `vegawidget()` using the options `vega.width`, `vega.height` and `vega.embed`:
+If you are knitting to an HTML-based format, the only supported options are `vega.width`, `vega.height` (as pixels) and `vega.embed` options (as a list). 
 
-  - `vega.width` and `vega.height` are passed to `vegawidget()` as `width` and `height`, respectively. These values are coerced to numeric, so it is ineffective to specify a percentage. They are passed to `vw_autosize()` to resize the chart, if [possible](https://vega.github.io/vega-lite/docs/size.html#limitations).
+If you are knitting to a **non**-HTML-based format, you additionally have the options `dev` (`"png"`, `"svg"`, or `"pdf"`), `out.width` and `out.height`; sizing is discussed in the following section. 
 
-  - `vega.embed` is passed to `vegawidget()` as `embed`. The function `vega_embed()` can be useful to set `vega.embed`.
+Knitting to a non-HTML-based format calls this package's [image](image.html) functions. This requires:
+
+- **[nodejs](https://nodejs.org)** to be installed on your computer.
+- the packages **[rsvg](https://CRAN.R-project.org/package=rsvg)** and **[png](https://CRAN.R-project.org/package=png)**.
+- if you are using MacOS, knitr's SVG device will require an X11 system, such as [XQuartz](https://www.xquartz.org), to be installed.
+
+ If you are knitting to a LaTeX format (e.g. `pdf_document`) and you specify `dev` as `"svg"`, it will be implemented as `"pdf"`.
   
-  - setting the values of `out.width` and `out.height` will not affect the rendered size of your chart.
+### Sizing
+
+The biggest thing to keep in mind about sizing a Vega visualization is that very often the chart tells you how much space it needs, rather than than you tell it how much space it has available. In the future, it may reveal itself how to manage better this "conversation" between you and the chart. 
+
+One consequence of this "Vega-tells-you" sizing philosophy is that the options `fig.width` and `fig.height` are not useful. Either the chart will tell you the size based on its defaults, or you will specify some dimensions in the vegaspec: `width`, `height`, or size of rectangles. If your chart is a single view, i.e. not faceted, concatenated, or repeated, you can specify the size of the chart using the options `vega.width` and `vega.height`.
+
+  - `vega.width` and `vega.height` are passed to `vegawidget()` as `width` and `height`, respectively. These values are coerced to numeric, so it is ineffective to specify a percentage. They are passed to `vw_autosize()`, which will resize the chart, if [possible](https://vega.github.io/vega-lite/docs/size.html#limitations).
+
+  - For HTML-formats, setting the values of `out.width` and `out.height` will not affect the rendered size of your chart.
   
-When knitting to an non-HTML-based format, e.g. `github_document` [example](https://github.com/vegawidget/vegawidget) or `pdf_document`, the chart will be converted to an image, then knitr will incorporate the image into your document. You have the additional knitr options `dev`, `out.width`, and `out.height`:
-
-  - The supported values of `dev` are `"png"`, `"svg"`, and `"pdf"`. If you are knitting to a LaTeX format (e.g. `pdf_document`) and you specify `dev` as `"svg"`, it will be implemented as `"pdf"`.
-  - To scale the image within your document, you can use  `out.width` or `out.height`. Because the image will already have an aspect ratio, it is recommended to specify no more than one of these.
-
-
+  - For non-HTML-formats, you can use  `out.width` or `out.height` to scale the size of the image within your document.
+Because the image will already have an aspect ratio, it is recommended to specify no more than one of these.
 

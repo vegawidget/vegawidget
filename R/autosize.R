@@ -31,7 +31,7 @@
 #' @return S3 object with class `vegaspec`
 #' @examples
 #'   vw_autosize(spec_mtcars, width = 350, height = 350)
-#' @seealso [Article on vegaspec (sizing)](https://vegawidget.github.io/vegawidget/articles/vegaspec.html#sizing),
+#' @seealso [Article on vegaspec (sizing)](https://vegawidget.github.io/vegawidget/articles/articles/vegaspec.html#sizing),
 #'   [Vega documentation on sizing](https://vega.github.io/vega-lite/docs/size.html#autosize)
 #' @export
 #'

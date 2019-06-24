@@ -6,7 +6,7 @@ output: rmarkdown::html_document
 
 The main purpose of this article is to demonstrate use this package's image-generating functions. A secondary purpose is to help the package's developers confirm that these functions continue to work when things get changed. 
 
-If you have **[nodejs](https://nodejs.org/en/)** installed, you can use these image-generating functions to convert vegaspecs (or vegawidgets) into SVG strings or write SVG files. With the **[rsvg](https://CRAN.R-project.org/package=rsvg)** package installed, you can get a bitmap array, or write PNG files.  
+If you have **[nodejs](https://nodejs.org)** installed on your computer, you can use these image-generating functions to convert vegaspecs (or vegawidgets) into SVG strings or write SVG files. With the **[rsvg](https://CRAN.R-project.org/package=rsvg)** and **[png](https://CRAN.R-project.org/package=png)** packages installed, you can get a bitmap array, or write PNG files.  
 
 We have four image-generating functions; they each take either a vegaspec or a vegawidget as their main argument:
 
@@ -44,7 +44,7 @@ spec_mtcars
 
 ## Bitmap & PNG
 
-To use the bitmap and PNG functions, you will need the **[rsvg](https://CRAN.R-project.org/package=rsvg)** package.
+To use the bitmap and PNG functions, you will need the **[rsvg](https://CRAN.R-project.org/package=rsvg)** and **[png](https://CRAN.R-project.org/package=png)** packages.
 
 ### To bitmap
 

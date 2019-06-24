@@ -57,7 +57,7 @@
 #'   vega-view:
 #'     [addSignalListener()](https://vega.github.io/vega/docs/api/view#view_addSignalListener),
 #'     [addDataListener()](https://vega.github.io/vega/docs/api/view#view_addDataListener),
-#'     [addEventListener()](hhttps://vega.github.io/vega/docs/api/view#view_addEventListener)
+#'     [addEventListener()](https://vega.github.io/vega/docs/api/view#view_addEventListener)
 #' @examples
 #'   # list all the available signal-handlers
 #'   vw_handler_signal()

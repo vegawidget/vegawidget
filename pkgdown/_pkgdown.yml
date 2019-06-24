@@ -3,7 +3,7 @@ template:
     bootswatch: sandstone
 
 development:
-  mode: auto
+  mode: unreleased
 
 navbar:
   title: "vegawidget"
@@ -63,7 +63,7 @@ reference:
       or as an R option, `vega.embed`, which would picked up by the
       `knit_print` method.
       To knit to non-HTML-format, please consult the
-      [Rendering a Vegawidget article](../articles/articles/render-vegawidget.html#knitting-strategies)
+      [article on rendering](../articles/articles/render-vegawidget.html#knitting-strategies)
     contents:
     - vegawidget
     - vega_embed

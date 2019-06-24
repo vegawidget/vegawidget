@@ -1,5 +1,7 @@
 # vegawidget 0.2.0 (development version)
 
+* Improves implementation of the `base_url` argument in `vegawidget()`; it works for both local and remote paths. (#63, with @AliciaSchep)
+
 * Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0.
 
 * Updates templating functions, splitting to two functions: `use_vegawidget()` and `use_vegawidget_interactive()`, which let you import and re-export basic-rendering and interactive functions, respectively. If your package keeps its version of a spec in its own S3 class, you can call `use_vegawidget()` with that class' name. (#83)

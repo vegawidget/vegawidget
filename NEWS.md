@@ -1,4 +1,4 @@
-# vegawidget 0.2.1
+# vegawidget 0.2.1 (development version)
 
 * Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0. This is supported by all modern browsers and RStudio IDE 1.2.
 

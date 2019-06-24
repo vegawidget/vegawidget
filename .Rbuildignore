@@ -18,3 +18,4 @@
 ^doc$
 ^Meta$
 ^vignettes/foo\.Rmd$
+^revdep$

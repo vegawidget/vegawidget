@@ -52,10 +52,10 @@ You can use the helper function `vega_schema()` to generate the string for the `
 
 ## Examining
 
-We also have a function, `vw_examine()`, that you can use to, well, examine a vegaspec. It is a thin wrapper around the `listviewer::jsonedit()` function:
+We also have a function, `vw_examine()`, that you can use to, well, examine a vegaspec. This is a thin wrapper around the `listviewer::jsonedit()` function:
 
-```{r}
-vw_examine(spec_category)
+```{r out.width="100%"}
+vw_examine(spec_category, mode = "code")
 ```
 
 You might note that, using `str()`, the `data$values` element of the vegaspec has a column-major format. In R, data frames are lists of vectors; each of the columns is a vector. In the Vega framework, data sets have a row-major format. When rendering, this package converts data-frames automatically to row-major data. 
@@ -81,7 +81,7 @@ Here, the data rectangle is 300 $\times$ 300 pixels, according to our specificat
 knitr::include_graphics("autosize-off.png")
 ```
 
-As you can see above, Vega adds on more "room" for axes, labels, legends, etc., so that the entire chart is 357 $\times$ 347 pixels.
+As you can see above, Vega adds on more "room" for axes, labels, legends, etc., so that the entire chart is 349 $\times$ 343 pixels.
 
 If we want to specify the dimensions of the entire chart, we can use the `vw_autosize()` function. The term "autosize" is taken directly from the Vega [documentation](https://vega.github.io/vega-lite/docs/size.html#autosize) for sizing. In this context, the term "autosize" does **not** mean that Vega will try to find the optimal sizing for your chart. 
 
@@ -103,9 +103,9 @@ In this context, the `width` and `height` are defined as the dimensions of the e
 knitr::include_graphics("autosize-on.png")
 ```
 
-As you can see above, Vega takes into account the "room" needed for axes, labels, legends, etc., so that the data rectangle is 243 $\times$ 253 pixels.
+As you can see above, Vega takes into account the "room" needed for axes, labels, legends, etc., so that the data rectangle is 251 $\times$ 257 pixels.
 
-There are limitations to autosizing; the most prominent is that specifying width and height is [effective only for single-view and layered specifications](https://vega.github.io/vega-lite/docs/size.html#limitations). It will not work for specifications with multiple views (e.g. `hconcat`, `vconcat`, `facet`, `` `repeat` ``); this will issue a warning that there will be no effect on the specification when rendered.
+There are limitations to autosizing; the most prominent is that specifying width and height is [effective only for single-view and layered specifications](https://vega.github.io/vega-lite/docs/size.html#limitations). It will not work for specifications with multiple views (e.g. `hconcat`, `vconcat`, `facet`, `` `repeat` ``); there will be no effect on the rendered chart.
 
 For more information, see the Vega-Lite documentation on [autosizing](https://vega.github.io/vega-lite/docs/size.html#autosize).
 
@@ -129,8 +129,8 @@ vw_spec_version(spec_category_vega)
 
 You can examine the result to see how much-more verbose is the Vega specification, compared to the Vega-Lite specification.
 
-```{r}
-vw_examine(spec_category_vega)
+```{r out.width="100%"}
+vw_examine(spec_category_vega, mode = "code")
 ```
 
 ## Gotchas

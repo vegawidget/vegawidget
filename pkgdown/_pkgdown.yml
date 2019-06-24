@@ -62,9 +62,8 @@ reference:
       can be specified as an argument to the `vegawidget` function,
       or as an R option, `vega.embed`, which would picked up by the
       `knit_print` method.
-      If the [**webshot**](https://CRAN.R-project.org/package=webshot)
-      package and PhantomJS are installed, knitting to a non-html format should
-      "just work".
+      To knit to non-HTML-format, please consult the
+      [Rendering a Vegawidget article](../articles/articles/render-vegawidget.html#knitting-strategies)
     contents:
     - vegawidget
     - vega_embed
@@ -76,7 +75,7 @@ reference:
       and events from Shiny. The function `vw_shiny_demo()` lets you
       run any of this package's demo apps; call it without arguments
       to see the list of available apps. This
-      [article on Shiny](../articles/shiny.html) goes into some detail.
+      [article on Shiny](../articles/articles/shiny.html) goes into some detail.
     contents:
     - renderVegawidget
     - vegawidgetOutput
@@ -110,7 +109,8 @@ reference:
       installed, you can convert and write a `vegaspec` or a
       `vegawidget` to SVG. To convert to a bitmap, or to write
       to a PNG file, you will need the
-      [**rsvg**](https://CRAN.R-project.org/package=rsvg) package.
+      [**rsvg**](https://CRAN.R-project.org/package=rsvg) and
+      [**png**](https://CRAN.R-project.org/package=png) packages.
     contents:
     - vw_to_svg
     - vw_to_bitmap
@@ -121,7 +121,7 @@ reference:
       You can use `use_vegawidget()` to bring this package's functionality to
       yours. Much like `usethis::use_pipe()` allows you to re-export the pipe
       in your package's namespace, `use_vegawidget()` does this for many of
-      these functions, as detailed in this [article](../articles/import.html).
+      these functions, as detailed in this [article](../articles/articles/import.html).
       The other functions deal with serializing date-times,
       and versions of Vega's JavaScript libraries.
     contents:

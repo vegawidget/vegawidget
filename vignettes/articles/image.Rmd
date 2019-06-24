@@ -44,7 +44,7 @@ spec_mtcars
 
 ## Bitmap & PNG
 
-To use the bitmap and PNG functions, you will need the **[rsvg](https://CRAN.R-project.org/package=rsvg)** package.
+To use the bitmap and PNG functions, you will need the **[rsvg](https://CRAN.R-project.org/package=rsvg)** and **[png](https://CRAN.R-project.org/package=png)** packages.
 
 ### To bitmap
 

@@ -125,7 +125,7 @@ We can set options explicitly using the `options()` function. There are a few wa
 
 - put an `options()` call in your `.Rprofile`
 - put an `options()` call in a code chunk in your `.Rmd` file
-- use the [**config**](https://cran.r-project.org/package=config), with `!expr options(...)` in your YML configuration file.
+- use the [**config**](https://cran.r-project.org/package=config) package, with `!expr options(...)` in your YML configuration file.
 
 Here, we use a variation of the second option, making an explicit `options()` call to set the width and height:
 

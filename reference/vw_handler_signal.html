@@ -68,7 +68,7 @@ body_value, which these functions help you build." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.0.9013</span>
       </span>
     </div>
 
@@ -79,6 +79,9 @@ body_value, which these functions help you build." />
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/vegawidget.html">Getting Started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -94,25 +97,25 @@ body_value, which these functions help you build." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/vegaspec.html">Specify using vegaspec</a>
+      <a href="../articles/articles/vegaspec.html">Specify using vegaspec</a>
     </li>
     <li>
-      <a href="../articles/vegawidget.html">Render using vegawidget</a>
+      <a href="../articles/articles/render-vegawidget.html">Render using vegawidget</a>
     </li>
     <li>
-      <a href="../articles/shiny.html">Extend using Shiny</a>
+      <a href="../articles/articles/shiny.html">Extend using Shiny</a>
     </li>
     <li>
-      <a href="../articles/javascript.html">Extend using JavaScript</a>
+      <a href="../articles/articles/javascript.html">Extend using JavaScript</a>
     </li>
     <li>
-      <a href="../articles/image.html">Create Images</a>
+      <a href="../articles/articles/image.html">Create Images</a>
     </li>
     <li>
-      <a href="../articles/dates-times.html">Work with Dates and Times</a>
+      <a href="../articles/articles/dates-times.html">Work with Dates and Times</a>
     </li>
     <li>
-      <a href="../articles/import.html">Import into Other Packages</a>
+      <a href="../articles/articles/import.html">Import into Other Packages</a>
     </li>
   </ul>
 </li>
@@ -153,6 +156,8 @@ when the object-being-listened-to changes. For instance, <a href='shiny-getters.
 
     <pre class="usage"><span class='fu'>vw_handler_signal</span>(<span class='no'>body_value</span>)
 
+<span class='fu'>vw_handler_data</span>(<span class='no'>body_value</span>)
+
 <span class='fu'>vw_handler_event</span>(<span class='no'>body_value</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -175,6 +180,7 @@ or the text of the body of a handler-function</p></td>
 To see the handlers that are defined for each, call the function
 without any arguments:</p><ul>
 <li><p><code>vw_handler_signal()</code></p></li>
+<li><p><code>vw_handler_data()</code></p></li>
 <li><p><code>vw_handler_event()</code></p></li>
 </ul>
     <p>With a JavaScript handler, you are trying to do two types of things:</p><ul>
@@ -182,7 +188,7 @@ without any arguments:</p><ul>
 <li><p>produce a side-effect based on that calculated value</p></li>
 </ul>
     <p>Let's look at a concrete example.
-A <a href='https://github.com/vega/vega/tree/master/packages/vega-view#view_addSignalListener'>signal handler</a>
+A <a href='https://vega.github.io/vega/docs/api/view#view_addSignalListener'>signal handler</a>
 will take arguments <code>name</code> and <code>value</code>. Let's say that we want to
 return the value. We could do this two ways:</p><ul>
 <li><p><code>vw_handler_signal("value")</code>: use this package's handler library</p></li>
@@ -210,8 +216,9 @@ are no-ops; they will return the <code>body_value</code> unchanged.</p>
 
     <div class='dont-index'><p><code><a href='vw_handler_add_effect.html'>vw_handler_add_effect()</a></code>
 vega-view:
-<a href='https://github.com/vega/vega/tree/master/packages/vega-view#view_addSignalListener'>addSignalListener()</a>,
-<a href='https://github.com/vega/vega/tree/master/packages/vega-view#view_addEventListener'>addEventListener()</a></p></div>
+<a href='https://vega.github.io/vega/docs/api/view#view_addSignalListener'>addSignalListener()</a>,
+<a href='https://vega.github.io/vega/docs/api/view#view_addDataListener'>addDataListener()</a>,
+<a href='https://vega.github.io/vega/docs/api/view#view_addEventListener'>addEventListener()</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -222,6 +229,13 @@ vega-view:
 #&gt; 
 #&gt;     // returns the value of the signal
 #&gt;     return value;</div><div class='input'>
+  <span class='co'># list all the available data-handlers</span>
+  <span class='fu'>vw_handler_data</span>()</div><div class='output co'>#&gt; arguments: name, value 
+#&gt; 
+#&gt;   body_value: value 
+#&gt; 
+#&gt;     // returns a copy of the data
+#&gt;     return value.slice();</div><div class='input'>
   <span class='co'># list all the available event-handlers</span>
   <span class='fu'>vw_handler_event</span>()</div><div class='output co'>#&gt; arguments: event, item 
 #&gt; 

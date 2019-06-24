@@ -67,7 +67,7 @@ run whenever a certain signal changes or an event fires." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.0.9013</span>
       </span>
     </div>
 
@@ -78,6 +78,9 @@ run whenever a certain signal changes or an event fires." />
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/vegawidget.html">Getting Started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -93,25 +96,25 @@ run whenever a certain signal changes or an event fires." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/vegaspec.html">Specify using vegaspec</a>
+      <a href="../articles/articles/vegaspec.html">Specify using vegaspec</a>
     </li>
     <li>
-      <a href="../articles/vegawidget.html">Render using vegawidget</a>
+      <a href="../articles/articles/render-vegawidget.html">Render using vegawidget</a>
     </li>
     <li>
-      <a href="../articles/shiny.html">Extend using Shiny</a>
+      <a href="../articles/articles/shiny.html">Extend using Shiny</a>
     </li>
     <li>
-      <a href="../articles/javascript.html">Extend using JavaScript</a>
+      <a href="../articles/articles/javascript.html">Extend using JavaScript</a>
     </li>
     <li>
-      <a href="../articles/image.html">Create Images</a>
+      <a href="../articles/articles/image.html">Create Images</a>
     </li>
     <li>
-      <a href="../articles/dates-times.html">Work with Dates and Times</a>
+      <a href="../articles/articles/dates-times.html">Work with Dates and Times</a>
     </li>
     <li>
-      <a href="../articles/import.html">Import into Other Packages</a>
+      <a href="../articles/articles/import.html">Import into Other Packages</a>
     </li>
   </ul>
 </li>
@@ -151,6 +154,8 @@ run whenever a certain signal changes or an event fires.</p>
 
     <pre class="usage"><span class='fu'>vw_add_signal_listener</span>(<span class='no'>x</span>, <span class='no'>name</span>, <span class='no'>handler_body</span>)
 
+<span class='fu'>vw_add_data_listener</span>(<span class='no'>x</span>, <span class='no'>name</span>, <span class='no'>handler_body</span>)
+
 <span class='fu'>vw_add_event_listener</span>(<span class='no'>x</span>, <span class='no'>event</span>, <span class='no'>handler_body</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -162,12 +167,13 @@ run whenever a certain signal changes or an event fires.</p>
     </tr>
     <tr>
       <th>name</th>
-      <td><p><code>character</code>, name of the signal to be monitored</p></td>
+      <td><p><code>character</code>, name of the signal or dataset to be monitored</p></td>
     </tr>
     <tr>
       <th>handler_body</th>
       <td><p><code>character</code> or <code>JS_EVAL</code>, text of the body of
-the JavaScript handler-function to be called</p></td>
+the JavaScript handler-function to be called when the signal or dataset
+changes, or the event fires</p></td>
     </tr>
     <tr>
       <th>event</th>
@@ -185,21 +191,22 @@ e.g. <code>"click"</code></p></td>
     <p>The <code>handler_body</code> can be the text of the <em>body</em> of a JavaScript function;
 the arguments to this function will vary according to the type of listener
 you are adding:</p><ul>
-<li><p>signal-handler arguments: <code>name</code>, <code>value</code></p></li>
+<li><p>signal-handler and data-handler arguments: <code>name</code>, <code>value</code></p></li>
 <li><p>event-handler arguments: <code>event</code>, <code>item</code></p></li>
 </ul>
     <p>This package offers some functions to make it easier to build JavaScript
-handler functions from R: <code><a href='vw_handler_signal.html'>vw_handler_signal()</a></code> and <code><a href='vw_handler_signal.html'>vw_handler_event()</a></code>.
-You can pipe one of these functions to <code><a href='vw_handler_add_effect.html'>vw_handler_add_effect()</a></code> to
-perform side-effects on the result.</p>
+handler functions from R: <code><a href='vw_handler_signal.html'>vw_handler_signal()</a></code>, <code><a href='vw_handler_signal.html'>vw_handler_data()</a></code>,
+and <code><a href='vw_handler_signal.html'>vw_handler_event()</a></code>. You can pipe one of these functions to
+<code><a href='vw_handler_add_effect.html'>vw_handler_add_effect()</a></code> to perform side-effects on the result.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='vw_handler_signal.html'>vw_handler_signal()</a></code>, <code><a href='vw_handler_signal.html'>vw_handler_event()</a></code>,
+    <div class='dont-index'><p><code><a href='vw_handler_signal.html'>vw_handler_signal()</a></code>, <code><a href='vw_handler_signal.html'>vw_handler_data()</a></code>, <code><a href='vw_handler_signal.html'>vw_handler_event()</a></code>,
 <code><a href='vw_handler_add_effect.html'>vw_handler_add_effect()</a></code>
 vega-view:
-<a href='https://github.com/vega/vega/tree/master/packages/vega-view#view_addSignalListener'>addSignalListener()</a>,
-<a href='https://github.com/vega/vega/tree/master/packages/vega-view#view_addEventListener'>addEventListener()</a></p></div>
+<a href='https://vega.github.io/vega/docs/api/view#view_addSignalListener'>addSignalListener()</a>,
+<a href='https://vega.github.io/vega/docs/api/view/#view_addDataListener'>addDataListener()</a>,
+<a href='https://vega.github.io/vega/docs/api/view#view_addEventListener'>addEventListener()</a></p></div>
     
 
   </div>

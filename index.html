@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>'Htmlwidget' Renderer for 'Vega' and 'Vega-Lite' • vegawidget</title>
+<title>'Htmlwidget' for 'Vega' and 'Vega-Lite' • vegawidget</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="'Htmlwidget' Renderer for 'Vega' and 'Vega-Lite'">
+<meta property="og:title" content="'Htmlwidget' for 'Vega' and 'Vega-Lite'">
 <meta property="og:description" content="'Vega' and 'Vega-Lite' parse text in 'JSON' notation to render 
   chart-specifications into 'HTML'. This package is used to facilitate the 
   rendering. It also provides a means to interact with signals, events,
@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.0.9013</span>
       </span>
     </div>
 
@@ -45,6 +45,9 @@
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="articles/vegawidget.html">Getting Started</a>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
@@ -60,25 +63,25 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/vegaspec.html">Specify using vegaspec</a>
+      <a href="articles/articles/vegaspec.html">Specify using vegaspec</a>
     </li>
     <li>
-      <a href="articles/vegawidget.html">Render using vegawidget</a>
+      <a href="articles/articles/render-vegawidget.html">Render using vegawidget</a>
     </li>
     <li>
-      <a href="articles/shiny.html">Extend using Shiny</a>
+      <a href="articles/articles/shiny.html">Extend using Shiny</a>
     </li>
     <li>
-      <a href="articles/javascript.html">Extend using JavaScript</a>
+      <a href="articles/articles/javascript.html">Extend using JavaScript</a>
     </li>
     <li>
-      <a href="articles/image.html">Create Images</a>
+      <a href="articles/articles/image.html">Create Images</a>
     </li>
     <li>
-      <a href="articles/dates-times.html">Work with Dates and Times</a>
+      <a href="articles/articles/dates-times.html">Work with Dates and Times</a>
     </li>
     <li>
-      <a href="articles/import.html">Import into Other Packages</a>
+      <a href="articles/articles/import.html">Import into Other Packages</a>
     </li>
   </ul>
 </li>
@@ -99,8 +102,8 @@
 <!--/.navbar -->
 
       
-      </header><script src="index_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="index_files/vega-4.0.0/promise.min.js"></script><script src="index_files/vega-4.0.0/symbol.min.js"></script><script src="index_files/vega-4.0.0/vega.js"></script><script src="index_files/vega-lite-2.6.0/vega-lite.min.js"></script><link href="index_files/vega-embed-3.25.0/vega-embed.css" rel="stylesheet">
-<script src="index_files/vega-embed-3.25.0/vega-embed-modified.js"></script><script src="index_files/vegawidget-binding-0.1.0/vegawidget.js"></script><div class="row">
+      </header><script src="index_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="index_files/vega-5.4.0/vega.min.js"></script><script src="index_files/vega-lite-3.3.0/vega-lite.min.js"></script><link href="index_files/vega-embed-4.2.0/vega-embed.css" rel="stylesheet">
+<script src="index_files/vega-embed-4.2.0/vega-embed.js"></script><script src="index_files/vegawidget-binding-0.2.0.9013/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     
 
@@ -118,6 +121,18 @@
 <li>build re-usable Vega and Vega-Lite specifications for deployment elsewhere, if you can tolerate the frustration of building specifications using lists.</li>
 <li>develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as a foundation (or inspiration).</li>
 </ul>
+<div id="new-in-vegawidget-0-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-in-vegawidget-0-2" class="anchor"></a>New in vegawidget 0.2</h2>
+<ul>
+<li><p>vegawidget offers Vega-Lite 3.3.0 and Vega 5.4.0. Consequently, this package works only with browsers that support ES6. This includes all modern browsers and the 1.2 version of the RStudio IDE.</p></li>
+<li>
+<p>When knitting to a non-HTML format, e.g. <code>github_document</code>, this package provides a <code>knit_print()</code> function that will intercept the normal renderer, using instead its own renderer, allowing you to specify <code>"png"</code> , <code>"svg"</code> or <code>"pdf"</code>. It requires that <a href="https://nodejs.org">nodejs</a> be installed on your system, as well as the R packages <a href="https://cran.r-project.org/package=rsvg">rsvg</a> and <a href="https://cran.r-project.org/package=png">png</a>. MacOS users will require an X11 system, such as <a href="https://www.xquartz.org">XQuartz</a>, to be installed.</p>
+<p>For an example, see the GitHub rendering of this <a href="https://github.com/vegawidget/vegawidget/blob/master/README.md">README file</a>. For more details, please see the <a href="https://vegawidget.github.io/vegawidget/articles/articles/render-vegawidget.html#knitting-strategies">Render Using Vegawidget article</a>.</p>
+</li>
+<li><p>For interactive applications, there are now functions to support vega-view’s <a href="https://vega.github.io/vega/docs/api/view/#view_addDataListener"><code>addDataListener()</code></a> function: <a href="https://vegawidget.github.io/vegawidget/reference/add-listeners.html"><code><a href="reference/add-listeners.html">vw_add_data_listener()</a></code></a>, and <a href="https://vegawidget.github.io/vegawidget/reference/shiny-getters.html"><code><a href="reference/shiny-getters.html">vw_shiny_get_data()</a></code></a>.</p></li>
+</ul>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -125,47 +140,34 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"vegawidget"</span>)</a></code></pre></div>
 <p>The development version of vegawidget is available from GitHub with:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"vegawidget/vegawidget"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"vegawidget/vegawidget"</span>)</a></code></pre></div>
 <p><strong>Note:</strong> There are documentation websites for both the <a href="https://vegawidget.github.io/vegawidget">CRAN version</a> and the <a href="https://vegawidget.github.io/vegawidget/dev">development version</a> of this package.</p>
-<p>This package supports these versions of Vega libraries:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"vegawidget"</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="reference/vega_version.html">vega_version</a></span>()</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; $vega_lite</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; [1] "2.6.0"</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; $vega</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; [1] "4.0.0"</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; $vega_embed</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; [1] "3.25.0"</span></a></code></pre></div>
-<p>The <em>first</em> CRAN version of vegawidget supports Vega-Lite 2.6.0, the <em>last</em> release of Vega-Lite that will run using JavaScript version ES5. The next version of Vega-Lite, 3.0.0, will use JavaScript ES6.</p>
-<p>In practical terms, this means that this version of vegawidget will be the <em>only</em> CRAN version that will display properly using version 1.1.x of the RStudio IDE.</p>
-<p>As soon as Vega-Lite makes its 3.0.0 release, we will make another vegawidget release on CRAN - for which you will need to use a (presently preview) version of the RStudio IDE at least 1.2.x.</p>
 </div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>For a comprehensive introduction to Vega-Lite, please visit the its <a href="https://vega.github.io/vega-lite">web site</a>. An <a href="https://ijlyttle.shinyapps.io/vegawidget-overview">interactive tutorial</a> to vegawidget is available at shinyapps.io.</p>
 <p>Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build specifications:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">spec_mtcars &lt;-</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="reference/vega_schema.html">vega_schema</a></span>(), <span class="co"># specifies Vega-Lite</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="dt">description =</span> <span class="st">"An mtcars example."</span>,</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">values =</span> mtcars),</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="dt">mark =</span> <span class="st">"point"</span>,</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">    <span class="dt">encoding =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">      <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"wt"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">      <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"mpg"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">      <span class="dt">color =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"cyl"</span>, <span class="dt">type =</span> <span class="st">"nominal"</span>)</a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">    )</a>
-<a class="sourceLine" id="cb4-12" data-line-number="12">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"vegawidget"</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">spec_mtcars &lt;-</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="reference/vega_schema.html">vega_schema</a></span>(), <span class="co"># specifies Vega-Lite</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">    <span class="dt">description =</span> <span class="st">"An mtcars example."</span>,</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">    <span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">values =</span> mtcars),</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">    <span class="dt">mark =</span> <span class="st">"point"</span>,</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">    <span class="dt">encoding =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">      <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"wt"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">      <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"mpg"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">      <span class="dt">color =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"cyl"</span>, <span class="dt">type =</span> <span class="st">"nominal"</span>)</a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">    )</a>
+<a class="sourceLine" id="cb3-14" data-line-number="14">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="st">  </span><span class="kw"><a href="reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
 <p>The <code><a href="reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; many of this package’s functions are built to support, and render, vegaspecs:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-707ca2590ca2845963b4" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-707ca2590ca2845963b4">{"x":{
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">spec_mtcars</a></code></pre></div>
+<div id="htmlwidget-83c32a3ffd87683eb197" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-83c32a3ffd87683eb197">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "description": "An mtcars example.",
     "data": {
       "values": [
@@ -639,44 +641,33 @@
     "defaultStyle": true,
     "renderer": "canvas"
   }
-},"evals":[],"jsHooks":[]}</script><p>The appearance of the chart above depends on where you are reading it:</p>
+},"evals":[],"jsHooks":[]}</script><p>The rendering of the chart above depends on where you are reading it:</p>
 <ul>
 <li><p>On this package’s <a href="https://vegawidget.github.io/vegawidget">pkgdown site</a>, it is rendered as part of an HTML environment, showing its full capabilities.</p></li>
-<li><p>At its <a href="https://github.com/vegawidget/vegawidget">GitHub code site</a>, the chart is further rendered as a static PNG.</p></li>
+<li><p>At its <a href="https://github.com/vegawidget/vegawidget">GitHub code site</a>, the chart is further rendered to a static SVG file, then incorporated into the Markdown rendering.</p></li>
 </ul>
-<p>This is package a low-level interface to Vega-Lite and the Vega ecosystem, which has a lot of powerful capabilities, highlighted in this series of articles:</p>
+<p>For more, please see our <a href="https://vegawidget.github.io/vegawidget/articles/articles/vegawidget.html">Getting Started</a> article. For other introductory material, please see:</p>
 <ul>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/vegaspec.html">Specify using vegaspec</a>: how to construct and render a vegaspec.</li>
-<li>
-<a href="https://vegawidget.github.io/vegawidget/articles/vegawidget.html">Render using vegawidget</a>: advanced rendering options.</li>
-<li>
-<a href="https://vegawidget.github.io/vegawidget/articles/shiny.html">Extend using Shiny</a>: how to interact with Vega charts using Shiny.</li>
-<li>
-<a href="https://vegawidget.github.io/vegawidget/articles/javascript.html">Extend using JavaScript</a>: how to interact with Vega charts using JavaScript.</li>
-<li>
-<a href="https://vegawidget.github.io/vegawidget/articles/image.html">Create Images</a>: how to create and save PNG or SVG images.</li>
-<li>
-<a href="https://vegawidget.github.io/vegawidget/articles/dates-times.html">Work with Dates and Times</a>: dates and times in Vega(-Lite) work a little differently from R.</li>
-<li>
-<a href="https://vegawidget.github.io/vegawidget/articles/import.html">Import into Other Packages</a>: how to import vegawidget functions into your package, then re-export them.</li>
+<a href="https://vega.github.io/vega-lite">Vega-Lite website</a> has a comprehensive introduction</li>
+<li>An <a href="https://ijlyttle.shinyapps.io/vegawidget-overview">interactive learnr tutorial</a> at shinyapps.io</li>
 </ul>
-<p>To share your Vega(-Lite) creation on the <a href="https://bl.ocks.org">Blocks</a> website, you can use the <a href="https://vegawidget.github.io/vegablock"><strong>vegablock</strong></a> package.</p>
-</div>
-<div id="integration-with-other-packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#integration-with-other-packages" class="anchor"></a>Integration with other packages</h2>
-<p>Although there is an <a href="https://vegawidget.github.io/vegawidget/articles/import.html">article</a> dedicated to this aspect of the package, it warrants further emphasis.</p>
-<p>This package provides functions to render Vega(-Lite) specifications; although it provides some helpers, it does not provide higher-level functions to build specifications. Rather, this is left to other packages. Even though you can use its functions directly, you are invited to import and re-export them for use in <em>your</em> package.</p>
-<p>Accordingly, this package offers a templating function, <code><a href="reference/use_vegawidget.html">use_vegawidget()</a></code>, to help you integrate vegawidget functions into your package. For example, it is used to import and re-export vegawidget functions for the <a href="https://vegawidget.github.io/altair">altair</a> package.</p>
-</div>
-<div id="known-limitations" class="section level2">
-<h2 class="hasAnchor">
-<a href="#known-limitations" class="anchor"></a>Known limitations</h2>
-<p>The two biggest known limitations are both associated with vegaspecs that contain <a href="https://vega.github.io/vega-lite/docs/data.html#url">datasets specified using remote URLs</a>:</p>
+<p>Other articles for this package:</p>
 <ul>
-<li><p>The RStudio IDE does not let you access remote URLs for security reasons. A chart that accesses remote data will not render in the IDE; it <em>will</em> render in a browser window.</p></li>
-<li><p>The image functions use <strong>nodejs</strong> to create SVG strings. We are not able to configure the proxy in our node scripts, so if your computer uses a proxy to access remote data, our functions will not create the images properly.</p></li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/vegaspec.html">Specify using vegaspec</a>: how to construct and render a vegaspec.</li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/render-vegawidget.html">Render using vegawidget</a>: advanced rendering options.</li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/shiny.html">Extend using Shiny</a>: how to interact with Vega charts using Shiny.</li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/javascript.html">Extend using JavaScript</a>: how to interact with Vega charts using JavaScript.</li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/image.html">Create Images</a>: how to create and save PNG or SVG images.</li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/dates-times.html">Work with Dates and Times</a>: dates and times in Vega(-Lite) work a little differently from R.</li>
+<li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/import.html">Import into Other Packages</a>: how to import vegawidget functions into your package, then re-export them.</li>
 </ul>
 </div>
 <div id="acknowledgements" class="section level2">
@@ -697,7 +688,7 @@
 <div id="contributing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contributing" class="anchor"></a>Contributing</h2>
-<p>Contributions are welcome, please see this <a href="CONTRIBUTING.html">guide</a>. Please note that this project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
+<p>Contributions are welcome, please see this <a href="https://vegawidget.github.io/vegawidget/CONTRIBUTING.html">guide</a>. Please note that this project is released with a <a href="https://vegawidget.github.io/vegawidget/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>
 </div>
   </div>

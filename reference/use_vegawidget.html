@@ -34,11 +34,8 @@
   
 <meta property="og:title" content="Add vegawidget functions to your package — use_vegawidget" />
 
-<meta property="og:description" content="This function does the setup for your package to use vegawidget functions:
-adds vegawidget to &quot;Imports&quot; in your package's DESCRIPTION file
-creates R/utils-vegawidget.R
-encourages you to take the steps outlined in Details
-" />
+<meta property="og:description" content="These functions are offered to help you import and re-export vegawidget
+functions in your package." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +66,7 @@ encourages you to take the steps outlined in Details
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.0.9013</span>
       </span>
     </div>
 
@@ -80,6 +77,9 @@ encourages you to take the steps outlined in Details
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/vegawidget.html">Getting Started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -95,25 +95,25 @@ encourages you to take the steps outlined in Details
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/vegaspec.html">Specify using vegaspec</a>
+      <a href="../articles/articles/vegaspec.html">Specify using vegaspec</a>
     </li>
     <li>
-      <a href="../articles/vegawidget.html">Render using vegawidget</a>
+      <a href="../articles/articles/render-vegawidget.html">Render using vegawidget</a>
     </li>
     <li>
-      <a href="../articles/shiny.html">Extend using Shiny</a>
+      <a href="../articles/articles/shiny.html">Extend using Shiny</a>
     </li>
     <li>
-      <a href="../articles/javascript.html">Extend using JavaScript</a>
+      <a href="../articles/articles/javascript.html">Extend using JavaScript</a>
     </li>
     <li>
-      <a href="../articles/image.html">Create Images</a>
+      <a href="../articles/articles/image.html">Create Images</a>
     </li>
     <li>
-      <a href="../articles/dates-times.html">Work with Dates and Times</a>
+      <a href="../articles/articles/dates-times.html">Work with Dates and Times</a>
     </li>
     <li>
-      <a href="../articles/import.html">Import into Other Packages</a>
+      <a href="../articles/articles/import.html">Import into Other Packages</a>
     </li>
   </ul>
 </li>
@@ -145,15 +145,14 @@ encourages you to take the steps outlined in Details
 
     <div class="ref-description">
     
-    <p>This function does the setup for your package to use vegawidget functions:</p><ul>
-<li><p>adds <strong>vegawidget</strong> to "Imports" in your package's DESCRIPTION file</p></li>
-<li><p>creates <code>R/utils-vegawidget.R</code></p></li>
-<li><p>encourages you to take the steps outlined in <strong>Details</strong></p></li>
-</ul>
+    <p>These functions are offered to help you import and re-export vegawidget
+functions in your package.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>use_vegawidget</span>(<span class='no'>s3_class_name</span>)</pre>
+    <pre class="usage"><span class='fu'>use_vegawidget</span>(<span class='kw'>s3_class_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>use_vegawidget_interactive</span>()</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,7 +160,7 @@ encourages you to take the steps outlined in Details
     <tr>
       <th>s3_class_name</th>
       <td><p><code>character</code>, name of an S3 class for object to
-be coerced to a <code>vegaspec</code></p></td>
+be coerced to a <code>vegaspec</code>; default (NULL) implies no additional class</p></td>
     </tr>
     </table>
     
@@ -171,9 +170,39 @@ be coerced to a <code>vegaspec</code></p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>You will have to edit <code>R/utils-vegawidget.R</code>:</p><ul>
+    <p><code>use_vegawidget()</code>:</p>
+<p>Adds vegawidget functions:</p><ul>
+<li><p><code><a href='as_vegaspec.html'>as_vegaspec()</a></code>, <code><a href='vw_as_json.html'>vw_as_json()</a></code></p></li>
+<li><p><code><a href='vegawidget.html'>vegawidget()</a></code>, <code>knit_print()</code></p></li>
+<li><p><code><a href='vega_embed.html'>vega_embed()</a></code></p></li>
+<li><p><code><a href='image.html'>vw_to_svg()</a></code> and other image functions</p></li>
+<li><p><code><a href='vegawidgetOutput.html'>vegawidgetOutput()</a></code>, <code><a href='renderVegawidget.html'>renderVegawidget()</a></code></p></li>
+<li><p><a href='spec_mtcars.html'>spec_mtcars</a></p></li>
+</ul>
+    <p>In practical terms:</p><ul>
+<li><p>adds <strong>vegawidget</strong> to <code>Imports</code> in your package's DESCRIPTION file.</p></li>
+<li><p>adds <strong>processx</strong>, <strong>rsvg</strong>, <strong>png</strong>, <strong>fs</strong> to <code>Suggests</code>
+in your package's DESCRIPTION file.</p></li>
+<li><p>creates <code>R/utils-vegawidget.R</code></p></li>
+<li><p>at your discretion, delete references to functions you do not want
+to re-export.</p></li>
+</ul>
+    <p>If you have your own S3 class for a spec, specify the <code>s3_class_name</code>
+argument. You will have to edit <code>R/utils-vegawidget-&lt;s3_class_name&gt;.R</code>:</p><ul>
 <li><p>add the code within your class's method for
 to coerce your object to a <code>vegaspec</code>.</p></li>
+</ul>
+    <p><code>use_vegawidget_interactive()</code>:</p>
+<p>If you want to add the JavaScript and Shiny functions,
+use this after running <code>use_vegawidget()</code>. It adds:</p><ul>
+<li><p><code><a href='add-listeners.html'>vw_add_data_listener()</a></code> and other listener-functions.</p></li>
+<li><p><code><a href='vw_handler_signal.html'>vw_handler_data()</a></code> and other handler functions.</p></li>
+<li><p><code><a href='shiny-getters.html'>vw_shiny_get_data()</a></code> and other Shiny getters.</p></li>
+<li><p><code><a href='shiny-setters.html'>vw_shiny_set_data()</a></code> and other Shiny setters.</p></li>
+</ul>
+    <p>In practical terms:</p><ul>
+<li><p>adds <strong>shiny</strong>, <strong>dplyr</strong>, to <code>Suggests</code>.</p></li>
+<li><p>creates <code>R/utils-vegawidget-interactive.R</code>.</p></li>
 <li><p>at your discretion, delete references to functions you do not want
 to re-export.</p></li>
 </ul>

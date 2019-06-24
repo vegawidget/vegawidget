@@ -34,12 +34,10 @@
   
 <meta property="og:title" content="Get information from a Vega chart into Shiny — shiny-getters" />
 
-<meta property="og:description" content="There are two types of information you can get from a Vega chart, a signal,
-and information associated with an event. Any such signal
-must first be defined and named in the vegaspec.
-These getter-functions are called from within
-a Shiny server() function, where they act like
-shiny::reactive(), returning a reactive expression." />
+<meta property="og:description" content="There are three types of information you can get from a Vega chart,
+a signal, data (i.e. a dataset), and information associated with
+an event.  A dataset or a signal must first be defined and named
+in the vegaspec." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -70,7 +68,7 @@ shiny::reactive(), returning a reactive expression." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.0.9013</span>
       </span>
     </div>
 
@@ -81,6 +79,9 @@ shiny::reactive(), returning a reactive expression." />
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/vegawidget.html">Getting Started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -96,25 +97,25 @@ shiny::reactive(), returning a reactive expression." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/vegaspec.html">Specify using vegaspec</a>
+      <a href="../articles/articles/vegaspec.html">Specify using vegaspec</a>
     </li>
     <li>
-      <a href="../articles/vegawidget.html">Render using vegawidget</a>
+      <a href="../articles/articles/render-vegawidget.html">Render using vegawidget</a>
     </li>
     <li>
-      <a href="../articles/shiny.html">Extend using Shiny</a>
+      <a href="../articles/articles/shiny.html">Extend using Shiny</a>
     </li>
     <li>
-      <a href="../articles/javascript.html">Extend using JavaScript</a>
+      <a href="../articles/articles/javascript.html">Extend using JavaScript</a>
     </li>
     <li>
-      <a href="../articles/image.html">Create Images</a>
+      <a href="../articles/articles/image.html">Create Images</a>
     </li>
     <li>
-      <a href="../articles/dates-times.html">Work with Dates and Times</a>
+      <a href="../articles/articles/dates-times.html">Work with Dates and Times</a>
     </li>
     <li>
-      <a href="../articles/import.html">Import into Other Packages</a>
+      <a href="../articles/articles/import.html">Import into Other Packages</a>
     </li>
   </ul>
 </li>
@@ -146,16 +147,16 @@ shiny::reactive(), returning a reactive expression." />
 
     <div class="ref-description">
     
-    <p>There are two types of information you can get from a Vega chart, a <em>signal</em>,
-and information associated with an <em>event</em>. Any such signal
-must first be defined and <strong>named</strong> in the vegaspec.
-These getter-functions are called from within
-a Shiny <code>server()</code> function, where they act like
-<code><a href='https://www.rdocumentation.org/packages/shiny/topics/reactive'>shiny::reactive()</a></code>, returning a reactive expression.</p>
+    <p>There are three types of information you can get from a Vega chart,
+a <em>signal</em>, <em>data</em> (i.e. a dataset), and information associated with
+an <em>event</em>.  A dataset or a signal must first be defined and <strong>named</strong>
+in the vegaspec.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>vw_shiny_get_signal</span>(<span class='no'>outputId</span>, <span class='no'>name</span>, <span class='kw'>body_value</span> <span class='kw'>=</span> <span class='st'>"value"</span>)
+
+<span class='fu'>vw_shiny_get_data</span>(<span class='no'>outputId</span>, <span class='no'>name</span>, <span class='kw'>body_value</span> <span class='kw'>=</span> <span class='st'>"value"</span>)
 
 <span class='fu'>vw_shiny_get_event</span>(<span class='no'>outputId</span>, <span class='no'>event</span>, <span class='kw'>body_value</span> <span class='kw'>=</span> <span class='st'>"datum"</span>)</pre>
     
@@ -192,22 +193,31 @@ for list of supported events, please see
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>To see these functions in action, you can run a shiny-demo:</p><ul>
+    <p>These getter-functions are called from within
+a Shiny <code>server()</code> function, where they act like
+<code><a href='https://www.rdocumentation.org/packages/shiny/topics/reactive'>shiny::reactive()</a></code>, returning a reactive expression.</p>
+<p>To see these functions in action, you can run a shiny-demo:</p><ul>
 <li><p><code>vw_shiny_get_signal()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("signal-set-get")</a></code></p></li>
+<li><p><code>vw_shiny_get_data()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("data-set-get")</a></code></p></li>
 <li><p><code>vw_shiny_get_event()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("event-get")</a></code></p></li>
 </ul>
     <p>In addition to the chart <code>outputId</code>, you will need to provide:</p><ul>
 <li><p><code>vw_shiny_get_signal()</code>: the <code>name</code> of the signal, as defined in the Vega
 specification</p></li>
+<li><p><code>vw_shiny_get_data()</code>: the <code>name</code> of the dataset, as defined in the Vega
+specification</p></li>
 <li><p><code>vw_shiny_get_event()</code>: the <code>event</code> type, as defined in the
 <a href='https://vega.github.io/vega/docs/event-streams/'>Vega Event-Stream reference</a></p></li>
 </ul>
-    <p>When the signal changes, or when the event fires, Vega needs to know which
-information you want returned to Shiny. To do this,
+    <p>When the signal or data changes, or when the event fires, Vega needs to
+know which information you want returned to Shiny. To do this,
 you provide a JavaScript handler-function:</p><ul>
 <li><p><code>vw_shiny_get_signal()</code>: the default handler,
 <code><a href='vw_handler_signal.html'>vw_handler_signal("value")</a></code>,
 specifies that the value of the signal be returned.</p></li>
+<li><p><code>vw_shiny_get_data()</code>: the default handler,
+<code><a href='vw_handler_signal.html'>vw_handler_data("value")</a></code>,
+specifies that the entire dataset be returned.</p></li>
 <li><p><code>vw_shiny_get_event()</code>: the default handler,
 <code><a href='vw_handler_signal.html'>vw_handler_event("datum")</a></code>,
 specifies that the single row of data associated with graphical mark
@@ -218,9 +228,9 @@ Vega would return the row of data that backs any mark
     <p>If you need to specify a different behavior for the handler, there are a
 couple of options. This package provides
 a library of handler-functions; call <code><a href='vw_handler_signal.html'>vw_handler_signal()</a></code>,
-<code><a href='vw_handler_signal.html'>vw_handler_event()</a></code>, or without arguments to
-list them.</p>
-<p>If it does not contain the handler you need, the <code>body_value</code>
+<code><a href='vw_handler_signal.html'>vw_handler_data()</a></code>, or <code><a href='vw_handler_signal.html'>vw_handler_event()</a></code> without arguments to
+list the available handlers.</p>
+<p>If the library does not contain the handler you need, the <code>body_value</code>
 argument will also accept a character string which will be used as
 the <strong>body</strong> of the handler function.</p>
 <p>For example, these calls are equivalent:</p><ul>

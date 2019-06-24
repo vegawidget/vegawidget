@@ -409,7 +409,7 @@ input_angle <-
   )
 ```
 
-Next, we define our data-ouput and the data-handler. For the output, we provide an `id`, `"output-data"`, to identify where in this document to write the data. Our handler function the data set to it, convert it to JSON (with a little formatting), then put the JSON string into our output element named `"output-data"`. 
+Next, we define our data-output and the data-handler. For the output, we provide an `id`, `"output-data"`, to identify where in this document to write the data. Our handler function the data set to it, convert it to JSON (with a little formatting), then put the JSON string into our output element named `"output-data"`. 
 
 ```{r}
 output_data <- tags$pre(id = "output-data")

@@ -34,7 +34,7 @@ To be clear, although Vega-Lite offers a grammar-of-graphics, this package does 
 
 ## New in vegawidget 0.2
 
-- vegawidget offers Vega-Lite `r vegawidget::vega_version()$vega_lite` and Vega `r vegawidget::vega_version()$vega`. Consequently, this package works only with broswers that support ES6. This includes all modern browsers and the 1.2 version of the RStudio IDE.
+- vegawidget offers Vega-Lite `r vegawidget::vega_version()$vega_lite` and Vega `r vegawidget::vega_version()$vega`. Consequently, this package works only with browsers that support ES6. This includes all modern browsers and the 1.2 version of the RStudio IDE.
 
 - When knitting to a non-HTML format, e.g. `github_document`, this package provides a `knit_print()` function that will intercept the normal renderer, using instead its own renderer, allowing you to specify `"png"` , `"svg"` or `"pdf"`. It requires that [nodejs](https://nodejs.org) be installed on your system, as well as the R packages [rsvg](https://cran.r-project.org/package=rsvg) and [png](https://cran.r-project.org/package=png). MacOS users will require an X11 system, such as [XQuartz](https://www.xquartz.org), to be installed.
 

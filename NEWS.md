@@ -48,7 +48,7 @@
 
 * changes default-display for `vw_examine()`
 
-* adds function `vw_rename_data()` to reanme named datasets within a vegaspec (#34)
+* adds function `vw_rename_data()` to rename named datasets within a vegaspec (#34)
 
 # vegawidget 0.0.4
 

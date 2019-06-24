@@ -54,6 +54,7 @@ Imports:
     magrittr,
     htmltools
 Suggests:
+    spelling,
     knitr,
     rmarkdown,
     listviewer,
@@ -74,4 +75,4 @@ Suggests:
     here,
     withr,
     shiny
-
+Language: en-US

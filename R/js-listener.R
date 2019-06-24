@@ -30,7 +30,7 @@
 #'   vega-view:
 #'     [addSignalListener()](https://vega.github.io/vega/docs/api/view#view_addSignalListener),
 #'     [addDataListener()](https://vega.github.io/vega/docs/api/view/#view_addDataListener),
-#'     [addEventListener()](hhttps://vega.github.io/vega/docs/api/view#view_addEventListener)
+#'     [addEventListener()](https://vega.github.io/vega/docs/api/view#view_addEventListener)
 #' @export
 #'
 vw_add_signal_listener <- function(x, name, handler_body) {

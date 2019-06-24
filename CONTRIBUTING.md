@@ -74,7 +74,7 @@ situation:
 <br>
 
 Please roxygenize as a part of your pull-request. Let’s all do our best
-to keep to the current CRAN verision of roxygen2.
+to keep to the current CRAN version of roxygen2.
 
 ### Versioning
 
@@ -87,7 +87,7 @@ a GitHub release tag.
 ### Vega versions
 
 To update the JavaScript files for Vega, Vega-Lite, and vega-embed, a
-mainainter will render the R markdown document found at
+maintainer will render the R markdown document found at
 `data-raw/infrastructure.Rmd`. The key parameter to adjust is
 `vega_lite_version`, in the YAML header:
 

@@ -1,24 +1,21 @@
-## Resubmission 
+## vegawidget 0.2.1
 
-Pursuant to Uwe's email of 2019-01-19:
+Pursuant to Uwe's emails at release of 0.1.0 (January 2019):
 
-* I have changed the examples to write to tempdir(); my apologies, 
-  I should have known better.
+* In DESCRIPTION, I have enclosed software names in single-quotes.
 
 * Most of the examples are run; the examples that \dontrun{} show specialized 
-  capabilities. There are three reasons for not running examples:
+  capabilities. There are two reasons for not running examples:
 
   - requires nodejs to be installed
   - requires network-access
-  - intentionally invokes error-behavior (I have unexported this internal function)
-  
+
   At the the top of each \dontrun{} block, I have noted the specific reason.
 
 -----------------
 
 ## Test environments
-* local OS X install, R 3.5.2
-* local Windows install, R 3.5.2
+* local OS X install, R 3.5.3
 * Windows Server 2008 R2 SP1, R-devel, 32/64 bit
 * Ubuntu Linux 16.04 LTS, R-release, GCC
 * Fedora Linux, R-devel, clang, gfortran
@@ -27,24 +24,9 @@ Pursuant to Uwe's email of 2019-01-19:
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
-Maintainer: 'Ian Lyttle <ian.lyttle@schneider-electric.com>'
 
-New submission
-
-Possibly mis-spelled words in DESCRIPTION:
-  Htmlwidget (3:8)
-  JSON (4:47)
-  Renderer (3:19)
-  
-* This is a new submission
-  
-* I believe the first note to be normal; as for the possibly mis-spelled 
-  words in DESCRIPTION:
-  
-  - "Htmlwidget" and "JSON" are current terms-of-art.
-  - "Renderer" is unusual, but correct.
   
 
 

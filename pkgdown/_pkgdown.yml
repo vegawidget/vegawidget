@@ -3,7 +3,7 @@ template:
     bootswatch: sandstone
 
 development:
-  mode: unreleased
+  mode: auto
 
 navbar:
   title: "vegawidget"

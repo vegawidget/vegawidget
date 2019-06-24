@@ -5,12 +5,11 @@ Pursuant to Uwe's emails at release of 0.1.0 (January 2019):
 * In DESCRIPTION, I have enclosed software names in single-quotes.
 
 * Most of the examples are run; the examples that \dontrun{} show specialized 
-  capabilities. There are three reasons for not running examples:
+  capabilities. There are two reasons for not running examples:
 
   - requires nodejs to be installed
   - requires network-access
-  - intentionally invokes error-behavior (I have unexported this internal function)
-  
+
   At the the top of each \dontrun{} block, I have noted the specific reason.
 
 -----------------

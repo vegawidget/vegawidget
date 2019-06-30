@@ -37,6 +37,23 @@ spec <-
         type = "quantitative",
         legend = list(title = "population"),
         scale = list(domain = range(gapminder$pop))
+      ),
+      tooltip = list(
+        list(field = "year", type = "quantitative"),
+        list(field = "country", type = "nominal"),
+        list(field = "pop", type = "quantitative", format = ".3~s"),
+        list(
+          field = "gdpPercap",
+          type = "quantitative",
+          title = "GDP per-capita",
+          format = ".3~s"
+        ),
+        list(
+          field = "lifeExp",
+          type = "quantitative",
+          title = "life expectancy",
+          format = ".1f"
+        )
       )
     )
   ) %>%

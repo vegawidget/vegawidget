@@ -20,3 +20,4 @@
 ^vignettes/foo\.Rmd$
 ^revdep$
 ^CRAN-RELEASE$
+^package-lock.json$

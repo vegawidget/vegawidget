@@ -79,7 +79,7 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
   check_node_installed()
 
   # set defaults
-  base_url = base_url %||% ""
+  base_url = base_url %||% "" # look for this in options("vega.embed")$loader
   seed = seed %||% sample(1e8, size = 1)
 
   spec <- vw_autosize(spec, width = width, height = height)

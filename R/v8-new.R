@@ -4,7 +4,9 @@ test_v8 <- function(url) {
   ctx <- V8::v8()
   ctx$source(system.file("bin/vw_fetch.js", package = "vegawidget"))
 
-  ctx$eval("vwFetch('foo').then(console.log)")
+  ctx$eval(glue::glue("vwFetch('{url}').then(console.log)"))
+
+  invisible(NULL)
 }
 
 test_node_fetch <- function(url = NULL) {

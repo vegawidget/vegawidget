@@ -3,12 +3,8 @@
 
 async function vwFetch(url, opts) {
 
-  function cat(x) {
-    return x + " bar";
-  }
-
   try {
-    let found = await cat(url);
+    let found = await console.r.call("paste0", [url, " bar"]);
     return found;
   } catch (_) {}
 

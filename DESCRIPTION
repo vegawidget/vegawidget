@@ -59,7 +59,7 @@ Suggests:
     rmarkdown,
     listviewer,
     httr,
-    testthat,
+    testthat (>= 2.1.0),
     yaml,
     fs,
     usethis (>= 1.5.0),

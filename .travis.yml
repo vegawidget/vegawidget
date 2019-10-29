@@ -4,6 +4,13 @@ language: R
 sudo: false
 cache: packages
 
+dist: xenial
+addons:
+  apt:
+    packages:
+      - libnode-dev # for V8
+      - libmagick++-dev # magick
+
 matrix:
   include:
   - r: devel
@@ -14,13 +21,6 @@ matrix:
       script: Rscript -e 'pkgdown::deploy_site_github()'
       skip_cleanup: true
   - r: oldrel
-
-addons:
-  apt:
-    packages:
-      - libv8-dev       # for V8
-      - valgrind        # for V8
-      - libmagick++-dev # magick
 
 # managing node in a project for another language
 # https://austinpray.com/ops/2015/09/20/change-travis-node-version.html

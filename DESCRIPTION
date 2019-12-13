@@ -74,5 +74,6 @@ Suggests:
     conflicted,
     here,
     withr,
-    shiny
+    shiny,
+    purrr
 Language: en-US

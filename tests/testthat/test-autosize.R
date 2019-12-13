@@ -1,5 +1,24 @@
 context("test-autosize.R")
 
+# borrowed from ggvega
+normalize <- function(x) {
+
+  if (length(x) <= 1L && !is.list(x)) {
+    return(x)
+  }
+
+  names_x <- names(x)
+
+  # if named, alphabetize
+  if (!is.null(names_x)) {
+    x <- x[order(names(x))]
+  }
+
+  x <- purrr::map(x, normalize)
+
+  x
+}
+
 # create a multiple-view spec
 # ===
 spec_mtcars_hconcat <- spec_mtcars
@@ -34,8 +53,8 @@ has_node <- unname(nchar(Sys.which("node")) > 0L)
 test_that("autosize works", {
 
   expect_identical(
-    vw_autosize(spec_mtcars, width = 300, height = 300),
-    spec_mtcars_autosize
+    normalize(vw_autosize(spec_mtcars, width = 300, height = 300)),
+    normalize(spec_mtcars_autosize)
   )
 
   # Need to have node installed
@@ -46,8 +65,8 @@ test_that("autosize works", {
 
   # autosize works on Vega (vs Vega-Lite)
   expect_identical(
-    vw_autosize(vgspec_mtcars, width = 300, height = 300),
-    vw_to_vega(spec_mtcars_autosize)
+    normalize(vw_autosize(vgspec_mtcars, width = 300, height = 300)),
+    normalize(vw_to_vega(spec_mtcars_autosize))
   )
 })
 

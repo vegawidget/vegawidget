@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "An mtcars example.",
-  "autosize": "pad",
+  "background": "white",
   "padding": 5,
   "width": 300,
   "height": 300,
@@ -466,7 +466,7 @@
       "transform": [
         {
           "type": "filter",
-          "expr": "datum[\"wt\"] !== null && !isNaN(datum[\"wt\"]) && datum[\"mpg\"] !== null && !isNaN(datum[\"mpg\"])"
+          "expr": "isValid(datum[\"wt\"]) && isFinite(+datum[\"wt\"]) && isValid(datum[\"mpg\"]) && isFinite(+datum[\"mpg\"])"
         }
       ]
     }
@@ -475,18 +475,32 @@
     {
       "name": "marks",
       "type": "symbol",
-      "style": ["point"],
-      "from": {"data": "data_0"},
+      "style": [
+        "point"
+      ],
+      "from": {
+        "data": "data_0"
+      },
       "encode": {
         "update": {
-          "opacity": {"value": 0.7},
-          "fill": {"value": "transparent"},
-          "stroke": {"scale": "color", "field": "cyl"},
-          "tooltip": {
-            "signal": "{\"wt\": format(datum[\"wt\"], \"\"), \"mpg\": format(datum[\"mpg\"], \"\"), \"cyl\": ''+datum[\"cyl\"]}"
+          "opacity": {
+            "value": 0.7
           },
-          "x": {"scale": "x", "field": "wt"},
-          "y": {"scale": "y", "field": "mpg"}
+          "fill": {
+            "value": "transparent"
+          },
+          "stroke": {
+            "scale": "color",
+            "field": "cyl"
+          },
+          "x": {
+            "scale": "x",
+            "field": "wt"
+          },
+          "y": {
+            "scale": "y",
+            "field": "mpg"
+          }
         }
       }
     }
@@ -495,23 +509,43 @@
     {
       "name": "x",
       "type": "linear",
-      "domain": {"data": "data_0", "field": "wt"},
-      "range": [0, {"signal": "width"}],
+      "domain": {
+        "data": "data_0",
+        "field": "wt"
+      },
+      "range": [
+        0,
+        {
+          "signal": "width"
+        }
+      ],
       "nice": true,
       "zero": true
     },
     {
       "name": "y",
       "type": "linear",
-      "domain": {"data": "data_0", "field": "mpg"},
-      "range": [{"signal": "height"}, 0],
+      "domain": {
+        "data": "data_0",
+        "field": "mpg"
+      },
+      "range": [
+        {
+          "signal": "height"
+        },
+        0
+      ],
       "nice": true,
       "zero": true
     },
     {
       "name": "color",
       "type": "ordinal",
-      "domain": {"data": "data_0", "field": "cyl", "sort": true},
+      "domain": {
+        "data": "data_0",
+        "field": "cyl",
+        "sort": true
+      },
       "range": "category"
     }
   ],
@@ -519,24 +553,43 @@
     {
       "scale": "x",
       "orient": "bottom",
-      "grid": false,
-      "title": "wt",
-      "labelFlush": true,
-      "labelOverlap": true,
-      "tickCount": {"signal": "ceil(width/40)"},
-      "zindex": 1
-    },
-    {
-      "scale": "x",
-      "orient": "bottom",
       "gridScale": "y",
       "grid": true,
-      "tickCount": {"signal": "ceil(width/40)"},
+      "tickCount": {
+        "signal": "ceil(width/40)"
+      },
       "domain": false,
       "labels": false,
       "maxExtent": 0,
       "minExtent": 0,
       "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "gridScale": "x",
+      "grid": true,
+      "tickCount": {
+        "signal": "ceil(height/40)"
+      },
+      "domain": false,
+      "labels": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "title": "wt",
+      "labelFlush": true,
+      "labelOverlap": true,
+      "tickCount": {
+        "signal": "ceil(width/40)"
+      },
       "zindex": 0
     },
     {
@@ -545,34 +598,29 @@
       "grid": false,
       "title": "mpg",
       "labelOverlap": true,
-      "tickCount": {"signal": "ceil(height/40)"},
-      "zindex": 1
-    },
-    {
-      "scale": "y",
-      "orient": "left",
-      "gridScale": "x",
-      "grid": true,
-      "tickCount": {"signal": "ceil(height/40)"},
-      "domain": false,
-      "labels": false,
-      "maxExtent": 0,
-      "minExtent": 0,
-      "ticks": false,
+      "tickCount": {
+        "signal": "ceil(height/40)"
+      },
       "zindex": 0
     }
   ],
   "legends": [
     {
       "stroke": "color",
-      "gradientLength": {"signal": "clamp(height, 64, 200)"},
+      "gradientLength": {
+        "signal": "clamp(height, 64, 200)"
+      },
       "symbolType": "circle",
       "title": "cyl",
       "encode": {
         "symbols": {
           "update": {
-            "fill": {"value": "transparent"},
-            "opacity": {"value": 0.7}
+            "fill": {
+              "value": "transparent"
+            },
+            "opacity": {
+              "value": 0.7
+            }
           }
         }
       }

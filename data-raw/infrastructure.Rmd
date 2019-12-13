@@ -2,7 +2,7 @@
 title: Package infrastrucure
 output: github_document
 params:
-  vega_lite_version: "3.3.0"
+  vega_lite_version: "4.0.2"
 ---
 
 This purpose of this document is to build the package infrastucture. 
@@ -373,7 +373,7 @@ Vegawidget handlers:
 
 
 ```{r}
-devtools::use_data(
+usethis::use_data(
   .vega_version, 
   .vw_handler_library,
   internal = TRUE, 

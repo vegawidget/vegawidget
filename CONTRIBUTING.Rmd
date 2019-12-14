@@ -63,7 +63,11 @@ Please roxygenize as a part of your pull-request. Let's all do our best to keep 
 
 The first digit indicates the maturity of this package's API. For the time being, it will be `0`.
 
-The second digit will be incremented upon each CRAN release and assigned a GitHub release tag.
+The second digit will be incremented for each CRAN release. Each CRAN release is assigned a GitHub release tag. 
+
+The version number of a CRAN release will be something like 0.3.1; the CRAN prereleases will have version numbers like 0.3.0.9001.
+
+
 
 ### Vega versions 
 

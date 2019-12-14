@@ -119,6 +119,8 @@ vw_autosize <- function(spec, width = NULL, height = NULL) {
   spec$config <- spec$config %||% list()
   spec$config$autosize <- spec$autosize
 
+  spec$config$style <- list(cell = list(width = spec$width, height = spec$height))
+
   spec
 }
 

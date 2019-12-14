@@ -9,7 +9,8 @@ vega_embed(renderer = c("canvas", "svg"), actions = NULL,
   tooltip = NULL, loader = NULL, patch = NULL, width = NULL,
   height = NULL, padding = NULL, scaleFactor = NULL, config = NULL,
   editorUrl = NULL, sourceHeader = NULL, sourceFooter = NULL,
-  hover = NULL, runAsync = NULL, i18n = NULL)
+  hover = NULL, i18n = NULL, downloadFileName = NULL,
+  formatLocale = NULL, timeFormatLocale = NULL)
 }
 \arguments{
 \item{renderer}{\code{character} the renderer to use for the view.
@@ -51,7 +52,7 @@ to provide a \href{https://vega.github.io/vega/docs/api/view/#view_tooltip}{tool
 customize the default \href{https://github.com/vega/vega-tooltip}{Vega Tooltip handler},
 or disable the default handler.}
 
-\item{loader}{sets a custom Vega loader.
+\item{loader}{\code{list}, sets a custom Vega loader.
 See \href{https://github.com/vega/vega-loader#loader}{Vega docs}
 for details.}
 
@@ -60,7 +61,7 @@ specification before it is parsed. Alternatively, an object that is used
 to patch the Vega specification. If you use Vega-Lite, the compiled Vega
 will be patched.}
 
-\item{width}{\code{integer} sets the view width in pixels.
+\item{width}{\code{integer}, sets the view width in pixels.
 See \href{https://vega.github.io/vega/docs/api/view/#view_width}{Vega docs}
 for details.
 Note that Vega-Lite overrides this option.}
@@ -77,7 +78,7 @@ for details.}
 \item{scaleFactor}{\code{numeric} the number by which to multiply the width and
 height (default 1) of an exported PNG or SVG image.}
 
-\item{config}{\code{character} or \code{list} a URL string from which to load
+\item{config}{\code{character} or \code{list}, a URL string from which to load
 a Vega/Vega-Lite or Vega-Lite configuration file, or a \code{list} of
 Vega/Vega-Lite configurations to override the default configuration
 options. If \code{config} is a URL, it will be subject to standard browser
@@ -100,13 +101,20 @@ immediately before the closing `` tag.}
 
 \item{hover}{\code{logical}, enable \href{https://vega.github.io/vega/docs/api/view/#view_hover}{hover event processing}}
 
-\item{runAsync}{\code{logical}, indicating to use
-\href{https://vega.github.io/vega/docs/api/view/#view_runAsync}{runAsync}
-instead of \href{https://vega.github.io/vega/docs/api/view/#view_run}{run}.}
-
-\item{i18n}{\code{list}, This property maps keys
+\item{i18n}{\code{list}, this property maps keys
 (COMPILED_ACTION, EDITOR_ACTION, PNG_ACTION, SOURCE_ACTION, SVG_ACTION)
 to string values for the action's text. By default, the text is in English.}
+
+\item{downloadFileName}{\code{character}, sets the file name (default: \code{visualization})
+for charts downloaded using the \code{png} or \code{svg} action.}
+
+\item{formatLocale}{\code{list}, sets the default locale definition for number formatting.
+See the \href{https://github.com/d3/d3-format/tree/master/locale}{d3-format locale collection}
+for definition files for a variety of languages. Note that this is a global setting.}
+
+\item{timeFormatLocale}{\code{list}, sets the default locale definition for date/time formatting.
+See the \href{https://github.com/d3/d3-time-format/tree/master/locale}{d3-time-format locale collection}
+for definition files for a variety of languages. Note that this is a global setting.}
 }
 \value{
 \code{list} to to be used with vega-embed JavaScript library

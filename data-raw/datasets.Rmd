@@ -66,7 +66,7 @@ The data are documented in `R/data.R`.
 spec_mtcars <-
   as_vegaspec(
     list(
-      `$schema` = "https://vega.github.io/schema/vega-lite/v3.json",
+      `$schema` = "https://vega.github.io/schema/vega-lite/v4.json",
       width = 300L,
       height = 300L,
       description = "An mtcars example.",

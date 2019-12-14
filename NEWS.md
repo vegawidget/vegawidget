@@ -1,4 +1,6 @@
-# vegawidget 0.2.1 (development version)
+# vegawidget 0.3.0 (development version)
+
+* Upgrade to Vega-Lite 4.0.2, Vega 5.9.0, vega-embed 6.2.0. 
 
 * Update Gapminder app, `vw_shiny_demo("data-set-gapminder")`
 

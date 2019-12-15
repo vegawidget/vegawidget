@@ -28,8 +28,10 @@ spec_histogram <-
 # this will be patched into the compiled Vega specification
 patch <-
   list(
-    signals = list(
-      list(name = "bin_width", value = 0.5)
+    list(
+      path = "/signals",
+      op = "add",
+      value = list(list(name = "bin_width", value = 0.5))
     )
   )
 

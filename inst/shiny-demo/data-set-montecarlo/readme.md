@@ -1,4 +1,4 @@
-This example shows how we can design a chart using Vega-Lite, then use Shiny to run that chart using a dataset that can be updated. 
+This example, based on an [example from Cameron Yick](https://observablehq.com/@hydrosquall/monte-carlo-pi-approximation-explorable-explanation-in-ve), shows how we can design a chart using Vega-Lite, then use Shiny to run that chart using a dataset that can be updated. 
 
 In the server function, we use `vw_shiny_set_data()` to observe the reactive expression `rct_points()`, updating the datasets, then re-running the Vega-Lite chart, whenever `rct_points()` changes.
 

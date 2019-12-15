@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Getting Started • vegawidget</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Getting Started">
 <meta property="og:description" content="">
@@ -32,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.1.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
       </span>
     </div>
 
@@ -100,8 +101,9 @@
 <!--/.navbar -->
 
       
-      </header><script src="vegawidget_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="vegawidget_files/vega-5.4.0/vega.min.js"></script><script src="vegawidget_files/vega-lite-3.3.0/vega-lite.min.js"></script><link href="vegawidget_files/vega-embed-4.2.0/vega-embed.css" rel="stylesheet">
-<script src="vegawidget_files/vega-embed-4.2.0/vega-embed.js"></script><script src="vegawidget_files/vegawidget-binding-0.2.1.9001/vegawidget.js"></script><div class="row">
+
+      </header><script src="vegawidget_files/htmlwidgets-1.5.1/htmlwidgets.js"></script><script src="vegawidget_files/vega-5.9.0/vega.min.js"></script><script src="vegawidget_files/vega-lite-4.0.2/vega-lite.min.js"></script><link href="vegawidget_files/vega-embed-6.2.0/vega-embed.css" rel="stylesheet">
+<script src="vegawidget_files/vega-embed-6.2.0/vega-embed.js"></script><script src="vegawidget_files/vegawidget-binding-0.3.0.9001/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Getting Started</h1>
@@ -116,27 +118,27 @@
     
 <p>For a comprehensive introduction to Vega-Lite, please visit the its <a href="https://vega.github.io/vega-lite">web site</a>. An <a href="https://ijlyttle.shinyapps.io/vegawidget-overview">interactive tutorial</a> to vegawidget is available at shinyapps.io.</p>
 <p>Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build specifications:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"vegawidget"</span>)</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"vegawidget"</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">spec_mtcars &lt;-</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../reference/vega_schema.html">vega_schema</a></span>(), <span class="co"># specifies Vega-Lite</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="dt">description =</span> <span class="st">"An mtcars example."</span>,</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">values =</span> mtcars),</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">values =</span> mtcars),</a>
 <a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="dt">mark =</span> <span class="st">"point"</span>,</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">    <span class="dt">encoding =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">      <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"wt"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">      <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"mpg"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">      <span class="dt">color =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"cyl"</span>, <span class="dt">type =</span> <span class="st">"nominal"</span>)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">    <span class="dt">encoding =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">      <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">field =</span> <span class="st">"wt"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">      <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">field =</span> <span class="st">"mpg"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">      <span class="dt">color =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">field =</span> <span class="st">"cyl"</span>, <span class="dt">type =</span> <span class="st">"nominal"</span>)</a>
 <a class="sourceLine" id="cb1-13" data-line-number="13">    )</a>
 <a class="sourceLine" id="cb1-14" data-line-number="14">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-15" data-line-number="15"><span class="st">  </span><span class="kw"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
 <p>The <code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; many of this package’s functions are built to support, and render, vegaspecs:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">spec_mtcars</a></code></pre></div>
-<div id="htmlwidget-9afa9bf933742fda2c89" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9afa9bf933742fda2c89">{"x":{
+<div id="htmlwidget-acf11358ad0aa3fa1a60" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-acf11358ad0aa3fa1a60">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "description": "An mtcars example.",
     "data": {
       "values": [
@@ -647,6 +649,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -660,17 +663,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

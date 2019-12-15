@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Import into other packages • vegawidget</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="Import into other packages">
 <meta property="og:description" content="">
@@ -32,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.1.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
       </span>
     </div>
 
@@ -100,12 +101,13 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Import into other packages</h1>
             
-            <h4 class="date">2019-06-30</h4>
+            <h4 class="date">2019-12-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/import.Rmd"><code>vignettes/articles/import.Rmd</code></a></small>
       <div class="hidden name"><code>import.Rmd</code></div>
@@ -117,7 +119,7 @@
 <p>The <strong>vegawidget</strong> package is designed to be a low-level interface to the Vega and Vega-Lite visualization frameworks. As such, we hope that the functions provided here can serve as a foundation for other, presumably higher-level, packages. To make it easier for authors of such packages, we offer a function <code><a href="../../reference/use_vegawidget.html">use_vegawidget()</a></code> to help incorporate vegawidget functions.</p>
 <p>You can use <code><a href="../../reference/use_vegawidget.html">use_vegawidget()</a></code> to import and re-export from vegawidget:</p>
 <ul>
-<li>local versions of: <code><a href="../../reference/as_vegaspec.html">as_vegaspec()</a></code>, <code><a href="https://www.rdocumentation.org/packages/base/topics/print">print()</a></code>, <code><a href="https://www.rdocumentation.org/packages/base/topics/format">format()</a></code>, <code>knit_print()</code>
+<li>local versions of: <code><a href="../../reference/as_vegaspec.html">as_vegaspec()</a></code>, <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>, <code><a href="https://rdrr.io/r/base/format.html">format()</a></code>, <code>knit_print()</code>
 </li>
 <li>
 <code><a href="../../reference/vw_as_json.html">vw_as_json()</a></code><br>
@@ -150,9 +152,9 @@
 <p>The rendering part of altair is handled by the vegawidget package. A number of vegawidget functions are imported into altair, then re-exported. From altair’s perspective, this import-export operation is handled by a single vegawidget function: <code><a href="../../reference/use_vegawidget.html">use_vegawidget()</a></code>.</p>
 <div id="inspiration-usethisuse_pipe" class="section level3">
 <h3 class="hasAnchor">
-<a href="#inspiration-usethisuse_pipe" class="anchor"></a>Inspiration: <code><a href="https://usethis.r-lib.org/reference/use_pipe.html">usethis::use_pipe()</a></code>
+<a href="#inspiration-usethisuse_pipe" class="anchor"></a>Inspiration: <code>usethis::use_pipe()</code>
 </h3>
-<p>A lot of packages use the pipe (<code>%&gt;%</code>) function, so much so that the <a href="http://usethis.r-lib.org"><strong>usethis</strong></a> package offers the function <code><a href="https://usethis.r-lib.org/reference/use_pipe.html">usethis::use_pipe()</a></code> for package authors to make the pipe part of their package’s offer:</p>
+<p>A lot of packages use the pipe (<code><a href="../../reference/pipe.html">%&gt;%</a></code>) function, so much so that the <a href="http://usethis.r-lib.org"><strong>usethis</strong></a> package offers the function <code><a href="https://usethis.r-lib.org/reference/use_pipe.html">usethis::use_pipe()</a></code> for package authors to make the pipe part of their package’s offer:</p>
 <ul>
 <li>adds the <strong>magrittr</strong> package to the “Imports” section of the package’s DESCRIPTION file</li>
 <li>creates a new file in the package’s <code>R</code> directory, <code>utils-pipe.R</code>
@@ -166,7 +168,7 @@
 <p>We wish to bring a similar robustness and ease-of-use to package authors who want to incorporate vegawidget. To demonstrate how to do this, we will show the process we use for altair.</p>
 <p>The <code><a href="../../reference/use_vegawidget.html">use_vegawidget()</a></code> function makes a couple of related assumptions about your package. It assumes that your package builds Vega and Vega-Lite specifications, and that the object that you use to contain a specification may be an object with an S3 class. In the case of altair, the name of this S3 class is <code>"altair.vegalite.v3.api.TopLevelMixin"</code>.</p>
 <p>The first step is generic. In your package-project, your R working directory is the package’s root directory. When you run <code><a href="../../reference/use_vegawidget.html">use_vegawidget()</a></code>, you can provide the name of the S3 class. In the case of altair, we run:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">vegawidget<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/vegawidget/topics/use_vegawidget">use_vegawidget</a></span>(<span class="st">"altair.vegalite.v3.api.TopLevelMixin"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">vegawidget<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/vegawidget/man/use_vegawidget.html">use_vegawidget</a></span>(<span class="st">"altair.vegalite.v3.api.TopLevelMixin"</span>)</a></code></pre></div>
 <p>Like the <code><a href="https://usethis.r-lib.org/reference/use_pipe.html">usethis::use_pipe()</a></code> example, this call does two things:</p>
 <ul>
 <li>adds the <strong>vegawidget</strong> package to the “Imports” section of the package’s DESCRIPTION file</li>
@@ -182,14 +184,14 @@
 <a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="co"># e.g.:</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="co"># spec &lt;- spec$to_json()</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">  vegawidget<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(spec, ...)</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">  vegawidget<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/vegawidget/man/as_vegaspec.html">as_vegaspec</a></span>(spec, ...)</a>
 <a class="sourceLine" id="cb2-10" data-line-number="10">}</a></code></pre></div>
 <p>Here, the commented example code is exactly what is needed. The altair “chart” object, <code>altair.vegalite.v3.api.TopLevelMixin</code>, has a method, <code>to_json()</code> to write out the specification to JSON. The vegawidget <code><a href="../../reference/as_vegaspec.html">as_vegaspec()</a></code> generic has a method for JSON-formatted strings (it also has a method for lists). So our “finished” product looks like:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">as_vegaspec.altair.vegalite.v3.api.TopLevelMixin &lt;-<span class="st"> </span><span class="cf">function</span>(spec, ...) {</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">  spec &lt;-<span class="st"> </span>spec<span class="op">$</span><span class="kw">to_json</span>()</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">  vegawidget<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/vegawidget/topics/as_vegaspec">as_vegaspec</a></span>(spec, ...)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  vegawidget<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/vegawidget/man/as_vegaspec.html">as_vegaspec</a></span>(spec, ...)</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6">}</a></code></pre></div>
 <p>At this point, once you document and re-build the package, vegawidget is fully integrated into it.</p>
 </div>
@@ -197,6 +199,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -209,17 +212,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

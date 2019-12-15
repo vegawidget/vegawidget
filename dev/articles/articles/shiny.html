@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Extend using Shiny • vegawidget</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="Extend using Shiny">
 <meta property="og:description" content="">
@@ -32,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.1.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
       </span>
     </div>
 
@@ -100,12 +101,13 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Extend using Shiny</h1>
             
-            <h4 class="date">2019-06-30</h4>
+            <h4 class="date">2019-12-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/shiny.Rmd"><code>vignettes/articles/shiny.Rmd</code></a></small>
       <div class="hidden name"><code>shiny.Rmd</code></div>
@@ -114,7 +116,7 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"vegawidget"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"vegawidget"</span>)</a></code></pre></div>
 <p>The purpose of this article is to show how you can use Shiny to extend Vega’s capabilities. In these examples, we use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view">vega-view</a> API to interact with a Vega chart using Shiny We explore similar ideas in an article on <a href="javascript.html">extending using JavaScript</a>.</p>
 <p>Because this article is an HTML document (as opposed to a Shiny app), we cannot show the app directly in this document. However, this package offers a function <code><a href="../../reference/vw_shiny_demo.html">vw_shiny_demo()</a></code> that, when called without arguments, lists all of the demonstration apps included with this package; to run a particular app, simply use its name as the argument:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../../reference/vw_shiny_demo.html">vw_shiny_demo</a></span>(<span class="st">"data-set-get"</span>)</a></code></pre></div>
@@ -214,7 +216,7 @@
 <li>
 <code>value</code>, we want to set the Vega signal to this value</li>
 </ul>
-<p>Note that we are supplying a reactive expression to the <code>value</code> argument. Internally, <code><a href="../../reference/shiny-setters.html">vw_shiny_set_signal()</a></code> observes this value, then changes the signal in the Vega chart in response to changes in <code>value</code>. Accordingly, you should think of <code><a href="../../reference/shiny-setters.html">vw_shiny_set_signal()</a></code> as equivalent to the <code><a href="https://www.rdocumentation.org/packages/shiny/topics/observeEvent">shiny::observeEvent()</a></code> function.</p>
+<p>Note that we are supplying a reactive expression to the <code>value</code> argument. Internally, <code><a href="../../reference/shiny-setters.html">vw_shiny_set_signal()</a></code> observes this value, then changes the signal in the Vega chart in response to changes in <code>value</code>. Accordingly, you should think of <code><a href="../../reference/shiny-setters.html">vw_shiny_set_signal()</a></code> as equivalent to the <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">shiny::observeEvent()</a></code> function.</p>
 <p>Getting the value of the signal in a Vega chart is very similar to getting the information from an event, as described above.</p>
 <p>The operative function in the <code>server()</code> function is <code><a href="../../reference/shiny-getters.html">vw_shiny_get_signal()</a></code>. Here it is in the context of the app:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># the signal returns the bin-width from the chart</span></a>
@@ -259,7 +261,7 @@
 <li>
 <code>value</code>, we want to set the Vega dataset to this value</li>
 </ul>
-<p>Note that we are supplying a reactive expression to the <code>value</code> argument. Internally, <code><a href="../../reference/shiny-setters.html">vw_shiny_set_data()</a></code> observes this value, then changes the dataset in the Vega chart in response to changes in <code>value</code>. Accordingly, you should think of <code><a href="../../reference/shiny-setters.html">vw_shiny_set_data()</a></code> as equivalent to the <code><a href="https://www.rdocumentation.org/packages/shiny/topics/observeEvent">shiny::observeEvent()</a></code> function.</p>
+<p>Note that we are supplying a reactive expression to the <code>value</code> argument. Internally, <code><a href="../../reference/shiny-setters.html">vw_shiny_set_data()</a></code> observes this value, then changes the dataset in the Vega chart in response to changes in <code>value</code>. Accordingly, you should think of <code><a href="../../reference/shiny-setters.html">vw_shiny_set_data()</a></code> as equivalent to the <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">shiny::observeEvent()</a></code> function.</p>
 <p>To get a reactive copy of a named dataset from Vega, we can use the <code><a href="../../reference/shiny-getters.html">vw_shiny_get_data()</a></code> function. When that named dataset changes in Vega, it will update the reactive returned by this function. In the context of this app:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># returns the dataset in `"chart"` named `"source"`</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2">rct_data_out &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/shiny-getters.html">vw_shiny_get_data</a></span>(<span class="st">"chart"</span>, <span class="dt">name =</span> <span class="st">"source"</span>)</a></code></pre></div>
@@ -268,6 +270,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -282,17 +285,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

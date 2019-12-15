@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -119,17 +119,27 @@
 <li>build re-usable Vega and Vega-Lite specifications for deployment elsewhere, if you can tolerate the frustration of building specifications using lists.</li>
 <li>develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as a foundation (or inspiration).</li>
 </ul>
-<div id="new-in-vegawidget-0-2" class="section level2">
+<div id="features" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-in-vegawidget-0-2" class="anchor"></a>New in vegawidget 0.2</h2>
+<a href="#features" class="anchor"></a>Features</h2>
+<div id="new-to-vegawidget-0-3" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-to-vegawidget-0-3" class="anchor"></a>New to vegawidget 0.3</h3>
 <ul>
-<li><p>vegawidget offers Vega-Lite 3.3.0 and Vega 5.4.0. Consequently, this package works only with browsers that support ES6. This includes all modern browsers and the 1.2 version of the RStudio IDE.</p></li>
+<li>vegawidget offers Vega-Lite 4.0.2 and Vega 5.9.0. Consequently, this package works only with browsers that support ES6. This includes all modern browsers and the 1.2 version of the RStudio IDE.</li>
+</ul>
+</div>
+<div id="new-to-vegawidget-0-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-to-vegawidget-0-2" class="anchor"></a>New to vegawidget 0.2</h3>
+<ul>
 <li>
 <p>When knitting to a non-HTML format, e.g. <code>github_document</code>, this package provides a <code>knit_print()</code> function that will intercept the normal renderer, using instead its own renderer, allowing you to specify <code>"png"</code> , <code>"svg"</code> or <code>"pdf"</code>. It requires that <a href="https://nodejs.org">nodejs</a> be installed on your system, as well as the R packages <a href="https://cran.r-project.org/package=rsvg">rsvg</a> and <a href="https://cran.r-project.org/package=png">png</a>. MacOS users will require an X11 system, such as <a href="https://www.xquartz.org">XQuartz</a>, to be installed.</p>
 <p>For an example, see the GitHub rendering of this <a href="https://github.com/vegawidget/vegawidget/blob/master/README.md">README file</a>. For more details, please see the <a href="https://vegawidget.github.io/vegawidget/articles/articles/render-vegawidget.html#knitting-strategies">Render Using Vegawidget article</a>.</p>
 </li>
 <li><p>For interactive applications, there are now functions to support vega-view’s <a href="https://vega.github.io/vega/docs/api/view/#view_addDataListener"><code>addDataListener()</code></a> function: <a href="https://vegawidget.github.io/vegawidget/reference/add-listeners.html"><code><a href="reference/add-listeners.html">vw_add_data_listener()</a></code></a>, and <a href="https://vegawidget.github.io/vegawidget/reference/shiny-getters.html"><code><a href="reference/shiny-getters.html">vw_shiny_get_data()</a></code></a>.</p></li>
 </ul>
+</div>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">

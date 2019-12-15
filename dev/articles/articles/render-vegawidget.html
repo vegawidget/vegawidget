@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
       
 
       </header><script src="render-vegawidget_files/htmlwidgets-1.5.1/htmlwidgets.js"></script><script src="render-vegawidget_files/vega-5.9.0/vega.min.js"></script><script src="render-vegawidget_files/vega-lite-4.0.2/vega-lite.min.js"></script><link href="render-vegawidget_files/vega-embed-6.2.0/vega-embed.css" rel="stylesheet">
-<script src="render-vegawidget_files/vega-embed-6.2.0/vega-embed.js"></script><script src="render-vegawidget_files/vegawidget-binding-0.3.0.9001/vegawidget.js"></script><div class="row">
+<script src="render-vegawidget_files/vega-embed-6.2.0/vega-embed.js"></script><script src="render-vegawidget_files/vegawidget-binding-0.3.0.9002/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Render using vegawidget</h1>
@@ -144,8 +144,8 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"vegawidget"</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">spec_mtcars </a></code></pre></div>
-<div id="htmlwidget-3927ebeba8b3f3385cc6" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3927ebeba8b3f3385cc6">{"x":{
+<div id="htmlwidget-02ccd631cc1aa46d17a4" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-02ccd631cc1aa46d17a4">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -634,8 +634,8 @@
 </ul>
 <p>For example, you can change the renderer to SVG:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">embed =</span> <span class="kw"><a href="../../reference/vega_embed.html">vega_embed</a></span>(<span class="dt">renderer =</span> <span class="st">"svg"</span>))</a></code></pre></div>
-<div id="htmlwidget-96eaf8a49fc19a8f0abd" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-96eaf8a49fc19a8f0abd">{"x":{
+<div id="htmlwidget-bdbeb9de727ac1e12f3f" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bdbeb9de727ac1e12f3f">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -1115,8 +1115,8 @@
   }
 },"evals":[],"jsHooks":[]}</script><p>You can remove the actions “bug” that is otherwise placed at the top-right of the chart:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">embed =</span> <span class="kw"><a href="../../reference/vega_embed.html">vega_embed</a></span>(<span class="dt">actions =</span> <span class="ot">FALSE</span>))</a></code></pre></div>
-<div id="htmlwidget-57ccb11ffa21675fe9db" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-57ccb11ffa21675fe9db">{"x":{
+<div id="htmlwidget-7233ec99180fc875f774" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7233ec99180fc875f774">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -1597,8 +1597,8 @@
   }
 },"evals":[],"jsHooks":[]}</script><p>The arguments <code>width</code> and <code>height</code> in <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> are used to autosize the <code>spec</code> before rendering, using <code><a href="../../reference/vw_autosize.html">vw_autosize()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars, <span class="dt">width =</span> <span class="dv">300</span>, <span class="dt">height =</span> <span class="dv">300</span>)</a></code></pre></div>
-<div id="htmlwidget-b10e3b4c14935e18c3fa" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b10e3b4c14935e18c3fa">{"x":{
+<div id="htmlwidget-343c513134d8b8e68218" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-343c513134d8b8e68218">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -2107,8 +2107,8 @@
 <p>Using a local path will not work properly in this article because you do not have the same path on your computer. Local paths should be used only for local work; this is a variation on Jenny Bryan’s famous <a href="https://twitter.com/hadleywickham/status/940021008764846080">safety-tip</a>.</p>
 <p>If you are sharing your work, using a remote URL will be more robust, but requires that the data be publicly accessible.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(spec_precip, <span class="dt">base_url =</span> url_remote)</a></code></pre></div>
-<div id="htmlwidget-11d4ca41b96d8844333b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-11d4ca41b96d8844333b">{"x":{
+<div id="htmlwidget-f3faf9bc1e63bb19021f" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f3faf9bc1e63bb19021f">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "data": {
@@ -2139,8 +2139,8 @@
 <pre><code>```{r vega.embed=vegawidget::vega_embed(actions = FALSE)}
 spec_mtcars
 ```</code></pre>
-<div id="htmlwidget-ee3743702d5b0c792943" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ee3743702d5b0c792943">{"x":{
+<div id="htmlwidget-639025f6747dff79a84f" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-639025f6747dff79a84f">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -2622,8 +2622,8 @@ spec_mtcars
 },"evals":[],"jsHooks":[]}</script><pre><code>```{r vega.width=300, vega.height=300}
 spec_mtcars
 ```</code></pre>
-<div id="htmlwidget-b4a74fadd0715f6bfab1" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b4a74fadd0715f6bfab1">{"x":{
+<div id="htmlwidget-e2452939b5a17f8459a1" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e2452939b5a17f8459a1">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -3124,8 +3124,8 @@ spec_mtcars
 <a class="sourceLine" id="cb11-3" data-line-number="3">  <span class="dt">new =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">vega.width =</span> <span class="dv">300</span>, <span class="dt">vega.height =</span> <span class="dv">300</span>),</a>
 <a class="sourceLine" id="cb11-4" data-line-number="4">  <span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars)</a>
 <a class="sourceLine" id="cb11-5" data-line-number="5">)</a></code></pre></div>
-<div id="htmlwidget-4ff8c552786302c916e3" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4ff8c552786302c916e3">{"x":{
+<div id="htmlwidget-4055ed33ac9adbebe90b" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4055ed33ac9adbebe90b">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,

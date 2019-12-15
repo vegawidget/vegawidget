@@ -34,11 +34,15 @@ useful to:
     of plots, or even to build a general ggplot2-like framework, using
     this package as a foundation (or inspiration).
 
-## New in vegawidget 0.2
+## Features
 
-  - vegawidget offers Vega-Lite 3.3.0 and Vega 5.4.0. Consequently, this
+### New to vegawidget 0.3
+
+  - vegawidget offers Vega-Lite 4.0.2 and Vega 5.9.0. Consequently, this
     package works only with browsers that support ES6. This includes all
     modern browsers and the 1.2 version of the RStudio IDE.
+
+### New to vegawidget 0.2
 
   - When knitting to a non-HTML format, e.g. `github_document`, this
     package provides a `knit_print()` function that will intercept the

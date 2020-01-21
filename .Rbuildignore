@@ -8,6 +8,7 @@
 ^docs$
 ^inst/tutorials/.*/.*\.html$
 ^inst/tutorials/.*/rsconnect/*$
+^inst/shiny-demo/.*/rsconnect/*$
 ^inst/shiny-demo/.*.dcf$
 ^pkgdown$
 ^\.V8history$

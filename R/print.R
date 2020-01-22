@@ -81,10 +81,8 @@ knit_print.vegaspec <- function(spec, ..., options = NULL){
   width <- to_int(options$vega.width)
   height <- to_int(options$vega.height)
 
-  fmt <- knitr::opts_knit$get("rmarkdown.pandoc.to")
-
   # if this goes to HTML, print and be done!
-  if (knitr::is_html_output(fmt)) {
+  if (knitr::is_html_output(excludes = c("markdown", "epub", "gfm"))) {
     return(
       knitr::knit_print(
         vegawidget(spec, embed = embed, width = width, height = height)

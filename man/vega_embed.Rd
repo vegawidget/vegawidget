@@ -4,13 +4,30 @@
 \alias{vega_embed}
 \title{Vega embed options}
 \usage{
-vega_embed(renderer = c("canvas", "svg"), actions = NULL,
-  defaultStyle = TRUE, mode = NULL, theme = NULL, logLevel = NULL,
-  tooltip = NULL, loader = NULL, patch = NULL, width = NULL,
-  height = NULL, padding = NULL, scaleFactor = NULL, config = NULL,
-  editorUrl = NULL, sourceHeader = NULL, sourceFooter = NULL,
-  hover = NULL, i18n = NULL, downloadFileName = NULL,
-  formatLocale = NULL, timeFormatLocale = NULL)
+vega_embed(
+  renderer = c("canvas", "svg"),
+  actions = NULL,
+  defaultStyle = TRUE,
+  mode = NULL,
+  theme = NULL,
+  logLevel = NULL,
+  tooltip = NULL,
+  loader = NULL,
+  patch = NULL,
+  width = NULL,
+  height = NULL,
+  padding = NULL,
+  scaleFactor = NULL,
+  config = NULL,
+  editorUrl = NULL,
+  sourceHeader = NULL,
+  sourceFooter = NULL,
+  hover = NULL,
+  i18n = NULL,
+  downloadFileName = NULL,
+  formatLocale = NULL,
+  timeFormatLocale = NULL
+)
 }
 \arguments{
 \item{renderer}{\code{character} the renderer to use for the view.
@@ -35,7 +52,7 @@ have two links – "View Source" and "Open in Vega Editor".}
 default stylesheet for embed actions}
 
 \item{mode}{\code{character} if specified, tells Vega-Embed to parse the spec
-as vega or vega-lite. Vega-Embed will parse the \code{$schema} url if the mode
+as vega or vega-lite. Vega-Embed will parse the \verb{$schema} url if the mode
 is not specified. Vega-Embed will default to vega if neither mode,
 nor $schema are specified.}
 

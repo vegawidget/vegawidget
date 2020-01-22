@@ -44,7 +44,7 @@ to re-export.
 }
 
 If you have your own S3 class for a spec, specify the \code{s3_class_name}
-argument. You will have to edit \code{R/utils-vegawidget-<s3_class_name>.R}:
+argument. You will have to edit \verb{R/utils-vegawidget-<s3_class_name>.R}:
 \itemize{
 \item add the code within your class's method for
 to coerce your object to a \code{vegaspec}.

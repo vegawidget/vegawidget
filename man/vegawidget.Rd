@@ -4,8 +4,15 @@
 \alias{vegawidget}
 \title{Create a Vega/Vega-Lite htmlwidget}
 \usage{
-vegawidget(spec, embed = NULL, width = NULL, height = NULL,
-  elementId = NULL, base_url = NULL, ...)
+vegawidget(
+  spec,
+  embed = NULL,
+  width = NULL,
+  height = NULL,
+  elementId = NULL,
+  base_url = NULL,
+  ...
+)
 }
 \arguments{
 \item{spec}{An object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}

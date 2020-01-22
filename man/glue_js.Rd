@@ -25,7 +25,7 @@ intended to be interpreted as JS.
 \details{
 This is a wrapper to \code{\link[glue:glue]{glue::glue()}}, but it uses the notation used by
 \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals}{JavaScript's template-literals},
-\code{${}}.
+\verb{$\{\}}.
 }
 \examples{
   x <- 123

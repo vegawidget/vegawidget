@@ -4,9 +4,15 @@
 \alias{vw_examine}
 \title{Examine vegaspec}
 \usage{
-vw_examine(spec, mode = "view", modes = c("view", "code", "form",
-  "text", "tree"), ..., width = NULL, height = NULL,
-  elementId = NULL)
+vw_examine(
+  spec,
+  mode = "view",
+  modes = c("view", "code", "form", "text", "tree"),
+  ...,
+  width = NULL,
+  height = NULL,
+  elementId = NULL
+)
 }
 \arguments{
 \item{spec}{An object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}

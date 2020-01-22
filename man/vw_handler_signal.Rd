@@ -42,7 +42,7 @@ With a JavaScript handler, you are trying to do two types of things:
 }
 
 Let's look at a concrete example.
-A \href{https://vega.github.io/vega/docs/api/view#view_addSignalListener}{signal handler}
+A \href{https://vega.github.io/vega/docs/api/view#view_addSignalListener}{\emph{signal} handler}
 will take arguments \code{name} and \code{value}. Let's say that we want to
 return the value. We could do this two ways:
 \itemize{

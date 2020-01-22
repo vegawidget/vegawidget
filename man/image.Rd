@@ -8,8 +8,7 @@
 \alias{vw_write_png}
 \title{Create or write image}
 \usage{
-vw_to_svg(spec, width = NULL, height = NULL, base_url = NULL,
-  seed = NULL)
+vw_to_svg(spec, width = NULL, height = NULL, base_url = NULL, seed = NULL)
 
 vw_to_bitmap(spec, scale = 1, width = NULL, height = NULL, ...)
 

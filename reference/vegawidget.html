@@ -8,21 +8,25 @@
 
 <title>Create a Vega/Vega-Lite htmlwidget — vegawidget • vegawidget</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,12 +36,13 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Create a Vega/Vega-Lite htmlwidget — vegawidget" />
 
+<meta property="og:title" content="Create a Vega/Vega-Lite htmlwidget — vegawidget" />
 <meta property="og:description" content="The main use of this package is to render a vegawidget,
 which is also an htmlwidget. This function builds a vegawidget
 using a vegaspec." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,6 +54,7 @@ using a vegaspec." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -67,7 +73,7 @@ using a vegaspec." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -119,7 +125,6 @@ using a vegaspec." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/vegawidget/vegawidget">
@@ -134,6 +139,7 @@ using a vegaspec." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -145,16 +151,21 @@ using a vegaspec." />
     </div>
 
     <div class="ref-description">
-    
     <p>The main use of this package is to render a <code>vegawidget</code>,
 which is also an <code>htmlwidget</code>. This function builds a <code>vegawidget</code>
 using a <code>vegaspec</code>.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>vegawidget</span>(<span class='no'>spec</span>, <span class='kw'>embed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>vegawidget</span>(
+  <span class='no'>spec</span>,
+  <span class='kw'>embed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -197,26 +208,27 @@ using <code><a href='vega_embed.html'>vega_embed()</a></code>. See examples.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed to <code><a href='https://www.rdocumentation.org/packages/htmlwidgets/topics/createWidget'>htmlwidgets::createWidget()</a></code></p></td>
+      <td><p>other arguments passed to <code><a href='https://rdrr.io/pkg/htmlwidgets/man/createWidget.html'>htmlwidgets::createWidget()</a></code></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>S3 object of class <code>vegawidget</code> and <code>htmlwidget</code></p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>If <code>embed</code> is <code>NULL</code>, <code>vegawidget()</code> uses:</p><ul>
-<li><p><code><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption("vega.embed")</a></code>, if that is NULL:</p></li>
+<li><p><code><a href='https://rdrr.io/r/base/options.html'>getOption("vega.embed")</a></code>, if that is NULL:</p></li>
 <li><p>an empty call to <code><a href='vega_embed.html'>vega_embed()</a></code></p></li>
 </ul>
-    <p>The most-important arguments to <code><a href='vega_embed.html'>vega_embed()</a></code> are:</p><ul>
+
+<p>The most-important arguments to <code><a href='vega_embed.html'>vega_embed()</a></code> are:</p><ul>
 <li><p><code>renderer</code>, to specify <code>"canvas"</code> (default) or <code>"svg"</code></p></li>
 <li><p><code>actions</code>,  to specify action-links
 for <code>export</code>, <code>source</code>, <code>compiled</code>, and <code>editor</code></p></li>
 </ul>
-    <p>If either <code>width</code> or <code>height</code> is specified, the <code>autosize()</code> function
+
+<p>If either <code>width</code> or <code>height</code> is specified, the <code>autosize()</code> function
 is used to override the width and height of the <code>spec</code>. There are some
 important provisions:</p><ul>
 <li><p>Specifying <code>width</code> and <code>height</code> is
@@ -228,37 +240,38 @@ is to describe the dimensions of the
 etc. Here, <code>width</code> and <code>height</code> describe the dimensions
 of the <strong>entire</strong> rendered chart, including axes, labels, etc.</p></li>
 </ul>
-    <p>Please note that if you are using a remote URL to refer to a dataset in
+
+<p>Please note that if you are using a remote URL to refer to a dataset in
 your vegaspec, it will may not render properly in the RStudio IDE,
 due to a security policy set by RStudio. If you open the chart in a
 browser, it should render properly.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://github.com/vega/vega-embed#options'>vega-embed options</a>,
 <code><a href='vega_embed.html'>vega_embed()</a></code>, <code><a href='vw_autosize.html'>vw_autosize()</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>  <span class='fu'>vegawidget</span>(<span class='no'>spec_mtcars</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>350</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>350</span>)
 
   <span class='co'># vegaspec with a data URL</span>
   <span class='no'>spec_precip</span> <span class='kw'>&lt;-</span>
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
+    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
       <span class='kw'>`$schema`</span> <span class='kw'>=</span> <span class='fu'><a href='vega_schema.html'>vega_schema</a></span>(),
-      <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"seattle-weather.csv"</span>),
+      <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"seattle-weather.csv"</span>),
       <span class='kw'>mark</span> <span class='kw'>=</span> <span class='st'>"tick"</span>,
-      <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
-        <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>field</span> <span class='kw'>=</span> <span class='st'>"precipitation"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"quantitative"</span>)
+      <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+        <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>field</span> <span class='kw'>=</span> <span class='st'>"precipitation"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"quantitative"</span>)
       )
     ) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='as_vegaspec.html'>as_vegaspec</a></span>()
 
   <span class='co'># define local path to file</span>
-  <span class='no'>path_local</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"example-data"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"vegawidget"</span>)
+  <span class='no'>path_local</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"example-data"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"vegawidget"</span>)
 
   <span class='co'># render using local path</span>
-  <span class='fu'>vegawidget</span>(<span class='no'>spec_precip</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='no'>path_local</span>)</div><span class='co'># NOT RUN {</span>
+  <span class='fu'>vegawidget</span>(<span class='no'>spec_precip</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='no'>path_local</span>)
+
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
   <span class='co'># requires network-access</span>
 
   <span class='co'># define remote path to file</span>
@@ -267,24 +280,21 @@ browser, it should render properly.</p>
   <span class='co'># render using remote path</span>
   <span class='co'># note: does not render in RStudio IDE; open using browser</span>
   <span class='fu'>vegawidget</span>(<span class='no'>spec_precip</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='no'>url_remote</span>)
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -292,13 +302,16 @@ browser, it should render properly.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

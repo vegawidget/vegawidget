@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Work with dates and times • vegawidget</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="Work with dates and times">
 <meta property="og:description" content="">
@@ -31,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -99,13 +100,14 @@
 <!--/.navbar -->
 
       
-      </header><script src="dates-times_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="dates-times_files/vega-5.4.0/vega.min.js"></script><script src="dates-times_files/vega-lite-3.3.0/vega-lite.min.js"></script><link href="dates-times_files/vega-embed-4.2.0/vega-embed.css" rel="stylesheet">
-<script src="dates-times_files/vega-embed-4.2.0/vega-embed.js"></script><script src="dates-times_files/vegawidget-binding-0.2.1/vegawidget.js"></script><div class="row">
+
+      </header><script src="dates-times_files/htmlwidgets-1.5.1/htmlwidgets.js"></script><script src="dates-times_files/vega-5.9.0/vega.min.js"></script><script src="dates-times_files/vega-lite-4.0.2/vega-lite.min.js"></script><link href="dates-times_files/vega-embed-6.2.0/vega-embed.css" rel="stylesheet">
+<script src="dates-times_files/vega-embed-6.2.0/vega-embed.js"></script><script src="dates-times_files/vegawidget-binding-0.3.1/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Work with dates and times</h1>
             
-            <h4 class="date">2019-06-24</h4>
+            <h4 class="date">2020-01-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/dates-times.Rmd"><code>vignettes/articles/dates-times.Rmd</code></a></small>
       <div class="hidden name"><code>dates-times.Rmd</code></div>
@@ -114,11 +116,11 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"vegawidget"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"conflicted"</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"lubridate"</span>)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"readr"</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"dplyr"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"vegawidget"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"conflicted"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"lubridate"</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"readr"</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"dplyr"</span>)</a></code></pre></div>
 <p>Dates and times can be tricky, even within the familiar confines of R. Vega and Vega-Lite are run in JavaScript, which has its own philosophy for dates and times. In R, we have access to the entire time-zone database; in JavaScript, using the <code>Date</code> object, there are only <em>two</em> time zones available: the local time zone used by the client browser and UTC.</p>
 <p>If you are working with time-based data, this mismatch of capabilities introduces a lot of “opportunities” to create Vega(-Lite) visualizations that do not behave as intended. The purposes of this article are</p>
 <ul>
@@ -141,8 +143,8 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(data_seattle_hourly)</a></code></pre></div>
 <pre><code>## Observations: 8,759
 ## Variables: 2
-## $ date &lt;dttm&gt; 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:00…
-## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2,…</code></pre>
+## $ date &lt;dttm&gt; 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:00:00, …
+## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2, 40.1…</code></pre>
 <p>This dataset contains hourly observations of Seattle temperature (°F) for the year 2010. Let’s inspect the time zone of the <code>date</code> variable:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="http://lubridate.tidyverse.org/reference/tz.html">tz</a></span>(data_seattle_hourly<span class="op">$</span>date)</a></code></pre></div>
 <pre><code>## [1] "America/Los_Angeles"</code></pre>
@@ -155,35 +157,35 @@
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
 <pre><code>## Observations: 24
 ## Variables: 2
-## $ date &lt;dttm&gt; 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:00…
-## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2,…</code></pre>
+## $ date &lt;dttm&gt; 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:00:00, …
+## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2, 40.1…</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">spec_local &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../../reference/vega_schema.html">vega_schema</a></span>(),</a>
 <a class="sourceLine" id="cb8-4" data-line-number="4">    <span class="dt">width =</span> <span class="dv">600</span>,</a>
 <a class="sourceLine" id="cb8-5" data-line-number="5">    <span class="dt">height =</span> <span class="dv">75</span>,</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">values =</span> data_seattle_hourly_short),</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">values =</span> data_seattle_hourly_short),</a>
 <a class="sourceLine" id="cb8-7" data-line-number="7">    <span class="dt">mark =</span> <span class="st">"line"</span>,</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">    <span class="dt">encoding =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">      <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">    <span class="dt">encoding =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">      <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb8-10" data-line-number="10">        <span class="dt">field =</span> <span class="st">"date"</span>, </a>
 <a class="sourceLine" id="cb8-11" data-line-number="11">        <span class="dt">type =</span> <span class="st">"temporal"</span>,</a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">        <span class="dt">axis =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">format =</span> <span class="st">"%H:%M"</span>)</a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">        <span class="dt">axis =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">format =</span> <span class="st">"%H:%M"</span>)</a>
 <a class="sourceLine" id="cb8-13" data-line-number="13">      ),</a>
-<a class="sourceLine" id="cb8-14" data-line-number="14">      <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb8-14" data-line-number="14">      <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb8-15" data-line-number="15">        <span class="dt">field =</span> <span class="st">"temp"</span>, </a>
 <a class="sourceLine" id="cb8-16" data-line-number="16">        <span class="dt">type =</span> <span class="st">"quantitative"</span>, </a>
-<a class="sourceLine" id="cb8-17" data-line-number="17">        <span class="dt">scale =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">zero =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb8-17" data-line-number="17">        <span class="dt">scale =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">zero =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb8-18" data-line-number="18">      )</a>
 <a class="sourceLine" id="cb8-19" data-line-number="19">    )</a>
 <a class="sourceLine" id="cb8-20" data-line-number="20">  ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb8-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb8-22" data-line-number="22"></a>
 <a class="sourceLine" id="cb8-23" data-line-number="23">spec_local</a></code></pre></div>
-<div id="htmlwidget-304c54b3fb4a85eb09fb" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-304c54b3fb4a85eb09fb">{"x":{
+<div id="htmlwidget-763de43b60b7f2c8af4a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-763de43b60b7f2c8af4a">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
     "height": 75,
     "data": {
@@ -310,7 +312,7 @@
   }
 },"evals":[],"jsHooks":[]}</script><p>Our goal is to show the times in the chart using the local time-zone; in this case, we have succeeded. Good news, but let’s have a closer look at what’s going on.</p>
 <p>Here are the first couple of observations in the data frame, rendered as JSON (using the same settings for datetimes as we use when render the entire vegaspec to JSON):</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">data_seattle_hourly_short <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>jsonlite<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/jsonlite/topics/fromJSON">toJSON</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">data_seattle_hourly_short <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">toJSON</a></span>()</a></code></pre></div>
 <pre><code>## [{"date":"2010-01-01 00:00:00","temp":39.4},{"date":"2010-01-01 01:00:00","temp":39.2}]</code></pre>
 <p>We see that date-times are <em>not</em> formatted using ISO-8601 formatting - the times are serialized to JSON using the local context. When Vega-Lite <a href="https://vega.github.io/vega-lite/docs/timeunit.html#utc">parses this data</a>, it recognizes that this is a datetime and that the format is <em>not</em> ISO-8601. As such, these times will be parsed, interpreted, and displayed as local times:</p>
 <blockquote>
@@ -332,8 +334,8 @@
 <a class="sourceLine" id="cb11-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
 <pre><code>## Observations: 24
 ## Variables: 2
-## $ date &lt;chr&gt; "2010-01-01T08:00:00.000Z", "2010-01-01T09:00:00.000Z", "20…
-## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2,…</code></pre>
+## $ date &lt;chr&gt; "2010-01-01T08:00:00.000Z", "2010-01-01T09:00:00.000Z", "2010-01…
+## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2, 40.1…</code></pre>
 <p>You can see that we have changed the <code>date</code> variable from a datetime to a character string. Its values show <code>date</code>:</p>
 <ul>
 <li>in the ISO-8601 format (according to the <code>iso_dttm</code> argument).</li>
@@ -346,10 +348,10 @@
 <a class="sourceLine" id="cb13-3" data-line-number="3">spec_iso_local<span class="op">$</span>data<span class="op">$</span>values &lt;-<span class="st"> </span>data_seattle_hourly_short_iso</a>
 <a class="sourceLine" id="cb13-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">spec_iso_local</a></code></pre></div>
-<div id="htmlwidget-6d51689e7b497a580cea" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6d51689e7b497a580cea">{"x":{
+<div id="htmlwidget-8b75ff669d20108f2798" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8b75ff669d20108f2798">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
     "height": 75,
     "data": {
@@ -478,13 +480,13 @@
 <p>As noted above, the JavaScript <code>Date</code> object knows two time-zones: the browser’s and UTC. Our other option is to direct Vega-Lite to <a href="https://vega.github.io/vega-lite/docs/timeunit.html#output">display the time as UTC</a>:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">spec_iso_utc &lt;-<span class="st"> </span>spec_iso_local</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">spec_iso_utc<span class="op">$</span>encoding<span class="op">$</span>x<span class="op">$</span>scale &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>) </a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">spec_iso_utc<span class="op">$</span>encoding<span class="op">$</span>x<span class="op">$</span>scale &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>) </a>
 <a class="sourceLine" id="cb14-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb14-5" data-line-number="5">spec_iso_utc</a></code></pre></div>
-<div id="htmlwidget-354fe3b17afa041e1f78" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-354fe3b17afa041e1f78">{"x":{
+<div id="htmlwidget-b37557cd876750ab1d34" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b37557cd876750ab1d34">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
     "height": 75,
     "data": {
@@ -639,66 +641,66 @@
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(data_seattle_daily)</a></code></pre></div>
 <pre><code>## Observations: 1,461
 ## Variables: 6
-## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04, 2…
-## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0…
-## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, …
-## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, …
-## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, …
-## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain",…</code></pre>
+## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04, 2012-0…
+## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0, 0.0…
+## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, 6.1, …
+## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, -1.1,…
+## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, 5.1, …
+## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain", "rai…</code></pre>
 <p>The default JSON-serializer for dates uses the ISO-8601 format for dates. If we wanted to use a non-ISO-8601 format, we could use <code><a href="../../reference/vw_serialize_data.html">vw_serialize_data()</a></code> using <code>iso_date = FALSE</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">data_seattle_daily <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../../reference/vw_serialize_data.html">vw_serialize_data</a></span>(<span class="dt">iso_date =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
 <pre><code>## Observations: 1,461
 ## Variables: 6
-## $ date          &lt;chr&gt; "2012/01/01", "2012/01/02", "2012/01/03", "2012/01…
-## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0…
-## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, …
-## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, …
-## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, …
-## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain",…</code></pre>
+## $ date          &lt;chr&gt; "2012/01/01", "2012/01/02", "2012/01/03", "2012/01/04",…
+## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0, 0.0…
+## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, 6.1, …
+## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, -1.1,…
+## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, 5.1, …
+## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain", "rai…</code></pre>
 <p>For the purpose of making some examples of how to work with UTC dates, let’s filter the original dataset, with ISO-8601 formatting, keeping the first month:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">data_seattle_daily_short &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span>data_seattle_daily <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span>(date, <span class="st">"month"</span>) <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.Date">as.Date</a></span>(<span class="st">"2012-01-01"</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span>(date, <span class="st">"month"</span>) <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span>(<span class="st">"2012-01-01"</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
 <pre><code>## Observations: 31
 ## Variables: 6
-## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04, 2…
-## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0…
-## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, …
-## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, …
-## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, …
-## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain",…</code></pre>
+## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04, 2012-0…
+## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0, 0.0…
+## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, 6.1, …
+## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, -1.1,…
+## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, 5.1, …
+## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain", "rai…</code></pre>
 <p>Let’s look at a line-plot of the daily maximum-temperatures:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">spec_tempmax_local &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb21-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../../reference/vega_schema.html">vega_schema</a></span>(),</a>
 <a class="sourceLine" id="cb21-4" data-line-number="4">    <span class="dt">width =</span> <span class="dv">600</span>,</a>
 <a class="sourceLine" id="cb21-5" data-line-number="5">    <span class="dt">height =</span> <span class="dv">75</span>,</a>
-<a class="sourceLine" id="cb21-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">values =</span> data_seattle_daily_short),</a>
+<a class="sourceLine" id="cb21-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">values =</span> data_seattle_daily_short),</a>
 <a class="sourceLine" id="cb21-7" data-line-number="7">    <span class="dt">mark =</span> <span class="st">"line"</span>,</a>
-<a class="sourceLine" id="cb21-8" data-line-number="8">    <span class="dt">encoding =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb21-9" data-line-number="9">      <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb21-8" data-line-number="8">    <span class="dt">encoding =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb21-9" data-line-number="9">      <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb21-10" data-line-number="10">        <span class="dt">field =</span> <span class="st">"date"</span>,</a>
 <a class="sourceLine" id="cb21-11" data-line-number="11">        <span class="dt">type =</span> <span class="st">"temporal"</span></a>
 <a class="sourceLine" id="cb21-12" data-line-number="12">      ),</a>
-<a class="sourceLine" id="cb21-13" data-line-number="13">      <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb21-13" data-line-number="13">      <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb21-14" data-line-number="14">        <span class="dt">field =</span> <span class="st">"temp_max"</span>,</a>
 <a class="sourceLine" id="cb21-15" data-line-number="15">        <span class="dt">type =</span> <span class="st">"quantitative"</span></a>
 <a class="sourceLine" id="cb21-16" data-line-number="16">      ),</a>
-<a class="sourceLine" id="cb21-17" data-line-number="17">      <span class="dt">tooltip =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb21-18" data-line-number="18">        <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span>)</a>
+<a class="sourceLine" id="cb21-17" data-line-number="17">      <span class="dt">tooltip =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb21-18" data-line-number="18">        <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span>)</a>
 <a class="sourceLine" id="cb21-19" data-line-number="19">      )</a>
 <a class="sourceLine" id="cb21-20" data-line-number="20">    )</a>
 <a class="sourceLine" id="cb21-21" data-line-number="21">  ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb21-22" data-line-number="22"><span class="st">  </span><span class="kw"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb21-23" data-line-number="23"></a>
 <a class="sourceLine" id="cb21-24" data-line-number="24">spec_tempmax_local</a></code></pre></div>
-<div id="htmlwidget-20952102a8b1077eef86" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-20952102a8b1077eef86">{"x":{
+<div id="htmlwidget-18515048f00e9231f8dd" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-18515048f00e9231f8dd">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
     "height": 75,
     "data": {
@@ -980,14 +982,14 @@
 <p>In this situation, we wish to keep the UTC interpretation throughout the visualization. We can do this by using a UTC scale-specification for the x-axis (and the tooltip):</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">spec_tempmax_utc &lt;-<span class="st"> </span>spec_tempmax_local</a>
 <a class="sourceLine" id="cb22-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb22-3" data-line-number="3">spec_tempmax_utc<span class="op">$</span>encoding<span class="op">$</span>x<span class="op">$</span>scale &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>)</a>
-<a class="sourceLine" id="cb22-4" data-line-number="4">spec_tempmax_utc<span class="op">$</span>encoding<span class="op">$</span>tooltip[[<span class="dv">1</span>]]<span class="op">$</span>scale &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>)</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">spec_tempmax_utc<span class="op">$</span>encoding<span class="op">$</span>x<span class="op">$</span>scale &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>)</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">spec_tempmax_utc<span class="op">$</span>encoding<span class="op">$</span>tooltip[[<span class="dv">1</span>]]<span class="op">$</span>scale &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>)</a>
 <a class="sourceLine" id="cb22-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb22-6" data-line-number="6">spec_tempmax_utc</a></code></pre></div>
-<div id="htmlwidget-6bcce5e6337cd922101a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6bcce5e6337cd922101a">{"x":{
+<div id="htmlwidget-eca099d799a3387351f4" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-eca099d799a3387351f4">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
     "height": 75,
     "data": {
@@ -1314,10 +1316,10 @@ Jan-01-2001 19:34:05
 <h4 class="hasAnchor">
 <a href="#scales" class="anchor"></a>Scales</h4>
 <p>In Vega-Lite, displaying temporal-values on a scale is separate from parsing temporal-values. Regardless of the parsing behavior, Vega-Lite’s default temporal-scale uses the browser’s local time-zone. You can specify a scale in an encoding, for example:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb25-2" data-line-number="2">  ...,</a>
-<a class="sourceLine" id="cb25-3" data-line-number="3">  <span class="dt">encoding =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb25-4" data-line-number="4">    <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">scale =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>)),</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">  <span class="dt">encoding =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">    <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"temporal"</span>, <span class="dt">scale =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>)),</a>
 <a class="sourceLine" id="cb25-5" data-line-number="5">    ...</a>
 <a class="sourceLine" id="cb25-6" data-line-number="6">  ),</a>
 <a class="sourceLine" id="cb25-7" data-line-number="7">  ...</a>
@@ -1334,7 +1336,7 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb26-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb26-3" data-line-number="3">url_seattle_daily <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb26-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://readr.tidyverse.org/reference/read_lines.html">read_lines</a></span>(<span class="dt">n_max =</span> <span class="dv">6</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>()</a></code></pre></div>
 <pre><code>## [1] "date,precipitation,temp_max,temp_min,wind,weather"
 ## [2] "2012/01/01,0.0,12.8,5.0,4.7,drizzle"              
 ## [3] "2012/01/02,10.9,10.6,2.8,4.5,rain"                
@@ -1349,47 +1351,47 @@ Jan-01-2001 19:34:05
 <p>To be clear, you could prepare such variables in a pre-processing step, creating new variables in R, using <strong>dplyr</strong> and <strong>lubridate</strong>. You can also do this in Vega-Lite, using <strong>time unit</strong>, a transformation mechanism for temporal values.</p>
 <p>Let’s start specification for a time-based scatterplot for the daily maximum-temperature, showing every observation in the dataset. For purposes of illustrating how to work with UTC values, we parse the dates as UTC. In the vegaspec below, note the <code>format</code> entry: <code>parse = list(date = "utc:'%Y/%m/%d'")</code>:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">spec_daily &lt;-</a>
-<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb28-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../../reference/vega_schema.html">vega_schema</a></span>(),</a>
 <a class="sourceLine" id="cb28-4" data-line-number="4">    <span class="dt">width =</span> <span class="dv">600</span>,</a>
 <a class="sourceLine" id="cb28-5" data-line-number="5">    <span class="dt">height =</span> <span class="dv">200</span>,</a>
-<a class="sourceLine" id="cb28-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb28-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb28-7" data-line-number="7">      <span class="dt">url =</span> url_seattle_daily,</a>
-<a class="sourceLine" id="cb28-8" data-line-number="8">      <span class="dt">format =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb28-9" data-line-number="9">        <span class="dt">parse =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">date =</span> <span class="st">"utc:'%Y/%m/%d'"</span>)</a>
+<a class="sourceLine" id="cb28-8" data-line-number="8">      <span class="dt">format =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb28-9" data-line-number="9">        <span class="dt">parse =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">date =</span> <span class="st">"utc:'%Y/%m/%d'"</span>)</a>
 <a class="sourceLine" id="cb28-10" data-line-number="10">      )</a>
 <a class="sourceLine" id="cb28-11" data-line-number="11">    ),</a>
 <a class="sourceLine" id="cb28-12" data-line-number="12">    <span class="dt">mark =</span> <span class="st">"point"</span>,</a>
-<a class="sourceLine" id="cb28-13" data-line-number="13">    <span class="dt">encoding =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb28-14" data-line-number="14">      <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb28-13" data-line-number="13">    <span class="dt">encoding =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb28-14" data-line-number="14">      <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb28-15" data-line-number="15">        <span class="dt">field =</span> <span class="st">"date"</span>,</a>
 <a class="sourceLine" id="cb28-16" data-line-number="16">        <span class="dt">type =</span> <span class="st">"temporal"</span>,</a>
-<a class="sourceLine" id="cb28-17" data-line-number="17">        <span class="dt">scale =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>)</a>
+<a class="sourceLine" id="cb28-17" data-line-number="17">        <span class="dt">scale =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>)</a>
 <a class="sourceLine" id="cb28-18" data-line-number="18">      ),</a>
-<a class="sourceLine" id="cb28-19" data-line-number="19">      <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb28-19" data-line-number="19">      <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb28-20" data-line-number="20">        <span class="dt">field =</span> <span class="st">"temp_max"</span>,</a>
 <a class="sourceLine" id="cb28-21" data-line-number="21">        <span class="dt">type =</span> <span class="st">"quantitative"</span>,</a>
-<a class="sourceLine" id="cb28-22" data-line-number="22">        <span class="dt">scale =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">domain =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">40</span>))</a>
+<a class="sourceLine" id="cb28-22" data-line-number="22">        <span class="dt">scale =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">domain =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">40</span>))</a>
 <a class="sourceLine" id="cb28-23" data-line-number="23">      ),</a>
-<a class="sourceLine" id="cb28-24" data-line-number="24">      <span class="dt">tooltip =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb28-25" data-line-number="25">        <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb28-24" data-line-number="24">      <span class="dt">tooltip =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb28-25" data-line-number="25">        <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb28-26" data-line-number="26">          <span class="dt">field =</span> <span class="st">"date"</span>, </a>
 <a class="sourceLine" id="cb28-27" data-line-number="27">          <span class="dt">type =</span> <span class="st">"temporal"</span>, </a>
-<a class="sourceLine" id="cb28-28" data-line-number="28">          <span class="dt">scale  =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>),</a>
+<a class="sourceLine" id="cb28-28" data-line-number="28">          <span class="dt">scale  =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">type =</span> <span class="st">"utc"</span>),</a>
 <a class="sourceLine" id="cb28-29" data-line-number="29">          <span class="dt">title =</span> <span class="st">"date"</span>,</a>
 <a class="sourceLine" id="cb28-30" data-line-number="30">          <span class="dt">format =</span> <span class="st">"%Y-%m-%d"</span></a>
 <a class="sourceLine" id="cb28-31" data-line-number="31">        ),</a>
-<a class="sourceLine" id="cb28-32" data-line-number="32">        <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"temp_max"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>)</a>
+<a class="sourceLine" id="cb28-32" data-line-number="32">        <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">field =</span> <span class="st">"temp_max"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>)</a>
 <a class="sourceLine" id="cb28-33" data-line-number="33">      )</a>
 <a class="sourceLine" id="cb28-34" data-line-number="34">    )</a>
 <a class="sourceLine" id="cb28-35" data-line-number="35">  ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb28-36" data-line-number="36"><span class="st">  </span><span class="kw"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span>()</a>
 <a class="sourceLine" id="cb28-37" data-line-number="37"></a>
 <a class="sourceLine" id="cb28-38" data-line-number="38">spec_daily</a></code></pre></div>
-<div id="htmlwidget-fd99d7bde570d36a6311" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fd99d7bde570d36a6311">{"x":{
+<div id="htmlwidget-456f9afe12f397c05d50" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-456f9afe12f397c05d50">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
     "height": 200,
     "data": {
@@ -1445,12 +1447,12 @@ Jan-01-2001 19:34:05
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">data_seattle_daily <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">yearmonth =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span>(date, <span class="st">"month"</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(yearmonth) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">temp_max =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(temp_max)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">temp_max =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(temp_max)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb29-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()</a></code></pre></div>
 <pre><code>## Observations: 48
 ## Variables: 2
-## $ yearmonth &lt;date&gt; 2012-01-01, 2012-02-01, 2012-03-01, 2012-04-01, 2012-…
-## $ temp_max  &lt;dbl&gt; 12.8, 16.1, 15.6, 23.3, 26.7, 24.4, 28.3, 34.4, 32.2, …</code></pre>
+## $ yearmonth &lt;date&gt; 2012-01-01, 2012-02-01, 2012-03-01, 2012-04-01, 2012-05-01…
+## $ temp_max  &lt;dbl&gt; 12.8, 16.1, 15.6, 23.3, 26.7, 24.4, 28.3, 34.4, 32.2, 23.9,…</code></pre>
 <p>We could then plot this data. However, we can make these data transformations within Vega-Lite. We will show this as a series of steps; the first step is to map the values of <code>date</code> to the beginning of the month.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># copy the previous spec</span></a>
 <a class="sourceLine" id="cb31-2" data-line-number="2">spec_yearmonth &lt;-<span class="st"> </span>spec_daily</a>
@@ -1461,10 +1463,10 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb31-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb31-8" data-line-number="8"><span class="co"># modify the tooltip-encoding</span></a>
 <a class="sourceLine" id="cb31-9" data-line-number="9">spec_yearmonth<span class="op">$</span>encoding<span class="op">$</span>tooltip &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb31-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/append">append</a></span>(</a>
+<a class="sourceLine" id="cb31-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/append.html">append</a></span>(</a>
 <a class="sourceLine" id="cb31-11" data-line-number="11">    spec_yearmonth<span class="op">$</span>encoding<span class="op">$</span>tooltip, </a>
-<a class="sourceLine" id="cb31-12" data-line-number="12">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb31-13" data-line-number="13">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb31-12" data-line-number="12">    <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb31-13" data-line-number="13">      <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb31-14" data-line-number="14">        <span class="dt">field =</span> <span class="st">"date"</span>, </a>
 <a class="sourceLine" id="cb31-15" data-line-number="15">        <span class="dt">type =</span> <span class="st">"temporal"</span>, </a>
 <a class="sourceLine" id="cb31-16" data-line-number="16">        <span class="dt">timeUnit =</span> <span class="st">"utcyearmonth"</span>, </a>
@@ -1477,10 +1479,10 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb31-23" data-line-number="23"></a>
 <a class="sourceLine" id="cb31-24" data-line-number="24"></a>
 <a class="sourceLine" id="cb31-25" data-line-number="25">spec_yearmonth</a></code></pre></div>
-<div id="htmlwidget-9d5c3bb39adb65d7a9a3" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9d5c3bb39adb65d7a9a3">{"x":{
+<div id="htmlwidget-d2c7280600013cf0a25a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d2c7280600013cf0a25a">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
     "height": 200,
     "data": {
@@ -1558,10 +1560,10 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb32-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb32-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb32-12" data-line-number="12">spec_yearmonth_aggregate</a></code></pre></div>
-<div id="htmlwidget-493ed447a6512f5ed8e3" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-493ed447a6512f5ed8e3">{"x":{
+<div id="htmlwidget-2d141984c41653acc7b7" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2d141984c41653acc7b7">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
     "height": 200,
     "data": {
@@ -1618,14 +1620,14 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb33-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb33-4" data-line-number="4"><span class="co"># create encoding for color using "utcyear" time-unit of date</span></a>
 <a class="sourceLine" id="cb33-5" data-line-number="5">spec_yearmonth_aggregate_color<span class="op">$</span>encoding<span class="op">$</span>color &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb33-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"nominal"</span>, <span class="dt">timeUnit =</span> <span class="st">"utcyear"</span>)</a>
+<a class="sourceLine" id="cb33-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">field =</span> <span class="st">"date"</span>, <span class="dt">type =</span> <span class="st">"nominal"</span>, <span class="dt">timeUnit =</span> <span class="st">"utcyear"</span>)</a>
 <a class="sourceLine" id="cb33-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb33-8" data-line-number="8"><span class="co"># insert a tooltip element to indicate year</span></a>
 <a class="sourceLine" id="cb33-9" data-line-number="9">spec_yearmonth_aggregate_color<span class="op">$</span>encoding<span class="op">$</span>tooltip &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb33-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/append">append</a></span>(</a>
+<a class="sourceLine" id="cb33-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/append.html">append</a></span>(</a>
 <a class="sourceLine" id="cb33-11" data-line-number="11">    spec_yearmonth_aggregate_color<span class="op">$</span>encoding<span class="op">$</span>tooltip,</a>
-<a class="sourceLine" id="cb33-12" data-line-number="12">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb33-13" data-line-number="13">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb33-12" data-line-number="12">    <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb33-13" data-line-number="13">      <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb33-14" data-line-number="14">        <span class="dt">field =</span> <span class="st">"date"</span>, </a>
 <a class="sourceLine" id="cb33-15" data-line-number="15">        <span class="dt">type =</span> <span class="st">"temporal"</span>, </a>
 <a class="sourceLine" id="cb33-16" data-line-number="16">        <span class="dt">timeUnit =</span> <span class="st">"utcyear"</span>, </a>
@@ -1638,10 +1640,10 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb33-23" data-line-number="23"></a>
 <a class="sourceLine" id="cb33-24" data-line-number="24"></a>
 <a class="sourceLine" id="cb33-25" data-line-number="25">spec_yearmonth_aggregate_color</a></code></pre></div>
-<div id="htmlwidget-5123de35efd98d9d2035" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5123de35efd98d9d2035">{"x":{
+<div id="htmlwidget-1ee4650157481bdd201b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1ee4650157481bdd201b">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
     "height": 200,
     "data": {
@@ -1712,10 +1714,10 @@ Jan-01-2001 19:34:05
 <a class="sourceLine" id="cb34-5" data-line-number="5">spec_month_aggregate_color<span class="op">$</span>encoding<span class="op">$</span>tooltip[[<span class="dv">2</span>]]<span class="op">$</span>timeUnit &lt;-<span class="st"> "utcmonth"</span></a>
 <a class="sourceLine" id="cb34-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb34-7" data-line-number="7">spec_month_aggregate_color</a></code></pre></div>
-<div id="htmlwidget-aabdc9e3c6c502377ba5" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-aabdc9e3c6c502377ba5">{"x":{
+<div id="htmlwidget-db0adcea616a9b4c5159" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-db0adcea616a9b4c5159">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
     "height": 200,
     "data": {
@@ -1798,6 +1800,7 @@ Jan-01-2001 19:34:05
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -1811,17 +1814,20 @@ Jan-01-2001 19:34:05
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

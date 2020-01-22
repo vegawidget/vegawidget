@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Extend using JavaScript • vegawidget</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="Extend using JavaScript">
 <meta property="og:description" content="">
@@ -31,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -99,13 +100,14 @@
 <!--/.navbar -->
 
       
-      </header><script src="javascript_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="javascript_files/vega-5.4.0/vega.min.js"></script><script src="javascript_files/vega-lite-3.3.0/vega-lite.min.js"></script><link href="javascript_files/vega-embed-4.2.0/vega-embed.css" rel="stylesheet">
-<script src="javascript_files/vega-embed-4.2.0/vega-embed.js"></script><script src="javascript_files/vegawidget-binding-0.2.1/vegawidget.js"></script><div class="row">
+
+      </header><script src="javascript_files/htmlwidgets-1.5.1/htmlwidgets.js"></script><script src="javascript_files/vega-5.9.0/vega.min.js"></script><script src="javascript_files/vega-lite-4.0.2/vega-lite.min.js"></script><link href="javascript_files/vega-embed-6.2.0/vega-embed.css" rel="stylesheet">
+<script src="javascript_files/vega-embed-6.2.0/vega-embed.js"></script><script src="javascript_files/vegawidget-binding-0.3.1/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Extend using JavaScript</h1>
             
-            <h4 class="date">2019-06-24</h4>
+            <h4 class="date">2020-01-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/javascript.Rmd"><code>vignettes/articles/javascript.Rmd</code></a></small>
       <div class="hidden name"><code>javascript.Rmd</code></div>
@@ -114,8 +116,8 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"vegawidget"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"htmltools"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"vegawidget"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"htmltools"</span>)</a></code></pre></div>
 <p>The purpose of this article is to show how you can use JavaScript to extend Vega’s capabilities. In these examples, we use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view">vega-view</a> API to interact with a Vega chart using JavaScript. We explore similar ideas in an article on <a href="shiny.Rmd">extending using Shiny</a>.</p>
 <p>This article has sections on:</p>
 <ul>
@@ -139,19 +141,19 @@
 <p>We can use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view">vega-view API</a> to modify a chart once it has been rendered.</p>
 <p>Here, we recreate this Vega-Lite <a href="https://vega.github.io/vega-lite/tutorials/streaming.html">streaming demo</a>. Our first step is to create a vegaspec. Note that we have a dataset named <code>"table"</code>, but we have not included any data.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">spec_table &lt;-</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../../reference/vega_schema.html">vega_schema</a></span>(),</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="dt">width =</span> <span class="dv">400</span>,</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">name =</span> <span class="st">"table"</span>),</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">name =</span> <span class="st">"table"</span>),</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="dt">mark =</span> <span class="st">"line"</span>,</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">    <span class="dt">encoding =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">      <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">    <span class="dt">encoding =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">      <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb2-9" data-line-number="9">        <span class="dt">field =</span> <span class="st">"x"</span>, </a>
 <a class="sourceLine" id="cb2-10" data-line-number="10">        <span class="dt">type =</span> <span class="st">"quantitative"</span>,</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">        <span class="dt">scale =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">zero =</span>  <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">        <span class="dt">scale =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">zero =</span>  <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb2-12" data-line-number="12">      ),</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">      <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"y"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">      <span class="dt">color =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">field =</span> <span class="st">"category"</span>, <span class="dt">type =</span> <span class="st">"nominal"</span>)</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">      <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">field =</span> <span class="st">"y"</span>, <span class="dt">type =</span> <span class="st">"quantitative"</span>),</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">      <span class="dt">color =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">field =</span> <span class="st">"category"</span>, <span class="dt">type =</span> <span class="st">"nominal"</span>)</a>
 <a class="sourceLine" id="cb2-15" data-line-number="15">    )</a>
 <a class="sourceLine" id="cb2-16" data-line-number="16">  ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
@@ -163,7 +165,7 @@
 <div id="streaming-demo" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
 <script type="application/json" data-for="streaming-demo">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 400,
     "data": {
       "name": "table"
@@ -194,37 +196,37 @@
 },"evals":[],"jsHooks":[]}</script><hr>
 <p>It remains to tell the vega-view API what to do with the chart, for this we need to use JavaScript. Accordingly, the chunk below is written in JavaScript - in the R Markdown file, this is a <code>{js}</code> chunk, rather than an <code>{r}</code> chunk.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">// This is a JavaScript chunk, using {js} instead of {r}</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">'#streaming-demo'</span>).<span class="at">then</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span>(view) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">'#streaming-demo'</span>).<span class="at">then</span>(<span class="kw"><a href="https://rdrr.io/r/base/function.html">function</a></span>(view) <span class="op">{</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="co">/**</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">   * Generates a new tuple with random walk.</span></a>
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">   */</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span> <span class="at">newGenerator</span>() <span class="op">{</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">      <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> counter <span class="op">=</span> <span class="dv">-1</span><span class="op">;</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">      <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> previousY <span class="op">=</span> [<span class="dv">5</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">      <span class="cf">return</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/function.html">function</a></span> <span class="at">newGenerator</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">      <span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> counter <span class="op">=</span> <span class="dv">-1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">      <span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> previousY <span class="op">=</span> [<span class="dv">5</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">      <span class="cf">return</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">function</a></span> () <span class="op">{</span></a>
 <a class="sourceLine" id="cb4-10" data-line-number="10">          counter<span class="op">++;</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">          <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> newVals <span class="op">=</span> <span class="va">previousY</span>.<span class="at">map</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span> (v<span class="op">,</span> c) <span class="op">{</span> <span class="cf">return</span> (<span class="op">{</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">          <span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> newVals <span class="op">=</span> <span class="va">previousY</span>.<span class="at">map</span>(<span class="kw"><a href="https://rdrr.io/r/base/function.html">function</a></span> (v<span class="op">,</span> c) <span class="op">{</span> <span class="cf">return</span> (<span class="op">{</span></a>
 <a class="sourceLine" id="cb4-12" data-line-number="12">              <span class="dt">x</span><span class="op">:</span> counter<span class="op">,</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13">              <span class="dt">y</span><span class="op">:</span> v <span class="op">+</span> <span class="va">Math</span>.<span class="at">round</span>(<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">10</span> <span class="op">-</span> c <span class="op">*</span> <span class="dv">3</span>)<span class="op">,</span></a>
 <a class="sourceLine" id="cb4-14" data-line-number="14">              <span class="dt">category</span><span class="op">:</span> c</a>
 <a class="sourceLine" id="cb4-15" data-line-number="15">          <span class="op">}</span>)<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16">          previousY <span class="op">=</span> <span class="va">newVals</span>.<span class="at">map</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span> (v) <span class="op">{</span> <span class="cf">return</span> <span class="va">v</span>.<span class="at">y</span><span class="op">;</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16">          previousY <span class="op">=</span> <span class="va">newVals</span>.<span class="at">map</span>(<span class="kw"><a href="https://rdrr.io/r/base/function.html">function</a></span> (v) <span class="op">{</span> <span class="cf">return</span> <span class="va">v</span>.<span class="at">y</span><span class="op">;</span> <span class="op">}</span>)<span class="op">;</span></a>
 <a class="sourceLine" id="cb4-17" data-line-number="17">          <span class="cf">return</span> newVals<span class="op">;</span></a>
 <a class="sourceLine" id="cb4-18" data-line-number="18">      <span class="op">};</span></a>
 <a class="sourceLine" id="cb4-19" data-line-number="19">  <span class="op">}</span></a>
 <a class="sourceLine" id="cb4-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21">  <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> valueGenerator <span class="op">=</span> <span class="at">newGenerator</span>()<span class="op">;</span></a>
-<a class="sourceLine" id="cb4-22" data-line-number="22">  <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> minimumX <span class="op">=</span> <span class="dv">-100</span><span class="op">;</span></a>
-<a class="sourceLine" id="cb4-23" data-line-number="23">  <span class="va">window</span>.<span class="at">setInterval</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21">  <span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> valueGenerator <span class="op">=</span> <span class="at">newGenerator</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22">  <span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> minimumX <span class="op">=</span> <span class="dv">-100</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23">  <span class="va">window</span>.<span class="at">setInterval</span>(<span class="kw"><a href="https://rdrr.io/r/base/function.html">function</a></span> () <span class="op">{</span></a>
 <a class="sourceLine" id="cb4-24" data-line-number="24">      minimumX<span class="op">++;</span></a>
-<a class="sourceLine" id="cb4-25" data-line-number="25">      <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> data_insert <span class="op">=</span> <span class="at">valueGenerator</span>()<span class="op">;</span></a>
-<a class="sourceLine" id="cb4-26" data-line-number="26">      <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> data_remove <span class="op">=</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span>(data_remove) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-25" data-line-number="25">      <span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> data_insert <span class="op">=</span> <span class="at">valueGenerator</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-26" data-line-number="26">      <span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> data_remove <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">function</a></span>(data_remove) <span class="op">{</span></a>
 <a class="sourceLine" id="cb4-27" data-line-number="27">        <span class="cf">return</span> (<span class="va">data_remove</span>.<span class="at">x</span> <span class="op">&lt;</span> minimumX)<span class="op">;</span></a>
 <a class="sourceLine" id="cb4-28" data-line-number="28">      <span class="op">};</span></a>
 <a class="sourceLine" id="cb4-29" data-line-number="29">      </a>
-<a class="sourceLine" id="cb4-30" data-line-number="30">      <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> changeSet <span class="op">=</span> <span class="va">vega</span>.<span class="at">changeset</span>()</a>
+<a class="sourceLine" id="cb4-30" data-line-number="30">      <span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> changeSet <span class="op">=</span> <span class="va">vega</span>.<span class="at">changeset</span>()</a>
 <a class="sourceLine" id="cb4-31" data-line-number="31">                          .<span class="at">insert</span>(<span class="at">valueGenerator</span>())</a>
-<a class="sourceLine" id="cb4-32" data-line-number="32">                          .<span class="at">remove</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span> (t) <span class="op">{</span> <span class="cf">return</span> <span class="va">t</span>.<span class="at">x</span> <span class="op">&lt;</span> minimumX<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-32" data-line-number="32">                          .<span class="at">remove</span>(<span class="kw"><a href="https://rdrr.io/r/base/function.html">function</a></span> (t) <span class="op">{</span> <span class="cf">return</span> <span class="va">t</span>.<span class="at">x</span> <span class="op">&lt;</span> minimumX<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span></a>
 <a class="sourceLine" id="cb4-33" data-line-number="33">                          </a>
 <a class="sourceLine" id="cb4-34" data-line-number="34">      <span class="va">view</span>.<span class="at">change</span>(<span class="st">'table'</span><span class="op">,</span> changeSet).<span class="at">run</span>()<span class="op">;</span></a>
 <a class="sourceLine" id="cb4-35" data-line-number="35">  <span class="op">},</span> <span class="dv">1000</span>)<span class="op">;</span>  </a>
@@ -415,17 +417,17 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <a class="sourceLine" id="cb20-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(spec_mtcars) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb20-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../../reference/add-listeners.html">vw_add_event_listener</a></span>(<span class="st">"click"</span>, <span class="dt">handler_body =</span> handler_event)</a></code></pre></div>
 <p>We create our element that will contain the output of the event-handler:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">output_datum &lt;-<span class="st"> </span>tags<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/htmltools/topics/builder">pre</a></span>(<span class="dt">id =</span> <span class="st">"output-datum"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">output_datum &lt;-<span class="st"> </span>tags<span class="op">$</span><span class="kw"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">pre</a></span>(<span class="dt">id =</span> <span class="st">"output-datum"</span>)</a></code></pre></div>
 </div>
 <div id="demo-events" class="section level3">
 <h3 class="hasAnchor">
 <a href="#demo-events" class="anchor"></a>Demo: events</h3>
 <p>When you click anywhere in the plotting-rectangle, the observation associated with the mark (if any) where you clicked will be printed below.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">output_scatterplot</a></code></pre></div>
-<div id="htmlwidget-c7f1040f308942a80c0a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c7f1040f308942a80c0a">{"x":{
+<div id="htmlwidget-94b4bc30ac19e9bb1a37" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-94b4bc30ac19e9bb1a37">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
     "height": 300,
     "description": "An mtcars example.",
@@ -916,20 +918,20 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <p>Here, we will use the same technique to create an interactive histogram. We will use the <code>data_seattle_hourly</code> dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010. In addition to the histogram, we will provide a slider-input to specify the bin-width and we will print the bin-width to an element of the HTML document.</p>
 <p>Our first step is to create a Vega-Lite specification for a <a href="https://vega.github.io/vega-lite/examples/histogram.html">histogram</a>.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">spec_histogram &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb24-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../../reference/vega_schema.html">vega_schema</a></span>(),</a>
 <a class="sourceLine" id="cb24-4" data-line-number="4">    <span class="dt">width =</span> <span class="dv">300</span>,</a>
 <a class="sourceLine" id="cb24-5" data-line-number="5">    <span class="dt">height =</span> <span class="dv">300</span>,</a>
-<a class="sourceLine" id="cb24-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">values =</span> data_seattle_hourly),</a>
+<a class="sourceLine" id="cb24-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">values =</span> data_seattle_hourly),</a>
 <a class="sourceLine" id="cb24-7" data-line-number="7">    <span class="dt">mark =</span> <span class="st">"bar"</span>,</a>
-<a class="sourceLine" id="cb24-8" data-line-number="8">    <span class="dt">encoding =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb24-9" data-line-number="9">      <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb24-8" data-line-number="8">    <span class="dt">encoding =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb24-9" data-line-number="9">      <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb24-10" data-line-number="10">        <span class="dt">field =</span> <span class="st">"temp"</span>,</a>
 <a class="sourceLine" id="cb24-11" data-line-number="11">        <span class="dt">type =</span> <span class="st">"quantitative"</span>,</a>
-<a class="sourceLine" id="cb24-12" data-line-number="12">        <span class="dt">bin =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">step =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">signal =</span> <span class="st">"bin_width"</span>)),</a>
-<a class="sourceLine" id="cb24-13" data-line-number="13">        <span class="dt">axis =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">format =</span> <span class="st">".1f"</span>)</a>
+<a class="sourceLine" id="cb24-12" data-line-number="12">        <span class="dt">bin =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">step =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">signal =</span> <span class="st">"bin_width"</span>)),</a>
+<a class="sourceLine" id="cb24-13" data-line-number="13">        <span class="dt">axis =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">format =</span> <span class="st">".1f"</span>)</a>
 <a class="sourceLine" id="cb24-14" data-line-number="14">      ),</a>
-<a class="sourceLine" id="cb24-15" data-line-number="15">      <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb24-15" data-line-number="15">      <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb24-16" data-line-number="16">        <span class="dt">aggregate =</span> <span class="st">"count"</span>,</a>
 <a class="sourceLine" id="cb24-17" data-line-number="17">        <span class="dt">type =</span> <span class="st">"quantitative"</span></a>
 <a class="sourceLine" id="cb24-18" data-line-number="18">      )</a>
@@ -938,18 +940,20 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <a class="sourceLine" id="cb24-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span>()</a></code></pre></div>
 <p>In the Vega-Lite spec above, in the <code>x</code> <code>encoding</code>, we have defined the <code>bin</code> <code>step</code> as a <code>signal</code> named <code>"bin_width"</code>. This is not legal in Vega-Lite. To make this work, we use <a href="https://github.com/vega/vega-embed#options">vega-embed</a> to patch the compiled Vega spec with a definition of the signal. From R, we can include the patch as an option to <code><a href="../../reference/vega_embed.html">vega_embed()</a></code>.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">patch &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb25-3" data-line-number="3">    <span class="dt">signals =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb25-4" data-line-number="4">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">name =</span> <span class="st">"bin_width"</span>, <span class="dt">value =</span> <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb25-5" data-line-number="5">    )</a>
-<a class="sourceLine" id="cb25-6" data-line-number="6">  )</a>
-<a class="sourceLine" id="cb25-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb25-8" data-line-number="8">output_histogram &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(</a>
-<a class="sourceLine" id="cb25-10" data-line-number="10">    spec_histogram, </a>
-<a class="sourceLine" id="cb25-11" data-line-number="11">    <span class="dt">embed =</span> <span class="kw"><a href="../../reference/vega_embed.html">vega_embed</a></span>(<span class="dt">patch =</span> patch), </a>
-<a class="sourceLine" id="cb25-12" data-line-number="12">    <span class="dt">elementId =</span> <span class="st">"histogram"</span></a>
-<a class="sourceLine" id="cb25-13" data-line-number="13">  )</a></code></pre></div>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">    <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">      <span class="dt">path =</span> <span class="st">"/signals"</span>,</a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">      <span class="dt">op =</span> <span class="st">"add"</span>,</a>
+<a class="sourceLine" id="cb25-6" data-line-number="6">      <span class="dt">value =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">name =</span> <span class="st">"bin_width"</span>, <span class="dt">value =</span> <span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb25-7" data-line-number="7">    )</a>
+<a class="sourceLine" id="cb25-8" data-line-number="8">  )</a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10">output_histogram &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="../../reference/vegawidget.html">vegawidget</a></span>(</a>
+<a class="sourceLine" id="cb25-12" data-line-number="12">    spec_histogram, </a>
+<a class="sourceLine" id="cb25-13" data-line-number="13">    <span class="dt">embed =</span> <span class="kw"><a href="../../reference/vega_embed.html">vega_embed</a></span>(<span class="dt">patch =</span> patch), </a>
+<a class="sourceLine" id="cb25-14" data-line-number="14">    <span class="dt">elementId =</span> <span class="st">"histogram"</span></a>
+<a class="sourceLine" id="cb25-15" data-line-number="15">  )</a></code></pre></div>
 <p>Our <code>output_histogram</code> will be a vegawidget that is contained in an HTML element with an ID of <code>"histogram"</code>.</p>
 <p>The next step is to use the <code>tags</code> environment from the <strong>htmltools</strong> package to create a range input that we can use to specify the bin-width. The input will work logarithmically, where the center of the range will correspond to zero, or a baseline bin-width. The range of the input is from -1 to 1, which will correspond to one decade below the baseline bin-width, and one decade above.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">input_bin_width &lt;-<span class="st"> </span></a>
@@ -964,9 +968,9 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <a class="sourceLine" id="cb26-10" data-line-number="10">  )</a></code></pre></div>
 <p>We also define an output element to tell us the bin-width that Vega is using. We seed it with some dummy-text; we will connect it to the Vega chart using a <a href="https://vega.github.io/vega/docs/api/view/#view_addSignalListener">signal-listener</a>.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">output_bin_width &lt;-</a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="st">  </span>tags<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/htmltools/topics/builder">p</a></span>(</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="st">  </span>tags<span class="op">$</span><span class="kw"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">p</a></span>(</a>
 <a class="sourceLine" id="cb27-3" data-line-number="3">    <span class="st">"The histogram bin-width is "</span>,</a>
-<a class="sourceLine" id="cb27-4" data-line-number="4">    tags<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/htmltools/topics/builder">span</a></span>(<span class="dt">id =</span> <span class="st">"output-bin-width"</span>, <span class="st">"foo"</span>),</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">    tags<span class="op">$</span><span class="kw"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">span</a></span>(<span class="dt">id =</span> <span class="st">"output-bin-width"</span>, <span class="st">"foo"</span>),</a>
 <a class="sourceLine" id="cb27-5" data-line-number="5">    <span class="st">" °F."</span></a>
 <a class="sourceLine" id="cb27-6" data-line-number="6">  )</a></code></pre></div>
 <p>Like the event-listener above, we have to supply a signal-handler to the signal-listener.</p>
@@ -994,7 +998,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <div id="histogram" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
 <script type="application/json" data-for="histogram">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
     "height": 300,
     "data": {
@@ -36060,14 +36064,18 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
   "embed_options": {
     "defaultStyle": true,
     "renderer": "canvas",
-    "patch": {
-      "signals": [
-        {
-          "name": "bin_width",
-          "value": 0.5
-        }
-      ]
-    }
+    "patch": [
+      {
+        "path": "/signals",
+        "op": "add",
+        "value": [
+          {
+            "name": "bin_width",
+            "value": 0.5
+          }
+        ]
+      }
+    ]
   }
 },"evals":[],"jsHooks":{"render":[{"code":"function(el, x) {\n  this.viewPromise.then(function(view) {\n    view.addSignalListener('bin_width', function(name, value) {\n      (function (x) {\n        // to element `selector`, adds text `expr` (default \"x\")\n        document.querySelector('#output-bin-width').innerText = x.toFixed(3)\n      })(\n        (function () {\n          // returns the value of the signal\n          return value;\n        })()\n      )\n    });\n  });\n}","data":null}]}}</script><div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">output_bin_width</a></code></pre></div>
 <p>
@@ -36084,17 +36092,17 @@ The histogram bin-width is
 <div class="sourceCode" id="cb32"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co">// {js} chunk</span></a>
 <a class="sourceLine" id="cb32-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb32-3" data-line-number="3"><span class="co">// JS reference to the HTML element for the slider-input</span></a>
-<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> inp_bin_width <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">"[name=bin_width]"</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> inp_bin_width <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">"[name=bin_width]"</span>)<span class="op">;</span></a>
 <a class="sourceLine" id="cb32-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb32-6" data-line-number="6"><span class="co">// define function to call when input changes</span></a>
-<a class="sourceLine" id="cb32-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span> <span class="at">on_bin_width</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb32-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/base/function.html">function</a></span> <span class="at">on_bin_width</span>() <span class="op">{</span></a>
 <a class="sourceLine" id="cb32-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb32-9" data-line-number="9">  <span class="co">// translate the input value to a bin_width</span></a>
 <a class="sourceLine" id="cb32-10" data-line-number="10">  <span class="co">// our baseline bin_width is 1.0 °F</span></a>
-<a class="sourceLine" id="cb32-11" data-line-number="11">  <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> bin_width <span class="op">=</span> <span class="fl">1.</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">pow</span>(<span class="fl">10.</span><span class="op">,</span> <span class="va">inp_bin_width</span>.<span class="at">value</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb32-11" data-line-number="11">  <span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> bin_width <span class="op">=</span> <span class="fl">1.</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">pow</span>(<span class="fl">10.</span><span class="op">,</span> <span class="va">inp_bin_width</span>.<span class="at">value</span>)<span class="op">;</span></a>
 <a class="sourceLine" id="cb32-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb32-13" data-line-number="13">  <span class="co">// update Vega chart</span></a>
-<a class="sourceLine" id="cb32-14" data-line-number="14">  <span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">"#histogram"</span>).<span class="at">then</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span>(view) <span class="op">{</span></a>
+<a class="sourceLine" id="cb32-14" data-line-number="14">  <span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">"#histogram"</span>).<span class="at">then</span>(<span class="kw"><a href="https://rdrr.io/r/base/function.html">function</a></span>(view) <span class="op">{</span></a>
 <a class="sourceLine" id="cb32-15" data-line-number="15">    <span class="va">view</span>.<span class="at">signal</span>(<span class="st">"bin_width"</span><span class="op">,</span> bin_width).<span class="at">run</span>()<span class="op">;</span>  </a>
 <a class="sourceLine" id="cb32-16" data-line-number="16">  <span class="op">}</span>)<span class="op">;</span>    </a>
 <a class="sourceLine" id="cb32-17" data-line-number="17"></a>
@@ -36150,7 +36158,7 @@ on_bin_width()
 <a class="sourceLine" id="cb33-9" data-line-number="9">    <span class="dt">style =</span> <span class="st">"width: 400px; margin-bottom: 10px;"</span></a>
 <a class="sourceLine" id="cb33-10" data-line-number="10">  )</a></code></pre></div>
 <p>Next, we define our data-output and the data-handler. For the output, we provide an <code>id</code>, <code>"output-data"</code>, to identify where in this document to write the data. Our handler function the data set to it, convert it to JSON (with a little formatting), then put the JSON string into our output element named <code>"output-data"</code>.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">output_data &lt;-<span class="st"> </span>tags<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/htmltools/topics/builder">pre</a></span>(<span class="dt">id =</span> <span class="st">"output-data"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">output_data &lt;-<span class="st"> </span>tags<span class="op">$</span><span class="kw"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">pre</a></span>(<span class="dt">id =</span> <span class="st">"output-data"</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">handler_data &lt;-</a>
 <a class="sourceLine" id="cb35-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../../reference/vw_handler_signal.html">vw_handler_data</a></span>(<span class="st">"value"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb35-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span>(</a>
@@ -36160,25 +36168,25 @@ on_bin_width()
 <a class="sourceLine" id="cb35-7" data-line-number="7">  )</a></code></pre></div>
 <p>Finally, we create a specification, use it to create a vegawidget with an <code>elementId</code> of <code>"circle"</code>, then and add our data-listener to it.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">spec_circle &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb36-3" data-line-number="3">    <span class="st">`</span><span class="dt">$schema</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../../reference/vega_schema.html">vega_schema</a></span>(),</a>
 <a class="sourceLine" id="cb36-4" data-line-number="4">    <span class="dt">width =</span> <span class="dv">300</span>,</a>
 <a class="sourceLine" id="cb36-5" data-line-number="5">    <span class="dt">height =</span> <span class="dv">300</span>,</a>
-<a class="sourceLine" id="cb36-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb36-7" data-line-number="7">      <span class="dt">values =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb36-6" data-line-number="6">    <span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb36-7" data-line-number="7">      <span class="dt">values =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">0</span>),</a>
 <a class="sourceLine" id="cb36-8" data-line-number="8">      <span class="dt">name =</span> <span class="st">"source"</span></a>
 <a class="sourceLine" id="cb36-9" data-line-number="9">    ),</a>
 <a class="sourceLine" id="cb36-10" data-line-number="10">    <span class="dt">mark =</span> <span class="st">"point"</span>,</a>
-<a class="sourceLine" id="cb36-11" data-line-number="11">    <span class="dt">encoding =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb36-12" data-line-number="12">      <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb36-11" data-line-number="11">    <span class="dt">encoding =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb36-12" data-line-number="12">      <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb36-13" data-line-number="13">        <span class="dt">field =</span> <span class="st">"x"</span>, </a>
 <a class="sourceLine" id="cb36-14" data-line-number="14">        <span class="dt">type =</span> <span class="st">"quantitative"</span>, </a>
-<a class="sourceLine" id="cb36-15" data-line-number="15">        <span class="dt">scale =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">domain =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb36-15" data-line-number="15">        <span class="dt">scale =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">domain =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb36-16" data-line-number="16">      ),</a>
-<a class="sourceLine" id="cb36-17" data-line-number="17">      <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb36-17" data-line-number="17">      <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb36-18" data-line-number="18">        <span class="dt">field =</span> <span class="st">"y"</span>, </a>
 <a class="sourceLine" id="cb36-19" data-line-number="19">        <span class="dt">type =</span> <span class="st">"quantitative"</span>, </a>
-<a class="sourceLine" id="cb36-20" data-line-number="20">        <span class="dt">scale =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">domain =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb36-20" data-line-number="20">        <span class="dt">scale =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">domain =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb36-21" data-line-number="21">      )     </a>
 <a class="sourceLine" id="cb36-22" data-line-number="22">    )</a>
 <a class="sourceLine" id="cb36-23" data-line-number="23">  ) <span class="op">%&gt;%</span></a>
@@ -36197,7 +36205,7 @@ on_bin_width()
 <div id="circle" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
 <script type="application/json" data-for="circle">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
     "height": 300,
     "data": {
@@ -36242,7 +36250,7 @@ on_bin_width()
 <div class="sourceCode" id="cb40"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co">// {js}</span></a>
 <a class="sourceLine" id="cb40-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb40-3" data-line-number="3"><span class="co">// JS reference to our slider-input</span></a>
-<a class="sourceLine" id="cb40-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> angle <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">"[name=inp_angle]"</span>)<span class="op">;</span></a></code></pre></div>
+<a class="sourceLine" id="cb40-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> angle <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">"[name=inp_angle]"</span>)<span class="op">;</span></a></code></pre></div>
 <script type="text/javascript">
 // {js}
 
@@ -36253,15 +36261,15 @@ var angle = document.querySelector("[name=inp_angle]");
 <p>The second part of the function modifies the chart. Here, we create a changeset inserting <code>data_new</code>, and removing any existing data. Then we <a href="https://vega.github.io/vega/docs/api/view/#view_change">change</a> the view’s dataset named <code>"source"</code>, then we re-<a href="https://vega.github.io/vega/docs/api/view/#view_run">run</a> the view.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co">// {js}</span></a>
 <a class="sourceLine" id="cb41-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span> <span class="at">on_angle</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/function.html">function</a></span> <span class="at">on_angle</span>() <span class="op">{</span></a>
 <a class="sourceLine" id="cb41-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb41-5" data-line-number="5">  <span class="co">// translate the input value to x-y coordinates in a new dataset</span></a>
-<a class="sourceLine" id="cb41-6" data-line-number="6">  <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> theta <span class="op">=</span> <span class="va">angle</span>.<span class="at">value</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">PI</span> / <span class="dv">180</span><span class="op">;</span></a>
-<a class="sourceLine" id="cb41-7" data-line-number="7">  <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> data_new <span class="op">=</span> [<span class="op">{</span><span class="dt">x</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">cos</span>(theta)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">sin</span>(theta)<span class="op">}</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb41-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> theta <span class="op">=</span> <span class="va">angle</span>.<span class="at">value</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">PI</span> / <span class="dv">180</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb41-7" data-line-number="7">  <span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> data_new <span class="op">=</span> [<span class="op">{</span><span class="dt">x</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">cos</span>(theta)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">sin</span>(theta)<span class="op">}</span>]<span class="op">;</span></a>
 <a class="sourceLine" id="cb41-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb41-9" data-line-number="9">  <span class="co">// changes Vega chart</span></a>
-<a class="sourceLine" id="cb41-10" data-line-number="10">  <span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">"#circle"</span>).<span class="at">then</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">function</a></span>(view) <span class="op">{</span></a>
-<a class="sourceLine" id="cb41-11" data-line-number="11">    <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">var</a></span> changeSet <span class="op">=</span> <span class="va">vega</span>.<span class="at">changeset</span>()</a>
+<a class="sourceLine" id="cb41-10" data-line-number="10">  <span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">"#circle"</span>).<span class="at">then</span>(<span class="kw"><a href="https://rdrr.io/r/base/function.html">function</a></span>(view) <span class="op">{</span></a>
+<a class="sourceLine" id="cb41-11" data-line-number="11">    <span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span> changeSet <span class="op">=</span> <span class="va">vega</span>.<span class="at">changeset</span>()</a>
 <a class="sourceLine" id="cb41-12" data-line-number="12">                        .<span class="at">insert</span>(data_new)</a>
 <a class="sourceLine" id="cb41-13" data-line-number="13">                        .<span class="at">remove</span>(<span class="va">vega</span>.<span class="at">truthy</span>)<span class="op">;</span></a>
 <a class="sourceLine" id="cb41-14" data-line-number="14">                          </a>
@@ -36311,6 +36319,7 @@ on_angle()
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -36326,17 +36335,20 @@ on_angle()
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

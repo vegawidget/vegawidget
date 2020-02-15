@@ -1,3 +1,9 @@
+# vegawidget 0.3.1 (development)
+
+## Bug fixes
+
+* `vega_embed()`: the `action` argument lets you speicfy `export$png` and `export$svg`. (#115)
+
 # vegawidget 0.3.1
 
 * Upgrade to Vega-Lite 4.0.2, Vega 5.9.0, vega-embed 6.2.0. 

@@ -139,41 +139,7 @@ vega_embed <- function(renderer = c("canvas", "svg"),
 
   renderer <- match.arg(renderer)
 
-  # if not null, coerce actions to logical, preserve names
-  if (!is.null(actions)) {
-    names_actions <- names(actions)
-    actions <- as.logical(actions)
-
-    # if named, turn into a list
-    if (!is.null(names_actions)) {
-      actions <- as.list(actions)
-      names(actions) <- names_actions
-    }
-  }
-
-  names_actions_legal <- c("export", "source", "compiled", "editor")
-
-  # unnamed must have length 1
-  if (!rlang::is_named(actions) && !is.null(actions)) {
-    assertthat::assert_that(
-      identical(length(actions), 1L),
-      msg = ("if `actions` is unnamed, it must have length 1")
-    )
-  }
-
-  # names have to be unique and proper
-  if (rlang::is_named(actions)) {
-    assertthat::assert_that(identical(names_actions, unique(names_actions)))
-    assertthat::assert_that(
-      all(names_actions %in% names_actions_legal),
-      msg = paste(
-        "`actions` has illegal name",
-        paste("provided names:", paste(names_actions, collapse = ", ")),
-        paste("legal names:", paste(names_actions_legal, collapse = ", ")),
-        sep = "\n"
-      )
-    )
-  }
+  actions <- validate_actions(actions)
 
   options <-
     list(
@@ -212,4 +178,62 @@ list_remove_null <- function(x) {
   x[is_null] <- NULL
 
   x
+}
+
+validate_actions <- function(actions) {
+
+  is_null_or_logical <- function(x) {
+    rlang::is_null(x) || rlang::is_scalar_logical(x)
+  }
+
+  assert_null_or_logical <- function(x, name) {
+    assertthat::assert_that(
+      is_null_or_logical(x),
+      msg = glue::glue(
+        "vega-embed actions: value of `{name}` not NULL or scalar logical."
+      )
+    )
+  }
+
+  assert_named <- function(x) {
+    assertthat::assert_that(
+      !is.null(names(x)),
+      msg = glue::glue("vega-embed actions: lists must be named.")
+    )
+  }
+
+  assert_name_legal <- function(name, legal_names) {
+    assertthat::assert_that(
+      name %in% legal_names,
+      msg = glue::glue("vega-embed actions: `{name}` is not a legal name.")
+    )
+  }
+
+  # if NULL or scalar logical, all is well - return
+  if (is_null_or_logical(actions)) {
+    return(actions)
+  }
+
+  # coerce to list and test
+  actions <- as.list(actions)
+
+  # check names
+  names_not_export <- c("source", "compiled", "editor")
+  names_actions_legal <- c("export", names_not_export)
+  assert_named(actions)
+  purrr::walk(names(actions), assert_name_legal, names_actions_legal)
+
+  # check source, compiled, editor
+  actions_not_export <- actions[names_not_export]
+  purrr::iwalk(actions_not_export, assert_null_or_logical)
+
+  # check actions$export
+  if (!rlang::is_null(actions$export)) {
+    names_export_legal <- c("svg", "png")
+    assert_named(actions$export)
+    purrr::walk(names(actions$export), assert_name_legal, names_export_legal)
+    purrr::iwalk(actions$export, assert_null_or_logical)
+  }
+
+  actions
 }

@@ -24,19 +24,30 @@ pluck_all <- function(.x, ..., .predicate = NULL, .combine = NULL) {
   .predicate <- .predicate %||% function(x) TRUE
   .combine <- .combine  %||% identity
 
-  # maybe issue a message if removing a duplicate
+  # search this item using accessors
+  result_here <- purrr::pluck(.x, ...)
 
-  # how do we define a duplicate?
+  # if anything found does not satisfy the predicate, set to NULL
+  if (!.predicate(result_here)) {
+    result_here <- NULL
+  }
 
+  # iterate over elements
+  result_children <- NULL
+  if (rlang::is_list(.x) || rlang::is_environment(.x)) {
+    result_children <-
+      purrr::map(.x, pluck_all, ..., .predicate, .combine)
+  }
+
+  # combine
+  result_all <- c(result_here, result_children)
+
+  # remove duplicates
+  result_all <- .combine(result_all)
+
+  result_all
 }
 
-#' Combine lists
-#'
-#' @param .x `list()` to be combined
-#'
-#'
-#' @return `list()`
-#'
 combine_signals <- function(.x) {
 
   # get names
@@ -44,6 +55,13 @@ combine_signals <- function(.x) {
 
   # determine which names are duplicates
   is_duplicate <- duplicated(signal_names)
+
+  message(
+    glue::glue(
+      "Removing duplicated signal-names: ",
+      "{glue::glue_collapse(signal_names[is_duplicate], sep = ', ')}"
+    )
+  )
 
   # return the non-duplicates
   .x[!is_duplicate]

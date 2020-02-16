@@ -4,7 +4,7 @@
 \alias{pluck_all}
 \title{Pluck and combine recursively}
 \usage{
-pluck_all(.x, ..., .predicate = NULL, .equivalence = NULL)
+pluck_all(.x, ..., .predicate = NULL, .combine = NULL)
 }
 \arguments{
 \item{.x}{A vector or environment}
@@ -23,12 +23,15 @@ splice that in with \code{!!!}.}
 a logical value indicating if this is the "thing" you are
 looking for.}
 
-\item{.equivalence}{\code{function} that takes two arguments, returns a
-logical value indicating if these these things are equivalent.}
+\item{.combine}{\code{function} that takes a single argument, a list of
+"things" you are looking for, returns a (potentially shorter) list
+of "things" that should be kept. Use this function to filter out
+duplicates.}
 }
 \value{
 \code{list()}
 }
 \description{
-Pluck and combine recursively
+Given a list, \code{.x}, and a set of accessors, \code{...}, return a list
+of objects within \code{.x} that satisfy the list of accessors
 }

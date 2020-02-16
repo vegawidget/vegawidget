@@ -27,5 +27,24 @@ test_that("combine function works", {
   signals_dup <- c(signals_unique, signals_unique)
 
   expect_identical(combine_signals(signals_unique), signals_unique)
-  expect_identical(combine_signals(signals_dup), signals_unique)
+
+  expect_message(
+    expect_identical(combine_signals(signals_dup), signals_unique),
+    "foo, bar"
+  )
+
+})
+
+test_that("pluck_all works", {
+
+  list_test <-
+    list(
+      a = list(b = "one"),
+      b = c(letters),
+      c = list(a = list(b = "two")),
+      d = list(a = list(b = "two")),
+      e = list(f = list(a = list(b = "three")))
+    )
+
+
 })

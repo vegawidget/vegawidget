@@ -16,30 +16,16 @@ test_that("signal-predicate works", {
 
 })
 
-test_that("equality function works", {
+test_that("combine function works", {
 
+  signals_unique <-
+    list(
+      list(name = "foo", value = 0),
+      list(name = "bar", value = 1)
+    )
 
-  expect_equal_signal <- function(x, y) {
-    expect_true(equivalence_signal(x, y))
-  }
+  signals_dup <- c(signals_unique, signals_unique)
 
-  expect_not_equal_signal <- function(x, y) {
-    expect_false(equivalence_signal(x, y))
-  }
-
-  expect_equal_signal(
-    list(name = "foo", value = 1),
-    list(name = "foo", value = 1)
-  )
-
-  expect_equal_signal(
-    list(name = "foo", value = 1),
-    list(name = "foo", value = 2)
-  )
-
-  expect_not_equal_signal(
-    list(name = "foo", value = 1),
-    list(name = "bar", value = 1)
-  )
-
+  expect_identical(combine_signals(signals_unique), signals_unique)
+  expect_identical(combine_signals(signals_dup), signals_unique)
 })

@@ -72,7 +72,7 @@ use to interactively examine a Vega or Vega-Lite specification." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9003</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9001</span>
       </span>
     </div>
 
@@ -154,9 +154,15 @@ use to interactively examine a Vega or Vega-Lite specification." />
 use to interactively examine a Vega or Vega-Lite specification.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vw_examine</span>(<span class='no'>spec</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"view"</span>, <span class='kw'>modes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"view"</span>, <span class='st'>"code"</span>, <span class='st'>"form"</span>,
-  <span class='st'>"text"</span>, <span class='st'>"tree"</span>), <span class='no'>...</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>vw_examine</span>(
+  <span class='no'>spec</span>,
+  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"view"</span>,
+  <span class='kw'>modes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"view"</span>, <span class='st'>"code"</span>, <span class='st'>"form"</span>, <span class='st'>"text"</span>, <span class='st'>"tree"</span>),
+  <span class='no'>...</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

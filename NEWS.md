@@ -2,7 +2,11 @@
 
 ## Bug fixes
 
-* `vega_embed()`: the `action` argument lets you speicfy `export$png` and `export$svg`. (#115)
+* `vega_embed()`: 
+ 
+  - arguments `downloadFileName`, `formatLocale` and `timeFormatLocale` added. (#122)
+
+  - the `action` argument lets you speicfy `export$png` and `export$svg`. (#115)
 
 # vegawidget 0.3.1
 

@@ -161,7 +161,10 @@ vega_embed <- function(renderer = c("canvas", "svg"),
       sourceHeader = sourceHeader,
       sourceFooter = sourceFooter,
       hover = hover,
-      i18n = i18n
+      i18n = i18n,
+      downloadFileName = downloadFileName,
+      formatLocale = formatLocale,
+      timeFormatLocale = timeFormatLocale
     )
 
   embed_options <- list_remove_null(options)

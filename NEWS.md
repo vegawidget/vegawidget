@@ -4,7 +4,7 @@
 
 * `vega_embed()`: 
  
-  - arguments `downloadFileName`, `formatLocale` and `timeFormatLocale` added. (#112)
+  - arguments `downloadFileName`, `formatLocale` and `timeFormatLocale` added. (#122)
 
   - the `action` argument lets you speicfy `export$png` and `export$svg`. (#115)
 

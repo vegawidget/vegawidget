@@ -37,14 +37,19 @@ test_that("combine function works", {
 
 test_that("pluck_all works", {
 
-  list_test <-
+  list_00 <-
+    list(
+      a = 0,
+      b = 1
+    )
+
+  list_01 <-
     list(
       a = list(b = "one"),
-      b = c(letters),
+      b = c(letters[1:2]),
       c = list(a = list(b = "two")),
       d = list(a = list(b = "two")),
       e = list(f = list(a = list(b = "three")))
     )
-
 
 })

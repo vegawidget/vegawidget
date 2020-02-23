@@ -48,8 +48,38 @@ test_that("pluck_all works", {
       a = list(b = "one"),
       b = c(letters[1:2]),
       c = list(a = list(b = "two")),
-      d = list(a = list(b = "two")),
+      d = list(g = list(b = "two")),
       e = list(f = list(a = list(b = "three")))
     )
+
+  expect_identical(
+    pluck_all(list_00, "b"),
+    list(1)
+  )
+
+  expect_identical(
+    pluck_all(list_01, "b"),
+    list(c("a", "b"), "one", "two", "two", "three")
+  )
+
+  expect_identical(
+    pluck_all(list_01, "b", .p = rlang::is_scalar_atomic),
+    list("one", "two", "two", "three")
+  )
+
+  expect_identical(
+    pluck_all(list_01, "b", .c = unique),
+    list(c("a", "b"), "one", "two", "three")
+  )
+
+  expect_identical(
+    pluck_all(list_01, "b", .p = rlang::is_scalar_atomic, .c = unique),
+    list("one", "two", "three")
+  )
+
+  expect_identical(
+    pluck_all(list_01, "a", .c = unique),
+    list(list(b = "one"), list(b = "two"), list(b = "three"))
+  )
 
 })

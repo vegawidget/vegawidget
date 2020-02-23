@@ -5,10 +5,10 @@
 #'
 #'
 #' @inheritParams purrr::pluck
-#' @param .predicate `function` that takes a single argument, returns
+#' @param .p `function` that takes a single argument, returns
 #'   a logical value indicating if this is the "thing" you are
 #'   looking for.
-#' @param .combine `function` that takes a single argument, a list of
+#' @param .c `function` that takes a single argument, a list of
 #'   "things" you are looking for, returns a (potentially shorter) list
 #'   of "things" that should be kept. You can use this argument to
 #'   provide a function to filter out duplicates.
@@ -16,19 +16,22 @@
 #' @return `list()`
 #'
 #'
-pluck_all <- function(.x, ..., .predicate = NULL, .combine = NULL) {
+pluck_all <- function(.x, ..., .p = NULL, .c = NULL) {
 
   # default functions:
   #  - predicate always returns true
   #  - combine is `identity()`
-  .predicate <- .predicate %||% function(x) TRUE
-  .combine <- .combine  %||% function(x) purrr::discard(x, is.null)
+  .p <- .p %||% ~TRUE
+  .c <- .c  %||% ~purrr::discard(.x, is.null)
+
+  .p <- purrr::as_mapper(.p)
+  .c <- purrr::as_mapper(.c)
 
   # search this item using accessors
   result_here <- purrr::pluck(.x, ...)
 
   # if something found *here* does not satisfy the predicate, set to NULL
-  if (!identical(.predicate(result_here), TRUE)) {
+  if (!identical(.p(result_here), TRUE)) {
     result_here <- NULL
   }
 
@@ -36,26 +39,21 @@ pluck_all <- function(.x, ..., .predicate = NULL, .combine = NULL) {
   result_children <- NULL
   if (rlang::is_list(.x) || rlang::is_environment(.x)) {
     result_children <-
-      purrr::map(
-        .x,
-        pluck_all,
-        ...,
-        .predicate = .predicate,
-        .combine = .combine
-      )
+      purrr::map(.x, pluck_all, ..., .p = .p, .c = .c)
 
     result_children <- purrr::flatten(result_children)
+    result_children <- unname(result_children)
   }
 
   # combine
   if (is.null(result_here)) {
     result_all <- result_children
   } else {
-    result_all <- c(list(result_here), unname(result_children))
+    result_all <- c(list(result_here), result_children)
   }
 
   # remove duplicates
-  result_all <- .combine(result_all)
+  result_all <- .c(result_all)
 
   result_all
 }
@@ -79,7 +77,7 @@ combine_signals <- function(.x) {
   )
 
   # return the non-duplicates
-  .x[!is_duplicate & !is_null]
+  .x[!is_duplicate]
 }
 
 is_signal <- function(x) {

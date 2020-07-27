@@ -2,7 +2,7 @@
 title: Package infrastrucure
 output: github_document
 params:
-  vega_lite_version: "4.0.2"
+  vega_lite_version: "4.14.0"
 ---
 
 This purpose of this document is to build the package infrastucture. 

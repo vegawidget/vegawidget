@@ -7,6 +7,10 @@
   - arguments `downloadFileName`, `formatLocale` and `timeFormatLocale` added. (#122)
 
   - the `action` argument lets you speicfy `export$png` and `export$svg`. (#115)
+  
+* `vegawidget()`:
+
+  - keep precision in json representation for accurate rendering of small values (< 0.001). (#130)
 
 # vegawidget 0.3.1
 

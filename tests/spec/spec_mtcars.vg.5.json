@@ -493,6 +493,12 @@
             "scale": "color",
             "field": "cyl"
           },
+          "ariaRoleDescription": {
+            "value": "point"
+          },
+          "description": {
+            "signal": "\"wt: \" + (format(datum[\"wt\"], \"\")) + \"; mpg: \" + (format(datum[\"mpg\"], \"\")) + \"; cyl: \" + (isValid(datum[\"cyl\"]) ? datum[\"cyl\"] : \"\"+datum[\"cyl\"])"
+          },
           "x": {
             "scale": "x",
             "field": "wt"
@@ -560,6 +566,7 @@
       },
       "domain": false,
       "labels": false,
+      "aria": false,
       "maxExtent": 0,
       "minExtent": 0,
       "ticks": false,
@@ -575,6 +582,7 @@
       },
       "domain": false,
       "labels": false,
+      "aria": false,
       "maxExtent": 0,
       "minExtent": 0,
       "ticks": false,
@@ -607,9 +615,6 @@
   "legends": [
     {
       "stroke": "color",
-      "gradientLength": {
-        "signal": "clamp(height, 64, 200)"
-      },
       "symbolType": "circle",
       "title": "cyl",
       "encode": {

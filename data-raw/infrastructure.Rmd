@@ -2,7 +2,7 @@
 title: Package infrastrucure
 output: github_document
 params:
-  vega_lite_version: "4.14.0"
+  vega_lite_version: "4.17.0"
 ---
 
 This purpose of this document is to build the package infrastucture. 
@@ -33,7 +33,7 @@ library("vegawidget")
 
 ## Infrastructure
 
-Package infrastucture incudes:
+Package infrastructure includes:
 
 - an htmlwidget named "vegawidget"
 - internal package data: 
@@ -371,6 +371,7 @@ Vegawidget handlers:
   )
 ```
 
+### Write this out
 
 ```{r}
 usethis::use_data(
@@ -381,3 +382,6 @@ usethis::use_data(
 )
 ```
 
+## Now what?
+
+There are a few things you'll need to do to get tests working

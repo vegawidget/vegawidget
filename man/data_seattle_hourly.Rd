@@ -4,11 +4,13 @@
 \name{data_seattle_hourly}
 \alias{data_seattle_hourly}
 \title{Example dataset: Seattle hourly temperatures}
-\format{A data frame with 8759 observations of two variables
+\format{
+A data frame with 8759 observations of two variables
 \describe{
 \item{date}{\code{POSIXct}, instant of the observation, uses \code{"America/Los_Angeles"}}
 \item{temp}{\code{double}, temperature (°C)}
-}}
+}
+}
 \source{
 \url{https://vega.github.io/vega-datasets/data/seattle-temps.csv}
 }

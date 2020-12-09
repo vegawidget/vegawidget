@@ -384,4 +384,8 @@ usethis::use_data(
 
 ## Now what?
 
-There are a few things you'll need to do to get tests working
+There are a few things you'll need to do now:
+
+1. Run tests (`devtools::test()`): some things may have changed with snapshot testing. 
+2. Build documentation site(`pkgdown::build_site()`) check image article, other articles.
+3. Create a PR, alert other vegawidget members.

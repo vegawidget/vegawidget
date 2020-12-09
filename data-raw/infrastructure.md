@@ -54,7 +54,7 @@ library("vegawidget")
 
 ## Infrastructure
 
-Package infrastucture incudes:
+Package infrastructure includes:
 
 -   an htmlwidget named “vegawidget”
 -   internal package data:
@@ -449,6 +449,8 @@ Vegawidget handlers:
   )
 ```
 
+### Write this out
+
 ``` r
 usethis::use_data(
   .vega_version, 
@@ -461,3 +463,13 @@ usethis::use_data(
     ## ✓ Setting active project to '/Users/sesa19001/Documents/repos/public/vegawidget/vegawidget'
 
     ## ✓ Saving '.vega_version', '.vw_handler_library' to 'R/sysdata.rda'
+
+## Now what?
+
+There are a few things you’ll need to do now:
+
+1.  Run tests (`devtools::test()`): some things may have changed with
+    snapshot testing.
+2.  Build documentation site(`pkgdown::build_site()`) check image
+    article, other articles.
+3.  Create a PR, alert other vegawidget members.

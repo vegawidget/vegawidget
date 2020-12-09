@@ -386,6 +386,7 @@ usethis::use_data(
 
 There are a few things you'll need to do now:
 
+1. Possibly update `vega_embed()` to be up-to-date with [vega-embed](https://github.com/vega/vega-embed).
 1. Run tests (`devtools::test()`): some things may have changed with snapshot testing. 
-2. Build documentation site(`pkgdown::build_site()`) check image article, other articles.
-3. Create a PR, alert other vegawidget members.
+1. Build documentation site(`pkgdown::build_site()`) check image article, other articles.
+1. Create a PR, alert other vegawidget members.

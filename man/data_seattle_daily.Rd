@@ -4,7 +4,8 @@
 \name{data_seattle_daily}
 \alias{data_seattle_daily}
 \title{Example dataset: Seattle daily weather}
-\format{A data frame with 1461 observations of six variables
+\format{
+A data frame with 1461 observations of six variables
 \describe{
 \item{date}{\code{Date}, date of the observation}
 \item{precipitation}{\code{double}, amount of precipitation (mm)}
@@ -12,7 +13,8 @@
 \item{temp_min}{\code{double}, minimum temperature (°C)}
 \item{wind}{\code{double}, average wind-speed (m/s)}
 \item{weather}{\code{character}, description of weather}
-}}
+}
+}
 \source{
 \url{https://vega.github.io/vega-datasets/data/seattle-weather.csv}
 }

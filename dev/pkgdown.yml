@@ -1,13 +1,14 @@
-pandoc: '2.2'
-pkgdown: 1.4.1
+pandoc: 2.7.3
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  dates-times: articles/dates-times.html
-  image: articles/image.html
-  import: articles/import.html
-  javascript: articles/javascript.html
-  render-vegawidget: articles/render-vegawidget.html
-  shiny: articles/shiny.html
-  vegaspec: articles/vegaspec.html
+  articles/dates-times: dates-times.html
+  articles/image: image.html
+  articles/import: import.html
+  articles/javascript: javascript.html
+  articles/render-vegawidget: render-vegawidget.html
+  articles/shiny: shiny.html
+  articles/vegaspec: vegaspec.html
   vegawidget: vegawidget.html
+last_built: 2020-12-09T22:42Z
 

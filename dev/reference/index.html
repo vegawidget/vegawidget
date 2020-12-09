@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -55,7 +59,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9003</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9004</span>
       </span>
     </div>
 
@@ -159,6 +163,11 @@
           <p class="section-desc"><p>The central <em>object</em> of this package is a <code>vegaspec</code>, which is also a <code>list</code>. Use these functions to coerce to a <code>vegaspec</code>, format as JSON, or otherwise operate on a <code>vegaspec</code>. If you have <a href="https://nodejs.org/en/"><strong>nodejs</strong></a> installed, you can compile a Vega-Lite specification to a Vega specification.</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -215,6 +224,11 @@
           <p class="section-desc"><p>The central <em>side-effect</em> of this package is to render a <code>vegawidget</code>, which is also an <code>htmlwidget</code>. A <code>vegawidget</code> is built using a <code>vegaspec</code>. A helper function is provided for <a href="https://github.com/vega/vega-embed">vega-embed</a> options. These options can be specified as an argument to the <code>vegawidget</code> function, or as an R option, <code>vega.embed</code>, which would picked up by the <code>knit_print</code> method. To knit to non-HTML-format, please consult the <a href="../articles/articles/render-vegawidget.html#knitting-strategies">article on rendering</a></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -241,6 +255,11 @@
           <p class="section-desc"><p>This package lets you render vegawidgets in Shiny. Once renrdered, it also provides functions to access Vega datasets, signals, and events from Shiny. The function <code><a href="../reference/vw_shiny_demo.html">vw_shiny_demo()</a></code> lets you run any of this package’s demo apps; call it without arguments to see the list of available apps. This <a href="../articles/articles/shiny.html">article on Shiny</a> goes into some detail.</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -279,6 +298,11 @@
           <p class="section-desc"><p>In addition to Shiny, this package provides functions to add JavaScript listeners to Vega charts and to compose JavaScript handlers. This lets you create interactivity in RMarkdown documents, but <em>you</em> are responsible for providing all the additional HTML and JS code to make it work. To see some examples, please see this <a href="../articles/javascript.html">article on JavaScript</a>.</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -311,6 +335,11 @@
           <p class="section-desc"><p>This package provides some sample specifications and datasets.</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -343,6 +372,11 @@
           <p class="section-desc"><p>If you have <a href="https://nodejs.org/en/"><strong>nodejs</strong></a> installed, you can convert and write a <code>vegaspec</code> or a <code>vegawidget</code> to SVG. To convert to a bitmap, or to write to a PNG file, you will need the <a href="https://CRAN.R-project.org/package=rsvg"><strong>rsvg</strong></a> and <a href="https://CRAN.R-project.org/package=png"><strong>png</strong></a> packages.</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -357,6 +391,11 @@
           <p class="section-desc"><p>You can use <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> to bring this package’s functionality to yours. Much like <code><a href="https://usethis.r-lib.org/reference/use_pipe.html">usethis::use_pipe()</a></code> allows you to re-export the pipe in your package’s namespace, <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> does this for many of these functions, as detailed in this <a href="../articles/articles/import.html">article</a>. The other functions deal with serializing date-times, and versions of Vega’s JavaScript libraries.</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -380,17 +419,10 @@
     </table>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-specifying-vegaspec">Specifying: vegaspec</a></li>
-      <li><a href="#section-rendering-vegawidget">Rendering: vegawidget</a></li>
-      <li><a href="#section-shiny">Shiny</a></li>
-      <li><a href="#section-javascript">JavaScript</a></li>
-      <li><a href="#section-data">Data</a></li>
-      <li><a href="#section-images">Images</a></li>
-      <li><a href="#section-utilities">Utilities</a></li>
-    </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -401,7 +433,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

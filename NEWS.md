@@ -8,6 +8,8 @@
 
   - the `action` argument lets you speicfy `export$png` and `export$svg`. (#115)
 
+* repair `knit_print()` by exporting the S3 method. (#132)
+
 # vegawidget 0.3.1
 
 * Upgrade to Vega-Lite 4.0.2, Vega 5.9.0, vega-embed 6.2.0. 

@@ -4,11 +4,13 @@
 \name{data_category}
 \alias{data_category}
 \title{Example dataset: Categorical data}
-\format{A data frame with ten observations of two variables
+\format{
+A data frame with ten observations of two variables
 \describe{
 \item{category}{\code{character}, representative of a nominal variable}
 \item{number}{\code{double}, representative of a quantitative variable}
-}}
+}
+}
 \usage{
 data_category
 }

@@ -21,3 +21,4 @@
 ^vignettes/foo\.Rmd$
 ^revdep$
 ^CRAN-RELEASE$
+^\.github$

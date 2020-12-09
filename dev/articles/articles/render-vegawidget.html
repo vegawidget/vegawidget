@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9004</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9005</span>
       </span>
     </div>
 
@@ -104,7 +104,7 @@
 
       </header><script src="render-vegawidget_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="render-vegawidget_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
 <script src="render-vegawidget_files/anchor-sections-1.0/anchor-sections.js"></script><script src="render-vegawidget_files/htmlwidgets-1.5.2/htmlwidgets.js"></script><script src="render-vegawidget_files/vega-5.9.0/vega.min.js"></script><script src="render-vegawidget_files/vega-lite-4.0.2/vega-lite.min.js"></script><link href="render-vegawidget_files/vega-embed-6.2.0/vega-embed.css" rel="stylesheet">
-<script src="render-vegawidget_files/vega-embed-6.2.0/vega-embed.js"></script><script src="render-vegawidget_files/vegawidget-binding-0.3.1.9004/vegawidget.js"></script><div class="row">
+<script src="render-vegawidget_files/vega-embed-6.2.0/vega-embed.js"></script><script src="render-vegawidget_files/vegawidget-binding-0.3.1.9005/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Render using vegawidget</h1>
@@ -146,7 +146,486 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/vegawidget/vegawidget">"vegawidget"</a></span><span class="op">)</span>
 
 <span class="va">spec_mtcars</span> </code></pre></div>
-<p>In addition to <code>spec</code>, the function <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> has arguments to <code>embed</code> and to specify the overall dimensions, <code>width</code> and <code>height</code>. Setting the options using <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> arguments will override options set any other way.</p>
+<div id="htmlwidget-dbcec3f54c033834214b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dbcec3f54c033834214b">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 300,
+    "height": 300,
+    "description": "An mtcars example.",
+    "data": {
+      "values": [
+        {
+          "mpg": 21,
+          "cyl": 6,
+          "disp": 160,
+          "hp": 110,
+          "drat": 3.9,
+          "wt": 2.62,
+          "qsec": 16.46,
+          "vs": 0,
+          "am": 1,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Mazda RX4"
+        },
+        {
+          "mpg": 21,
+          "cyl": 6,
+          "disp": 160,
+          "hp": 110,
+          "drat": 3.9,
+          "wt": 2.875,
+          "qsec": 17.02,
+          "vs": 0,
+          "am": 1,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Mazda RX4 Wag"
+        },
+        {
+          "mpg": 22.8,
+          "cyl": 4,
+          "disp": 108,
+          "hp": 93,
+          "drat": 3.85,
+          "wt": 2.32,
+          "qsec": 18.61,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Datsun 710"
+        },
+        {
+          "mpg": 21.4,
+          "cyl": 6,
+          "disp": 258,
+          "hp": 110,
+          "drat": 3.08,
+          "wt": 3.215,
+          "qsec": 19.44,
+          "vs": 1,
+          "am": 0,
+          "gear": 3,
+          "carb": 1,
+          "_row": "Hornet 4 Drive"
+        },
+        {
+          "mpg": 18.7,
+          "cyl": 8,
+          "disp": 360,
+          "hp": 175,
+          "drat": 3.15,
+          "wt": 3.44,
+          "qsec": 17.02,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "Hornet Sportabout"
+        },
+        {
+          "mpg": 18.1,
+          "cyl": 6,
+          "disp": 225,
+          "hp": 105,
+          "drat": 2.76,
+          "wt": 3.46,
+          "qsec": 20.22,
+          "vs": 1,
+          "am": 0,
+          "gear": 3,
+          "carb": 1,
+          "_row": "Valiant"
+        },
+        {
+          "mpg": 14.3,
+          "cyl": 8,
+          "disp": 360,
+          "hp": 245,
+          "drat": 3.21,
+          "wt": 3.57,
+          "qsec": 15.84,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Duster 360"
+        },
+        {
+          "mpg": 24.4,
+          "cyl": 4,
+          "disp": 146.7,
+          "hp": 62,
+          "drat": 3.69,
+          "wt": 3.19,
+          "qsec": 20,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Merc 240D"
+        },
+        {
+          "mpg": 22.8,
+          "cyl": 4,
+          "disp": 140.8,
+          "hp": 95,
+          "drat": 3.92,
+          "wt": 3.15,
+          "qsec": 22.9,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Merc 230"
+        },
+        {
+          "mpg": 19.2,
+          "cyl": 6,
+          "disp": 167.6,
+          "hp": 123,
+          "drat": 3.92,
+          "wt": 3.44,
+          "qsec": 18.3,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Merc 280"
+        },
+        {
+          "mpg": 17.8,
+          "cyl": 6,
+          "disp": 167.6,
+          "hp": 123,
+          "drat": 3.92,
+          "wt": 3.44,
+          "qsec": 18.9,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Merc 280C"
+        },
+        {
+          "mpg": 16.4,
+          "cyl": 8,
+          "disp": 275.8,
+          "hp": 180,
+          "drat": 3.07,
+          "wt": 4.07,
+          "qsec": 17.4,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 3,
+          "_row": "Merc 450SE"
+        },
+        {
+          "mpg": 17.3,
+          "cyl": 8,
+          "disp": 275.8,
+          "hp": 180,
+          "drat": 3.07,
+          "wt": 3.73,
+          "qsec": 17.6,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 3,
+          "_row": "Merc 450SL"
+        },
+        {
+          "mpg": 15.2,
+          "cyl": 8,
+          "disp": 275.8,
+          "hp": 180,
+          "drat": 3.07,
+          "wt": 3.78,
+          "qsec": 18,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 3,
+          "_row": "Merc 450SLC"
+        },
+        {
+          "mpg": 10.4,
+          "cyl": 8,
+          "disp": 472,
+          "hp": 205,
+          "drat": 2.93,
+          "wt": 5.25,
+          "qsec": 17.98,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Cadillac Fleetwood"
+        },
+        {
+          "mpg": 10.4,
+          "cyl": 8,
+          "disp": 460,
+          "hp": 215,
+          "drat": 3,
+          "wt": 5.424,
+          "qsec": 17.82,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Lincoln Continental"
+        },
+        {
+          "mpg": 14.7,
+          "cyl": 8,
+          "disp": 440,
+          "hp": 230,
+          "drat": 3.23,
+          "wt": 5.345,
+          "qsec": 17.42,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Chrysler Imperial"
+        },
+        {
+          "mpg": 32.4,
+          "cyl": 4,
+          "disp": 78.7,
+          "hp": 66,
+          "drat": 4.08,
+          "wt": 2.2,
+          "qsec": 19.47,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Fiat 128"
+        },
+        {
+          "mpg": 30.4,
+          "cyl": 4,
+          "disp": 75.7,
+          "hp": 52,
+          "drat": 4.93,
+          "wt": 1.615,
+          "qsec": 18.52,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Honda Civic"
+        },
+        {
+          "mpg": 33.9,
+          "cyl": 4,
+          "disp": 71.1,
+          "hp": 65,
+          "drat": 4.22,
+          "wt": 1.835,
+          "qsec": 19.9,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Toyota Corolla"
+        },
+        {
+          "mpg": 21.5,
+          "cyl": 4,
+          "disp": 120.1,
+          "hp": 97,
+          "drat": 3.7,
+          "wt": 2.465,
+          "qsec": 20.01,
+          "vs": 1,
+          "am": 0,
+          "gear": 3,
+          "carb": 1,
+          "_row": "Toyota Corona"
+        },
+        {
+          "mpg": 15.5,
+          "cyl": 8,
+          "disp": 318,
+          "hp": 150,
+          "drat": 2.76,
+          "wt": 3.52,
+          "qsec": 16.87,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "Dodge Challenger"
+        },
+        {
+          "mpg": 15.2,
+          "cyl": 8,
+          "disp": 304,
+          "hp": 150,
+          "drat": 3.15,
+          "wt": 3.435,
+          "qsec": 17.3,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "AMC Javelin"
+        },
+        {
+          "mpg": 13.3,
+          "cyl": 8,
+          "disp": 350,
+          "hp": 245,
+          "drat": 3.73,
+          "wt": 3.84,
+          "qsec": 15.41,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Camaro Z28"
+        },
+        {
+          "mpg": 19.2,
+          "cyl": 8,
+          "disp": 400,
+          "hp": 175,
+          "drat": 3.08,
+          "wt": 3.845,
+          "qsec": 17.05,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "Pontiac Firebird"
+        },
+        {
+          "mpg": 27.3,
+          "cyl": 4,
+          "disp": 79,
+          "hp": 66,
+          "drat": 4.08,
+          "wt": 1.935,
+          "qsec": 18.9,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Fiat X1-9"
+        },
+        {
+          "mpg": 26,
+          "cyl": 4,
+          "disp": 120.3,
+          "hp": 91,
+          "drat": 4.43,
+          "wt": 2.14,
+          "qsec": 16.7,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 2,
+          "_row": "Porsche 914-2"
+        },
+        {
+          "mpg": 30.4,
+          "cyl": 4,
+          "disp": 95.1,
+          "hp": 113,
+          "drat": 3.77,
+          "wt": 1.513,
+          "qsec": 16.9,
+          "vs": 1,
+          "am": 1,
+          "gear": 5,
+          "carb": 2,
+          "_row": "Lotus Europa"
+        },
+        {
+          "mpg": 15.8,
+          "cyl": 8,
+          "disp": 351,
+          "hp": 264,
+          "drat": 4.22,
+          "wt": 3.17,
+          "qsec": 14.5,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 4,
+          "_row": "Ford Pantera L"
+        },
+        {
+          "mpg": 19.7,
+          "cyl": 6,
+          "disp": 145,
+          "hp": 175,
+          "drat": 3.62,
+          "wt": 2.77,
+          "qsec": 15.5,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 6,
+          "_row": "Ferrari Dino"
+        },
+        {
+          "mpg": 15,
+          "cyl": 8,
+          "disp": 301,
+          "hp": 335,
+          "drat": 3.54,
+          "wt": 3.57,
+          "qsec": 14.6,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 8,
+          "_row": "Maserati Bora"
+        },
+        {
+          "mpg": 21.4,
+          "cyl": 4,
+          "disp": 121,
+          "hp": 109,
+          "drat": 4.11,
+          "wt": 2.78,
+          "qsec": 18.6,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Volvo 142E"
+        }
+      ]
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "wt",
+        "type": "quantitative"
+      },
+      "y": {
+        "field": "mpg",
+        "type": "quantitative"
+      },
+      "color": {
+        "field": "cyl",
+        "type": "nominal"
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>In addition to <code>spec</code>, the function <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> has arguments to <code>embed</code> and to specify the overall dimensions, <code>width</code> and <code>height</code>. Setting the options using <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> arguments will override options set any other way.</p>
 <p>The <code>embed</code> argument is used to specify the embedding options, according to the API to the <a href="https://github.com/vega/vega-embed#options">vega-embed library</a>. There are a lot of options; to make things easier, you can use the helper function <code><a href="../../reference/vega_embed.html">vega_embed()</a></code>, it mirrors the options available to the version of the vega-embed library supported by this package (see <code><a href="../../reference/vega_version.html">vega_version()</a></code>). The most important arguments are:</p>
 <ul>
 <li>
@@ -158,8 +637,8 @@
 <p>For example, you can change the renderer to SVG:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span>, embed <span class="op">=</span> <span class="fu"><a href="../../reference/vega_embed.html">vega_embed</a></span><span class="op">(</span>renderer <span class="op">=</span> <span class="st">"svg"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-8c52a4a9cbe2ff750884" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8c52a4a9cbe2ff750884">{"x":{
+<div id="htmlwidget-aa0b8f3af63eba6d84a1" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-aa0b8f3af63eba6d84a1">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -640,8 +1119,8 @@
 },"evals":[],"jsHooks":[]}</script><p>You can remove the actions “bug” that is otherwise placed at the top-right of the chart:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span>, embed <span class="op">=</span> <span class="fu"><a href="../../reference/vega_embed.html">vega_embed</a></span><span class="op">(</span>actions <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-106785a44716b6d44b08" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-106785a44716b6d44b08">{"x":{
+<div id="htmlwidget-5eea0de6799064f8fd92" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5eea0de6799064f8fd92">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -1123,8 +1602,8 @@
 },"evals":[],"jsHooks":[]}</script><p>The arguments <code>width</code> and <code>height</code> in <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> are used to autosize the <code>spec</code> before rendering, using <code><a href="../../reference/vw_autosize.html">vw_autosize()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span>, width <span class="op">=</span> <span class="fl">300</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-6fdcfbe99a69d78bdefa" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6fdcfbe99a69d78bdefa">{"x":{
+<div id="htmlwidget-e8cd5049156d99a7a088" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e8cd5049156d99a7a088">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -1637,8 +2116,8 @@
 <p>If you are sharing your work, using a remote URL will be more robust, but requires that the data be publicly accessible.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_precip</span>, base_url <span class="op">=</span> <span class="va">url_remote</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-9285106219a8c00eb654" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9285106219a8c00eb654">{"x":{
+<div id="htmlwidget-9e118fdcf29e6f43c7c3" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9e118fdcf29e6f43c7c3">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "data": {
@@ -1668,14 +2147,980 @@
 <p>One way to set these options is in a knitr chunk:</p>
 <pre><code>```{r vega.embed=vegawidget::vega_embed(actions = FALSE)}
 spec_mtcars
-```
-
-
-
-```{r vega.width=300, vega.height=300}
+```</code></pre>
+<div id="htmlwidget-e49db77d39affefa61f9" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e49db77d39affefa61f9">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 300,
+    "height": 300,
+    "description": "An mtcars example.",
+    "data": {
+      "values": [
+        {
+          "mpg": 21,
+          "cyl": 6,
+          "disp": 160,
+          "hp": 110,
+          "drat": 3.9,
+          "wt": 2.62,
+          "qsec": 16.46,
+          "vs": 0,
+          "am": 1,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Mazda RX4"
+        },
+        {
+          "mpg": 21,
+          "cyl": 6,
+          "disp": 160,
+          "hp": 110,
+          "drat": 3.9,
+          "wt": 2.875,
+          "qsec": 17.02,
+          "vs": 0,
+          "am": 1,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Mazda RX4 Wag"
+        },
+        {
+          "mpg": 22.8,
+          "cyl": 4,
+          "disp": 108,
+          "hp": 93,
+          "drat": 3.85,
+          "wt": 2.32,
+          "qsec": 18.61,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Datsun 710"
+        },
+        {
+          "mpg": 21.4,
+          "cyl": 6,
+          "disp": 258,
+          "hp": 110,
+          "drat": 3.08,
+          "wt": 3.215,
+          "qsec": 19.44,
+          "vs": 1,
+          "am": 0,
+          "gear": 3,
+          "carb": 1,
+          "_row": "Hornet 4 Drive"
+        },
+        {
+          "mpg": 18.7,
+          "cyl": 8,
+          "disp": 360,
+          "hp": 175,
+          "drat": 3.15,
+          "wt": 3.44,
+          "qsec": 17.02,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "Hornet Sportabout"
+        },
+        {
+          "mpg": 18.1,
+          "cyl": 6,
+          "disp": 225,
+          "hp": 105,
+          "drat": 2.76,
+          "wt": 3.46,
+          "qsec": 20.22,
+          "vs": 1,
+          "am": 0,
+          "gear": 3,
+          "carb": 1,
+          "_row": "Valiant"
+        },
+        {
+          "mpg": 14.3,
+          "cyl": 8,
+          "disp": 360,
+          "hp": 245,
+          "drat": 3.21,
+          "wt": 3.57,
+          "qsec": 15.84,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Duster 360"
+        },
+        {
+          "mpg": 24.4,
+          "cyl": 4,
+          "disp": 146.7,
+          "hp": 62,
+          "drat": 3.69,
+          "wt": 3.19,
+          "qsec": 20,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Merc 240D"
+        },
+        {
+          "mpg": 22.8,
+          "cyl": 4,
+          "disp": 140.8,
+          "hp": 95,
+          "drat": 3.92,
+          "wt": 3.15,
+          "qsec": 22.9,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Merc 230"
+        },
+        {
+          "mpg": 19.2,
+          "cyl": 6,
+          "disp": 167.6,
+          "hp": 123,
+          "drat": 3.92,
+          "wt": 3.44,
+          "qsec": 18.3,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Merc 280"
+        },
+        {
+          "mpg": 17.8,
+          "cyl": 6,
+          "disp": 167.6,
+          "hp": 123,
+          "drat": 3.92,
+          "wt": 3.44,
+          "qsec": 18.9,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Merc 280C"
+        },
+        {
+          "mpg": 16.4,
+          "cyl": 8,
+          "disp": 275.8,
+          "hp": 180,
+          "drat": 3.07,
+          "wt": 4.07,
+          "qsec": 17.4,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 3,
+          "_row": "Merc 450SE"
+        },
+        {
+          "mpg": 17.3,
+          "cyl": 8,
+          "disp": 275.8,
+          "hp": 180,
+          "drat": 3.07,
+          "wt": 3.73,
+          "qsec": 17.6,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 3,
+          "_row": "Merc 450SL"
+        },
+        {
+          "mpg": 15.2,
+          "cyl": 8,
+          "disp": 275.8,
+          "hp": 180,
+          "drat": 3.07,
+          "wt": 3.78,
+          "qsec": 18,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 3,
+          "_row": "Merc 450SLC"
+        },
+        {
+          "mpg": 10.4,
+          "cyl": 8,
+          "disp": 472,
+          "hp": 205,
+          "drat": 2.93,
+          "wt": 5.25,
+          "qsec": 17.98,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Cadillac Fleetwood"
+        },
+        {
+          "mpg": 10.4,
+          "cyl": 8,
+          "disp": 460,
+          "hp": 215,
+          "drat": 3,
+          "wt": 5.424,
+          "qsec": 17.82,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Lincoln Continental"
+        },
+        {
+          "mpg": 14.7,
+          "cyl": 8,
+          "disp": 440,
+          "hp": 230,
+          "drat": 3.23,
+          "wt": 5.345,
+          "qsec": 17.42,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Chrysler Imperial"
+        },
+        {
+          "mpg": 32.4,
+          "cyl": 4,
+          "disp": 78.7,
+          "hp": 66,
+          "drat": 4.08,
+          "wt": 2.2,
+          "qsec": 19.47,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Fiat 128"
+        },
+        {
+          "mpg": 30.4,
+          "cyl": 4,
+          "disp": 75.7,
+          "hp": 52,
+          "drat": 4.93,
+          "wt": 1.615,
+          "qsec": 18.52,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Honda Civic"
+        },
+        {
+          "mpg": 33.9,
+          "cyl": 4,
+          "disp": 71.1,
+          "hp": 65,
+          "drat": 4.22,
+          "wt": 1.835,
+          "qsec": 19.9,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Toyota Corolla"
+        },
+        {
+          "mpg": 21.5,
+          "cyl": 4,
+          "disp": 120.1,
+          "hp": 97,
+          "drat": 3.7,
+          "wt": 2.465,
+          "qsec": 20.01,
+          "vs": 1,
+          "am": 0,
+          "gear": 3,
+          "carb": 1,
+          "_row": "Toyota Corona"
+        },
+        {
+          "mpg": 15.5,
+          "cyl": 8,
+          "disp": 318,
+          "hp": 150,
+          "drat": 2.76,
+          "wt": 3.52,
+          "qsec": 16.87,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "Dodge Challenger"
+        },
+        {
+          "mpg": 15.2,
+          "cyl": 8,
+          "disp": 304,
+          "hp": 150,
+          "drat": 3.15,
+          "wt": 3.435,
+          "qsec": 17.3,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "AMC Javelin"
+        },
+        {
+          "mpg": 13.3,
+          "cyl": 8,
+          "disp": 350,
+          "hp": 245,
+          "drat": 3.73,
+          "wt": 3.84,
+          "qsec": 15.41,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Camaro Z28"
+        },
+        {
+          "mpg": 19.2,
+          "cyl": 8,
+          "disp": 400,
+          "hp": 175,
+          "drat": 3.08,
+          "wt": 3.845,
+          "qsec": 17.05,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "Pontiac Firebird"
+        },
+        {
+          "mpg": 27.3,
+          "cyl": 4,
+          "disp": 79,
+          "hp": 66,
+          "drat": 4.08,
+          "wt": 1.935,
+          "qsec": 18.9,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Fiat X1-9"
+        },
+        {
+          "mpg": 26,
+          "cyl": 4,
+          "disp": 120.3,
+          "hp": 91,
+          "drat": 4.43,
+          "wt": 2.14,
+          "qsec": 16.7,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 2,
+          "_row": "Porsche 914-2"
+        },
+        {
+          "mpg": 30.4,
+          "cyl": 4,
+          "disp": 95.1,
+          "hp": 113,
+          "drat": 3.77,
+          "wt": 1.513,
+          "qsec": 16.9,
+          "vs": 1,
+          "am": 1,
+          "gear": 5,
+          "carb": 2,
+          "_row": "Lotus Europa"
+        },
+        {
+          "mpg": 15.8,
+          "cyl": 8,
+          "disp": 351,
+          "hp": 264,
+          "drat": 4.22,
+          "wt": 3.17,
+          "qsec": 14.5,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 4,
+          "_row": "Ford Pantera L"
+        },
+        {
+          "mpg": 19.7,
+          "cyl": 6,
+          "disp": 145,
+          "hp": 175,
+          "drat": 3.62,
+          "wt": 2.77,
+          "qsec": 15.5,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 6,
+          "_row": "Ferrari Dino"
+        },
+        {
+          "mpg": 15,
+          "cyl": 8,
+          "disp": 301,
+          "hp": 335,
+          "drat": 3.54,
+          "wt": 3.57,
+          "qsec": 14.6,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 8,
+          "_row": "Maserati Bora"
+        },
+        {
+          "mpg": 21.4,
+          "cyl": 4,
+          "disp": 121,
+          "hp": 109,
+          "drat": 4.11,
+          "wt": 2.78,
+          "qsec": 18.6,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Volvo 142E"
+        }
+      ]
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "wt",
+        "type": "quantitative"
+      },
+      "y": {
+        "field": "mpg",
+        "type": "quantitative"
+      },
+      "color": {
+        "field": "cyl",
+        "type": "nominal"
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas",
+    "actions": false
+  }
+},"evals":[],"jsHooks":[]}</script><pre><code>```{r vega.width=300, vega.height=300}
 spec_mtcars
 ```</code></pre>
-<p>We can set options explicitly using the <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> function. There are a few ways of the ways you can do this:</p>
+<div id="htmlwidget-34f0d5aa570fdabef550" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-34f0d5aa570fdabef550">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 300,
+    "height": 300,
+    "description": "An mtcars example.",
+    "data": {
+      "values": [
+        {
+          "mpg": 21,
+          "cyl": 6,
+          "disp": 160,
+          "hp": 110,
+          "drat": 3.9,
+          "wt": 2.62,
+          "qsec": 16.46,
+          "vs": 0,
+          "am": 1,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Mazda RX4"
+        },
+        {
+          "mpg": 21,
+          "cyl": 6,
+          "disp": 160,
+          "hp": 110,
+          "drat": 3.9,
+          "wt": 2.875,
+          "qsec": 17.02,
+          "vs": 0,
+          "am": 1,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Mazda RX4 Wag"
+        },
+        {
+          "mpg": 22.8,
+          "cyl": 4,
+          "disp": 108,
+          "hp": 93,
+          "drat": 3.85,
+          "wt": 2.32,
+          "qsec": 18.61,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Datsun 710"
+        },
+        {
+          "mpg": 21.4,
+          "cyl": 6,
+          "disp": 258,
+          "hp": 110,
+          "drat": 3.08,
+          "wt": 3.215,
+          "qsec": 19.44,
+          "vs": 1,
+          "am": 0,
+          "gear": 3,
+          "carb": 1,
+          "_row": "Hornet 4 Drive"
+        },
+        {
+          "mpg": 18.7,
+          "cyl": 8,
+          "disp": 360,
+          "hp": 175,
+          "drat": 3.15,
+          "wt": 3.44,
+          "qsec": 17.02,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "Hornet Sportabout"
+        },
+        {
+          "mpg": 18.1,
+          "cyl": 6,
+          "disp": 225,
+          "hp": 105,
+          "drat": 2.76,
+          "wt": 3.46,
+          "qsec": 20.22,
+          "vs": 1,
+          "am": 0,
+          "gear": 3,
+          "carb": 1,
+          "_row": "Valiant"
+        },
+        {
+          "mpg": 14.3,
+          "cyl": 8,
+          "disp": 360,
+          "hp": 245,
+          "drat": 3.21,
+          "wt": 3.57,
+          "qsec": 15.84,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Duster 360"
+        },
+        {
+          "mpg": 24.4,
+          "cyl": 4,
+          "disp": 146.7,
+          "hp": 62,
+          "drat": 3.69,
+          "wt": 3.19,
+          "qsec": 20,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Merc 240D"
+        },
+        {
+          "mpg": 22.8,
+          "cyl": 4,
+          "disp": 140.8,
+          "hp": 95,
+          "drat": 3.92,
+          "wt": 3.15,
+          "qsec": 22.9,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Merc 230"
+        },
+        {
+          "mpg": 19.2,
+          "cyl": 6,
+          "disp": 167.6,
+          "hp": 123,
+          "drat": 3.92,
+          "wt": 3.44,
+          "qsec": 18.3,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Merc 280"
+        },
+        {
+          "mpg": 17.8,
+          "cyl": 6,
+          "disp": 167.6,
+          "hp": 123,
+          "drat": 3.92,
+          "wt": 3.44,
+          "qsec": 18.9,
+          "vs": 1,
+          "am": 0,
+          "gear": 4,
+          "carb": 4,
+          "_row": "Merc 280C"
+        },
+        {
+          "mpg": 16.4,
+          "cyl": 8,
+          "disp": 275.8,
+          "hp": 180,
+          "drat": 3.07,
+          "wt": 4.07,
+          "qsec": 17.4,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 3,
+          "_row": "Merc 450SE"
+        },
+        {
+          "mpg": 17.3,
+          "cyl": 8,
+          "disp": 275.8,
+          "hp": 180,
+          "drat": 3.07,
+          "wt": 3.73,
+          "qsec": 17.6,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 3,
+          "_row": "Merc 450SL"
+        },
+        {
+          "mpg": 15.2,
+          "cyl": 8,
+          "disp": 275.8,
+          "hp": 180,
+          "drat": 3.07,
+          "wt": 3.78,
+          "qsec": 18,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 3,
+          "_row": "Merc 450SLC"
+        },
+        {
+          "mpg": 10.4,
+          "cyl": 8,
+          "disp": 472,
+          "hp": 205,
+          "drat": 2.93,
+          "wt": 5.25,
+          "qsec": 17.98,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Cadillac Fleetwood"
+        },
+        {
+          "mpg": 10.4,
+          "cyl": 8,
+          "disp": 460,
+          "hp": 215,
+          "drat": 3,
+          "wt": 5.424,
+          "qsec": 17.82,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Lincoln Continental"
+        },
+        {
+          "mpg": 14.7,
+          "cyl": 8,
+          "disp": 440,
+          "hp": 230,
+          "drat": 3.23,
+          "wt": 5.345,
+          "qsec": 17.42,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Chrysler Imperial"
+        },
+        {
+          "mpg": 32.4,
+          "cyl": 4,
+          "disp": 78.7,
+          "hp": 66,
+          "drat": 4.08,
+          "wt": 2.2,
+          "qsec": 19.47,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Fiat 128"
+        },
+        {
+          "mpg": 30.4,
+          "cyl": 4,
+          "disp": 75.7,
+          "hp": 52,
+          "drat": 4.93,
+          "wt": 1.615,
+          "qsec": 18.52,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Honda Civic"
+        },
+        {
+          "mpg": 33.9,
+          "cyl": 4,
+          "disp": 71.1,
+          "hp": 65,
+          "drat": 4.22,
+          "wt": 1.835,
+          "qsec": 19.9,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Toyota Corolla"
+        },
+        {
+          "mpg": 21.5,
+          "cyl": 4,
+          "disp": 120.1,
+          "hp": 97,
+          "drat": 3.7,
+          "wt": 2.465,
+          "qsec": 20.01,
+          "vs": 1,
+          "am": 0,
+          "gear": 3,
+          "carb": 1,
+          "_row": "Toyota Corona"
+        },
+        {
+          "mpg": 15.5,
+          "cyl": 8,
+          "disp": 318,
+          "hp": 150,
+          "drat": 2.76,
+          "wt": 3.52,
+          "qsec": 16.87,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "Dodge Challenger"
+        },
+        {
+          "mpg": 15.2,
+          "cyl": 8,
+          "disp": 304,
+          "hp": 150,
+          "drat": 3.15,
+          "wt": 3.435,
+          "qsec": 17.3,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "AMC Javelin"
+        },
+        {
+          "mpg": 13.3,
+          "cyl": 8,
+          "disp": 350,
+          "hp": 245,
+          "drat": 3.73,
+          "wt": 3.84,
+          "qsec": 15.41,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 4,
+          "_row": "Camaro Z28"
+        },
+        {
+          "mpg": 19.2,
+          "cyl": 8,
+          "disp": 400,
+          "hp": 175,
+          "drat": 3.08,
+          "wt": 3.845,
+          "qsec": 17.05,
+          "vs": 0,
+          "am": 0,
+          "gear": 3,
+          "carb": 2,
+          "_row": "Pontiac Firebird"
+        },
+        {
+          "mpg": 27.3,
+          "cyl": 4,
+          "disp": 79,
+          "hp": 66,
+          "drat": 4.08,
+          "wt": 1.935,
+          "qsec": 18.9,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 1,
+          "_row": "Fiat X1-9"
+        },
+        {
+          "mpg": 26,
+          "cyl": 4,
+          "disp": 120.3,
+          "hp": 91,
+          "drat": 4.43,
+          "wt": 2.14,
+          "qsec": 16.7,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 2,
+          "_row": "Porsche 914-2"
+        },
+        {
+          "mpg": 30.4,
+          "cyl": 4,
+          "disp": 95.1,
+          "hp": 113,
+          "drat": 3.77,
+          "wt": 1.513,
+          "qsec": 16.9,
+          "vs": 1,
+          "am": 1,
+          "gear": 5,
+          "carb": 2,
+          "_row": "Lotus Europa"
+        },
+        {
+          "mpg": 15.8,
+          "cyl": 8,
+          "disp": 351,
+          "hp": 264,
+          "drat": 4.22,
+          "wt": 3.17,
+          "qsec": 14.5,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 4,
+          "_row": "Ford Pantera L"
+        },
+        {
+          "mpg": 19.7,
+          "cyl": 6,
+          "disp": 145,
+          "hp": 175,
+          "drat": 3.62,
+          "wt": 2.77,
+          "qsec": 15.5,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 6,
+          "_row": "Ferrari Dino"
+        },
+        {
+          "mpg": 15,
+          "cyl": 8,
+          "disp": 301,
+          "hp": 335,
+          "drat": 3.54,
+          "wt": 3.57,
+          "qsec": 14.6,
+          "vs": 0,
+          "am": 1,
+          "gear": 5,
+          "carb": 8,
+          "_row": "Maserati Bora"
+        },
+        {
+          "mpg": 21.4,
+          "cyl": 4,
+          "disp": 121,
+          "hp": 109,
+          "drat": 4.11,
+          "wt": 2.78,
+          "qsec": 18.6,
+          "vs": 1,
+          "am": 1,
+          "gear": 4,
+          "carb": 2,
+          "_row": "Volvo 142E"
+        }
+      ]
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "wt",
+        "type": "quantitative"
+      },
+      "y": {
+        "field": "mpg",
+        "type": "quantitative"
+      },
+      "color": {
+        "field": "cyl",
+        "type": "nominal"
+      }
+    },
+    "config": {
+      "autosize": {
+        "type": "fit",
+        "contains": "padding"
+      },
+      "view": {
+        "width": 300,
+        "height": 300
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>We can set options explicitly using the <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> function. There are a few ways of the ways you can do this:</p>
 <ul>
 <li>put an <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> call in your <code>.Rprofile</code>
 </li>
@@ -1683,14 +3128,14 @@ spec_mtcars
 <li>use the <a href="https://cran.r-project.org/package=config"><strong>config</strong></a> package, with <code>!expr options(...)</code> in your YML configuration file.</li>
 </ul>
 <p>Here, we use a variation of the second option, making an explicit <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> call to set the width and height:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># render spec using temporary options</span>
 <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html">with_options</a></span><span class="op">(</span>
   new <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>vega.width <span class="op">=</span> <span class="fl">300</span>, vega.height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,
   <span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<div id="htmlwidget-e30dbceedbdb8ca10938" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e30dbceedbdb8ca10938">{"x":{
+<div id="htmlwidget-c956d8a71e428b4da3e4" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c956d8a71e428b4da3e4">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,

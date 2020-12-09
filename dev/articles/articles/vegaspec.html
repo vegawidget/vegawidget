@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9004</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9005</span>
       </span>
     </div>
 
@@ -103,7 +103,8 @@
       
 
       </header><script src="vegaspec_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="vegaspec_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="vegaspec_files/anchor-sections-1.0/anchor-sections.js"></script><script src="vegaspec_files/htmlwidgets-1.5.2/htmlwidgets.js"></script><link href="vegaspec_files/jsoneditor-5.25.6/jsoneditor.min.css" rel="stylesheet">
+<script src="vegaspec_files/anchor-sections-1.0/anchor-sections.js"></script><script src="vegaspec_files/htmlwidgets-1.5.2/htmlwidgets.js"></script><script src="vegaspec_files/vega-5.9.0/vega.min.js"></script><script src="vegaspec_files/vega-lite-4.0.2/vega-lite.min.js"></script><link href="vegaspec_files/vega-embed-6.2.0/vega-embed.css" rel="stylesheet">
+<script src="vegaspec_files/vega-embed-6.2.0/vega-embed.js"></script><script src="vegaspec_files/vegawidget-binding-0.3.1.9005/vegawidget.js"></script><link href="vegaspec_files/jsoneditor-5.25.6/jsoneditor.min.css" rel="stylesheet">
 <script src="vegaspec_files/jsoneditor-5.25.6/jsoneditor.min.js"></script><script src="vegaspec_files/jsonedit-binding-3.0.0/jsonedit.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -155,7 +156,71 @@
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_category</span></code></pre></div>
-<p>Looking at the structure of <code>spec_category</code>, we see that the <code>vegaspec</code> S3 class inherits from <code>list</code>.</p>
+<div id="htmlwidget-91667b5142f71d7e1002" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-91667b5142f71d7e1002">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "data": {
+      "values": [
+        {
+          "category": "a",
+          "number": 21
+        },
+        {
+          "category": "b",
+          "number": 64
+        },
+        {
+          "category": "c",
+          "number": 23
+        },
+        {
+          "category": "d",
+          "number": 41
+        },
+        {
+          "category": "e",
+          "number": 92
+        },
+        {
+          "category": "f",
+          "number": 52
+        },
+        {
+          "category": "g",
+          "number": 61
+        },
+        {
+          "category": "h",
+          "number": 27
+        },
+        {
+          "category": "i",
+          "number": 34
+        },
+        {
+          "category": "j",
+          "number": 48
+        }
+      ]
+    },
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "category",
+        "type": "nominal"
+      },
+      "y": {
+        "field": "number",
+        "type": "quantitative"
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>Looking at the structure of <code>spec_category</code>, we see that the <code>vegaspec</code> S3 class inherits from <code>list</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">spec_category</span><span class="op">)</span></code></pre></div>
 <pre><code>## List of 4
@@ -181,8 +246,8 @@
 <p>We also have a function, <code><a href="../../reference/vw_examine.html">vw_examine()</a></code>, that you can use to, well, examine a vegaspec. This is a thin wrapper around the <code><a href="https://rdrr.io/pkg/listviewer/man/jsonedit.html">listviewer::jsonedit()</a></code> function:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_examine.html">vw_examine</a></span><span class="op">(</span><span class="va">spec_category</span>, mode <span class="op">=</span> <span class="st">"code"</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-08e8f3cddec8a689fac9" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-08e8f3cddec8a689fac9">{"x":{"data":{
+<div id="htmlwidget-b94af80664f87100e576" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b94af80664f87100e576">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "data": {
     "values": [
@@ -253,7 +318,73 @@
 <span class="va">spec_category_size</span><span class="op">$</span><span class="va">height</span> <span class="op">&lt;-</span> <span class="fl">300</span>
 
 <span class="va">spec_category_size</span></code></pre></div>
-<p>Here, the data rectangle is 300 <span class="math inline">\(\times\)</span> 300 pixels, according to our specification.</p>
+<div id="htmlwidget-99abbc5868cc7d707024" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-99abbc5868cc7d707024">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "data": {
+      "values": [
+        {
+          "category": "a",
+          "number": 21
+        },
+        {
+          "category": "b",
+          "number": 64
+        },
+        {
+          "category": "c",
+          "number": 23
+        },
+        {
+          "category": "d",
+          "number": 41
+        },
+        {
+          "category": "e",
+          "number": 92
+        },
+        {
+          "category": "f",
+          "number": 52
+        },
+        {
+          "category": "g",
+          "number": 61
+        },
+        {
+          "category": "h",
+          "number": 27
+        },
+        {
+          "category": "i",
+          "number": 34
+        },
+        {
+          "category": "j",
+          "number": 48
+        }
+      ]
+    },
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "category",
+        "type": "nominal"
+      },
+      "y": {
+        "field": "number",
+        "type": "quantitative"
+      }
+    },
+    "width": 300,
+    "height": 300
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>Here, the data rectangle is 300 <span class="math inline">\(\times\)</span> 300 pixels, according to our specification.</p>
 <p><img src="autosize-off.png" width="710"></p>
 <p>As you can see above, Vega adds on more “room” for axes, labels, legends, etc., so that the entire chart is 349 <span class="math inline">\(\times\)</span> 343 pixels.</p>
 <p>If we want to specify the dimensions of the entire chart, we can use the <code><a href="../../reference/vw_autosize.html">vw_autosize()</a></code> function. The term “autosize” is taken directly from the Vega <a href="https://vega.github.io/vega-lite/docs/size.html#autosize">documentation</a> for sizing. In this context, the term “autosize” does <strong>not</strong> mean that Vega will try to find the optimal sizing for your chart.</p>
@@ -265,7 +396,83 @@
   <span class="fu"><a href="../../reference/vw_autosize.html">vw_autosize</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">300</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>
 
 <span class="va">spec_category_autosize</span></code></pre></div>
-<p>In this context, the <code>width</code> and <code>height</code> are defined as the dimensions of the entire plot including axes, labels, padding, etc. Here, we have specified the overall dimensions to be 300 <span class="math inline">\(\times\)</span> 300 pixels:</p>
+<div id="htmlwidget-e2677691b2bcf8d17217" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e2677691b2bcf8d17217">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "data": {
+      "values": [
+        {
+          "category": "a",
+          "number": 21
+        },
+        {
+          "category": "b",
+          "number": 64
+        },
+        {
+          "category": "c",
+          "number": 23
+        },
+        {
+          "category": "d",
+          "number": 41
+        },
+        {
+          "category": "e",
+          "number": 92
+        },
+        {
+          "category": "f",
+          "number": 52
+        },
+        {
+          "category": "g",
+          "number": 61
+        },
+        {
+          "category": "h",
+          "number": 27
+        },
+        {
+          "category": "i",
+          "number": 34
+        },
+        {
+          "category": "j",
+          "number": 48
+        }
+      ]
+    },
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "category",
+        "type": "nominal"
+      },
+      "y": {
+        "field": "number",
+        "type": "quantitative"
+      }
+    },
+    "width": 300,
+    "height": 300,
+    "config": {
+      "autosize": {
+        "type": "fit",
+        "contains": "padding"
+      },
+      "view": {
+        "width": 300,
+        "height": 300
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>In this context, the <code>width</code> and <code>height</code> are defined as the dimensions of the entire plot including axes, labels, padding, etc. Here, we have specified the overall dimensions to be 300 <span class="math inline">\(\times\)</span> 300 pixels:</p>
 <p><img src="autosize-on.png" width="710"></p>
 <p>As you can see above, Vega takes into account the “room” needed for axes, labels, legends, etc., so that the data rectangle is 251 <span class="math inline">\(\times\)</span> 257 pixels.</p>
 <p>There are limitations to autosizing; the most prominent is that specifying width and height is <a href="https://vega.github.io/vega-lite/docs/size.html#limitations">effective only for single-view and layered specifications</a>. It will not work for specifications with multiple views (e.g. <code>hconcat</code>, <code>vconcat</code>, <code>facet</code>, <code>`repeat`</code>); there will be no effect on the rendered chart.</p>
@@ -280,7 +487,194 @@
 <code class="sourceCode R"><span class="va">spec_category_vega</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/vw_to_vega.html">vw_to_vega</a></span><span class="op">(</span><span class="va">spec_category</span><span class="op">)</span>
 
 <span class="va">spec_category_vega</span></code></pre></div>
-<p>We can use the <code><a href="../../reference/vw_spec_version.html">vw_spec_version()</a></code> function to check the version of the specification:</p>
+<div id="htmlwidget-6b37536ee618f6d3f9e7" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6b37536ee618f6d3f9e7">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "background": "white",
+    "padding": 5,
+    "height": 200,
+    "style": "cell",
+    "data": [
+      {
+        "name": "source_0",
+        "values": [
+          {
+            "category": "a",
+            "number": 21
+          },
+          {
+            "category": "b",
+            "number": 64
+          },
+          {
+            "category": "c",
+            "number": 23
+          },
+          {
+            "category": "d",
+            "number": 41
+          },
+          {
+            "category": "e",
+            "number": 92
+          },
+          {
+            "category": "f",
+            "number": 52
+          },
+          {
+            "category": "g",
+            "number": 61
+          },
+          {
+            "category": "h",
+            "number": 27
+          },
+          {
+            "category": "i",
+            "number": 34
+          },
+          {
+            "category": "j",
+            "number": 48
+          }
+        ]
+      },
+      {
+        "name": "data_0",
+        "source": "source_0",
+        "transform": [
+          {
+            "type": "filter",
+            "expr": "isValid(datum[\"number\"]) && isFinite(+datum[\"number\"])"
+          }
+        ]
+      }
+    ],
+    "signals": [
+      {
+        "name": "x_step",
+        "value": 20
+      },
+      {
+        "name": "width",
+        "update": "bandspace(domain('x').length, 0.1, 0.05) * x_step"
+      }
+    ],
+    "marks": [
+      {
+        "name": "marks",
+        "type": "rect",
+        "style": [
+          "bar"
+        ],
+        "from": {
+          "data": "data_0"
+        },
+        "encode": {
+          "update": {
+            "fill": {
+              "value": "#4c78a8"
+            },
+            "x": {
+              "scale": "x",
+              "field": "category"
+            },
+            "width": {
+              "scale": "x",
+              "band": true
+            },
+            "y": {
+              "scale": "y",
+              "field": "number"
+            },
+            "y2": {
+              "scale": "y",
+              "value": 0
+            }
+          }
+        }
+      }
+    ],
+    "scales": [
+      {
+        "name": "x",
+        "type": "band",
+        "domain": {
+          "data": "data_0",
+          "field": "category",
+          "sort": true
+        },
+        "range": {
+          "step": {
+            "signal": "x_step"
+          }
+        },
+        "paddingInner": 0.1,
+        "paddingOuter": 0.05
+      },
+      {
+        "name": "y",
+        "type": "linear",
+        "domain": {
+          "data": "data_0",
+          "field": "number"
+        },
+        "range": [
+          {
+            "signal": "height"
+          },
+          0
+        ],
+        "nice": true,
+        "zero": true
+      }
+    ],
+    "axes": [
+      {
+        "scale": "y",
+        "orient": "left",
+        "gridScale": "x",
+        "grid": true,
+        "tickCount": {
+          "signal": "ceil(height/40)"
+        },
+        "domain": false,
+        "labels": false,
+        "maxExtent": 0,
+        "minExtent": 0,
+        "ticks": false,
+        "zindex": 0
+      },
+      {
+        "scale": "x",
+        "orient": "bottom",
+        "grid": false,
+        "title": "category",
+        "labelAlign": "right",
+        "labelAngle": 270,
+        "labelBaseline": "middle",
+        "zindex": 0
+      },
+      {
+        "scale": "y",
+        "orient": "left",
+        "grid": false,
+        "title": "number",
+        "labelOverlap": true,
+        "tickCount": {
+          "signal": "ceil(height/40)"
+        },
+        "zindex": 0
+      }
+    ]
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>We can use the <code><a href="../../reference/vw_spec_version.html">vw_spec_version()</a></code> function to check the version of the specification:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_spec_version.html">vw_spec_version</a></span><span class="op">(</span><span class="va">spec_category_vega</span><span class="op">)</span></code></pre></div>
 <pre><code>## $library
@@ -291,8 +685,8 @@
 <p>You can examine the result to see how much-more verbose is the Vega specification, compared to the Vega-Lite specification.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_examine.html">vw_examine</a></span><span class="op">(</span><span class="va">spec_category_vega</span>, mode <span class="op">=</span> <span class="st">"code"</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-04f189b620650b5abce4" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-04f189b620650b5abce4">{"x":{"data":{
+<div id="htmlwidget-f7ac2a6d7b8410ddf26b" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f7ac2a6d7b8410ddf26b">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "background": "white",
   "padding": 5,

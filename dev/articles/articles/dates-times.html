@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9004</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9005</span>
       </span>
     </div>
 
@@ -103,7 +103,8 @@
       
 
       </header><script src="dates-times_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="dates-times_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="dates-times_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+<script src="dates-times_files/anchor-sections-1.0/anchor-sections.js"></script><script src="dates-times_files/htmlwidgets-1.5.2/htmlwidgets.js"></script><script src="dates-times_files/vega-5.9.0/vega.min.js"></script><script src="dates-times_files/vega-lite-4.0.2/vega-lite.min.js"></script><link href="dates-times_files/vega-embed-6.2.0/vega-embed.css" rel="stylesheet">
+<script src="dates-times_files/vega-embed-6.2.0/vega-embed.js"></script><script src="dates-times_files/vegawidget-binding-0.3.1.9005/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Work with dates and times</h1>
@@ -188,7 +189,135 @@
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_local</span></code></pre></div>
-<p>Our goal is to show the times in the chart using the local time-zone; in this case, we have succeeded. Good news, but let’s have a closer look at what’s going on.</p>
+<div id="htmlwidget-111fc4b9fbf2dccddb7a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-111fc4b9fbf2dccddb7a">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 600,
+    "height": 75,
+    "data": {
+      "values": [
+        {
+          "date": "2010-01-01 00:00:00",
+          "temp": 39.4
+        },
+        {
+          "date": "2010-01-01 01:00:00",
+          "temp": 39.2
+        },
+        {
+          "date": "2010-01-01 02:00:00",
+          "temp": 39
+        },
+        {
+          "date": "2010-01-01 03:00:00",
+          "temp": 38.9
+        },
+        {
+          "date": "2010-01-01 04:00:00",
+          "temp": 38.8
+        },
+        {
+          "date": "2010-01-01 05:00:00",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01 06:00:00",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01 07:00:00",
+          "temp": 38.6
+        },
+        {
+          "date": "2010-01-01 08:00:00",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01 09:00:00",
+          "temp": 39.2
+        },
+        {
+          "date": "2010-01-01 10:00:00",
+          "temp": 40.1
+        },
+        {
+          "date": "2010-01-01 11:00:00",
+          "temp": 41.3
+        },
+        {
+          "date": "2010-01-01 12:00:00",
+          "temp": 42.5
+        },
+        {
+          "date": "2010-01-01 13:00:00",
+          "temp": 43.2
+        },
+        {
+          "date": "2010-01-01 14:00:00",
+          "temp": 43.5
+        },
+        {
+          "date": "2010-01-01 15:00:00",
+          "temp": 43.3
+        },
+        {
+          "date": "2010-01-01 16:00:00",
+          "temp": 42.7
+        },
+        {
+          "date": "2010-01-01 17:00:00",
+          "temp": 41.7
+        },
+        {
+          "date": "2010-01-01 18:00:00",
+          "temp": 41.2
+        },
+        {
+          "date": "2010-01-01 19:00:00",
+          "temp": 40.9
+        },
+        {
+          "date": "2010-01-01 20:00:00",
+          "temp": 40.7
+        },
+        {
+          "date": "2010-01-01 21:00:00",
+          "temp": 40.4
+        },
+        {
+          "date": "2010-01-01 22:00:00",
+          "temp": 40.2
+        },
+        {
+          "date": "2010-01-01 23:00:00",
+          "temp": 39.9
+        }
+      ]
+    },
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "axis": {
+          "format": "%H:%M"
+        }
+      },
+      "y": {
+        "field": "temp",
+        "type": "quantitative",
+        "scale": {
+          "zero": false
+        }
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>Our goal is to show the times in the chart using the local time-zone; in this case, we have succeeded. Good news, but let’s have a closer look at what’s going on.</p>
 <p>Here are the first couple of observations in the data frame, rendered as JSON (using the same settings for datetimes as we use when render the entire vegaspec to JSON):</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_seattle_hourly_short</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">toJSON</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -229,7 +358,135 @@
 <span class="va">spec_iso_local</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">values</span> <span class="op">&lt;-</span> <span class="va">data_seattle_hourly_short_iso</span>
 
 <span class="va">spec_iso_local</span></code></pre></div>
-<p>If the browser you are using to view this page is in the <code>"America/Los_Angeles"</code> time zone, this chart will appear identical to the first chart. However, if your browser is not “in” this time-zone, the axis labels for <code>date</code> are now not what we might expect. Vega-Lite parses and interprets the <code>date</code> values as UTC, but displays the <code>date</code> using the <em>browser’s</em> local time-zone. I (Ian) am in the <code>"America/Chicago"</code> time zone, so the axis, for me, begins at 02:00. This is consistent with <em>my</em> time zone being two hours ahead of <code>"America/Los_Angeles"</code>.</p>
+<div id="htmlwidget-55cdf7f04f8b0b4c3472" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-55cdf7f04f8b0b4c3472">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 600,
+    "height": 75,
+    "data": {
+      "values": [
+        {
+          "date": "2010-01-01T08:00:00.000Z",
+          "temp": 39.4
+        },
+        {
+          "date": "2010-01-01T09:00:00.000Z",
+          "temp": 39.2
+        },
+        {
+          "date": "2010-01-01T10:00:00.000Z",
+          "temp": 39
+        },
+        {
+          "date": "2010-01-01T11:00:00.000Z",
+          "temp": 38.9
+        },
+        {
+          "date": "2010-01-01T12:00:00.000Z",
+          "temp": 38.8
+        },
+        {
+          "date": "2010-01-01T13:00:00.000Z",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01T14:00:00.000Z",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01T15:00:00.000Z",
+          "temp": 38.6
+        },
+        {
+          "date": "2010-01-01T16:00:00.000Z",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01T17:00:00.000Z",
+          "temp": 39.2
+        },
+        {
+          "date": "2010-01-01T18:00:00.000Z",
+          "temp": 40.1
+        },
+        {
+          "date": "2010-01-01T19:00:00.000Z",
+          "temp": 41.3
+        },
+        {
+          "date": "2010-01-01T20:00:00.000Z",
+          "temp": 42.5
+        },
+        {
+          "date": "2010-01-01T21:00:00.000Z",
+          "temp": 43.2
+        },
+        {
+          "date": "2010-01-01T22:00:00.000Z",
+          "temp": 43.5
+        },
+        {
+          "date": "2010-01-01T23:00:00.000Z",
+          "temp": 43.3
+        },
+        {
+          "date": "2010-01-02T00:00:00.000Z",
+          "temp": 42.7
+        },
+        {
+          "date": "2010-01-02T01:00:00.000Z",
+          "temp": 41.7
+        },
+        {
+          "date": "2010-01-02T02:00:00.000Z",
+          "temp": 41.2
+        },
+        {
+          "date": "2010-01-02T03:00:00.000Z",
+          "temp": 40.9
+        },
+        {
+          "date": "2010-01-02T04:00:00.000Z",
+          "temp": 40.7
+        },
+        {
+          "date": "2010-01-02T05:00:00.000Z",
+          "temp": 40.4
+        },
+        {
+          "date": "2010-01-02T06:00:00.000Z",
+          "temp": 40.2
+        },
+        {
+          "date": "2010-01-02T07:00:00.000Z",
+          "temp": 39.9
+        }
+      ]
+    },
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "axis": {
+          "format": "%H:%M"
+        }
+      },
+      "y": {
+        "field": "temp",
+        "type": "quantitative",
+        "scale": {
+          "zero": false
+        }
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>If the browser you are using to view this page is in the <code>"America/Los_Angeles"</code> time zone, this chart will appear identical to the first chart. However, if your browser is not “in” this time-zone, the axis labels for <code>date</code> are now not what we might expect. Vega-Lite parses and interprets the <code>date</code> values as UTC, but displays the <code>date</code> using the <em>browser’s</em> local time-zone. I (Ian) am in the <code>"America/Chicago"</code> time zone, so the axis, for me, begins at 02:00. This is consistent with <em>my</em> time zone being two hours ahead of <code>"America/Los_Angeles"</code>.</p>
 <p>As noted above, the JavaScript <code>Date</code> object knows two time-zones: the browser’s and UTC. Our other option is to direct Vega-Lite to <a href="https://vega.github.io/vega-lite/docs/timeunit.html#output">display the time as UTC</a>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_iso_utc</span> <span class="op">&lt;-</span> <span class="va">spec_iso_local</span>
@@ -237,7 +494,138 @@
 <span class="va">spec_iso_utc</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"utc"</span><span class="op">)</span> 
 
 <span class="va">spec_iso_utc</span></code></pre></div>
-<p>Here, the <code>date</code> axis begins at 08:00, which is the UTC time when it was midnight in Seattle.</p>
+<div id="htmlwidget-8360cf3d7e44047fd83f" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8360cf3d7e44047fd83f">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 600,
+    "height": 75,
+    "data": {
+      "values": [
+        {
+          "date": "2010-01-01T08:00:00.000Z",
+          "temp": 39.4
+        },
+        {
+          "date": "2010-01-01T09:00:00.000Z",
+          "temp": 39.2
+        },
+        {
+          "date": "2010-01-01T10:00:00.000Z",
+          "temp": 39
+        },
+        {
+          "date": "2010-01-01T11:00:00.000Z",
+          "temp": 38.9
+        },
+        {
+          "date": "2010-01-01T12:00:00.000Z",
+          "temp": 38.8
+        },
+        {
+          "date": "2010-01-01T13:00:00.000Z",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01T14:00:00.000Z",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01T15:00:00.000Z",
+          "temp": 38.6
+        },
+        {
+          "date": "2010-01-01T16:00:00.000Z",
+          "temp": 38.7
+        },
+        {
+          "date": "2010-01-01T17:00:00.000Z",
+          "temp": 39.2
+        },
+        {
+          "date": "2010-01-01T18:00:00.000Z",
+          "temp": 40.1
+        },
+        {
+          "date": "2010-01-01T19:00:00.000Z",
+          "temp": 41.3
+        },
+        {
+          "date": "2010-01-01T20:00:00.000Z",
+          "temp": 42.5
+        },
+        {
+          "date": "2010-01-01T21:00:00.000Z",
+          "temp": 43.2
+        },
+        {
+          "date": "2010-01-01T22:00:00.000Z",
+          "temp": 43.5
+        },
+        {
+          "date": "2010-01-01T23:00:00.000Z",
+          "temp": 43.3
+        },
+        {
+          "date": "2010-01-02T00:00:00.000Z",
+          "temp": 42.7
+        },
+        {
+          "date": "2010-01-02T01:00:00.000Z",
+          "temp": 41.7
+        },
+        {
+          "date": "2010-01-02T02:00:00.000Z",
+          "temp": 41.2
+        },
+        {
+          "date": "2010-01-02T03:00:00.000Z",
+          "temp": 40.9
+        },
+        {
+          "date": "2010-01-02T04:00:00.000Z",
+          "temp": 40.7
+        },
+        {
+          "date": "2010-01-02T05:00:00.000Z",
+          "temp": 40.4
+        },
+        {
+          "date": "2010-01-02T06:00:00.000Z",
+          "temp": 40.2
+        },
+        {
+          "date": "2010-01-02T07:00:00.000Z",
+          "temp": 39.9
+        }
+      ]
+    },
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "axis": {
+          "format": "%H:%M"
+        },
+        "scale": {
+          "type": "utc"
+        }
+      },
+      "y": {
+        "field": "temp",
+        "type": "quantitative",
+        "scale": {
+          "zero": false
+        }
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>Here, the <code>date</code> axis begins at 08:00, which is the UTC time when it was midnight in Seattle.</p>
 </div>
 <div id="datetime-compromise" class="section level3">
 <h3 class="hasAnchor">
@@ -324,7 +712,288 @@
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_tempmax_local</span></code></pre></div>
-<p>If you are in a timezone that is different from UTC (sorry UK), you will see that the points that make up the line are not aligned with the grid. This is another effect of time zones - Vega has parsed and interpreted the <code>date</code> as UTC, but its default is to display it to us using the local time-zone of our browser. For me, near Chicago, the days are “starting” six hours early. You can verify this by using the tooltips, which show the <code>date</code> with the time attached.</p>
+<div id="htmlwidget-d25e477b4a398071967a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d25e477b4a398071967a">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 600,
+    "height": 75,
+    "data": {
+      "values": [
+        {
+          "date": "2012-01-01",
+          "precipitation": 0,
+          "temp_max": 12.8,
+          "temp_min": 5,
+          "wind": 4.7,
+          "weather": "drizzle"
+        },
+        {
+          "date": "2012-01-02",
+          "precipitation": 10.9,
+          "temp_max": 10.6,
+          "temp_min": 2.8,
+          "wind": 4.5,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-03",
+          "precipitation": 0.8,
+          "temp_max": 11.7,
+          "temp_min": 7.2,
+          "wind": 2.3,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-04",
+          "precipitation": 20.3,
+          "temp_max": 12.2,
+          "temp_min": 5.6,
+          "wind": 4.7,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-05",
+          "precipitation": 1.3,
+          "temp_max": 8.9,
+          "temp_min": 2.8,
+          "wind": 6.1,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-06",
+          "precipitation": 2.5,
+          "temp_max": 4.4,
+          "temp_min": 2.2,
+          "wind": 2.2,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-07",
+          "precipitation": 0,
+          "temp_max": 7.2,
+          "temp_min": 2.8,
+          "wind": 2.3,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-08",
+          "precipitation": 0,
+          "temp_max": 10,
+          "temp_min": 2.8,
+          "wind": 2,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-09",
+          "precipitation": 4.3,
+          "temp_max": 9.4,
+          "temp_min": 5,
+          "wind": 3.4,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-10",
+          "precipitation": 1,
+          "temp_max": 6.1,
+          "temp_min": 0.6,
+          "wind": 3.4,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-11",
+          "precipitation": 0,
+          "temp_max": 6.1,
+          "temp_min": -1.1,
+          "wind": 5.1,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-12",
+          "precipitation": 0,
+          "temp_max": 6.1,
+          "temp_min": -1.7,
+          "wind": 1.9,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-13",
+          "precipitation": 0,
+          "temp_max": 5,
+          "temp_min": -2.8,
+          "wind": 1.3,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-14",
+          "precipitation": 4.1,
+          "temp_max": 4.4,
+          "temp_min": 0.6,
+          "wind": 5.3,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-15",
+          "precipitation": 5.3,
+          "temp_max": 1.1,
+          "temp_min": -3.3,
+          "wind": 3.2,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-16",
+          "precipitation": 2.5,
+          "temp_max": 1.7,
+          "temp_min": -2.8,
+          "wind": 5,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-17",
+          "precipitation": 8.1,
+          "temp_max": 3.3,
+          "temp_min": 0,
+          "wind": 5.6,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-18",
+          "precipitation": 19.8,
+          "temp_max": 0,
+          "temp_min": -2.8,
+          "wind": 5,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-19",
+          "precipitation": 15.2,
+          "temp_max": -1.1,
+          "temp_min": -2.8,
+          "wind": 1.6,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-20",
+          "precipitation": 13.5,
+          "temp_max": 7.2,
+          "temp_min": -1.1,
+          "wind": 2.3,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-21",
+          "precipitation": 3,
+          "temp_max": 8.3,
+          "temp_min": 3.3,
+          "wind": 8.2,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-22",
+          "precipitation": 6.1,
+          "temp_max": 6.7,
+          "temp_min": 2.2,
+          "wind": 4.8,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-23",
+          "precipitation": 0,
+          "temp_max": 8.3,
+          "temp_min": 1.1,
+          "wind": 3.6,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-24",
+          "precipitation": 8.6,
+          "temp_max": 10,
+          "temp_min": 2.2,
+          "wind": 5.1,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-25",
+          "precipitation": 8.1,
+          "temp_max": 8.9,
+          "temp_min": 4.4,
+          "wind": 5.4,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-26",
+          "precipitation": 4.8,
+          "temp_max": 8.9,
+          "temp_min": 1.1,
+          "wind": 4.8,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-27",
+          "precipitation": 0,
+          "temp_max": 6.7,
+          "temp_min": -2.2,
+          "wind": 1.4,
+          "weather": "drizzle"
+        },
+        {
+          "date": "2012-01-28",
+          "precipitation": 0,
+          "temp_max": 6.7,
+          "temp_min": 0.6,
+          "wind": 2.2,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-29",
+          "precipitation": 27.7,
+          "temp_max": 9.4,
+          "temp_min": 3.9,
+          "wind": 4.5,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-30",
+          "precipitation": 3.6,
+          "temp_max": 8.3,
+          "temp_min": 6.1,
+          "wind": 5.1,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-31",
+          "precipitation": 1.8,
+          "temp_max": 9.4,
+          "temp_min": 6.1,
+          "wind": 3.9,
+          "weather": "rain"
+        }
+      ]
+    },
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal"
+      },
+      "y": {
+        "field": "temp_max",
+        "type": "quantitative"
+      },
+      "tooltip": [
+        {
+          "field": "date",
+          "type": "temporal",
+          "format": "%Y-%m-%d %H:%M:%S"
+        }
+      ]
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>If you are in a timezone that is different from UTC (sorry UK), you will see that the points that make up the line are not aligned with the grid. This is another effect of time zones - Vega has parsed and interpreted the <code>date</code> as UTC, but its default is to display it to us using the local time-zone of our browser. For me, near Chicago, the days are “starting” six hours early. You can verify this by using the tooltips, which show the <code>date</code> with the time attached.</p>
 <p>In this situation, we wish to keep the UTC interpretation throughout the visualization. We can do this by using a UTC scale-specification for the x-axis (and the tooltip):</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_tempmax_utc</span> <span class="op">&lt;-</span> <span class="va">spec_tempmax_local</span>
@@ -333,7 +1002,294 @@
 <span class="va">spec_tempmax_utc</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"utc"</span><span class="op">)</span>
 
 <span class="va">spec_tempmax_utc</span></code></pre></div>
-<p>When using UTC dates (and datetimes), be mindful that you may also have to set the scales to UTC, so that the axis and tooltips behave similarly, and properly, for everyone.</p>
+<div id="htmlwidget-a47b0e48416e0014c01a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a47b0e48416e0014c01a">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 600,
+    "height": 75,
+    "data": {
+      "values": [
+        {
+          "date": "2012-01-01",
+          "precipitation": 0,
+          "temp_max": 12.8,
+          "temp_min": 5,
+          "wind": 4.7,
+          "weather": "drizzle"
+        },
+        {
+          "date": "2012-01-02",
+          "precipitation": 10.9,
+          "temp_max": 10.6,
+          "temp_min": 2.8,
+          "wind": 4.5,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-03",
+          "precipitation": 0.8,
+          "temp_max": 11.7,
+          "temp_min": 7.2,
+          "wind": 2.3,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-04",
+          "precipitation": 20.3,
+          "temp_max": 12.2,
+          "temp_min": 5.6,
+          "wind": 4.7,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-05",
+          "precipitation": 1.3,
+          "temp_max": 8.9,
+          "temp_min": 2.8,
+          "wind": 6.1,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-06",
+          "precipitation": 2.5,
+          "temp_max": 4.4,
+          "temp_min": 2.2,
+          "wind": 2.2,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-07",
+          "precipitation": 0,
+          "temp_max": 7.2,
+          "temp_min": 2.8,
+          "wind": 2.3,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-08",
+          "precipitation": 0,
+          "temp_max": 10,
+          "temp_min": 2.8,
+          "wind": 2,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-09",
+          "precipitation": 4.3,
+          "temp_max": 9.4,
+          "temp_min": 5,
+          "wind": 3.4,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-10",
+          "precipitation": 1,
+          "temp_max": 6.1,
+          "temp_min": 0.6,
+          "wind": 3.4,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-11",
+          "precipitation": 0,
+          "temp_max": 6.1,
+          "temp_min": -1.1,
+          "wind": 5.1,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-12",
+          "precipitation": 0,
+          "temp_max": 6.1,
+          "temp_min": -1.7,
+          "wind": 1.9,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-13",
+          "precipitation": 0,
+          "temp_max": 5,
+          "temp_min": -2.8,
+          "wind": 1.3,
+          "weather": "sun"
+        },
+        {
+          "date": "2012-01-14",
+          "precipitation": 4.1,
+          "temp_max": 4.4,
+          "temp_min": 0.6,
+          "wind": 5.3,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-15",
+          "precipitation": 5.3,
+          "temp_max": 1.1,
+          "temp_min": -3.3,
+          "wind": 3.2,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-16",
+          "precipitation": 2.5,
+          "temp_max": 1.7,
+          "temp_min": -2.8,
+          "wind": 5,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-17",
+          "precipitation": 8.1,
+          "temp_max": 3.3,
+          "temp_min": 0,
+          "wind": 5.6,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-18",
+          "precipitation": 19.8,
+          "temp_max": 0,
+          "temp_min": -2.8,
+          "wind": 5,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-19",
+          "precipitation": 15.2,
+          "temp_max": -1.1,
+          "temp_min": -2.8,
+          "wind": 1.6,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-20",
+          "precipitation": 13.5,
+          "temp_max": 7.2,
+          "temp_min": -1.1,
+          "wind": 2.3,
+          "weather": "snow"
+        },
+        {
+          "date": "2012-01-21",
+          "precipitation": 3,
+          "temp_max": 8.3,
+          "temp_min": 3.3,
+          "wind": 8.2,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-22",
+          "precipitation": 6.1,
+          "temp_max": 6.7,
+          "temp_min": 2.2,
+          "wind": 4.8,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-23",
+          "precipitation": 0,
+          "temp_max": 8.3,
+          "temp_min": 1.1,
+          "wind": 3.6,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-24",
+          "precipitation": 8.6,
+          "temp_max": 10,
+          "temp_min": 2.2,
+          "wind": 5.1,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-25",
+          "precipitation": 8.1,
+          "temp_max": 8.9,
+          "temp_min": 4.4,
+          "wind": 5.4,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-26",
+          "precipitation": 4.8,
+          "temp_max": 8.9,
+          "temp_min": 1.1,
+          "wind": 4.8,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-27",
+          "precipitation": 0,
+          "temp_max": 6.7,
+          "temp_min": -2.2,
+          "wind": 1.4,
+          "weather": "drizzle"
+        },
+        {
+          "date": "2012-01-28",
+          "precipitation": 0,
+          "temp_max": 6.7,
+          "temp_min": 0.6,
+          "wind": 2.2,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-29",
+          "precipitation": 27.7,
+          "temp_max": 9.4,
+          "temp_min": 3.9,
+          "wind": 4.5,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-30",
+          "precipitation": 3.6,
+          "temp_max": 8.3,
+          "temp_min": 6.1,
+          "wind": 5.1,
+          "weather": "rain"
+        },
+        {
+          "date": "2012-01-31",
+          "precipitation": 1.8,
+          "temp_max": 9.4,
+          "temp_min": 6.1,
+          "wind": 3.9,
+          "weather": "rain"
+        }
+      ]
+    },
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "scale": {
+          "type": "utc"
+        }
+      },
+      "y": {
+        "field": "temp_max",
+        "type": "quantitative"
+      },
+      "tooltip": [
+        {
+          "field": "date",
+          "type": "temporal",
+          "format": "%Y-%m-%d %H:%M:%S",
+          "scale": {
+            "type": "utc"
+          }
+        }
+      ]
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>When using UTC dates (and datetimes), be mindful that you may also have to set the scales to UTC, so that the axis and tooltips behave similarly, and properly, for everyone.</p>
 </div>
 <div id="summary" class="section level3">
 <h3 class="hasAnchor">
@@ -451,7 +1407,61 @@ Jan-01-2001 19:34:05
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_daily</span></code></pre></div>
-<p>We use point-marks here not because it is optimal for the visualization (it probably isn’t), but because it may help make clearer what is happening behind the scenes. Seeing what Vega-Lite <em>actually</em> does can help us to understand its time-unit API.</p>
+<div id="htmlwidget-1ef337696ae2a52b6690" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1ef337696ae2a52b6690">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 600,
+    "height": 200,
+    "data": {
+      "url": "https://vega.github.io/vega-datasets/data/seattle-weather.csv",
+      "format": {
+        "parse": {
+          "date": "utc:'%Y/%m/%d'"
+        }
+      }
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "scale": {
+          "type": "utc"
+        }
+      },
+      "y": {
+        "field": "temp_max",
+        "type": "quantitative",
+        "scale": {
+          "domain": [
+            -5,
+            40
+          ]
+        }
+      },
+      "tooltip": [
+        {
+          "field": "date",
+          "type": "temporal",
+          "scale": {
+            "type": "utc"
+          },
+          "title": "date",
+          "format": "%Y-%m-%d"
+        },
+        {
+          "field": "temp_max",
+          "type": "quantitative"
+        }
+      ]
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>We use point-marks here not because it is optimal for the visualization (it probably isn’t), but because it may help make clearer what is happening behind the scenes. Seeing what Vega-Lite <em>actually</em> does can help us to understand its time-unit API.</p>
 <p>Let’s say we want to look at the maximum temperature for each year-month in the dataset - 48 months in all. If we were to do this in R, we might make a preprocessing step like this:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_seattle_daily</span> <span class="op">%&gt;%</span>
@@ -491,7 +1501,66 @@ Jan-01-2001 19:34:05
 
 
 <span class="va">spec_yearmonth</span></code></pre></div>
-<p>The main change we made to the specification was to tweak the x-encoding: removing the UTC <code>scale</code> and adding a <code>timeUnit</code>, setting it to <code>"utcyearmonth"</code>. The specification of a time unit did three things:</p>
+<div id="htmlwidget-a9bc66e9448a64352832" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a9bc66e9448a64352832">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 600,
+    "height": 200,
+    "data": {
+      "url": "https://vega.github.io/vega-datasets/data/seattle-weather.csv",
+      "format": {
+        "parse": {
+          "date": "utc:'%Y/%m/%d'"
+        }
+      }
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "timeUnit": "utcyearmonth"
+      },
+      "y": {
+        "field": "temp_max",
+        "type": "quantitative",
+        "scale": {
+          "domain": [
+            -5,
+            40
+          ]
+        }
+      },
+      "tooltip": [
+        {
+          "field": "date",
+          "type": "temporal",
+          "scale": {
+            "type": "utc"
+          },
+          "title": "date",
+          "format": "%Y-%m-%d"
+        },
+        {
+          "field": "date",
+          "type": "temporal",
+          "timeUnit": "utcyearmonth",
+          "title": "yearmonth",
+          "format": "%Y-%m-%d"
+        },
+        {
+          "field": "temp_max",
+          "type": "quantitative"
+        }
+      ]
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>The main change we made to the specification was to tweak the x-encoding: removing the UTC <code>scale</code> and adding a <code>timeUnit</code>, setting it to <code>"utcyearmonth"</code>. The specification of a time unit did three things:</p>
 <ul>
 <li><p>It binned the <code>date</code> variable by truncating the time to include the year and month, hence the <code>"yearmonth"</code> part of the directive. This is equivalent to the dplyr expression <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate(yearmonth = floor_date(date, "month"))</a></code>.</p></li>
 <li><p>Because we parsed <code>date</code> as UTC, we used the UTC context to determine “when” each month starts. This is why the time-unit directive starts with <code>"utc"</code>.</p></li>
@@ -514,7 +1583,59 @@ Jan-01-2001 19:34:05
 
 
 <span class="va">spec_yearmonth_aggregate</span></code></pre></div>
-<p>These two operations are undertaken by adding a single specification: the y-encoding directive <code>aggregate = "max"</code>. Vega-Lite carries out an implied <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> on all the encodings are not aggregated. In this case, y (<code>temp_max</code>) is aggregated; we group by our remaining encoding, x, which is now the “year-month”.</p>
+<div id="htmlwidget-8b68f04f8cdb9ff40eba" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8b68f04f8cdb9ff40eba">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 600,
+    "height": 200,
+    "data": {
+      "url": "https://vega.github.io/vega-datasets/data/seattle-weather.csv",
+      "format": {
+        "parse": {
+          "date": "utc:'%Y/%m/%d'"
+        }
+      }
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "timeUnit": "utcyearmonth"
+      },
+      "y": {
+        "field": "temp_max",
+        "type": "quantitative",
+        "scale": {
+          "domain": [
+            -5,
+            40
+          ]
+        },
+        "aggregate": "max"
+      },
+      "tooltip": [
+        {
+          "field": "date",
+          "type": "temporal",
+          "timeUnit": "utcyearmonth",
+          "title": "yearmonth",
+          "format": "%Y-%m-%d"
+        },
+        {
+          "field": "temp_max",
+          "type": "quantitative",
+          "aggregate": "max"
+        }
+      ]
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>These two operations are undertaken by adding a single specification: the y-encoding directive <code>aggregate = "max"</code>. Vega-Lite carries out an implied <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> on all the encodings are not aggregated. In this case, y (<code>temp_max</code>) is aggregated; we group by our remaining encoding, x, which is now the “year-month”.</p>
 <p>Also, note that we need to take care with our tooltip definitions. Tooltips are encodings, so the aggregation rule applies to tooltip encodings no different that it applies to other encodings. If something “weird” happens when building a chart that uses implicit aggregation, it can be useful to check the tooltip-definitions for encodings and aggregations that are inconsistent with the rest of the encodings (ask me how I found this out).</p>
 <p>We can add an color-encoding for the year, again using a time-unit:</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
@@ -543,7 +1664,71 @@ Jan-01-2001 19:34:05
 
 
 <span class="va">spec_yearmonth_aggregate_color</span></code></pre></div>
-<p>Again, this is another intermediate step; creating a new internal variable using a <code>"utcyear"</code> time-unit. We see that Vega-Lite does the “right” thing with the color-legend. Using the tooltip, we also see that the values of <code>year</code> are the datetimes corresponding to the first instant in a given year.</p>
+<div id="htmlwidget-91a6ed1aef499edb530a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-91a6ed1aef499edb530a">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 600,
+    "height": 200,
+    "data": {
+      "url": "https://vega.github.io/vega-datasets/data/seattle-weather.csv",
+      "format": {
+        "parse": {
+          "date": "utc:'%Y/%m/%d'"
+        }
+      }
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "timeUnit": "utcyearmonth"
+      },
+      "y": {
+        "field": "temp_max",
+        "type": "quantitative",
+        "scale": {
+          "domain": [
+            -5,
+            40
+          ]
+        },
+        "aggregate": "max"
+      },
+      "tooltip": [
+        {
+          "field": "date",
+          "type": "temporal",
+          "timeUnit": "utcyear",
+          "title": "year",
+          "format": "%Y-%m-%d"
+        },
+        {
+          "field": "date",
+          "type": "temporal",
+          "timeUnit": "utcyearmonth",
+          "title": "yearmonth",
+          "format": "%Y-%m-%d"
+        },
+        {
+          "field": "temp_max",
+          "type": "quantitative",
+          "aggregate": "max"
+        }
+      ],
+      "color": {
+        "field": "date",
+        "type": "nominal",
+        "timeUnit": "utcyear"
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>Again, this is another intermediate step; creating a new internal variable using a <code>"utcyear"</code> time-unit. We see that Vega-Lite does the “right” thing with the color-legend. Using the tooltip, we also see that the values of <code>year</code> are the datetimes corresponding to the first instant in a given year.</p>
 <p>In the previous chart, we noted that Vega-Lite will group-by any encoded variable that is not aggregated, then perform the aggregations. In this case, we are grouping by “year” and “year-month”, so the end-result of the groupings is the same as the previous example.</p>
 <p>Our final chart in this series of examples will be to put each of the years on the same scale; we do this by using a time-unit of <code>"utcmonth"</code> for the x-encoding.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
@@ -554,7 +1739,71 @@ Jan-01-2001 19:34:05
 <span class="va">spec_month_aggregate_color</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">timeUnit</span> <span class="op">&lt;-</span> <span class="st">"utcmonth"</span>
 
 <span class="va">spec_month_aggregate_color</span></code></pre></div>
-<p>Looking at the chart itself, we can see that it is has now “arrived” at our destination: we can more-easily compare years because the months are on the same scale. Using the tooltip, you can see that the time-unit <code>"utcmonth"</code> has projected all of the different years into the year 1900. We are showing this projected year on the x-axis, but the axis labels indicate only the month. The specification of the <code>"utcmonth"</code> time-unit did four things:</p>
+<div id="htmlwidget-4a41b31eb761d95ad2da" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4a41b31eb761d95ad2da">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "width": 600,
+    "height": 200,
+    "data": {
+      "url": "https://vega.github.io/vega-datasets/data/seattle-weather.csv",
+      "format": {
+        "parse": {
+          "date": "utc:'%Y/%m/%d'"
+        }
+      }
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "timeUnit": "utcmonth"
+      },
+      "y": {
+        "field": "temp_max",
+        "type": "quantitative",
+        "scale": {
+          "domain": [
+            -5,
+            40
+          ]
+        },
+        "aggregate": "max"
+      },
+      "tooltip": [
+        {
+          "field": "date",
+          "type": "temporal",
+          "timeUnit": "utcyear",
+          "title": "year",
+          "format": "%Y-%m-%d"
+        },
+        {
+          "field": "date",
+          "type": "temporal",
+          "timeUnit": "utcmonth",
+          "title": "yearmonth",
+          "format": "%Y-%m-%d"
+        },
+        {
+          "field": "temp_max",
+          "type": "quantitative",
+          "aggregate": "max"
+        }
+      ],
+      "color": {
+        "field": "date",
+        "type": "nominal",
+        "timeUnit": "utcyear"
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>Looking at the chart itself, we can see that it is has now “arrived” at our destination: we can more-easily compare years because the months are on the same scale. Using the tooltip, you can see that the time-unit <code>"utcmonth"</code> has projected all of the different years into the year 1900. We are showing this projected year on the x-axis, but the axis labels indicate only the month. The specification of the <code>"utcmonth"</code> time-unit did four things:</p>
 <ul>
 <li><p>It binned the <code>date</code> variable by truncating (flooring) the time to the least-significant unit of the time-unit directive: in this case, month.</p></li>
 <li><p>It projected the binned <code>date</code> using the most-significant units <strong>not</strong> in the time-unit directive: in this case, year.</p></li>

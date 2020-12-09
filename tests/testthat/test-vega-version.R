@@ -1,5 +1,3 @@
-context("test-vega-version.R")
-
 test_that("get_vega_version errors correctly", {
   skip_on_cran()
 

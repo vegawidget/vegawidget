@@ -1,5 +1,3 @@
-context("test-spec-version.R")
-
 schema_vega <- "https://vega.github.io/schema/vega/v5.json"
 schema_vega_lite <- "https://vega.github.io/schema/vega-lite/v4.json"
 

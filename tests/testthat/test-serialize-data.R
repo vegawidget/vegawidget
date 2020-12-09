@@ -1,5 +1,3 @@
-context("test-serialize-data.R")
-
 dttm <- as.POSIXct("2012-03-04 05:06:07", tz = "UTC")
 attr(dttm, "tzone") <- "America/New_York"
 

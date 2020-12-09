@@ -9,6 +9,8 @@
   - the bulk of the options for [vega-embed](https://github.com/vega/vega-embed) can be supplied as named arguments using `...` rather than as explicit arguments to `vega_embed()`. 
   This will make it easier to support future enhancements to vega-embed.
 
+* repair `knit_print()` by exporting the S3 method. (#132)
+
 # vegawidget 0.3.1
 
 * Upgrade to Vega-Lite 4.0.2, Vega 5.9.0, vega-embed 6.2.0. 

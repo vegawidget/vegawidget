@@ -1,5 +1,5 @@
 Package: vegawidget
-Version: 0.3.1.9005
+Version: 0.3.1.9006
 Title: 'Htmlwidget' for 'Vega' and 'Vega-Lite'
 Description: 'Vega' and 'Vega-Lite' parse text in 'JSON' notation to render 
   chart-specifications into 'HTML'. This package is used to facilitate the 
@@ -32,7 +32,8 @@ Authors@R: c(
     person("Arvind", "Satyanarayan", comment = "Vega/Vega-Lite library", role = c("ctb")),
     person("Jeffrey", "Heer", comment = "Vega/Vega-Lite library", role = c("ctb")),
     person("Mike", "Bostock", comment = "D3 library", role = c("ctb")),
-    person("David", "Frank", comment = "node-fetch library", role = c("ctb"))
+    person("David", "Frank", comment = "node-fetch library", role = c("ctb")),
+    person("Hadley", "Wickham", comment = "s3_register", role = c("ctb"))
   )
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -52,8 +53,7 @@ Imports:
     rlang,
     glue,
     magrittr,
-    htmltools,
-    vctrs
+    htmltools
 Suggests:
     spelling,
     knitr,

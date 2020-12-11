@@ -44,25 +44,25 @@ This new file contains roxygen directives that will handle the importing and exp
 
 We wish to bring a similar robustness and ease-of-use to package authors who want to incorporate vegawidget. To demonstrate how to do this, we will show the process we use for altair.
 
-The `use_vegawidget()` function makes a couple of related assumptions about your package. It assumes that your package builds Vega and Vega-Lite specifications, and that the object that you use to contain a specification may be an object with an S3 class. In the case of altair, the name of this S3 class is `"altair.vegalite.v3.api.TopLevelMixin"`.
+The `use_vegawidget()` function makes a couple of related assumptions about your package. It assumes that your package builds Vega and Vega-Lite specifications, and that the object that you use to contain a specification may be an object with an S3 class. In the case of altair, the name of this S3 class is `"altair.vegalite.v4.api.TopLevelMixin"`.
 
 The first step is generic. In your package-project, your R working directory is the package's root directory. When you run `use_vegawidget()`, you can provide the name of the S3 class. In the case of altair, we run:
 
 ```{r eval=FALSE}
-vegawidget::use_vegawidget("altair.vegalite.v3.api.TopLevelMixin")
+vegawidget::use_vegawidget("altair.vegalite.v4.api.TopLevelMixin")
 ```
 
 Like the `usethis::use_pipe()` example, this call does two things:
 
 - adds the **vegawidget** package to the "Imports" section of the package's DESCRIPTION file
-- creates new files in the package's `R` directory, `utils-vegawidget.R` and `utils-vegawidget-altair.vegalite.v3.api.TopLevelMixin.R`.
+- creates new files in the package's `R` directory, `utils-vegawidget.R` and `utils-vegawidget-altair.vegalite.v4.api.TopLevelMixin.R`.
 
-However, you have a little bit more work to do before you're done. You need to edit your new copy of `utils-vegawidget-altair.vegalite.v3.api.TopLevelMixin` to tell it how to convert your S3 class to a `vegaspec`. The part of the file that you need to edit is at the very top.
+However, you have a little bit more work to do before you're done. You need to edit your new copy of `utils-vegawidget-altair.vegalite.v4.api.TopLevelMixin` to tell it how to convert your S3 class to a `vegaspec`. The part of the file that you need to edit is at the very top.
 
-In the case of altair, the name of the function is `as_vegaspec.altair.vegalite.v3.api.TopLevelMixin()`; the `use_vegawidget()` function has already named it using the class-name provided.
+In the case of altair, the name of the function is `as_vegaspec.altair.vegalite.v4.api.TopLevelMixin()`; the `use_vegawidget()` function has already named it using the class-name provided.
 
 ```r
-as_vegaspec.altair.vegalite.v3.api.TopLevelMixin <- function(spec, ...) {
+as_vegaspec.altair.vegalite.v4.api.TopLevelMixin <- function(spec, ...) {
 
   # TODO: if needed, insert code to convert your object to
   # something that can be coerced to a vegaspec.
@@ -74,16 +74,32 @@ as_vegaspec.altair.vegalite.v3.api.TopLevelMixin <- function(spec, ...) {
 }
 ```
 
-Here, the commented example code is exactly what is needed. The altair "chart" object, `altair.vegalite.v3.api.TopLevelMixin`, has a method, `to_json()` to write out the specification to JSON. The vegawidget `as_vegaspec()` generic has a method for JSON-formatted strings (it also has a method for lists). So our "finished" product looks like:
+Here, the commented example code is exactly what is needed. The altair "chart" object, `altair.vegalite.v4.api.TopLevelMixin`, has a method, `to_json()` to write out the specification to JSON. The vegawidget `as_vegaspec()` generic has a method for JSON-formatted strings (it also has a method for lists). So our "finished" product looks like:
 
 ```r
-as_vegaspec.altair.vegalite.v3.api.TopLevelMixin <- function(spec, ...) {
+as_vegaspec.altair.vegalite.v4.api.TopLevelMixin <- function(spec, ...) {
 
   spec <- spec$to_json()
 
   vegawidget::as_vegaspec(spec, ...)
 }
 ```
+
+One last thing, to enable knit-printing of your class, you should have some code like this in an `.onLoad()` function, usually kept in a file called `zzz.R`:
+
+```r
+.onLoad <- function(libname, pkgname) {
+
+  # you might have other code here, too
+
+  vegawidget::s3_register(
+    "knitr::knit_print",
+    "altair.vegalite.v4.api.TopLevelMixin"
+  )
+}
+```
+
+The function `vegawidget::s3_register()` is copied from `vctrs::s3_register()`; for more details please see its [documentation](https://vctrs.r-lib.org/reference/s3_register.html).
 
 At this point, once you document and re-build the package, vegawidget is fully integrated into it.
 

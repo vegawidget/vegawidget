@@ -50,6 +50,9 @@ argument. You will have to edit \verb{R/utils-vegawidget-<s3_class_name>.R}:
 to coerce your object to a \code{vegaspec}.
 }
 
+To permit knit-printing, you will also have to add a call to add
+to your package's \code{.onLoad()} function.
+
 \code{use_vegawidget_interactive()}:
 
 If you want to add the JavaScript and Shiny functions,

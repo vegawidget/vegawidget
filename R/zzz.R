@@ -1,4 +1,15 @@
 # copied from vctrs: https://github.com/r-lib/vctrs/blob/master/R/register-s3.R
+
+#' Register an s3 method
+#'
+#' This is a reimplementation of [vctrs::s3_register()], implemented here
+#' to avoid having to take a dependency on vctrs.
+#'
+#' @inherit vctrs::s3_register params return
+#'
+#' @export
+#' @keywords internal
+#'
 s3_register <- function(generic, class, method = NULL) {
   stopifnot(is.character(generic), length(generic) == 1)
   stopifnot(is.character(class), length(class) == 1)

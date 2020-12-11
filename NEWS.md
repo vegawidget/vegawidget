@@ -2,13 +2,15 @@
 
 ## Bug fixes
 
+* Unique identifier used in attaching data from local files; `elementId` is used if provided, if not an md5 hash of the files is used. (#125)
+
 * `vega_embed()`: 
  
   - arguments `downloadFileName`, `formatLocale` and `timeFormatLocale` added. (#122)
 
   - the `action` argument lets you speicfy `export$png` and `export$svg`. (#115)
 
-* repair `knit_print()` by exporting the S3 method. (#132)
+* Repair `knit_print()` by exporting the S3 method. (#132)
 
 # vegawidget 0.3.1
 

@@ -117,13 +117,13 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
   # check for `baseURL` in `embed[["loader"]`
   baseURL <- embed[["loader"]][["baseURL"]]
 
-  # if base_url is a local directory need to create a depencency
+  # if base_url is a local directory need to create a dependency
   if (!is.null(baseURL) && dir.exists(baseURL)) {
 
     # make sure that all the URL's in the spec will be sensible
     urls <- .find_urls(spec)
     full_urls <- file.path(normalizePath(baseURL), urls)
-    if (!file.exists(full_urls)) {
+    if (any(!file.exists(full_urls))) {
       stop(
         "Local file suggested by base_url and urls in spec does not exist:",
         full_urls[which(!file.exists(full_urls))]
@@ -131,15 +131,28 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
     }
 
     # set data-dependency for this chart
+    get_md5 <- function(file) {
+      digest::digest(algo = "md5", file = file)
+    }
+
+    # get list, key: filename, value: md5 of file
+    files_md5 <- lapply(full_urls, get_md5)
+
+    # get md5 of list
+    data_md5 <- digest::digest(files_md5, algo = "md5")
+
+    # get "unique" suffix for data
+    suffix <- elementId %||% data_md5
+
     data_dependency <- htmltools::htmlDependency(
-      name = "data",
+      name = glue::glue("data-{suffix}"),
       version = "0.0.0",
       src = c(file = normalizePath(baseURL)),
       attachment = basename(full_urls),
       all_files = FALSE
     )
     # set loader to refer to new location
-    embed[["loader"]][["baseURL"]] <- "lib/data-0.0.0/"
+    embed[["loader"]][["baseURL"]] <- glue::glue("lib/data-{suffix}-0.0.0/")
   } else {
     data_dependency <- NULL
   }

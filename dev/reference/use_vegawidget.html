@@ -75,7 +75,7 @@ functions in your package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9006</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9007</span>
       </span>
     </div>
 
@@ -201,6 +201,8 @@ argument. You will have to edit <code>R/utils-vegawidget-&lt;s3_class_name&gt;.R
 to coerce your object to a <code>vegaspec</code>.</p></li>
 </ul>
 
+<p>To permit knit-printing, you will also have to add a call to add
+to your package's <code><a href='https://rdrr.io/r/base/ns-hooks.html'>.onLoad()</a></code> function.</p>
 <p><code>use_vegawidget_interactive()</code>:</p>
 <p>If you want to add the JavaScript and Shiny functions,
 use this after running <code>use_vegawidget()</code>. It adds:</p><ul>

@@ -2,13 +2,9 @@
 
 ## Bug fixes
 
-<<<<<<< HEAD
 * Unique identifier used in attaching data from local files; `elementId` is used if provided, if not an md5 hash of the files is used.
   This would be useful for knitting documents, but attaching local data works only for interactive analysis, not for knitr environments.
   Hence this "fix" is anticipation of other enchancements. (#125)
-=======
-* Unique identifier used in attaching data from local files; `elementId` is used if provided, if not an md5 hash of the files is used. (#125)
->>>>>>> 08519b7cc6ab32cbf38c7cbf9a845ccb25a3ce5a
 
 * `vega_embed()`: 
  

@@ -1,5 +1,5 @@
 Package: vegawidget
-Version: 0.3.1.9009
+Version: 0.3.1.9010
 Title: 'Htmlwidget' for 'Vega' and 'Vega-Lite'
 Description: 'Vega' and 'Vega-Lite' parse text in 'JSON' notation to render 
   chart-specifications into 'HTML'. This package is used to facilitate the 
@@ -35,6 +35,8 @@ Authors@R: c(
     person("David", "Frank", comment = "node-fetch library", role = c("ctb")),
     person("Hadley", "Wickham", comment = "s3_register", role = c("ctb"))
   )
+SystemRequirements: To use image and spec-compilation functions, i.e. suggests: 
+  nodejs (> 8), and for MacOS: X11    
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

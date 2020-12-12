@@ -31,7 +31,7 @@
 #' of the **entire** rendered chart, including axes, labels, etc.
 #'
 #' Please note that if you are using a remote URL to refer to a dataset in
-#' your vegaspec, it will may not render properly in the RStudio IDE,
+#' your vegaspec, it may not render properly in the RStudio IDE,
 #' due to a security policy set by RStudio. If you open the chart in a
 #' browser, it should render properly.
 #'
@@ -48,7 +48,8 @@
 #'   to a local directory that contains a local file referenced in the spec.
 #'   It could be the base for a remote URL. Please note that by specifying
 #'   the `base_url` here, you will override any `loader` that you specify
-#'   using `vega_embed()`. See examples.
+#'   using `vega_embed()`. Please note that this does not work with
+#'   `knitr`. See examples.
 #' @param ... other arguments passed to [htmlwidgets::createWidget()]
 #'
 #' @return S3 object of class `vegawidget` and `htmlwidget`
@@ -72,7 +73,7 @@
 #'   # define local path to file
 #'   path_local <- system.file("example-data", package = "vegawidget")
 #'
-#'   # render using local path
+#'   # render using local path (does not work with knitr)
 #'   vegawidget(spec_precip, base_url = path_local)
 #'
 #'\dontrun{
@@ -119,6 +120,11 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
 
   # if base_url is a local directory need to create a dependency
   if (!is.null(baseURL) && dir.exists(baseURL)) {
+
+    # warn if knitr is active
+    if (isTRUE(getOption('knitr.in.progress'))) {
+      warning("attaching local data files does not work with knitr")
+    }
 
     # make sure that all the URL's in the spec will be sensible
     urls <- .find_urls(spec)

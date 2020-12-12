@@ -89,7 +89,8 @@ By using a `base_url`, you can specify the file-location at rendering, rather th
 vegawidget(spec_precip, base_url = path_local)
 ```
 
-Using a local path will not work properly in this article because you do not have the same path on your computer. Local paths should be used only for local work; this is a variation on Jenny Bryan's famous [safety-tip](https://twitter.com/hadleywickham/status/940021008764846080).
+Using a local path will work only for interactive work on your computer. 
+**It will not work if you knit** your work; a warning will be issued.
 
 If you are sharing your work, using a remote URL will be more robust, but requires that the data be publicly accessible.
 

@@ -4,7 +4,9 @@
 \name{spec_mtcars}
 \alias{spec_mtcars}
 \title{Example vegaspec: mtcars scatterplot}
-\format{S3 object of class \code{vegaspec}}
+\format{
+S3 object of class \code{vegaspec}
+}
 \usage{
 spec_mtcars
 }

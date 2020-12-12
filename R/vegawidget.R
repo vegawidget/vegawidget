@@ -31,7 +31,7 @@
 #' of the **entire** rendered chart, including axes, labels, etc.
 #'
 #' Please note that if you are using a remote URL to refer to a dataset in
-#' your vegaspec, it will may not render properly in the RStudio IDE,
+#' your vegaspec, it may not render properly in the RStudio IDE,
 #' due to a security policy set by RStudio. If you open the chart in a
 #' browser, it should render properly.
 #'
@@ -48,7 +48,8 @@
 #'   to a local directory that contains a local file referenced in the spec.
 #'   It could be the base for a remote URL. Please note that by specifying
 #'   the `base_url` here, you will override any `loader` that you specify
-#'   using `vega_embed()`. See examples.
+#'   using `vega_embed()`. Please note that this does not work with
+#'   `knitr`. See examples.
 #' @param ... other arguments passed to [htmlwidgets::createWidget()]
 #'
 #' @return S3 object of class `vegawidget` and `htmlwidget`
@@ -72,7 +73,7 @@
 #'   # define local path to file
 #'   path_local <- system.file("example-data", package = "vegawidget")
 #'
-#'   # render using local path
+#'   # render using local path (does not work with knitr)
 #'   vegawidget(spec_precip, base_url = path_local)
 #'
 #'\dontrun{
@@ -117,13 +118,18 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
   # check for `baseURL` in `embed[["loader"]`
   baseURL <- embed[["loader"]][["baseURL"]]
 
-  # if base_url is a local directory need to create a depencency
+  # if base_url is a local directory need to create a dependency
   if (!is.null(baseURL) && dir.exists(baseURL)) {
+
+    # warn if knitr is active
+    if (isTRUE(getOption('knitr.in.progress'))) {
+      warning("attaching local data files does not work with knitr")
+    }
 
     # make sure that all the URL's in the spec will be sensible
     urls <- .find_urls(spec)
     full_urls <- file.path(normalizePath(baseURL), urls)
-    if (!file.exists(full_urls)) {
+    if (any(!file.exists(full_urls))) {
       stop(
         "Local file suggested by base_url and urls in spec does not exist:",
         full_urls[which(!file.exists(full_urls))]
@@ -131,15 +137,28 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
     }
 
     # set data-dependency for this chart
+    get_md5 <- function(file) {
+      digest::digest(algo = "md5", file = file)
+    }
+
+    # get list, key: filename, value: md5 of file
+    files_md5 <- lapply(full_urls, get_md5)
+
+    # get md5 of list
+    data_md5 <- digest::digest(files_md5, algo = "md5")
+
+    # get "unique" suffix for data
+    suffix <- elementId %||% data_md5
+
     data_dependency <- htmltools::htmlDependency(
-      name = "data",
+      name = glue::glue("data-{suffix}"),
       version = "0.0.0",
       src = c(file = normalizePath(baseURL)),
       attachment = basename(full_urls),
       all_files = FALSE
     )
     # set loader to refer to new location
-    embed[["loader"]][["baseURL"]] <- "lib/data-0.0.0/"
+    embed[["loader"]][["baseURL"]] <- glue::glue("lib/data-{suffix}-0.0.0/")
   } else {
     data_dependency <- NULL
   }

@@ -38,7 +38,8 @@ in the vegaspec. This could be the path
 to a local directory that contains a local file referenced in the spec.
 It could be the base for a remote URL. Please note that by specifying
 the \code{base_url} here, you will override any \code{loader} that you specify
-using \code{vega_embed()}. See examples.}
+using \code{vega_embed()}. Please note that this does not work with
+\code{knitr}. See examples.}
 
 \item{...}{other arguments passed to \code{\link[htmlwidgets:createWidget]{htmlwidgets::createWidget()}}}
 }
@@ -79,7 +80,7 @@ of the \strong{entire} rendered chart, including axes, labels, etc.
 }
 
 Please note that if you are using a remote URL to refer to a dataset in
-your vegaspec, it will may not render properly in the RStudio IDE,
+your vegaspec, it may not render properly in the RStudio IDE,
 due to a security policy set by RStudio. If you open the chart in a
 browser, it should render properly.
 }
@@ -101,7 +102,7 @@ browser, it should render properly.
   # define local path to file
   path_local <- system.file("example-data", package = "vegawidget")
 
-  # render using local path
+  # render using local path (does not work with knitr)
   vegawidget(spec_precip, base_url = path_local)
 
 \dontrun{

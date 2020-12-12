@@ -2,6 +2,10 @@
 
 ## Bug fixes
 
+* Unique identifier used in attaching data from local files; `elementId` is used if provided, if not an md5 hash of the files is used.
+  This would be useful for knitting documents, but attaching local data works only for interactive analysis, not for knitr environments.
+  Hence this "fix" is anticipation of other enchancements. (#125)
+
 * `vega_embed()`: 
  
   - arguments `downloadFileName`, `formatLocale` and `timeFormatLocale` added. (#122)
@@ -11,6 +15,8 @@
 * `vegawidget()`:
 
   - keep precision in json representation for accurate rendering of small values (< 0.001). (#130)
+
+* Repair `knit_print()` by exporting the S3 method. (#132)
 
 # vegawidget 0.3.1
 

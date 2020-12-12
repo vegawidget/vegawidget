@@ -11,6 +11,10 @@
   - arguments `downloadFileName`, `formatLocale` and `timeFormatLocale` added. (#122)
 
   - the `action` argument lets you speicfy `export$png` and `export$svg`. (#115)
+  
+* `vegawidget()`:
+
+  - keep precision in JSON representation for accurate rendering of small values (< 0.001). (#130, @datapixie)
 
 * Repair `knit_print()` by exporting the S3 method. (#132)
 

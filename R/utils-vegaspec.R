@@ -68,7 +68,13 @@
 
 .as_json.list <- function(x, pretty = TRUE, ...) {
   # convert from list to JSON
-  jsonlite::toJSON(x, auto_unbox = TRUE, null = "null", pretty = pretty)
+  jsonlite::toJSON(
+    x,
+    auto_unbox = TRUE,
+    null = "null",
+    pretty = pretty,
+    digits = NA
+  )
 }
 
 .as_json.character <- function(x, pretty = TRUE, ...) {

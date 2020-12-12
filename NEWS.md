@@ -14,7 +14,7 @@
   
 * `vegawidget()`:
 
-  - keep precision in json representation for accurate rendering of small values (< 0.001). (#130)
+  - keep precision in JSON representation for accurate rendering of small values (< 0.001). (#130, @datapixie)
 
 * Repair `knit_print()` by exporting the S3 method. (#132)
 

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9008</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9009</span>
       </span>
     </div>
 
@@ -104,12 +104,12 @@
 
       </header><script src="image_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="image_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
 <script src="image_files/anchor-sections-1.0/anchor-sections.js"></script><script src="image_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="image_files/vega-5.9.0/vega.min.js"></script><script src="image_files/vega-lite-4.0.2/vega-lite.min.js"></script><link href="image_files/vega-embed-6.2.0/vega-embed.css" rel="stylesheet">
-<script src="image_files/vega-embed-6.2.0/vega-embed.js"></script><script src="image_files/vegawidget-binding-0.3.1.9008/vegawidget.js"></script><div class="row">
+<script src="image_files/vega-embed-6.2.0/vega-embed.js"></script><script src="image_files/vegawidget-binding-0.3.1.9009/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Create images</h1>
             
-            <h4 class="date">2020-12-11</h4>
+            <h4 class="date">2020-12-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/image.Rmd"><code>vignettes/articles/image.Rmd</code></a></small>
       <div class="hidden name"><code>image.Rmd</code></div>
@@ -154,8 +154,8 @@
 <p>For the purpose of comparing later renderings, our reference is this <code>mtcars</code> scatterplot. It is rendered, in HTML, with a plotting area of <code>width = 300</code> and <code>height = 300</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_mtcars</span></code></pre></div>
-<div id="htmlwidget-867d32e3908b68ae91bb" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-867d32e3908b68ae91bb">{"x":{
+<div id="htmlwidget-38d5d96d91789f617bf1" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-38d5d96d91789f617bf1">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -742,8 +742,8 @@
 <p><strong>Expectation</strong>: the rendered spec will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_autosize.html">vw_autosize</a></span><span class="op">(</span><span class="va">spec_mtcars</span>, width <span class="op">=</span> <span class="fl">600</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-cc771c6f030af5d92764" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cc771c6f030af5d92764">{"x":{
+<div id="htmlwidget-a4449ae3ee904e42f11e" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a4449ae3ee904e42f11e">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1234,8 +1234,8 @@
 },"evals":[],"jsHooks":[]}</script><p><strong>Expectation</strong>: we will get the same result using the <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> function:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span>, width <span class="op">=</span> <span class="fl">600</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-838560c7545b32954c16" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-838560c7545b32954c16">{"x":{
+<div id="htmlwidget-dc521d3403d4e6a0e87b" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dc521d3403d4e6a0e87b">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1729,8 +1729,8 @@ spec_mtcars
 ```</code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_mtcars</span></code></pre></div>
-<div id="htmlwidget-4b2c95632590a68b4f51" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4b2c95632590a68b4f51">{"x":{
+<div id="htmlwidget-f991950359bb6276b4bc" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f991950359bb6276b4bc">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -2226,8 +2226,8 @@ spec_mtcars
 <p><strong>Expectation</strong>: this will be identical to the <a href="#reference">reference</a> case, using the <code><a href="../../reference/vw_to_vega.html">vw_to_vega()</a></code> function to compile to a Vega specification:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_to_vega.html">vw_to_vega</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-4456f46cf5272c3c6170" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4456f46cf5272c3c6170">{"x":{
+<div id="htmlwidget-32239cbc382327d404e2" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-32239cbc382327d404e2">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega/v5.json",
     "description": "An mtcars example.",

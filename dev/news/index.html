@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9008</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9009</span>
       </span>
     </div>
 
@@ -157,7 +157,7 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li><p>Unique identifier used in attaching data from local files; <code>elementId</code> is used if provided, if not an md5 hash of the files is used. (<a href='https://github.com/vegawidget/vegawidget/issues/125'>#125</a>)</p></li>
+<li><p>Unique identifier used in attaching data from local files; <code>elementId</code> is used if provided, if not an md5 hash of the files is used. This would be useful for knitting documents, but attaching local data works only for interactive analysis, not for knitr environments. Hence this “fix” is anticipation of other enchancements. (<a href='https://github.com/vegawidget/vegawidget/issues/125'>#125</a>)</p></li>
 <li>
 <p><code><a href="../reference/vega_embed.html">vega_embed()</a></code>:</p>
 <ul>

@@ -76,7 +76,7 @@ using a vegaspec." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9008</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9009</span>
       </span>
     </div>
 
@@ -207,7 +207,8 @@ in the vegaspec. This could be the path
 to a local directory that contains a local file referenced in the spec.
 It could be the base for a remote URL. Please note that by specifying
 the <code>base_url</code> here, you will override any <code>loader</code> that you specify
-using <code><a href='vega_embed.html'>vega_embed()</a></code>. See examples.</p></td>
+using <code><a href='vega_embed.html'>vega_embed()</a></code>. Please note that this does not work with
+<code>knitr</code>. See examples.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -245,7 +246,7 @@ of the <strong>entire</strong> rendered chart, including axes, labels, etc.</p><
 </ul>
 
 <p>Please note that if you are using a remote URL to refer to a dataset in
-your vegaspec, it will may not render properly in the RStudio IDE,
+your vegaspec, it may not render properly in the RStudio IDE,
 due to a security policy set by RStudio. If you open the chart in a
 browser, it should render properly.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -271,7 +272,7 @@ browser, it should render properly.</p>
   <span class='co'># define local path to file</span>
   <span class='va'>path_local</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"example-data"</span>, package <span class='op'>=</span> <span class='st'>"vegawidget"</span><span class='op'>)</span>
 
-  <span class='co'># render using local path</span>
+  <span class='co'># render using local path (does not work with knitr)</span>
   <span class='fu'>vegawidget</span><span class='op'>(</span><span class='va'>spec_precip</span>, base_url <span class='op'>=</span> <span class='va'>path_local</span><span class='op'>)</span>
 
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>

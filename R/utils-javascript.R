@@ -43,11 +43,6 @@ glue_js <- function(..., .open = "${", .envir = parent.frame()) {
   x <- glue::glue(..., .open = .open, .envir = .envir, .sep = "\n")
 }
 
-# serialize to JS
-ser_js <- function(x) {
-  jsonlite::toJSON(x, auto_unbox = TRUE)
-}
-
 # indent a text string
 indent <- function(x, n = 0L) {
 

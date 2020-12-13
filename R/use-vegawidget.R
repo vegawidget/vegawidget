@@ -26,6 +26,9 @@
 #' - add the code within your class's method for
 #'  to coerce your object to a `vegaspec`.
 #'
+#' To permit knit-printing, you will also have to add a call to add
+#' to your package's `.onLoad()` function.
+#'
 #' `use_vegawidget_interactive()`:
 #'
 #' If you want to add the JavaScript and Shiny functions,
@@ -102,6 +105,26 @@ use_vegawidget <- function(s3_class_name = NULL) {
 
     val_fnname <- usethis::ui_value(glue::glue("as_vegaspec.{s3_class_name}()"))
     usethis::ui_todo("Adapt function {val_fnname}")
+
+    code <-
+      usethis::ui_code(
+        glue::glue(
+          "vegawidget::s3_register(\"knitr::knit_print\", \"{s3_class_name}\")"
+        )
+      )
+
+    url <- usethis::ui_field('https://vctrs.r-lib.org/reference/s3_register.html')
+
+    usethis::ui_todo(
+      "To let knit-printing work, make sure you have this functionality \\
+      in {usethis::ui_code('.onLoad()')} \\
+      (usually kept in {usethis::ui_value('zzz.R')}):
+
+      {code}
+
+      The function {usethis::ui_value('s3_register()')} \\
+      is copied from the vctrs package, see {url}")
+
   }
 
   usethis::ui_todo("Document and rebuild package")

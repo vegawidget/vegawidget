@@ -20,7 +20,7 @@ as_vegaspec(spec, ...)
 
 \method{as_vegaspec}{json}(spec, ...)
 
-\method{as_vegaspec}{character}(spec, ...)
+\method{as_vegaspec}{character}(spec, encoding = "UTF-8", ...)
 
 \method{as_vegaspec}{vegawidget}(spec, ...)
 }
@@ -28,6 +28,8 @@ as_vegaspec(spec, ...)
 \item{spec}{An object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
 
 \item{...}{Other arguments (attempt to future-proof)}
+
+\item{encoding}{\code{character}, if spec is a file or a URL, specifies the encoding.}
 }
 \value{
 An object with S3 class \code{vegaspec}

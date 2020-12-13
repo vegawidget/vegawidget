@@ -45,7 +45,7 @@ spec_mtcars
 
 ![](mtcars.svg)
 
-Please note that, in an effort to save space in this vignette, the charts are displayed as SVG files rather than using native Vega.
+Please note that, in an effort to reduce the size of this vignette, the charts are displayed as SVG files rather than using native Vega.
 
 This package is a low-level interface to Vega-Lite and the Vega ecosystem, which has a lot of powerful capabilities, highlighted in this series of articles:
 

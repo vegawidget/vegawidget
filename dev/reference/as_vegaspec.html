@@ -77,7 +77,7 @@ JSON, and character strings to vegaspec." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9011</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9012</span>
       </span>
     </div>
 
@@ -176,7 +176,7 @@ JSON, and character strings to <code>vegaspec</code>.</p>
 <span class='fu'>as_vegaspec</span><span class='op'>(</span><span class='va'>spec</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for character</span>
-<span class='fu'>as_vegaspec</span><span class='op'>(</span><span class='va'>spec</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>as_vegaspec</span><span class='op'>(</span><span class='va'>spec</span>, encoding <span class='op'>=</span> <span class='st'>"UTF-8"</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for vegawidget</span>
 <span class='fu'>as_vegaspec</span><span class='op'>(</span><span class='va'>spec</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -191,6 +191,10 @@ JSON, and character strings to <code>vegaspec</code>.</p>
     <tr>
       <th>...</th>
       <td><p>Other arguments (attempt to future-proof)</p></td>
+    </tr>
+    <tr>
+      <th>encoding</th>
+      <td><p><code>character</code>, if spec is a file or a URL, specifies the encoding.</p></td>
     </tr>
     </table>
 

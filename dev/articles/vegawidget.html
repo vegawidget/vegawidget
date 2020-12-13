@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9013</span>
       </span>
     </div>
 
@@ -104,7 +104,7 @@
 
       </header><script src="vegawidget_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="vegawidget_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
 <script src="vegawidget_files/anchor-sections-1.0/anchor-sections.js"></script><script src="vegawidget_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="vegawidget_files/vega-5.9.0/vega.min.js"></script><script src="vegawidget_files/vega-lite-4.0.2/vega-lite.min.js"></script><link href="vegawidget_files/vega-embed-6.2.0/vega-embed.css" rel="stylesheet">
-<script src="vegawidget_files/vega-embed-6.2.0/vega-embed.js"></script><script src="vegawidget_files/vegawidget-binding-0.3.1.9012/vegawidget.js"></script><div class="row">
+<script src="vegawidget_files/vega-embed-6.2.0/vega-embed.js"></script><script src="vegawidget_files/vegawidget-binding-0.3.1.9013/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting Started</h1>
@@ -138,8 +138,8 @@
 <p>The <code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; many of this package’s functions are built to support, and render, vegaspecs:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_mtcars</span></code></pre></div>
-<div id="htmlwidget-a9520c406405f4308284" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a9520c406405f4308284">{"x":{
+<div id="htmlwidget-5e34ab50c92ca02a9d11" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5e34ab50c92ca02a9d11">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "description": "An mtcars example.",
@@ -643,7 +643,374 @@
 <div id="known-limitations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#known-limitations" class="anchor"></a>Known limitations</h2>
-<p>The two biggest known limitations are both associated with vegaspecs that contain <a href="https://vega.github.io/vega-lite/docs/data.html#url">datasets specified using remote URLs</a>:</p>
+<p>Vega(-Lite) <a href="https://vega.github.io/vega-lite/docs/field.html">interprets dots in field (variable) names</a> as an indicator of nesting. To escape this interpretation, you can escape the dot with two backslashes, <code>\\</code>, or surround the name with square brackets, <code>[]</code>. These escape-methods mess up the default axis-titles, so you may wish to set those manually.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  `$schema` <span class="op">=</span> <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>, 
+  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">freeny</span><span class="op">)</span>,
+  mark <span class="op">=</span> <span class="st">"point"</span>,
+  encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+      field <span class="op">=</span> <span class="st">"income\\.level"</span>, 
+      type <span class="op">=</span> <span class="st">"quantitative"</span>,
+      scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>zero <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,
+      title <span class="op">=</span> <span class="st">"income.level"</span>
+    <span class="op">)</span>,
+    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+      field <span class="op">=</span> <span class="st">"[market.potential]"</span>, 
+      type <span class="op">=</span> <span class="st">"quantitative"</span>,
+      scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>zero <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,
+      title <span class="op">=</span> <span class="st">"market.potential"</span>
+    <span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div id="htmlwidget-d7bd1cf192efceb51abc" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d7bd1cf192efceb51abc">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "data": {
+      "values": [
+        {
+          "y": 8.79236,
+          "lag.quarterly.revenue": 8.79636,
+          "price.index": 4.70997,
+          "income.level": 5.8211,
+          "market.potential": 12.9699,
+          "_row": "1962.25"
+        },
+        {
+          "y": 8.79137,
+          "lag.quarterly.revenue": 8.79236,
+          "price.index": 4.70217,
+          "income.level": 5.82558,
+          "market.potential": 12.9733,
+          "_row": "1962.5"
+        },
+        {
+          "y": 8.81486,
+          "lag.quarterly.revenue": 8.79137,
+          "price.index": 4.68944,
+          "income.level": 5.83112,
+          "market.potential": 12.9774,
+          "_row": "1962.75"
+        },
+        {
+          "y": 8.81301,
+          "lag.quarterly.revenue": 8.81486,
+          "price.index": 4.68558,
+          "income.level": 5.84046,
+          "market.potential": 12.9806,
+          "_row": "1963"
+        },
+        {
+          "y": 8.90751,
+          "lag.quarterly.revenue": 8.81301,
+          "price.index": 4.64019,
+          "income.level": 5.85036,
+          "market.potential": 12.9831,
+          "_row": "1963.25"
+        },
+        {
+          "y": 8.93673,
+          "lag.quarterly.revenue": 8.90751,
+          "price.index": 4.62553,
+          "income.level": 5.86464,
+          "market.potential": 12.9854,
+          "_row": "1963.5"
+        },
+        {
+          "y": 8.96161,
+          "lag.quarterly.revenue": 8.93673,
+          "price.index": 4.61991,
+          "income.level": 5.87769,
+          "market.potential": 12.99,
+          "_row": "1963.75"
+        },
+        {
+          "y": 8.96044,
+          "lag.quarterly.revenue": 8.96161,
+          "price.index": 4.61654,
+          "income.level": 5.89763,
+          "market.potential": 12.9943,
+          "_row": "1964"
+        },
+        {
+          "y": 9.00868,
+          "lag.quarterly.revenue": 8.96044,
+          "price.index": 4.61407,
+          "income.level": 5.92574,
+          "market.potential": 12.9992,
+          "_row": "1964.25"
+        },
+        {
+          "y": 9.03049,
+          "lag.quarterly.revenue": 9.00868,
+          "price.index": 4.60766,
+          "income.level": 5.94232,
+          "market.potential": 13.0033,
+          "_row": "1964.5"
+        },
+        {
+          "y": 9.06906,
+          "lag.quarterly.revenue": 9.03049,
+          "price.index": 4.60227,
+          "income.level": 5.95365,
+          "market.potential": 13.0099,
+          "_row": "1964.75"
+        },
+        {
+          "y": 9.05871,
+          "lag.quarterly.revenue": 9.06906,
+          "price.index": 4.5896,
+          "income.level": 5.9612,
+          "market.potential": 13.0159,
+          "_row": "1965"
+        },
+        {
+          "y": 9.10698,
+          "lag.quarterly.revenue": 9.05871,
+          "price.index": 4.57592,
+          "income.level": 5.97805,
+          "market.potential": 13.0212,
+          "_row": "1965.25"
+        },
+        {
+          "y": 9.12685,
+          "lag.quarterly.revenue": 9.10698,
+          "price.index": 4.58661,
+          "income.level": 6.00377,
+          "market.potential": 13.0265,
+          "_row": "1965.5"
+        },
+        {
+          "y": 9.17096,
+          "lag.quarterly.revenue": 9.12685,
+          "price.index": 4.57997,
+          "income.level": 6.02829,
+          "market.potential": 13.0351,
+          "_row": "1965.75"
+        },
+        {
+          "y": 9.18665,
+          "lag.quarterly.revenue": 9.17096,
+          "price.index": 4.57176,
+          "income.level": 6.03475,
+          "market.potential": 13.0429,
+          "_row": "1966"
+        },
+        {
+          "y": 9.23823,
+          "lag.quarterly.revenue": 9.18665,
+          "price.index": 4.56104,
+          "income.level": 6.03906,
+          "market.potential": 13.0497,
+          "_row": "1966.25"
+        },
+        {
+          "y": 9.26487,
+          "lag.quarterly.revenue": 9.23823,
+          "price.index": 4.54906,
+          "income.level": 6.05046,
+          "market.potential": 13.0551,
+          "_row": "1966.5"
+        },
+        {
+          "y": 9.28436,
+          "lag.quarterly.revenue": 9.26487,
+          "price.index": 4.53957,
+          "income.level": 6.05563,
+          "market.potential": 13.0634,
+          "_row": "1966.75"
+        },
+        {
+          "y": 9.31378,
+          "lag.quarterly.revenue": 9.28436,
+          "price.index": 4.51018,
+          "income.level": 6.06093,
+          "market.potential": 13.0693,
+          "_row": "1967"
+        },
+        {
+          "y": 9.35025,
+          "lag.quarterly.revenue": 9.31378,
+          "price.index": 4.50352,
+          "income.level": 6.07103,
+          "market.potential": 13.0737,
+          "_row": "1967.25"
+        },
+        {
+          "y": 9.35835,
+          "lag.quarterly.revenue": 9.35025,
+          "price.index": 4.4936,
+          "income.level": 6.08018,
+          "market.potential": 13.077,
+          "_row": "1967.5"
+        },
+        {
+          "y": 9.39767,
+          "lag.quarterly.revenue": 9.35835,
+          "price.index": 4.46505,
+          "income.level": 6.08858,
+          "market.potential": 13.0849,
+          "_row": "1967.75"
+        },
+        {
+          "y": 9.4215,
+          "lag.quarterly.revenue": 9.39767,
+          "price.index": 4.44924,
+          "income.level": 6.10199,
+          "market.potential": 13.0918,
+          "_row": "1968"
+        },
+        {
+          "y": 9.44223,
+          "lag.quarterly.revenue": 9.4215,
+          "price.index": 4.43966,
+          "income.level": 6.11207,
+          "market.potential": 13.095,
+          "_row": "1968.25"
+        },
+        {
+          "y": 9.48721,
+          "lag.quarterly.revenue": 9.44223,
+          "price.index": 4.42025,
+          "income.level": 6.11596,
+          "market.potential": 13.0984,
+          "_row": "1968.5"
+        },
+        {
+          "y": 9.52374,
+          "lag.quarterly.revenue": 9.48721,
+          "price.index": 4.4106,
+          "income.level": 6.12129,
+          "market.potential": 13.1089,
+          "_row": "1968.75"
+        },
+        {
+          "y": 9.5398,
+          "lag.quarterly.revenue": 9.52374,
+          "price.index": 4.41151,
+          "income.level": 6.122,
+          "market.potential": 13.1169,
+          "_row": "1969"
+        },
+        {
+          "y": 9.58123,
+          "lag.quarterly.revenue": 9.5398,
+          "price.index": 4.3981,
+          "income.level": 6.13119,
+          "market.potential": 13.1222,
+          "_row": "1969.25"
+        },
+        {
+          "y": 9.60048,
+          "lag.quarterly.revenue": 9.58123,
+          "price.index": 4.38513,
+          "income.level": 6.14705,
+          "market.potential": 13.1266,
+          "_row": "1969.5"
+        },
+        {
+          "y": 9.64496,
+          "lag.quarterly.revenue": 9.60048,
+          "price.index": 4.3732,
+          "income.level": 6.15336,
+          "market.potential": 13.1356,
+          "_row": "1969.75"
+        },
+        {
+          "y": 9.6439,
+          "lag.quarterly.revenue": 9.64496,
+          "price.index": 4.3277,
+          "income.level": 6.15627,
+          "market.potential": 13.1415,
+          "_row": "1970"
+        },
+        {
+          "y": 9.69405,
+          "lag.quarterly.revenue": 9.6439,
+          "price.index": 4.32023,
+          "income.level": 6.16274,
+          "market.potential": 13.1444,
+          "_row": "1970.25"
+        },
+        {
+          "y": 9.69958,
+          "lag.quarterly.revenue": 9.69405,
+          "price.index": 4.30909,
+          "income.level": 6.17369,
+          "market.potential": 13.1459,
+          "_row": "1970.5"
+        },
+        {
+          "y": 9.68683,
+          "lag.quarterly.revenue": 9.69958,
+          "price.index": 4.30909,
+          "income.level": 6.16135,
+          "market.potential": 13.152,
+          "_row": "1970.75"
+        },
+        {
+          "y": 9.71774,
+          "lag.quarterly.revenue": 9.68683,
+          "price.index": 4.30552,
+          "income.level": 6.18231,
+          "market.potential": 13.1593,
+          "_row": "1971"
+        },
+        {
+          "y": 9.74924,
+          "lag.quarterly.revenue": 9.71774,
+          "price.index": 4.29627,
+          "income.level": 6.18768,
+          "market.potential": 13.1579,
+          "_row": "1971.25"
+        },
+        {
+          "y": 9.77536,
+          "lag.quarterly.revenue": 9.74924,
+          "price.index": 4.27839,
+          "income.level": 6.19377,
+          "market.potential": 13.1625,
+          "_row": "1971.5"
+        },
+        {
+          "y": 9.79424,
+          "lag.quarterly.revenue": 9.77536,
+          "price.index": 4.27789,
+          "income.level": 6.2003,
+          "market.potential": 13.1664,
+          "_row": "1971.75"
+        }
+      ]
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "income\\.level",
+        "type": "quantitative",
+        "scale": {
+          "zero": false
+        },
+        "title": "income.level"
+      },
+      "y": {
+        "field": "[market.potential]",
+        "type": "quantitative",
+        "scale": {
+          "zero": false
+        },
+        "title": "market.potential"
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script><p>There are limitations associated with vegaspecs that contain <a href="https://vega.github.io/vega-lite/docs/data.html#url">datasets specified using remote URLs</a>:</p>
 <ul>
 <li><p>The RStudio IDE may not let you access remote URLs for security reasons. A chart that accesses remote data may not render in the IDE; it <em>will</em> render in a browser window.</p></li>
 <li><p>The image functions use <strong>nodejs</strong> to create SVG strings. We are not able to configure the proxy in our node scripts, so if your computer uses a proxy to access remote data, our functions will not create the images properly.</p></li>

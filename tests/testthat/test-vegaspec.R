@@ -61,6 +61,32 @@ test_that("vegaspec without $schema warns and adds element", {
 
 })
 
+test_that("as_vegaspec reads UTF-8 correctly", {
+
+  filename <- "test_encoding_utf8.vl4.json"
+  description <- "ceci une version allégée d'une spécification vega-lite"
+
+  # cleans up file
+  withr::local_file(filename)
+
+  fileConn <- file(filename, encoding = "UTF-8")
+  writeLines(
+    glue_js(
+      "{",
+      "  \"$schema\": \"https://vega.github.io/schema/vega-lite/v4.json\",",
+      "  \"description\": \"${description}\"",
+      "}"
+    ),
+    fileConn
+  )
+  close(fileConn)
+
+  myspec <- vegawidget::as_vegaspec(filename)
+
+  expect_identical(myspec$description, description)
+
+})
+
 
 
 

@@ -67,7 +67,36 @@ Accordingly, this package offers a templating function, `use_vegawidget()`, to h
 
 ## Known limitations
 
-The two biggest known limitations are both associated with vegaspecs that contain [datasets specified using remote URLs](https://vega.github.io/vega-lite/docs/data.html#url):
+Vega(-Lite) [interprets dots in field (variable) names](https://vega.github.io/vega-lite/docs/field.html) as an indicator of nesting. 
+To escape this interpretation, you can escape the dot with two backslashes, `\\`, or surround the name with square brackets, `[]`.
+These escape-methods mess up the default axis-titles, so you may wish to set those manually.
+
+For example:
+
+```{r dots}
+list(
+  `$schema` = vega_schema(), 
+  data = list(values = freeny),
+  mark = "point",
+  encoding = list(
+    x = list(
+      field = "income\\.level", 
+      type = "quantitative",
+      scale = list(zero = FALSE),
+      title = "income.level"
+    ),
+    y = list(
+      field = "[market.potential]", 
+      type = "quantitative",
+      scale = list(zero = FALSE),
+      title = "market.potential"
+    )
+  )
+) %>% 
+as_vegaspec()
+```
+
+There are limitations associated with vegaspecs that contain [datasets specified using remote URLs](https://vega.github.io/vega-lite/docs/data.html#url):
 
 - The RStudio IDE may not let you access remote URLs for security reasons. A chart that accesses remote data may not render in the IDE; it *will* render in a browser window.
 

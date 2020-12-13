@@ -45,6 +45,8 @@ spec_mtcars
 
 ![](mtcars.svg)
 
+Please note that, in an effort to save space in this vignette, the charts are displayed as SVG files rather than using native Vega.
+
 This package is a low-level interface to Vega-Lite and the Vega ecosystem, which has a lot of powerful capabilities, highlighted in this series of articles:
 
 - [Specify using vegaspec](https://vegawidget.github.io/vegawidget/articles/articles/vegaspec.html): how to construct and render a vegaspec.
@@ -73,7 +75,9 @@ These escape-methods mess up the default axis-titles, so you may wish to set tho
 
 For example:
 
-```{r dots}
+```r
+library("vegawidget")
+
 list(
   `$schema` = vega_schema(), 
   data = list(values = freeny),
@@ -95,6 +99,8 @@ list(
 ) %>% 
 as_vegaspec()
 ```
+
+![](freeny.svg)
 
 There are limitations associated with vegaspecs that contain [datasets specified using remote URLs](https://vega.github.io/vega-lite/docs/data.html#url):
 

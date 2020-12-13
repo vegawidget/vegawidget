@@ -12,11 +12,12 @@
 
   - the `action` argument lets you speicfy `export$png` and `export$svg`. (#115)
   
-* `vegawidget()`:
+* `vegawidget()`: keep precision in JSON representation for accurate rendering of small values (< 0.001). (#130, @datapixie)
 
-  - keep precision in JSON representation for accurate rendering of small values (< 0.001). (#130, @datapixie)
+* `knit_print()`: repair by exporting the S3 method. (#132)
 
-* Repair `knit_print()` by exporting the S3 method. (#132)
+* `as_vegaspec()`: adds `encoding` argument (default `"UTF-8"`) for `character` method, for files and URLs. (#117, with @g3o2)
+
 
 # vegawidget 0.3.1
 

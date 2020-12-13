@@ -20,6 +20,7 @@
 #' Vega-Lite or Vega. You can use [vw_to_vega()] to translate a Vega-Lite spec to Vega.
 #'
 #' @param spec        An object to be coerced to `vegaspec`, a Vega/Vega-Lite specification
+#' @param encoding    `character`, if spec is a file or a URL, specifies the encoding.
 #' @param ...         Other arguments (attempt to future-proof)
 #'
 #' @return An object with S3 class `vegaspec`
@@ -86,7 +87,7 @@ as_vegaspec.json <- function(spec, ...) {
 #' @rdname as_vegaspec
 #' @export
 #'
-as_vegaspec.character <- function(spec, ...) {
+as_vegaspec.character <- function(spec, encoding = "UTF-8", ...) {
 
   is_url <- rlang::is_string(spec) && grepl("^http(s?)://", spec)
   is_con <- rlang::is_string(spec) && file.exists(spec)
@@ -96,12 +97,12 @@ as_vegaspec.character <- function(spec, ...) {
     assert_packages("httr")
     spec <- httr::GET(spec)
     spec <- httr::stop_for_status(spec)
-    spec <- httr::content(spec, as = "text", encoding = "UTF-8")
+    spec <- httr::content(spec, as = "text", encoding = encoding)
   }
 
   # local file
   if (is_con) {
-    spec <- readLines(spec, warn = FALSE)
+    spec <- readLines(spec, warn = FALSE, encoding = encoding)
   }
 
   spec <- .as_json(spec)

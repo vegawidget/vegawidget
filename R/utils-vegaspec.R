@@ -57,7 +57,6 @@
   x
 }
 
-
 .as_json <- function(x, pretty, ...) {
   UseMethod(".as_json")
 }

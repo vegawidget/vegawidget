@@ -39,9 +39,9 @@ useful to:
 
 ### New to vegawidget 0.3
 
--   vegawidget offers Vega-Lite 4.0.2 and Vega 5.9.0. Consequently, this
-    package works only with browsers that support ES6. This includes all
-    modern browsers and the 1.2 version of the RStudio IDE.
+-   vegawidget offers Vega-Lite 4.17.0 and Vega 5.17.0. Consequently,
+    this package works only with browsers that support ES6. This
+    includes all modern browsers and the 1.2 version of the RStudio IDE.
 
 ### New to vegawidget 0.2
 

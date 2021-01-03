@@ -1,5 +1,11 @@
 # vegawidget 0.3.1 (development)
 
+## New features
+
+* The image functions (`vw_to_svg()` and friends) respect the `baseURL` option set using `vw_set_base_url()`. (#148)
+
+* `vw_set_base_url()`: set the option for vega-embed's default [`baseURL`]((https://github.com/vega/vega-loader#loader). (#147)
+
 ## Bug fixes
 
 * Unique identifier used in attaching data from local files; `elementId` is used if provided, if not an md5 hash of the files is used.
@@ -17,7 +23,6 @@
 * `knit_print()`: repair by exporting the S3 method. (#132)
 
 * `as_vegaspec()`: adds `encoding` argument (default `"UTF-8"`) for `character` method, for files and URLs. (#117, with @g3o2)
-
 
 # vegawidget 0.3.1
 

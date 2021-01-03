@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9013</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9014</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -128,7 +128,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/vegawidget/vegawidget">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -153,6 +153,14 @@
 <h1 class="page-header" data-toc-text="0.3.1">
 <a href="#vegawidget-031-development" class="anchor"></a>vegawidget 0.3.1 (development)<small> 2020-01-22 </small>
 </h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li><p>The image functions (<code><a href="../reference/image.html">vw_to_svg()</a></code> and friends) respect the <code>baseURL</code> option set using <code><a href="../reference/vw_set_base_url.html">vw_set_base_url()</a></code>. (<a href='https://github.com/vegawidget/vegawidget/issues/148'>#148</a>)</p></li>
+<li><p><code><a href="../reference/vw_set_base_url.html">vw_set_base_url()</a></code>: set the option for vega-embed’s default [<code>baseURL</code>]((<a href="https://github.com/vega/vega-loader#loader" class="uri">https://github.com/vega/vega-loader#loader</a>). (<a href='https://github.com/vegawidget/vegawidget/issues/147'>#147</a>)</p></li>
+</ul>
+</div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
@@ -187,9 +195,9 @@
 <ul>
 <li>Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0. This is supported by all modern browsers and RStudio IDE 1.2.</li>
 </ul>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.2.1. Add functions to support <code>addDataListener()</code> method offered by <a href="https://github.com/vega/vega-view#view_addDataListener">vega-view</a>, use <code><a href="../reference/vw_shiny_demo.html">vw_shiny_demo("data-set-get")</a></code> for more information. (<a href='https://github.com/vegawidget/vegawidget/issues/65'>#65</a>)</li>
 </ul>

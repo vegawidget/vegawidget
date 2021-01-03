@@ -2,6 +2,14 @@
 
 * Upgrade to Vega-Lite 4.17.0, Vega 5.17.0, vega-embed 6.12.2. 
 
+## New features
+
+* The image functions (`vw_to_svg()` and friends) respect the `baseURL` option set using `vw_set_base_url()`. (#148)
+
+* `vw_set_base_url()`: set the option for vega-embed's default [`baseURL`]((https://github.com/vega/vega-loader#loader). (#147)
+
+## Bug fixes
+
 * Unique identifier used in attaching data from local files; `elementId` is used if provided, if not an md5 hash of the files is used.
   This would be useful for knitting documents, but attaching local data works only for interactive analysis, not for knitr environments.
   Hence this "fix" is anticipation of other enchancements. (#125)

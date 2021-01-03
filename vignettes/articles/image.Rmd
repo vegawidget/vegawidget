@@ -182,3 +182,39 @@ spec_mtcars
 vw_to_vega(spec_mtcars)
 ```
 
+### Base URL
+
+The purpose of this section is to test the effectiveness of setting the vega-loader `baseURL` as an option.
+
+```{r}
+vw_set_base_url("https://cdn.jsdelivr.net/npm/vega-datasets@2")
+```
+
+```{r}
+cars <- 
+  list(
+    `$schema` = "https://vega.github.io/schema/vega-lite/v4.json",
+    width = 300,
+    height = 300,
+    description = "A scatterplot showing horsepower and miles per gallons for various cars.",
+    `data` = list("url" = "data/cars.json"),
+    mark = "point",
+    encoding = list(
+      x = list(field = "Horsepower", type = "quantitative"),
+      y = list(field = "Miles_per_Gallon", type = "quantitative")
+    )  
+  ) %>% 
+  as_vegaspec()
+```
+
+**Expectation**: this will be a "live" version of a scatterplot.
+
+```{r cars-live}
+cars
+```
+
+**Expectation**: this will be an SVG version of the scatterplot.
+
+```{r cars-svg}
+vw_to_svg(cars) %>% HTML()
+```

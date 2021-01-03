@@ -67,6 +67,7 @@ reference:
     contents:
     - vegawidget
     - vega_embed
+    - vw_set_base_url
     - knit_print.vegaspec
   - title: "Shiny"
     desc: >

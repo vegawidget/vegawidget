@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9014</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9015</span>
       </span>
     </div>
 
@@ -153,6 +153,9 @@
 <h1 class="page-header" data-toc-text="0.3.1">
 <a href="#vegawidget-031-development" class="anchor"></a>vegawidget 0.3.1 (development)<small> 2020-01-22 </small>
 </h1>
+<ul>
+<li>Upgrade to Vega-Lite 4.17.0, Vega 5.17.0, vega-embed 6.12.2.</li>
+</ul>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
@@ -169,8 +172,8 @@
 <li>
 <p><code><a href="../reference/vega_embed.html">vega_embed()</a></code>:</p>
 <ul>
-<li><p>arguments <code>downloadFileName</code>, <code>formatLocale</code> and <code>timeFormatLocale</code> added. (<a href='https://github.com/vegawidget/vegawidget/issues/122'>#122</a>)</p></li>
-<li><p>the <code>action</code> argument lets you speicfy <code>export$png</code> and <code>export$svg</code>. (<a href='https://github.com/vegawidget/vegawidget/issues/115'>#115</a>)</p></li>
+<li><p>the <code>actions</code> argument lets you specify <code>export$png</code> and <code>export$svg</code>. (<a href='https://github.com/vegawidget/vegawidget/issues/115'>#115</a>)</p></li>
+<li><p>the bulk of the options for <a href="https://github.com/vega/vega-embed">vega-embed</a> can be supplied as named arguments using <code>...</code> rather than as explicit arguments to <code><a href="../reference/vega_embed.html">vega_embed()</a></code>. This will make it easier to support future enhancements to vega-embed.</p></li>
 </ul>
 </li>
 <li><p><code><a href="../reference/vegawidget.html">vegawidget()</a></code>: keep precision in JSON representation for accurate rendering of small values (&lt; 0.001). (<a href='https://github.com/vegawidget/vegawidget/issues/130'>#130</a>, <a href='https://github.com/datapixie'>@datapixie</a>)</p></li>

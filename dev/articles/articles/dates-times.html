@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9014</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9015</span>
       </span>
     </div>
 
@@ -102,13 +102,13 @@
 
       
 
-      </header><script src="dates-times_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="dates-times_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="dates-times_files/vega-5.9.0/vega.min.js"></script><script src="dates-times_files/vega-lite-4.0.2/vega-lite.min.js"></script><link href="dates-times_files/vega-embed-6.2.0/vega-embed.css" rel="stylesheet">
-<script src="dates-times_files/vega-embed-6.2.0/vega-embed.js"></script><script src="dates-times_files/vegawidget-binding-0.3.1.9014/vegawidget.js"></script><div class="row">
+      </header><script src="dates-times_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="dates-times_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="dates-times_files/vega-5.17.0/vega.min.js"></script><script src="dates-times_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="dates-times_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
+<script src="dates-times_files/vega-embed-6.12.2/vega-embed.js"></script><script src="dates-times_files/vegawidget-binding-0.3.1.9015/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Work with dates and times</h1>
             
-            <h4 class="date">2021-01-03</h4>
+            <h4 class="date">2021-01-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/dates-times.Rmd"><code>vignettes/articles/dates-times.Rmd</code></a></small>
       <div class="hidden name"><code>dates-times.Rmd</code></div>
@@ -188,8 +188,8 @@
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_local</span></code></pre></div>
-<div id="htmlwidget-03828d5b55b1a365de11" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-03828d5b55b1a365de11">{"x":{
+<div id="htmlwidget-7cf2c8f898c87c6eba3c" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7cf2c8f898c87c6eba3c">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -313,8 +313,8 @@
     }
   },
   "embed_options": {
-    "defaultStyle": true,
-    "renderer": "canvas"
+    "renderer": "canvas",
+    "defaultStyle": true
   }
 },"evals":[],"jsHooks":[]}</script><p>Our goal is to show the times in the chart using the local time-zone; in this case, we have succeeded. Good news, but let’s have a closer look at what’s going on.</p>
 <p>Here are the first couple of observations in the data frame, rendered as JSON (using the same settings for datetimes as we use when render the entire vegaspec to JSON):</p>
@@ -357,8 +357,8 @@
 <span class="va">spec_iso_local</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">values</span> <span class="op">&lt;-</span> <span class="va">data_seattle_hourly_short_iso</span>
 
 <span class="va">spec_iso_local</span></code></pre></div>
-<div id="htmlwidget-48597d5f8f9a3496760d" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-48597d5f8f9a3496760d">{"x":{
+<div id="htmlwidget-0410fc6820c13fdbb625" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0410fc6820c13fdbb625">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -482,8 +482,8 @@
     }
   },
   "embed_options": {
-    "defaultStyle": true,
-    "renderer": "canvas"
+    "renderer": "canvas",
+    "defaultStyle": true
   }
 },"evals":[],"jsHooks":[]}</script><p>If the browser you are using to view this page is in the <code>"America/Los_Angeles"</code> time zone, this chart will appear identical to the first chart. However, if your browser is not “in” this time-zone, the axis labels for <code>date</code> are now not what we might expect. Vega-Lite parses and interprets the <code>date</code> values as UTC, but displays the <code>date</code> using the <em>browser’s</em> local time-zone. I (Ian) am in the <code>"America/Chicago"</code> time zone, so the axis, for me, begins at 02:00. This is consistent with <em>my</em> time zone being two hours ahead of <code>"America/Los_Angeles"</code>.</p>
 <p>As noted above, the JavaScript <code>Date</code> object knows two time-zones: the browser’s and UTC. Our other option is to direct Vega-Lite to <a href="https://vega.github.io/vega-lite/docs/timeunit.html#output">display the time as UTC</a>:</p>
@@ -493,8 +493,8 @@
 <span class="va">spec_iso_utc</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"utc"</span><span class="op">)</span> 
 
 <span class="va">spec_iso_utc</span></code></pre></div>
-<div id="htmlwidget-5e3b6046f0d4485137b3" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5e3b6046f0d4485137b3">{"x":{
+<div id="htmlwidget-5a59bd76a6c1616c5814" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5a59bd76a6c1616c5814">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -621,8 +621,8 @@
     }
   },
   "embed_options": {
-    "defaultStyle": true,
-    "renderer": "canvas"
+    "renderer": "canvas",
+    "defaultStyle": true
   }
 },"evals":[],"jsHooks":[]}</script><p>Here, the <code>date</code> axis begins at 08:00, which is the UTC time when it was midnight in Seattle.</p>
 </div>
@@ -711,8 +711,8 @@
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_tempmax_local</span></code></pre></div>
-<div id="htmlwidget-a69bbcc2dbc7a1767be0" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a69bbcc2dbc7a1767be0">{"x":{
+<div id="htmlwidget-94a4d433b650a6285339" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-94a4d433b650a6285339">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -989,8 +989,8 @@
     }
   },
   "embed_options": {
-    "defaultStyle": true,
-    "renderer": "canvas"
+    "renderer": "canvas",
+    "defaultStyle": true
   }
 },"evals":[],"jsHooks":[]}</script><p>If you are in a timezone that is different from UTC (sorry UK), you will see that the points that make up the line are not aligned with the grid. This is another effect of time zones - Vega has parsed and interpreted the <code>date</code> as UTC, but its default is to display it to us using the local time-zone of our browser. For me, near Chicago, the days are “starting” six hours early. You can verify this by using the tooltips, which show the <code>date</code> with the time attached.</p>
 <p>In this situation, we wish to keep the UTC interpretation throughout the visualization. We can do this by using a UTC scale-specification for the x-axis (and the tooltip):</p>
@@ -1001,8 +1001,8 @@
 <span class="va">spec_tempmax_utc</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"utc"</span><span class="op">)</span>
 
 <span class="va">spec_tempmax_utc</span></code></pre></div>
-<div id="htmlwidget-e0650cefe3a0f4c53be3" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e0650cefe3a0f4c53be3">{"x":{
+<div id="htmlwidget-59e096a32aae79e3154d" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-59e096a32aae79e3154d">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1285,8 +1285,8 @@
     }
   },
   "embed_options": {
-    "defaultStyle": true,
-    "renderer": "canvas"
+    "renderer": "canvas",
+    "defaultStyle": true
   }
 },"evals":[],"jsHooks":[]}</script><p>When using UTC dates (and datetimes), be mindful that you may also have to set the scales to UTC, so that the axis and tooltips behave similarly, and properly, for everyone.</p>
 </div>
@@ -1406,8 +1406,8 @@ Jan-01-2001 19:34:05
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_daily</span></code></pre></div>
-<div id="htmlwidget-c90aba001615c792cde3" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c90aba001615c792cde3">{"x":{
+<div id="htmlwidget-80858b4628dde0bc8db0" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-80858b4628dde0bc8db0">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1457,8 +1457,8 @@ Jan-01-2001 19:34:05
     }
   },
   "embed_options": {
-    "defaultStyle": true,
-    "renderer": "canvas"
+    "renderer": "canvas",
+    "defaultStyle": true
   }
 },"evals":[],"jsHooks":[]}</script><p>We use point-marks here not because it is optimal for the visualization (it probably isn’t), but because it may help make clearer what is happening behind the scenes. Seeing what Vega-Lite <em>actually</em> does can help us to understand its time-unit API.</p>
 <p>Let’s say we want to look at the maximum temperature for each year-month in the dataset - 48 months in all. If we were to do this in R, we might make a preprocessing step like this:</p>
@@ -1500,8 +1500,8 @@ Jan-01-2001 19:34:05
 
 
 <span class="va">spec_yearmonth</span></code></pre></div>
-<div id="htmlwidget-4000234cf0c0f9f9b416" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4000234cf0c0f9f9b416">{"x":{
+<div id="htmlwidget-885cf89cf5a07214dd9a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-885cf89cf5a07214dd9a">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1556,8 +1556,8 @@ Jan-01-2001 19:34:05
     }
   },
   "embed_options": {
-    "defaultStyle": true,
-    "renderer": "canvas"
+    "renderer": "canvas",
+    "defaultStyle": true
   }
 },"evals":[],"jsHooks":[]}</script><p>The main change we made to the specification was to tweak the x-encoding: removing the UTC <code>scale</code> and adding a <code>timeUnit</code>, setting it to <code>"utcyearmonth"</code>. The specification of a time unit did three things:</p>
 <ul>
@@ -1582,8 +1582,8 @@ Jan-01-2001 19:34:05
 
 
 <span class="va">spec_yearmonth_aggregate</span></code></pre></div>
-<div id="htmlwidget-ba79b4e51f201cbc8acf" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ba79b4e51f201cbc8acf">{"x":{
+<div id="htmlwidget-e08fc1c8631f0c077298" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e08fc1c8631f0c077298">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1631,8 +1631,8 @@ Jan-01-2001 19:34:05
     }
   },
   "embed_options": {
-    "defaultStyle": true,
-    "renderer": "canvas"
+    "renderer": "canvas",
+    "defaultStyle": true
   }
 },"evals":[],"jsHooks":[]}</script><p>These two operations are undertaken by adding a single specification: the y-encoding directive <code>aggregate = "max"</code>. Vega-Lite carries out an implied <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> on all the encodings are not aggregated. In this case, y (<code>temp_max</code>) is aggregated; we group by our remaining encoding, x, which is now the “year-month”.</p>
 <p>Also, note that we need to take care with our tooltip definitions. Tooltips are encodings, so the aggregation rule applies to tooltip encodings no different that it applies to other encodings. If something “weird” happens when building a chart that uses implicit aggregation, it can be useful to check the tooltip-definitions for encodings and aggregations that are inconsistent with the rest of the encodings (ask me how I found this out).</p>
@@ -1663,8 +1663,8 @@ Jan-01-2001 19:34:05
 
 
 <span class="va">spec_yearmonth_aggregate_color</span></code></pre></div>
-<div id="htmlwidget-c6f845ecc80ff6ffd516" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c6f845ecc80ff6ffd516">{"x":{
+<div id="htmlwidget-f8ba23c3ba572f5cec1f" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f8ba23c3ba572f5cec1f">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1724,8 +1724,8 @@ Jan-01-2001 19:34:05
     }
   },
   "embed_options": {
-    "defaultStyle": true,
-    "renderer": "canvas"
+    "renderer": "canvas",
+    "defaultStyle": true
   }
 },"evals":[],"jsHooks":[]}</script><p>Again, this is another intermediate step; creating a new internal variable using a <code>"utcyear"</code> time-unit. We see that Vega-Lite does the “right” thing with the color-legend. Using the tooltip, we also see that the values of <code>year</code> are the datetimes corresponding to the first instant in a given year.</p>
 <p>In the previous chart, we noted that Vega-Lite will group-by any encoded variable that is not aggregated, then perform the aggregations. In this case, we are grouping by “year” and “year-month”, so the end-result of the groupings is the same as the previous example.</p>
@@ -1738,8 +1738,8 @@ Jan-01-2001 19:34:05
 <span class="va">spec_month_aggregate_color</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">timeUnit</span> <span class="op">&lt;-</span> <span class="st">"utcmonth"</span>
 
 <span class="va">spec_month_aggregate_color</span></code></pre></div>
-<div id="htmlwidget-5e580c1b7e9d3e39132d" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5e580c1b7e9d3e39132d">{"x":{
+<div id="htmlwidget-8b4479a6d081227a7f28" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8b4479a6d081227a7f28">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1799,8 +1799,8 @@ Jan-01-2001 19:34:05
     }
   },
   "embed_options": {
-    "defaultStyle": true,
-    "renderer": "canvas"
+    "renderer": "canvas",
+    "defaultStyle": true
   }
 },"evals":[],"jsHooks":[]}</script><p>Looking at the chart itself, we can see that it is has now “arrived” at our destination: we can more-easily compare years because the months are on the same scale. Using the tooltip, you can see that the time-unit <code>"utcmonth"</code> has projected all of the different years into the year 1900. We are showing this projected year on the x-axis, but the axis labels indicate only the month. The specification of the <code>"utcmonth"</code> time-unit did four things:</p>
 <ul>

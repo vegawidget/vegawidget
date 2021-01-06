@@ -1,12 +1,3 @@
-context("test-to-image.R")
-
-spec_mtcars_vega <-
-  "../spec/spec_mtcars.vg.5.json" %>%
-  readLines() %>%
-  as_vegaspec()
-
-expected_svg <- readr::read_file("../reference/mtcars.svg")
-
 # function to harmonize whitespace
 ws <- function(x) {
   x <- trimws(x)
@@ -24,8 +15,8 @@ test_that("vw_to_svg works with vega spec", {
   skip_on_cran()
   skip_if_not(has_node)
 
-  svg_res <- vw_to_svg(spec_mtcars_vega)
-  expect_identical(ws(svg_res), ws(expected_svg))
+  svg_res <- spec_mtcars %>% vw_to_vega() %>% vw_to_svg()
+  expect_snapshot(svg_res)
 
 })
 
@@ -36,7 +27,7 @@ test_that("vw_to_svg works with vega-lite spec", {
   skip_if_not(has_node)
 
   svg_res <- vw_to_svg(spec_mtcars)
-  expect_identical(ws(svg_res), ws(expected_svg))
+  expect_snapshot(svg_res)
 
 })
 

@@ -1,5 +1,3 @@
-context("test-handlers")
-
 test_that("vw_handler_body() works", {
 
   # retrieve a handler from the library
@@ -20,7 +18,7 @@ test_that("vw_handler_signal() works", {
   expect_output(vw_handler_signal(), "^arguments: name, value")
 
   # returns a vw_handler
-  expect_is(handler_signal, "vw_handler")
+  expect_s3_class(handler_signal, "vw_handler")
 
   # sending a handler is a no-op
   expect_identical(vw_handler_signal(handler_signal), handler_signal)
@@ -35,7 +33,7 @@ test_that("vw_handler_event() works", {
   expect_output(vw_handler_event(), "^arguments: event, item")
 
   # returns a vw_handler
-  expect_is(handler_event, "vw_handler")
+  expect_s3_class(handler_event, "vw_handler")
 
   # sending a handler is a no-op
   expect_identical(vw_handler_event(handler_event), handler_event)
@@ -52,7 +50,7 @@ test_that("vw_handler_add_effect() works", {
   expect_output(vw_handler_add_effect(), "^arguments: x")
 
   # returns a vw_handler
-  expect_is(handler, "vw_handler")
+  expect_s3_class(handler, "vw_handler")
 
   # adds the effect
   expect_match(handler$body_effect, "console.log\\(x\\);$")

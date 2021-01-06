@@ -19,7 +19,7 @@ For a comprehensive introduction to Vega-Lite, please visit the its [web site](h
 
 Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build specifications:
 
-```{r spec}
+```r
 library("vegawidget")
 
 spec_mtcars <-
@@ -39,9 +39,13 @@ spec_mtcars <-
 
 The `as_vegaspec()` function is used to turn the list into a *vegaspec*; many of this package's functions are built to support, and render, vegaspecs: 
 
-```{r vegawidget}
+```r
 spec_mtcars
 ```
+
+![](mtcars.svg)
+
+Please note that, in an effort to reduce the size of this vignette, the charts are displayed as SVG files rather than using native Vega.
 
 This package is a low-level interface to Vega-Lite and the Vega ecosystem, which has a lot of powerful capabilities, highlighted in this series of articles:
 
@@ -71,7 +75,9 @@ These escape-methods mess up the default axis-titles, so you may wish to set tho
 
 For example:
 
-```{r dots}
+```r
+library("vegawidget")
+
 list(
   `$schema` = vega_schema(), 
   data = list(values = freeny),
@@ -93,6 +99,8 @@ list(
 ) %>% 
 as_vegaspec()
 ```
+
+![](freeny.svg)
 
 There are limitations associated with vegaspecs that contain [datasets specified using remote URLs](https://vega.github.io/vega-lite/docs/data.html#url):
 

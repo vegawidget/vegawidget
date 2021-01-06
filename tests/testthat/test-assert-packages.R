@@ -1,5 +1,3 @@
-context("test-assert-packages.R")
-
 test_that("throws errors", {
   expect_error(assert_packages(c("-foo-", "-bar-")), '"-foo-", "-bar-"')
 })

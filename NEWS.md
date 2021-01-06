@@ -1,5 +1,7 @@
 # vegawidget 0.3.1 (development)
 
+* Upgrade to Vega-Lite 4.17.0, Vega 5.17.0, vega-embed 6.12.2. 
+
 ## New features
 
 * The image functions (`vw_to_svg()` and friends) respect the `baseURL` option set using `vw_set_base_url()`. (#148)
@@ -13,10 +15,11 @@
   Hence this "fix" is anticipation of other enchancements. (#125)
 
 * `vega_embed()`: 
- 
-  - arguments `downloadFileName`, `formatLocale` and `timeFormatLocale` added. (#122)
 
-  - the `action` argument lets you speicfy `export$png` and `export$svg`. (#115)
+  - the `actions` argument lets you specify `export$png` and `export$svg`. (#115)
+  
+  - the bulk of the options for [vega-embed](https://github.com/vega/vega-embed) can be supplied as named arguments using `...` rather than as explicit arguments to `vega_embed()`. 
+  This will make it easier to support future enhancements to vega-embed.
   
 * `vegawidget()`: keep precision in JSON representation for accurate rendering of small values (< 0.001). (#130, @datapixie)
 

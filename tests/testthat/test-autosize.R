@@ -1,5 +1,3 @@
-context("test-autosize.R")
-
 # borrowed from ggvega
 normalize <- function(x) {
 

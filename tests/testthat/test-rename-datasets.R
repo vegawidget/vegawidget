@@ -1,6 +1,3 @@
-context("test-rename-datasets.R")
-
-
 # create a named dataset for mtcars
 spec_mtcars_ds <- spec_mtcars
 spec_mtcars_ds$datasets <- list(foo = spec_mtcars$data$values)

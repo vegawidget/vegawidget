@@ -1,5 +1,3 @@
-context("vega-embed")
-
 test_that("validation works", {
 
   # renderer

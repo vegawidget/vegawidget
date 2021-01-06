@@ -23,10 +23,6 @@ url_local <- function(x) {
 [![R-CMD-check](https://github.com/vegawidget/vegawidget/workflows/R-CMD-check/badge.svg)](https://github.com/vegawidget/vegawidget/actions)
 <!-- badges: end -->
 
-
-
-
-
 # vegawidget
 
 The goal of vegawidget is to render Vega-Lite and Vega specifications as htmlwidgets, and to provide you a means to communicate with a Vega chart using JavaScript or Shiny. Its ambition is to be a *low-level* interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications. 

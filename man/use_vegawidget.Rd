@@ -18,7 +18,8 @@ invisible \code{NULL}, called for side effects
 }
 \description{
 These functions are offered to help you import and re-export vegawidget
-functions in your package.
+functions in your package. For more detail, please see
+\href{https://vegawidget.github.io/vegawidget/articles/articles/import.html}{this article}.
 }
 \details{
 \code{use_vegawidget()}:
@@ -26,11 +27,10 @@ functions in your package.
 Adds vegawidget functions:
 \itemize{
 \item \code{\link[=as_vegaspec]{as_vegaspec()}}, \code{\link[=vw_as_json]{vw_as_json()}}
-\item \code{\link[=vegawidget]{vegawidget()}}, \code{knit_print()}
-\item \code{\link[=vega_embed]{vega_embed()}}
+\item \code{format()}, \code{print()}, \code{knit_print()}
+\item \code{\link[=vegawidget]{vegawidget()}}, \code{\link[=vega_embed]{vega_embed()}}, \code{\link[=vw_set_base_url]{vw_set_base_url()}}
 \item \code{\link[=vw_to_svg]{vw_to_svg()}} and other image functions
 \item \code{\link[=vegawidgetOutput]{vegawidgetOutput()}}, \code{\link[=renderVegawidget]{renderVegawidget()}}
-\item \link{spec_mtcars}
 }
 
 In practical terms:
@@ -39,7 +39,7 @@ In practical terms:
 \item adds \strong{processx}, \strong{rsvg}, \strong{png}, \strong{fs} to \code{Suggests}
 in your package's DESCRIPTION file.
 \item creates \code{R/utils-vegawidget.R}
-\item at your discretion, delete references to functions you do not want
+\item you can delete references to functions you do not want
 to re-export.
 }
 
@@ -50,10 +50,10 @@ argument. You will have to edit \verb{R/utils-vegawidget-<s3_class_name>.R}:
 to coerce your object to a \code{vegaspec}.
 }
 
-To permit knit-printing, you will also have to add a call to add
+To permit knit-printing of your custom class, you will have to add some code
 to your package's \code{.onLoad()} function.
 
-\code{use_vegawidget_interactive()}:
+\strong{\code{use_vegawidget_interactive()}}:
 
 If you want to add the JavaScript and Shiny functions,
 use this after running \code{use_vegawidget()}. It adds:

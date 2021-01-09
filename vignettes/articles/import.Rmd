@@ -10,8 +10,7 @@ You can use `use_vegawidget()` to import and re-export from vegawidget:
 
 - local versions of: `as_vegaspec()`, `print()`, `format()`, `knit_print()`
 - `vw_as_json()`  
-- `vegawidget()`
-- `vega_embed()`
+- `vegawidget()`, `vega_embed()`, `vw_set_base_url()`
 - image functions: `vw_to_svg()`, `vw_to_bitmap()`, `vw_write_svg()`, `vw_write_png()`
 - sample spec: `spec_mtcars`
 - basic Shiny-rendering functions: `renderVegawidget()`, `vegawidgetOutput()`

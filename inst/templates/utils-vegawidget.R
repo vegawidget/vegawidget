@@ -60,6 +60,17 @@ NULL
 #'
 NULL
 
+#' Set base URL
+#'
+#' See \code{vegawidget::\link[vegawidget]{vw_set_base_url}} for details.
+#'
+#' @name vw_set_base_url
+#' @rdname vw_set_base_url
+#' @importFrom vegawidget vw_set_base_url
+#' @export
+#'
+NULL
+
 #### image functions ####
 
 #' Create or write image
@@ -98,14 +109,4 @@ NULL
 #'
 NULL
 
-#### specs ####
-
-#' Example vegaspecs
-#'
-#' See \code{vegawidget::\link[vegawidget]{spec_mtcars}} for details.
-#'
-#' @name spec_mtcars
-#' @export
-#'
-spec_mtcars <- vegawidget::spec_mtcars
 

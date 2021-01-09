@@ -1,24 +1,24 @@
 #' Add vegawidget functions to your package
 #'
 #' These functions are offered to help you import and re-export vegawidget
-#' functions in your package.
+#' functions in your package. For more detail, please see
+#' [this article](https://vegawidget.github.io/vegawidget/articles/articles/import.html).
 #'
 #'  `use_vegawidget()`:
 #'
 #' Adds vegawidget functions:
 #'  - [as_vegaspec()], [vw_as_json()]
-#'  - [vegawidget()], `knit_print()`
-#'  - [vega_embed()]
+#'  - `format()`, `print()`, `knit_print()`
+#'  - [vegawidget()], [vega_embed()], [vw_set_base_url()]
 #'  - [vw_to_svg()] and other image functions
 #'  - [vegawidgetOutput()], [renderVegawidget()]
-#'  - [spec_mtcars]
 #'
 #' In practical terms:
 #' - adds **vegawidget** to `Imports` in your package's DESCRIPTION file.
 #' - adds **processx**, **rsvg**, **png**, **fs** to `Suggests`
 #'   in your package's DESCRIPTION file.
 #' - creates `R/utils-vegawidget.R`
-#' - at your discretion, delete references to functions you do not want
+#' - you can delete references to functions you do not want
 #'   to re-export.
 #'
 #' If you have your own S3 class for a spec, specify the `s3_class_name`
@@ -26,10 +26,10 @@
 #' - add the code within your class's method for
 #'  to coerce your object to a `vegaspec`.
 #'
-#' To permit knit-printing, you will also have to add a call to add
+#' To permit knit-printing of your custom class, you will have to add some code
 #' to your package's `.onLoad()` function.
 #'
-#' `use_vegawidget_interactive()`:
+#' **`use_vegawidget_interactive()`**:
 #'
 #' If you want to add the JavaScript and Shiny functions,
 #' use this after running `use_vegawidget()`. It adds:

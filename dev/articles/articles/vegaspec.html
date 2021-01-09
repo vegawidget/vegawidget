@@ -109,7 +109,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Specify using vegaspec</h1>
             
-            <h4 class="date">2021-01-06</h4>
+            <h4 class="date">2021-01-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/vegaspec.Rmd"><code>vignettes/articles/vegaspec.Rmd</code></a></small>
       <div class="hidden name"><code>vegaspec.Rmd</code></div>
@@ -155,8 +155,8 @@
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_category</span></code></pre></div>
-<div id="htmlwidget-a137147e420d132589d8" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a137147e420d132589d8">{"x":{
+<div id="htmlwidget-2643ff9731abbe9f1adb" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2643ff9731abbe9f1adb">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "data": {
@@ -245,8 +245,8 @@
 <p>We also have a function, <code><a href="../../reference/vw_examine.html">vw_examine()</a></code>, that you can use to, well, examine a vegaspec. This is a thin wrapper around the <code><a href="https://rdrr.io/pkg/listviewer/man/jsonedit.html">listviewer::jsonedit()</a></code> function:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_examine.html">vw_examine</a></span><span class="op">(</span><span class="va">spec_category</span>, mode <span class="op">=</span> <span class="st">"code"</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-170a43d13f812cc4c181" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-170a43d13f812cc4c181">{"x":{"data":{
+<div id="htmlwidget-84b695983fbd36cc9a3b" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-84b695983fbd36cc9a3b">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "data": {
     "values": [
@@ -317,8 +317,8 @@
 <span class="va">spec_category_size</span><span class="op">$</span><span class="va">height</span> <span class="op">&lt;-</span> <span class="fl">300</span>
 
 <span class="va">spec_category_size</span></code></pre></div>
-<div id="htmlwidget-8795c9f2988fa68f1882" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8795c9f2988fa68f1882">{"x":{
+<div id="htmlwidget-88383e9d29bfbaa79270" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-88383e9d29bfbaa79270">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "data": {
@@ -395,8 +395,8 @@
   <span class="fu"><a href="../../reference/vw_autosize.html">vw_autosize</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">300</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>
 
 <span class="va">spec_category_autosize</span></code></pre></div>
-<div id="htmlwidget-2a95fdaf16e9e5c8d5aa" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2a95fdaf16e9e5c8d5aa">{"x":{
+<div id="htmlwidget-51fb6b544f7507f8a5e4" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-51fb6b544f7507f8a5e4">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "data": {
@@ -486,8 +486,8 @@
 <code class="sourceCode R"><span class="va">spec_category_vega</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/vw_to_vega.html">vw_to_vega</a></span><span class="op">(</span><span class="va">spec_category</span><span class="op">)</span>
 
 <span class="va">spec_category_vega</span></code></pre></div>
-<div id="htmlwidget-625ab75c747e7ffad621" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-625ab75c747e7ffad621">{"x":{
+<div id="htmlwidget-bd38c20ada15bf51a1be" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bd38c20ada15bf51a1be">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega/v5.json",
     "background": "white",
@@ -691,8 +691,8 @@
 <p>You can examine the result to see how much-more verbose is the Vega specification, compared to the Vega-Lite specification.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_examine.html">vw_examine</a></span><span class="op">(</span><span class="va">spec_category_vega</span>, mode <span class="op">=</span> <span class="st">"code"</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-fc3cfa58669c69e43acf" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fc3cfa58669c69e43acf">{"x":{"data":{
+<div id="htmlwidget-c99e47da9edf441ed54b" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c99e47da9edf441ed54b">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "background": "white",
   "padding": 5,

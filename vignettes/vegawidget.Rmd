@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-For a comprehensive introduction to Vega-Lite, please visit the its [web site](https://vega.github.io/vega-lite). An [interactive tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) to vegawidget is available at shinyapps.io.
+For a comprehensive introduction to Vega-Lite, please visit the its [web site](https://vega.github.io/vega-lite/). An [interactive tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) to vegawidget is available at shinyapps.io.
 
 Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build specifications:
 
@@ -57,7 +57,7 @@ This package is a low-level interface to Vega-Lite and the Vega ecosystem, which
 - [Work with Dates and Times](https://vegawidget.github.io/vegawidget/articles/articles/dates-times.html): dates and times in Vega(-Lite) work a little differently from R.
 - [Import into Other Packages](https://vegawidget.github.io/vegawidget/articles/articles/import.html): how to import vegawidget functions into your package, then re-export them.
 
-To share your Vega(-Lite) creation on the [Blocks](https://bl.ocks.org) website, you can use the [**vegablock**](https://vegawidget.github.io/vegablock) package.
+To share your Vega(-Lite) creation on the [Blocks](https://bl.ocks.org) website, you can use the [**vegablock**](https://vegawidget.github.io/vegablock/) package.
 
 ## Integration with other packages
 
@@ -65,7 +65,7 @@ Although there is an [article](https://vegawidget.github.io/vegawidget/articles/
 
 This package provides functions to render Vega(-Lite) specifications; although it provides some helpers, it does not provide higher-level functions to build specifications. Rather, this is left to other packages. Even though you can use its functions directly, you are invited to import and re-export them for use in *your* package. 
 
-Accordingly, this package offers a templating function, `use_vegawidget()`, to help you integrate vegawidget functions into your package. For example, it is used to import and re-export vegawidget functions for the [altair](https://vegawidget.github.io/altair) package.
+Accordingly, this package offers a templating function, `use_vegawidget()`, to help you integrate vegawidget functions into your package. For example, it is used to import and re-export vegawidget functions for the [altair](https://vegawidget.github.io/altair/) package.
 
 ## Known limitations
 

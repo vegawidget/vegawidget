@@ -77,7 +77,7 @@
 
 * tries a kinder, gentler method for enforcing sizing by implementing a sizing policy rather than overwriting the enclosing element
 
-* deprecates block-functions: `vw_create_block()`, `vw_retrieve_block()`; moved to [vegablock](https://vegawidget.github.io/vegablock)
+* deprecates block-functions: `vw_create_block()`, `vw_retrieve_block()`; moved to [vegablock](https://vegawidget.github.io/vegablock/)
 
 # vegawidget 0.0.4.9000
 

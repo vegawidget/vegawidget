@@ -60,7 +60,7 @@ devtools::install_github("vegawidget/vegawidget")
 ```
 
 **Note:** There are documentation websites for both the [CRAN
-version](https://vegawidget.github.io/vegawidget) and the [development
+version](https://vegawidget.github.io/vegawidget/) and the [development
 version](https://vegawidget.github.io/vegawidget/dev/) of this package.
 
 ## Introduction
@@ -99,7 +99,7 @@ spec_mtcars
 The rendering of the chart above depends on where you are reading it:
 
 -   On this package’s [pkgdown
-    site](https://vegawidget.github.io/vegawidget), it is rendered as
+    site](https://vegawidget.github.io/vegawidget/), it is rendered as
     part of an HTML environment, showing its full capabilities.
 
 -   At its [GitHub code site](https://github.com/vegawidget/vegawidget),
@@ -110,7 +110,7 @@ For more, please see our [Getting
 Started](https://vegawidget.github.io/vegawidget/articles/vegawidget.html)
 article. For other introductory material, please see:
 
--   [Vega-Lite website](https://vega.github.io/vega-lite) has a
+-   [Vega-Lite website](https://vega.github.io/vega-lite/) has a
     comprehensive introduction
 -   An [interactive learnr
     tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) at

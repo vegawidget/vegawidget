@@ -22,7 +22,7 @@ It goes without saying that you will need to be comfortable with JavaScript to t
 
 - [Eloquent JavaScript](https://eloquentjavascript.net), available as a free website or as a physical book; thanks to [Stuart Lee](https://github.com/sa-lee) for the tip! 
 
-- [Observable](https://beta.observablehq.com), Mike Bostock's latest endeavor, is an interactive JS coding environment that emphasizes visualization.
+- [Observable](https://beta.observablehq.com), an interactive JS coding environment that emphasizes visualization.
 
 ## Introduction to vega-view
 
@@ -103,9 +103,9 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 });
 ```
 
-This package puts an object into the JavaScript namespace, `Vegawidget`, which contains a function `findViewPromise()`. The first part of the JavaScript code is a call to this function, with a single argument, a CSS `selector`, to specify the HTML element that contains the chart we wish to access. This reflects the `elementId = "streaming-demo"` in the `vegawidget()` call above. 
+This package puts an object called `Vegawidget` into the top level of the rendered page's JavaScript namespace; `Vegawidget` contains a function `findViewPromise()`. The first part of the JavaScript code is a call to this function, with a single argument, a CSS `selector`, to specify the HTML element that contains the chart we wish to access. This reflects the `elementId = "streaming-demo"` in the `vegawidget()` call. 
 
-The `findVewPromise()` function returns a JavaScript [promise](https://javascript.info/promise-basics) to the chart's `view` object. The `then()` call executes once the view promise is fulfilled. It contains a function that takes a single argument, `view`, our view object, on which the 
+The `findVewPromise()` function returns a JavaScript [promise](https://javascript.info/promise-basics) to the chart's `view` object. The `then()` call executes once the view promise is fulfilled. It contains a function that takes a single argument, `view`, the view object on which the 
 [vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view) operates. 
 
 Within this `then()` call, we can operate on the `view`. The rest of the code is adapted from the [original demonstration](https://vega.github.io/vega-lite/tutorials/streaming.html), where they use vega-view's [change()](https://github.com/vega/vega/tree/master/packages/vega-view#view_change) method to change the data periodically.
@@ -116,7 +116,7 @@ Event streams are [used extensively within Vega](https://vega.github.io/vega/doc
 
 In this section, we will make a "clickable" scatterplot; when we click on a point in the scatterplot, we will print the data-observation (datum) associated with that point. The rest of this section will be devoted to how we tell our `view` what to do in response to a `"click"`.
 
-Vega's [event-listener documentation](https://vega.github.io/vega/docs/api/view/#view_addEventListener) specifies that we supply a handler function to be "invoked with two arguments: the `event` instance and the currently active scenegraph `item` (which is null if the event target is the view component itself)."
+Vega's [event-listener documentation](https://vega.github.io/vega/docs/api/view/#view_addEventListener) specifies that we supply a handler function to be "invoked with two arguments: the `event` instance and the currently active scenegraph `item` (which is `null` if the event target is the view component itself)."
 
 From an R environment, it can be difficult to write and debug JavaScript code. To make this a little easier, this package offers functions to compose JavaScript handler-functions.
 
@@ -127,17 +127,18 @@ In the example we are building, we want our handler function to do two things:
 - return the value of the datum (observation) associated with the event.
 - write that value into an element within the HTML document.
 
-These are two separate "things"; the first suggests code that returns a value, the second suggests code that produces a side-effect. Accordingly, this package offers a set JavaScript code-snippets that return values, another set of JavaScript code-snippets that produce side-effects, and a means to compose them.
+These are two separate "things"; the first suggests code that returns a value, the second suggests code that produces a side-effect. Accordingly, this package offers a set JavaScript code-snippets that return values, and another set of JavaScript code-snippets that produce side-effects, and a means to compose them.
 
-First, let's look at snippets that return values from events. Because all event-handlers take the same two arguments, `event` and `item`, we can focus only on the *body* of the handler-function. This is the purpose of the `vw_handler_event()` function. 
+First, let's look at snippets that return values. Because all event-handlers take the same two arguments, `event` and `item`, we can focus only on the *body* of the handler-function. 
 
-If we call it without arguments, it prints a list of available event-handlers that return values:
+This is the purpose of the `vw_handler_event()` function. 
+If we call it without arguments, it prints a list of event-handlers that return values:
 
 ```{r}
 vw_handler_event()
 ```
 
-If we want to use a certain handler, we call for it by name:
+If we want to use a certain handler, we use its only argument: `body_value`.
 
 ```{r}
 vw_handler_event("datum")
@@ -149,12 +150,6 @@ The handler has a print method that shows the arguments and the function body. I
 vw_handler_event("return item.datum;")
 ```
 
-Let's create our event handler based on the `"datum"` function-body:
-
-```{r}
-handler_event <- vw_handler_event("datum")
-```
-
 We're halfway there - we have a function that will return a value, but not yet a function that will produce an effect. To add an effect to our function, we can use the function `vw_handler_add_effect()`. Calling it without arguments will list the available effect-handlers.
 
 ```{r}
@@ -163,7 +158,7 @@ vw_handler_add_effect()
 
 The effect-handlers are designed to be JavaScript code-snippets that work with a single variable, `x`, representing the value returned from the value-handler. 
 
-We want to print the value to an HTML element, so we will use `"element_text"`. Note that there two parameters that we can supply, `selector`, to identify the HTML element, and `expr`, the JavaScript expression to use. The `selector` parameter is required; the `expr` parameter defaults to `"x"`, the value.
+We want to print the value to an HTML element, so we will use provided snippet called `"element_text"`. Note that there two parameters that we can supply, `selector`, to identify the HTML element, and `expr`, the JavaScript expression to use. The `selector` parameter is required; the `expr` parameter defaults to `"x"`, the value.
 
 We supply the parameters as additional arguments to `vw_handler_add_effect()`:
 
@@ -176,7 +171,7 @@ The R functions interpolate the parameters into the JavaScript code-snippet. If 
 
 ```{r}
 handler_event <- 
-  handler_event %>%     # defined earlier as vw_handler_event("datum")
+  vw_handler_event("datum") %>%    
   vw_handler_add_effect(
     "element_text", 
     selector = "#output-datum",
@@ -362,9 +357,8 @@ We add an [event listener](https://developer.mozilla.org/en-US/docs/Web/API/Even
 Also, we direct this `on_bin_width()` to run once at initialization.
 
 ```{js}
-// {js} chunk
-
-// JS reference to the HTML element for the slider-input
+// {js}
+// Reference to the HTML element for the slider-input
 var inp_bin_width = document.querySelector("[name=bin_width]");
 
 // define function to call when input changes
@@ -480,8 +474,7 @@ Like above, we create a JavaScript variable, `angle` that refers to the input-sl
 
 ```{js}
 // {js}
-
-// JS reference to our slider-input
+// Reference to our slider-input
 var angle = document.querySelector("[name=inp_angle]");
 ```
 
@@ -493,7 +486,6 @@ The second part of the function modifies the chart. Here, we create a changeset 
 
 ```{js}
 // {js}
-
 function on_angle() {
 
   // translate the input value to x-y coordinates in a new dataset
@@ -518,7 +510,6 @@ Lastly, we run the function *once* at initialization.
 
 ```{js}
 // {js}
-
 // whenever the input changes, run the updating function
 angle.addEventListener("input", on_angle);
 

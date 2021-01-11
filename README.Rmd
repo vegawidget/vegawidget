@@ -29,10 +29,12 @@ The goal of vegawidget is to render Vega-Lite and Vega specifications as htmlwid
 
 This is the key difference with the [**vegalite**](https://github.com/hrbrmstr/vegalite) package: it provides a set of higher-level functions to compose specifications, whereas **vegawidget** concerns itself mainly with the rendering of the htmlwidget. 
 
-To be clear, although Vega-Lite offers a grammar-of-graphics, this package is not designed as a primary tool to compose graphics (composing using `list()` can be tedious). However, this package may be useful to:
+Vega-Lite offers a grammar-of-graphics. This package is offers the same declarative approach to building charts as does Vega-Lite; it does not offer functions to build charts using composition. Using this package, you have to provide an entire chart-specification; this means lists of lists.
 
-- build re-usable Vega and Vega-Lite specifications for deployment elsewhere, if you can tolerate the frustration of building specifications using lists.
-- develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as a foundation.
+However, this package may be useful to:
+
+- build re-usable Vega and Vega-Lite specifications for deployment elsewhere.
+- develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as the rendering foundation.
 
 ## Features
 

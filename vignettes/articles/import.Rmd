@@ -12,7 +12,6 @@ You can use `use_vegawidget()` to import and re-export from vegawidget:
 - `vw_as_json()`  
 - `vegawidget()`, `vega_embed()`, `vw_set_base_url()`
 - image functions: `vw_to_svg()`, `vw_to_bitmap()`, `vw_write_svg()`, `vw_write_png()`
-- sample spec: `spec_mtcars`
 - basic Shiny-rendering functions: `renderVegawidget()`, `vegawidgetOutput()`
 
 If you implement an S3 class in your package, you can call `use_vegawidget()` with the name of your class. This will add more boilerplate code; you will have to provide the code to convert from your class to a `vegaspec`.
@@ -24,13 +23,11 @@ If you want to re-export vegawidget's interactivity functions, you can then use 
 - Shiny getters (reactives): `vw_shiny_get_data()`, `vw_shiny_get_signal()`, `vw_shiny_get_event()`
 - Shiny setters (observers): `vw_shiny_set_data()`, `vw_shiny_set_signal()`
 
-## Example: altair
-
 For example, the [**altair**](https://vegawidget.github.io/altair) package provides an R interface to the [**Altair**](https://altair-viz.github.io) Python package. The altair package itself provides the connection to Python, using [**reticulate**](https://rstudio.github.io/reticulate); altair's focus is to provide a means to build a Vega-Lite specification - using higher-level abstractions than lists. 
 
 The rendering part of altair is handled by the vegawidget package. A number of vegawidget functions are imported into altair, then re-exported. From altair's perspective, this import-export operation is handled by a single vegawidget function: `use_vegawidget()`. 
 
-### Inspiration: `usethis::use_pipe()`
+## Inspiration
 
 A lot of packages use the pipe (`%>%`) function, so much so that the [**usethis**](http://usethis.r-lib.org) package offers the function `usethis::use_pipe()` for package authors to make the pipe part of their package's offer:
 
@@ -39,7 +36,7 @@ A lot of packages use the pipe (`%>%`) function, so much so that the [**usethis*
 
 This new file contains roxygen directives that will handle the importing and exporting the next time you build the package's documentation. Now, people who install this package will have access to the pipe operator without having to refer explicitly to the magrittr package. It "just works".
 
-### Implementation
+## Implementation
 
 We wish to bring a similar robustness and ease-of-use to package authors who want to incorporate vegawidget. To demonstrate how to do this, we will show the process we use for altair.
 

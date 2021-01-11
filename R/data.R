@@ -36,7 +36,7 @@
 #'   \item{date}{`POSIXct`, instant of the observation, uses `"America/Los_Angeles"`}
 #'   \item{temp}{`double`, temperature (°C)}
 #' }
-#' @source \url{https://vega.github.io/vega-datasets/data/seattle-temps.csv}
+#' @source \url{https://vega.github.io/vega-datasets/data/seattle-weather-hourly-normals.csv}
 #'
 "data_seattle_hourly"
 

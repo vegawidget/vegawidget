@@ -12,7 +12,7 @@ A data frame with 8759 observations of two variables
 }
 }
 \source{
-\url{https://vega.github.io/vega-datasets/data/seattle-temps.csv}
+\url{https://vega.github.io/vega-datasets/data/seattle-weather-hourly-normals.csv}
 }
 \usage{
 data_seattle_hourly

@@ -4,18 +4,12 @@
 
 ## New features
 
-* `use_vegawidget()` now re-exports `vw_set_base_url()`, does not re-export `spec_mtcars`. (#150)
+* New function `vw_set_base_url()`: 
 
-* The image functions (`vw_to_svg()` and friends) respect the `baseURL` option set using `vw_set_base_url()`. (#148)
-
-* `vw_set_base_url()`: set the option for vega-embed's default [`baseURL`]((https://github.com/vega/vega-loader#loader). (#147)
-
-## Bug fixes
-
-* Unique identifier used in attaching data from local files; `elementId` is used if provided, if not an md5 hash of the files is used.
-  This would be useful for knitting documents, but attaching local data works only for interactive analysis, not for knitr environments.
-  Hence this "fix" is anticipation of other enchancements. (#125)
-
+  - set the option for vega-embed's default [`baseURL`](https://github.com/vega/vega-loader#loader). (#147)
+  - `use_vegawidget()` now re-exports `vw_set_base_url()`, does not re-export `spec_mtcars`. (#150)
+  - image functions (`vw_to_svg()` and friends) respect the `baseURL` option set using `vw_set_base_url()`. (#148)
+  
 * `vega_embed()`: 
 
   - the `actions` argument lets you specify `export$png` and `export$svg`. (#115)
@@ -23,6 +17,12 @@
   - the bulk of the options for [vega-embed](https://github.com/vega/vega-embed) can be supplied as named arguments using `...` rather than as explicit arguments to `vega_embed()`. 
   This will make it easier to support future enhancements to vega-embed.
   
+## Bug fixes
+
+* Unique identifier used in attaching data from local files; `elementId` is used if provided, if not an md5 hash of the files is used.
+  This would be useful for knitting documents, but attaching local data works only for interactive analysis, not for knitr environments.
+  Hence this "fix" is anticipation of other enchancements. (#125)
+
 * `vegawidget()`: keep precision in JSON representation for accurate rendering of small values (< 0.001). (#130, @datapixie)
 
 * `knit_print()`: repair by exporting the S3 method. (#132)

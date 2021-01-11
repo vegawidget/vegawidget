@@ -39,6 +39,7 @@ print.vw_handler <- function(x, ...) {
 
   # write out
   cat(compose_list(x$args, "arguments"), "\n")
+  cat("\n")
   cat("body_value:\n")
   cat(x$body_value$text %>% glue::glue_collapse(sep = "\n") %>% indent(2L))
   if (!is.null(x$body_effect)) {

@@ -27,7 +27,7 @@ data_category <-
 
 ## Daily data
 
-This data is taken from the [vega-datasets]() repository, which appears to be unlicenced. For this dataset, the source is NOAA.
+This data is taken from the [vega-datasets](https://github.com/vega/vega/tree/master/docs/data) repository. For this dataset, the source is NOAA.
  
 ```{r}
 data_seattle_daily <- 
@@ -38,19 +38,23 @@ data_seattle_daily <-
 
 ```{r}
 data_seattle_hourly <- 
-  read_csv("https://vega.github.io/vega-datasets/data/seattle-temps.csv") %>%
+  read_csv("https://vega.github.io/vega-datasets/data/seattle-weather-hourly-normals.csv") %>%
   glimpse()
 
 # need to correct one of the times (this instant does not exist in local time)
-data_seattle_hourly$date[data_seattle_hourly$date == "2010/03/14 02:00"] <-
-  "2010/03/14 03:00"
+data_seattle_hourly$date[data_seattle_hourly$date == "2010-03-14T02:00:00"] <-
+  "2010-03-14T03:00:00"
   
 data_seattle_hourly$date <- 
   parse_date_time(
     data_seattle_hourly$date, 
-    orders = "%Y/%m/%d %H:%M",
+    orders = "%Y/%m/%d %H:%M:%S",
     tz = "America/Los_Angeles"
   )  
+
+data_seattle_hourly$temp <- data_seattle_hourly$temperature
+
+data_seattle_hourly <- data_seattle_hourly[, c("date", "temp")]
 ```
 
 
@@ -58,7 +62,7 @@ data_seattle_hourly$date <-
 glimpse(data_seattle_hourly)
 ```
 
-## Mtcars
+## mtcars
 
 The data are documented in `R/data.R`.
 

@@ -23,50 +23,32 @@ whereas **vegawidget** concerns itself mainly with the rendering of the
 htmlwidget.
 
 To be clear, although Vega-Lite offers a grammar-of-graphics, this
-package does not offer a user-friendly framework to compose graphics,
-like those provided by **[ggplot2](https://ggplot2.tidyverse.org)** or
-**[ggvis](https://ggvis.rstudio.com)**. However, this package may be
-useful to:
+package is not designed as a primary tool to compose graphics (composing
+using `list()` can be tedious). However, this package may be useful to:
 
 -   build re-usable Vega and Vega-Lite specifications for deployment
     elsewhere, if you can tolerate the frustration of building
     specifications using lists.
 -   develop higher-level, user-friendly packages to build specific types
     of plots, or even to build a general ggplot2-like framework, using
-    this package as a foundation (or inspiration).
+    this package as a foundation.
 
 ## Features
 
-### New to vegawidget 0.3
+### New to vegawidget 0.3.2
 
 -   vegawidget offers Vega-Lite 4.17.0 and Vega 5.17.0. Consequently,
     this package works only with browsers that support ES6. This
-    includes all modern browsers and the 1.2 version of the RStudio IDE.
+    includes all modern browsers and the RStudioIDE (version 1.2 and
+    later).
 
-### New to vegawidget 0.2
+-   new function `vw_set_base_url()`, to set the option for
+    [vega-embed](https://github.com/vega/vega-embed)’s default
+    [`baseURL`](https://github.com/vega/vega-loader#loader).
 
--   When knitting to a non-HTML format, e.g. `github_document`, this
-    package provides a `knit_print()` function that will intercept the
-    normal renderer, using instead its own renderer, allowing you to
-    specify `"png"` , `"svg"` or `"pdf"`. It requires that
-    [nodejs](https://nodejs.org) be installed on your system, as well as
-    the R packages [rsvg](https://cran.r-project.org/package=rsvg) and
-    [png](https://cran.r-project.org/package=png). MacOS users will
-    require an X11 system, such as [XQuartz](https://www.xquartz.org),
-    to be installed.
-
-    For an example, see the GitHub rendering of this [README
-    file](https://github.com/vegawidget/vegawidget/blob/master/README.md).
-    For more details, please see the [Render Using Vegawidget
-    article](https://vegawidget.github.io/vegawidget/articles/articles/render-vegawidget.html#knitting-strategies).
-
--   For interactive applications, there are now functions to support
-    vega-view’s
-    [`addDataListener()`](https://vega.github.io/vega/docs/api/view/#view_addDataListener)
-    function:
-    [`vw_add_data_listener()`](https://vegawidget.github.io/vegawidget/reference/add-listeners.html),
-    and
-    [`vw_shiny_get_data()`](https://vegawidget.github.io/vegawidget/reference/shiny-getters.html).
+-   changes `vega_embed()` to use `...` to pass most of its arguments,
+    making a more-forgiving connection to
+    [vega-embed](https://github.com/vega/vega-embed).
 
 ## Installation
 
@@ -85,7 +67,7 @@ devtools::install_github("vegawidget/vegawidget")
 
 **Note:** There are documentation websites for both the [CRAN
 version](https://vegawidget.github.io/vegawidget) and the [development
-version](https://vegawidget.github.io/vegawidget/dev) of this package.
+version](https://vegawidget.github.io/vegawidget/dev/) of this package.
 
 ## Introduction
 

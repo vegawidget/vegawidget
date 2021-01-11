@@ -42,7 +42,7 @@ With a JavaScript handler, you are trying to do two types of things:
 }
 
 Let's look at a concrete example.
-A \href{https://vega.github.io/vega/docs/api/view#view_addSignalListener}{\emph{signal} handler}
+A \href{https://vega.github.io/vega/docs/api/view/}{\emph{signal} handler}
 will take arguments \code{name} and \code{value}. Let's say that we want to
 return the value. We could do this two ways:
 \itemize{
@@ -90,9 +90,6 @@ are no-ops; they will return the \code{body_value} unchanged.
   vw_handler_signal("return value;")
 }
 \seealso{
-\code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}}
-vega-view:
-\href{https://vega.github.io/vega/docs/api/view#view_addSignalListener}{addSignalListener()},
-\href{https://vega.github.io/vega/docs/api/view#view_addDataListener}{addDataListener()},
-\href{https://vega.github.io/vega/docs/api/view#view_addEventListener}{addEventListener()}
+\code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}},
+\href{https://vega.github.io/vega/docs/api/view/}{vega-view}
 }

@@ -19,7 +19,7 @@
 #' - produce a side-effect based on that calculated value
 #'
 #' Let's look at a concrete example.
-#' A [*signal* handler](https://vega.github.io/vega/docs/api/view#view_addSignalListener)
+#' A [*signal* handler](https://vega.github.io/vega/docs/api/view/)
 #' will take arguments `name` and `value`. Let's say that we want to
 #' return the value. We could do this two ways:
 #'
@@ -53,11 +53,8 @@
 #'   or the text of the body of a handler-function
 #'
 #' @return object with S3 class `vw_handler`
-#' @seealso [vw_handler_add_effect()]
-#'   vega-view:
-#'     [addSignalListener()](https://vega.github.io/vega/docs/api/view#view_addSignalListener),
-#'     [addDataListener()](https://vega.github.io/vega/docs/api/view#view_addDataListener),
-#'     [addEventListener()](https://vega.github.io/vega/docs/api/view#view_addEventListener)
+#' @seealso [vw_handler_add_effect()],
+#'   [vega-view](https://vega.github.io/vega/docs/api/view/)
 #' @examples
 #'   # list all the available signal-handlers
 #'   vw_handler_signal()

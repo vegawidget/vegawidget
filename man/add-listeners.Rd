@@ -49,9 +49,6 @@ and \code{\link[=vw_handler_event]{vw_handler_event()}}. You can pipe one of the
 }
 \seealso{
 \code{\link[=vw_handler_signal]{vw_handler_signal()}}, \code{\link[=vw_handler_data]{vw_handler_data()}}, \code{\link[=vw_handler_event]{vw_handler_event()}},
-\code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}}
-vega-view:
-\href{https://vega.github.io/vega/docs/api/view#view_addSignalListener}{addSignalListener()},
-\href{https://vega.github.io/vega/docs/api/view/#view_addDataListener}{addDataListener()},
-\href{https://vega.github.io/vega/docs/api/view#view_addEventListener}{addEventListener()}
+\code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}},
+\href{https://vega.github.io/vega/docs/api/view/}{vega-view}
 }

@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-For a comprehensive introduction to Vega-Lite, please visit the its [web site](https://vega.github.io/vega-lite/). An [interactive tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) to vegawidget is available at shinyapps.io.
+For a comprehensive introduction to Vega-Lite, please visit the its [web site](https://vega.github.io/vega-lite/). 
 
 Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build specifications:
 

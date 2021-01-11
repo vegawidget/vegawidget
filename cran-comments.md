@@ -1,30 +1,33 @@
-## vegawidget 0.3.1
+## vegawidget 0.3.2
 
-On win-builder (release), I get a note:
+NOTE: change of email for maintainer
 
 ```
-Found the following (possibly) invalid URLs:
-  URL: https://ijlyttle.shinyapps.io/vegawidget-overview
-    From: inst/doc/vegawidget.html
-    Status: Error
-    Message: libcurl error code 35:
-      	Unknown SSL protocol error in connection to ijlyttle.shinyapps.io:443
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Ian Lyttle <ian.lyttle@se.com>'
+
+New maintainer:
+  Ian Lyttle <ian.lyttle@se.com>
+Old maintainer(s):
+  Ian Lyttle <ian.lyttle@schneider-electric.com>
 ```
 
-I have checked the URL - it is valid, so I suspect some sort of network difficulty at win-builder.
+Otherwise on every test environment:
+
+0 errors | 0 warnings | 0 notes 
 
 ## Test environments
 
-* local OS X install, R 3.6.2
+* local OS X install, R 4.0.3
+* GitHub Actions: windows-latest (release)
+* GitHub Actions: macOS-latest (release)
+* GitHub Actions: ubuntu-20.04 (release)
+* GitHub Actions: ubuntu-20.04 (devel)
 * Windows Server 2008 R2 SP1, R-devel, 32/64 bit
 * Ubuntu Linux 16.04 LTS, R-release, GCC
 * Fedora Linux, R-devel, clang, gfortran
-* ubuntu 16.04 (on travis-ci), R (oldrel, release, and devel)
-* win-builder (release)
+* win-builder (devel)
 
-## R CMD check results
-
-0 errors | 0 warnings | 0 notes
 
 
   

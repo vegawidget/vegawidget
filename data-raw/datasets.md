@@ -10,9 +10,9 @@ library("lubridate")
     ## 
     ## Attaching package: 'lubridate'
 
-    ## The following object is masked from 'package:base':
+    ## The following objects are masked from 'package:base':
     ## 
-    ##     date
+    ##     date, intersect, setdiff, union
 
 ``` r
 library("magrittr")
@@ -33,22 +33,24 @@ data_category <-
   glimpse()
 ```
 
-    ## Observations: 10
-    ## Variables: 2
+    ## Rows: 10
+    ## Columns: 2
     ## $ category <chr> "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"
     ## $ number   <int> 21, 64, 23, 41, 92, 52, 61, 27, 34, 48
 
 ## Daily data
 
-This data is taken from the [vega-datasets]() repository, which appears
-to be unlicenced. For this dataset, the source is NOAA.
+This data is taken from the
+[vega-datasets](https://github.com/vega/vega/tree/master/docs/data)
+repository. For this dataset, the source is NOAA.
 
 ``` r
 data_seattle_daily <- 
   read_csv("https://vega.github.io/vega-datasets/data/seattle-weather.csv")
 ```
 
-    ## Parsed with column specification:
+    ## 
+    ## ── Column specification ────────────────────────────────────────────────────────
     ## cols(
     ##   date = col_date(format = ""),
     ##   precipitation = col_double(),
@@ -62,44 +64,57 @@ data_seattle_daily <-
 
 ``` r
 data_seattle_hourly <- 
-  read_csv("https://vega.github.io/vega-datasets/data/seattle-temps.csv") %>%
+  read_csv("https://vega.github.io/vega-datasets/data/seattle-weather-hourly-normals.csv") %>%
   glimpse()
 ```
 
-    ## Parsed with column specification:
+    ## 
+    ## ── Column specification ────────────────────────────────────────────────────────
     ## cols(
-    ##   date = col_character(),
-    ##   temp = col_double()
+    ##   date = col_datetime(format = ""),
+    ##   pressure = col_double(),
+    ##   temperature = col_double(),
+    ##   wind = col_double()
     ## )
 
-    ## Observations: 8,759
-    ## Variables: 2
-    ## $ date <chr> "2010/01/01 00:00", "2010/01/01 01:00", "2010/01/01 02:00",…
-    ## $ temp <dbl> 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2,…
+    ## Rows: 8,759
+    ## Columns: 4
+    ## $ date        <dttm> 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:…
+    ## $ pressure    <dbl> 1016.6, 1016.6, 1016.7, 1016.7, 1016.5, 1016.4, 1016.5, 1…
+    ## $ temperature <dbl> 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.…
+    ## $ wind        <dbl> 3.8, 3.8, 3.8, 3.7, 3.8, 3.8, 3.9, 3.9, 3.9, 3.9, 3.9, 4.…
 
 ``` r
 # need to correct one of the times (this instant does not exist in local time)
-data_seattle_hourly$date[data_seattle_hourly$date == "2010/03/14 02:00"] <-
-  "2010/03/14 03:00"
+data_seattle_hourly$date[data_seattle_hourly$date == "2010-03-14T02:00:00"] <-
+  "2010-03-14T03:00:00"
   
 data_seattle_hourly$date <- 
   parse_date_time(
     data_seattle_hourly$date, 
-    orders = "%Y/%m/%d %H:%M",
+    orders = "%Y/%m/%d %H:%M:%S",
     tz = "America/Los_Angeles"
   )  
+```
+
+    ## Warning: 1 failed to parse.
+
+``` r
+data_seattle_hourly$temp <- data_seattle_hourly$temperature
+
+data_seattle_hourly <- data_seattle_hourly[, c("date", "temp")]
 ```
 
 ``` r
 glimpse(data_seattle_hourly)
 ```
 
-    ## Observations: 8,759
-    ## Variables: 2
-    ## $ date <dttm> 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:00…
-    ## $ temp <dbl> 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2,…
+    ## Rows: 8,759
+    ## Columns: 2
+    ## $ date <dttm> 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:00:00, …
+    ## $ temp <dbl> 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2,…
 
-## Mtcars
+## mtcars
 
 The data are documented in `R/data.R`.
 
@@ -139,5 +154,8 @@ usethis::use_data(
 )
 ```
 
-    ## ✔ Setting active project to '/Users/sesa19001/Documents/repos/public/vegawidget/vegawidget'
-    ## ✔ Saving 'data_category', 'data_seattle_daily', 'data_seattle_hourly', 'spec_mtcars' to 'data/data_category.rda', 'data/data_seattle_daily.rda', 'data/data_seattle_hourly.rda', 'data/spec_mtcars.rda'
+    ## ✓ Setting active project to '/Users/sesa19001/Documents/repos/public/vegawidget/vegawidget'
+
+    ## ✓ Saving 'data_category', 'data_seattle_daily', 'data_seattle_hourly', 'spec_mtcars' to 'data/data_category.rda', 'data/data_seattle_daily.rda', 'data/data_seattle_hourly.rda', 'data/spec_mtcars.rda'
+
+    ## ● Document your data (see 'https://r-pkgs.org/data.html')

@@ -68,7 +68,7 @@ devtools::install_github("vegawidget/vegawidget")
 
 **Note:** There are documentation websites for both the [CRAN
 version](https://vegawidget.github.io/vegawidget) and the [development
-version](https://vegawidget.github.io/vegawidget/dev) of this package.
+version](https://vegawidget.github.io/vegawidget/dev/) of this package.
 
 ## Introduction
 

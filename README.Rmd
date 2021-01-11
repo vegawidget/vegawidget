@@ -96,10 +96,7 @@ The rendering of the chart above depends on where you are reading it:
 
 - At its [GitHub code site](https://github.com/vegawidget/vegawidget), the chart is further rendered to a static SVG file, then incorporated into the Markdown rendering.
 
-For more, please see our [Getting Started](https://vegawidget.github.io/vegawidget/articles/vegawidget.html) article. For other introductory material, please see:
-
-- [Vega-Lite website](https://vega.github.io/vega-lite/) has a comprehensive introduction
-- An [interactive learnr tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) at shinyapps.io
+For more, please see our [Getting Started](https://vegawidget.github.io/vegawidget/articles/vegawidget.html) article. Additionally, the [Vega-Lite website](https://vega.github.io/vega-lite/) has a comprehensive introduction.
 
 Other articles for this package:
 

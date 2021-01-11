@@ -10,28 +10,22 @@ status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project
 
 # vegawidget
 
+[Vega-Lite](https://vega.github.io/vega-lite/) is an implementation of
+the grammar-of-graphics, rendered in the browser with interactivity.
+
 The goal of vegawidget is to render Vega-Lite and Vega specifications as
 htmlwidgets, and to provide you a means to communicate with a Vega chart
 using JavaScript or Shiny. Its ambition is to be a *low-level* interface
 to the Vega(-Lite) API, such that other packages can build upon it to
 offer higher-level functions to compose Vega(-Lite) specifications.
 
-This is the key difference with the
-[**vegalite**](https://github.com/hrbrmstr/vegalite) package: it
-provides a set of higher-level functions to compose specifications,
-whereas **vegawidget** concerns itself mainly with the rendering of the
-htmlwidget.
+Accordingly, this package may be useful to:
 
-To be clear, although Vega-Lite offers a grammar-of-graphics, this
-package is not designed as a primary tool to compose graphics (composing
-using `list()` can be tedious). However, this package may be useful to:
-
--   build re-usable Vega and Vega-Lite specifications for deployment
-    elsewhere, if you can tolerate the frustration of building
-    specifications using lists.
+-   build (using lists of lists) re-usable Vega and Vega-Lite
+    specifications for deployment elsewhere.
 -   develop higher-level, user-friendly packages to build specific types
     of plots, or even to build a general ggplot2-like framework, using
-    this package as a foundation.
+    this package as the rendering foundation.
 
 ## Features
 

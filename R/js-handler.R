@@ -19,7 +19,7 @@
 #' - produce a side-effect based on that calculated value
 #'
 #' Let's look at a concrete example.
-#' A [*signal* handler](https://vega.github.io/vega/docs/api/view#view_addSignalListener)
+#' A [*signal* handler](https://vega.github.io/vega/docs/api/view/)
 #' will take arguments `name` and `value`. Let's say that we want to
 #' return the value. We could do this two ways:
 #'

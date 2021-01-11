@@ -75,14 +75,15 @@ spec_precip <-
   as_vegaspec()
 ```
 
-We have included this file as an example dataset for this package; it is also available as a part of **[vega-datasets](https://github.com/vega/vega-datasets)**
+We have included this file as an example dataset for this package; it is also available as a part of **[vega-datasets](https://github.com/vega/vega-datasets)**:
 
 ```{r}
 path_local <- system.file("example-data", package = "vegawidget")
 url_remote <- "https://vega.github.io/vega-datasets/data"
 ```
 
-By using a `base_url`, you can specify the file-location at rendering, rather than as a part of the specification:
+By using a `base_url`, you can specify the file-location at rendering, rather than as a part of the specification. 
+If you want to use the local copy of the data:
 
 ```{r, eval=FALSE}
 # not run
@@ -100,7 +101,8 @@ vegawidget(spec_precip, base_url = url_remote)
 
 ## Setting R options
 
-In the previous section, you saw how to specify the rendering options using the `vegawidget()` function explicitly. You may wish to set the options implicitly: you can do so using the R options `vega.embed`, `vega.width`, and `vega.height`.
+In the previous section, you saw how to specify the rendering options using the `vegawidget()` function explicitly. 
+You may wish to set the options implicitly: you can do so using the R options `vega.embed`, `vega.width`, and `vega.height`.
 
 You can use the function `vw_set_base_url()` to set the `base_url` in the `vega.embed` option. 
 You need do this only once in an R session or an RMarkdown document; this avoids you having to invoke `vegawidget()` explicitly:
@@ -110,7 +112,7 @@ vw_set_base_url(url_remote)
 spec_precip
 ```
 
-Another way to set these options is in a knitr chunk:
+Another way to set options is in a knitr chunk:
 
     ```{r vega.embed=vegawidget::vega_embed(actions = FALSE)}
     spec_mtcars
@@ -128,11 +130,11 @@ spec_mtcars
 spec_mtcars
 ```
 
-We can set options explicitly using the `options()` function. There are a few ways you can do this:
+We can set options explicitly using the `options()` function.
+There are a few ways you can do this:
 
 - for `base_url` only, use `vw_set_base_url()`
-- put an `options()` call in your `.Rprofile`
-- put an `options()` call in a code chunk in your `.Rmd` file
+- put an `options()` call in a code chunk in your `.Rmd` file 
 - use the [**config**](https://cran.r-project.org/package=config) package, with `!expr options(...)` in your YML configuration file.
 
 Here, we use a variation of the second option, making an explicit `options()` call to set the width and height:

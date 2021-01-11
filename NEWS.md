@@ -6,7 +6,7 @@
 
 * New function `vw_set_base_url()`: 
 
-  - set the option for vega-embed's default [`baseURL`]((https://github.com/vega/vega-loader#loader). (#147)
+  - set the option for vega-embed's default [`baseURL`](https://github.com/vega/vega-loader#loader). (#147)
   - `use_vegawidget()` now re-exports `vw_set_base_url()`, does not re-export `spec_mtcars`. (#150)
   - image functions (`vw_to_svg()` and friends) respect the `baseURL` option set using `vw_set_base_url()`. (#148)
   

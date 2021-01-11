@@ -115,7 +115,7 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
     embed[["loader"]][["baseURL"]] <- base_url
   }
 
-  # check for `baseURL` in `embed[["loader"]`
+  # check for `baseURL` in `embed[["loader"]]`
   baseURL <- embed[["loader"]][["baseURL"]]
 
   # if base_url is a local directory need to create a dependency

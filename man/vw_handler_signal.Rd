@@ -90,9 +90,6 @@ are no-ops; they will return the \code{body_value} unchanged.
   vw_handler_signal("return value;")
 }
 \seealso{
-\code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}}
-vega-view:
-\href{https://vega.github.io/vega/docs/api/view#view_addSignalListener}{addSignalListener()},
-\href{https://vega.github.io/vega/docs/api/view#view_addDataListener}{addDataListener()},
-\href{https://vega.github.io/vega/docs/api/view#view_addEventListener}{addEventListener()}
+\code{\link[=vw_handler_add_effect]{vw_handler_add_effect()}},
+\href{https://vega.github.io/vega/docs/api/view/}{vega-view}
 }

@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9015</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9016</span>
       </span>
     </div>
 
@@ -114,30 +114,21 @@
 <a href="#vegawidget" class="anchor"></a>vegawidget</h1></div>
 <p>The goal of vegawidget is to render Vega-Lite and Vega specifications as htmlwidgets, and to provide you a means to communicate with a Vega chart using JavaScript or Shiny. Its ambition is to be a <em>low-level</em> interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications.</p>
 <p>This is the key difference with the <a href="https://github.com/hrbrmstr/vegalite"><strong>vegalite</strong></a> package: it provides a set of higher-level functions to compose specifications, whereas <strong>vegawidget</strong> concerns itself mainly with the rendering of the htmlwidget.</p>
-<p>To be clear, although Vega-Lite offers a grammar-of-graphics, this package does not offer a user-friendly framework to compose graphics, like those provided by <strong><a href="https://ggplot2.tidyverse.org">ggplot2</a></strong> or <strong><a href="https://ggvis.rstudio.com">ggvis</a></strong>. However, this package may be useful to:</p>
+<p>To be clear, although Vega-Lite offers a grammar-of-graphics, this package is not designed as a primary tool to compose graphics (composing using <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> can be tedious). However, this package may be useful to:</p>
 <ul>
 <li>build re-usable Vega and Vega-Lite specifications for deployment elsewhere, if you can tolerate the frustration of building specifications using lists.</li>
-<li>develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as a foundation (or inspiration).</li>
+<li>develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as a foundation.</li>
 </ul>
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h2>
-<div id="new-to-vegawidget-03" class="section level3">
+<div id="new-to-vegawidget-032" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-to-vegawidget-03" class="anchor"></a>New to vegawidget 0.3</h3>
+<a href="#new-to-vegawidget-032" class="anchor"></a>New to vegawidget 0.3.2</h3>
 <ul>
-<li>vegawidget offers Vega-Lite 4.17.0 and Vega 5.17.0. Consequently, this package works only with browsers that support ES6. This includes all modern browsers and the 1.2 version of the RStudio IDE.</li>
-</ul>
-</div>
-<div id="new-to-vegawidget-02" class="section level3">
-<h3 class="hasAnchor">
-<a href="#new-to-vegawidget-02" class="anchor"></a>New to vegawidget 0.2</h3>
-<ul>
-<li>
-<p>When knitting to a non-HTML format, e.g. <code>github_document</code>, this package provides a <code>knit_print()</code> function that will intercept the normal renderer, using instead its own renderer, allowing you to specify <code>"png"</code> , <code>"svg"</code> or <code>"pdf"</code>. It requires that <a href="https://nodejs.org">nodejs</a> be installed on your system, as well as the R packages <a href="https://cran.r-project.org/package=rsvg">rsvg</a> and <a href="https://cran.r-project.org/package=png">png</a>. MacOS users will require an X11 system, such as <a href="https://www.xquartz.org">XQuartz</a>, to be installed.</p>
-<p>For an example, see the GitHub rendering of this <a href="https://github.com/vegawidget/vegawidget/blob/master/README.md">README file</a>. For more details, please see the <a href="https://vegawidget.github.io/vegawidget/articles/articles/render-vegawidget.html#knitting-strategies">Render Using Vegawidget article</a>.</p>
-</li>
-<li><p>For interactive applications, there are now functions to support vega-view’s <a href="https://vega.github.io/vega/docs/api/view/#view_addDataListener"><code>addDataListener()</code></a> function: <a href="https://vegawidget.github.io/vegawidget/reference/add-listeners.html"><code>vw_add_data_listener()</code></a>, and <a href="https://vegawidget.github.io/vegawidget/reference/shiny-getters.html"><code>vw_shiny_get_data()</code></a>.</p></li>
+<li><p>vegawidget offers Vega-Lite 4.17.0 and Vega 5.17.0. Consequently, this package works only with browsers that support ES6. This includes all modern browsers and the RStudioIDE (version 1.2 and later).</p></li>
+<li><p>new function <code><a href="reference/vw_set_base_url.html">vw_set_base_url()</a></code>, to set the option for <a href="https://github.com/vega/vega-embed">vega-embed</a>’s default <a href="https://github.com/vega/vega-loader#loader"><code>baseURL</code></a>.</p></li>
+<li><p>changes <code><a href="reference/vega_embed.html">vega_embed()</a></code> to use <code>...</code> to pass most of its arguments, making a more-forgiving connection to <a href="https://github.com/vega/vega-embed">vega-embed</a>.</p></li>
 </ul>
 </div>
 </div>
@@ -151,7 +142,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"vegawidget/vegawidget"</span><span class="op">)</span></code></pre></div>
-<p><strong>Note:</strong> There are documentation websites for both the <a href="https://vegawidget.github.io/vegawidget">CRAN version</a> and the <a href="https://vegawidget.github.io/vegawidget/dev">development version</a> of this package.</p>
+<p><strong>Note:</strong> There are documentation websites for both the <a href="https://vegawidget.github.io/vegawidget">CRAN version</a> and the <a href="https://vegawidget.github.io/vegawidget/dev/">development version</a> of this package.</p>
 </div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">

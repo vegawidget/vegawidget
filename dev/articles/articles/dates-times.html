@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9015</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9016</span>
       </span>
     </div>
 
@@ -103,12 +103,12 @@
       
 
       </header><script src="dates-times_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="dates-times_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="dates-times_files/vega-5.17.0/vega.min.js"></script><script src="dates-times_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="dates-times_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
-<script src="dates-times_files/vega-embed-6.12.2/vega-embed.js"></script><script src="dates-times_files/vegawidget-binding-0.3.1.9015/vegawidget.js"></script><div class="row">
+<script src="dates-times_files/vega-embed-6.12.2/vega-embed.js"></script><script src="dates-times_files/vegawidget-binding-0.3.1.9016/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Work with dates and times</h1>
             
-            <h4 class="date">2021-01-09</h4>
+            <h4 class="date">2021-01-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/dates-times.Rmd"><code>vignettes/articles/dates-times.Rmd</code></a></small>
       <div class="hidden name"><code>dates-times.Rmd</code></div>
@@ -146,8 +146,8 @@
 <code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">data_seattle_hourly</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 8,759
 ## Columns: 2
-## $ date &lt;dttm&gt; 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:00:00, …
-## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2, 40.1…</code></pre>
+## $ date &lt;dttm&gt; 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:00:00, …
+## $ temp &lt;dbl&gt; 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2,…</code></pre>
 <p>This dataset contains hourly observations of Seattle temperature (°F) for the year 2010. Let’s inspect the time zone of the <code>date</code> variable:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="http://lubridate.tidyverse.org/reference/tz.html">tz</a></span><span class="op">(</span><span class="va">data_seattle_hourly</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></code></pre></div>
@@ -160,10 +160,10 @@
     <span class="fu"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"day"</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2010-01-01"</span>, tz <span class="op">=</span> <span class="st">"America/Los_Angeles"</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## Rows: 24
+<pre><code>## Rows: 23
 ## Columns: 2
-## $ date &lt;dttm&gt; 2010-01-01 00:00:00, 2010-01-01 01:00:00, 2010-01-01 02:00:00, …
-## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2, 40.1…</code></pre>
+## $ date &lt;dttm&gt; 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:00:00, …
+## $ temp &lt;dbl&gt; 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2,…</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_local</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -188,8 +188,8 @@
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_local</span></code></pre></div>
-<div id="htmlwidget-0682cee7b8248884edff" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0682cee7b8248884edff">{"x":{
+<div id="htmlwidget-31d0f348e31ae24f5ec3" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-31d0f348e31ae24f5ec3">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -197,100 +197,96 @@
     "data": {
       "values": [
         {
-          "date": "2010-01-01 00:00:00",
-          "temp": 39.4
-        },
-        {
           "date": "2010-01-01 01:00:00",
-          "temp": 39.2
+          "temp": 4
         },
         {
           "date": "2010-01-01 02:00:00",
-          "temp": 39
+          "temp": 3.9
         },
         {
           "date": "2010-01-01 03:00:00",
-          "temp": 38.9
+          "temp": 3.8
         },
         {
           "date": "2010-01-01 04:00:00",
-          "temp": 38.8
+          "temp": 3.8
         },
         {
           "date": "2010-01-01 05:00:00",
-          "temp": 38.7
+          "temp": 3.7
         },
         {
           "date": "2010-01-01 06:00:00",
-          "temp": 38.7
+          "temp": 3.7
         },
         {
           "date": "2010-01-01 07:00:00",
-          "temp": 38.6
+          "temp": 3.7
         },
         {
           "date": "2010-01-01 08:00:00",
-          "temp": 38.7
+          "temp": 3.7
         },
         {
           "date": "2010-01-01 09:00:00",
-          "temp": 39.2
+          "temp": 4
         },
         {
           "date": "2010-01-01 10:00:00",
-          "temp": 40.1
+          "temp": 4.5
         },
         {
           "date": "2010-01-01 11:00:00",
-          "temp": 41.3
+          "temp": 5.2
         },
         {
           "date": "2010-01-01 12:00:00",
-          "temp": 42.5
+          "temp": 5.8
         },
         {
           "date": "2010-01-01 13:00:00",
-          "temp": 43.2
+          "temp": 6.2
         },
         {
           "date": "2010-01-01 14:00:00",
-          "temp": 43.5
+          "temp": 6.4
         },
         {
           "date": "2010-01-01 15:00:00",
-          "temp": 43.3
+          "temp": 6.3
         },
         {
           "date": "2010-01-01 16:00:00",
-          "temp": 42.7
+          "temp": 5.9
         },
         {
           "date": "2010-01-01 17:00:00",
-          "temp": 41.7
+          "temp": 5.4
         },
         {
           "date": "2010-01-01 18:00:00",
-          "temp": 41.2
+          "temp": 5.1
         },
         {
           "date": "2010-01-01 19:00:00",
-          "temp": 40.9
+          "temp": 4.9
         },
         {
           "date": "2010-01-01 20:00:00",
-          "temp": 40.7
+          "temp": 4.8
         },
         {
           "date": "2010-01-01 21:00:00",
-          "temp": 40.4
+          "temp": 4.7
         },
         {
           "date": "2010-01-01 22:00:00",
-          "temp": 40.2
+          "temp": 4.6
         },
         {
           "date": "2010-01-01 23:00:00",
-          "temp": 39.9
+          "temp": 4.4
         }
       ]
     },
@@ -320,7 +316,7 @@
 <p>Here are the first couple of observations in the data frame, rendered as JSON (using the same settings for datetimes as we use when render the entire vegaspec to JSON):</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_seattle_hourly_short</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">toJSON</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [{"date":"2010-01-01 00:00:00","temp":39.4},{"date":"2010-01-01 01:00:00","temp":39.2}]</code></pre>
+<pre><code>## [{"date":"2010-01-01 01:00:00","temp":4},{"date":"2010-01-01 02:00:00","temp":3.9}]</code></pre>
 <p>We see that date-times are <em>not</em> formatted using ISO-8601 formatting - the times are serialized to JSON using the local context. When Vega-Lite <a href="https://vega.github.io/vega-lite/docs/timeunit.html#utc">parses this data</a>, it recognizes that this is a datetime and that the format is <em>not</em> ISO-8601. As such, these times will be parsed, interpreted, and displayed as local times:</p>
 <blockquote>
 <ol style="list-style-type: decimal">
@@ -340,10 +336,10 @@
   <span class="va">data_seattle_hourly_short</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../../reference/vw_serialize_data.html">vw_serialize_data</a></span><span class="op">(</span>iso_dttm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## Rows: 24
+<pre><code>## Rows: 23
 ## Columns: 2
-## $ date &lt;chr&gt; "2010-01-01T08:00:00.000Z", "2010-01-01T09:00:00.000Z", "2010-01…
-## $ temp &lt;dbl&gt; 39.4, 39.2, 39.0, 38.9, 38.8, 38.7, 38.7, 38.6, 38.7, 39.2, 40.1…</code></pre>
+## $ date &lt;chr&gt; "2010-01-01T09:00:00.000Z", "2010-01-01T10:00:00.000Z", "2010-01…
+## $ temp &lt;dbl&gt; 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2,…</code></pre>
 <p>You can see that we have changed the <code>date</code> variable from a datetime to a character string. Its values show <code>date</code>:</p>
 <ul>
 <li>in the ISO-8601 format (according to the <code>iso_dttm</code> argument).</li>
@@ -357,8 +353,8 @@
 <span class="va">spec_iso_local</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">values</span> <span class="op">&lt;-</span> <span class="va">data_seattle_hourly_short_iso</span>
 
 <span class="va">spec_iso_local</span></code></pre></div>
-<div id="htmlwidget-2ecadd5b5fb41a20194d" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2ecadd5b5fb41a20194d">{"x":{
+<div id="htmlwidget-dd96695729d314bbb0a0" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dd96695729d314bbb0a0">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -366,100 +362,96 @@
     "data": {
       "values": [
         {
-          "date": "2010-01-01T08:00:00.000Z",
-          "temp": 39.4
-        },
-        {
           "date": "2010-01-01T09:00:00.000Z",
-          "temp": 39.2
+          "temp": 4
         },
         {
           "date": "2010-01-01T10:00:00.000Z",
-          "temp": 39
+          "temp": 3.9
         },
         {
           "date": "2010-01-01T11:00:00.000Z",
-          "temp": 38.9
+          "temp": 3.8
         },
         {
           "date": "2010-01-01T12:00:00.000Z",
-          "temp": 38.8
+          "temp": 3.8
         },
         {
           "date": "2010-01-01T13:00:00.000Z",
-          "temp": 38.7
+          "temp": 3.7
         },
         {
           "date": "2010-01-01T14:00:00.000Z",
-          "temp": 38.7
+          "temp": 3.7
         },
         {
           "date": "2010-01-01T15:00:00.000Z",
-          "temp": 38.6
+          "temp": 3.7
         },
         {
           "date": "2010-01-01T16:00:00.000Z",
-          "temp": 38.7
+          "temp": 3.7
         },
         {
           "date": "2010-01-01T17:00:00.000Z",
-          "temp": 39.2
+          "temp": 4
         },
         {
           "date": "2010-01-01T18:00:00.000Z",
-          "temp": 40.1
+          "temp": 4.5
         },
         {
           "date": "2010-01-01T19:00:00.000Z",
-          "temp": 41.3
+          "temp": 5.2
         },
         {
           "date": "2010-01-01T20:00:00.000Z",
-          "temp": 42.5
+          "temp": 5.8
         },
         {
           "date": "2010-01-01T21:00:00.000Z",
-          "temp": 43.2
+          "temp": 6.2
         },
         {
           "date": "2010-01-01T22:00:00.000Z",
-          "temp": 43.5
+          "temp": 6.4
         },
         {
           "date": "2010-01-01T23:00:00.000Z",
-          "temp": 43.3
+          "temp": 6.3
         },
         {
           "date": "2010-01-02T00:00:00.000Z",
-          "temp": 42.7
+          "temp": 5.9
         },
         {
           "date": "2010-01-02T01:00:00.000Z",
-          "temp": 41.7
+          "temp": 5.4
         },
         {
           "date": "2010-01-02T02:00:00.000Z",
-          "temp": 41.2
+          "temp": 5.1
         },
         {
           "date": "2010-01-02T03:00:00.000Z",
-          "temp": 40.9
+          "temp": 4.9
         },
         {
           "date": "2010-01-02T04:00:00.000Z",
-          "temp": 40.7
+          "temp": 4.8
         },
         {
           "date": "2010-01-02T05:00:00.000Z",
-          "temp": 40.4
+          "temp": 4.7
         },
         {
           "date": "2010-01-02T06:00:00.000Z",
-          "temp": 40.2
+          "temp": 4.6
         },
         {
           "date": "2010-01-02T07:00:00.000Z",
-          "temp": 39.9
+          "temp": 4.4
         }
       ]
     },
@@ -493,8 +485,8 @@
 <span class="va">spec_iso_utc</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"utc"</span><span class="op">)</span> 
 
 <span class="va">spec_iso_utc</span></code></pre></div>
-<div id="htmlwidget-12750437f5b74c929353" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-12750437f5b74c929353">{"x":{
+<div id="htmlwidget-de6c0ff66efd5fa09a42" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-de6c0ff66efd5fa09a42">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -502,100 +494,96 @@
     "data": {
       "values": [
         {
-          "date": "2010-01-01T08:00:00.000Z",
-          "temp": 39.4
-        },
-        {
           "date": "2010-01-01T09:00:00.000Z",
-          "temp": 39.2
+          "temp": 4
         },
         {
           "date": "2010-01-01T10:00:00.000Z",
-          "temp": 39
+          "temp": 3.9
         },
         {
           "date": "2010-01-01T11:00:00.000Z",
-          "temp": 38.9
+          "temp": 3.8
         },
         {
           "date": "2010-01-01T12:00:00.000Z",
-          "temp": 38.8
+          "temp": 3.8
         },
         {
           "date": "2010-01-01T13:00:00.000Z",
-          "temp": 38.7
+          "temp": 3.7
         },
         {
           "date": "2010-01-01T14:00:00.000Z",
-          "temp": 38.7
+          "temp": 3.7
         },
         {
           "date": "2010-01-01T15:00:00.000Z",
-          "temp": 38.6
+          "temp": 3.7
         },
         {
           "date": "2010-01-01T16:00:00.000Z",
-          "temp": 38.7
+          "temp": 3.7
         },
         {
           "date": "2010-01-01T17:00:00.000Z",
-          "temp": 39.2
+          "temp": 4
         },
         {
           "date": "2010-01-01T18:00:00.000Z",
-          "temp": 40.1
+          "temp": 4.5
         },
         {
           "date": "2010-01-01T19:00:00.000Z",
-          "temp": 41.3
+          "temp": 5.2
         },
         {
           "date": "2010-01-01T20:00:00.000Z",
-          "temp": 42.5
+          "temp": 5.8
         },
         {
           "date": "2010-01-01T21:00:00.000Z",
-          "temp": 43.2
+          "temp": 6.2
         },
         {
           "date": "2010-01-01T22:00:00.000Z",
-          "temp": 43.5
+          "temp": 6.4
         },
         {
           "date": "2010-01-01T23:00:00.000Z",
-          "temp": 43.3
+          "temp": 6.3
         },
         {
           "date": "2010-01-02T00:00:00.000Z",
-          "temp": 42.7
+          "temp": 5.9
         },
         {
           "date": "2010-01-02T01:00:00.000Z",
-          "temp": 41.7
+          "temp": 5.4
         },
         {
           "date": "2010-01-02T02:00:00.000Z",
-          "temp": 41.2
+          "temp": 5.1
         },
         {
           "date": "2010-01-02T03:00:00.000Z",
-          "temp": 40.9
+          "temp": 4.9
         },
         {
           "date": "2010-01-02T04:00:00.000Z",
-          "temp": 40.7
+          "temp": 4.8
         },
         {
           "date": "2010-01-02T05:00:00.000Z",
-          "temp": 40.4
+          "temp": 4.7
         },
         {
           "date": "2010-01-02T06:00:00.000Z",
-          "temp": 40.2
+          "temp": 4.6
         },
         {
           "date": "2010-01-02T07:00:00.000Z",
-          "temp": 39.9
+          "temp": 4.4
         }
       ]
     },
@@ -711,8 +699,8 @@
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_tempmax_local</span></code></pre></div>
-<div id="htmlwidget-edaa5c458a0030056ab5" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-edaa5c458a0030056ab5">{"x":{
+<div id="htmlwidget-b78249da9901d3338192" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b78249da9901d3338192">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1001,8 +989,8 @@
 <span class="va">spec_tempmax_utc</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"utc"</span><span class="op">)</span>
 
 <span class="va">spec_tempmax_utc</span></code></pre></div>
-<div id="htmlwidget-80d4c1412722df9deff6" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-80d4c1412722df9deff6">{"x":{
+<div id="htmlwidget-ef374edefecd8375449e" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ef374edefecd8375449e">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1376,7 +1364,7 @@ Jan-01-2001 19:34:05
     data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
       url <span class="op">=</span> <span class="va">url_seattle_daily</span>,
       format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-        parse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>date <span class="op">=</span> <span class="st">"utc:'%Y/%m/%d'"</span><span class="op">)</span>
+        parse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>date <span class="op">=</span> <span class="st">"utc:'%Y-%m-%d'"</span><span class="op">)</span>
       <span class="op">)</span>
     <span class="op">)</span>,
     mark <span class="op">=</span> <span class="st">"point"</span>,
@@ -1406,8 +1394,8 @@ Jan-01-2001 19:34:05
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_daily</span></code></pre></div>
-<div id="htmlwidget-a5b1d1b0f681075d2bbe" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a5b1d1b0f681075d2bbe">{"x":{
+<div id="htmlwidget-28bc0152f1f5d29daa6a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-28bc0152f1f5d29daa6a">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1416,7 +1404,7 @@ Jan-01-2001 19:34:05
       "url": "https://vega.github.io/vega-datasets/data/seattle-weather.csv",
       "format": {
         "parse": {
-          "date": "utc:'%Y/%m/%d'"
+          "date": "utc:'%Y-%m-%d'"
         }
       }
     },
@@ -1500,8 +1488,8 @@ Jan-01-2001 19:34:05
 
 
 <span class="va">spec_yearmonth</span></code></pre></div>
-<div id="htmlwidget-7e0d88a14f1c3495bb5b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7e0d88a14f1c3495bb5b">{"x":{
+<div id="htmlwidget-4fd9b5e3e2e65f2c3c87" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4fd9b5e3e2e65f2c3c87">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1510,7 +1498,7 @@ Jan-01-2001 19:34:05
       "url": "https://vega.github.io/vega-datasets/data/seattle-weather.csv",
       "format": {
         "parse": {
-          "date": "utc:'%Y/%m/%d'"
+          "date": "utc:'%Y-%m-%d'"
         }
       }
     },
@@ -1580,10 +1568,9 @@ Jan-01-2001 19:34:05
 <span class="va">spec_yearmonth_aggregate</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span> 
 <span class="va">spec_yearmonth_aggregate</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">aggregate</span> <span class="op">&lt;-</span> <span class="st">"max"</span>
 
-
 <span class="va">spec_yearmonth_aggregate</span></code></pre></div>
-<div id="htmlwidget-aea91d51bf3082dafca7" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-aea91d51bf3082dafca7">{"x":{
+<div id="htmlwidget-0d2911238050d25a37ca" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0d2911238050d25a37ca">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1592,7 +1579,7 @@ Jan-01-2001 19:34:05
       "url": "https://vega.github.io/vega-datasets/data/seattle-weather.csv",
       "format": {
         "parse": {
-          "date": "utc:'%Y/%m/%d'"
+          "date": "utc:'%Y-%m-%d'"
         }
       }
     },
@@ -1663,8 +1650,8 @@ Jan-01-2001 19:34:05
 
 
 <span class="va">spec_yearmonth_aggregate_color</span></code></pre></div>
-<div id="htmlwidget-f5fff42aa8763cf0f026" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f5fff42aa8763cf0f026">{"x":{
+<div id="htmlwidget-aaa4e8bb302ba5d417f7" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-aaa4e8bb302ba5d417f7">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1673,7 +1660,7 @@ Jan-01-2001 19:34:05
       "url": "https://vega.github.io/vega-datasets/data/seattle-weather.csv",
       "format": {
         "parse": {
-          "date": "utc:'%Y/%m/%d'"
+          "date": "utc:'%Y-%m-%d'"
         }
       }
     },
@@ -1738,8 +1725,8 @@ Jan-01-2001 19:34:05
 <span class="va">spec_month_aggregate_color</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">timeUnit</span> <span class="op">&lt;-</span> <span class="st">"utcmonth"</span>
 
 <span class="va">spec_month_aggregate_color</span></code></pre></div>
-<div id="htmlwidget-fdb0adbac5f02b0a8834" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fdb0adbac5f02b0a8834">{"x":{
+<div id="htmlwidget-2039ec331106f266cb43" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2039ec331106f266cb43">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1748,7 +1735,7 @@ Jan-01-2001 19:34:05
       "url": "https://vega.github.io/vega-datasets/data/seattle-weather.csv",
       "format": {
         "parse": {
-          "date": "utc:'%Y/%m/%d'"
+          "date": "utc:'%Y-%m-%d'"
         }
       }
     },

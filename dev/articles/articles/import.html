@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9015</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9016</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Import into other packages</h1>
             
-            <h4 class="date">2021-01-09</h4>
+            <h4 class="date">2021-01-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/import.Rmd"><code>vignettes/articles/import.Rmd</code></a></small>
       <div class="hidden name"><code>import.Rmd</code></div>
@@ -129,8 +129,6 @@
 </li>
 <li>image functions: <code><a href="../../reference/image.html">vw_to_svg()</a></code>, <code><a href="../../reference/image.html">vw_to_bitmap()</a></code>, <code><a href="../../reference/image.html">vw_write_svg()</a></code>, <code><a href="../../reference/image.html">vw_write_png()</a></code>
 </li>
-<li>sample spec: <code>spec_mtcars</code>
-</li>
 <li>basic Shiny-rendering functions: <code><a href="../../reference/renderVegawidget.html">renderVegawidget()</a></code>, <code><a href="../../reference/vegawidgetOutput.html">vegawidgetOutput()</a></code>
 </li>
 </ul>
@@ -146,15 +144,11 @@
 <li>Shiny setters (observers): <code><a href="../../reference/shiny-setters.html">vw_shiny_set_data()</a></code>, <code><a href="../../reference/shiny-setters.html">vw_shiny_set_signal()</a></code>
 </li>
 </ul>
-<div id="example-altair" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example-altair" class="anchor"></a>Example: altair</h2>
 <p>For example, the <a href="https://vegawidget.github.io/altair"><strong>altair</strong></a> package provides an R interface to the <a href="https://altair-viz.github.io"><strong>Altair</strong></a> Python package. The altair package itself provides the connection to Python, using <a href="https://rstudio.github.io/reticulate"><strong>reticulate</strong></a>; altair’s focus is to provide a means to build a Vega-Lite specification - using higher-level abstractions than lists.</p>
 <p>The rendering part of altair is handled by the vegawidget package. A number of vegawidget functions are imported into altair, then re-exported. From altair’s perspective, this import-export operation is handled by a single vegawidget function: <code><a href="../../reference/use_vegawidget.html">use_vegawidget()</a></code>.</p>
-<div id="inspiration-usethisuse_pipe" class="section level3">
-<h3 class="hasAnchor">
-<a href="#inspiration-usethisuse_pipe" class="anchor"></a>Inspiration: <code>usethis::use_pipe()</code>
-</h3>
+<div id="inspiration" class="section level2">
+<h2 class="hasAnchor">
+<a href="#inspiration" class="anchor"></a>Inspiration</h2>
 <p>A lot of packages use the pipe (<code><a href="../../reference/%&gt;%.html">%&gt;%</a></code>) function, so much so that the <a href="http://usethis.r-lib.org"><strong>usethis</strong></a> package offers the function <code><a href="https://usethis.r-lib.org/reference/use_pipe.html">usethis::use_pipe()</a></code> for package authors to make the pipe part of their package’s offer:</p>
 <ul>
 <li>adds the <strong>magrittr</strong> package to the “Imports” section of the package’s DESCRIPTION file</li>
@@ -163,9 +157,9 @@
 </ul>
 <p>This new file contains roxygen directives that will handle the importing and exporting the next time you build the package’s documentation. Now, people who install this package will have access to the pipe operator without having to refer explicitly to the magrittr package. It “just works”.</p>
 </div>
-<div id="implementation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#implementation" class="anchor"></a>Implementation</h3>
+<div id="implementation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#implementation" class="anchor"></a>Implementation</h2>
 <p>We wish to bring a similar robustness and ease-of-use to package authors who want to incorporate vegawidget. To demonstrate how to do this, we will show the process we use for altair.</p>
 <p>The <code><a href="../../reference/use_vegawidget.html">use_vegawidget()</a></code> function makes a couple of related assumptions about your package. It assumes that your package builds Vega and Vega-Lite specifications, and that the object that you use to contain a specification may be an object with an S3 class. In the case of altair, the name of this S3 class is <code>"altair.vegalite.v4.api.TopLevelMixin"</code>.</p>
 <p>The first step is generic. In your package-project, your R working directory is the package’s root directory. When you run <code><a href="../../reference/use_vegawidget.html">use_vegawidget()</a></code>, you can provide the name of the S3 class. In the case of altair, we run:</p>
@@ -210,7 +204,6 @@
 <span class="op">}</span></code></pre></div>
 <p>The function <code><a href="../../reference/s3_register.html">vegawidget::s3_register()</a></code> is copied from <code><a href="https://vctrs.r-lib.org/reference/s3_register.html">vctrs::s3_register()</a></code>; for more details please see its <a href="https://vctrs.r-lib.org/reference/s3_register.html">documentation</a>.</p>
 <p>At this point, once you document and re-build the package, vegawidget is fully integrated into it.</p>
-</div>
 </div>
   </div>
 

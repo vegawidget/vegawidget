@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9015</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9016</span>
       </span>
     </div>
 
@@ -160,16 +160,15 @@
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
-<li><p><code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> now re-exports <code><a href="../reference/vw_set_base_url.html">vw_set_base_url()</a></code>, does not re-export <code>spec_mtcars</code>. (<a href='https://github.com/vegawidget/vegawidget/issues/150'>#150</a>)</p></li>
-<li><p>The image functions (<code><a href="../reference/image.html">vw_to_svg()</a></code> and friends) respect the <code>baseURL</code> option set using <code><a href="../reference/vw_set_base_url.html">vw_set_base_url()</a></code>. (<a href='https://github.com/vegawidget/vegawidget/issues/148'>#148</a>)</p></li>
-<li><p><code><a href="../reference/vw_set_base_url.html">vw_set_base_url()</a></code>: set the option for vega-embed’s default [<code>baseURL</code>]((<a href="https://github.com/vega/vega-loader#loader" class="uri">https://github.com/vega/vega-loader#loader</a>). (<a href='https://github.com/vegawidget/vegawidget/issues/147'>#147</a>)</p></li>
-</ul>
-</div>
-<div id="bug-fixes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<li>
+<p>New function <code><a href="../reference/vw_set_base_url.html">vw_set_base_url()</a></code>:</p>
 <ul>
-<li><p>Unique identifier used in attaching data from local files; <code>elementId</code> is used if provided, if not an md5 hash of the files is used. This would be useful for knitting documents, but attaching local data works only for interactive analysis, not for knitr environments. Hence this “fix” is anticipation of other enchancements. (<a href='https://github.com/vegawidget/vegawidget/issues/125'>#125</a>)</p></li>
+<li>set the option for vega-embed’s default <a href="https://github.com/vega/vega-loader#loader"><code>baseURL</code></a>. (<a href='https://github.com/vegawidget/vegawidget/issues/147'>#147</a>)</li>
+<li>
+<code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> now re-exports <code><a href="../reference/vw_set_base_url.html">vw_set_base_url()</a></code>, does not re-export <code>spec_mtcars</code>. (<a href='https://github.com/vegawidget/vegawidget/issues/150'>#150</a>)</li>
+<li>image functions (<code><a href="../reference/image.html">vw_to_svg()</a></code> and friends) respect the <code>baseURL</code> option set using <code><a href="../reference/vw_set_base_url.html">vw_set_base_url()</a></code>. (<a href='https://github.com/vegawidget/vegawidget/issues/148'>#148</a>)</li>
+</ul>
+</li>
 <li>
 <p><code><a href="../reference/vega_embed.html">vega_embed()</a></code>:</p>
 <ul>
@@ -177,6 +176,13 @@
 <li><p>the bulk of the options for <a href="https://github.com/vega/vega-embed">vega-embed</a> can be supplied as named arguments using <code>...</code> rather than as explicit arguments to <code><a href="../reference/vega_embed.html">vega_embed()</a></code>. This will make it easier to support future enhancements to vega-embed.</p></li>
 </ul>
 </li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li><p>Unique identifier used in attaching data from local files; <code>elementId</code> is used if provided, if not an md5 hash of the files is used. This would be useful for knitting documents, but attaching local data works only for interactive analysis, not for knitr environments. Hence this “fix” is anticipation of other enchancements. (<a href='https://github.com/vegawidget/vegawidget/issues/125'>#125</a>)</p></li>
 <li><p><code><a href="../reference/vegawidget.html">vegawidget()</a></code>: keep precision in JSON representation for accurate rendering of small values (&lt; 0.001). (<a href='https://github.com/vegawidget/vegawidget/issues/130'>#130</a>, <a href='https://github.com/datapixie'>@datapixie</a>)</p></li>
 <li><p><code>knit_print()</code>: repair by exporting the S3 method. (<a href='https://github.com/vegawidget/vegawidget/issues/132'>#132</a>)</p></li>
 <li><p><code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code>: adds <code>encoding</code> argument (default <code>"UTF-8"</code>) for <code>character</code> method, for files and URLs. (<a href='https://github.com/vegawidget/vegawidget/issues/117'>#117</a>, with <a href='https://github.com/g3o2'>@g3o2</a>)</p></li>

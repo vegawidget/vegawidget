@@ -77,7 +77,7 @@ body_value, which these functions help you build." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9015</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9016</span>
       </span>
     </div>
 
@@ -196,7 +196,7 @@ without any arguments:</p><ul>
 </ul>
 
 <p>Let's look at a concrete example.
-A <a href='https://vega.github.io/vega/docs/api/view#view_addSignalListener'><em>signal</em> handler</a>
+A <a href='https://vega.github.io/vega/docs/api/view/'><em>signal</em> handler</a>
 will take arguments <code>name</code> and <code>value</code>. Let's say that we want to
 return the value. We could do this two ways:</p><ul>
 <li><p><code>vw_handler_signal("value")</code>: use this package's handler library</p></li>
@@ -222,11 +222,8 @@ until your visualization is rendered in a browser.</p>
 are no-ops; they will return the <code>body_value</code> unchanged.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='vw_handler_add_effect.html'>vw_handler_add_effect()</a></code>
-vega-view:
-<a href='https://vega.github.io/vega/docs/api/view#view_addSignalListener'>addSignalListener()</a>,
-<a href='https://vega.github.io/vega/docs/api/view#view_addDataListener'>addDataListener()</a>,
-<a href='https://vega.github.io/vega/docs/api/view#view_addEventListener'>addEventListener()</a></p></div>
+    <div class='dont-index'><p><code><a href='vw_handler_add_effect.html'>vw_handler_add_effect()</a></code>,
+<a href='https://vega.github.io/vega/docs/api/view/'>vega-view</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>  <span class='co'># list all the available signal-handlers</span>
@@ -266,12 +263,14 @@ vega-view:
   <span class='co'># use a defined signal-handler</span>
   <span class='fu'>vw_handler_signal</span><span class='op'>(</span><span class='st'>"value"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; arguments: name, value 
+#&gt; 
 #&gt; body_value:
 #&gt;   // returns the value of the signal
 #&gt;   return value;</div><div class='input'>
   <span class='co'># define your own signal-handler</span>
   <span class='fu'>vw_handler_signal</span><span class='op'>(</span><span class='st'>"return value;"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; arguments: name, value 
+#&gt; 
 #&gt; body_value:
 #&gt;   return value;</div></pre>
   </div>

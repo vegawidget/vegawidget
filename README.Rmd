@@ -25,14 +25,14 @@ url_local <- function(x) {
 
 # vegawidget
 
+[Vega-Lite](https://vega.github.io/vega-lite/) is an implementation of the grammar-of-graphics, rendered in the browser with interactivity.
+
 The goal of vegawidget is to render Vega-Lite and Vega specifications as htmlwidgets, and to provide you a means to communicate with a Vega chart using JavaScript or Shiny. Its ambition is to be a *low-level* interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications. 
 
-This is the key difference with the [**vegalite**](https://github.com/hrbrmstr/vegalite) package: it provides a set of higher-level functions to compose specifications, whereas **vegawidget** concerns itself mainly with the rendering of the htmlwidget. 
+Accordingly, this package may be useful to:
 
-To be clear, although Vega-Lite offers a grammar-of-graphics, this package is not designed as a primary tool to compose graphics (composing using `list()` can be tedious). However, this package may be useful to:
-
-- build re-usable Vega and Vega-Lite specifications for deployment elsewhere, if you can tolerate the frustration of building specifications using lists.
-- develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as a foundation.
+- build (using lists of lists) re-usable Vega and Vega-Lite specifications for deployment elsewhere.
+- develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as the rendering foundation.
 
 ## Features
 
@@ -60,7 +60,7 @@ The development version of vegawidget is available from GitHub with:
 devtools::install_github("vegawidget/vegawidget")
 ```
 
-**Note:** There are documentation websites for both the [CRAN version](https://vegawidget.github.io/vegawidget) and the [development version](https://vegawidget.github.io/vegawidget/dev/) of this package.
+**Note:** There are documentation websites for both the [CRAN version](https://vegawidget.github.io/vegawidget/) and the [development version](https://vegawidget.github.io/vegawidget/dev/) of this package.
 
 ## Introduction
 
@@ -92,14 +92,11 @@ spec_mtcars
 
 The rendering of the chart above depends on where you are reading it:
 
-- On this package's [pkgdown site](https://vegawidget.github.io/vegawidget), it is rendered as part of an HTML environment, showing its full capabilities.
+- On this package's [pkgdown site](https://vegawidget.github.io/vegawidget/), it is rendered as part of an HTML environment, showing its full capabilities.
 
 - At its [GitHub code site](https://github.com/vegawidget/vegawidget), the chart is further rendered to a static SVG file, then incorporated into the Markdown rendering.
 
-For more, please see our [Getting Started](https://vegawidget.github.io/vegawidget/articles/vegawidget.html) article. For other introductory material, please see:
-
-- [Vega-Lite website](https://vega.github.io/vega-lite) has a comprehensive introduction
-- An [interactive learnr tutorial](https://ijlyttle.shinyapps.io/vegawidget-overview) at shinyapps.io
+For more, please see our [Getting Started](https://vegawidget.github.io/vegawidget/articles/vegawidget.html) article. Additionally, the [Vega-Lite website](https://vega.github.io/vega-lite/) has a comprehensive introduction.
 
 Other articles for this package:
 

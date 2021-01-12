@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -55,7 +59,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -77,7 +81,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -124,7 +128,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/vegawidget/vegawidget">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -141,29 +145,69 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="vegawidget-0-3-1" class="section level1">
-<h1 class="page-header">
-<a href="#vegawidget-0-3-1" class="anchor"></a>vegawidget 0.3.1<small> Unreleased </small>
+    <div id="vegawidget-032" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.2">
+<a href="#vegawidget-032" class="anchor"></a>vegawidget 0.3.2<small> 2021-01-12 </small>
+</h1>
+<ul>
+<li>Upgrade to Vega-Lite 4.17.0, Vega 5.17.0, vega-embed 6.12.2.</li>
+</ul>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>
+<p>New function <code><a href="../reference/vw_set_base_url.html">vw_set_base_url()</a></code>:</p>
+<ul>
+<li>set the option for vega-embed’s default <a href="https://github.com/vega/vega-loader#loader"><code>baseURL</code></a>. (<a href='https://github.com/vegawidget/vegawidget/issues/147'>#147</a>)</li>
+<li>
+<code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> now re-exports <code><a href="../reference/vw_set_base_url.html">vw_set_base_url()</a></code>, does not re-export <code>spec_mtcars</code>. (<a href='https://github.com/vegawidget/vegawidget/issues/150'>#150</a>)</li>
+<li>image functions (<code><a href="../reference/image.html">vw_to_svg()</a></code> and friends) respect the <code>baseURL</code> option set using <code><a href="../reference/vw_set_base_url.html">vw_set_base_url()</a></code>. (<a href='https://github.com/vegawidget/vegawidget/issues/148'>#148</a>)</li>
+</ul>
+</li>
+<li>
+<p><code><a href="../reference/vega_embed.html">vega_embed()</a></code>:</p>
+<ul>
+<li><p>the <code>actions</code> argument lets you specify <code>export$png</code> and <code>export$svg</code>. (<a href='https://github.com/vegawidget/vegawidget/issues/115'>#115</a>)</p></li>
+<li><p>the bulk of the options for <a href="https://github.com/vega/vega-embed">vega-embed</a> can be supplied as named arguments using <code>...</code> rather than as explicit arguments to <code><a href="../reference/vega_embed.html">vega_embed()</a></code>. This will make it easier to support future enhancements to vega-embed.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li><p>Unique identifier used in attaching data from local files; <code>elementId</code> is used if provided, if not an md5 hash of the files is used. This would be useful for knitting documents, but attaching local data works only for interactive analysis, not for knitr environments. Hence this “fix” is anticipation of other enchancements. (<a href='https://github.com/vegawidget/vegawidget/issues/125'>#125</a>)</p></li>
+<li><p><code><a href="../reference/vegawidget.html">vegawidget()</a></code>: keep precision in JSON representation for accurate rendering of small values (&lt; 0.001). (<a href='https://github.com/vegawidget/vegawidget/issues/130'>#130</a>, <a href='https://github.com/datapixie'>@datapixie</a>)</p></li>
+<li><p><code>knit_print()</code>: repair by exporting the S3 method. (<a href='https://github.com/vegawidget/vegawidget/issues/132'>#132</a>)</p></li>
+<li><p><code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code>: adds <code>encoding</code> argument (default <code>"UTF-8"</code>) for <code>character</code> method, for files and URLs. (<a href='https://github.com/vegawidget/vegawidget/issues/117'>#117</a>, with <a href='https://github.com/g3o2'>@g3o2</a>)</p></li>
+</ul>
+</div>
+</div>
+    <div id="vegawidget-031" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.1">
+<a href="#vegawidget-031" class="anchor"></a>vegawidget 0.3.1<small> 2020-01-22 </small>
 </h1>
 <ul>
 <li><p>Upgrade to Vega-Lite 4.0.2, Vega 5.9.0, vega-embed 6.2.0.</p></li>
 <li><p>Update Gapminder app, <code><a href="../reference/vw_shiny_demo.html">vw_shiny_demo("data-set-gapminder")</a></code>.</p></li>
 </ul>
 </div>
-    <div id="vegawidget-0-2-1" class="section level1">
-<h1 class="page-header">
-<a href="#vegawidget-0-2-1" class="anchor"></a>vegawidget 0.2.1<small> 2019-06-24 </small>
+    <div id="vegawidget-021" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.1">
+<a href="#vegawidget-021" class="anchor"></a>vegawidget 0.2.1<small> 2019-06-24 </small>
 </h1>
 <ul>
 <li>Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0. This is supported by all modern browsers and RStudio IDE 1.2.</li>
 </ul>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.2.1. Add functions to support <code>addDataListener()</code> method offered by <a href="https://github.com/vega/vega-view#view_addDataListener">vega-view</a>, use <code><a href="../reference/vw_shiny_demo.html">vw_shiny_demo("data-set-get")</a></code> for more information. (<a href='https://github.com/vegawidget/vegawidget/issues/65'>#65</a>)</li>
 </ul>
@@ -181,26 +225,26 @@
 </ul>
 </div>
 </div>
-    <div id="vegawidget-0-1-0" class="section level1">
-<h1 class="page-header">
-<a href="#vegawidget-0-1-0" class="anchor"></a>vegawidget 0.1.0<small> 2019-01-30 </small>
+    <div id="vegawidget-010" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.0">
+<a href="#vegawidget-010" class="anchor"></a>vegawidget 0.1.0<small> 2019-01-30 </small>
 </h1>
 <ul>
 <li>CRAN release</li>
 </ul>
 </div>
-    <div id="vegawidget-0-0-7-9000" class="section level1">
-<h1 class="page-header">
-<a href="#vegawidget-0-0-7-9000" class="anchor"></a>vegawidget 0.0.7.9000<small> Unreleased </small>
+    <div id="vegawidget-0079000" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.7.9000">
+<a href="#vegawidget-0079000" class="anchor"></a>vegawidget 0.0.7.9000<small> Unreleased </small>
 </h1>
 <ul>
 <li>changes API and implementation for “image” functions: <code><a href="../reference/image.html">vw_to_svg()</a></code>, <code><a href="../reference/image.html">vw_to_bitmap()</a></code>, <code><a href="../reference/image.html">vw_write_svg()</a></code> , and <code><a href="../reference/image.html">vw_write_png()</a></code> - these functions require that you have <a href="https://nodejs.org/en/">node</a> installed on your computer, and the <a href="https://CRAN.R-project.org/package=rsvg">rsvg</a> package, to use <code><a href="../reference/image.html">vw_to_bitmap()</a></code> and <code><a href="../reference/image.html">vw_write_png()</a></code>
 </li>
 </ul>
 </div>
-    <div id="vegawidget-0-0-6-9000" class="section level1">
-<h1 class="page-header">
-<a href="#vegawidget-0-0-6-9000" class="anchor"></a>vegawidget 0.0.6.9000<small> Unreleased </small>
+    <div id="vegawidget-0069000" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.6.9000">
+<a href="#vegawidget-0069000" class="anchor"></a>vegawidget 0.0.6.9000<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>adds <code>elementId</code> argument to <code><a href="../reference/vegawidget.html">vegawidget()</a></code>; had been available as part of <code>...</code> passed to <code><a href="https://rdrr.io/pkg/htmlwidgets/man/createWidget.html">htmlwidgets::createWidget()</a></code></p></li>
@@ -208,18 +252,18 @@
 <li><p>adds Shiny setter-functions: <code><a href="../reference/shiny-setters.html">vw_shiny_set_signal()</a></code>, <code><a href="../reference/shiny-setters.html">vw_shiny_set_data()</a></code>, <code><a href="../reference/shiny-setters.html">vw_shiny_run()</a></code>, getter-functions: <code><a href="../reference/shiny-getters.html">vw_shiny_get_signal()</a></code>, <code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code>, and handler helper-functions <code><a href="../reference/vw_handler_signal.html">vw_handler_signal()</a></code>, <code><a href="../reference/vw_handler_signal.html">vw_handler_event()</a></code>, <code><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect()</a></code>, <code><a href="../reference/vw_handler_body_compose.html">vw_handler_compose()</a></code>, and <code><a href="../reference/vw_handler_body_compose.html">vw_handler_body_compose()</a></code></p></li>
 </ul>
 </div>
-    <div id="vegawidget-0-0-5-9000" class="section level1">
-<h1 class="page-header">
-<a href="#vegawidget-0-0-5-9000" class="anchor"></a>vegawidget 0.0.5.9000<small> Unreleased </small>
+    <div id="vegawidget-0059000" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.5.9000">
+<a href="#vegawidget-0059000" class="anchor"></a>vegawidget 0.0.5.9000<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>tries a kinder, gentler method for enforcing sizing by implementing a sizing policy rather than overwriting the enclosing element</p></li>
-<li><p>deprecates block-functions: <code>vw_create_block()</code>, <code>vw_retrieve_block()</code>; moved to <a href="https://vegawidget.github.io/vegablock">vegablock</a></p></li>
+<li><p>deprecates block-functions: <code>vw_create_block()</code>, <code>vw_retrieve_block()</code>; moved to <a href="https://vegawidget.github.io/vegablock/">vegablock</a></p></li>
 </ul>
 </div>
-    <div id="vegawidget-0-0-4-9000" class="section level1">
-<h1 class="page-header">
-<a href="#vegawidget-0-0-4-9000" class="anchor"></a>vegawidget 0.0.4.9000<small> Unreleased </small>
+    <div id="vegawidget-0049000" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.4.9000">
+<a href="#vegawidget-0049000" class="anchor"></a>vegawidget 0.0.4.9000<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>adds learnr tutorial, “Overview”</p></li>
@@ -228,17 +272,17 @@
 <li><p>adds function <code>vw_rename_data()</code> to rename named datasets within a vegaspec (<a href='https://github.com/vegawidget/vegawidget/issues/34'>#34</a>)</p></li>
 </ul>
 </div>
-    <div id="vegawidget-0-0-4" class="section level1">
-<h1 class="page-header">
-<a href="#vegawidget-0-0-4" class="anchor"></a>vegawidget 0.0.4<small> Unreleased </small>
+    <div id="vegawidget-004" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.4">
+<a href="#vegawidget-004" class="anchor"></a>vegawidget 0.0.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>updates to Vega-Lite 2.6.0, Vega 4.0.0-rc.3, vega-embed 3.16.0.</li>
 </ul>
 </div>
-    <div id="vegawidget-0-0-3" class="section level1">
-<h1 class="page-header">
-<a href="#vegawidget-0-0-3" class="anchor"></a>vegawidget 0.0.3<small> Unreleased </small>
+    <div id="vegawidget-003" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.3">
+<a href="#vegawidget-003" class="anchor"></a>vegawidget 0.0.3<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>adds function <code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code> to help format dates and datetimes in data frames (<a href='https://github.com/vegawidget/vegawidget/issues/33'>#33</a>)</p></li>
@@ -281,9 +325,9 @@
 </li>
 </ul>
 </div>
-    <div id="vegawidget-0-0-2" class="section level1">
-<h1 class="page-header">
-<a href="#vegawidget-0-0-2" class="anchor"></a>vegawidget 0.0.2<small> Unreleased </small>
+    <div id="vegawidget-002" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.2">
+<a href="#vegawidget-002" class="anchor"></a>vegawidget 0.0.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>adds a <code>NEWS.md</code> file to track changes to the package</li>
@@ -291,22 +335,10 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#vegawidget-0-3-1">0.3.1</a></li>
-        <li><a href="#vegawidget-0-2-1">0.2.1</a></li>
-        <li><a href="#vegawidget-0-1-0">0.1.0</a></li>
-        <li><a href="#vegawidget-0-0-7-9000">0.0.7.9000</a></li>
-        <li><a href="#vegawidget-0-0-6-9000">0.0.6.9000</a></li>
-        <li><a href="#vegawidget-0-0-5-9000">0.0.5.9000</a></li>
-        <li><a href="#vegawidget-0-0-4-9000">0.0.4.9000</a></li>
-        <li><a href="#vegawidget-0-0-4">0.0.4</a></li>
-        <li><a href="#vegawidget-0-0-3">0.0.3</a></li>
-        <li><a href="#vegawidget-0-0-2">0.0.2</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -318,7 +350,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

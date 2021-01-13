@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9016</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.2.9000</span>
       </span>
     </div>
 
@@ -103,12 +103,12 @@
       
 
       </header><script src="javascript_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="javascript_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="javascript_files/vega-5.17.0/vega.min.js"></script><script src="javascript_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="javascript_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
-<script src="javascript_files/vega-embed-6.12.2/vega-embed.js"></script><script src="javascript_files/vegawidget-binding-0.3.1.9016/vegawidget.js"></script><div class="row">
+<script src="javascript_files/vega-embed-6.12.2/vega-embed.js"></script><script src="javascript_files/vegawidget-binding-0.3.2.9000/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Extend using JavaScript</h1>
             
-            <h4 class="date">2021-01-11</h4>
+            <h4 class="date">2021-01-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/javascript.Rmd"><code>vignettes/articles/javascript.Rmd</code></a></small>
       <div class="hidden name"><code>javascript.Rmd</code></div>
@@ -440,8 +440,8 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <p>When you click anywhere in the plotting-rectangle, the observation associated with the mark (if any) where you clicked will be printed below.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_scatterplot</span></code></pre></div>
-<div id="htmlwidget-f130d12a64c6c8b20305" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f130d12a64c6c8b20305">{"x":{
+<div id="htmlwidget-c6310b9cad2e9b63773e" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c6310b9cad2e9b63773e">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -921,6 +921,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
   }
 },"evals":[],"jsHooks":{"render":[{"code":"function(el, x) {\n  this.viewPromise.then(function(view) {\n    view.addEventListener('click', function(event, item) {\n      (function (x) {\n        // to element `selector`, adds text `expr` (default \"x\")\n        document.querySelector('#output-datum').innerText = JSON.stringify(x, null, '  ');\n      })(\n        (function () {\n          // if there is no item or no datum, return null\n          if (item === null || item === undefined || item.datum === undefined) {\n            return null;\n          }\n          \n          // returns the datum behind the mark associated with the event\n          return item.datum;\n        })()\n      )\n    });\n  });\n}","data":null}]}}</script><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_datum</span></code></pre></div>
+<p></p>
 <pre id="output-datum"></pre>
 <hr>
 </div>
@@ -1017,7 +1018,8 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <p>The value of the bin-width is printed to as text below the histogram.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">input_bin_width</span></code></pre></div>
-<input type="range" name="bin_width" value="0" min="-1" max="1" step="0.01" style="width: 400px; margin-bottom: 10px;"><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<p><input type="range" name="bin_width" value="0" min="-1" max="1" step="0.01" style="width: 400px; margin-bottom: 10px;"></p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_histogram</span></code></pre></div>
 <div id="histogram" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
 <script type="application/json" data-for="histogram">{"x":{
@@ -36228,7 +36230,8 @@ on_bin_width()
 <p>A dataset has a single observation, bound to the unit circle. You can use the input-slider to specify the angle of the observation; you will see the JSON representation of the dataset below the chart.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">input_angle</span></code></pre></div>
-<input type="range" name="inp_angle" value="0" min="0" max="360" step="1" style="width: 400px; margin-bottom: 10px;"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<p><input type="range" name="inp_angle" value="0" min="0" max="360" step="1" style="width: 400px; margin-bottom: 10px;"></p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_chart</span></code></pre></div>
 <div id="circle" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
 <script type="application/json" data-for="circle">{"x":{
@@ -36273,6 +36276,7 @@ on_bin_width()
   }
 },"evals":[],"jsHooks":{"render":[{"code":"function(el, x) {\n  this.viewPromise.then(function(view) {\n    view.addDataListener('source', function(name, value) {\n      (function (x) {\n        // to element `selector`, adds text `expr` (default \"x\")\n        document.querySelector('#output-data').innerText = JSON.stringify(x, null, '  ');\n      })(\n        (function () {\n          // returns the value of the signal\n          return value;\n        })()\n      )\n    });\n  });\n}","data":null}]}}</script><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_data</span></code></pre></div>
+<p></p>
 <pre id="output-data"></pre>
 <p>Please note that the next few code-chunks are <code>{js}</code> chunks rather than <code>{r}</code> chunks.</p>
 <p>Like above, we create a JavaScript variable, <code>angle</code> that refers to the input-slider.</p>

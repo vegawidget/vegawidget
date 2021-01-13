@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.1.9016</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.2.9000</span>
       </span>
     </div>
 
@@ -112,12 +112,12 @@
 <div id="vegawidget" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#vegawidget" class="anchor"></a>vegawidget</h1></div>
+<p><a href="https://vega.github.io/vega-lite/">Vega-Lite</a> is an implementation of the grammar-of-graphics, rendered in the browser with interactivity.</p>
 <p>The goal of vegawidget is to render Vega-Lite and Vega specifications as htmlwidgets, and to provide you a means to communicate with a Vega chart using JavaScript or Shiny. Its ambition is to be a <em>low-level</em> interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications.</p>
-<p>This is the key difference with the <a href="https://github.com/hrbrmstr/vegalite"><strong>vegalite</strong></a> package: it provides a set of higher-level functions to compose specifications, whereas <strong>vegawidget</strong> concerns itself mainly with the rendering of the htmlwidget.</p>
-<p>To be clear, although Vega-Lite offers a grammar-of-graphics, this package is not designed as a primary tool to compose graphics (composing using <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> can be tedious). However, this package may be useful to:</p>
+<p>Accordingly, this package may be useful to:</p>
 <ul>
-<li>build re-usable Vega and Vega-Lite specifications for deployment elsewhere, if you can tolerate the frustration of building specifications using lists.</li>
-<li>develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as a foundation.</li>
+<li>build (using lists of lists) re-usable Vega and Vega-Lite specifications for deployment elsewhere.</li>
+<li>develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as the rendering foundation.</li>
 </ul>
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
@@ -142,7 +142,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"vegawidget/vegawidget"</span><span class="op">)</span></code></pre></div>
-<p><strong>Note:</strong> There are documentation websites for both the <a href="https://vegawidget.github.io/vegawidget">CRAN version</a> and the <a href="https://vegawidget.github.io/vegawidget/dev/">development version</a> of this package.</p>
+<p><strong>Note:</strong> There are documentation websites for both the <a href="https://vegawidget.github.io/vegawidget/">CRAN version</a> and the <a href="https://vegawidget.github.io/vegawidget/dev/">development version</a> of this package.</p>
 </div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
@@ -170,15 +170,10 @@
 <p><img src="reference/figures/README-vegawidget-1.svg"><!-- --></p>
 <p>The rendering of the chart above depends on where you are reading it:</p>
 <ul>
-<li><p>On this package’s <a href="https://vegawidget.github.io/vegawidget">pkgdown site</a>, it is rendered as part of an HTML environment, showing its full capabilities.</p></li>
+<li><p>On this package’s <a href="https://vegawidget.github.io/vegawidget/">pkgdown site</a>, it is rendered as part of an HTML environment, showing its full capabilities.</p></li>
 <li><p>At its <a href="https://github.com/vegawidget/vegawidget">GitHub code site</a>, the chart is further rendered to a static SVG file, then incorporated into the Markdown rendering.</p></li>
 </ul>
-<p>For more, please see our <a href="https://vegawidget.github.io/vegawidget/articles/vegawidget.html">Getting Started</a> article. For other introductory material, please see:</p>
-<ul>
-<li>
-<a href="https://vega.github.io/vega-lite">Vega-Lite website</a> has a comprehensive introduction</li>
-<li>An <a href="https://ijlyttle.shinyapps.io/vegawidget-overview">interactive learnr tutorial</a> at shinyapps.io</li>
-</ul>
+<p>For more, please see our <a href="https://vegawidget.github.io/vegawidget/articles/vegawidget.html">Getting Started</a> article. Additionally, the <a href="https://vega.github.io/vega-lite/">Vega-Lite website</a> has a comprehensive introduction.</p>
 <p>Other articles for this package:</p>
 <ul>
 <li>

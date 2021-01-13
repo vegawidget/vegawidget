@@ -1,3 +1,7 @@
+# vegawidget 0.3.2 (development version)
+
+* Bump version for development
+
 # vegawidget 0.3.2
 
 * Upgrade to Vega-Lite 4.17.0, Vega 5.17.0, vega-embed 6.12.2. 

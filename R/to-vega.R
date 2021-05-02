@@ -67,5 +67,9 @@ vw_to_vega <- function(spec) {
    spec
 }
 
-
-
+# Alternate way of doing this via V8
+#ct <- V8::v8()
+#ct$source(system.file('htmlwidgets','lib','vega','vega.min.js', package = "vegawidget"))
+#ct$source(system.file('htmlwidgets','lib','vega-lite','vega-lite.min.js', package = "vegawidget"))
+#ct$eval(glue::glue("var vs = vegaLite.compile({vw_as_json(spec_mtcars)})"))
+#vs <- ct$get("vs")

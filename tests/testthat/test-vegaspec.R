@@ -47,7 +47,9 @@ test_that("vegaspec without $schema warns and adds element", {
   spec_test <- list()
 
   # warning
-  spec_ref <- expect_warning(as_vegaspec(spec_test))
+  expect_warning(
+    spec_ref <- as_vegaspec(spec_test)
+  )
 
   # check result
   expect_identical(

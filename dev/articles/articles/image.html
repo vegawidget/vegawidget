@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.2.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.2.9002</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
       
 
       </header><script src="image_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="image_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="image_files/vega-5.17.0/vega.min.js"></script><script src="image_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="image_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
-<script src="image_files/vega-embed-6.12.2/vega-embed.js"></script><script src="image_files/vegawidget-binding-0.3.2.9001/vegawidget.js"></script><div class="row">
+<script src="image_files/vega-embed-6.12.2/vega-embed.js"></script><script src="image_files/vegawidget-binding-0.3.2.9002/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Create images</h1>
@@ -153,8 +153,8 @@
 <p>For the purpose of comparing later renderings, our reference is this <code>mtcars</code> scatterplot. It is rendered, in HTML, with a plotting area of <code>width = 300</code> and <code>height = 300</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_mtcars</span></code></pre></div>
-<div id="htmlwidget-62955520d4fd56a8a883" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-62955520d4fd56a8a883">{"x":{
+<div id="htmlwidget-ea465eda2a4b3497bc85" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ea465eda2a4b3497bc85">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -742,8 +742,8 @@
 <p><strong>Expectation</strong>: the rendered spec will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_autosize.html">vw_autosize</a></span><span class="op">(</span><span class="va">spec_mtcars</span>, width <span class="op">=</span> <span class="fl">600</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-9cdb0eb627447e070f4f" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9cdb0eb627447e070f4f">{"x":{
+<div id="htmlwidget-bd7209b099e4bf400a96" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bd7209b099e4bf400a96">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1234,8 +1234,8 @@
 },"evals":[],"jsHooks":[]}</script><p><strong>Expectation</strong>: we will get the same result using the <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> function:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span>, width <span class="op">=</span> <span class="fl">600</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-f26c83f5e828d5368076" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f26c83f5e828d5368076">{"x":{
+<div id="htmlwidget-635f4356fd3a15ab63be" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-635f4356fd3a15ab63be">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1729,8 +1729,8 @@ spec_mtcars
 ```</code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_mtcars</span></code></pre></div>
-<div id="htmlwidget-d54af01867e030b7eb0e" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d54af01867e030b7eb0e">{"x":{
+<div id="htmlwidget-3afd959a51125cde6e03" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3afd959a51125cde6e03">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -2226,8 +2226,8 @@ spec_mtcars
 <p><strong>Expectation</strong>: this will be identical to the <a href="#reference">reference</a> case, using the <code><a href="../../reference/vw_to_vega.html">vw_to_vega()</a></code> function to compile to a Vega specification:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_to_vega.html">vw_to_vega</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-fbfe907ae4adca2e7d20" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fbfe907ae4adca2e7d20">{"x":{
+<div id="htmlwidget-7f1e9a0846b3b9c2034c" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7f1e9a0846b3b9c2034c">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega/v5.json",
     "description": "An mtcars example.",
@@ -2892,8 +2892,8 @@ spec_mtcars
 <p><strong>Expectation</strong>: this will be a “live” version of a scatterplot.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cars</span></code></pre></div>
-<div id="htmlwidget-21a8d07c962c045e39e0" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-21a8d07c962c045e39e0">{"x":{
+<div id="htmlwidget-59236bbffbbeb2e10b01" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-59236bbffbbeb2e10b01">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,

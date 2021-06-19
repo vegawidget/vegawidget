@@ -2,7 +2,7 @@
 title: Package infrastrucure
 output: github_document
 params:
-  vega_lite_version: "4.17.0"
+  vega_lite_version: "5.0.0"
 ---
 
 This purpose of this document is to build the package infrastucture. 
@@ -82,7 +82,7 @@ create_clean <- function(path, path_safe = here::here()) {
 
 These packages are not listed in the `Suggests` section of the `DESCRIPTION` file. It's on you to make sure they are all up-to-date.
 
-We need to know which versions of the libraries (vega, vega-lite, and vega-embed) to download. We do this by inspecting the manifest of a specific version of the vega-lite library. This package has an internal function, `vega_version()` to help us do this:  
+We need to know which versions of the libraries (vega, vega-lite, and vega-embed) to download. We do this by inspecting the manifest of a specific version of the vega-lite library. This package has an internal function, `get_vega_version()` to help us do this:  
 
 ```{r version}
 vega_version_long <- vegawidget:::get_vega_version(params$vega_lite_version)
@@ -102,10 +102,12 @@ First, let's create a clean directory for the htmlwidget
 dir_htmlwidgets <- here("inst", "htmlwidgets")
 dir_lib <- path(dir_htmlwidgets, "lib")
 dir_vegaembed <- path(dir_lib, "vega-embed")
+dir_vegautil <- path(dir_lib, "vega-util")
 
 create_clean(dir_htmlwidgets)
 dir_create(dir_lib)
 dir_create(dir_vegaembed)
+dir_create(dir_vegautil)
 ```
 
 ### vegawidget
@@ -147,10 +149,11 @@ htmlwidgets_downloads <-
     "vega-lite/vega-lite.min.js",        "https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite}",
     "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/master/LICENSE",
     "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
-    # "vega/vega.js",                      "https://cdn.jsdelivr.net/npm/vega@{vega}/build/vega.js",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
-    "vega-embed/vega-embed.js",          "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
-    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
+    "vega-embed/vega-embed.min.js",      "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
+    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE",
+    "vega-util/vega-util.min.js",        "https://cdn.jsdelivr.net/npm/vega-util@{vega_util}",
+    "vega-util/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-util/master/LICENSE"
   ) %>%
   mutate(
     path_remote = map_chr(path_remote, ~glue_data(vega_version_long, .x))

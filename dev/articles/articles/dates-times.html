@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.2.9001</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -88,7 +88,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/vegawidget/vegawidget">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -103,12 +103,12 @@
       
 
       </header><script src="dates-times_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="dates-times_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="dates-times_files/vega-5.17.0/vega.min.js"></script><script src="dates-times_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="dates-times_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
-<script src="dates-times_files/vega-embed-6.12.2/vega-embed.js"></script><script src="dates-times_files/vegawidget-binding-0.3.2.9000/vegawidget.js"></script><div class="row">
+<script src="dates-times_files/vega-embed-6.12.2/vega-embed.js"></script><script src="dates-times_files/vegawidget-binding-0.3.2.9001/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Work with dates and times</h1>
             
-            <h4 class="date">2021-01-13</h4>
+            <h4 class="date">2021-06-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/dates-times.Rmd"><code>vignettes/articles/dates-times.Rmd</code></a></small>
       <div class="hidden name"><code>dates-times.Rmd</code></div>
@@ -143,11 +143,11 @@
 <a href="#vega-lite-examples" class="anchor"></a>Vega-Lite examples</h3>
 <p>Let’s look at an example using one of the datasets included in this package: <code>data_seattle_hourly</code>, adapted from <a href="https://github.com/vega/vega-datasets">vega-datasets</a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">data_seattle_hourly</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">data_seattle_hourly</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 8,759
 ## Columns: 2
-## $ date &lt;dttm&gt; 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:00:00, …
-## $ temp &lt;dbl&gt; 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2,…</code></pre>
+## $ date &lt;dttm&gt; 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:00:00, 2…
+## $ temp &lt;dbl&gt; 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2, …</code></pre>
 <p>This dataset contains hourly observations of Seattle temperature (°F) for the year 2010. Let’s inspect the time zone of the <code>date</code> variable:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="http://lubridate.tidyverse.org/reference/tz.html">tz</a></span><span class="op">(</span><span class="va">data_seattle_hourly</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></code></pre></div>
@@ -159,11 +159,11 @@
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
     <span class="fu"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"day"</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2010-01-01"</span>, tz <span class="op">=</span> <span class="st">"America/Los_Angeles"</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 23
 ## Columns: 2
-## $ date &lt;dttm&gt; 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:00:00, …
-## $ temp &lt;dbl&gt; 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2,…</code></pre>
+## $ date &lt;dttm&gt; 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:00:00, 2…
+## $ temp &lt;dbl&gt; 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2, …</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_local</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -188,8 +188,8 @@
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_local</span></code></pre></div>
-<div id="htmlwidget-d4e0ee3d7d87f13a88c3" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d4e0ee3d7d87f13a88c3">{"x":{
+<div id="htmlwidget-a154bcccb5bdba5bb172" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a154bcccb5bdba5bb172">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -335,11 +335,11 @@
 <code class="sourceCode R"><span class="va">data_seattle_hourly_short_iso</span> <span class="op">&lt;-</span> 
   <span class="va">data_seattle_hourly_short</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../../reference/vw_serialize_data.html">vw_serialize_data</a></span><span class="op">(</span>iso_dttm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 23
 ## Columns: 2
-## $ date &lt;chr&gt; "2010-01-01T09:00:00.000Z", "2010-01-01T10:00:00.000Z", "2010-01…
-## $ temp &lt;dbl&gt; 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2,…</code></pre>
+## $ date &lt;chr&gt; "2010-01-01T09:00:00.000Z", "2010-01-01T10:00:00.000Z", "2010-01-…
+## $ temp &lt;dbl&gt; 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2, …</code></pre>
 <p>You can see that we have changed the <code>date</code> variable from a datetime to a character string. Its values show <code>date</code>:</p>
 <ul>
 <li>in the ISO-8601 format (according to the <code>iso_dttm</code> argument).</li>
@@ -353,8 +353,8 @@
 <span class="va">spec_iso_local</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">values</span> <span class="op">&lt;-</span> <span class="va">data_seattle_hourly_short_iso</span>
 
 <span class="va">spec_iso_local</span></code></pre></div>
-<div id="htmlwidget-4fa1fd9538403be0b62b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4fa1fd9538403be0b62b">{"x":{
+<div id="htmlwidget-51705761076086bb8d4d" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-51705761076086bb8d4d">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -485,8 +485,8 @@
 <span class="va">spec_iso_utc</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"utc"</span><span class="op">)</span> 
 
 <span class="va">spec_iso_utc</span></code></pre></div>
-<div id="htmlwidget-ec64c37cf0f092c700ca" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ec64c37cf0f092c700ca">{"x":{
+<div id="htmlwidget-f21edde12dae864810a9" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f21edde12dae864810a9">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -637,42 +637,42 @@
 <p>In Vega, the <a href="https://vega.github.io/vega-lite/docs/timeunit.html#utc">parsing default</a> for datetimes is that if the data is formatted using ISO-8601, then it is parsed as UTC. To be clear, what an R user might think of as a date string: <code>"2001-01-01"</code>, is in ISO-8601 format; accordingly, by default, it is parsed as a JavaScript <code>Date</code> object in the UTC context.</p>
 <p>Let’s consider the dataset <code>data_seattle_daily</code>, where we have daily observations of Seattle weather over the course of four years:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">data_seattle_daily</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">data_seattle_daily</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 1,461
 ## Columns: 6
-## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04, 2012-0…
-## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0, 0.0…
-## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, 6.1, …
-## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, -1.1,…
-## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, 5.1, …
-## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain", "rai…</code></pre>
+## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04, 2012-01…
+## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0, 0.0,…
+## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, 6.1, 6…
+## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, -1.1, …
+## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, 5.1, 1…
+## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain", "rain…</code></pre>
 <p>The default JSON-serializer for dates uses the ISO-8601 format for dates. If we wanted to use a non-ISO-8601 format, we could use <code><a href="../../reference/vw_serialize_data.html">vw_serialize_data()</a></code> using <code>iso_date = FALSE</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_seattle_daily</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../../reference/vw_serialize_data.html">vw_serialize_data</a></span><span class="op">(</span>iso_date <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 1,461
 ## Columns: 6
-## $ date          &lt;chr&gt; "2012/01/01", "2012/01/02", "2012/01/03", "2012/01/04",…
-## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0, 0.0…
-## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, 6.1, …
-## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, -1.1,…
-## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, 5.1, …
-## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain", "rai…</code></pre>
+## $ date          &lt;chr&gt; "2012/01/01", "2012/01/02", "2012/01/03", "2012/01/04", …
+## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0, 0.0,…
+## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, 6.1, 6…
+## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, -1.1, …
+## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, 5.1, 1…
+## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain", "rain…</code></pre>
 <p>For the purpose of making some examples of how to work with UTC dates, let’s filter the original dataset, with ISO-8601 formatting, keeping the first month:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_seattle_daily_short</span> <span class="op">&lt;-</span> 
   <span class="va">data_seattle_daily</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"month"</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2012-01-01"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 31
 ## Columns: 6
-## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04, 2012-0…
-## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0, 0.0…
-## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, 6.1, …
-## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, -1.1,…
-## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, 5.1, …
-## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain", "rai…</code></pre>
+## $ date          &lt;date&gt; 2012-01-01, 2012-01-02, 2012-01-03, 2012-01-04, 2012-01…
+## $ precipitation &lt;dbl&gt; 0.0, 10.9, 0.8, 20.3, 1.3, 2.5, 0.0, 0.0, 4.3, 1.0, 0.0,…
+## $ temp_max      &lt;dbl&gt; 12.8, 10.6, 11.7, 12.2, 8.9, 4.4, 7.2, 10.0, 9.4, 6.1, 6…
+## $ temp_min      &lt;dbl&gt; 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, -1.1, …
+## $ wind          &lt;dbl&gt; 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, 5.1, 1…
+## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain", "rain…</code></pre>
 <p>Let’s look at a line-plot of the daily maximum-temperatures:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_tempmax_local</span> <span class="op">&lt;-</span> 
@@ -699,8 +699,8 @@
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_tempmax_local</span></code></pre></div>
-<div id="htmlwidget-cf72f0452d1a384a23bb" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cf72f0452d1a384a23bb">{"x":{
+<div id="htmlwidget-120b6a1d0fd6340df0a9" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-120b6a1d0fd6340df0a9">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -989,8 +989,8 @@
 <span class="va">spec_tempmax_utc</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"utc"</span><span class="op">)</span>
 
 <span class="va">spec_tempmax_utc</span></code></pre></div>
-<div id="htmlwidget-c3c13a873f4cb5f44040" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c3c13a873f4cb5f44040">{"x":{
+<div id="htmlwidget-1b1c0e6d815a3ccb3e69" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1b1c0e6d815a3ccb3e69">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1394,8 +1394,8 @@ Jan-01-2001 19:34:05
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_daily</span></code></pre></div>
-<div id="htmlwidget-1e0a34bf9ed7394cc1b3" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1e0a34bf9ed7394cc1b3">{"x":{
+<div id="htmlwidget-dec76116ab42bec42d9c" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dec76116ab42bec42d9c">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1455,14 +1455,13 @@ Jan-01-2001 19:34:05
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yearmonth <span class="op">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"month"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">yearmonth</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>temp_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">temp_max</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 48
 ## Columns: 2
-## $ yearmonth &lt;date&gt; 2012-01-01, 2012-02-01, 2012-03-01, 2012-04-01, 2012-05-01…
-## $ temp_max  &lt;dbl&gt; 12.8, 16.1, 15.6, 23.3, 26.7, 24.4, 28.3, 34.4, 32.2, 23.9,…</code></pre>
+## $ yearmonth &lt;date&gt; 2012-01-01, 2012-02-01, 2012-03-01, 2012-04-01, 2012-05-01,…
+## $ temp_max  &lt;dbl&gt; 12.8, 16.1, 15.6, 23.3, 26.7, 24.4, 28.3, 34.4, 32.2, 23.9, …</code></pre>
 <p>We could then plot this data. However, we can make these data transformations within Vega-Lite. We will show this as a series of steps; the first step is to map the values of <code>date</code> to the beginning of the month.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># copy the previous spec</span>
 <span class="va">spec_yearmonth</span> <span class="op">&lt;-</span> <span class="va">spec_daily</span>
 
@@ -1488,8 +1487,8 @@ Jan-01-2001 19:34:05
 
 
 <span class="va">spec_yearmonth</span></code></pre></div>
-<div id="htmlwidget-dafda236af579a92c6c8" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dafda236af579a92c6c8">{"x":{
+<div id="htmlwidget-ea6f350404e79321c54f" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ea6f350404e79321c54f">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1557,7 +1556,7 @@ Jan-01-2001 19:34:05
 <p>We removed the UTC scale from the x-encoding because this is taken care-of with the specification of <code>"utc"</code> within the time unit. If we were to <a href="https://vega.github.io/vega-lite/docs/timeunit.html#output">specify it twice</a>, the UTC-offset would be applied twice.</p>
 <p>We modified the tooltip to demonstrate that we have the same underlying data. On the x-axis, we use the “mutated” year-month rather than the date.</p>
 <p>The next step is to apply the Vega-Lite equivalents to dplyr’s <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> operations.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># copy the previous spec</span>
 <span class="va">spec_yearmonth_aggregate</span> <span class="op">&lt;-</span> <span class="va">spec_yearmonth</span>
 
@@ -1569,8 +1568,8 @@ Jan-01-2001 19:34:05
 <span class="va">spec_yearmonth_aggregate</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">aggregate</span> <span class="op">&lt;-</span> <span class="st">"max"</span>
 
 <span class="va">spec_yearmonth_aggregate</span></code></pre></div>
-<div id="htmlwidget-3c20763613514cca928c" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3c20763613514cca928c">{"x":{
+<div id="htmlwidget-f23d1eb5375777d6e690" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f23d1eb5375777d6e690">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1624,7 +1623,7 @@ Jan-01-2001 19:34:05
 },"evals":[],"jsHooks":[]}</script><p>These two operations are undertaken by adding a single specification: the y-encoding directive <code>aggregate = "max"</code>. Vega-Lite carries out an implied <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> on all the encodings are not aggregated. In this case, y (<code>temp_max</code>) is aggregated; we group by our remaining encoding, x, which is now the “year-month”.</p>
 <p>Also, note that we need to take care with our tooltip definitions. Tooltips are encodings, so the aggregation rule applies to tooltip encodings no different that it applies to other encodings. If something “weird” happens when building a chart that uses implicit aggregation, it can be useful to check the tooltip-definitions for encodings and aggregations that are inconsistent with the rest of the encodings (ask me how I found this out).</p>
 <p>We can add an color-encoding for the year, again using a time-unit:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># copy previous spec</span>
 <span class="va">spec_yearmonth_aggregate_color</span> <span class="op">&lt;-</span> <span class="va">spec_yearmonth_aggregate</span>
 
@@ -1650,8 +1649,8 @@ Jan-01-2001 19:34:05
 
 
 <span class="va">spec_yearmonth_aggregate_color</span></code></pre></div>
-<div id="htmlwidget-f6713fece5a6dbc572e3" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f6713fece5a6dbc572e3">{"x":{
+<div id="htmlwidget-2c67a42b8e1e1d23d962" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2c67a42b8e1e1d23d962">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1717,7 +1716,7 @@ Jan-01-2001 19:34:05
 },"evals":[],"jsHooks":[]}</script><p>Again, this is another intermediate step; creating a new internal variable using a <code>"utcyear"</code> time-unit. We see that Vega-Lite does the “right” thing with the color-legend. Using the tooltip, we also see that the values of <code>year</code> are the datetimes corresponding to the first instant in a given year.</p>
 <p>In the previous chart, we noted that Vega-Lite will group-by any encoded variable that is not aggregated, then perform the aggregations. In this case, we are grouping by “year” and “year-month”, so the end-result of the groupings is the same as the previous example.</p>
 <p>Our final chart in this series of examples will be to put each of the years on the same scale; we do this by using a time-unit of <code>"utcmonth"</code> for the x-encoding.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_month_aggregate_color</span> <span class="op">&lt;-</span> <span class="va">spec_yearmonth_aggregate_color</span>
 
 <span class="va">spec_month_aggregate_color</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">timeUnit</span> <span class="op">&lt;-</span> <span class="st">"utcmonth"</span>
@@ -1725,8 +1724,8 @@ Jan-01-2001 19:34:05
 <span class="va">spec_month_aggregate_color</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">timeUnit</span> <span class="op">&lt;-</span> <span class="st">"utcmonth"</span>
 
 <span class="va">spec_month_aggregate_color</span></code></pre></div>
-<div id="htmlwidget-186308bf97c43398635a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-186308bf97c43398635a">{"x":{
+<div id="htmlwidget-c0b902347f677552b620" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c0b902347f677552b620">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,

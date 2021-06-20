@@ -71,6 +71,7 @@
     x,
     auto_unbox = TRUE,
     null = "null",
+    na = "null",
     pretty = pretty,
     digits = NA
   )

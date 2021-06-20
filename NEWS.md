@@ -1,6 +1,6 @@
 # vegawidget 0.3.2 (development version)
 
-* Bump version for development
+* When converting vegaspec to JSON, serialize `NA` to `null`. (#160)
 
 # vegawidget 0.3.2
 

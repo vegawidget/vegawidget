@@ -14,6 +14,8 @@ To upgrade the version of **Vega-Lite** that we support:
     visual-regression article (still to be built).
 6.  Commit, push, and make PR.
 
+<!-- end list -->
+
 ``` r
 library("fs")
 library("glue")
@@ -21,7 +23,7 @@ library("httr")
 library("here")
 ```
 
-    ## here() starts at /Users/sesa19001/Documents/repos/public/vegawidget/vegawidget
+    ## here() starts at /Users/aliciaschep/Projects/vegawidget
 
 ``` r
 library("purrr")
@@ -56,10 +58,10 @@ library("vegawidget")
 
 Package infrastructure includes:
 
--   an htmlwidget named “vegawidget”
--   internal package data:
-    -   list of version numbers: `.vega_version`
--   files to validate the schema
+  - an htmlwidget named “vegawidget”
+  - internal package data:
+      - list of version numbers: `.vega_version`
+  - files to validate the schema
 
 Perhaps this could be a series of documents - it remains as an exercise
 to see what can be cleaved away.
@@ -113,7 +115,8 @@ These packages are not listed in the `Suggests` section of the
 We need to know which versions of the libraries (vega, vega-lite, and
 vega-embed) to download. We do this by inspecting the manifest of a
 specific version of the vega-lite library. This package has an internal
-function, `vega_version()` to help us do this:
+function, `vega_version()` to help us do
+this:
 
 ``` r
 vega_version_long <- vegawidget:::get_vega_version(params$vega_lite_version)
@@ -122,13 +125,13 @@ vega_version_long
 ```
 
     ## $vega_lite
-    ## [1] "4.17.0"
+    ## [1] "5.1.0"
     ## 
     ## $vega
-    ## [1] "5.17.0"
+    ## [1] "5.20.0"
     ## 
     ## $vega_embed
-    ## [1] "6.12.2"
+    ## [1] "6.17.0"
 
 ``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
@@ -207,11 +210,11 @@ htmlwidgets_downloads
     ## # A tibble: 6 x 2
     ##   path_local              path_remote                                           
     ##   <chr>                   <chr>                                                 
-    ## 1 vega-lite/vega-lite.mi… https://cdn.jsdelivr.net/npm/vega-lite@4.17.0         
+    ## 1 vega-lite/vega-lite.mi… https://cdn.jsdelivr.net/npm/vega-lite@5.1.0          
     ## 2 vega-lite/LICENSE       https://raw.githubusercontent.com/vega/vega-lite/mast…
-    ## 3 vega/vega.min.js        https://cdn.jsdelivr.net/npm/vega@5.17.0              
+    ## 3 vega/vega.min.js        https://cdn.jsdelivr.net/npm/vega@5.20.0              
     ## 4 vega/LICENSE            https://raw.githubusercontent.com/vega/vega/master/LI…
-    ## 5 vega-embed/vega-embed.… https://cdn.jsdelivr.net/npm/vega-embed@6.12.2        
+    ## 5 vega-embed/vega-embed.… https://cdn.jsdelivr.net/npm/vega-embed@6.17.0        
     ## 6 vega-embed/LICENSE      https://raw.githubusercontent.com/vega/vega-embed/mas…
 
 ``` r
@@ -293,10 +296,10 @@ schema
 ```
 
     ## # A tibble: 2 x 2
-    ##   path_local             path_remote                                         
-    ##   <chr>                  <chr>                                               
-    ## 1 vega/v5.17.0.json      https://vega.github.io/schema/vega/v5.17.0.json     
-    ## 2 vega-lite/v4.17.0.json https://vega.github.io/schema/vega-lite/v4.17.0.json
+    ##   path_local            path_remote                                        
+    ##   <chr>                 <chr>                                              
+    ## 1 vega/v5.20.0.json     https://vega.github.io/schema/vega/v5.20.0.json    
+    ## 2 vega-lite/v5.1.0.json https://vega.github.io/schema/vega-lite/v5.1.0.json
 
 ``` r
 pwalk(schema, get_file, path_local_root = dir_schema)
@@ -460,7 +463,7 @@ usethis::use_data(
 )
 ```
 
-    ## ✓ Setting active project to '/Users/sesa19001/Documents/repos/public/vegawidget/vegawidget'
+    ## ✓ Setting active project to '/Users/aliciaschep/Projects/vegawidget'
 
     ## ✓ Saving '.vega_version', '.vw_handler_library' to 'R/sysdata.rda'
 
@@ -468,8 +471,10 @@ usethis::use_data(
 
 There are a few things you’ll need to do now:
 
-1.  Run tests (`devtools::test()`): some things may have changed with
+1.  Possibly update `vega_embed()` to be up-to-date with
+    [vega-embed](https://github.com/vega/vega-embed).
+2.  Run tests (`devtools::test()`): some things may have changed with
     snapshot testing.
-2.  Build documentation site(`pkgdown::build_site()`) check image
+3.  Build documentation site(`pkgdown::build_site()`) check image
     article, other articles.
-3.  Create a PR, alert other vegawidget members.
+4.  Create a PR, alert other vegawidget members.

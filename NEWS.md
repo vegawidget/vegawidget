@@ -1,4 +1,6 @@
-# vegawidget 0.3.2 (development version)
+# vegawidget 0.3.3 (development version)
+
+* Use V8 rather than node to support image-functions. This will add V8 as a package-dependency, but will remove the system-dependency for node. (#85)
 
 * When converting vegaspec to JSON, serialize `NA` to `null`. (#160)
 

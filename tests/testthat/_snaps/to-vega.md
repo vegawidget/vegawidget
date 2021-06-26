@@ -464,6 +464,7 @@
                 "_row": "Volvo 142E"
               }
             ],
+            "source": null,
             "transform": null
           },
           {
@@ -522,7 +523,8 @@
             "type": "linear",
             "domain": {
               "data": "data_0",
-              "field": "wt"
+              "field": "wt",
+              "sort": null
             },
             "range": [
               0,
@@ -538,7 +540,8 @@
             "type": "linear",
             "domain": {
               "data": "data_0",
-              "field": "mpg"
+              "field": "mpg",
+              "sort": null
             },
             "range": [
               {
@@ -557,7 +560,9 @@
               "field": "cyl",
               "sort": true
             },
-            "range": "category"
+            "range": "category",
+            "nice": null,
+            "zero": null
           }
         ],
         "axes": [
@@ -575,7 +580,10 @@
             "maxExtent": 0,
             "minExtent": 0,
             "ticks": false,
-            "zindex": 0
+            "zindex": 0,
+            "title": null,
+            "labelFlush": null,
+            "labelOverlap": null
           },
           {
             "scale": "y",
@@ -591,15 +599,25 @@
             "maxExtent": 0,
             "minExtent": 0,
             "ticks": false,
-            "zindex": 0
+            "zindex": 0,
+            "title": null,
+            "labelFlush": null,
+            "labelOverlap": null
           },
           {
             "scale": "x",
             "orient": "bottom",
+            "gridScale": null,
             "grid": false,
             "tickCount": {
               "signal": "ceil(width/40)"
             },
+            "domain": null,
+            "labels": null,
+            "aria": null,
+            "maxExtent": null,
+            "minExtent": null,
+            "ticks": null,
             "zindex": 0,
             "title": "wt",
             "labelFlush": true,
@@ -608,12 +626,20 @@
           {
             "scale": "y",
             "orient": "left",
+            "gridScale": null,
             "grid": false,
             "tickCount": {
               "signal": "ceil(height/40)"
             },
+            "domain": null,
+            "labels": null,
+            "aria": null,
+            "maxExtent": null,
+            "minExtent": null,
+            "ticks": null,
             "zindex": 0,
             "title": "mpg",
+            "labelFlush": null,
             "labelOverlap": true
           }
         ],

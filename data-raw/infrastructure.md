@@ -122,16 +122,16 @@ vega_version_long
 ```
 
     ## $vega_lite
-    ## [1] "5.0.0"
+    ## [1] "5.1.0"
     ## 
     ## $vega
-    ## [1] "5.19.1"
+    ## [1] "5.20.0"
     ## 
     ## $vega_embed
-    ## [1] "6.15.1"
+    ## [1] "6.17.0"
     ## 
     ## $vega_util
-    ## [1] "1.16.0"
+    ## [1] "1.16.1"
 
 ``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
@@ -213,13 +213,13 @@ htmlwidgets_downloads
     ## # A tibble: 8 x 2
     ##   path_local                path_remote                                         
     ##   <chr>                     <chr>                                               
-    ## 1 vega-lite/vega-lite.min.… https://cdn.jsdelivr.net/npm/vega-lite@5.0.0        
+    ## 1 vega-lite/vega-lite.min.… https://cdn.jsdelivr.net/npm/vega-lite@5.1.0        
     ## 2 vega-lite/LICENSE         https://raw.githubusercontent.com/vega/vega-lite/ma…
-    ## 3 vega/vega.min.js          https://cdn.jsdelivr.net/npm/vega@5.19.1            
+    ## 3 vega/vega.min.js          https://cdn.jsdelivr.net/npm/vega@5.20.0            
     ## 4 vega/LICENSE              https://raw.githubusercontent.com/vega/vega/master/…
-    ## 5 vega-embed/vega-embed.mi… https://cdn.jsdelivr.net/npm/vega-embed@6.15.1      
+    ## 5 vega-embed/vega-embed.mi… https://cdn.jsdelivr.net/npm/vega-embed@6.17.0      
     ## 6 vega-embed/LICENSE        https://raw.githubusercontent.com/vega/vega-embed/m…
-    ## 7 vega-util/vega-util.min.… https://cdn.jsdelivr.net/npm/vega-util@1.16.0       
+    ## 7 vega-util/vega-util.min.… https://cdn.jsdelivr.net/npm/vega-util@1.16.1       
     ## 8 vega-util/LICENSE         https://raw.githubusercontent.com/vega/vega-util/ma…
 
 ``` r
@@ -250,25 +250,6 @@ Here, we create the `lib` directory, then “walk” through each row of the
 
 ``` r
 pwalk(htmlwidgets_downloads, get_file, path_local_root = dir_lib)
-```
-
-### Patch
-
-Here, Alicia Schep noticed that there was a problem to render vega
-charts within the RStudio IDE, and she figured out a workaround (as well
-as a PR for the RStudio IDE to fix the problem). Here’s her patch for
-older versions of the IDE:
-
-``` r
-# disabling for now - to see if this works without the patch
-vega_embed_path <- path(dir_lib, "vega-embed/vega-embed.js")
-vega_embed <- readr::read_file(vega_embed_path)
-
-vega_mod <- stringr::str_replace_all(vega_embed, 'head>"','he"+"ad>"') 
-vega_mod <- stringr::str_replace_all(vega_mod, '"<\\/head>','"</he"+"ad>') 
-
-readr::write_file(vega_mod, path(dir_lib, "vega-embed/vega-embed-modified.js"))
-fs::file_delete(vega_embed_path)
 ```
 
 ## Schema
@@ -303,8 +284,8 @@ schema
     ## # A tibble: 2 x 2
     ##   path_local            path_remote                                        
     ##   <chr>                 <chr>                                              
-    ## 1 vega/v5.19.1.json     https://vega.github.io/schema/vega/v5.19.1.json    
-    ## 2 vega-lite/v5.0.0.json https://vega.github.io/schema/vega-lite/v5.0.0.json
+    ## 1 vega/v5.20.0.json     https://vega.github.io/schema/vega/v5.20.0.json    
+    ## 2 vega-lite/v5.1.0.json https://vega.github.io/schema/vega-lite/v5.1.0.json
 
 ``` r
 pwalk(schema, get_file, path_local_root = dir_schema)

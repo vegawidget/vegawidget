@@ -2,7 +2,7 @@
 title: Package infrastrucure
 output: github_document
 params:
-  vega_lite_version: "5.0.0"
+  vega_lite_version: "5.1.0"
 ---
 
 This purpose of this document is to build the package infrastucture. 
@@ -189,22 +189,6 @@ Here, we create the `lib` directory, then "walk" through each row of the `downlo
 
 ```{r}
 pwalk(htmlwidgets_downloads, get_file, path_local_root = dir_lib)
-```
-
-### Patch 
-
-Here, Alicia Schep noticed that there was a problem to render vega charts within the RStudio IDE, and she figured out a workaround (as well as a PR for the RStudio IDE to fix the problem). Here's her patch for older versions of the IDE: 
-
-```{r eval=FALSE}
-# disabling for now - to see if this works without the patch
-vega_embed_path <- path(dir_lib, "vega-embed/vega-embed.js")
-vega_embed <- readr::read_file(vega_embed_path)
-
-vega_mod <- stringr::str_replace_all(vega_embed, 'head>"','he"+"ad>"') 
-vega_mod <- stringr::str_replace_all(vega_mod, '"<\\/head>','"</he"+"ad>') 
-
-readr::write_file(vega_mod, path(dir_lib, "vega-embed/vega-embed-modified.js"))
-fs::file_delete(vega_embed_path)
 ```
 
 ## Schema

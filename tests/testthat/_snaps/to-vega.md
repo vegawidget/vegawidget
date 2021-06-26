@@ -463,10 +463,12 @@
                 "carb": 2,
                 "_row": "Volvo 142E"
               }
-            ]
+            ],
+            "transform": null
           },
           {
             "name": "data_0",
+            "values": null,
             "source": "source_0",
             "transform": [
               {
@@ -480,9 +482,7 @@
           {
             "name": "marks",
             "type": "symbol",
-            "style": [
-              "point"
-            ],
+            "style": "point",
             "from": {
               "data": "data_0"
             },
@@ -597,24 +597,24 @@
             "scale": "x",
             "orient": "bottom",
             "grid": false,
-            "title": "wt",
-            "labelFlush": true,
-            "labelOverlap": true,
             "tickCount": {
               "signal": "ceil(width/40)"
             },
-            "zindex": 0
+            "zindex": 0,
+            "title": "wt",
+            "labelFlush": true,
+            "labelOverlap": true
           },
           {
             "scale": "y",
             "orient": "left",
             "grid": false,
-            "title": "mpg",
-            "labelOverlap": true,
             "tickCount": {
               "signal": "ceil(height/40)"
             },
-            "zindex": 0
+            "zindex": 0,
+            "title": "mpg",
+            "labelOverlap": true
           }
         ],
         "legends": [

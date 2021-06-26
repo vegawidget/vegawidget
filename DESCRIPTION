@@ -56,7 +56,8 @@ Imports:
     glue,
     magrittr,
     htmltools,
-    digest
+    digest,
+    V8
 Suggests:
     spelling,
     knitr,

@@ -81,6 +81,7 @@ Suggests:
     withr,
     shiny,
     purrr,
-    rsconnect
+    rsconnect,
+    utils
 Language: en-US
 Config/testthat/edition: 3

@@ -1,4 +1,4 @@
-function vwFetch(url, options) {
+async function vwFetch(url, options) {
   const result = console.r.call('vegawidget::vw_fetch', url);
 
   return(result);

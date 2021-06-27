@@ -57,7 +57,8 @@ Imports:
     magrittr,
     htmltools,
     digest,
-    V8
+    V8,
+    withr
 Suggests:
     spelling,
     knitr,
@@ -78,7 +79,6 @@ Suggests:
     png,
     conflicted,
     here,
-    withr,
     shiny,
     purrr,
     rsconnect,

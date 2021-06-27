@@ -1,5 +1,3 @@
-has_node <- unname(nchar(Sys.which("node")) > 0L)
-
 test_that("vw_to_vega works", {
 
   spec_mtcars_vega <- vw_to_vega(spec_mtcars)

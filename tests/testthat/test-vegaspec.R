@@ -1,5 +1,3 @@
-has_node <- unname(nchar(Sys.which("node")) > 0L)
-
 test_that("as_vegaspec translates", {
 
   # need to go to json and back because of data-frame in vw_ex_mtcars
@@ -16,10 +14,6 @@ test_that("class is correct", {
   expect_type(as_vegaspec(unclass(spec_mtcars)), "list")
   expect_s3_class(as_vegaspec(unclass(spec_mtcars)), "vegaspec")
   expect_s3_class(as_vegaspec(unclass(spec_mtcars)), "vegaspec_vega_lite")
-
-  # Need to have node installed
-  skip_on_cran()
-  skip_if_not(has_node)
 
   spec_mtcars_vega <- vw_to_vega(spec_mtcars)
 

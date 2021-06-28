@@ -10,6 +10,7 @@ test_that("vw_fetch() works", {
   )
 
   # check using V8
+  # for syntax, see https://stackoverflow.com/a/49938734
   expect_snapshot(
     ct$eval("(async () => {console.log(await vwFetch('https://vega.github.io/vega-datasets/data/anscombe.json'))})()")
   )

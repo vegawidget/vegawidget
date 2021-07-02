@@ -107,8 +107,45 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
   if (res$stderr != "") {
     stop("Error in compiling to svg:\n", res$stderr)
   }
-  res$stdout
 
+  trimws(res$stdout)
+}
+
+vw_to_svg_new <- function(spec, width = NULL, height = NULL, base_url = NULL,
+                          seed = NULL) {
+
+  # set defaults
+  base_url <-
+    base_url %||% getOption("vega.embed")[["loader"]][["baseURL"]] %||% ""
+  seed <- seed %||% sample(1e8, size = 1)
+
+  # convert to vega spec as a string
+  spec <- vw_autosize(spec, width = width, height = height)
+  vega_spec <- vw_to_vega(spec)
+  str_spec <- vw_as_json(vega_spec, pretty = FALSE)
+
+  vega_to_svg <- system.file("bin", "vega_to_svg_v8.js", package = "vegawidget")
+  vega <-
+    system.file("htmlwidgets", "lib", "vega", "vega.min.js", package = "vegawidget")
+
+  file_name <- withr::local_tempfile(fileext = ".json")
+
+  # fire up V8
+  ct <- V8::v8()
+  ct$source(vega)
+  ct$source(vega_to_svg)
+
+  # send arguments
+  ct$assign("spec", V8::JS(str_spec)) # send as JSON text to avoid jsonlite defaults
+  ct$assign("seed", seed)
+  ct$assign("baseURL", base_url)
+  ct$assign("fileName", file_name)
+
+  # evaluate render-function
+  ct$eval("(async () => {await vwRender(spec, seed, baseURL, fileName)})()")
+
+  lines <- readLines(file_name, encoding = "UTF-8")
+  paste(lines, collapse = "\n")
 }
 
 

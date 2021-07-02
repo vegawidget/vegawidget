@@ -21,8 +21,6 @@ const seed = process.argv[4];
 // Fourth argument is base URL
 const base = process.argv[5];
 
-console.log(base);
-
 // Load fetch so that it can be used by vega for remote data
 fetch = require('node-fetch');
 

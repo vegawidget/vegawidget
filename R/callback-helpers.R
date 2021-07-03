@@ -15,9 +15,18 @@
 #'
 vw_fetch <- function(url, options = NULL) {
 
-  # temp file, deleted when function exits
-  tmpfile <- withr::local_tempfile()
-  utils::download.file(url, destfile = tmpfile, quiet = TRUE)
+  # in theory, the vega loader figures out if `url` is a local file or not
+  # in practice, it thinks local files are remote, so it comes here.
+  #   hence, we have to handle this ourselves - so we do.
+
+  if (fs::file_exists(url)) {
+    # local file
+    tmpfile <- url
+  } else {
+    # remote file
+    tmpfile <- withr::local_tempfile()
+    utils::download.file(url, destfile = tmpfile, quiet = TRUE)
+  }
 
   vw_load(tmpfile)
 }

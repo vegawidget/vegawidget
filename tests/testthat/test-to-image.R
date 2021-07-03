@@ -24,8 +24,7 @@ test_that("vw_to_svg works with vega spec", {
   skip_on_cran()
   skip_if_not(has_node)
 
-  svg_res <- spec_mtcars %>% vw_to_vega() %>% vw_to_svg()
-  expect_snapshot(svg_res)
+  expect_snapshot({spec_mtcars %>% vw_to_vega() %>% vw_to_svg()})
 
 })
 
@@ -35,23 +34,17 @@ test_that("vw_to_svg works with vega-lite spec", {
   skip_on_cran()
   skip_if_not(has_node)
 
-  svg_res <- vw_to_svg(spec_mtcars)
-  expect_snapshot(svg_res)
+  expect_snapshot(
+    vw_to_svg_new(spec_mtcars)
+  )
 
 })
 
 test_that("vw_to_svg works with url data", {
 
-  # Need to have node installed
-  skip_on_cran()
-  skip_if_not(has_node)
-
-  # Skipping although this works on my computer:
-  # > vegawidget(spec_wx, base_url = base_url)
-  skip("not working yet")
-
-  svg_res <- vw_to_svg(spec_wx, base_url = base_url)
-  expect_snapshot(svg_res)
+  expect_snapshot(
+    vw_to_svg_new(spec_wx, base_url = base_url)
+  )
 
 })
 
@@ -65,12 +58,8 @@ test_that("vw_to_svg works with local data", {
     quiet = TRUE
   )
 
-  # this works as expected (maybe make sure it is tested elsewhere)
-  # > vegawidget(spec_wx, base_url = tempdir)
-
-  skip("not working yet")
-
-  svg_res <- vw_to_svg(spec_wx, base_url = tempdir)
-  expect_snapshot(svg_res)
+  expect_snapshot(
+    vw_to_svg_new(spec_wx, base_url = tempdir)
+  )
 
 })

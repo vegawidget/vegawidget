@@ -2,15 +2,16 @@
 
 // functions to call back to R for fetching a remote URL, or loading a local file
 async function vwFetch(url, options) {
-  const result = console.r.call('vegawidget::vw_fetch', url);
 
-  return(result);
+  const result = await console.r.call('vegawidget::vw_fetch', url);
+
+  return result;
 }
 
 async function vwLoad(fileName) {
   const result = await console.r.call('vegawidget::vw_load', fileName);
 
-  return(result);
+  return result;
 }
 
 // Adapted from vega-cli: https://github.com/vega/vega/blob/master/packages/vega-cli/bin/vg2svg
@@ -39,7 +40,6 @@ async function vwRender(spec, seed, baseURL, fileName) {
       '"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n';
 
     svg = svgHeader + svg;
-
     console.r.call('writeLines', [svg, fileName]);
   }
 
@@ -55,13 +55,13 @@ async function vwRender(spec, seed, baseURL, fileName) {
     logLevel: vega.Warn,
     renderer: 'none'
   })
-  .initialize()
-  .finalize()
-  .toSVG()
-  .then(svg => { writeSVG(svg, fileName); })
-  .catch(err => { console.error(err); });
+    .initialize()
+    .finalize()
+    .toSVG()
+    .then(svg => { writeSVG(svg, fileName); })
+    .catch(err => { console.log(err); });
 
-  return(result);
+  return result;
 }
 
 

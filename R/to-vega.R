@@ -41,9 +41,11 @@ vw_to_vega <- function(spec) {
   ct$source(pkgfile("vega-lite", "vega-lite.min.js"))
   ct$eval(glue::glue("var vs = vegaLite.compile({vw_as_json(spec)})"))
 
-  vs <- ct$get("vs")
+  # don't let V8 convert to JSON; send as string
+  ct$eval("var strSpec = JSON.stringify(vs.spec)")
+  str_spec <- ct$get("strSpec")
 
-  as_vegaspec(vs$spec)
+  as_vegaspec(str_spec)
 }
 
 .vw_to_vega.vegaspec_vega <- function(spec, ...) {

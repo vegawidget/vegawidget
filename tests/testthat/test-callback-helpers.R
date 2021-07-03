@@ -10,10 +10,6 @@ test_that("vw_fetch() works", {
     vw_fetch("https://vega.github.io/vega-datasets/data/anscombe.json")
   )
 
-  expect_snapshot(
-    vw_fetch("https://vega.github.io/vega-datasets/data/seattle-weather.csv")
-  )
-
   # check using V8
   # for syntax, see https://stackoverflow.com/a/49938734
   expect_snapshot(

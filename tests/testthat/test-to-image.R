@@ -3,13 +3,15 @@ library("glue")
 
 has_node <- unname(nchar(Sys.which("node")) > 0L)
 
+# note https://www.svgviewer.dev/ is a useful place to copy-paste SVG strings
+
 spec_wx <- as_vegaspec(
 '{
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "data": {"url": "seattle-weather.csv"},
   "mark": "bar",
   "encoding": {
-    "x": {"timeUnit": "month", "field": "date", "type": "ordinal"},
+    "x": {"timeUnit": "utcmonth", "field": "date"},
     "y": {"aggregate": "mean", "field": "precipitation"}
   }
 }'
@@ -24,7 +26,7 @@ test_that("vw_to_svg works with vega spec", {
   skip_on_cran()
   skip_if_not(has_node)
 
-  expect_snapshot({spec_mtcars %>% vw_to_vega() %>% vw_to_svg()})
+  expect_snapshot({spec_mtcars %>% vw_to_vega() %>% vw_to_svg() %>% cat()})
 
 })
 
@@ -43,7 +45,7 @@ test_that("vw_to_svg works with vega-lite spec", {
 test_that("vw_to_svg works with url data", {
 
   expect_snapshot(
-    vw_to_svg_new(spec_wx, base_url = base_url)
+    vw_to_svg_new(spec_wx, base_url = base_url) %>% cat()
   )
 
 })
@@ -59,7 +61,7 @@ test_that("vw_to_svg works with local data", {
   )
 
   expect_snapshot(
-    vw_to_svg_new(spec_wx, base_url = tempdir)
+    vw_to_svg_new(spec_wx, base_url = tempdir) %>% cat()
   )
 
 })

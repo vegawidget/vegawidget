@@ -12,9 +12,24 @@ test_that("vw_fetch() works", {
 
   # check using V8
   # for syntax, see https://stackoverflow.com/a/49938734
-  expect_snapshot(
-    ct$eval("(async () => {console.log(await vwFetch('https://vega.github.io/vega-datasets/data/anscombe.json'))})()")
-  )
+
+  # make sure it works with json (needs to be parsed)
+  expect_snapshot({
+    ct$assign("url", "https://vega.github.io/vega-datasets/data/anscombe.json")
+    ct$eval(
+      "(async () => {result = await vwFetch(url, {response: 'json'});})()"
+    )
+    ct$eval("console.log(JSON.stringify(result))")
+  })
+
+  # make sure it works with text
+  expect_snapshot({
+    ct$assign("url", "https://vega.github.io/vega-datasets/data/seattle-weather.csv")
+    ct$eval(
+      "(async () => {result = await vwFetch(url, {response: 'text'});})()"
+    )
+    ct$eval("console.log(result)")
+  })
 
 })
 

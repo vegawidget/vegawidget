@@ -5,14 +5,42 @@ has_node <- unname(nchar(Sys.which("node")) > 0L)
 
 # note https://www.svgviewer.dev/ is a useful place to copy-paste SVG strings
 
+spec_anscombe <- as_vegaspec(
+'{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "anscombe.json"},
+  "mark": "circle",
+  "encoding": {
+    "column": {"field": "Series"},
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {"zero": false}
+    },
+    "y": {
+      "field": "Y",
+      "type": "quantitative",
+      "scale": {"zero": false}
+    },
+    "opacity": {"value": 1}
+  }
+}'
+)
+
+# filtering the data to cut down on the size of the SVG
 spec_wx <- as_vegaspec(
 '{
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "data": {"url": "seattle-weather.csv"},
-  "mark": "bar",
+  "data": {
+    "url": "seattle-weather.csv"
+  },
+  "transform": [
+    {"filter": "datum.temp_max < 5"}
+  ],
+  "mark": "circle",
   "encoding": {
-    "x": {"timeUnit": "utcmonth", "field": "date"},
-    "y": {"aggregate": "mean", "field": "precipitation"}
+    "x": {"field": "temp_max", "type": "quantitative"},
+    "y": {"field": "temp_min", "type": "quantitative"}
   }
 }'
 )
@@ -46,6 +74,12 @@ test_that("vw_to_svg works with vega-lite spec", {
 
 test_that("vw_to_svg works with url data", {
 
+  # json
+  expect_snapshot(
+    cat(vw_to_svg_new(spec_anscombe, base_url = base_url))
+  )
+
+  # csv
   expect_snapshot(
     cat(vw_to_svg_new(spec_wx, base_url = base_url))
   )
@@ -56,6 +90,18 @@ test_that("vw_to_svg works with local data", {
 
   tempdir <- local_tempdir()
 
+  # json
+  download.file(
+    glue("{base_url}/anscombe.json"),
+    destfile = glue("{tempdir}/anscombe.json"),
+    quiet = TRUE
+  )
+
+  expect_snapshot(
+    cat(vw_to_svg_new(spec_anscombe, base_url = tempdir))
+  )
+
+  # json
   download.file(
     glue("{base_url}/seattle-weather.csv"),
     destfile = glue("{tempdir}/seattle-weather.csv"),

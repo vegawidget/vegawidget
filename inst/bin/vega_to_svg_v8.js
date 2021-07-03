@@ -3,9 +3,16 @@
 // functions to call back to R for fetching a remote URL, or loading a local file
 async function vwFetch(url, options) {
 
-  const result = await console.r.call('vegawidget::vw_fetch', url);
+  // console.log(url);
+  // console.log(JSON.stringify(options));
 
-  return result;
+  const response = await console.r.call('vegawidget::vw_fetch', url);
+
+  if (options.response === 'json') {
+    return JSON.parse(response);
+  }
+
+  return response;
 }
 
 async function vwLoad(fileName) {

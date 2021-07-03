@@ -27,7 +27,9 @@ spec_anscombe <- as_vegaspec(
 }'
 )
 
-# filtering the data to cut down on the size of the SVG
+# filtering the data:
+#   - to cut down on the size of the SVG
+#   - negative-signs on the axis are rendered differently in Windows
 spec_wx <- as_vegaspec(
 '{
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -35,7 +37,9 @@ spec_wx <- as_vegaspec(
     "url": "seattle-weather.csv"
   },
   "transform": [
-    {"filter": "datum.temp_max < 5"}
+    {"filter": "datum.temp_max < 5"},
+    {"filter": "datum.temp_max > 0"},
+    {"filter": "datum.temp_min > 0"}
   ],
   "mark": "circle",
   "encoding": {

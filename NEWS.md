@@ -1,6 +1,8 @@
 # vegawidget 0.3.3 (development version)
 
-* Use V8 rather than node to support image-functions. This will add V8 as a package-dependency, but will remove the system-dependency for node. (#85)
+* Use V8 rather than node to support image-functions. 
+  This will add V8 as a package-dependency, but will remove the system-dependency for node. 
+  As a result, remote-data loading *works* as long as you can access the data from R. (#85)
 
 * When converting vegaspec to JSON, serialize `NA` to `null`. (#160)
 

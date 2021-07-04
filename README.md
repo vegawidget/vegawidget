@@ -31,7 +31,7 @@ Accordingly, this package may be useful to:
 
 ### New to vegawidget 0.3.2
 
--   vegawidget offers Vega-Lite 4.17.0 and Vega 5.17.0. Consequently,
+-   vegawidget offers Vega-Lite 5.1.0 and Vega 5.20.0. Consequently,
     this package works only with browsers that support ES6. This
     includes all modern browsers and the RStudioIDE (version 1.2 and
     later).

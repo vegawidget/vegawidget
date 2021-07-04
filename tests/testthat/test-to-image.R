@@ -1,8 +1,6 @@
 library("withr")
 library("glue")
 
-has_node <- unname(nchar(Sys.which("node")) > 0L)
-
 # note https://www.svgviewer.dev/ is a useful place to copy-paste SVG strings
 
 spec_anscombe <- as_vegaspec(

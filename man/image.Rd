@@ -49,8 +49,9 @@ increased-resolution of retina displays}
 }
 }
 \description{
-If you have  \strong{\href{https://nodejs.org/en/}{nodejs}} installed,
-you can use these functions can to create
+If you have \strong{\href{https://CRAN.R-project.org/package=V8}{V8}},
+\strong{\href{https://withr.r-lib.org/}{withr}},  and \strong{\href{https://fs.r-lib.org/}{fs}}
+installed, you can use these functions can to create
 or write images as PNG or SVG, using a \code{vegaspec} or \code{vegawidget}.
 To convert to a bitmap, or write a PNG file, you will additionally need
 the \strong{\href{https://CRAN.R-project.org/package=rsvg}{rsvg}} and
@@ -64,12 +65,9 @@ The scripts used are adapted from the Vega
 \href{https://vega.github.io/vega/usage/#cli}{command line utilities}.
 }
 \examples{
-\dontrun{
-  # requires nodejs to be installed
-
   # call any of these functions using either a vegaspec or a vegawidget
-  vw_to_svg(vegawidget(spec_mtcars))
-  vw_to_bitmap(spec_mtcars)
+  svg <- vw_to_svg(vegawidget(spec_mtcars))
+  bmp <- vw_to_bitmap(spec_mtcars)
   vw_write_png(spec_mtcars, file.path(tempdir(), "temp.png"))
   vw_write_svg(spec_mtcars, file.path(tempdir(), "temp.svg"))
 
@@ -92,7 +90,6 @@ The scripts used are adapted from the Vega
     base_url = data_dir
   )
 
-}
 }
 \seealso{
 \href{https://github.com/vega/vega-view#image-export}{vega-view library}

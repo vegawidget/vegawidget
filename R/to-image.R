@@ -1,7 +1,8 @@
 #' Create or write image
 #'
-#' If you have  **[nodejs](https://nodejs.org/en/)** installed,
-#' you can use these functions can to create
+#' If you have **[V8](https://CRAN.R-project.org/package=V8)**,
+#' **[withr](https://withr.r-lib.org/)**,  and **[fs](https://fs.r-lib.org/)**
+#' installed, you can use these functions can to create
 #' or write images as PNG or SVG, using a `vegaspec` or `vegawidget`.
 #' To convert to a bitmap, or write a PNG file, you will additionally need
 #' the **[rsvg](https://CRAN.R-project.org/package=rsvg)** and
@@ -32,12 +33,9 @@
 #' }
 #'
 #' @examples
-#' \dontrun{
-#'   # requires nodejs to be installed
-#'
 #'   # call any of these functions using either a vegaspec or a vegawidget
-#'   vw_to_svg(vegawidget(spec_mtcars))
-#'   vw_to_bitmap(spec_mtcars)
+#'   svg <- vw_to_svg(vegawidget(spec_mtcars))
+#'   bmp <- vw_to_bitmap(spec_mtcars)
 #'   vw_write_png(spec_mtcars, file.path(tempdir(), "temp.png"))
 #'   vw_write_svg(spec_mtcars, file.path(tempdir(), "temp.svg"))
 #'
@@ -60,7 +58,6 @@
 #'     base_url = data_dir
 #'   )
 #'
-#' }
 #' @seealso [vega-view library](https://github.com/vega/vega-view#image-export)
 #'
 #' @rdname image
@@ -68,6 +65,8 @@
 #'
 vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
                       seed = NULL) {
+
+  assert_packages(c("V8", "fs", "withr"))
 
   # set defaults
   base_url <-

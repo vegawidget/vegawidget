@@ -10,7 +10,7 @@
 # vw_to_svg works with vega-lite spec
 
     Code
-      cat(vw_to_svg_new(spec_mtcars))
+      cat(vw_to_svg(spec_mtcars))
     Output
       <?xml version="1.0" encoding="utf-8"?>
       <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -19,7 +19,7 @@
 # vw_to_svg works with url data
 
     Code
-      cat(vw_to_svg_new(spec_anscombe, base_url = base_url))
+      cat(vw_to_svg(spec_anscombe, base_url = base_url))
     Output
       <?xml version="1.0" encoding="utf-8"?>
       <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -28,7 +28,7 @@
 ---
 
     Code
-      cat(vw_to_svg_new(spec_wx, base_url = base_url))
+      cat(vw_to_svg(spec_wx, base_url = base_url))
     Output
       <?xml version="1.0" encoding="utf-8"?>
       <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -37,7 +37,7 @@
 # vw_to_svg works with local data
 
     Code
-      cat(vw_to_svg_new(spec_anscombe, base_url = tempdir))
+      cat(vw_to_svg(spec_anscombe, base_url = tempdir))
     Output
       <?xml version="1.0" encoding="utf-8"?>
       <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -46,7 +46,7 @@
 ---
 
     Code
-      cat(vw_to_svg_new(spec_wx, base_url = tempdir))
+      cat(vw_to_svg(spec_wx, base_url = tempdir))
     Output
       <?xml version="1.0" encoding="utf-8"?>
       <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">

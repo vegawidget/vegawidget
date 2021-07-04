@@ -7,15 +7,10 @@
 #' the **[rsvg](https://CRAN.R-project.org/package=rsvg)** and
 #' **[png](https://CRAN.R-project.org/package=png)** packages.
 #'
-#' There is a known limitation to these functions - if you are using a vegaspec
-#' that has dataset loaded from a remote URL. The `nodejs` scripts are not
-#' able to use a proxy, so if your computer uses a proxy to access the remote URL,
-#' the data will not load.
-#'
 #' These functions can be called using (an object that can be coerced to)
 #' a `vegaspec`.
 #'
-#' The nodejs scripts used are adapted from the Vega
+#' The scripts used are adapted from the Vega
 #' [command line utilities](https://vega.github.io/vega/usage/#cli).
 #'
 #' @name image
@@ -74,46 +69,6 @@
 vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
                       seed = NULL) {
 
-  # Check dependencies
-  assert_packages("processx")
-  check_node_installed()
-
-  # set defaults
-  base_url <-
-    base_url %||% getOption("vega.embed")[["loader"]][["baseURL"]] %||% ""
-  seed <- seed %||% sample(1e8, size = 1)
-
-  spec <- vw_autosize(spec, width = width, height = height)
-  vega_spec <- vw_to_vega(spec)
-  str_spec <- vw_as_json(vega_spec, pretty = FALSE)
-
-  # Write the spec to a temporary file
-  spec_path <- tempfile(fileext = ".json")
-  cat(str_spec, file = spec_path)
-
-  # Get the package location -- used as argument
-  pkg_path <- system.file(package = "vegawidget")
-
-  # Get the script location for the node script that does stuff
-  script_path <-  system.file("bin/vega_to_svg.js", package = "vegawidget")
-
-  # Use processx to run the script
-  res <-
-    processx::run(
-      "node",
-      args = c(script_path, pkg_path, spec_path, seed, base_url)
-    )
-
-  if (res$stderr != "") {
-    stop("Error in compiling to svg:\n", res$stderr)
-  }
-
-  trimws(res$stdout)
-}
-
-vw_to_svg_new <- function(spec, width = NULL, height = NULL, base_url = NULL,
-                          seed = NULL) {
-
   # set defaults
   base_url <-
     base_url %||% getOption("vega.embed")[["loader"]][["baseURL"]] %||% ""
@@ -147,7 +102,6 @@ vw_to_svg_new <- function(spec, width = NULL, height = NULL, base_url = NULL,
   lines <- readLines(file_name, encoding = "UTF-8")
   paste(lines, collapse = "\n")
 }
-
 
 #' @rdname image
 #' @export

@@ -57,15 +57,10 @@ the \strong{\href{https://CRAN.R-project.org/package=rsvg}{rsvg}} and
 \strong{\href{https://CRAN.R-project.org/package=png}{png}} packages.
 }
 \details{
-There is a known limitation to these functions - if you are using a vegaspec
-that has dataset loaded from a remote URL. The \code{nodejs} scripts are not
-able to use a proxy, so if your computer uses a proxy to access the remote URL,
-the data will not load.
-
 These functions can be called using (an object that can be coerced to)
 a \code{vegaspec}.
 
-The nodejs scripts used are adapted from the Vega
+The scripts used are adapted from the Vega
 \href{https://vega.github.io/vega/usage/#cli}{command line utilities}.
 }
 \examples{

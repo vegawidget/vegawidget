@@ -6,7 +6,7 @@ output: rmarkdown::html_document
 
 The main purpose of this article is to demonstrate use this package's image-generating functions. A secondary purpose is to help the package's developers confirm that these functions continue to work when things get changed. 
 
-If you have **[nodejs](https://nodejs.org)** installed on your computer, you can use these image-generating functions to convert vegaspecs (or vegawidgets) into SVG strings or write SVG files. With the **[rsvg](https://CRAN.R-project.org/package=rsvg)** and **[png](https://CRAN.R-project.org/package=png)** packages installed, you can get a bitmap array, or write PNG files.  
+If you have the packages **[V8](https://CRAN.R-project.org/package=V8)**, **[withr](https://withr.r-lib.org/)**,  and **[fs](https://fs.r-lib.org/)** installed, you can use these image-generating functions to convert vegaspecs (or vegawidgets) into SVG strings or write SVG files. With the **[rsvg](https://CRAN.R-project.org/package=rsvg)** and **[png](https://CRAN.R-project.org/package=png)** packages installed, you can get a bitmap array, or write PNG files.  
 
 We have four image-generating functions; they each take either a vegaspec or a vegawidget as their main argument:
 
@@ -25,7 +25,7 @@ In addition to a vegaspec or vegawidget, these are the principal arguments:
 
 As you are most likely already aware, there is a tradeoff between PNG and SVG. The PNG format is an image with finite resolution. The SVG format is a set of instructions on how to render an image, so it has no resolution limitations. In general, the size of an SVG file scales with the number of graphical marks it contains, whereas a PNG file scales with its pixel-width and pixel-height.
 
-Please be aware that there is a known limitation to these functions - if you are using a vegaspec that has dataset loaded from a remote URL. The `nodejs` scripts are not able to use a proxy, so if if your computer uses a proxy to access the remote URL, the data will not load.
+If you are using a vegaspec that has dataset loaded from a remote URL, the `V8` scripts will access the remote data using R. If you use a proxy, make sure it is set up in R. 
 
 ```{r, message=FALSE}
 library("conflicted")

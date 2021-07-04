@@ -1,21 +1,17 @@
 #' Create or write image
 #'
-#' If you have  **[nodejs](https://nodejs.org/en/)** installed,
-#' you can use these functions can to create
+#' If you have **[V8](https://CRAN.R-project.org/package=V8)**,
+#' **[withr](https://withr.r-lib.org/)**,  and **[fs](https://fs.r-lib.org/)**
+#' installed, you can use these functions can to create
 #' or write images as PNG or SVG, using a `vegaspec` or `vegawidget`.
 #' To convert to a bitmap, or write a PNG file, you will additionally need
 #' the **[rsvg](https://CRAN.R-project.org/package=rsvg)** and
 #' **[png](https://CRAN.R-project.org/package=png)** packages.
 #'
-#' There is a known limitation to these functions - if you are using a vegaspec
-#' that has dataset loaded from a remote URL. The `nodejs` scripts are not
-#' able to use a proxy, so if your computer uses a proxy to access the remote URL,
-#' the data will not load.
-#'
 #' These functions can be called using (an object that can be coerced to)
 #' a `vegaspec`.
 #'
-#' The nodejs scripts used are adapted from the Vega
+#' The scripts used are adapted from the Vega
 #' [command line utilities](https://vega.github.io/vega/usage/#cli).
 #'
 #' @name image
@@ -37,12 +33,9 @@
 #' }
 #'
 #' @examples
-#' \dontrun{
-#'   # requires nodejs to be installed
-#'
 #'   # call any of these functions using either a vegaspec or a vegawidget
-#'   vw_to_svg(vegawidget(spec_mtcars))
-#'   vw_to_bitmap(spec_mtcars)
+#'   svg <- vw_to_svg(vegawidget(spec_mtcars))
+#'   bmp <- vw_to_bitmap(spec_mtcars)
 #'   vw_write_png(spec_mtcars, file.path(tempdir(), "temp.png"))
 #'   vw_write_svg(spec_mtcars, file.path(tempdir(), "temp.svg"))
 #'
@@ -65,7 +58,6 @@
 #'     base_url = data_dir
 #'   )
 #'
-#' }
 #' @seealso [vega-view library](https://github.com/vega/vega-view#image-export)
 #'
 #' @rdname image
@@ -74,43 +66,41 @@
 vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
                       seed = NULL) {
 
-  # Check dependencies
-  assert_packages("processx")
-  check_node_installed()
+  assert_packages(c("V8", "fs", "withr"))
 
   # set defaults
   base_url <-
     base_url %||% getOption("vega.embed")[["loader"]][["baseURL"]] %||% ""
   seed <- seed %||% sample(1e8, size = 1)
 
+  # convert to vega spec as a string
   spec <- vw_autosize(spec, width = width, height = height)
   vega_spec <- vw_to_vega(spec)
   str_spec <- vw_as_json(vega_spec, pretty = FALSE)
 
-  # Write the spec to a temporary file
-  spec_path <- tempfile(fileext = ".json")
-  cat(str_spec, file = spec_path)
+  file_name <- withr::local_tempfile(fileext = ".json")
 
-  # Get the package location -- used as argument
-  pkg_path <- system.file(package = "vegawidget")
+  vega <-
+    system.file("htmlwidgets", "lib", "vega", "vega.min.js", package = "vegawidget")
+  vega_to_svg <- system.file("bin", "vega_to_svg_v8.js", package = "vegawidget")
 
-  # Get the script location for the node script that does stuff
-  script_path <-  system.file("bin/vega_to_svg.js", package = "vegawidget")
+  # fire up V8
+  ct <- V8::v8()
+  ct$source(vega)
+  ct$source(vega_to_svg)
 
-  # Use processx to run the script
-  res <-
-    processx::run(
-      "node",
-      args = c(script_path, pkg_path, spec_path, seed, base_url)
-    )
+  # send arguments
+  ct$assign("spec", V8::JS(str_spec)) # send as JSON text to avoid jsonlite defaults
+  ct$assign("seed", seed)
+  ct$assign("baseURL", base_url)
+  ct$assign("fileName", file_name)
 
-  if (res$stderr != "") {
-    stop("Error in compiling to svg:\n", res$stderr)
-  }
-  res$stdout
+  # evaluate render-function
+  ct$eval("(async () => {await vwRender(spec, seed, baseURL, fileName)})()")
 
+  lines <- readLines(file_name, encoding = "UTF-8")
+  paste(lines, collapse = "\n")
 }
-
 
 #' @rdname image
 #' @export

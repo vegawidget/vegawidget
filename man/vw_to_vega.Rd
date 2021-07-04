@@ -13,14 +13,11 @@ vw_to_vega(spec)
 S3 object of class \code{vegaspec_vega} and \code{vegaspec}
 }
 \description{
-If you have  \strong{\href{https://nodejs.org/en/}{nodejs}} installed,
+If you have  \strong{\href{https://CRAN.R-project.org/package=V8}{V8}} installed,
 you can use this function to compile a Vega-Lite specification
 into a Vega specification.
 }
 \examples{
   vw_spec_version(spec_mtcars)
-\dontrun{
-  # requires nodejs to be installed
   vw_spec_version(vw_to_vega(spec_mtcars))
-}
 }

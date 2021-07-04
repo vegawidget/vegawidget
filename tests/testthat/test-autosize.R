@@ -46,18 +46,12 @@ spec_mtcars_autosize$config <-
   )
 # ===
 
-has_node <- unname(nchar(Sys.which("node")) > 0L)
-
 test_that("autosize works", {
 
   expect_identical(
     normalize(vw_autosize(spec_mtcars, width = 300, height = 300)),
     normalize(spec_mtcars_autosize)
   )
-
-  # Need to have node installed
-  skip_on_cran()
-  skip_if_not(has_node)
 
   vgspec_mtcars <- vw_to_vega(spec_mtcars)
 

@@ -40,7 +40,7 @@ print.JS_EVAL <- function(x, ...) {
 #' @export
 #'
 glue_js <- function(..., .open = "${", .envir = parent.frame()) {
-  x <- glue::glue(..., .open = .open, .envir = .envir, .sep = "\n")
+  glue::glue(..., .open = .open, .envir = .envir, .sep = "\n")
 }
 
 # indent a text string

@@ -35,7 +35,7 @@ test_that("vw_spec_version works", {
 
 test_that("vega_schema works", {
 
-  expect_identical(vega_schema(), schema_vega_lite)
-  expect_identical(vega_schema("vega"), schema_vega)
+  expect_snapshot(vega_schema())
+  expect_snapshot(vega_schema("vega"))
 
 })

@@ -56,9 +56,7 @@ Imports:
     glue,
     magrittr,
     htmltools,
-    digest,
-    V8,
-    withr
+    digest
 Suggests:
     spelling,
     knitr,
@@ -72,8 +70,9 @@ Suggests:
     readr,
     tibble,
     lubridate,
+    V8 (>= 3.0),
+    withr,
     learnr,
-    processx,
     rsvg,
     dplyr,
     png,

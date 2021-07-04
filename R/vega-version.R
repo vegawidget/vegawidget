@@ -16,15 +16,7 @@
 #'
 get_vega_version <- function(vega_lite_version) {
 
-  if (!requireNamespace("glue", quietly = TRUE)) {
-    stop("Package \"glue\" needed for this function to work. Please install it.",
-         call. = FALSE)
-  }
-
-  if (!requireNamespace("httr", quietly = TRUE)) {
-    stop("Package \"httr\" needed for this function to work. Please install it.",
-         call. = FALSE)
-  }
+  assert_packages("httr")
 
   url <-
     glue::glue("https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite_version}/package.json")

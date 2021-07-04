@@ -56,14 +56,12 @@ use_vegawidget <- function(s3_class_name = NULL) {
 
   usethis::use_package("vegawidget", type = "Imports")
 
-  suggests <- c("processx", "rsvg", "png", "fs")
+  suggests <- c("V8", "withr", "fs", "rsvg", "png")
 
   usethis::ui_todo(
     "To render images, {usethis::ui_value('vegawidget')} \\
     uses the packages {usethis::ui_value(suggests)}. \\
-    You may wish to add them to this package's \"Suggests\". \\
-    As well, your package's users will require \\
-    {usethis::ui_value('nodejs')} be installed on their computer."
+    You may wish to add them to this package's \"Suggests\"."
   )
 
   # usethis::use_package("httr", type = "Suggests")      # spec

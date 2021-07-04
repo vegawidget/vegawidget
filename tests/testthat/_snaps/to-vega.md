@@ -463,13 +463,10 @@
                 "carb": 2,
                 "_row": "Volvo 142E"
               }
-            ],
-            "source": null,
-            "transform": null
+            ]
           },
           {
             "name": "data_0",
-            "values": null,
             "source": "source_0",
             "transform": [
               {
@@ -483,7 +480,9 @@
           {
             "name": "marks",
             "type": "symbol",
-            "style": "point",
+            "style": [
+              "point"
+            ],
             "from": {
               "data": "data_0"
             },
@@ -523,8 +522,7 @@
             "type": "linear",
             "domain": {
               "data": "data_0",
-              "field": "wt",
-              "sort": null
+              "field": "wt"
             },
             "range": [
               0,
@@ -540,8 +538,7 @@
             "type": "linear",
             "domain": {
               "data": "data_0",
-              "field": "mpg",
-              "sort": null
+              "field": "mpg"
             },
             "range": [
               {
@@ -560,9 +557,7 @@
               "field": "cyl",
               "sort": true
             },
-            "range": "category",
-            "nice": null,
-            "zero": null
+            "range": "category"
           }
         ],
         "axes": [
@@ -580,10 +575,7 @@
             "maxExtent": 0,
             "minExtent": 0,
             "ticks": false,
-            "zindex": 0,
-            "title": null,
-            "labelFlush": null,
-            "labelOverlap": null
+            "zindex": 0
           },
           {
             "scale": "y",
@@ -599,48 +591,30 @@
             "maxExtent": 0,
             "minExtent": 0,
             "ticks": false,
-            "zindex": 0,
-            "title": null,
-            "labelFlush": null,
-            "labelOverlap": null
+            "zindex": 0
           },
           {
             "scale": "x",
             "orient": "bottom",
-            "gridScale": null,
             "grid": false,
+            "title": "wt",
+            "labelFlush": true,
+            "labelOverlap": true,
             "tickCount": {
               "signal": "ceil(width/40)"
             },
-            "domain": null,
-            "labels": null,
-            "aria": null,
-            "maxExtent": null,
-            "minExtent": null,
-            "ticks": null,
-            "zindex": 0,
-            "title": "wt",
-            "labelFlush": true,
-            "labelOverlap": true
+            "zindex": 0
           },
           {
             "scale": "y",
             "orient": "left",
-            "gridScale": null,
             "grid": false,
+            "title": "mpg",
+            "labelOverlap": true,
             "tickCount": {
               "signal": "ceil(height/40)"
             },
-            "domain": null,
-            "labels": null,
-            "aria": null,
-            "maxExtent": null,
-            "minExtent": null,
-            "ticks": null,
-            "zindex": 0,
-            "title": "mpg",
-            "labelFlush": null,
-            "labelOverlap": true
+            "zindex": 0
           }
         ],
         "legends": [

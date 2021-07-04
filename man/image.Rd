@@ -49,32 +49,25 @@ increased-resolution of retina displays}
 }
 }
 \description{
-If you have  \strong{\href{https://nodejs.org/en/}{nodejs}} installed,
-you can use these functions can to create
+If you have \strong{\href{https://CRAN.R-project.org/package=V8}{V8}},
+\strong{\href{https://withr.r-lib.org/}{withr}},  and \strong{\href{https://fs.r-lib.org/}{fs}}
+installed, you can use these functions can to create
 or write images as PNG or SVG, using a \code{vegaspec} or \code{vegawidget}.
 To convert to a bitmap, or write a PNG file, you will additionally need
 the \strong{\href{https://CRAN.R-project.org/package=rsvg}{rsvg}} and
 \strong{\href{https://CRAN.R-project.org/package=png}{png}} packages.
 }
 \details{
-There is a known limitation to these functions - if you are using a vegaspec
-that has dataset loaded from a remote URL. The \code{nodejs} scripts are not
-able to use a proxy, so if your computer uses a proxy to access the remote URL,
-the data will not load.
-
 These functions can be called using (an object that can be coerced to)
 a \code{vegaspec}.
 
-The nodejs scripts used are adapted from the Vega
+The scripts used are adapted from the Vega
 \href{https://vega.github.io/vega/usage/#cli}{command line utilities}.
 }
 \examples{
-\dontrun{
-  # requires nodejs to be installed
-
   # call any of these functions using either a vegaspec or a vegawidget
-  vw_to_svg(vegawidget(spec_mtcars))
-  vw_to_bitmap(spec_mtcars)
+  svg <- vw_to_svg(vegawidget(spec_mtcars))
+  bmp <- vw_to_bitmap(spec_mtcars)
   vw_write_png(spec_mtcars, file.path(tempdir(), "temp.png"))
   vw_write_svg(spec_mtcars, file.path(tempdir(), "temp.svg"))
 
@@ -97,7 +90,6 @@ The nodejs scripts used are adapted from the Vega
     base_url = data_dir
   )
 
-}
 }
 \seealso{
 \href{https://github.com/vega/vega-view#image-export}{vega-view library}

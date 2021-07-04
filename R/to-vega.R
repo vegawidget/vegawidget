@@ -1,6 +1,6 @@
 #' Convert to Vega specification
 #'
-#' If you have  **[nodejs](https://nodejs.org/en/)** installed,
+#' If you have  **[V8](https://CRAN.R-project.org/package=V8)** installed,
 #' you can use this function to compile a Vega-Lite specification
 #' into a Vega specification.
 #'
@@ -9,10 +9,7 @@
 #' @return S3 object of class `vegaspec_vega` and `vegaspec`
 #' @examples
 #'   vw_spec_version(spec_mtcars)
-#' \dontrun{
-#'   # requires nodejs to be installed
 #'   vw_spec_version(vw_to_vega(spec_mtcars))
-#' }
 #' @export
 #'
 vw_to_vega <- function(spec) {
@@ -35,15 +32,19 @@ vw_to_vega <- function(spec) {
     system.file("htmlwidgets", "lib", ..., package = "vegawidget")
   }
 
+  assert_packages("V8")
+
   ct <- V8::v8()
 
   ct$source(pkgfile("vega", "vega.min.js"))
   ct$source(pkgfile("vega-lite", "vega-lite.min.js"))
   ct$eval(glue::glue("var vs = vegaLite.compile({vw_as_json(spec)})"))
 
-  vs <- ct$get("vs")
+  # don't let V8 convert to JSON; send as string
+  ct$eval("var strSpec = JSON.stringify(vs.spec)")
+  str_spec <- ct$get("strSpec")
 
-  as_vegaspec(vs$spec)
+  as_vegaspec(str_spec)
 }
 
 .vw_to_vega.vegaspec_vega <- function(spec, ...) {

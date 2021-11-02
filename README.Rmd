@@ -19,7 +19,7 @@ url_local <- function(x) {
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project.org/package=vegawidget)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![R-CMD-check](https://github.com/vegawidget/vegawidget/workflows/R-CMD-check/badge.svg)](https://github.com/vegawidget/vegawidget/actions)
 <!-- badges: end -->
 
@@ -35,6 +35,14 @@ Accordingly, this package may be useful to:
 - develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as the rendering foundation.
 
 ## Features
+
+### New to vegawidget 0.3.3
+
+This is a small release:
+
+- When converting vegaspec to JSON, `NA` is serialized to `null`.
+
+- Update to a test to comply with changes to testthat.
 
 ### New to vegawidget 0.3.2
 

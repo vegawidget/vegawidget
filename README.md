@@ -4,7 +4,7 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project.org/package=vegawidget)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![R-CMD-check](https://github.com/vegawidget/vegawidget/workflows/R-CMD-check/badge.svg)](https://github.com/vegawidget/vegawidget/actions)
 <!-- badges: end -->
 
@@ -29,9 +29,17 @@ Accordingly, this package may be useful to:
 
 ## Features
 
+### New to vegawidget 0.3.3
+
+This is a small release:
+
+-   When converting vegaspec to JSON, `NA` is serialized to `null`.
+
+-   Update to a test to comply with changes to testthat.
+
 ### New to vegawidget 0.3.2
 
--   vegawidget offers Vega-Lite 4.17.0 and Vega 5.17.0. Consequently,
+-   vegawidget offers Vega-Lite 5.1.0 and Vega 5.20.0. Consequently,
     this package works only with browsers that support ES6. This
     includes all modern browsers and the RStudioIDE (version 1.2 and
     later).

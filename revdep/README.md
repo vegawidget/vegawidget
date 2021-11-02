@@ -2,22 +2,22 @@
 
 |field    |value                        |
 |:--------|:----------------------------|
-|version  |R version 4.0.2 (2020-06-22) |
-|os       |macOS Mojave 10.14.6         |
+|version  |R version 4.1.0 (2021-05-18) |
+|os       |macOS Big Sur 11.6           |
 |system   |x86_64, darwin17.0           |
 |ui       |RStudio                      |
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2021-01-11                   |
+|date     |2021-11-02                   |
 
 # Dependencies
 
-|package     |old   |new   |Δ  |
-|:-----------|:-----|:-----|:--|
-|vegawidget  |0.3.1 |0.3.2 |*  |
-|htmlwidgets |NA    |1.5.3 |*  |
+|package    |old   |new    |Δ  |
+|:----------|:-----|:------|:--|
+|vegawidget |0.3.2 |0.3.3  |*  |
+|rlang      |NA    |0.4.12 |*  |
 
 # Revdeps
 

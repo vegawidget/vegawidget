@@ -76,7 +76,7 @@ to JSON; as_vegaspec() can be used to translate from JSON." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.2.9003</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.3.9000</span>
       </span>
     </div>
 
@@ -182,481 +182,482 @@ to JSON; <code><a href='as_vegaspec.html'>as_vegaspec()</a></code> can be used t
     <div class='dont-index'><p><code><a href='as_vegaspec.html'>as_vegaspec()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='fu'>vw_as_json</span><span class='op'>(</span><span class='va'>spec_mtcars</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {
-#&gt;   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-#&gt;   "width": 300,
-#&gt;   "height": 300,
-#&gt;   "description": "An mtcars example.",
-#&gt;   "data": {
-#&gt;     "values": [
-#&gt;       {
-#&gt;         "mpg": 21,
-#&gt;         "cyl": 6,
-#&gt;         "disp": 160,
-#&gt;         "hp": 110,
-#&gt;         "drat": 3.9,
-#&gt;         "wt": 2.62,
-#&gt;         "qsec": 16.46,
-#&gt;         "vs": 0,
-#&gt;         "am": 1,
-#&gt;         "gear": 4,
-#&gt;         "carb": 4,
-#&gt;         "_row": "Mazda RX4"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 21,
-#&gt;         "cyl": 6,
-#&gt;         "disp": 160,
-#&gt;         "hp": 110,
-#&gt;         "drat": 3.9,
-#&gt;         "wt": 2.875,
-#&gt;         "qsec": 17.02,
-#&gt;         "vs": 0,
-#&gt;         "am": 1,
-#&gt;         "gear": 4,
-#&gt;         "carb": 4,
-#&gt;         "_row": "Mazda RX4 Wag"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 22.8,
-#&gt;         "cyl": 4,
-#&gt;         "disp": 108,
-#&gt;         "hp": 93,
-#&gt;         "drat": 3.85,
-#&gt;         "wt": 2.32,
-#&gt;         "qsec": 18.61,
-#&gt;         "vs": 1,
-#&gt;         "am": 1,
-#&gt;         "gear": 4,
-#&gt;         "carb": 1,
-#&gt;         "_row": "Datsun 710"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 21.4,
-#&gt;         "cyl": 6,
-#&gt;         "disp": 258,
-#&gt;         "hp": 110,
-#&gt;         "drat": 3.08,
-#&gt;         "wt": 3.215,
-#&gt;         "qsec": 19.44,
-#&gt;         "vs": 1,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 1,
-#&gt;         "_row": "Hornet 4 Drive"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 18.7,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 360,
-#&gt;         "hp": 175,
-#&gt;         "drat": 3.15,
-#&gt;         "wt": 3.44,
-#&gt;         "qsec": 17.02,
-#&gt;         "vs": 0,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 2,
-#&gt;         "_row": "Hornet Sportabout"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 18.1,
-#&gt;         "cyl": 6,
-#&gt;         "disp": 225,
-#&gt;         "hp": 105,
-#&gt;         "drat": 2.76,
-#&gt;         "wt": 3.46,
-#&gt;         "qsec": 20.22,
-#&gt;         "vs": 1,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 1,
-#&gt;         "_row": "Valiant"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 14.3,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 360,
-#&gt;         "hp": 245,
-#&gt;         "drat": 3.21,
-#&gt;         "wt": 3.57,
-#&gt;         "qsec": 15.84,
-#&gt;         "vs": 0,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 4,
-#&gt;         "_row": "Duster 360"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 24.4,
-#&gt;         "cyl": 4,
-#&gt;         "disp": 146.7,
-#&gt;         "hp": 62,
-#&gt;         "drat": 3.69,
-#&gt;         "wt": 3.19,
-#&gt;         "qsec": 20,
-#&gt;         "vs": 1,
-#&gt;         "am": 0,
-#&gt;         "gear": 4,
-#&gt;         "carb": 2,
-#&gt;         "_row": "Merc 240D"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 22.8,
-#&gt;         "cyl": 4,
-#&gt;         "disp": 140.8,
-#&gt;         "hp": 95,
-#&gt;         "drat": 3.92,
-#&gt;         "wt": 3.15,
-#&gt;         "qsec": 22.9,
-#&gt;         "vs": 1,
-#&gt;         "am": 0,
-#&gt;         "gear": 4,
-#&gt;         "carb": 2,
-#&gt;         "_row": "Merc 230"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 19.2,
-#&gt;         "cyl": 6,
-#&gt;         "disp": 167.6,
-#&gt;         "hp": 123,
-#&gt;         "drat": 3.92,
-#&gt;         "wt": 3.44,
-#&gt;         "qsec": 18.3,
-#&gt;         "vs": 1,
-#&gt;         "am": 0,
-#&gt;         "gear": 4,
-#&gt;         "carb": 4,
-#&gt;         "_row": "Merc 280"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 17.8,
-#&gt;         "cyl": 6,
-#&gt;         "disp": 167.6,
-#&gt;         "hp": 123,
-#&gt;         "drat": 3.92,
-#&gt;         "wt": 3.44,
-#&gt;         "qsec": 18.9,
-#&gt;         "vs": 1,
-#&gt;         "am": 0,
-#&gt;         "gear": 4,
-#&gt;         "carb": 4,
-#&gt;         "_row": "Merc 280C"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 16.4,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 275.8,
-#&gt;         "hp": 180,
-#&gt;         "drat": 3.07,
-#&gt;         "wt": 4.07,
-#&gt;         "qsec": 17.4,
-#&gt;         "vs": 0,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 3,
-#&gt;         "_row": "Merc 450SE"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 17.3,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 275.8,
-#&gt;         "hp": 180,
-#&gt;         "drat": 3.07,
-#&gt;         "wt": 3.73,
-#&gt;         "qsec": 17.6,
-#&gt;         "vs": 0,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 3,
-#&gt;         "_row": "Merc 450SL"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 15.2,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 275.8,
-#&gt;         "hp": 180,
-#&gt;         "drat": 3.07,
-#&gt;         "wt": 3.78,
-#&gt;         "qsec": 18,
-#&gt;         "vs": 0,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 3,
-#&gt;         "_row": "Merc 450SLC"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 10.4,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 472,
-#&gt;         "hp": 205,
-#&gt;         "drat": 2.93,
-#&gt;         "wt": 5.25,
-#&gt;         "qsec": 17.98,
-#&gt;         "vs": 0,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 4,
-#&gt;         "_row": "Cadillac Fleetwood"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 10.4,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 460,
-#&gt;         "hp": 215,
-#&gt;         "drat": 3,
-#&gt;         "wt": 5.424,
-#&gt;         "qsec": 17.82,
-#&gt;         "vs": 0,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 4,
-#&gt;         "_row": "Lincoln Continental"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 14.7,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 440,
-#&gt;         "hp": 230,
-#&gt;         "drat": 3.23,
-#&gt;         "wt": 5.345,
-#&gt;         "qsec": 17.42,
-#&gt;         "vs": 0,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 4,
-#&gt;         "_row": "Chrysler Imperial"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 32.4,
-#&gt;         "cyl": 4,
-#&gt;         "disp": 78.7,
-#&gt;         "hp": 66,
-#&gt;         "drat": 4.08,
-#&gt;         "wt": 2.2,
-#&gt;         "qsec": 19.47,
-#&gt;         "vs": 1,
-#&gt;         "am": 1,
-#&gt;         "gear": 4,
-#&gt;         "carb": 1,
-#&gt;         "_row": "Fiat 128"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 30.4,
-#&gt;         "cyl": 4,
-#&gt;         "disp": 75.7,
-#&gt;         "hp": 52,
-#&gt;         "drat": 4.93,
-#&gt;         "wt": 1.615,
-#&gt;         "qsec": 18.52,
-#&gt;         "vs": 1,
-#&gt;         "am": 1,
-#&gt;         "gear": 4,
-#&gt;         "carb": 2,
-#&gt;         "_row": "Honda Civic"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 33.9,
-#&gt;         "cyl": 4,
-#&gt;         "disp": 71.1,
-#&gt;         "hp": 65,
-#&gt;         "drat": 4.22,
-#&gt;         "wt": 1.835,
-#&gt;         "qsec": 19.9,
-#&gt;         "vs": 1,
-#&gt;         "am": 1,
-#&gt;         "gear": 4,
-#&gt;         "carb": 1,
-#&gt;         "_row": "Toyota Corolla"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 21.5,
-#&gt;         "cyl": 4,
-#&gt;         "disp": 120.1,
-#&gt;         "hp": 97,
-#&gt;         "drat": 3.7,
-#&gt;         "wt": 2.465,
-#&gt;         "qsec": 20.01,
-#&gt;         "vs": 1,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 1,
-#&gt;         "_row": "Toyota Corona"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 15.5,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 318,
-#&gt;         "hp": 150,
-#&gt;         "drat": 2.76,
-#&gt;         "wt": 3.52,
-#&gt;         "qsec": 16.87,
-#&gt;         "vs": 0,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 2,
-#&gt;         "_row": "Dodge Challenger"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 15.2,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 304,
-#&gt;         "hp": 150,
-#&gt;         "drat": 3.15,
-#&gt;         "wt": 3.435,
-#&gt;         "qsec": 17.3,
-#&gt;         "vs": 0,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 2,
-#&gt;         "_row": "AMC Javelin"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 13.3,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 350,
-#&gt;         "hp": 245,
-#&gt;         "drat": 3.73,
-#&gt;         "wt": 3.84,
-#&gt;         "qsec": 15.41,
-#&gt;         "vs": 0,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 4,
-#&gt;         "_row": "Camaro Z28"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 19.2,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 400,
-#&gt;         "hp": 175,
-#&gt;         "drat": 3.08,
-#&gt;         "wt": 3.845,
-#&gt;         "qsec": 17.05,
-#&gt;         "vs": 0,
-#&gt;         "am": 0,
-#&gt;         "gear": 3,
-#&gt;         "carb": 2,
-#&gt;         "_row": "Pontiac Firebird"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 27.3,
-#&gt;         "cyl": 4,
-#&gt;         "disp": 79,
-#&gt;         "hp": 66,
-#&gt;         "drat": 4.08,
-#&gt;         "wt": 1.935,
-#&gt;         "qsec": 18.9,
-#&gt;         "vs": 1,
-#&gt;         "am": 1,
-#&gt;         "gear": 4,
-#&gt;         "carb": 1,
-#&gt;         "_row": "Fiat X1-9"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 26,
-#&gt;         "cyl": 4,
-#&gt;         "disp": 120.3,
-#&gt;         "hp": 91,
-#&gt;         "drat": 4.43,
-#&gt;         "wt": 2.14,
-#&gt;         "qsec": 16.7,
-#&gt;         "vs": 0,
-#&gt;         "am": 1,
-#&gt;         "gear": 5,
-#&gt;         "carb": 2,
-#&gt;         "_row": "Porsche 914-2"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 30.4,
-#&gt;         "cyl": 4,
-#&gt;         "disp": 95.1,
-#&gt;         "hp": 113,
-#&gt;         "drat": 3.77,
-#&gt;         "wt": 1.513,
-#&gt;         "qsec": 16.9,
-#&gt;         "vs": 1,
-#&gt;         "am": 1,
-#&gt;         "gear": 5,
-#&gt;         "carb": 2,
-#&gt;         "_row": "Lotus Europa"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 15.8,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 351,
-#&gt;         "hp": 264,
-#&gt;         "drat": 4.22,
-#&gt;         "wt": 3.17,
-#&gt;         "qsec": 14.5,
-#&gt;         "vs": 0,
-#&gt;         "am": 1,
-#&gt;         "gear": 5,
-#&gt;         "carb": 4,
-#&gt;         "_row": "Ford Pantera L"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 19.7,
-#&gt;         "cyl": 6,
-#&gt;         "disp": 145,
-#&gt;         "hp": 175,
-#&gt;         "drat": 3.62,
-#&gt;         "wt": 2.77,
-#&gt;         "qsec": 15.5,
-#&gt;         "vs": 0,
-#&gt;         "am": 1,
-#&gt;         "gear": 5,
-#&gt;         "carb": 6,
-#&gt;         "_row": "Ferrari Dino"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 15,
-#&gt;         "cyl": 8,
-#&gt;         "disp": 301,
-#&gt;         "hp": 335,
-#&gt;         "drat": 3.54,
-#&gt;         "wt": 3.57,
-#&gt;         "qsec": 14.6,
-#&gt;         "vs": 0,
-#&gt;         "am": 1,
-#&gt;         "gear": 5,
-#&gt;         "carb": 8,
-#&gt;         "_row": "Maserati Bora"
-#&gt;       },
-#&gt;       {
-#&gt;         "mpg": 21.4,
-#&gt;         "cyl": 4,
-#&gt;         "disp": 121,
-#&gt;         "hp": 109,
-#&gt;         "drat": 4.11,
-#&gt;         "wt": 2.78,
-#&gt;         "qsec": 18.6,
-#&gt;         "vs": 1,
-#&gt;         "am": 1,
-#&gt;         "gear": 4,
-#&gt;         "carb": 2,
-#&gt;         "_row": "Volvo 142E"
-#&gt;       }
-#&gt;     ]
-#&gt;   },
-#&gt;   "mark": "point",
-#&gt;   "encoding": {
-#&gt;     "x": {
-#&gt;       "field": "wt",
-#&gt;       "type": "quantitative"
-#&gt;     },
-#&gt;     "y": {
-#&gt;       "field": "mpg",
-#&gt;       "type": "quantitative"
-#&gt;     },
-#&gt;     "color": {
-#&gt;       "field": "cyl",
-#&gt;       "type": "nominal"
-#&gt;     }
-#&gt;   }
-#&gt; } </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'>  <span class='fu'>vw_as_json</span><span class='op'>(</span><span class='va'>spec_mtcars</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   "width": 300,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   "height": 300,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   "description": "An mtcars example.",</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   "data": {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "values": [</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 21,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 160,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 110,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.9,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 2.62,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 16.46,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Mazda RX4"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 21,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 160,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 110,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.9,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 2.875,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 17.02,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Mazda RX4 Wag"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 22.8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 108,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 93,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.85,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 2.32,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 18.61,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Datsun 710"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 21.4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 258,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 110,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.08,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.215,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 19.44,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Hornet 4 Drive"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 18.7,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 360,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 175,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.15,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.44,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 17.02,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Hornet Sportabout"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 18.1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 225,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 105,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 2.76,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.46,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 20.22,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Valiant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 14.3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 360,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 245,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.21,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.57,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 15.84,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Duster 360"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 24.4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 146.7,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 62,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.69,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.19,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 20,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Merc 240D"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 22.8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 140.8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 95,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.92,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.15,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 22.9,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Merc 230"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 19.2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 167.6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 123,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.92,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.44,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 18.3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Merc 280"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 17.8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 167.6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 123,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.92,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.44,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 18.9,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Merc 280C"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 16.4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 275.8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 180,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.07,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 4.07,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 17.4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Merc 450SE"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 17.3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 275.8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 180,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.07,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.73,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 17.6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Merc 450SL"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 15.2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 275.8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 180,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.07,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.78,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 18,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Merc 450SLC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 10.4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 472,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 205,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 2.93,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 5.25,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 17.98,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Cadillac Fleetwood"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 10.4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 460,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 215,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 5.424,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 17.82,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Lincoln Continental"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 14.7,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 440,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 230,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.23,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 5.345,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 17.42,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Chrysler Imperial"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 32.4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 78.7,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 66,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 4.08,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 2.2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 19.47,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Fiat 128"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 30.4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 75.7,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 52,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 4.93,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 1.615,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 18.52,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Honda Civic"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 33.9,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 71.1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 65,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 4.22,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 1.835,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 19.9,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Toyota Corolla"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 21.5,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 120.1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 97,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.7,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 2.465,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 20.01,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Toyota Corona"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 15.5,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 318,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 150,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 2.76,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.52,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 16.87,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Dodge Challenger"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 15.2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 304,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 150,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.15,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.435,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 17.3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "AMC Javelin"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 13.3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 350,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 245,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.73,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.84,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 15.41,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Camaro Z28"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 19.2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 400,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 175,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.08,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.845,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 17.05,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Pontiac Firebird"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 27.3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 79,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 66,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 4.08,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 1.935,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 18.9,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Fiat X1-9"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 26,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 120.3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 91,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 4.43,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 2.14,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 16.7,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 5,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Porsche 914-2"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 30.4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 95.1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 113,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.77,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 1.513,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 16.9,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 5,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Lotus Europa"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 15.8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 351,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 264,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 4.22,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.17,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 14.5,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 5,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Ford Pantera L"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 19.7,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 145,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 175,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.62,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 2.77,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 15.5,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 5,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Ferrari Dino"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 15,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 301,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 335,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 3.54,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 3.57,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 14.6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 0,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 5,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 8,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Maserati Bora"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "mpg": 21.4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "cyl": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "disp": 121,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "hp": 109,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "drat": 4.11,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "wt": 2.78,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "qsec": 18.6,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "vs": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "am": 1,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "gear": 4,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "carb": 2,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "_row": "Volvo 142E"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       }</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     ]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   "mark": "point",</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   "encoding": {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "x": {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "field": "wt",</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "type": "quantitative"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "y": {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "field": "mpg",</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "type": "quantitative"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     },</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "color": {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "field": "cyl",</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "type": "nominal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     }</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   }</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> } </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

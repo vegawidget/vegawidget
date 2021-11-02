@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.2.9003</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.3.9000</span>
       </span>
     </div>
 
@@ -102,13 +102,13 @@
 
       
 
-      </header><script src="javascript_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="javascript_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="javascript_files/vega-5.17.0/vega.min.js"></script><script src="javascript_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="javascript_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
-<script src="javascript_files/vega-embed-6.12.2/vega-embed.js"></script><script src="javascript_files/vegawidget-binding-0.3.2.9003/vegawidget.js"></script><div class="row">
+      </header><script src="javascript_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="javascript_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="javascript_files/vega-5.17.0/vega.min.js"></script><script src="javascript_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="javascript_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
+<script src="javascript_files/vega-embed-6.12.2/vega-embed.js"></script><script src="javascript_files/vegawidget-binding-0.3.3.9000/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Extend using JavaScript</h1>
             
-            <h4 class="date">2021-06-20</h4>
+            <h4 class="date">2021-11-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/javascript.Rmd"><code>vignettes/articles/javascript.Rmd</code></a></small>
       <div class="hidden name"><code>javascript.Rmd</code></div>
@@ -158,7 +158,7 @@
       y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"y"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,
       color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"category"</span>, type <span class="op">=</span> <span class="st">"nominal"</span><span class="op">)</span>
     <span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div id="demo-vega-view" class="section level3">
 <h3 class="hasAnchor">
@@ -198,7 +198,7 @@
     "defaultStyle": true
   }
 },"evals":[],"jsHooks":[]}</script><hr>
-<p>It remains to tell the vega-view API what to do with the chart, for this we need to use JavaScript. Accordingly, the chunk below is written in JavaScript - in the R Markdown file, this is a <code>{js}</code> chunk, rather than an <code>{r}</code> chunk.</p>
+<p>It remains to tell the vega-view API what to do with the chart, for this we need to use JavaScript. Accordingly, the chunk below is written in JavaScript - in the R Markdown file, this is a <a href="https://github.com/jeroen/js">js</a> chunk, rather than an <code>{r}</code> chunk.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">// This is a JavaScript chunk, using {js} instead of {r}</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">'#streaming-demo'</span>).<span class="at">then</span>(<span class="kw">function</span>(view) <span class="op">{</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="co">/**</span></span>
@@ -361,7 +361,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <p>We want to print the value to an HTML element, so we will use provided snippet called <code>"element_text"</code>. Note that there two parameters that we can supply, <code>selector</code>, to identify the HTML element, and <code>expr</code>, the JavaScript expression to use. The <code>selector</code> parameter is required; the <code>expr</code> parameter defaults to <code>"x"</code>, the value.</p>
 <p>We supply the parameters as additional arguments to <code><a href="../../reference/vw_handler_add_effect.html">vw_handler_add_effect()</a></code>:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="fu"><a href="../../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span><span class="st">"element_text"</span>, selector <span class="op">=</span> <span class="st">"#output-datum"</span><span class="op">)</span></code></pre></div>
 <pre><code>## arguments: event, item 
 ## 
@@ -379,7 +379,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <p>The R functions interpolate the parameters into the JavaScript code-snippet. If we were to use this <code>body_effect</code> as is, the text that appears in the HTML element would be <code>[object Object]</code>, which is not very informative. Instead, we will use the <code>expr</code> parameter to insert an expression to convert the JavaScript object to JSON text:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">handler_event</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="../../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span> <span class="op">%&gt;%</span>    
+  <span class="fu"><a href="../../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>    
   <span class="fu"><a href="../../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span>
     <span class="st">"element_text"</span>, 
     selector <span class="op">=</span> <span class="st">"#output-datum"</span>,
@@ -428,7 +428,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <p>We create our vegawidget, then attach our handler, specifying that we want to listen to <code>"click"</code> events, and respond to them using our event-handler:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_scatterplot</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/add-listeners.html">vw_add_event_listener</a></span><span class="op">(</span><span class="st">"click"</span>, handler_body <span class="op">=</span> <span class="va">handler_event</span><span class="op">)</span></code></pre></div>
 <p>We create our element that will contain the output of the event-handler:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
@@ -440,8 +440,8 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <p>When you click anywhere in the plotting-rectangle, the observation associated with the mark (if any) where you clicked will be printed below.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_scatterplot</span></code></pre></div>
-<div id="htmlwidget-3d156e7bf7c996103fc0" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3d156e7bf7c996103fc0">{"x":{
+<div id="htmlwidget-9a1558ffeead970b88fc" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9a1558ffeead970b88fc">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,
@@ -955,7 +955,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
         type <span class="op">=</span> <span class="st">"quantitative"</span>
       <span class="op">)</span>
     <span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>In the Vega-Lite spec above, in the <code>x</code> <code>encoding</code>, we have defined the <code>bin</code> <code>step</code> as a <code>signal</code> named <code>"bin_width"</code>. This is not legal in Vega-Lite. To make this work, we use <a href="https://github.com/vega/vega-embed#options">vega-embed</a> to patch the compiled Vega spec with a definition of the signal. From R, we can include the patch as an option to <code><a href="../../reference/vega_embed.html">vega_embed()</a></code>.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -999,7 +999,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <p>A signal-handler is a JavaScript function that takes two arguments, the <code>name</code> of the signal and the <code>value</code> of the signal. Like the example above, we define a signal-handler to return the value of the signal, then put the value into the HTML element with ID <code>"output-bin-width"</code>, as its text. Note that we are using the <code>expr</code> parameter to specify that we want only three decimal places.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">handler_bin_width</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="../../reference/vw_handler_signal.html">vw_handler_signal</a></span><span class="op">(</span><span class="st">"value"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../../reference/vw_handler_signal.html">vw_handler_signal</a></span><span class="op">(</span><span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span>
     <span class="st">"element_text"</span>,
     selector <span class="op">=</span> <span class="st">"#output-bin-width"</span>,
@@ -1007,7 +1007,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
   <span class="op">)</span>
 
 <span class="va">output_histogram</span> <span class="op">&lt;-</span> 
-  <span class="va">output_histogram</span> <span class="op">%&gt;%</span>
+  <span class="va">output_histogram</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/add-listeners.html">vw_add_signal_listener</a></span><span class="op">(</span><span class="st">"bin_width"</span>, <span class="va">handler_bin_width</span><span class="op">)</span></code></pre></div>
 <p>We use the function <code><a href="../../reference/add-listeners.html">vw_add_signal_listener()</a></code> to add the signal-listener to the vegawidget. We specify that whenever the value of the <code>"bin-width"</code> signal changes, Vega will call the signal-handler function, which will update the text in <code>output_bin_width</code>.</p>
 <p>We can print the HTML elements to the document; these are “live”, but it remains to define the actions that connect <code>input_bin_width</code> to the Vega histogram.</p>
@@ -36112,7 +36112,7 @@ The histogram bin-width is
 </p>
 <hr>
 <p>To connect the input-slider to the histogram, we need to provide a JavaScript function that will run whenever the input-slider changes.</p>
-<p>In R Markdown, we can specify JavaScript chunks using <code>{js}</code> just like we specify R chunks using <code>{r}</code>. This is what we do in the code-chunk below.</p>
+<p>In R Markdown, we can specify JavaScript chunks using <a href="https://github.com/jeroen/js">js</a> just like we specify R chunks using <code>{r}</code>. This is what we do in the code-chunk below.</p>
 <p>In this code, we define a JavaScript function, <code>on_bin_width()</code>, that transforms the value of the input to the value of the bin-width (recall the slider has a logarithmic scale). Then, using <code>Vegawidget.findViewPromise()</code>, we <a href="https://vega.github.io/vega/docs/api/view/#view_signal">set the signal</a> <code>"bin_width"</code> in the Vega chart and direct the chart to re-<a href="https://github.com/vega/vega/tree/master/packages/vega-view#view_run">run</a>.</p>
 <p>We add an <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener">event listener</a> to our input-slider, specifying <code>on_bin_width()</code> to run any time the input changes.</p>
 <p>Also, we direct this <code>on_bin_width()</code> to run once at initialization.</p>
@@ -36188,7 +36188,7 @@ on_bin_width()
 <code class="sourceCode R"><span class="va">output_data</span> <span class="op">&lt;-</span> <span class="va">tags</span><span class="op">$</span><span class="fu">pre</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"output-data"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">handler_data</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="../../reference/vw_handler_signal.html">vw_handler_data</a></span><span class="op">(</span><span class="st">"value"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../../reference/vw_handler_signal.html">vw_handler_data</a></span><span class="op">(</span><span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span>
     <span class="st">"element_text"</span>,
     selector <span class="op">=</span> <span class="st">"#output-data"</span>,
@@ -36218,11 +36218,11 @@ on_bin_width()
         scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
       <span class="op">)</span>     
     <span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">output_chart</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_circle</span>, elementId <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_circle</span>, elementId <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/add-listeners.html">vw_add_data_listener</a></span><span class="op">(</span><span class="st">"source"</span>, <span class="va">handler_data</span><span class="op">)</span></code></pre></div>
 <p>We can print out our HTML elements to the document, then, like in the signal-example, we will add some JavaScript to define the interactions.</p>
 <div id="demo-data" class="section level3">
@@ -36279,7 +36279,7 @@ on_bin_width()
 <code class="sourceCode R"><span class="va">output_data</span></code></pre></div>
 <p></p>
 <pre id="output-data"></pre>
-<p>Please note that the next few code-chunks are <code>{js}</code> chunks rather than <code>{r}</code> chunks.</p>
+<p>Please note that the next few code-chunks are <a href="https://github.com/jeroen/js">js</a> chunks rather than <code>{r}</code> chunks.</p>
 <p>Like above, we create a JavaScript variable, <code>angle</code> that refers to the input-slider.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb39-1"><a href="#cb39-1"></a><span class="co">// {js}</span></span>
 <span id="cb39-2"><a href="#cb39-2"></a><span class="co">// Reference to our slider-input</span></span>

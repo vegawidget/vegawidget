@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.2.9003</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.3.9000</span>
       </span>
     </div>
 
@@ -102,13 +102,13 @@
 
       
 
-      </header><script src="dates-times_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="dates-times_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="dates-times_files/vega-5.17.0/vega.min.js"></script><script src="dates-times_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="dates-times_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
-<script src="dates-times_files/vega-embed-6.12.2/vega-embed.js"></script><script src="dates-times_files/vegawidget-binding-0.3.2.9003/vegawidget.js"></script><div class="row">
+      </header><script src="dates-times_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="dates-times_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="dates-times_files/vega-5.17.0/vega.min.js"></script><script src="dates-times_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="dates-times_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
+<script src="dates-times_files/vega-embed-6.12.2/vega-embed.js"></script><script src="dates-times_files/vegawidget-binding-0.3.3.9000/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Work with dates and times</h1>
             
-            <h4 class="date">2021-06-20</h4>
+            <h4 class="date">2021-11-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/dates-times.Rmd"><code>vignettes/articles/dates-times.Rmd</code></a></small>
       <div class="hidden name"><code>dates-times.Rmd</code></div>
@@ -150,15 +150,15 @@
 ## $ temp &lt;dbl&gt; 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2, …</code></pre>
 <p>This dataset contains hourly observations of Seattle temperature (°F) for the year 2010. Let’s inspect the time zone of the <code>date</code> variable:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="http://lubridate.tidyverse.org/reference/tz.html">tz</a></span><span class="op">(</span><span class="va">data_seattle_hourly</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/tz.html">tz</a></span><span class="op">(</span><span class="va">data_seattle_hourly</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "America/Los_Angeles"</code></pre>
 <p>We see that the <code>date</code> variable uses the <code>"America/Los_Angeles"</code> time zone, which is what we would expect for Seattle. This means that the values for <code>date</code> are displayed above as local time. To make the following demonstrations a little lighter, we will use an shortened version of this dataset, one that uses only 2010-01-01:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_seattle_hourly_short</span> <span class="op">&lt;-</span>
-  <span class="va">data_seattle_hourly</span> <span class="op">%&gt;%</span>
+  <span class="va">data_seattle_hourly</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
-    <span class="fu"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"day"</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2010-01-01"</span>, tz <span class="op">=</span> <span class="st">"America/Los_Angeles"</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"day"</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2010-01-01"</span>, tz <span class="op">=</span> <span class="st">"America/Los_Angeles"</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 23
 ## Columns: 2
@@ -184,12 +184,12 @@
         scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>zero <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
       <span class="op">)</span>
     <span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_local</span></code></pre></div>
-<div id="htmlwidget-26c105b879e2267271c2" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-26c105b879e2267271c2">{"x":{
+<div id="htmlwidget-ff3beb8f6db457144f9f" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ff3beb8f6db457144f9f">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -315,7 +315,7 @@
 },"evals":[],"jsHooks":[]}</script><p>Our goal is to show the times in the chart using the local time-zone; in this case, we have succeeded. Good news, but let’s have a closer look at what’s going on.</p>
 <p>Here are the first couple of observations in the data frame, rendered as JSON (using the same settings for datetimes as we use when render the entire vegaspec to JSON):</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data_seattle_hourly_short</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">toJSON</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">data_seattle_hourly_short</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">toJSON</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## [{"date":"2010-01-01 01:00:00","temp":4},{"date":"2010-01-01 02:00:00","temp":3.9}]</code></pre>
 <p>We see that date-times are <em>not</em> formatted using ISO-8601 formatting - the times are serialized to JSON using the local context. When Vega-Lite <a href="https://vega.github.io/vega-lite/docs/timeunit.html#utc">parses this data</a>, it recognizes that this is a datetime and that the format is <em>not</em> ISO-8601. As such, these times will be parsed, interpreted, and displayed as local times:</p>
 <blockquote>
@@ -333,8 +333,8 @@
 <p>This package has a function, <code><a href="../../reference/vw_serialize_data.html">vw_serialize_data()</a></code>, to serialize dates and times in a data frame. It has an argument to specify a format for dates, <code>iso_date</code>, and an option to specify a format for datetimes, <code>iso_dttm</code>. We set the <code>iso_dttm</code> argument to <code>TRUE</code> to serialize our datetimes using ISO-8601 format:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_seattle_hourly_short_iso</span> <span class="op">&lt;-</span> 
-  <span class="va">data_seattle_hourly_short</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../../reference/vw_serialize_data.html">vw_serialize_data</a></span><span class="op">(</span>iso_dttm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="va">data_seattle_hourly_short</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="../../reference/vw_serialize_data.html">vw_serialize_data</a></span><span class="op">(</span>iso_dttm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 23
 ## Columns: 2
@@ -353,8 +353,8 @@
 <span class="va">spec_iso_local</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">values</span> <span class="op">&lt;-</span> <span class="va">data_seattle_hourly_short_iso</span>
 
 <span class="va">spec_iso_local</span></code></pre></div>
-<div id="htmlwidget-b06b364021f269bf323a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b06b364021f269bf323a">{"x":{
+<div id="htmlwidget-90fbed740b64ed401dd7" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-90fbed740b64ed401dd7">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -485,8 +485,8 @@
 <span class="va">spec_iso_utc</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"utc"</span><span class="op">)</span> 
 
 <span class="va">spec_iso_utc</span></code></pre></div>
-<div id="htmlwidget-cefaba4b054676f7dd65" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cefaba4b054676f7dd65">{"x":{
+<div id="htmlwidget-725561e4a21b25a72469" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-725561e4a21b25a72469">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -648,8 +648,8 @@
 ## $ weather       &lt;chr&gt; "drizzle", "rain", "rain", "rain", "rain", "rain", "rain…</code></pre>
 <p>The default JSON-serializer for dates uses the ISO-8601 format for dates. If we wanted to use a non-ISO-8601 format, we could use <code><a href="../../reference/vw_serialize_data.html">vw_serialize_data()</a></code> using <code>iso_date = FALSE</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data_seattle_daily</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../../reference/vw_serialize_data.html">vw_serialize_data</a></span><span class="op">(</span>iso_date <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">data_seattle_daily</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="../../reference/vw_serialize_data.html">vw_serialize_data</a></span><span class="op">(</span>iso_date <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 1,461
 ## Columns: 6
@@ -662,8 +662,8 @@
 <p>For the purpose of making some examples of how to work with UTC dates, let’s filter the original dataset, with ISO-8601 formatting, keeping the first month:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_seattle_daily_short</span> <span class="op">&lt;-</span> 
-  <span class="va">data_seattle_daily</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"month"</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2012-01-01"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="va">data_seattle_daily</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"month"</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2012-01-01"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 31
 ## Columns: 6
@@ -695,12 +695,12 @@
         <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"date"</span>, type <span class="op">=</span> <span class="st">"temporal"</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span><span class="op">)</span>
       <span class="op">)</span>
     <span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_tempmax_local</span></code></pre></div>
-<div id="htmlwidget-4138470256116ff3d377" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4138470256116ff3d377">{"x":{
+<div id="htmlwidget-d794c4326546e1bd4e74" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d794c4326546e1bd4e74">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -989,8 +989,8 @@
 <span class="va">spec_tempmax_utc</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"utc"</span><span class="op">)</span>
 
 <span class="va">spec_tempmax_utc</span></code></pre></div>
-<div id="htmlwidget-c585a9716764b111d072" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c585a9716764b111d072">{"x":{
+<div id="htmlwidget-51c6307f930032b74bb2" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-51c6307f930032b74bb2">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1339,8 +1339,8 @@ Jan-01-2001 19:34:05
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">url_seattle_daily</span> <span class="op">&lt;-</span> <span class="st">"https://vega.github.io/vega-datasets/data/seattle-weather.csv"</span>
 
-<span class="va">url_seattle_daily</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_lines.html">read_lines</a></span><span class="op">(</span>n_max <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">url_seattle_daily</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_lines.html">read_lines</a></span><span class="op">(</span>n_max <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "date,precipitation,temp_max,temp_min,wind,weather"
 ## [2] "2012-01-01,0.0,12.8,5.0,4.7,drizzle"              
@@ -1390,12 +1390,12 @@ Jan-01-2001 19:34:05
         <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"temp_max"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>
       <span class="op">)</span>
     <span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_daily</span></code></pre></div>
-<div id="htmlwidget-380c2b6ecf29308bf48b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-380c2b6ecf29308bf48b">{"x":{
+<div id="htmlwidget-60764cb6b410658f2aba" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-60764cb6b410658f2aba">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1451,10 +1451,10 @@ Jan-01-2001 19:34:05
 },"evals":[],"jsHooks":[]}</script><p>We use point-marks here not because it is optimal for the visualization (it probably isn’t), but because it may help make clearer what is happening behind the scenes. Seeing what Vega-Lite <em>actually</em> does can help us to understand its time-unit API.</p>
 <p>Let’s say we want to look at the maximum temperature for each year-month in the dataset - 48 months in all. If we were to do this in R, we might make a preprocessing step like this:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data_seattle_daily</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yearmonth <span class="op">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"month"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">yearmonth</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>temp_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">temp_max</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">data_seattle_daily</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yearmonth <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"month"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">yearmonth</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>temp_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">temp_max</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 48
 ## Columns: 2
@@ -1487,8 +1487,8 @@ Jan-01-2001 19:34:05
 
 
 <span class="va">spec_yearmonth</span></code></pre></div>
-<div id="htmlwidget-981e4003767aaff230bc" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-981e4003767aaff230bc">{"x":{
+<div id="htmlwidget-131692ee8fd2b33d8b88" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-131692ee8fd2b33d8b88">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1548,7 +1548,7 @@ Jan-01-2001 19:34:05
   }
 },"evals":[],"jsHooks":[]}</script><p>The main change we made to the specification was to tweak the x-encoding: removing the UTC <code>scale</code> and adding a <code>timeUnit</code>, setting it to <code>"utcyearmonth"</code>. The specification of a time unit did three things:</p>
 <ul>
-<li><p>It binned the <code>date</code> variable by truncating the time to include the year and month, hence the <code>"yearmonth"</code> part of the directive. This is equivalent to the dplyr expression <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate(yearmonth = floor_date(date, "month"))</a></code>.</p></li>
+<li><p>It binned the <code>date</code> variable by truncating the time to include the year and month, hence the <code>"yearmonth"</code> part of the directive. This is equivalent to the dplyr expression <code>mutate(yearmonth = floor_date(date, "month"))</code>.</p></li>
 <li><p>Because we parsed <code>date</code> as UTC, we used the UTC context to determine “when” each month starts. This is why the time-unit directive starts with <code>"utc"</code>.</p></li>
 <li><p>It changed the default formatting for the axes to reflect that we have truncated <code>date</code> to its year-month.</p></li>
 </ul>
@@ -1568,8 +1568,8 @@ Jan-01-2001 19:34:05
 <span class="va">spec_yearmonth_aggregate</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">aggregate</span> <span class="op">&lt;-</span> <span class="st">"max"</span>
 
 <span class="va">spec_yearmonth_aggregate</span></code></pre></div>
-<div id="htmlwidget-5312fcbf3e8fb92ab007" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5312fcbf3e8fb92ab007">{"x":{
+<div id="htmlwidget-c1ba8210bed483ff0e0a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c1ba8210bed483ff0e0a">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1649,8 +1649,8 @@ Jan-01-2001 19:34:05
 
 
 <span class="va">spec_yearmonth_aggregate_color</span></code></pre></div>
-<div id="htmlwidget-af0727aedb8fcc731b49" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-af0727aedb8fcc731b49">{"x":{
+<div id="htmlwidget-b16de2d0cf19a7f62e26" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b16de2d0cf19a7f62e26">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,
@@ -1724,8 +1724,8 @@ Jan-01-2001 19:34:05
 <span class="va">spec_month_aggregate_color</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">timeUnit</span> <span class="op">&lt;-</span> <span class="st">"utcmonth"</span>
 
 <span class="va">spec_month_aggregate_color</span></code></pre></div>
-<div id="htmlwidget-065cec33327d9e6b99bd" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-065cec33327d9e6b99bd">{"x":{
+<div id="htmlwidget-76c07eca90203d437c6e" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-76c07eca90203d437c6e">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 600,

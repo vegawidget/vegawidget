@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.2.9003</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.3.9000</span>
       </span>
     </div>
 
@@ -122,6 +122,15 @@
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h2>
+<div id="new-to-vegawidget-033" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-to-vegawidget-033" class="anchor"></a>New to vegawidget 0.3.3</h3>
+<p>This is a small release:</p>
+<ul>
+<li><p>When converting vegaspec to JSON, <code>NA</code> is serialized to <code>null</code>.</p></li>
+<li><p>Update to a test to comply with changes to testthat.</p></li>
+</ul>
+</div>
 <div id="new-to-vegawidget-032" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-to-vegawidget-032" class="anchor"></a>New to vegawidget 0.3.2</h3>
@@ -162,7 +171,7 @@
       y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"mpg"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,
       color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"cyl"</span>, type <span class="op">=</span> <span class="st">"nominal"</span><span class="op">)</span>
     <span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="op">)</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>The <code><a href="reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; many of this package’s functions are built to support, and render, vegaspecs:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -256,7 +265,7 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=vegawidget"><img src="https://www.r-pkg.org/badges/version/vegawidget" alt="CRAN status"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
 <li><a href="https://github.com/vegawidget/vegawidget/actions"><img src="https://github.com/vegawidget/vegawidget/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>

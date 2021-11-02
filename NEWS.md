@@ -1,4 +1,6 @@
-# vegawidget 0.3.2 (development version)
+# vegawidget 0.3.3
+
+* Fix test to comply with testthat changes. (#162, @lionel-)
 
 * When converting vegaspec to JSON, serialize `NA` to `null`. (#160)
 

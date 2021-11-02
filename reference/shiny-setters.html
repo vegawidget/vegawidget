@@ -80,7 +80,7 @@ shiny::observe() or shiny::observeEvent()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@ shiny::observe() or shiny::observeEvent()." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -135,7 +135,7 @@ shiny::observe() or shiny::observeEvent()." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/vegawidget/vegawidget">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -164,7 +164,7 @@ direct a Vega chart to re-run itself. Any signal or
 dataset you set must first be defined and <strong>named</strong> in the vegaspec.
 These functions are called from within
 a Shiny <code>server()</code> function, where they act like
-<code><a href='https://shiny.rstudio.com/reference/shiny/latest/observe.html'>shiny::observe()</a></code> or <code><a href='https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html'>shiny::observeEvent()</a></code>.</p>
+<code><a href='https://rdrr.io/pkg/shiny/man/observe.html'>shiny::observe()</a></code> or <code><a href='https://rdrr.io/pkg/shiny/man/observeEvent.html'>shiny::observeEvent()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>vw_shiny_set_signal</span><span class='op'>(</span><span class='va'>outputId</span>, <span class='va'>name</span>, <span class='va'>value</span>, run <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -196,20 +196,20 @@ that returns the value to which to set the signal or dataset</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed on to <code><a href='https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html'>shiny::observeEvent()</a></code></p></td>
+      <td><p>other arguments passed on to <code><a href='https://rdrr.io/pkg/shiny/man/observeEvent.html'>shiny::observeEvent()</a></code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html'>shiny::observeEvent()</a></code> function that responds to changes in the
+    <p><code><a href='https://rdrr.io/pkg/shiny/man/observeEvent.html'>shiny::observeEvent()</a></code> function that responds to changes in the
 reactive-expression <code>value</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>To see these functions in action, you can run a shiny-demo:</p><ul>
-<li><p><code>vw_shiny_set_signal()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("signal-set-get")</a></code></p></li>
-<li><p><code>vw_shiny_set_data()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("data-set-get")</a></code></p></li>
-<li><p><code>vw_shiny_run()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("data-set-swap-run")</a></code></p></li>
+<li><p><code>vw_shiny_set_signal()</code>: call <code>vw_shiny_demo("signal-set-get")</code></p></li>
+<li><p><code>vw_shiny_set_data()</code>: call <code>vw_shiny_demo("data-set-get")</code></p></li>
+<li><p><code>vw_shiny_run()</code>: call <code>vw_shiny_demo("data-set-swap-run")</code></p></li>
 </ul>
 
 <p>For the signal and data setters, in addition to the chart <code>outputId</code>,
@@ -224,7 +224,7 @@ after setting this value</p></li>
 <p>If you do not set <code>run = TRUE</code> in the setter-function,
 you can use the <code>vw_shiny_run()</code> function to control when
 the chart re-runs. One possibility is to set its <code>value</code> to a reactive
-expression that refers to, for example, a <code><a href='https://shiny.rstudio.com/reference/shiny/latest/actionButton.html'>shiny::actionButton()</a></code>.</p>
+expression that refers to, for example, a <code><a href='https://rdrr.io/pkg/shiny/man/actionButton.html'>shiny::actionButton()</a></code>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

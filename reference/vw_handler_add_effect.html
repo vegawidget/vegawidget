@@ -77,7 +77,7 @@ This function helps you do that." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@ This function helps you do that." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@ This function helps you do that." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/vegawidget/vegawidget">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -209,44 +209,46 @@ names of the parameters. See the examples for details.</p>
     <div class='dont-index'><p><code><a href='vw_handler_signal.html'>vw_handler_signal()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='co'># list all the available effect-handlers</span>
-  <span class='fu'>vw_handler_add_effect</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; arguments: x 
-#&gt; 
-#&gt;   body_effect: shiny_input 
-#&gt;     params: inputId = NULL, expr = "x" 
-#&gt; 
-#&gt;     // sets the Shiny-input named `inputId` to `expr` (default "x")
-#&gt;     Shiny.setInputValue('${inputId}', ${expr});
-#&gt; 
-#&gt;   body_effect: console 
-#&gt;     params: label = "", expr = "x" 
-#&gt; 
-#&gt;     // if `label` is non-trivial, prints it to the JS console
-#&gt;     '${label}'.length &gt; 0 ? console.log('${label}') : null;
-#&gt;     // prints `expr` (default "x") to the JS console
-#&gt;     console.log(${expr});
-#&gt; 
-#&gt;   body_effect: element_text 
-#&gt;     params: selector = NULL, expr = "x" 
-#&gt; 
-#&gt;     // to element `selector`, adds text `expr` (default "x")
-#&gt;     document.querySelector('${selector}').innerText = ${expr}</div><div class='input'>
-  <span class='co'># build a signal handler that prints some text,</span>
-  <span class='co'># then the value, to the console</span>
-  <span class='fu'><a href='vw_handler_signal.html'>vw_handler_signal</a></span><span class='op'>(</span><span class='st'>"value"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>vw_handler_add_effect</span><span class='op'>(</span><span class='st'>"console"</span>, label <span class='op'>=</span> <span class='st'>"signal value:"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; arguments: name, value 
-#&gt; 
-#&gt; body_value:
-#&gt;   // returns the value of the signal
-#&gt;   return value;
-#&gt; body_effect:
-#&gt;   // if `label` is non-trivial, prints it to the JS console
-#&gt;   'signal value:'.length &gt; 0 ? console.log('signal value:') : null;
-#&gt;   // prints `expr` (default "x") to the JS console
-#&gt;   console.log(x);</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'>  <span class='co'># list all the available effect-handlers</span></span>
+<span class='r-in'>  <span class='fu'>vw_handler_add_effect</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> arguments: x </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   body_effect: shiny_input </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     params: inputId = NULL, expr = "x" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     // sets the Shiny-input named `inputId` to `expr` (default "x")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Shiny.setInputValue('${inputId}', ${expr});</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   body_effect: console </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     params: label = "", expr = "x" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     // if `label` is non-trivial, prints it to the JS console</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     '${label}'.length &gt; 0 ? console.log('${label}') : null;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     // prints `expr` (default "x") to the JS console</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     console.log(${expr});</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   body_effect: element_text </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     params: selector = NULL, expr = "x" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     // to element `selector`, adds text `expr` (default "x")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     document.querySelector('${selector}').innerText = ${expr}</span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='co'># build a signal handler that prints some text,</span></span>
+<span class='r-in'>  <span class='co'># then the value, to the console</span></span>
+<span class='r-in'>  <span class='fu'><a href='vw_handler_signal.html'>vw_handler_signal</a></span><span class='op'>(</span><span class='st'>"value"</span><span class='op'>)</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>vw_handler_add_effect</span><span class='op'>(</span><span class='st'>"console"</span>, label <span class='op'>=</span> <span class='st'>"signal value:"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> arguments: name, value </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body_value:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   // returns the value of the signal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   return value;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body_effect:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   // if `label` is non-trivial, prints it to the JS console</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   'signal value:'.length &gt; 0 ? console.log('signal value:') : null;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   // prints `expr` (default "x") to the JS console</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   console.log(x);</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

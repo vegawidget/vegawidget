@@ -77,7 +77,7 @@ in the vegaspec." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@ in the vegaspec." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@ in the vegaspec." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/vegawidget/vegawidget">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -195,17 +195,17 @@ for list of supported events, please see
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='https://shiny.rstudio.com/reference/shiny/latest/reactive.html'>shiny::reactive()</a></code> function that returns the value returned by
+    <p><code><a href='https://rdrr.io/pkg/shiny/man/reactive.html'>shiny::reactive()</a></code> function that returns the value returned by
 <code>body_value</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>These getter-functions are called from within
 a Shiny <code>server()</code> function, where they act like
-<code><a href='https://shiny.rstudio.com/reference/shiny/latest/reactive.html'>shiny::reactive()</a></code>, returning a reactive expression.</p>
+<code><a href='https://rdrr.io/pkg/shiny/man/reactive.html'>shiny::reactive()</a></code>, returning a reactive expression.</p>
 <p>To see these functions in action, you can run a shiny-demo:</p><ul>
-<li><p><code>vw_shiny_get_signal()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("signal-set-get")</a></code></p></li>
-<li><p><code>vw_shiny_get_data()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("data-set-get")</a></code></p></li>
-<li><p><code>vw_shiny_get_event()</code>: call <code><a href='vw_shiny_demo.html'>vw_shiny_demo("event-get")</a></code></p></li>
+<li><p><code>vw_shiny_get_signal()</code>: call <code>vw_shiny_demo("signal-set-get")</code></p></li>
+<li><p><code>vw_shiny_get_data()</code>: call <code>vw_shiny_demo("data-set-get")</code></p></li>
+<li><p><code>vw_shiny_get_event()</code>: call <code>vw_shiny_demo("event-get")</code></p></li>
 </ul>
 
 <p>In addition to the chart <code>outputId</code>, you will need to provide:</p><ul>
@@ -221,13 +221,13 @@ specification</p></li>
 know which information you want returned to Shiny. To do this,
 you provide a JavaScript handler-function:</p><ul>
 <li><p><code>vw_shiny_get_signal()</code>: the default handler,
-<code><a href='vw_handler_signal.html'>vw_handler_signal("value")</a></code>,
+<code>vw_handler_signal("value")</code>,
 specifies that the value of the signal be returned.</p></li>
 <li><p><code>vw_shiny_get_data()</code>: the default handler,
-<code><a href='vw_handler_signal.html'>vw_handler_data("value")</a></code>,
+<code>vw_handler_data("value")</code>,
 specifies that the entire dataset be returned.</p></li>
 <li><p><code>vw_shiny_get_event()</code>: the default handler,
-<code><a href='vw_handler_signal.html'>vw_handler_event("datum")</a></code>,
+<code>vw_handler_event("datum")</code>,
 specifies that the single row of data associated with graphical mark
 be returned. For example, if you are monitoring a <code>"click"</code> event,
 Vega would return the row of data that backs any mark

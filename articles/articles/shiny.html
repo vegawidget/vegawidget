@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -40,7 +40,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -87,7 +87,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/vegawidget/vegawidget">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -106,7 +106,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Extend using Shiny</h1>
             
-            <h4 class="date">2021-01-12</h4>
+            <h4 class="date">2021-11-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/shiny.Rmd"><code>vignettes/articles/shiny.Rmd</code></a></small>
       <div class="hidden name"><code>shiny.Rmd</code></div>
@@ -223,7 +223,7 @@
 <li>
 <code>value</code>, we want to set the Vega signal to this value</li>
 </ul>
-<p>Note that we are supplying a reactive expression to the <code>value</code> argument. Internally, <code><a href="../../reference/shiny-setters.html">vw_shiny_set_signal()</a></code> observes this value, then changes the signal in the Vega chart in response to changes in <code>value</code>. Accordingly, you should think of <code><a href="../../reference/shiny-setters.html">vw_shiny_set_signal()</a></code> as equivalent to the <code><a href="https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html">shiny::observeEvent()</a></code> function.</p>
+<p>Note that we are supplying a reactive expression to the <code>value</code> argument. Internally, <code><a href="../../reference/shiny-setters.html">vw_shiny_set_signal()</a></code> observes this value, then changes the signal in the Vega chart in response to changes in <code>value</code>. Accordingly, you should think of <code><a href="../../reference/shiny-setters.html">vw_shiny_set_signal()</a></code> as equivalent to the <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">shiny::observeEvent()</a></code> function.</p>
 <p>Getting the value of the signal in a Vega chart is very similar to getting the information from an event, as described above.</p>
 <p>The operative function in the <code>server()</code> function is <code><a href="../../reference/shiny-getters.html">vw_shiny_get_signal()</a></code>. Here it is in the context of the app:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -271,7 +271,7 @@
 <li>
 <code>value</code>, we want to set the Vega dataset to this value</li>
 </ul>
-<p>Note that we are supplying a reactive expression to the <code>value</code> argument. Internally, <code><a href="../../reference/shiny-setters.html">vw_shiny_set_data()</a></code> observes this value, then changes the dataset in the Vega chart in response to changes in <code>value</code>. Accordingly, you should think of <code><a href="../../reference/shiny-setters.html">vw_shiny_set_data()</a></code> as equivalent to the <code><a href="https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html">shiny::observeEvent()</a></code> function.</p>
+<p>Note that we are supplying a reactive expression to the <code>value</code> argument. Internally, <code><a href="../../reference/shiny-setters.html">vw_shiny_set_data()</a></code> observes this value, then changes the dataset in the Vega chart in response to changes in <code>value</code>. Accordingly, you should think of <code><a href="../../reference/shiny-setters.html">vw_shiny_set_data()</a></code> as equivalent to the <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">shiny::observeEvent()</a></code> function.</p>
 <p>To get a reactive copy of a named dataset from Vega, we can use the <code><a href="../../reference/shiny-getters.html">vw_shiny_get_data()</a></code> function. When that named dataset changes in Vega, it will update the reactive returned by this function. In the context of this app:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># returns the dataset in `"chart"` named `"source"`</span>

@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -40,7 +40,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -87,7 +87,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/vegawidget/vegawidget">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -101,14 +101,14 @@
 
       
 
-      </header><script src="vegaspec_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="vegaspec_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="vegaspec_files/vega-5.17.0/vega.min.js"></script><script src="vegaspec_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="vegaspec_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
-<script src="vegaspec_files/vega-embed-6.12.2/vega-embed.js"></script><script src="vegaspec_files/vegawidget-binding-0.3.2/vegawidget.js"></script><link href="vegaspec_files/jsoneditor-5.25.6/jsoneditor.min.css" rel="stylesheet">
+      </header><script src="vegaspec_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="vegaspec_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="vegaspec_files/vega-5.17.0/vega.min.js"></script><script src="vegaspec_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="vegaspec_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
+<script src="vegaspec_files/vega-embed-6.12.2/vega-embed.js"></script><script src="vegaspec_files/vegawidget-binding-0.3.3/vegawidget.js"></script><link href="vegaspec_files/jsoneditor-5.25.6/jsoneditor.min.css" rel="stylesheet">
 <script src="vegaspec_files/jsoneditor-5.25.6/jsoneditor.min.js"></script><script src="vegaspec_files/jsonedit-binding-3.0.0/jsonedit.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Specify using vegaspec</h1>
             
-            <h4 class="date">2021-01-12</h4>
+            <h4 class="date">2021-11-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/vegaspec.Rmd"><code>vignettes/articles/vegaspec.Rmd</code></a></small>
       <div class="hidden name"><code>vegaspec.Rmd</code></div>
@@ -150,12 +150,12 @@
       x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"category"</span>, type <span class="op">=</span> <span class="st">"nominal"</span><span class="op">)</span>,
       y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"number"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>
     <span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="op">)</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">spec_category</span></code></pre></div>
-<div id="htmlwidget-ef3eddd58f13c4939b52" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ef3eddd58f13c4939b52">{"x":{
+<div id="htmlwidget-13790617db4477c6470b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-13790617db4477c6470b">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "data": {
@@ -244,8 +244,8 @@
 <p>We also have a function, <code><a href="../../reference/vw_examine.html">vw_examine()</a></code>, that you can use to, well, examine a vegaspec. This is a thin wrapper around the <code><a href="https://rdrr.io/pkg/listviewer/man/jsonedit.html">listviewer::jsonedit()</a></code> function:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_examine.html">vw_examine</a></span><span class="op">(</span><span class="va">spec_category</span>, mode <span class="op">=</span> <span class="st">"code"</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-5897e6bf45f82bb9dff6" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5897e6bf45f82bb9dff6">{"x":{"data":{
+<div id="htmlwidget-bfc20a670ee938399fb6" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bfc20a670ee938399fb6">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "data": {
     "values": [
@@ -316,8 +316,8 @@
 <span class="va">spec_category_size</span><span class="op">$</span><span class="va">height</span> <span class="op">&lt;-</span> <span class="fl">300</span>
 
 <span class="va">spec_category_size</span></code></pre></div>
-<div id="htmlwidget-7c44652b7e5563d497a1" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7c44652b7e5563d497a1">{"x":{
+<div id="htmlwidget-8faee02d97bb830b793b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8faee02d97bb830b793b">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "data": {
@@ -390,12 +390,12 @@
 <p>Here’s an example:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_category_autosize</span> <span class="op">&lt;-</span> 
-  <span class="va">spec_category</span> <span class="op">%&gt;%</span>
+  <span class="va">spec_category</span> <span class="op"><a href="../../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/vw_autosize.html">vw_autosize</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">300</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>
 
 <span class="va">spec_category_autosize</span></code></pre></div>
-<div id="htmlwidget-cf4ee99667ee4b008ad5" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cf4ee99667ee4b008ad5">{"x":{
+<div id="htmlwidget-9002d8e785aa9e8fb45d" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9002d8e785aa9e8fb45d">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "data": {
@@ -485,8 +485,8 @@
 <code class="sourceCode R"><span class="va">spec_category_vega</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/vw_to_vega.html">vw_to_vega</a></span><span class="op">(</span><span class="va">spec_category</span><span class="op">)</span>
 
 <span class="va">spec_category_vega</span></code></pre></div>
-<div id="htmlwidget-a50a6f84f2e746dfed0b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a50a6f84f2e746dfed0b">{"x":{
+<div id="htmlwidget-31093cd3e6b02786bdac" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-31093cd3e6b02786bdac">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega/v5.json",
     "background": "white",
@@ -690,8 +690,8 @@
 <p>You can examine the result to see how much-more verbose is the Vega specification, compared to the Vega-Lite specification.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_examine.html">vw_examine</a></span><span class="op">(</span><span class="va">spec_category_vega</span>, mode <span class="op">=</span> <span class="st">"code"</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-91594ef6d989ffcee1d1" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-91594ef6d989ffcee1d1">{"x":{"data":{
+<div id="htmlwidget-8688cd5ceede5f994d3f" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8688cd5ceede5f994d3f">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "background": "white",
   "padding": 5,
@@ -886,7 +886,7 @@
 <p>There are a few things to keep your eyes open-for if you are building vegaspec:</p>
 <ul>
 <li><p>If the JSON needs a <code>null</code>, supply a <code>NULL</code> from R.</p></li>
-<li><p>If the JSON needs an element called <code>repeat</code>, keep in mind that this is a reserved word in R. You can specify such an element using backticks, e.g. <code><a href="https://rdrr.io/r/base/list.html">list(`repeat` =  ...)</a></code>.</p></li>
+<li><p>If the JSON needs an element called <code>repeat</code>, keep in mind that this is a reserved word in R. You can specify such an element using backticks, e.g. <code>list(`repeat` =  ...)</code>.</p></li>
 </ul>
 </div>
   </div>

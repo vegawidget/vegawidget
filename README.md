@@ -29,6 +29,14 @@ Accordingly, this package may be useful to:
 
 ## Features
 
+### New to vegawidget 0.3.3
+
+This is a small release:
+
+-   When converting vegaspec to JSON, `NA` is serialized to `null`.
+
+-   Update to a test to comply with changes to testthat.
+
 ### New to vegawidget 0.3.2
 
 -   vegawidget offers Vega-Lite 5.1.0 and Vega 5.20.0. Consequently,

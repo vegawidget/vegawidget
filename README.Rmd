@@ -36,6 +36,14 @@ Accordingly, this package may be useful to:
 
 ## Features
 
+### New to vegawidget 0.3.3
+
+This is a small release:
+
+- When converting vegaspec to JSON, `NA` is serialized to `null`.
+
+- Update to a test to comply with changes to testthat.
+
 ### New to vegawidget 0.3.2
 
 - vegawidget offers Vega-Lite `r vegawidget::vega_version()$vega_lite` and Vega `r vegawidget::vega_version()$vega`. Consequently, this package works only with browsers that support ES6. This includes all modern browsers and the RStudioIDE (version 1.2 and later).

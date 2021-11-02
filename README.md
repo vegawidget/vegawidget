@@ -4,7 +4,7 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project.org/package=vegawidget)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![R-CMD-check](https://github.com/vegawidget/vegawidget/workflows/R-CMD-check/badge.svg)](https://github.com/vegawidget/vegawidget/actions)
 <!-- badges: end -->
 
@@ -29,7 +29,7 @@ Accordingly, this package may be useful to:
 
 ## Features
 
-### New to vegawidget 0.3.3
+### New to vegawidget
 
 -   vegawidget offers Vega-Lite 5.1.0 and Vega 5.20.0.
 

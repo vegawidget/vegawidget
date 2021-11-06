@@ -1,8 +1,8 @@
 schema_vega <- "https://vega.github.io/schema/vega/v5.json"
-schema_vega_lite <- "https://vega.github.io/schema/vega-lite/v4.json"
+schema_vega_lite <- "https://vega.github.io/schema/vega-lite/v5.json"
 
 vega <- list(library = "vega", version = "5")
-vega_lite <- list(library = "vega_lite", version = "4")
+vega_lite <- list(library = "vega_lite", version = "5")
 
 test_that(".schema_type warns", {
 

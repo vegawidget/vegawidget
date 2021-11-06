@@ -1,5 +1,7 @@
 # vegawidget (development version)
 
+* Update contributor-information. (#176)
+
 # vegawidget 0.3.3
 
 * Fix test to comply with testthat changes. (#162, @lionel-)

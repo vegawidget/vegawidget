@@ -1,31 +1,20 @@
-## vegawidget 0.3.2
+## vegawidget 0.3.3
 
-NOTE: change of email for maintainer
+This is a patch release to comply with changes in the {testthat} package.
 
-```
-* checking CRAN incoming feasibility ... NOTE
-Maintainer: 'Ian Lyttle <ian.lyttle@se.com>'
+My apologies to the CRAN maintainers that I missed the first two emails warning of issues; they had been caught by my "junk" filter. I have now marked them as not-junk, and will monitor more closely.
 
-New maintainer:
-  Ian Lyttle <ian.lyttle@se.com>
-Old maintainer(s):
-  Ian Lyttle <ian.lyttle@schneider-electric.com>
-```
-
-Otherwise on every test environment:
+## R CMD check results
 
 0 errors | 0 warnings | 0 notes 
 
-## Test environments
+## revdepcheck results
 
-* local OS X install, R 4.0.3
-* GitHub Actions: windows-latest (release)
-* GitHub Actions: macOS-latest (release)
-* GitHub Actions: ubuntu-20.04 (release)
-* GitHub Actions: ubuntu-20.04 (devel)
-* Windows Server 2008 R2 SP1, R-devel, 32/64 bit
-* Fedora Linux, R-devel, clang, gfortran
-* win-builder (devel)
+We checked 2 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
+
 
 
 

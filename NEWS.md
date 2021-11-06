@@ -1,10 +1,16 @@
-# vegawidget 0.3.3 (development version)
+# vegawidget (development version)
 
 * Use Vega-Lite 5. (#159, with @AliciaSchep)
 
 * Use V8 rather than node to support image-functions and `vw_to_vega()`. 
-  This will add V8 as a package-dependency, but will remove the system-dependency for node. 
+  This adds V8 as a package-dependency, but removes the system-dependency for node. 
   As a result, remote-data loading *works* as long as you can access the data from R. (#85)
+
+* Update contributor-information. (#176)
+
+# vegawidget 0.3.3
+
+* Fix test to comply with testthat changes. (#162, @lionel-)
 
 * When converting vegaspec to JSON, serialize `NA` to `null`. (#160)
 

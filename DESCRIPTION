@@ -24,7 +24,7 @@ Authors@R: c(
     person(
       given = "Stuart", 
       family = "Lee", 
-      email = "lee.s@wehi.edu.au", 
+      email = "stuart.andrew.lee@gmail.com", 
       role = c("ctb")
     ),
     person("Kanit", "Wongsuphasawat", comment = "Vega/Vega-Lite library", role = c("ctb")),

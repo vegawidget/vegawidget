@@ -81,6 +81,7 @@ jobs:
       - name: V8 engine
         run: |
           V8::engine_info()
+        shell: Rscript {0}
 
       - name: Check
         env:

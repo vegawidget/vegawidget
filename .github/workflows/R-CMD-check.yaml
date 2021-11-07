@@ -9,7 +9,7 @@ on:
     branches:
       - main
       - master
-      - update-159-vegalite-5
+      - vegalite-5
 
 name: R-CMD-check
 
@@ -76,6 +76,11 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
+
+      # custom code
+      - name: V8 engine
+        run: |
+          V8::engine_info()
 
       - name: Check
         env:

@@ -122,13 +122,13 @@ vega_version_long
 ```
 
     ## $vega_lite
-    ## [1] "5.1.0"
+    ## [1] "5.1.1"
     ## 
     ## $vega
-    ## [1] "5.20.0"
+    ## [1] "5.20.2"
     ## 
     ## $vega_embed
-    ## [1] "6.17.0"
+    ## [1] "6.18.2"
     ## 
     ## $vega_util
     ## [1] "1.16.1"
@@ -213,11 +213,11 @@ htmlwidgets_downloads
     ## # A tibble: 8 × 2
     ##   path_local                   path_remote                                      
     ##   <chr>                        <chr>                                            
-    ## 1 vega-lite/vega-lite.min.js   https://cdn.jsdelivr.net/npm/vega-lite@5.1.0     
+    ## 1 vega-lite/vega-lite.min.js   https://cdn.jsdelivr.net/npm/vega-lite@5.1.1     
     ## 2 vega-lite/LICENSE            https://raw.githubusercontent.com/vega/vega-lite…
-    ## 3 vega/vega.min.js             https://cdn.jsdelivr.net/npm/vega@5.20.0         
+    ## 3 vega/vega.min.js             https://cdn.jsdelivr.net/npm/vega@5.20.2         
     ## 4 vega/LICENSE                 https://raw.githubusercontent.com/vega/vega/mast…
-    ## 5 vega-embed/vega-embed.min.js https://cdn.jsdelivr.net/npm/vega-embed@6.17.0   
+    ## 5 vega-embed/vega-embed.min.js https://cdn.jsdelivr.net/npm/vega-embed@6.18.2   
     ## 6 vega-embed/LICENSE           https://raw.githubusercontent.com/vega/vega-embe…
     ## 7 vega-util/vega-util.min.js   https://cdn.jsdelivr.net/npm/vega-util@1.16.1    
     ## 8 vega-util/LICENSE            https://raw.githubusercontent.com/vega/vega-util…
@@ -284,8 +284,8 @@ schema
     ## # A tibble: 2 × 2
     ##   path_local            path_remote                                        
     ##   <chr>                 <chr>                                              
-    ## 1 vega/v5.20.0.json     https://vega.github.io/schema/vega/v5.20.0.json    
-    ## 2 vega-lite/v5.1.0.json https://vega.github.io/schema/vega-lite/v5.1.0.json
+    ## 1 vega/v5.20.2.json     https://vega.github.io/schema/vega/v5.20.2.json    
+    ## 2 vega-lite/v5.1.1.json https://vega.github.io/schema/vega-lite/v5.1.1.json
 
 ``` r
 pwalk(schema, get_file, path_local_root = dir_schema)

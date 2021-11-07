@@ -175,6 +175,8 @@ get_file <- function(path_local, path_remote, path_local_root) {
     dir_create(dir_local)
   }
   
+  # TODO: use download.file()
+  
   resp <- httr::GET(path_remote)
   
   text <- httr::content(resp, type = "text", encoding = "UTF-8")

@@ -21,7 +21,7 @@ library("httr")
 library("here")
 ```
 
-    ## here() starts at /Users/sesa19001/Documents/repos/public/vegawidget/vegawidget
+    ## here() starts at /Users/ijlyttle/Documents/repos/public/vegawidget/vegawidget
 
 ``` r
 library("purrr")
@@ -122,16 +122,13 @@ vega_version_long
 ```
 
     ## $vega_lite
-    ## [1] "5.1.0"
+    ## [1] "5.1.1"
     ## 
     ## $vega
-    ## [1] "5.20.0"
+    ## [1] "5.20.2"
     ## 
     ## $vega_embed
-    ## [1] "6.17.0"
-    ## 
-    ## $vega_util
-    ## [1] "1.16.1"
+    ## [1] "6.18.2"
 
 ``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
@@ -147,12 +144,10 @@ First, let’s create a clean directory for the htmlwidget
 dir_htmlwidgets <- here("inst", "htmlwidgets")
 dir_lib <- path(dir_htmlwidgets, "lib")
 dir_vegaembed <- path(dir_lib, "vega-embed")
-dir_vegautil <- path(dir_lib, "vega-util")
 
 create_clean(dir_htmlwidgets)
 dir_create(dir_lib)
 dir_create(dir_vegaembed)
-dir_create(dir_vegautil)
 ```
 
 ### vegawidget
@@ -199,9 +194,7 @@ htmlwidgets_downloads <-
     "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
     "vega-embed/vega-embed.min.js",      "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
-    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE",
-    "vega-util/vega-util.min.js",        "https://cdn.jsdelivr.net/npm/vega-util@{vega_util}",
-    "vega-util/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-util/master/LICENSE"
+    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
   ) %>%
   mutate(
     path_remote = map_chr(path_remote, ~glue_data(vega_version_long, .x))
@@ -210,17 +203,15 @@ htmlwidgets_downloads <-
 htmlwidgets_downloads
 ```
 
-    ## # A tibble: 8 x 2
-    ##   path_local                path_remote                                         
-    ##   <chr>                     <chr>                                               
-    ## 1 vega-lite/vega-lite.min.… https://cdn.jsdelivr.net/npm/vega-lite@5.1.0        
-    ## 2 vega-lite/LICENSE         https://raw.githubusercontent.com/vega/vega-lite/ma…
-    ## 3 vega/vega.min.js          https://cdn.jsdelivr.net/npm/vega@5.20.0            
-    ## 4 vega/LICENSE              https://raw.githubusercontent.com/vega/vega/master/…
-    ## 5 vega-embed/vega-embed.mi… https://cdn.jsdelivr.net/npm/vega-embed@6.17.0      
-    ## 6 vega-embed/LICENSE        https://raw.githubusercontent.com/vega/vega-embed/m…
-    ## 7 vega-util/vega-util.min.… https://cdn.jsdelivr.net/npm/vega-util@1.16.1       
-    ## 8 vega-util/LICENSE         https://raw.githubusercontent.com/vega/vega-util/ma…
+    ## # A tibble: 6 × 2
+    ##   path_local                   path_remote                                      
+    ##   <chr>                        <chr>                                            
+    ## 1 vega-lite/vega-lite.min.js   https://cdn.jsdelivr.net/npm/vega-lite@5.1.1     
+    ## 2 vega-lite/LICENSE            https://raw.githubusercontent.com/vega/vega-lite…
+    ## 3 vega/vega.min.js             https://cdn.jsdelivr.net/npm/vega@5.20.2         
+    ## 4 vega/LICENSE                 https://raw.githubusercontent.com/vega/vega/mast…
+    ## 5 vega-embed/vega-embed.min.js https://cdn.jsdelivr.net/npm/vega-embed@6.18.2   
+    ## 6 vega-embed/LICENSE           https://raw.githubusercontent.com/vega/vega-embe…
 
 ``` r
 get_file <- function(path_local, path_remote, path_local_root) {
@@ -281,11 +272,11 @@ schema <-
 schema
 ```
 
-    ## # A tibble: 2 x 2
+    ## # A tibble: 2 × 2
     ##   path_local            path_remote                                        
     ##   <chr>                 <chr>                                              
-    ## 1 vega/v5.20.0.json     https://vega.github.io/schema/vega/v5.20.0.json    
-    ## 2 vega-lite/v5.1.0.json https://vega.github.io/schema/vega-lite/v5.1.0.json
+    ## 1 vega/v5.20.2.json     https://vega.github.io/schema/vega/v5.20.2.json    
+    ## 2 vega-lite/v5.1.1.json https://vega.github.io/schema/vega-lite/v5.1.1.json
 
 ``` r
 pwalk(schema, get_file, path_local_root = dir_schema)
@@ -333,7 +324,7 @@ htmlwidgets_vegajs <-
 htmlwidgets_vegajs  
 ```
 
-    ## # A tibble: 2 x 2
+    ## # A tibble: 2 × 2
     ##   name          path_local                
     ##   <chr>         <chr>                     
     ## 1 .vega_lite_js vega-lite/vega-lite.min.js
@@ -449,7 +440,7 @@ usethis::use_data(
 )
 ```
 
-    ## ✓ Setting active project to '/Users/sesa19001/Documents/repos/public/vegawidget/vegawidget'
+    ## ✓ Setting active project to '/Users/ijlyttle/Documents/repos/public/vegawidget/vegawidget'
 
     ## ✓ Saving '.vega_version', '.vw_handler_library' to 'R/sysdata.rda'
 

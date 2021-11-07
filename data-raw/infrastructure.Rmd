@@ -2,7 +2,7 @@
 title: Package infrastrucure
 output: github_document
 params:
-  vega_lite_version: "5.1.0"
+  vega_lite_version: "5.1.1"
 ---
 
 This purpose of this document is to build the package infrastucture. 
@@ -102,12 +102,10 @@ First, let's create a clean directory for the htmlwidget
 dir_htmlwidgets <- here("inst", "htmlwidgets")
 dir_lib <- path(dir_htmlwidgets, "lib")
 dir_vegaembed <- path(dir_lib, "vega-embed")
-dir_vegautil <- path(dir_lib, "vega-util")
 
 create_clean(dir_htmlwidgets)
 dir_create(dir_lib)
 dir_create(dir_vegaembed)
-dir_create(dir_vegautil)
 ```
 
 ### vegawidget
@@ -151,9 +149,7 @@ htmlwidgets_downloads <-
     "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
     "vega-embed/vega-embed.min.js",      "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
-    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE",
-    "vega-util/vega-util.min.js",        "https://cdn.jsdelivr.net/npm/vega-util@{vega_util}",
-    "vega-util/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-util/master/LICENSE"
+    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
   ) %>%
   mutate(
     path_remote = map_chr(path_remote, ~glue_data(vega_version_long, .x))

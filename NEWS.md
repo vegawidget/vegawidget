@@ -1,6 +1,6 @@
 # vegawidget (development version)
 
-* Use Vega-Lite 5. (#159, with @AliciaSchep)
+* Use Vega-Lite 5. (#159, with @AliciaSchep).
 
 * Use V8 rather than node to support image-functions and `vw_to_vega()`. 
   This adds V8 as a package-dependency, but removes the system-dependency for node. 

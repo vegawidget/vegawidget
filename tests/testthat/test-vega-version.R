@@ -15,7 +15,8 @@ test_that("get_vega_version works correctly", {
   vega_vers <- list(
     vega_lite = "3.0.2",
     vega = "5.3.2",
-    vega_embed = "4.0.0-rc1"
+    vega_embed = "4.0.0-rc1",
+    vega_util = "1.10.0"
   )
 
   expect_identical(get_vega_version("3.0.2"), vega_vers)
@@ -28,7 +29,7 @@ test_that("vega_version works correctly", {
 
   expect_identical(
     names(vega_version),
-    c("vega_lite", "vega", "vega_embed")
+    c("vega_lite", "vega", "vega_embed", "vega_util")
   )
 
   expect_true(all(is.character(unlist(vega_version))))

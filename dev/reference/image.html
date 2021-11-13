@@ -42,8 +42,9 @@
   
 
 <meta property="og:title" content="Create or write image — image" />
-<meta property="og:description" content="If you have  nodejs installed,
-you can use these functions can to create
+<meta property="og:description" content="If you have V8,
+withr,  and fs
+installed, you can use these functions can to create
 or write images as PNG or SVG, using a vegaspec or vegawidget.
 To convert to a bitmap, or write a PNG file, you will additionally need
 the rsvg and
@@ -157,8 +158,9 @@ png packages." />
     </div>
 
     <div class="ref-description">
-    <p>If you have  <strong><a href='https://nodejs.org/en/'>nodejs</a></strong> installed,
-you can use these functions can to create
+    <p>If you have <strong><a href='https://CRAN.R-project.org/package=V8'>V8</a></strong>,
+<strong><a href='https://withr.r-lib.org/'>withr</a></strong>,  and <strong><a href='https://fs.r-lib.org/'>fs</a></strong>
+installed, you can use these functions can to create
 or write images as PNG or SVG, using a <code>vegaspec</code> or <code>vegawidget</code>.
 To convert to a bitmap, or write a PNG file, you will additionally need
 the <strong><a href='https://CRAN.R-project.org/package=rsvg'>rsvg</a></strong> and
@@ -230,25 +232,18 @@ increased-resolution of retina displays</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>There is a known limitation to these functions - if you are using a vegaspec
-that has dataset loaded from a remote URL. The <code>nodejs</code> scripts are not
-able to use a proxy, so if your computer uses a proxy to access the remote URL,
-the data will not load.</p>
-<p>These functions can be called using (an object that can be coerced to)
+    <p>These functions can be called using (an object that can be coerced to)
 a <code>vegaspec</code>.</p>
-<p>The nodejs scripts used are adapted from the Vega
+<p>The scripts used are adapted from the Vega
 <a href='https://vega.github.io/vega/usage/#cli'>command line utilities</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://github.com/vega/vega-view#image-export'>vega-view library</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span class='r-in'>  <span class='co'># requires nodejs to be installed</span></span>
-<span class='r-in'></span>
-<span class='r-in'>  <span class='co'># call any of these functions using either a vegaspec or a vegawidget</span></span>
-<span class='r-in'>  <span class='fu'>vw_to_svg</span><span class='op'>(</span><span class='fu'><a href='vegawidget.html'>vegawidget</a></span><span class='op'>(</span><span class='va'>spec_mtcars</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-in'>  <span class='fu'>vw_to_bitmap</span><span class='op'>(</span><span class='va'>spec_mtcars</span><span class='op'>)</span></span>
+    <pre class="examples"><span class='r-in'>  <span class='co'># call any of these functions using either a vegaspec or a vegawidget</span></span>
+<span class='r-in'>  <span class='va'>svg</span> <span class='op'>&lt;-</span> <span class='fu'>vw_to_svg</span><span class='op'>(</span><span class='fu'><a href='vegawidget.html'>vegawidget</a></span><span class='op'>(</span><span class='va'>spec_mtcars</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>bmp</span> <span class='op'>&lt;-</span> <span class='fu'>vw_to_bitmap</span><span class='op'>(</span><span class='va'>spec_mtcars</span><span class='op'>)</span></span>
 <span class='r-in'>  <span class='fu'>vw_write_png</span><span class='op'>(</span><span class='va'>spec_mtcars</span>, <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"temp.png"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-in'>  <span class='fu'>vw_write_svg</span><span class='op'>(</span><span class='va'>spec_mtcars</span>, <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"temp.svg"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-in'></span>
@@ -271,7 +266,6 @@ a <code>vegaspec</code>.</p>
 <span class='r-in'>    base_url <span class='op'>=</span> <span class='va'>data_dir</span></span>
 <span class='r-in'>  <span class='op'>)</span></span>
 <span class='r-in'></span>
-<span class='r-in'><span class='op'>}</span></span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

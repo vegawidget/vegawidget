@@ -102,13 +102,13 @@
 
       
 
-      </header><script src="image_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="image_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="image_files/vega-5.17.0/vega.min.js"></script><script src="image_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="image_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
-<script src="image_files/vega-embed-6.12.2/vega-embed.js"></script><script src="image_files/vegawidget-binding-0.3.3.9001/vegawidget.js"></script><div class="row">
+      </header><script src="image_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="image_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="image_files/vega-5.20.0/vega.min.js"></script><script src="image_files/vega-lite-5.1.0/vega-lite.min.js"></script><link href="image_files/vega-embed-6.17.0/vega-embed.css" rel="stylesheet">
+<script src="image_files/vega-embed-6.17.0/vega-embed.min.js"></script><script src="image_files/vegawidget-binding-0.3.3.9001/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Create images</h1>
             
-            <h4 class="date">2021-11-06</h4>
+            <h4 class="date">2021-11-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/image.Rmd"><code>vignettes/articles/image.Rmd</code></a></small>
       <div class="hidden name"><code>image.Rmd</code></div>
@@ -118,7 +118,7 @@
     
     
 <p>The main purpose of this article is to demonstrate use this package’s image-generating functions. A secondary purpose is to help the package’s developers confirm that these functions continue to work when things get changed.</p>
-<p>If you have <strong><a href="https://nodejs.org">nodejs</a></strong> installed on your computer, you can use these image-generating functions to convert vegaspecs (or vegawidgets) into SVG strings or write SVG files. With the <strong><a href="https://CRAN.R-project.org/package=rsvg">rsvg</a></strong> and <strong><a href="https://CRAN.R-project.org/package=png">png</a></strong> packages installed, you can get a bitmap array, or write PNG files.</p>
+<p>If you have the packages <strong><a href="https://CRAN.R-project.org/package=V8">V8</a></strong>, <strong><a href="https://withr.r-lib.org/">withr</a></strong>, and <strong><a href="https://fs.r-lib.org/">fs</a></strong> installed, you can use these image-generating functions to convert vegaspecs (or vegawidgets) into SVG strings or write SVG files. With the <strong><a href="https://CRAN.R-project.org/package=rsvg">rsvg</a></strong> and <strong><a href="https://CRAN.R-project.org/package=png">png</a></strong> packages installed, you can get a bitmap array, or write PNG files.</p>
 <p>We have four image-generating functions; they each take either a vegaspec or a vegawidget as their main argument:</p>
 <ul>
 <li>
@@ -141,7 +141,7 @@
 <code>path</code>, for the image-writing functions, this indicates the local path to which the file is to be written.</li>
 </ul>
 <p>As you are most likely already aware, there is a tradeoff between PNG and SVG. The PNG format is an image with finite resolution. The SVG format is a set of instructions on how to render an image, so it has no resolution limitations. In general, the size of an SVG file scales with the number of graphical marks it contains, whereas a PNG file scales with its pixel-width and pixel-height.</p>
-<p>Please be aware that there is a known limitation to these functions - if you are using a vegaspec that has dataset loaded from a remote URL. The <code>nodejs</code> scripts are not able to use a proxy, so if if your computer uses a proxy to access the remote URL, the data will not load.</p>
+<p>If you are using a vegaspec that has dataset loaded from a remote URL, the <code>V8</code> scripts will access the remote data using R. If you use a proxy, make sure it is set up in R.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/r-lib/conflicted">"conflicted"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/vegawidget/vegawidget">"vegawidget"</a></span><span class="op">)</span>
@@ -153,10 +153,10 @@
 <p>For the purpose of comparing later renderings, our reference is this <code>mtcars</code> scatterplot. It is rendered, in HTML, with a plotting area of <code>width = 300</code> and <code>height = 300</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_mtcars</span></code></pre></div>
-<div id="htmlwidget-02871392f443919c111e" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-02871392f443919c111e">{"x":{
+<div id="htmlwidget-0f6027bf785ad05a47c8" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0f6027bf785ad05a47c8">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
     "height": 300,
     "description": "An mtcars example.",
@@ -742,10 +742,10 @@
 <p><strong>Expectation</strong>: the rendered spec will have a <em>total</em> size of <code>width = 600</code> and <code>height = 300</code>.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_autosize.html">vw_autosize</a></span><span class="op">(</span><span class="va">spec_mtcars</span>, width <span class="op">=</span> <span class="fl">600</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-7de500b52fafe69060fb" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7de500b52fafe69060fb">{"x":{
+<div id="htmlwidget-2b251bb494689074586b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2b251bb494689074586b">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
     "height": 300,
     "description": "An mtcars example.",
@@ -1234,10 +1234,10 @@
 },"evals":[],"jsHooks":[]}</script><p><strong>Expectation</strong>: we will get the same result using the <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> function:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span>, width <span class="op">=</span> <span class="fl">600</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-2ad3a27511343b2a54c9" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2ad3a27511343b2a54c9">{"x":{
+<div id="htmlwidget-be76f96ab064dc27cf3f" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-be76f96ab064dc27cf3f">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
     "height": 300,
     "description": "An mtcars example.",
@@ -1729,10 +1729,10 @@ spec_mtcars
 ```</code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_mtcars</span></code></pre></div>
-<div id="htmlwidget-b28f2e278f8cb971f18d" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b28f2e278f8cb971f18d">{"x":{
+<div id="htmlwidget-64c2b9bb1b54e1879ff2" style="width:600px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-64c2b9bb1b54e1879ff2">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
     "height": 300,
     "description": "An mtcars example.",
@@ -2226,8 +2226,8 @@ spec_mtcars
 <p><strong>Expectation</strong>: this will be identical to the <a href="#reference">reference</a> case, using the <code><a href="../../reference/vw_to_vega.html">vw_to_vega()</a></code> function to compile to a Vega specification:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_to_vega.html">vw_to_vega</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-29da159ae93a3aa72032" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-29da159ae93a3aa72032">{"x":{
+<div id="htmlwidget-04cfbfe14aab0218f00a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-04cfbfe14aab0218f00a">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega/v5.json",
     "description": "An mtcars example.",
@@ -2892,8 +2892,8 @@ spec_mtcars
 <p><strong>Expectation</strong>: this will be a “live” version of a scatterplot.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cars</span></code></pre></div>
-<div id="htmlwidget-afe5602d007f0d49a8f6" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-afe5602d007f0d49a8f6">{"x":{
+<div id="htmlwidget-d146bcc5022111ce7c6a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d146bcc5022111ce7c6a">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
     "width": 300,

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determine vegaspec version — vw_spec_version • vegawidget</title>
+<title>Callback helpers — vw_fetch • vegawidget</title>
 
 
 <!-- jquery -->
@@ -41,8 +41,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Determine vegaspec version — vw_spec_version" />
-<meta property="og:description" content="Use this function to determine the library and version of a vegaspec." />
+<meta property="og:title" content="Callback helpers — vw_fetch" />
+<meta property="og:description" content="These are used by V8 so that R can access the file-system and the network
+so that external data can be accessed." />
 
 
 <meta name="robots" content="noindex">
@@ -146,56 +147,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determine vegaspec version</h1>
-    <small class="dont-index">Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/R/spec-version.R'><code>R/spec-version.R</code></a></small>
-    <div class="hidden name"><code>vw_spec_version.Rd</code></div>
+    <h1>Callback helpers</h1>
+    <small class="dont-index">Source: <a href='https://github.com/vegawidget/vegawidget/blob/master/R/callback-helpers.R'><code>R/callback-helpers.R</code></a></small>
+    <div class="hidden name"><code>vw_fetch.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Use this function to determine the <code>library</code> and <code>version</code> of a <code>vegaspec</code>.</p>
+    <p>These are used by V8 so that R can access the file-system and the network
+so that external data can be accessed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vw_spec_version</span><span class='op'>(</span><span class='va'>spec</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>vw_fetch</span><span class='op'>(</span><span class='va'>url</span>, options <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+
+<span class='fu'>vw_load</span><span class='op'>(</span><span class='va'>filename</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>spec</th>
-      <td><p>An object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></td>
+      <th>url</th>
+      <td><p><code>character</code></p></td>
+    </tr>
+    <tr>
+      <th>options</th>
+      <td><p>named <code>list</code>, not yet implemented</p></td>
+    </tr>
+    <tr>
+      <th>filename</th>
+      <td><p><code>character</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>list</code> with elements <code>library</code>, <code>version</code></p>
+    <p><code>character</code> contents of the file or URL</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Returns a list with two elements:</p>
-<dl>
-<dt><code>library</code></dt><dd><p><code>character</code>, either <code>"vega"</code> or <code>"vega_lite"</code></p></dd>
-<dt><code>version</code></dt><dd><p><code>character</code>, version tag</p></dd>
+    <p>Assumes the encoding is UTF-8.</p>
 
-</dl>
-
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'>  <span class='fu'>vw_spec_version</span><span class='op'>(</span><span class='va'>spec_mtcars</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $library</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "vega_lite"</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $version</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "5"</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-in'>  <span class='co'># vw_to_vega() requires the V8 package</span></span>
-<span class='r-in'>  <span class='fu'>vw_spec_version</span><span class='op'>(</span><span class='fu'><a href='vw_to_vega.html'>vw_to_vega</a></span><span class='op'>(</span><span class='va'>spec_mtcars</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $library</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "vega"</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $version</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "5"</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

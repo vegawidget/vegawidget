@@ -122,42 +122,45 @@
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h2>
-<div id="new-to-vegawidget-033" class="section level3">
+<div id="new-to-vegawidget" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-to-vegawidget-033" class="anchor"></a>New to vegawidget 0.3.3</h3>
-<p>This is a small release:</p>
+<a href="#new-to-vegawidget" class="anchor"></a>New to vegawidget</h3>
 <ul>
-<li><p>When converting vegaspec to JSON, <code>NA</code> is serialized to <code>null</code>.</p></li>
-<li><p>Update to a test to comply with changes to testthat.</p></li>
-</ul>
-</div>
-<div id="new-to-vegawidget-032" class="section level3">
-<h3 class="hasAnchor">
-<a href="#new-to-vegawidget-032" class="anchor"></a>New to vegawidget 0.3.2</h3>
-<ul>
-<li><p>vegawidget offers Vega-Lite 4.17.0 and Vega 5.17.0. Consequently, this package works only with browsers that support ES6. This includes all modern browsers and the RStudioIDE (version 1.2 and later).</p></li>
-<li><p>new function <code><a href="reference/vw_set_base_url.html">vw_set_base_url()</a></code>, to set the option for <a href="https://github.com/vega/vega-embed">vega-embed</a>’s default <a href="https://github.com/vega/vega-loader#loader"><code>baseURL</code></a>.</p></li>
-<li><p>changes <code><a href="reference/vega_embed.html">vega_embed()</a></code> to use <code>...</code> to pass most of its arguments, making a more-forgiving connection to <a href="https://github.com/vega/vega-embed">vega-embed</a>.</p></li>
+<li><p>vegawidget offers Vega-Lite 5.1.0 and Vega 5.20.0.</p></li>
+<li><p>Compiling a spec (<code><a href="reference/vw_to_vega.html">vw_to_vega()</a></code>) and creating an image (<code><a href="reference/image.html">vw_to_svg()</a></code> and friends) uses the <strong><a href="https://cran.r-project.org/package=V8">V8</a></strong> package, rather than depending on a local installation of nodejs.</p></li>
 </ul>
 </div>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install vegawidget from CRAN with:</p>
+<div id="vega-lite-5-version" class="section level3">
+<h3 class="hasAnchor">
+<a href="#vega-lite-5-version" class="anchor"></a>Vega-Lite 5 version</h3>
+<p>To install <em>this</em> version, which uses Vega-Lite 5:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"vegawidget/vegawidget@vegalite-5"</span><span class="op">)</span></code></pre></div>
+<p>This is an experimental feature-branch, but we’ll do our best to keep it stable.</p>
+</div>
+<div id="stable-versions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#stable-versions" class="anchor"></a>Stable versions</h3>
+<p>You can install vegawidget from CRAN with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"vegawidget"</span><span class="op">)</span></code></pre></div>
 <p>The development version of vegawidget is available from GitHub with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"vegawidget/vegawidget"</span><span class="op">)</span></code></pre></div>
 <p><strong>Note:</strong> There are documentation websites for both the <a href="https://vegawidget.github.io/vegawidget/">CRAN version</a> and the <a href="https://vegawidget.github.io/vegawidget/dev/">development version</a> of this package.</p>
+</div>
 </div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <p>Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build specifications:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/vegawidget/vegawidget">"vegawidget"</a></span><span class="op">)</span>
 
 <span class="va">spec_mtcars</span> <span class="op">&lt;-</span>
@@ -174,7 +177,7 @@
   <span class="op">)</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>The <code><a href="reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; many of this package’s functions are built to support, and render, vegaspecs:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_mtcars</span></code></pre></div>
 <p><img src="reference/figures/README-vegawidget-1.svg"><!-- --></p>
 <p>The rendering of the chart above depends on where you are reading it:</p>

@@ -195,7 +195,7 @@
 <p>There are limitations associated with vegaspecs that contain <a href="https://vega.github.io/vega-lite/docs/data.html#url">datasets specified using remote URLs</a>:</p>
 <ul>
 <li><p>The RStudio IDE may not let you access remote URLs for security reasons. A chart that accesses remote data may not render in the IDE; it <em>will</em> render in a browser window.</p></li>
-<li><p>The image functions use <strong>nodejs</strong> to create SVG strings. We are not able to configure the proxy in our node scripts, so if your computer uses a proxy to access remote data, our functions will not create the images properly.</p></li>
+<li><p>The image functions use <strong>V8</strong> to create SVG strings. If you are accessing remote data in your chart (i.e. your spec uses an HTTP(S) URL), you will need to make sure that R has access to the remote data (i.e. if you use a proxy, it is set up in R).</p></li>
 </ul>
 </div>
   </div>

@@ -102,13 +102,13 @@
 
       
 
-      </header><script src="render-vegawidget_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="render-vegawidget_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="render-vegawidget_files/vega-5.17.0/vega.min.js"></script><script src="render-vegawidget_files/vega-lite-4.17.0/vega-lite.min.js"></script><link href="render-vegawidget_files/vega-embed-6.12.2/vega-embed.css" rel="stylesheet">
-<script src="render-vegawidget_files/vega-embed-6.12.2/vega-embed.js"></script><script src="render-vegawidget_files/vegawidget-binding-0.3.3.9001/vegawidget.js"></script><div class="row">
+      </header><script src="render-vegawidget_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="render-vegawidget_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="render-vegawidget_files/vega-5.20.0/vega.min.js"></script><script src="render-vegawidget_files/vega-lite-5.1.0/vega-lite.min.js"></script><link href="render-vegawidget_files/vega-embed-6.17.0/vega-embed.css" rel="stylesheet">
+<script src="render-vegawidget_files/vega-embed-6.17.0/vega-embed.min.js"></script><script src="render-vegawidget_files/vegawidget-binding-0.3.3.9001/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Render using vegawidget</h1>
             
-            <h4 class="date">2021-11-06</h4>
+            <h4 class="date">2021-11-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/articles/render-vegawidget.Rmd"><code>vignettes/articles/render-vegawidget.Rmd</code></a></small>
       <div class="hidden name"><code>render-vegawidget.Rmd</code></div>
@@ -145,10 +145,10 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/vegawidget/vegawidget">"vegawidget"</a></span><span class="op">)</span>
 
 <span class="va">spec_mtcars</span> </code></pre></div>
-<div id="htmlwidget-e8efd3ac857cb406d459" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e8efd3ac857cb406d459">{"x":{
+<div id="htmlwidget-903bcabf14a380f37bf5" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-903bcabf14a380f37bf5">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
     "height": 300,
     "description": "An mtcars example.",
@@ -636,10 +636,10 @@
 <p>For example, you can change the renderer to SVG:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span>, embed <span class="op">=</span> <span class="fu"><a href="../../reference/vega_embed.html">vega_embed</a></span><span class="op">(</span>renderer <span class="op">=</span> <span class="st">"svg"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-fdbb2eedcabfa798101a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fdbb2eedcabfa798101a">{"x":{
+<div id="htmlwidget-2db3bc6054b7eed24222" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2db3bc6054b7eed24222">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
     "height": 300,
     "description": "An mtcars example.",
@@ -1118,10 +1118,10 @@
 },"evals":[],"jsHooks":[]}</script><p>You can remove the actions “bug” that is otherwise placed at the top-right of the chart:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span>, embed <span class="op">=</span> <span class="fu"><a href="../../reference/vega_embed.html">vega_embed</a></span><span class="op">(</span>actions <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-b637cbd3558631bd41fb" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b637cbd3558631bd41fb">{"x":{
+<div id="htmlwidget-8efa3c0c34b3cac055e8" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8efa3c0c34b3cac055e8">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
     "height": 300,
     "description": "An mtcars example.",
@@ -1601,10 +1601,10 @@
 },"evals":[],"jsHooks":[]}</script><p>The arguments <code>width</code> and <code>height</code> in <code><a href="../../reference/vegawidget.html">vegawidget()</a></code> are used to autosize the <code>spec</code> before rendering, using <code><a href="../../reference/vw_autosize.html">vw_autosize()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span>, width <span class="op">=</span> <span class="fl">300</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-27f1a3a0e55ede26390a" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-27f1a3a0e55ede26390a">{"x":{
+<div id="htmlwidget-b1f57bc726278f5be706" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b1f57bc726278f5be706">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
     "height": 300,
     "description": "An mtcars example.",
@@ -2115,10 +2115,10 @@
 <p>If you are sharing your work, using a remote URL will be more robust, but requires that the data be publicly accessible.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_precip</span>, base_url <span class="op">=</span> <span class="va">url_remote</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-2f9b50fb9cc5419a5ace" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2f9b50fb9cc5419a5ace">{"x":{
+<div id="htmlwidget-a5d595009bafa6015eb2" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a5d595009bafa6015eb2">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
       "url": "seattle-weather.csv"
     },
@@ -2147,10 +2147,10 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/vw_set_base_url.html">vw_set_base_url</a></span><span class="op">(</span><span class="va">url_remote</span><span class="op">)</span>
 <span class="va">spec_precip</span></code></pre></div>
-<div id="htmlwidget-c35e5218af84bdf5f54a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c35e5218af84bdf5f54a">{"x":{
+<div id="htmlwidget-11cd6385041806c1df72" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-11cd6385041806c1df72">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
       "url": "seattle-weather.csv"
     },
@@ -2171,10 +2171,10 @@
 <pre><code>```{r vega.embed=vegawidget::vega_embed(actions = FALSE)}
 spec_mtcars
 ```</code></pre>
-<div id="htmlwidget-b8f30bd64db16f3897ac" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b8f30bd64db16f3897ac">{"x":{
+<div id="htmlwidget-d162610f7c70ca965ddd" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d162610f7c70ca965ddd">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
     "height": 300,
     "description": "An mtcars example.",
@@ -2654,10 +2654,10 @@ spec_mtcars
 },"evals":[],"jsHooks":[]}</script><pre><code>```{r vega.width=300, vega.height=300}
 spec_mtcars
 ```</code></pre>
-<div id="htmlwidget-fa0b5d63c50f87fc76e1" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fa0b5d63c50f87fc76e1">{"x":{
+<div id="htmlwidget-96784020eb99a5bb9acd" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-96784020eb99a5bb9acd">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
     "height": 300,
     "description": "An mtcars example.",
@@ -3158,10 +3158,10 @@ spec_mtcars
   new <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>vega.width <span class="op">=</span> <span class="fl">300</span>, vega.height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,
   <span class="fu"><a href="../../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<div id="htmlwidget-e314b2b7ef901aeb145d" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e314b2b7ef901aeb145d">{"x":{
+<div id="htmlwidget-82383b90248e4ad4e809" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-82383b90248e4ad4e809">{"x":{
   "chart_spec": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
     "height": 300,
     "description": "An mtcars example.",
@@ -3666,9 +3666,7 @@ spec_mtcars
 <p>If you are knitting to a <strong>non</strong>-HTML-based format, you additionally have the options <code>dev</code> (<code>"png"</code>, <code>"svg"</code>, or <code>"pdf"</code>), <code>out.width</code> and <code>out.height</code>; sizing is discussed in the following section.</p>
 <p>Knitting to a non-HTML-based format calls this package’s <a href="image.html">image</a> functions. This requires:</p>
 <ul>
-<li>
-<strong><a href="https://nodejs.org">nodejs</a></strong> to be installed on your computer.</li>
-<li>the packages <strong><a href="https://CRAN.R-project.org/package=rsvg">rsvg</a></strong> and <strong><a href="https://CRAN.R-project.org/package=png">png</a></strong>.</li>
+<li>the packages: <strong><a href="https://cran.r-project.org/web/packages/V8/index.html">V8</a></strong>, <strong><a href="https://fs.r-lib.org">fs</a></strong>, <strong><a href="https://withr.r-lib.org/">withr</a></strong>, <strong><a href="https://CRAN.R-project.org/package=rsvg">rsvg</a></strong>, and <strong><a href="https://CRAN.R-project.org/package=png">png</a></strong>.</li>
 <li>if you are using MacOS, knitr’s SVG device will require an X11 system, such as <a href="https://www.xquartz.org">XQuartz</a>, to be installed.</li>
 </ul>
 <p>If you are knitting to a LaTeX format (e.g. <code>pdf_document</code>) and you specify <code>dev</code> as <code>"svg"</code>, it will be implemented as <code>"pdf"</code>.</p>

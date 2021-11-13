@@ -21,7 +21,7 @@ library("httr")
 library("here")
 ```
 
-    ## here() starts at /Users/sesa19001/Documents/repos/public/vegawidget/vegawidget
+    ## here() starts at /Users/ijlyttle/Documents/repos/public/vegawidget/vegawidget
 
 ``` r
 library("purrr")
@@ -210,17 +210,17 @@ htmlwidgets_downloads <-
 htmlwidgets_downloads
 ```
 
-    ## # A tibble: 8 x 2
-    ##   path_local                path_remote                                         
-    ##   <chr>                     <chr>                                               
-    ## 1 vega-lite/vega-lite.min.… https://cdn.jsdelivr.net/npm/vega-lite@5.1.0        
-    ## 2 vega-lite/LICENSE         https://raw.githubusercontent.com/vega/vega-lite/ma…
-    ## 3 vega/vega.min.js          https://cdn.jsdelivr.net/npm/vega@5.20.0            
-    ## 4 vega/LICENSE              https://raw.githubusercontent.com/vega/vega/master/…
-    ## 5 vega-embed/vega-embed.mi… https://cdn.jsdelivr.net/npm/vega-embed@6.17.0      
-    ## 6 vega-embed/LICENSE        https://raw.githubusercontent.com/vega/vega-embed/m…
-    ## 7 vega-util/vega-util.min.… https://cdn.jsdelivr.net/npm/vega-util@1.16.1       
-    ## 8 vega-util/LICENSE         https://raw.githubusercontent.com/vega/vega-util/ma…
+    ## # A tibble: 8 × 2
+    ##   path_local                   path_remote                                      
+    ##   <chr>                        <chr>                                            
+    ## 1 vega-lite/vega-lite.min.js   https://cdn.jsdelivr.net/npm/vega-lite@5.1.0     
+    ## 2 vega-lite/LICENSE            https://raw.githubusercontent.com/vega/vega-lite…
+    ## 3 vega/vega.min.js             https://cdn.jsdelivr.net/npm/vega@5.20.0         
+    ## 4 vega/LICENSE                 https://raw.githubusercontent.com/vega/vega/mast…
+    ## 5 vega-embed/vega-embed.min.js https://cdn.jsdelivr.net/npm/vega-embed@6.17.0   
+    ## 6 vega-embed/LICENSE           https://raw.githubusercontent.com/vega/vega-embe…
+    ## 7 vega-util/vega-util.min.js   https://cdn.jsdelivr.net/npm/vega-util@1.16.1    
+    ## 8 vega-util/LICENSE            https://raw.githubusercontent.com/vega/vega-util…
 
 ``` r
 get_file <- function(path_local, path_remote, path_local_root) {
@@ -234,6 +234,8 @@ get_file <- function(path_local, path_remote, path_local_root) {
   if (!fs::dir_exists(dir_local)) {
     dir_create(dir_local)
   }
+  
+  # TODO: use download.file()
   
   resp <- httr::GET(path_remote)
   
@@ -281,7 +283,7 @@ schema <-
 schema
 ```
 
-    ## # A tibble: 2 x 2
+    ## # A tibble: 2 × 2
     ##   path_local            path_remote                                        
     ##   <chr>                 <chr>                                              
     ## 1 vega/v5.20.0.json     https://vega.github.io/schema/vega/v5.20.0.json    
@@ -333,7 +335,7 @@ htmlwidgets_vegajs <-
 htmlwidgets_vegajs  
 ```
 
-    ## # A tibble: 2 x 2
+    ## # A tibble: 2 × 2
     ##   name          path_local                
     ##   <chr>         <chr>                     
     ## 1 .vega_lite_js vega-lite/vega-lite.min.js
@@ -449,7 +451,7 @@ usethis::use_data(
 )
 ```
 
-    ## ✓ Setting active project to '/Users/sesa19001/Documents/repos/public/vegawidget/vegawidget'
+    ## ✓ Setting active project to '/Users/ijlyttle/Documents/repos/public/vegawidget/vegawidget'
 
     ## ✓ Saving '.vega_version', '.vw_handler_library' to 'R/sysdata.rda'
 

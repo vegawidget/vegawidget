@@ -1,6 +1,6 @@
 #' Convert to Vega specification
 #'
-#' If you have  **[nodejs](https://nodejs.org/en/)** installed,
+#' If you have  **[V8](https://CRAN.R-project.org/package=V8)** installed,
 #' you can use this function to compile a Vega-Lite specification
 #' into a Vega specification.
 #'
@@ -9,10 +9,7 @@
 #' @return S3 object of class `vegaspec_vega` and `vegaspec`
 #' @examples
 #'   vw_spec_version(spec_mtcars)
-#' \dontrun{
-#'   # requires nodejs to be installed
 #'   vw_spec_version(vw_to_vega(spec_mtcars))
-#' }
 #' @export
 #'
 vw_to_vega <- function(spec) {
@@ -31,35 +28,23 @@ vw_to_vega <- function(spec) {
 
 .vw_to_vega.vegaspec_vega_lite <- function(spec, ...) {
 
-  # Check dependencies
-  assert_packages("processx")
-  check_node_installed()
+  pkgfile <- function(...) {
+    system.file("htmlwidgets", "lib", ..., package = "vegawidget")
+  }
 
-  # It is easy to do the wrong thing, converting between JSON and R objects.
-  # So we use our functions for the conversion: vw_as_json() and as_vegaspec().
-  #
-  # hence this tweet: https://twitter.com/ijlyttle/status/1019290316195627008
+  assert_packages("V8")
 
-  str_vlspec <- vw_as_json(spec, pretty = FALSE)
+  ct <- V8::v8()
 
-  # Write the spec to a temporary file
-  spec_path <- tempfile(fileext = ".json")
-  cat(str_vlspec, file = spec_path)
+  ct$source(pkgfile("vega", "vega.min.js"))
+  ct$source(pkgfile("vega-lite", "vega-lite.min.js"))
+  ct$eval(glue::glue("var vs = vegaLite.compile({vw_as_json(spec)})"))
 
-  # Get the package location -- used as argument
-  pkg_path <- system.file(package = "vegawidget")
+  # don't let V8 convert to JSON; send as string
+  ct$eval("var strSpec = JSON.stringify(vs.spec)")
+  str_spec <- ct$get("strSpec")
 
-  # Get the script location for the node script that does stuff
-  script_path <-  system.file("bin/compile_spec.js", package = "vegawidget")
-
-  # Use processx to run the script
-  res <- processx::run("node", args = c(script_path, pkg_path, spec_path))
-
-  str_vgspec <- res$stdout
-
-  vgspec <- as_vegaspec(str_vgspec)
-
-  vgspec
+  as_vegaspec(str_spec)
 }
 
 .vw_to_vega.vegaspec_vega <- function(spec, ...) {
@@ -67,5 +52,10 @@ vw_to_vega <- function(spec) {
    spec
 }
 
-
+# Alternate way of doing this via V8
+#ct <- V8::v8()
+#ct$source(system.file('htmlwidgets','lib','vega','vega.min.js', package = "vegawidget"))
+#ct$source(system.file('htmlwidgets','lib','vega-lite','vega-lite.min.js', package = "vegawidget"))
+#ct$eval(glue::glue("var vs = vegaLite.compile({vw_as_json(spec_mtcars)})"))
+#vs <- ct$get("vs")
 

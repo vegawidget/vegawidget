@@ -49,16 +49,17 @@ data_seattle_daily <-
   read_csv("https://vega.github.io/vega-datasets/data/seattle-weather.csv")
 ```
 
-    ## 
+    ## Rows: 1461 Columns: 6
+
     ## ── Column specification ────────────────────────────────────────────────────────
-    ## cols(
-    ##   date = col_date(format = ""),
-    ##   precipitation = col_double(),
-    ##   temp_max = col_double(),
-    ##   temp_min = col_double(),
-    ##   wind = col_double(),
-    ##   weather = col_character()
-    ## )
+    ## Delimiter: ","
+    ## chr  (1): weather
+    ## dbl  (4): precipitation, temp_max, temp_min, wind
+    ## date (1): date
+
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 ## Hourly data
 
@@ -68,21 +69,23 @@ data_seattle_hourly <-
   glimpse()
 ```
 
-    ## 
+    ## Rows: 8759 Columns: 4
+
     ## ── Column specification ────────────────────────────────────────────────────────
-    ## cols(
-    ##   date = col_datetime(format = ""),
-    ##   pressure = col_double(),
-    ##   temperature = col_double(),
-    ##   wind = col_double()
-    ## )
+    ## Delimiter: ","
+    ## dbl  (3): pressure, temperature, wind
+    ## dttm (1): date
+
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
     ## Rows: 8,759
     ## Columns: 4
-    ## $ date        <dttm> 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:…
-    ## $ pressure    <dbl> 1016.6, 1016.6, 1016.7, 1016.7, 1016.5, 1016.4, 1016.5, 1…
-    ## $ temperature <dbl> 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.…
-    ## $ wind        <dbl> 3.8, 3.8, 3.8, 3.7, 3.8, 3.8, 3.9, 3.9, 3.9, 3.9, 3.9, 4.…
+    ## $ date        <dttm> 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:0…
+    ## $ pressure    <dbl> 1016.6, 1016.6, 1016.7, 1016.7, 1016.5, 1016.4, 1016.5, 10…
+    ## $ temperature <dbl> 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8…
+    ## $ wind        <dbl> 3.8, 3.8, 3.8, 3.7, 3.8, 3.8, 3.9, 3.9, 3.9, 3.9, 3.9, 4.0…
 
 ``` r
 # need to correct one of the times (this instant does not exist in local time)
@@ -111,8 +114,8 @@ glimpse(data_seattle_hourly)
 
     ## Rows: 8,759
     ## Columns: 2
-    ## $ date <dttm> 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:00:00, …
-    ## $ temp <dbl> 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2,…
+    ## $ date <dttm> 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:00:00, 2…
+    ## $ temp <dbl> 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2, …
 
 ## mtcars
 
@@ -122,7 +125,7 @@ The data are documented in `R/data.R`.
 spec_mtcars <-
   as_vegaspec(
     list(
-      `$schema` = "https://vega.github.io/schema/vega-lite/v4.json",
+      `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
       width = 300L,
       height = 300L,
       description = "An mtcars example.",
@@ -154,8 +157,8 @@ usethis::use_data(
 )
 ```
 
-    ## ✓ Setting active project to '/Users/sesa19001/Documents/repos/public/vegawidget/vegawidget'
+    ## ✓ Setting active project to '/Users/ijlyttle/Documents/repos/public/vegawidget/vegawidget'
 
     ## ✓ Saving 'data_category', 'data_seattle_daily', 'data_seattle_hourly', 'spec_mtcars' to 'data/data_category.rda', 'data/data_seattle_daily.rda', 'data/data_seattle_hourly.rda', 'data/spec_mtcars.rda'
 
-    ## ● Document your data (see 'https://r-pkgs.org/data.html')
+    ## • Document your data (see 'https://r-pkgs.org/data.html')

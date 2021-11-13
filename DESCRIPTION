@@ -70,16 +70,17 @@ Suggests:
     readr,
     tibble,
     lubridate,
+    V8 (>= 3.0),
+    withr,
     learnr,
-    processx,
     rsvg,
     dplyr,
     png,
     conflicted,
     here,
-    withr,
     shiny,
     purrr,
-    rsconnect
+    rsconnect,
+    utils
 Language: en-US
 Config/testthat/edition: 3

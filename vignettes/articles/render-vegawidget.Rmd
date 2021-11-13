@@ -164,8 +164,7 @@ If you are knitting to a **non**-HTML-based format, you additionally have the op
 
 Knitting to a non-HTML-based format calls this package's [image](image.html) functions. This requires:
 
-- **[nodejs](https://nodejs.org)** to be installed on your computer.
-- the packages **[rsvg](https://CRAN.R-project.org/package=rsvg)** and **[png](https://CRAN.R-project.org/package=png)**.
+- the packages: **[V8](https://cran.r-project.org/web/packages/V8/index.html)**, **[fs](https://fs.r-lib.org)**, **[withr](https://withr.r-lib.org/)**, **[rsvg](https://CRAN.R-project.org/package=rsvg)**, and **[png](https://CRAN.R-project.org/package=png)**.
 - if you are using MacOS, knitr's SVG device will require an X11 system, such as [XQuartz](https://www.xquartz.org), to be installed.
 
  If you are knitting to a LaTeX format (e.g. `pdf_document`) and you specify `dev` as `"svg"`, it will be implemented as `"pdf"`.

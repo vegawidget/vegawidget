@@ -10,14 +10,14 @@
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2021-11-02                   |
+|date     |2021-11-06                   |
 
 # Dependencies
 
-|package    |old   |new    |Δ  |
-|:----------|:-----|:------|:--|
-|vegawidget |0.3.2 |0.3.3  |*  |
-|rlang      |NA    |0.4.12 |*  |
+|package    |old   |new        |Δ  |
+|:----------|:-----|:----------|:--|
+|vegawidget |0.3.3 |0.3.3.9001 |*  |
+|rlang      |NA    |0.4.12     |*  |
 
 # Revdeps
 

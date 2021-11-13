@@ -111,7 +111,7 @@ For more information, see the Vega-Lite documentation on [autosizing](https://ve
 
 ## Compile to Vega
 
-When rendering a Vega-Lite specification, the vega-lite JavaScript library will compile the Vega-Lite specification into Vega. If you have the [**node**](https://nodejs.org/en/) installed, and want to compile a Vega-Lite specification to Vega, for your own purposes, you can use the `vw_to_vega()` function.
+When rendering a Vega-Lite specification, the vega-lite JavaScript library will compile the Vega-Lite specification into Vega. If you have the [**V8**](https://CRAN.R-project.org/package=V8) package installed, you can compile a Vega-Lite specification to Vega  using the `vw_to_vega()` function.
 
 To be clear, if you are using only Vega-Lite, this is not something you should ever need to do. This may be useful if you need to design a specification using Vega, and you want get things started using a Vega-Lite specification.
 

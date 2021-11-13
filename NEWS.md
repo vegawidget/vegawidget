@@ -1,5 +1,7 @@
 # vegawidget (development version)
 
+* Beginning development to support multiple versions of `vega_embed()`. (#169)
+
 * Use Vega-Lite 5. (#159, with @AliciaSchep)
 
 * Use V8 rather than node to support image-functions and `vw_to_vega()`. 

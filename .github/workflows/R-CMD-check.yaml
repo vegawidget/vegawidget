@@ -79,6 +79,7 @@ jobs:
       # custom code
       - name: V8 engine
         run: |
+          utils::packageVersion("V8")
           V8::engine_info()
         shell: Rscript {0}
 

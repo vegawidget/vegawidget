@@ -1,6 +1,6 @@
 # vegawidget (development version)
 
-* Beginning development to support multiple versions of `vega_embed()`. (#169)
+* Beginning development to support multiple versions of `vega_embed()`. (#169) 
 
 * Use Vega-Lite 5. (#159, with @AliciaSchep)
 

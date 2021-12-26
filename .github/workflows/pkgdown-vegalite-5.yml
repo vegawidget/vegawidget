@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - "vegalite-5"
+      - "update-183-V8"
 
 name: "pkgdown-vegalite-5"
 

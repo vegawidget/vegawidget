@@ -1,7 +1,11 @@
 on:
   push:
     branches:
+<<<<<<< HEAD:.github/workflows/pkgdown-multiple-versions.yml
       - "feature-169-multiple-versions"
+=======
+      - "update-183-V8"
+>>>>>>> e41416d75a87e01b081a19369c6cf5d59869f4e7:.github/workflows/pkgdown-vegalite-5.yml
 
 name: "multiple-versions"
 

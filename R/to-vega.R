@@ -25,7 +25,6 @@ vw_to_vega <- function(spec) {
   stop(".vw_to_vega(): no method for class ", class(spec), call. = FALSE)
 }
 
-
 .vw_to_vega.vegaspec_vega_lite <- function(spec, ...) {
 
   pkgfile <- function(...) {
@@ -51,11 +50,4 @@ vw_to_vega <- function(spec) {
    # do nothing, already a Vega spec
    spec
 }
-
-# Alternate way of doing this via V8
-#ct <- V8::v8()
-#ct$source(system.file('htmlwidgets','lib','vega','vega.min.js', package = "vegawidget"))
-#ct$source(system.file('htmlwidgets','lib','vega-lite','vega-lite.min.js', package = "vegawidget"))
-#ct$eval(glue::glue("var vs = vegaLite.compile({vw_as_json(spec_mtcars)})"))
-#vs <- ct$get("vs")
 

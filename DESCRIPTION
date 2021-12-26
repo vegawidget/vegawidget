@@ -35,8 +35,7 @@ Authors@R: c(
     person("David", "Frank", comment = "node-fetch library", role = c("ctb")),
     person("Hadley", "Wickham", comment = "s3_register", role = c("ctb"))
   )
-SystemRequirements: To use image and spec-compilation functions, i.e. suggests: 
-  nodejs (> 8), and for MacOS: X11    
+SystemRequirements: To use image functions for MacOS: X11    
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -44,7 +43,7 @@ ByteCompile: true
 URL: https://github.com/vegawidget/vegawidget
 BugReports: https://github.com/vegawidget/vegawidget/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Depends:
     R (>= 2.10)
@@ -70,7 +69,7 @@ Suggests:
     readr,
     tibble,
     lubridate,
-    V8 (>= 3.0),
+    V8 (>= 4.0),
     withr,
     learnr,
     rsvg,

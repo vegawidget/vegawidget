@@ -40,13 +40,6 @@ async function vwRender(spec, seed, baseURL, fileName) {
   }
 
   function writeSVG(svg, fileName) {
-
-    const svgHeader =
-      '<?xml version="1.0" encoding="utf-8"?>\n' +
-      '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" ' +
-      '"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n';
-
-    svg = svgHeader + svg;
     console.r.call('writeLines', [svg, fileName]);
   }
 
@@ -65,7 +58,18 @@ async function vwRender(spec, seed, baseURL, fileName) {
     .initialize()
     .finalize()
     .toSVG()
-    .then(svg => { writeSVG(svg, fileName); })
+    .then(svg => {
+
+      const svgHeader =
+        '<?xml version="1.0" encoding="utf-8"?>\n' +
+        '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" ' +
+        '"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n';
+
+      svg = svgHeader + svg;
+      writeSVG(svg, fileName);
+
+      return svg;
+    })
     .catch(err => { console.log(err); });
 
   return result;

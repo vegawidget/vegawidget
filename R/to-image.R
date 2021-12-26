@@ -78,8 +78,6 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
   vega_spec <- vw_to_vega(spec)
   str_spec <- vw_as_json(vega_spec, pretty = FALSE)
 
-  file_name <- withr::local_tempfile(fileext = ".json")
-
   vega <-
     system.file("htmlwidgets", "lib", "vega", "vega.min.js", package = "vegawidget")
   vega_to_svg <- system.file("bin", "vega_to_svg_v8.js", package = "vegawidget")
@@ -93,12 +91,10 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
   ct$assign("spec", V8::JS(str_spec)) # send as JSON text to avoid jsonlite defaults
   ct$assign("seed", seed)
   ct$assign("baseURL", base_url)
-  ct$assign("fileName", file_name)
 
   # evaluate render-function
-  lines_returned <- ct$eval("vwRender(spec, seed, baseURL, fileName)", await = TRUE)
+  lines_returned <- ct$eval("vwRender(spec, seed, baseURL)", await = TRUE)
 
-  lines <- readLines(file_name, encoding = "UTF-8")
   paste(lines_returned, collapse = "\n")
 }
 

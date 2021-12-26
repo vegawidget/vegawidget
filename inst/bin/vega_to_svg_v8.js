@@ -3,9 +3,6 @@
 // functions to call back to R for fetching a remote URL, or loading a local file
 async function vwFetch(url, options) {
 
-  // console.log(url);
-  // console.log(JSON.stringify(options));
-
   const response = await console.r.call('vegawidget::vw_fetch', url);
 
   if (options.response === 'json') {
@@ -16,19 +13,14 @@ async function vwFetch(url, options) {
 }
 
 async function vwLoad(fileName) {
+
   const result = await console.r.call('vegawidget::vw_load', fileName);
 
   return result;
 }
 
 // Adapted from vega-cli: https://github.com/vega/vega/blob/master/packages/vega-cli/bin/vg2svg
-
-// Read in arguments
-
-// previous version had arguments:
-//  - to load vega - we could deom R using ct$source()
-
-async function vwRender(spec, seed, baseURL, fileName) {
+async function vwRender(spec, seed, baseURL) {
 
   function lcg(seed) {
     // Random numbers using a Linear Congruential Generator with seed value
@@ -37,10 +29,6 @@ async function vwRender(spec, seed, baseURL, fileName) {
       seed = (1103515245 * seed + 12345) % 2147483647;
       return seed / 2147483647;
     };
-  }
-
-  function writeSVG(svg, fileName) {
-    console.r.call('writeLines', [svg, fileName]);
   }
 
   // Plug-in a deterministic random number generator for testing.
@@ -65,10 +53,7 @@ async function vwRender(spec, seed, baseURL, fileName) {
         '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" ' +
         '"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n';
 
-      svg = svgHeader + svg;
-      writeSVG(svg, fileName);
-
-      return svg;
+      return svgHeader + svg;;
     })
     .catch(err => { console.log(err); });
 

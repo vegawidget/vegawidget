@@ -44,7 +44,7 @@ reference:
       The central *object* of this package is a `vegaspec`, which is also
       a `list`. Use these functions to coerce to a `vegaspec`,
       format as JSON, or otherwise operate on a `vegaspec`. If you have
-      [**nodejs**](https://nodejs.org/en/) installed,
+      [**V8**](https://CRAN.R-project.org/package=V8) installed,
       you can compile a Vega-Lite specification to a Vega specification.
     contents:
       - as_vegaspec
@@ -108,7 +108,7 @@ reference:
     - data_seattle_hourly
   - title: "Images"
     desc: >
-      If you have [**nodejs**](https://nodejs.org/en/)
+      If you have  [**V8**](https://CRAN.R-project.org/package=V8)
       installed, you can convert and write a `vegaspec` or a
       `vegawidget` to SVG. To convert to a bitmap, or to write
       to a PNG file, you will need the

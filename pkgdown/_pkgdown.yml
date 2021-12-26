@@ -2,6 +2,8 @@ template:
   params:
     bootswatch: sandstone
 
+url: https://vegawidget.github.io/vegawidget
+
 development:
   mode: auto
 

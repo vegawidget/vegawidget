@@ -96,7 +96,7 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
   ct$assign("fileName", file_name)
 
   # evaluate render-function
-  ct$eval("(async () => {await vwRender(spec, seed, baseURL, fileName)})()")
+  ct$eval("vwRender(spec, seed, baseURL, fileName)", await = TRUE)
 
   lines <- readLines(file_name, encoding = "UTF-8")
   paste(lines, collapse = "\n")

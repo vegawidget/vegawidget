@@ -59,7 +59,6 @@ Suggests:
     knitr,
     rmarkdown,
     listviewer,
-    httr,
     testthat (>= 3.0.0),
     yaml,
     fs,

@@ -81,7 +81,15 @@ test_that("as_vegaspec reads UTF-8 correctly", {
 
 })
 
+test_that("as_vegaspec reads urls correctly", {
 
+  skip_on_cran()
+
+  myspec <- as_vegaspec("https://raw.githubusercontent.com/vega/vega-lite/master/examples/specs/bar.vl.json")
+
+  expect_s3_class(myspec, "vegaspec_vega_lite")
+
+})
 
 
 

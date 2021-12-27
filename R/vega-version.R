@@ -16,21 +16,10 @@
 #'
 get_vega_version <- function(vega_lite_version) {
 
-  assert_packages("httr")
-
   url <-
     glue::glue("https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite_version}/package.json")
 
-  # get and validate response
-  resp <- httr::GET(url)
-  resp <- httr::stop_for_status(
-    resp,
-    task = paste("retrieve Vega-Lite manifest at", url, " - please verify")
-  )
-
-  # parse response
-  text <- httr::content(resp, as = "text")
-  package <- jsonlite::fromJSON(text)
+  package <- jsonlite::fromJSON(url)
 
   # get versions
   vega_version <- sub("\\^", "", package$peerDependencies$vega)

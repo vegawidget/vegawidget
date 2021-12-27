@@ -43,9 +43,9 @@ JSON, and character strings to \code{vegaspec}.
 \details{
 The \code{character} method for this function will take:
 \itemize{
-\item{JSON string}
-\item{A path to a local JSON file}
-\item{A URL that contains a JSON file, requires that \href{https://CRAN.R-project.org/package=httr}{httr} be installed}
+\item{JSON string.}
+\item{A path to a local JSON file.}
+\item{A URL that returns a JSON file.}
 }
 
 For Vega and Vega-Lite, the translation between lists and JSON is a little

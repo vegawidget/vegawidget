@@ -31,9 +31,7 @@ Authors@R: c(
     person("Dominik", "Moritz", comment = "Vega/Vega-Lite library", role = c("ctb")),
     person("Arvind", "Satyanarayan", comment = "Vega/Vega-Lite library", role = c("ctb")),
     person("Jeffrey", "Heer", comment = "Vega/Vega-Lite library", role = c("ctb")),
-    person("Mike", "Bostock", comment = "D3 library", role = c("ctb")),
-    person("David", "Frank", comment = "node-fetch library", role = c("ctb")),
-    person("Hadley", "Wickham", comment = "s3_register", role = c("ctb"))
+    person("Mike", "Bostock", comment = "D3 library", role = c("ctb"))
   )
 SystemRequirements: To use image functions for MacOS: X11    
 License: MIT + file LICENSE

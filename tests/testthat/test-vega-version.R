@@ -1,13 +1,3 @@
-test_that("get_vega_version errors correctly", {
-  skip_on_cran()
-
-  expect_error(
-    get_vega_version("foo"),
-    "Failed to retrieve Vega-Lite manifest",
-    class = "http_404"
-  )
-})
-
 test_that("get_vega_version works correctly", {
 
   skip_on_cran()
@@ -15,8 +5,7 @@ test_that("get_vega_version works correctly", {
   vega_vers <- list(
     vega_lite = "3.0.2",
     vega = "5.3.2",
-    vega_embed = "4.0.0-rc1",
-    vega_util = "1.10.0"
+    vega_embed = "4.0.0-rc1"
   )
 
   expect_identical(get_vega_version("3.0.2"), vega_vers)
@@ -29,7 +18,7 @@ test_that("vega_version works correctly", {
 
   expect_identical(
     names(vega_version),
-    c("vega_lite", "vega", "vega_embed", "vega_util")
+    c("vega_lite", "vega", "vega_embed")
   )
 
   expect_true(all(is.character(unlist(vega_version))))

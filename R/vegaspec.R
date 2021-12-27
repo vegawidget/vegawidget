@@ -7,9 +7,9 @@
 #'
 #' The `character` method for this function will take:
 #' \itemize{
-#'   \item{JSON string}
-#'   \item{A path to a local JSON file}
-#'   \item{A URL that contains a JSON file, requires that [httr](https://CRAN.R-project.org/package=httr) be installed}
+#'   \item{JSON string.}
+#'   \item{A path to a local JSON file.}
+#'   \item{A URL that returns a JSON file.}
 #' }
 #'
 #' For Vega and Vega-Lite, the translation between lists and JSON is a little
@@ -94,10 +94,9 @@ as_vegaspec.character <- function(spec, encoding = "UTF-8", ...) {
 
   # remote file
   if (is_url) {
-    assert_packages("httr")
-    spec <- httr::GET(spec)
-    spec <- httr::stop_for_status(spec)
-    spec <- httr::content(spec, as = "text", encoding = encoding)
+    spec <- url(spec, encoding = encoding)
+    spec <- readLines(spec)
+    spec <- paste0(spec, collapse = "\n")
   }
 
   # local file

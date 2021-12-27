@@ -19,7 +19,6 @@ To upgrade the version of **Vega-Lite** that we support:
 ```{r packages}
 library("fs")
 library("glue")
-library("httr")
 library("here")
 library("purrr")
 library("readr")
@@ -171,14 +170,8 @@ get_file <- function(path_local, path_remote, path_local_root) {
     dir_create(dir_local)
   }
   
-  # TODO: use download.file()
-  
-  resp <- httr::GET(path_remote)
-  
-  text <- httr::content(resp, type = "text", encoding = "UTF-8")
-  
-  readr::write_file(text, path_local)
-  
+  download.file(path_remote, destfile = path_local)
+
   invisible(NULL)
 }
 ```

@@ -17,7 +17,6 @@ To upgrade the version of **Vega-Lite** that we support:
 ``` r
 library("fs")
 library("glue")
-library("httr")
 library("here")
 ```
 
@@ -125,9 +124,6 @@ vega_version_long
     ## 
     ## $vega_embed
     ## [1] "6.20.2"
-    ## 
-    ## $vega_util
-    ## [1] "1.17.0"
 
 ``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
@@ -225,14 +221,8 @@ get_file <- function(path_local, path_remote, path_local_root) {
     dir_create(dir_local)
   }
   
-  # TODO: use download.file()
-  
-  resp <- httr::GET(path_remote)
-  
-  text <- httr::content(resp, type = "text", encoding = "UTF-8")
-  
-  readr::write_file(text, path_local)
-  
+  download.file(path_remote, destfile = path_local)
+
   invisible(NULL)
 }
 ```

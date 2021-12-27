@@ -143,12 +143,10 @@ First, let’s create a clean directory for the htmlwidget
 dir_htmlwidgets <- here("inst", "htmlwidgets")
 dir_lib <- path(dir_htmlwidgets, "lib")
 dir_vegaembed <- path(dir_lib, "vega-embed")
-dir_vegautil <- path(dir_lib, "vega-util")
 
 create_clean(dir_htmlwidgets)
 dir_create(dir_lib)
 dir_create(dir_vegaembed)
-dir_create(dir_vegautil)
 ```
 
 ### vegawidget
@@ -195,9 +193,7 @@ htmlwidgets_downloads <-
     "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
     "vega-embed/vega-embed.min.js",      "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
-    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE",
-    "vega-util/vega-util.min.js",        "https://cdn.jsdelivr.net/npm/vega-util@{vega_util}",
-    "vega-util/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-util/master/LICENSE"
+    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
   ) %>%
   mutate(
     path_remote = map_chr(path_remote, ~glue_data(vega_version_long, .x))
@@ -206,7 +202,7 @@ htmlwidgets_downloads <-
 htmlwidgets_downloads
 ```
 
-    ## # A tibble: 8 × 2
+    ## # A tibble: 6 × 2
     ##   path_local                   path_remote                                      
     ##   <chr>                        <chr>                                            
     ## 1 vega-lite/vega-lite.min.js   https://cdn.jsdelivr.net/npm/vega-lite@5.2.0     
@@ -215,8 +211,6 @@ htmlwidgets_downloads
     ## 4 vega/LICENSE                 https://raw.githubusercontent.com/vega/vega/mast…
     ## 5 vega-embed/vega-embed.min.js https://cdn.jsdelivr.net/npm/vega-embed@6.20.2   
     ## 6 vega-embed/LICENSE           https://raw.githubusercontent.com/vega/vega-embe…
-    ## 7 vega-util/vega-util.min.js   https://cdn.jsdelivr.net/npm/vega-util@1.17.0    
-    ## 8 vega-util/LICENSE            https://raw.githubusercontent.com/vega/vega-util…
 
 ``` r
 get_file <- function(path_local, path_remote, path_local_root) {

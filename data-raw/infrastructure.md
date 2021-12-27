@@ -125,9 +125,6 @@ vega_version_long
     ## 
     ## $vega_embed
     ## [1] "6.20.2"
-    ## 
-    ## $vega_util
-    ## [1] "1.17.0"
 
 ``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"

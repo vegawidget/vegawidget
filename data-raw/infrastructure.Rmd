@@ -229,43 +229,7 @@ We use this to support the `vega_version()` function.
 .vega_version <- vega_version_long
 ```
 
-### JavaScript Libraries
-
-We want to keep copies of the Vega and Vega-Lite specs so that we can use them with V8.
-
-Another way to do this may be to keep memoised functions that read the files kept in the htmlwidgets directory. This seems potentially cleaner to execute, but more-complicated to implement.
-
-Let look at `htmlwidgets_downloads`
-
-```{r}
-regex <- "vega(-lite)?/(.*)\\.min.js$"
-
-htmlwidgets_vegajs <-
-  htmlwidgets_downloads %>%
-  dplyr::filter(str_detect(path_local, regex)) %>%
-  dplyr::mutate(
-    name = str_replace(path_local, regex, ".\\2_js") %>% str_replace("-", "_")
-  ) %>%
-  dplyr::select(name, path_local)
-
-htmlwidgets_vegajs  
-```
-
-We need to put these into the local environment. This smells like a side-effect.
-
-```{r}
-assign_js <- function(name, path_local, path_root) {
-  
-  js <- readr::read_file(fs::path(path_root, path_local))
-  
-  assign(name, js, envir = globalenv())
-  NULL 
-}
-
-pwalk(htmlwidgets_vegajs, assign_js, path_root = dir_lib)
-```
-
-Vegawidget handlers:
+### Vegawidget handlers
 
 ```{r}
 .vw_handler_library <-

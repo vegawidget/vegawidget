@@ -181,15 +181,31 @@ Here’s where we download the libraries themselves, along with the
 licences; the versions are interpolated from `vega_version_long`.
 
 ``` r
+license_downloads <- 
+    tribble(
+    ~path_local,                         ~path_remote,
+    "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/master/LICENSE",
+    "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
+    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
+  )
+
+license_downloads
+```
+
+    ## # A tibble: 3 × 2
+    ##   path_local         path_remote                                                
+    ##   <chr>              <chr>                                                      
+    ## 1 vega-lite/LICENSE  https://raw.githubusercontent.com/vega/vega-lite/master/LI…
+    ## 2 vega/LICENSE       https://raw.githubusercontent.com/vega/vega/master/LICENSE 
+    ## 3 vega-embed/LICENSE https://raw.githubusercontent.com/vega/vega-embed/master/L…
+
+``` r
 htmlwidgets_downloads <-
   tribble(
     ~path_local,                         ~path_remote,
     "vega-lite/vega-lite.min.js",        "https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite}",
-    "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/master/LICENSE",
     "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
-    "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
     "vega-embed/vega-embed.min.js",      "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
-    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
   ) %>%
   mutate(
     path_remote = map_chr(path_remote, ~glue_data(vega_version_long, .x))
@@ -198,15 +214,12 @@ htmlwidgets_downloads <-
 htmlwidgets_downloads
 ```
 
-    ## # A tibble: 6 × 2
-    ##   path_local                   path_remote                                      
-    ##   <chr>                        <chr>                                            
-    ## 1 vega-lite/vega-lite.min.js   https://cdn.jsdelivr.net/npm/vega-lite@5.2.0     
-    ## 2 vega-lite/LICENSE            https://raw.githubusercontent.com/vega/vega-lite…
-    ## 3 vega/vega.min.js             https://cdn.jsdelivr.net/npm/vega@5.21.0         
-    ## 4 vega/LICENSE                 https://raw.githubusercontent.com/vega/vega/mast…
-    ## 5 vega-embed/vega-embed.min.js https://cdn.jsdelivr.net/npm/vega-embed@6.20.2   
-    ## 6 vega-embed/LICENSE           https://raw.githubusercontent.com/vega/vega-embe…
+    ## # A tibble: 3 × 2
+    ##   path_local                   path_remote                                   
+    ##   <chr>                        <chr>                                         
+    ## 1 vega-lite/vega-lite.min.js   https://cdn.jsdelivr.net/npm/vega-lite@5.2.0  
+    ## 2 vega/vega.min.js             https://cdn.jsdelivr.net/npm/vega@5.21.0      
+    ## 3 vega-embed/vega-embed.min.js https://cdn.jsdelivr.net/npm/vega-embed@6.20.2
 
 ``` r
 get_file <- function(path_local, path_remote, path_local_root) {
@@ -231,10 +244,17 @@ Here, we create the `lib` directory, then “walk” through each row of the
 `downloads` data frame to get each of the files and put it into place.
 
 ``` r
+pwalk(license_downloads, get_file, path_local_root = dir_lib)
+```
+
+``` r
 pwalk(htmlwidgets_downloads, get_file, path_local_root = dir_lib)
 ```
 
 ## Schema
+
+This bit seems troublesome - perhaps we can just get rid of it? For the
+moment, I am going to pretend it does not exist :)
 
 One of the purposes of this package is to provide a means to validate a
 spec.

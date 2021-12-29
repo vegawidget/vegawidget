@@ -332,6 +332,7 @@ We use this to support the `vega_version()` function.
 
 ```{r}
 .vega_version <- vega_version_long
+.vega_version_all <- as.data.frame(vega_version_long_all)
 ```
 
 ### Vegawidget handlers
@@ -423,6 +424,7 @@ We use this to support the `vega_version()` function.
 ```{r}
 usethis::use_data(
   .vega_version, 
+  .vega_version_all,
   .vw_handler_library,
   internal = TRUE, 
   overwrite = TRUE

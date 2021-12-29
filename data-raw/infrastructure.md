@@ -115,6 +115,7 @@ specific version of the vega-lite library. This package has an internal
 function, `get_vega_version()` to help us do this:
 
 ``` r
+# TODO - get rid of this once everything is working
 vega_version_long <- vegawidget:::get_vega_version(params$vega_lite_version)
 
 vega_version_long
@@ -195,16 +196,6 @@ dir_create(dir_vegaembed)
 First, copy some files from our templates directory.
 
 ``` r
-file_copy(
-  path(dir_templates, "vegawidget.js"), 
-  path(dir_htmlwidgets, "vegawidget.js"),
-  overwrite = TRUE # take this out when done
-)
-```
-
-Try this with multiple versions:
-
-``` r
 write_js <- function(x) {
   path(dir_templates, "vegawidget-all.js") %>%
     readr::read_lines() %>%
@@ -217,15 +208,8 @@ write_js <- function(x) {
 walk(tbl_versions$set, write_js)
 ```
 
-The file `vegawidget.yaml` requires the versions the JavaScript
+The file `vegawidget-all.yaml` requires the versions the JavaScript
 libraries; we interpolate these from `vega_version_short`.
-
-``` r
-path(dir_templates, "vegawidget.yaml") %>%
-  read_lines() %>%
-  map_chr(~glue_data(vega_version_short, .x)) %>%
-  write_lines(path(dir_htmlwidgets, "vegawidget.yaml"))
-```
 
 ``` r
 write_yaml <- function(x) {
@@ -271,28 +255,6 @@ license_downloads
     ## 1 vega-lite/LICENSE  https://raw.githubusercontent.com/vega/vega-lite/master/LI…
     ## 2 vega/LICENSE       https://raw.githubusercontent.com/vega/vega/master/LICENSE 
     ## 3 vega-embed/LICENSE https://raw.githubusercontent.com/vega/vega-embed/master/L…
-
-``` r
-htmlwidgets_downloads <-
-  tribble(
-    ~path_local,                         ~path_remote,
-    "vega-lite/vega-lite.min.js",        "https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite}",
-    "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
-    "vega-embed/vega-embed.min.js",      "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
-  ) %>%
-  mutate(
-    path_remote = map_chr(path_remote, ~glue_data(vega_version_long, .x))
-  )
-
-htmlwidgets_downloads
-```
-
-    ## # A tibble: 3 × 2
-    ##   path_local                   path_remote                                   
-    ##   <chr>                        <chr>                                         
-    ## 1 vega-lite/vega-lite.min.js   https://cdn.jsdelivr.net/npm/vega-lite@5.2.0  
-    ## 2 vega/vega.min.js             https://cdn.jsdelivr.net/npm/vega@5.21.0      
-    ## 3 vega-embed/vega-embed.min.js https://cdn.jsdelivr.net/npm/vega-embed@6.20.2
 
 ``` r
 downloads_template <- 
@@ -355,10 +317,6 @@ Here, we create the `lib` directory, then “walk” through each row of the
 
 ``` r
 pwalk(license_downloads, get_file, path_local_root = dir_lib)
-```
-
-``` r
-pwalk(htmlwidgets_downloads, get_file, path_local_root = dir_lib)
 ```
 
 ``` r

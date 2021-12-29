@@ -90,6 +90,7 @@ These packages are not listed in the `Suggests` section of the `DESCRIPTION` fil
 We need to know which versions of the libraries (vega, vega-lite, and vega-embed) to download. We do this by inspecting the manifest of a specific version of the vega-lite library. This package has an internal function, `get_vega_version()` to help us do this:  
 
 ```{r version}
+# TODO - get rid of this once everything is working
 vega_version_long <- vegawidget:::get_vega_version(params$vega_lite_version)
 
 vega_version_long
@@ -143,16 +144,6 @@ dir_create(dir_vegaembed)
 
 First, copy some files from our templates directory.
 
-```{r vegawidget-js}
-file_copy(
-  path(dir_templates, "vegawidget.js"), 
-  path(dir_htmlwidgets, "vegawidget.js"),
-  overwrite = TRUE # take this out when done
-)
-```
-
-Try this with multiple versions:
-
 ```{r vegawidget-js-multi}
 write_js <- function(x) {
   path(dir_templates, "vegawidget-all.js") %>%
@@ -166,14 +157,7 @@ write_js <- function(x) {
 walk(tbl_versions$set, write_js)
 ```
 
-The file `vegawidget.yaml` requires the versions the JavaScript libraries; we interpolate these from `vega_version_short`.
-
-```{r vegawidget-yml}
-path(dir_templates, "vegawidget.yaml") %>%
-  read_lines() %>%
-  map_chr(~glue_data(vega_version_short, .x)) %>%
-  write_lines(path(dir_htmlwidgets, "vegawidget.yaml"))
-```
+The file `vegawidget-all.yaml` requires the versions the JavaScript libraries; we interpolate these from `vega_version_short`.
 
 ```{r vegawidget-yml-multi}
 write_yaml <- function(x) {
@@ -209,21 +193,6 @@ license_downloads <-
   )
 
 license_downloads
-```
-
-```{r}
-htmlwidgets_downloads <-
-  tribble(
-    ~path_local,                         ~path_remote,
-    "vega-lite/vega-lite.min.js",        "https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite}",
-    "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
-    "vega-embed/vega-embed.min.js",      "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
-  ) %>%
-  mutate(
-    path_remote = map_chr(path_remote, ~glue_data(vega_version_long, .x))
-  )
-
-htmlwidgets_downloads
 ```
 
 ```{r}
@@ -276,10 +245,6 @@ Here, we create the `lib` directory, then "walk" through each row of the `downlo
 
 ```{r}
 pwalk(license_downloads, get_file, path_local_root = dir_lib)
-```
-
-```{r}
-pwalk(htmlwidgets_downloads, get_file, path_local_root = dir_lib)
 ```
 
 ```{r}

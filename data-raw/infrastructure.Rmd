@@ -154,14 +154,16 @@ file_copy(
 Try this with multiple versions:
 
 ```{r vegawidget-js-multi}
-walk(
-  tbl_versions$set, 
-  ~file_copy(
-    path(dir_templates, "vegawidget.js"), 
-    path(dir_htmlwidgets, glue("vegawidget-{.x}.js")),
-    overwrite = TRUE # take this out when done
-  )
-)
+write_js <- function(x) {
+  path(dir_templates, "vegawidget-all.js") %>%
+    readr::read_lines() %>%
+    purrr::map_chr(
+      ~glue::glue_data(list(set = x), .x, .open = "${")
+    ) %>%
+    readr::write_lines(path(dir_htmlwidgets, glue::glue("vegawidget-{x}.js")))  
+}
+
+walk(tbl_versions$set, write_js)
 ```
 
 The file `vegawidget.yaml` requires the versions the JavaScript libraries; we interpolate these from `vega_version_short`.

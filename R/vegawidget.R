@@ -174,7 +174,7 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
 
   vegawidget <-
     htmlwidgets::createWidget(
-      "vegawidget",
+      "vegawidget-vl5",
       x,
       width = width,
       height = height,
@@ -192,6 +192,9 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
       dependencies = data_dependency,
       ...
     )
+
+  # add a generic class for the benefit of as_vegaspec()
+  class(vegawidget) <- c("vegawidget", class(vegawidget))
 
   vegawidget
 }

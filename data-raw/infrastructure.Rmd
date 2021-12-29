@@ -7,6 +7,7 @@ params:
     value:
       vl5: "5.2.0"
       vl4: "4.17.0"
+  widget_default: "vl5"
 ---
 
 This purpose of this document is to build the package infrastucture. 
@@ -300,6 +301,7 @@ We use this to support the `vega_version()` function.
 ```{r}
 .vega_version <- vega_version_long
 .vega_version_all <- as.data.frame(vega_version_long_all)
+.widget_default <- params$widget_default
 ```
 
 ### Vegawidget handlers
@@ -392,6 +394,7 @@ We use this to support the `vega_version()` function.
 usethis::use_data(
   .vega_version, 
   .vega_version_all,
+  .widget_default,
   .vw_handler_library,
   internal = TRUE, 
   overwrite = TRUE

@@ -381,6 +381,7 @@ We use this to support the `vega_version()` function.
 ``` r
 .vega_version <- vega_version_long
 .vega_version_all <- as.data.frame(vega_version_long_all)
+.widget_default <- params$widget_default
 ```
 
 ### Vegawidget handlers
@@ -473,6 +474,7 @@ We use this to support the `vega_version()` function.
 usethis::use_data(
   .vega_version, 
   .vega_version_all,
+  .widget_default,
   .vw_handler_library,
   internal = TRUE, 
   overwrite = TRUE
@@ -481,7 +483,7 @@ usethis::use_data(
 
     ## ✓ Setting active project to '/Users/ijlyttle/Documents/repos/public/vegawidget/vegawidget'
 
-    ## ✓ Saving '.vega_version', '.vega_version_all', '.vw_handler_library' to 'R/sysdata.rda'
+    ## ✓ Saving '.vega_version', '.vega_version_all', '.widget_default', '.vw_handler_library' to 'R/sysdata.rda'
 
 ## Now what?
 

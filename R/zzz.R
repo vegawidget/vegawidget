@@ -73,5 +73,5 @@ vw_env <- rlang::env(rlang::empty_env())
 
 .onLoad <- function(...) {
   s3_register("knitr::knit_print", "vegaspec")
-  vw_env$widgetset = NULL
+  vw_env$widget = NULL
 }

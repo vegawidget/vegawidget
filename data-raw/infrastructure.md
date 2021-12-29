@@ -141,7 +141,7 @@ versions.
 
 ``` r
 tbl_versions <- 
-  enframe(unlist(params$versions), name = "set", value = "vega_lite")
+  enframe(unlist(params$versions), name = "widget", value = "vega_lite")
 ```
 
 ``` r
@@ -156,10 +156,10 @@ vega_version_long_all
 ```
 
     ## # A tibble: 2 × 4
-    ##   set   vega_lite vega   vega_embed
-    ##   <chr> <chr>     <chr>  <chr>     
-    ## 1 vl5   5.2.0     5.21.0 6.20.2    
-    ## 2 vl4   4.17.0    5.17.0 6.12.2
+    ##   widget vega_lite vega   vega_embed
+    ##   <chr>  <chr>     <chr>  <chr>     
+    ## 1 vl5    5.2.0     5.21.0 6.20.2    
+    ## 2 vl4    4.17.0    5.17.0 6.12.2
 
 ``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
@@ -172,10 +172,10 @@ vega_version_short_all
 ```
 
     ## # A tibble: 2 × 4
-    ##   set   vega_lite vega   vega_embed
-    ##   <chr> <chr>     <chr>  <chr>     
-    ## 1 vl5   5.2.0     5.21.0 6.20.2    
-    ## 2 vl4   4.17.0    5.17.0 6.12.2
+    ##   widget vega_lite vega   vega_embed
+    ##   <chr>  <chr>     <chr>  <chr>     
+    ## 1 vl5    5.2.0     5.21.0 6.20.2    
+    ## 2 vl4    4.17.0    5.17.0 6.12.2
 
 ## htmlwidgets
 
@@ -200,12 +200,12 @@ write_js <- function(x) {
   path(dir_templates, "vegawidget-all.js") %>%
     readr::read_lines() %>%
     purrr::map_chr(
-      ~glue::glue_data(list(set = x), .x, .open = "${")
+      ~glue::glue_data(list(widget = x), .x, .open = "${")
     ) %>%
     readr::write_lines(path(dir_htmlwidgets, glue::glue("vegawidget-{x}.js")))  
 }
 
-walk(tbl_versions$set, write_js)
+walk(tbl_versions$widget, write_js)
 ```
 
 The file `vegawidget-all.yaml` requires the versions the JavaScript
@@ -216,12 +216,12 @@ write_yaml <- function(x) {
   path(dir_templates, "vegawidget-all.yaml") %>%
     readr::read_lines() %>%
     purrr::map_chr(
-      ~glue::glue_data(vega_version_short_all %>% filter(set == !!x), .x)
+      ~glue::glue_data(vega_version_short_all %>% filter(widget == !!x), .x)
     ) %>%
     readr::write_lines(path(dir_htmlwidgets, glue::glue("vegawidget-{x}.yaml")))  
 }
 
-walk(vega_version_long_all$set, write_yaml)
+walk(vega_version_long_all$widget, write_yaml)
 ```
 
 The file `vega-embed.css` adds some css for the (old-style) links that
@@ -265,9 +265,9 @@ downloads_template <-
     "vega-embed/vega-embed@{vega_embed}.min.js", "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
   )
 
-downloads_local <- function(set) {
+downloads_local <- function(widget) {
   
-  df_local <- dplyr::filter(vega_version_long_all, set == !!set)
+  df_local <- dplyr::filter(vega_version_long_all, widget == !!widget)
   
   downloads_template |>
   dplyr::mutate(
@@ -278,7 +278,7 @@ downloads_local <- function(set) {
   )  
 }
 
-htmlwidgets_downloads_all <- map_dfr(vega_version_long_all$set, downloads_local)
+htmlwidgets_downloads_all <- map_dfr(vega_version_long_all$widget, downloads_local)
 
 htmlwidgets_downloads_all
 ```

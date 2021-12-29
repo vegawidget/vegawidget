@@ -35,8 +35,8 @@ vw_to_vega <- function(spec) {
 
   ct <- V8::v8()
 
-  ct$source(pkgfile("vega", "vega.min.js"))
-  ct$source(pkgfile("vega-lite", "vega-lite.min.js"))
+  ct$source(pkgfile("vega", "vega@5.21.0.min.js"))
+  ct$source(pkgfile("vega-lite", "vega-lite@5.2.0.min.js"))
   ct$eval(glue::glue("var vs = vegaLite.compile({vw_as_json(spec)})"))
 
   # don't let V8 convert to JSON; send as string

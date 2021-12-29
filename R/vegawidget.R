@@ -218,7 +218,7 @@ vegawidgetOutput <- function(outputId, width = "auto", height = "auto") {
 
   htmlwidgets::shinyWidgetOutput(
     outputId,
-    "vegawidget",
+    "vegawidget-vl5",
     width,
     height,
     package = "vegawidget"

@@ -1,0 +1,18 @@
+dependencies:
+  - name: vega
+    version: "5.21.0"
+    src: htmlwidgets/lib/vega
+    script:
+      - "vega@5.21.0.min.js""
+  - name: vega-lite
+    version: "5.2.0"
+    src: htmlwidgets/lib/vega-lite
+    script:
+      - "vega-lite@5.2.0.min.js""
+  - name: vega-embed
+    version: "6.20.2"
+    src: htmlwidgets/lib/vega-embed
+    script:
+      - "vega-embed@6.20.2.min.js""
+    style:
+      - vega-embed.css

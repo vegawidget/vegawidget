@@ -45,7 +45,11 @@ library("stringr")
 library("usethis")
 library("conflicted")
 library("vegawidget")
+
+conflict_prefer("filter", "dplyr")
 ```
+
+    ## [conflicted] Will prefer dplyr::filter over any other package
 
 ## Infrastructure
 
@@ -131,6 +135,47 @@ vega_version_long
 vega_version_short <- map(vega_version_long, ~sub("-\\w.*$", "", .x))
 ```
 
+We are going to overlay this with a data frame to support multiple
+versions.
+
+``` r
+tbl_versions <- 
+  enframe(unlist(params$versions), name = "set", value = "vega_lite")
+```
+
+``` r
+vega_version_long_all <- 
+  tbl_versions |>
+  left_join(
+    map_dfr(tbl_versions$vega_lite, vegawidget:::get_vega_version),
+    by = "vega_lite"
+  )
+   
+vega_version_long_all
+```
+
+    ## # A tibble: 2 × 4
+    ##   set   vega_lite vega   vega_embed
+    ##   <chr> <chr>     <chr>  <chr>     
+    ## 1 vl5   5.2.0     5.21.0 6.20.2    
+    ## 2 vl4   4.17.0    5.17.0 6.12.2
+
+``` r
+# we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
+# "-\\w.*$"   hyphen, followed by a letter, followed by anything, then end 
+vega_version_short_all <- 
+  vega_version_long_all |>
+  mutate(across(starts_with("vega"), ~sub("-\\w.*$", "", .x)))
+  
+vega_version_short_all
+```
+
+    ## # A tibble: 2 × 4
+    ##   set   vega_lite vega   vega_embed
+    ##   <chr> <chr>     <chr>  <chr>     
+    ## 1 vl5   5.2.0     5.21.0 6.20.2    
+    ## 2 vl4   4.17.0    5.17.0 6.12.2
+
 ## htmlwidgets
 
 First, let’s create a clean directory for the htmlwidget
@@ -157,6 +202,19 @@ file_copy(
 )
 ```
 
+Try this with multiple versions:
+
+``` r
+walk(
+  tbl_versions$set, 
+  ~file_copy(
+    path(dir_templates, "vegawidget.js"), 
+    path(dir_htmlwidgets, glue("vegawidget-{.x}.js")),
+    overwrite = TRUE # take this out when done
+  )
+)
+```
+
 The file `vegawidget.yaml` requires the versions the JavaScript
 libraries; we interpolate these from `vega_version_short`.
 
@@ -165,6 +223,19 @@ path(dir_templates, "vegawidget.yaml") %>%
   read_lines() %>%
   map_chr(~glue_data(vega_version_short, .x)) %>%
   write_lines(path(dir_htmlwidgets, "vegawidget.yaml"))
+```
+
+``` r
+write_yaml <- function(x) {
+  path(dir_templates, "vegawidget-all.yaml") %>%
+    readr::read_lines() %>%
+    purrr::map_chr(
+      ~glue::glue_data(vega_version_short_all %>% filter(set == !!x), .x)
+    ) %>%
+    readr::write_lines(path(dir_htmlwidgets, glue::glue("vegawidget-{x}.yaml")))  
+}
+
+walk(vega_version_long_all$set, write_yaml)
 ```
 
 The file `vega-embed.css` adds some css for the (old-style) links that
@@ -222,6 +293,43 @@ htmlwidgets_downloads
     ## 3 vega-embed/vega-embed.min.js https://cdn.jsdelivr.net/npm/vega-embed@6.20.2
 
 ``` r
+downloads_template <- 
+  tribble(
+    ~path_local,                                 ~path_remote,
+    "vega-lite/vega-lite@{vega_lite}.min.js",    "https://cdn.jsdelivr.net/npm/vega-lite@{vega_lite}",
+    "vega/vega@{vega}.min.js",                   "https://cdn.jsdelivr.net/npm/vega@{vega}",
+    "vega-embed/vega-embed@{vega_embed}.min.js", "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
+  )
+
+downloads_local <- function(set) {
+  
+  df_local <- dplyr::filter(vega_version_long_all, set == !!set)
+  
+  downloads_template |>
+  dplyr::mutate(
+    dplyr::across(
+      dplyr::starts_with("path"), 
+      ~map_chr(.x, ~glue::glue_data(df_local, .x))
+    )
+  )  
+}
+
+htmlwidgets_downloads_all <- map_dfr(vega_version_long_all$set, downloads_local)
+
+htmlwidgets_downloads_all
+```
+
+    ## # A tibble: 6 × 2
+    ##   path_local                          path_remote                               
+    ##   <chr>                               <chr>                                     
+    ## 1 vega-lite/vega-lite@5.2.0.min.js    https://cdn.jsdelivr.net/npm/vega-lite@5.…
+    ## 2 vega/vega@5.21.0.min.js             https://cdn.jsdelivr.net/npm/vega@5.21.0  
+    ## 3 vega-embed/vega-embed@6.20.2.min.js https://cdn.jsdelivr.net/npm/vega-embed@6…
+    ## 4 vega-lite/vega-lite@4.17.0.min.js   https://cdn.jsdelivr.net/npm/vega-lite@4.…
+    ## 5 vega/vega@5.17.0.min.js             https://cdn.jsdelivr.net/npm/vega@5.17.0  
+    ## 6 vega-embed/vega-embed@6.12.2.min.js https://cdn.jsdelivr.net/npm/vega-embed@6…
+
+``` r
 get_file <- function(path_local, path_remote, path_local_root) {
   
   path_local <- fs::path(path_local_root, path_local)
@@ -249,6 +357,10 @@ pwalk(license_downloads, get_file, path_local_root = dir_lib)
 
 ``` r
 pwalk(htmlwidgets_downloads, get_file, path_local_root = dir_lib)
+```
+
+``` r
+pwalk(htmlwidgets_downloads_all, get_file, path_local_root = dir_lib)
 ```
 
 ## Schema

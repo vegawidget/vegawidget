@@ -68,6 +68,10 @@ s3_register <- function(generic, class, method = NULL) {
   invisible()
 }
 
+# keep track of which widget (e.g. "vl5", "vl4") we are using
+vw_env <- rlang::env(rlang::empty_env())
+
 .onLoad <- function(...) {
   s3_register("knitr::knit_print", "vegaspec")
+  vw_env$widgetset = NULL
 }

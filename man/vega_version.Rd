@@ -3,11 +3,14 @@
 \name{vega_version}
 \alias{vega_version}
 \alias{vega_version_all}
+\alias{vega_version_available}
 \title{Get Vega JavaScript versions}
 \usage{
 vega_version(major = FALSE)
 
 vega_version_all(major = FALSE)
+
+vega_version_available(major = FALSE)
 }
 \arguments{
 \item{major}{\code{logical} return major version-tags rather than the
@@ -17,14 +20,18 @@ tags for the specific versions supported by this package}
 \describe{
 \item{vega_version()}{\code{list} with elements: \code{is_locked}, \code{widget},
 \code{vega_lite}, \code{vega}, \code{vega_embed}.}
-\item{vega_version_all()}{\code{list} with elements: \code{widget},
+\item{vega_version_all()}{\code{data.frame} with elements: \code{widget},
+\code{vega_lite}, \code{vega}, \code{vega_embed}.}
+\item{vega_version_available()}{\code{data.frame} with elements: \code{widget},
 \code{vega_lite}, \code{vega}, \code{vega_embed}.}
 }
 }
 \description{
 Use these functions to get which versions of Vega JavaScript libraries
 are available. \code{vega_version_all()} returns a data frame showing all
-available versions; \code{vega_version()} shows the default version.
+versions included in this package, \code{vega_version_available()} returns
+all versions available - subject to locking,
+\code{vega_version()} shows the default version.
 }
 \details{
 This package offers multiple widgets, each corresponding to a major version
@@ -42,4 +49,5 @@ most-recent version.
   vega_version()
   vega_version(major = TRUE)
   vega_version_all()
+  vega_version_available()
 }

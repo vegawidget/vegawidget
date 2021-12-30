@@ -40,3 +40,33 @@ test_that("vega_version_all() works correctly", {
   expect_s3_class(vega_version_all, 'data.frame')
 
 })
+
+
+
+test_that("vega_version_available() works correctly", {
+
+  vega_version_all <- vega_version_all()
+  vega_version <- vega_version()
+  vega_version_available <- vega_version_available()
+
+  expect_s3_class(vega_version_available, 'data.frame')
+
+  # keep this for later
+  is_locked <- vw_env$is_locked
+
+  vw_lock_set(FALSE)
+  expect_identical(
+    vega_version_all(),
+    vega_version_available()
+  )
+
+  vw_lock_set(TRUE)
+  all <- vega_version_all()
+  expect_identical(
+    all[all[["widget"]] == vw_env[["widget"]], ],
+    vega_version_available()
+  )
+
+  # set it back to how it was found
+  vw_lock_set(is_locked)
+})

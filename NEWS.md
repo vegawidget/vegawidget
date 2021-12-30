@@ -1,8 +1,18 @@
 # vegawidget (development version)
 
-* Use Vega-Lite 5.2.0. (#183)
+* Make more than one widget available, to support the last two Vega-Lite major
+  versions. In a given loading of this package, only *one* widget is available.
+  The default is to use the most-recent version, but this can be overridden by
+  using the `$schema` element in a specification.
+  
+  Functions introduced:
+  
+  - `vega_version_all()`: all packaged versions.
+  - `vega_version_available()`: available versions, subject to locking.
+  
+  (#169)
 
-* Use Vega-Lite 5. (#159, with @AliciaSchep)
+* Use Vega-Lite 5.2.0. (#183, #159, with @AliciaSchep)
 
 * Use V8 rather than node to support image-functions and `vw_to_vega()`. 
   This adds V8 as a package-dependency, but removes the system-dependency for node. 

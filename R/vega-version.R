@@ -38,7 +38,9 @@ get_vega_version <- function(vega_lite_version) {
 #'
 #' Use these functions to get which versions of Vega JavaScript libraries
 #' are available. `vega_version_all()` returns a data frame showing all
-#' available versions; `vega_version()` shows the default version.
+#' versions included in this package, `vega_version_available()` returns
+#' all versions available - subject to locking,
+#' `vega_version()` shows the default version.
 #'
 #' This package offers multiple widgets, each corresponding to a major version
 #' of Vega-Lite. Only one of these widgets can be used for a given loading of
@@ -57,20 +59,23 @@ get_vega_version <- function(vega_lite_version) {
 #' @return \describe{
 #'   \item{vega_version()}{`list` with elements: `is_locked`, `widget`,
 #'     `vega_lite`, `vega`, `vega_embed`.}
-#'   \item{vega_version_all()}{`list` with elements: `widget`,
+#'   \item{vega_version_all()}{`data.frame` with elements: `widget`,
 #'     `vega_lite`, `vega`, `vega_embed`.}
-#'}
+#'   \item{vega_version_available()}{`data.frame` with elements: `widget`,
+#'     `vega_lite`, `vega`, `vega_embed`.}
+#' }
 #'
 #' @examples
 #'   vega_version()
 #'   vega_version(major = TRUE)
 #'   vega_version_all()
+#'   vega_version_available()
 #' @export
 #'
 vega_version <- function(major = FALSE) {
 
   x <- vega_version_all(major = major)
-  x <- x[.vega_version_all == .widget_default, ]
+  x <- x[.vega_version_all == vw_env[["widget"]], ]
   x <- as.list(x)
   x[["is_locked"]] <- vw_env[["is_locked"]]
 
@@ -91,6 +96,20 @@ vega_version_all <- function(major = FALSE) {
   x
 }
 
+#' @rdname vega_version
+#' @export
+#'
+vega_version_available <- function(major = FALSE) {
+
+  x <- vega_version(major = major)
+  x_all <- vega_version_all(major = major)
+
+  if (x$is_locked) {
+    return(x_all[x_all[["widget"]] == x[["widget"]], ])
+  }
+
+  x_all
+}
 
 # function to return the major component
 get_major <- function(x) {
@@ -98,10 +117,36 @@ get_major <- function(x) {
   regexp <- "^\\d+"
 
   # predicate - if not string or does not begin with digit, return
-  if (!is.character(x) || !any(grepl(regexp, x))) {
+  if (!is.character(x) || !all(grepl(regexp, x))) {
     return(x)
   }
 
   regmatches(x, regexpr(regexp, x))
+}
+
+
+#' Get the index of the candidate that matches the version
+#'
+#' @param version `character`
+#' @param candidates `character` vector
+#'
+#' @return `integer` index of candidate that best matches version
+#' @examples
+#'   candidates_index("5", c("5.2.0", "4.1.7")) # 1L
+#'   candidates_index("4", c("5.2.0", "4.1.7")) # 2L
+#'   candidates_index("6", c("5.2.0", "4.1.7")) # 1L, with warning
+#'   candidates_index("3", c("5.2.0", "4.1.7")) # 2L, with warning
+#'   candidates_index("5.21.0", c("5.21.0", "5.17.0")) # 1L
+#'   candidates_index("5.01.0", c("5.21.0", "5.17.0")) # 1L
+#'   candidates_index("5.22.0", c("5.21.0", "5.17.0")) # 1L, with warning
+#'
+#' @noRd
+#'
+candidates_index <- function(version, candidates) {
+
+}
+
+vw_lock_set <- function(value) {
+  vw_env[["is_locked"]] <- as.logical(value[[1]])
 }
 

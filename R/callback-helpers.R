@@ -13,7 +13,7 @@
 #' @keywords internal
 #' @export
 #'
-vw_fetch <- function(url, options = NULL) {
+vw_fetch <- function(url, options = NULL, encoding = "UTF-8") {
 
   # in theory, the vega loader figures out if `url` is a local file or not
   # in practice, it thinks local files are remote, so it comes here.
@@ -28,15 +28,15 @@ vw_fetch <- function(url, options = NULL) {
     utils::download.file(url, destfile = tmpfile, quiet = TRUE)
   }
 
-  vw_load(tmpfile)
+  vw_load(tmpfile, encoding = encoding)
 }
 
 #' @rdname vw_fetch
 #' @export
 #'
-vw_load <- function(filename) {
+vw_load <- function(filename, encoding = "UTF-8") {
 
-  lines <- readLines(filename, encoding = "UTF-8")
+  lines <- readLines(filename, encoding = encoding)
 
   paste(lines, collapse = "\n")
 }

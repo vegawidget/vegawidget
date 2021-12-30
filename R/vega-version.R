@@ -223,13 +223,3 @@ vw_lock_set <- function(value) {
   vw_env[["is_locked"]] <- as.logical(value[[1]])
 }
 
-parse_schema <- function(url) {
-
-  spl <- strsplit(url, "/")
-
-  library <- spl[[1]][[5]]
-
-  version <- sub("^v(.+)\\.json$", "\\1", spl[[1]][[6]])
-
-  list(library = library, version = version)
-}

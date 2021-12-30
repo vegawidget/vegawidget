@@ -21,12 +21,12 @@
 vw_spec_version <- function(spec) {
 
   spec <- as_vegaspec(spec)
-  version <- .schema_type(spec[["$schema"]])
+  version <- parse_schema(spec[["$schema"]])
 
   version
 }
 
-.schema_type <- function(schema) {
+parse_schema <- function(schema) {
 
   result <- list(library = "", version = "")
 

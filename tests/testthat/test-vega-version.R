@@ -95,21 +95,6 @@ test_that("get_candidate() works", {
 
 })
 
-test_that("parse_schema() works", {
-
-  exp_sch <- function(x, library, version) {
-    expect_identical(
-      parse_schema(x),
-      list(library = library, version = version)
-    )
-  }
-
-  exp_sch("https://vega.github.io/schema/vega/v2.0.0.json", "vega", "2.0.0")
-  exp_sch("https://vega.github.io/schema/vega/v2.json", "vega", "2")
-  exp_sch("https://vega.github.io/schema/vega-lite/v2.json", "vega-lite", "2")
-
-})
-
 test_that("get_widget_string() works", {
 
   library("tibble")

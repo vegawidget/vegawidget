@@ -130,20 +130,75 @@ get_major <- function(x) {
 #' @param version `character`
 #' @param candidates `character` vector
 #'
-#' @return `integer` index of candidate that best matches version
+#' @return `list` with elements:
+#'  - `index`: `integer` index of candidate that best matches version
+#'  - `message`: `character`, if candidate not suitable (`NULL` if OK)
 #' @examples
-#'   candidates_index("5", c("5.2.0", "4.1.7")) # 1L
-#'   candidates_index("4", c("5.2.0", "4.1.7")) # 2L
-#'   candidates_index("6", c("5.2.0", "4.1.7")) # 1L, with warning
-#'   candidates_index("3", c("5.2.0", "4.1.7")) # 2L, with warning
-#'   candidates_index("5.21.0", c("5.21.0", "5.17.0")) # 1L
-#'   candidates_index("5.01.0", c("5.21.0", "5.17.0")) # 1L
-#'   candidates_index("5.22.0", c("5.21.0", "5.17.0")) # 1L, with warning
+#'   get_candidate("5", c("5.2.0", "4.1.7")) # 1L
+#'   get_candidate("4", c("5.2.0", "4.1.7")) # 2L
+#'   get_candidate("6", c("5.2.0", "4.1.7")) # 1L, with warning
+#'   get_candidate("3", c("5.2.0", "4.1.7")) # 2L, with warning
+#'   get_candidate("5.21.0", c("5.21.0", "5.17.0")) # 1L
+#'   get_candidate("5.01.0", c("5.21.0", "5.17.0")) # 1L
+#'   get_candidate("5.22.0", c("5.21.0", "5.17.0")) # 1L, with warning
 #'
 #' @noRd
 #'
-candidates_index <- function(version, candidates) {
+get_candidate <- function(version, candidates) {
 
+  major <- function(x) {
+    package_version(x)$major
+  }
+
+  # need to save original for message
+  v_orig <- version
+
+  # if version has no ".", append a ".0" - so that numeric_version() will work
+  if (!grepl("\\.", version)) {
+    version <- glue::glue("{version}.0")
+  }
+
+  # cast as numeric versions
+  version <- numeric_version(version)
+  candidates <- numeric_version(candidates)
+
+  # if version smaller than smallest candidate, use smallest candidate
+  if (major(version) < min(major(candidates))) {
+
+    min_can <- min(candidates)
+
+    return(
+      list(
+        index = match(min_can, candidates),
+        message = glue::glue(
+          "version {v_orig} smaller than minimum version available: {min_can}"
+        )
+      )
+    )
+  }
+
+  # if version larger than largest candidate, use largest candidate
+  if (major(version) > max(major(candidates))) {
+
+    max_can <- max(candidates)
+
+    return(
+      list(
+        index = match(max_can, candidates),
+        message = glue::glue(
+          "version {v_orig} larger than maximum version available: {max_can}"
+        )
+      )
+    )
+  }
+
+  # get latest version with same major version
+  can_at_major = candidates[major(version) == major(candidates)]
+
+  list(
+    index = match(max(can_at_major), candidates),
+    message = NULL
+  )
 }
 
 vw_lock_set <- function(value) {

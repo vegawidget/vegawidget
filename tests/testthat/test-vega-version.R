@@ -70,3 +70,27 @@ test_that("vega_version_available() works correctly", {
   # set it back to how it was found
   vw_lock_set(is_locked)
 })
+
+
+test_that("get_candidate() works", {
+
+  exp_ca <- function(result, index, re_msg) {
+    expect_identical(result$index, index)
+
+    if (is.null(re_msg)) {
+      expect_null(result$message)
+    } else {
+      expect_match(result$message, re_msg)
+    }
+  }
+
+  exp_ca(get_candidate("5", c("5.2.0", "4.1.7")), 1L, NULL)
+  exp_ca(get_candidate("4", c("5.2.0", "4.1.7")), 2L, NULL)
+  exp_ca(get_candidate("6", c("5.2.0", "4.1.7")), 1L, "maximum")
+  exp_ca(get_candidate("3", c("5.2.0", "4.1.7")), 2L, "minimum")
+
+  exp_ca(get_candidate("5.21.0", c("5.21.0", "5.17.0")), 1L, NULL)
+  exp_ca(get_candidate("5.01.0", c("5.21.0", "5.17.0")), 1L, NULL)
+  exp_ca(get_candidate("5.22.0", c("5.21.0", "5.17.0")), 1L, NULL)
+
+})

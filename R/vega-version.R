@@ -171,7 +171,7 @@ get_candidate <- function(version, candidates) {
       list(
         index = match(min_can, candidates),
         message = glue::glue(
-          "version {v_orig} smaller than minimum version available: {min_can}"
+          "version {v_orig} smaller than minimum major-version available: {min_can}"
         )
       )
     )
@@ -186,7 +186,7 @@ get_candidate <- function(version, candidates) {
       list(
         index = match(max_can, candidates),
         message = glue::glue(
-          "version {v_orig} larger than maximum version available: {max_can}"
+          "version {v_orig} larger than maximum major-version available: {max_can}"
         )
       )
     )
@@ -201,7 +201,35 @@ get_candidate <- function(version, candidates) {
   )
 }
 
+get_widget_string <- function(library, version, available) {
+
+  library_with_underscore <- gsub("-", "_", library)
+
+  candidates <- available[[library_with_underscore]]
+
+  result <- get_candidate(version, candidates)
+
+  widget <- available[["widget"]][result[["index"]]]
+
+  if (!is.null(result[["message"]])) {
+    warning(glue::glue("{library} {result[['message']]}"), call. = FALSE)
+  }
+
+  widget
+}
+
+
 vw_lock_set <- function(value) {
   vw_env[["is_locked"]] <- as.logical(value[[1]])
 }
 
+parse_schema <- function(url) {
+
+  spl <- strsplit(url, "/")
+
+  library <- spl[[1]][[5]]
+
+  version <- sub("^v(.+)\\.json$", "\\1", spl[[1]][[6]])
+
+  list(library = library, version = version)
+}

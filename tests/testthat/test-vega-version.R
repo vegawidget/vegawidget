@@ -94,3 +94,42 @@ test_that("get_candidate() works", {
   exp_ca(get_candidate("5.22.0", c("5.21.0", "5.17.0")), 1L, NULL)
 
 })
+
+test_that("parse_schema() works", {
+
+  exp_sch <- function(x, library, version) {
+    expect_identical(
+      parse_schema(x),
+      list(library = library, version = version)
+    )
+  }
+
+  exp_sch("https://vega.github.io/schema/vega/v2.0.0.json", "vega", "2.0.0")
+  exp_sch("https://vega.github.io/schema/vega/v2.json", "vega", "2")
+  exp_sch("https://vega.github.io/schema/vega-lite/v2.json", "vega-lite", "2")
+
+})
+
+test_that("get_widget_string() works", {
+
+  library("tibble")
+
+  available <- tribble(
+      ~widget, ~vega_lite,    ~vega,
+        "vl5",    "5.2.0", "5.21.0",
+        "vl4",    "4.1.7", "5.17.0"
+  )
+
+  expect_identical(get_widget_string("vega-lite", "5", available), "vl5")
+  expect_identical(get_widget_string("vega", "5", available), "vl5")
+
+  expect_warning(
+    expect_identical(get_widget_string("vega-lite", "2", available), "vl4"),
+    "minimum"
+  )
+
+  expect_warning(
+    expect_identical(get_widget_string("vega-lite", "20", available), "vl5"),
+    "maximum"
+  )
+})

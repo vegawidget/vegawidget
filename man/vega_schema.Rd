@@ -4,10 +4,17 @@
 \alias{vega_schema}
 \title{Create string for schema-URL}
 \usage{
-vega_schema(library = c("vega_lite", "vega"), major = TRUE)
+vega_schema(
+  library = c("vega_lite", "vega"),
+  version = NULL,
+  major = is.null(version)
+)
 }
 \arguments{
 \item{library}{\code{character}, either \code{"vega"} or \code{"vega_lite"}}
+
+\item{version}{\code{character}, version of library, e.g. \code{"5.2.0"};
+if \code{version} is provided, \code{major} defaults to \code{FALSE}.}
 
 \item{major}{\code{logical} return major version-tags rather than the
 tags for the specific versions supported by this package}
@@ -21,6 +28,7 @@ Useful if you are creating a vegaspec manually.
 \examples{
   vega_schema()
   vega_schema("vega", major = FALSE)
+  vega_schema("vega_lite", version = "5.2.0")
 
   # creating a spec by hand
   spec <-

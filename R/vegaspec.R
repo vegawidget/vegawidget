@@ -92,16 +92,9 @@ as_vegaspec.character <- function(spec, encoding = "UTF-8", ...) {
   is_url <- rlang::is_string(spec) && grepl("^http(s?)://", spec)
   is_con <- rlang::is_string(spec) && file.exists(spec)
 
-  # remote file
-  if (is_url) {
-    spec <- url(spec, encoding = encoding)
-    spec <- readLines(spec)
-    spec <- paste0(spec, collapse = "\n")
-  }
-
-  # local file
-  if (is_con) {
-    spec <- readLines(spec, warn = FALSE, encoding = encoding)
+  # remote file or local file
+  if (is_url || is_con) {
+    spec <- vw_fetch(spec)
   }
 
   spec <- .as_json(spec)

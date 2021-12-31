@@ -64,6 +64,12 @@ test_that("vw_to_svg works with vega-lite spec", {
     cat(vw_to_svg(spec_mtcars))
   )
 
+  # test VL4
+  spec_mtcars4 <- with_schema(4, spec_mtcars)
+  expect_snapshot(
+    cat(vw_to_svg(spec_mtcars4))
+  )
+
 })
 
 test_that("vw_to_svg works with url data", {

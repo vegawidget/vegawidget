@@ -91,3 +91,14 @@ vega_schema <- function(library = c("vega_lite", "vega"), major = TRUE) {
 
   schema
 }
+
+# internal function to help test different schema versions
+with_schema <- function(value, spec) {
+  schema <- spec[["$schema"]]
+  schema_new <- sub("v(\\d+)\\.json$", glue::glue("v{value}.json"), schema)
+
+  spec_new <- spec
+  spec_new[["$schema"]] <- schema_new
+
+  spec_new
+}

@@ -1,5 +1,12 @@
 # vegawidget (development version)
 
+* Remove `schema` from package files. Instead, you can use the `vega_schema()`
+  function (with new optional `version` argument) to retrieve from Vega:
+  
+  ```r
+  vega_schema("vega-lite", version = "5.2.0") |> vw_fetch()
+  ```
+
 * Use Vega-Lite 5. (#159, with @AliciaSchep)
 
 * Use V8 rather than node to support image-functions and `vw_to_vega()`. 

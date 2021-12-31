@@ -6,6 +6,8 @@
   ```r
   vega_schema("vega-lite", version = "5.2.0") |> vw_fetch()
   ```
+  
+  (#185)
 
 * Use Vega-Lite 5. (#159, with @AliciaSchep)
 

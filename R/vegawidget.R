@@ -222,16 +222,31 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
 #'   string and have \code{"px"} appended. For vegawidgets, `"auto"` is useful
 #'   because, as of now, the spec determines the size of the widget, then the
 #'   widget determines the size of the container.
+#' @param widget `character`, indicating which version of libraries to use,
+#'   e.g. `"vl5"`. Normally, you should not need to set this.
+#'   See `vega_version_all()` for more information.
 #'
 #' @export
 #'
-vegawidgetOutput <- function(outputId, width = "auto", height = "auto") {
+vegawidgetOutput <- function(outputId, width = "auto", height = "auto",
+                             widget = NULL) {
 
   assert_packages("shiny")
 
+  widget <- widget %||% vega_version()[["widget"]]
+  widget_avail <- vega_version_all()[["widget"]]
+
+  assertthat::assert_that(
+    widget %in% widget_avail,
+    msg = glue::glue(
+      "widget value `{widget}` not among legal values: ",
+      "{glue::glue_collapse(widget_avail, sep = ' ')}"
+    )
+  )
+
   htmlwidgets::shinyWidgetOutput(
     outputId,
-    "vegawidget-vl5",
+    glue::glue("vegawidget-{widget}"),
     width,
     height,
     package = "vegawidget"

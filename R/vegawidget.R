@@ -164,7 +164,6 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
   }
 
   # use internal methods here because spec has already been validated
-
   x <- list(
     chart_spec = .as_list(spec),
     embed_options = embed
@@ -172,9 +171,20 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
 
   x <- .as_json(x)
 
+  # determine widget from spec
+  spec_version <- vw_spec_version(spec)
+  widget <-
+    get_widget_string(
+      spec_version[["library"]],
+      spec_version[["version"]],
+      vega_version_available()
+    )
+
+  # lock the widget
+
   vegawidget <-
     htmlwidgets::createWidget(
-      "vegawidget-vl5",
+      glue::glue("vegawidget-{widget}"),
       x,
       width = width,
       height = height,
@@ -193,8 +203,9 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
       ...
     )
 
-  # add a generic class for the benefit of as_vegaspec()
-  class(vegawidget) <- c("vegawidget", class(vegawidget))
+  # insert a generic class for the benefit of as_vegaspec()
+  cls <- class(vegawidget)
+  class(vegawidget) <- c(cls[1], "vegawidget", utils::tail(cls, -1))
 
   vegawidget
 }

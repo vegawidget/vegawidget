@@ -1,9 +1,15 @@
 # vegawidget (development version)
 
-* Make more than one widget available, to support the last two Vega-Lite major
-  versions. In a given loading of this package, only *one* widget is available.
-  The default is to use the most-recent version, but this can be overridden by
-  using the `$schema` element in a specification.
+* vegawidget now supports the last two Vega-Lite major versions,
+  currently versions 5 and 4. 
+  
+  However, for a given loading of this package (or RMarkdown file), the
+  `vegawidget()` function can use only *one* major-version; this version
+  is determined using the `$schema` element of the first `vegaspec` evaluated
+  using `vegawidget()`.
+  
+  This restriction does not apply to the image functions, e.g. `vw_to_svg()`,
+  or to the compilation function, `vw_to_vega()`.
   
   Functions introduced:
   

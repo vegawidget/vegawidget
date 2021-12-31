@@ -181,6 +181,8 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
     )
 
   # lock the widget
+  vw_widget_set(widget)
+  vw_lock_set(TRUE)
 
   vegawidget <-
     htmlwidgets::createWidget(

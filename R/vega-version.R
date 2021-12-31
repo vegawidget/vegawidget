@@ -218,8 +218,11 @@ get_widget_string <- function(library, version, available) {
   widget
 }
 
-
 vw_lock_set <- function(value) {
   vw_env[["is_locked"]] <- as.logical(value[[1]])
+}
+
+vw_widget_set <- function(value) {
+  vw_env[["widget"]] <- as.character(value[[1]])
 }
 

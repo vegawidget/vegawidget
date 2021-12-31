@@ -1,7 +1,8 @@
 # vegawidget (development version)
 
-* Remove `schema` from package files. Instead, you can use the `vega_schema()`
-  function (with new optional `version` argument) to retrieve from Vega:
+* Remove `schema` from package files, i.e. `system.file("schema", package = "vegawidget")`. 
+  Instead, you can use the `vega_schema()` function (with new optional `version`
+  argument) to retrieve from Vega:
   
   ```r
   vega_schema("vega-lite", version = "5.2.0") |> vw_fetch()

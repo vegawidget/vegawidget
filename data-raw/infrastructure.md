@@ -3,16 +3,20 @@ Package infrastrucure
 
 This purpose of this document is to build the package infrastucture.
 
-To upgrade the version of **Vega-Lite** that we support:
+To upgrade the versions of **Vega-Lite** that we support:
 
-1.  Modify the parameter `vega_lite_version` in the yaml-header to this
+1.  Modify the parameter `versions$value` in the yaml-header to this
     file.
 2.  Render (knit) this document.
 3.  Build-and-install this package on your local computer.
-4.  Run the tests (`testthat::test()`).
+4.  Run the tests (`testthat::test()`); some snapshots will have
+    changed.
 5.  Rebuild the pkgdown website (`pkgdown::build_site()`), verify the
     visual-regression article (still to be built).
 6.  Commit, push, and make PR.
+
+These packages may not be listed in the `Suggests` section of the
+`DESCRIPTION` file. It’s on you to make sure they are all up-to-date:
 
 ``` r
 library("fs")
@@ -53,22 +57,12 @@ conflict_prefer("filter", "dplyr")
 
 ## Infrastructure
 
-Package infrastructure includes:
-
--   an htmlwidget named “vegawidget”
--   internal package data:
-    -   list of version numbers: `.vega_version`
--   files to validate the schema
-
-Perhaps this could be a series of documents - it remains as an exercise
-to see what can be cleaved away.
-
 There are two source of “truth” for this process: this document, and the
 contents of the directory `data-raw/templates`. (It may be useful to
 note this in a “contributing” document for this package.) Each of the
 infrastructure elements is created anew when this document is run; so,
 between this document and `data-raw/templates`, we need to be able to
-construct completely each element infrastructure.
+construct completely all the infrastructure.
 
 Thus, we define this template directory and a function to delete and
 create
@@ -106,38 +100,10 @@ create_clean <- function(path, path_safe = here::here()) {
 
 ## Configure
 
-These packages are not listed in the `Suggests` section of the
-`DESCRIPTION` file. It’s on you to make sure they are all up-to-date.
-
 We need to know which versions of the libraries (vega, vega-lite, and
 vega-embed) to download. We do this by inspecting the manifest of a
 specific version of the vega-lite library. This package has an internal
 function, `get_vega_version()` to help us do this:
-
-``` r
-# TODO - get rid of this once everything is working
-vega_version_long <- vegawidget:::get_vega_version(params$vega_lite_version)
-
-vega_version_long
-```
-
-    ## $vega_lite
-    ## [1] "5.2.0"
-    ## 
-    ## $vega
-    ## [1] "5.21.0"
-    ## 
-    ## $vega_embed
-    ## [1] "6.20.2"
-
-``` r
-# we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
-# "-\\w.*$"   hyphen, followed by a letter, followed by anything, then end 
-vega_version_short <- map(vega_version_long, ~sub("-\\w.*$", "", .x))
-```
-
-We are going to overlay this with a data frame to support multiple
-versions.
 
 ``` r
 tbl_versions <- 
@@ -145,14 +111,14 @@ tbl_versions <-
 ```
 
 ``` r
-vega_version_long_all <- 
+vega_version_all <- 
   tbl_versions |>
   left_join(
     map_dfr(tbl_versions$vega_lite, vegawidget:::get_vega_version),
     by = "vega_lite"
   )
    
-vega_version_long_all
+vega_version_all
 ```
 
     ## # A tibble: 2 × 4
@@ -165,7 +131,7 @@ vega_version_long_all
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
 # "-\\w.*$"   hyphen, followed by a letter, followed by anything, then end 
 vega_version_short_all <- 
-  vega_version_long_all |>
+  vega_version_all |>
   mutate(across(starts_with("vega"), ~sub("-\\w.*$", "", .x)))
   
 vega_version_short_all
@@ -176,6 +142,12 @@ vega_version_short_all
     ##   <chr>  <chr>     <chr>  <chr>     
     ## 1 vl5    5.2.0     5.21.0 6.20.2    
     ## 2 vl4    4.17.0    5.17.0 6.12.2
+
+``` r
+if (!identical(vega_version_all, vega_version_short_all)) {
+  warning("You may be using a release-candidate; please check.")
+}
+```
 
 ## htmlwidgets
 
@@ -216,12 +188,12 @@ write_yaml <- function(x) {
   path(dir_templates, "vegawidget-all.yaml") %>%
     readr::read_lines() %>%
     purrr::map_chr(
-      ~glue::glue_data(vega_version_short_all %>% filter(widget == !!x), .x)
+      ~glue::glue_data(vega_version_all %>% filter(widget == !!x), .x)
     ) %>%
     readr::write_lines(path(dir_htmlwidgets, glue::glue("vegawidget-{x}.yaml")))  
 }
 
-walk(vega_version_long_all$widget, write_yaml)
+walk(vega_version_all$widget, write_yaml)
 ```
 
 The file `vega-embed.css` adds some css for the (old-style) links that
@@ -235,7 +207,7 @@ fs::file_copy(
 ```
 
 Here’s where we download the libraries themselves, along with the
-licences; the versions are interpolated from `vega_version_long`.
+licences.
 
 ``` r
 license_downloads <- 
@@ -267,7 +239,7 @@ downloads_template <-
 
 downloads_local <- function(widget) {
   
-  df_local <- dplyr::filter(vega_version_long_all, widget == !!widget)
+  df_local <- dplyr::filter(vega_version_all, widget == !!widget)
   
   downloads_template |>
   dplyr::mutate(
@@ -278,7 +250,7 @@ downloads_local <- function(widget) {
   )  
 }
 
-htmlwidgets_downloads_all <- map_dfr(vega_version_long_all$widget, downloads_local)
+htmlwidgets_downloads_all <- map_dfr(vega_version_all$widget, downloads_local)
 
 htmlwidgets_downloads_all
 ```
@@ -323,64 +295,12 @@ pwalk(license_downloads, get_file, path_local_root = dir_lib)
 pwalk(htmlwidgets_downloads_all, get_file, path_local_root = dir_lib)
 ```
 
-## Schema
-
-This bit seems troublesome - perhaps we can just get rid of it? For the
-moment, I am going to pretend it does not exist :)
-
-One of the purposes of this package is to provide a means to validate a
-spec.
-
-``` r
-dir_schema <- here("inst", "schema")
-create_clean(dir_schema)
-```
-
-Having thought about this (perhaps too much), the only reasonable way to
-go for a given release to support only a single version of the
-javascript libraries and the schema.
-
-``` r
-schema <- 
-  tribble(
-    ~path_local,                   ~path_remote,
-    "vega/v{vega}.json",           "https://vega.github.io/schema/vega/v{vega}.json",
-    "vega-lite/v{vega_lite}.json", "https://vega.github.io/schema/vega-lite/v{vega_lite}.json"
-  ) %>%
-  mutate(
-    path_local = map_chr(path_local, ~glue_data(vega_version_long, .x)),
-    path_remote = map_chr(path_remote, ~glue_data(vega_version_long, .x))
-  )
-
-schema
-```
-
-    ## # A tibble: 2 × 2
-    ##   path_local            path_remote                                        
-    ##   <chr>                 <chr>                                              
-    ## 1 vega/v5.21.0.json     https://vega.github.io/schema/vega/v5.21.0.json    
-    ## 2 vega-lite/v5.2.0.json https://vega.github.io/schema/vega-lite/v5.2.0.json
-
-``` r
-pwalk(schema, get_file, path_local_root = dir_schema)
-```
-
-We want to add a newline to the end of each of these files.
-
-``` r
-walk(
-  schema$path_local,
-  ~write("\n", file = file.path(dir_schema, .x), append = TRUE)
-)
-```
-
 ### Versions
 
 We use this to support the `vega_version()` function.
 
 ``` r
-.vega_version <- vega_version_long
-.vega_version_all <- as.data.frame(vega_version_long_all)
+.vega_version_all <- as.data.frame(vega_version_all)
 .widget_default <- params$widget_default
 ```
 
@@ -472,7 +392,6 @@ We use this to support the `vega_version()` function.
 
 ``` r
 usethis::use_data(
-  .vega_version, 
   .vega_version_all,
   .widget_default,
   .vw_handler_library,
@@ -483,16 +402,4 @@ usethis::use_data(
 
     ## ✓ Setting active project to '/Users/ijlyttle/Documents/repos/public/vegawidget/vegawidget'
 
-    ## ✓ Saving '.vega_version', '.vega_version_all', '.widget_default', '.vw_handler_library' to 'R/sysdata.rda'
-
-## Now what?
-
-There are a few things you’ll need to do now:
-
-1.  Possibly update `vega_embed()` to be up-to-date with
-    [vega-embed](https://github.com/vega/vega-embed).
-2.  Run tests (`devtools::test()`): some things may have changed with
-    snapshot testing.
-3.  Build documentation site(`pkgdown::build_site()`) check image
-    article, other articles.
-4.  Create a PR, alert other vegawidget members.
+    ## ✓ Saving '.vega_version_all', '.widget_default', '.vw_handler_library' to 'R/sysdata.rda'

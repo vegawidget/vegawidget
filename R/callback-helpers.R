@@ -36,7 +36,7 @@ vw_fetch <- function(url, options = NULL, encoding = "UTF-8") {
 #'
 vw_load <- function(filename, encoding = "UTF-8") {
 
-  lines <- readLines(filename, encoding = encoding)
+  lines <- readLines(filename, warn = FALSE, encoding = "UTF-8")
 
   paste(lines, collapse = "\n")
 }

@@ -18,7 +18,15 @@
   
   (#169)
 
-* Use Vega-Lite 5.2.0. (#183, #159, with @AliciaSchep)
+* Remove `schema` from package files, i.e. `system.file("schema", package = "vegawidget")`. 
+  Instead, you can use the `vega_schema()` function (with new optional `version`
+  argument) to retrieve from Vega:
+  
+  ```r
+  vega_schema("vega-lite", version = "5.2.0") |> vw_fetch()
+  ```
+  
+  (#185)
 
 * Use V8 rather than node to support image-functions and `vw_to_vega()`. 
   This adds V8 as a package-dependency, but removes the system-dependency for node. 

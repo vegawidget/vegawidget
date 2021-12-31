@@ -58,12 +58,15 @@ vw_spec_version <- function(spec) {
 #' Useful if you are creating a vegaspec manually.
 #'
 #' @param library `character`, either `"vega"` or `"vega_lite"`
+#' @param version `character`, version of library, e.g. `"5.2.0"`;
+#'   if `version` is provided, `major` defaults to `FALSE`.
 #' @inheritParams vega_version
 #'
 #' @return `character` URL for schema
 #' @examples
 #'   vega_schema()
 #'   vega_schema("vega", major = FALSE)
+#'   vega_schema("vega_lite", version = "5.2.0")
 #'
 #'   # creating a spec by hand
 #'   spec <-
@@ -77,10 +80,11 @@ vw_spec_version <- function(spec) {
 #'
 #' @export
 #'
-vega_schema <- function(library = c("vega_lite", "vega"), major = TRUE) {
+vega_schema <- function(library = c("vega_lite", "vega"), version = NULL,
+                        major = is.null(version)) {
 
   library <- match.arg(library)
-  version <- vega_version(major = major)[[library]]
+  version <- version %||% vega_version(major = major)[[library]]
 
   # change "vega_lite" to "vega-lite"
   library <- gsub("_", "-", library)

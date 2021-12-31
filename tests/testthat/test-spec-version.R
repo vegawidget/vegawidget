@@ -37,5 +37,7 @@ test_that("vega_schema works", {
 
   expect_snapshot(vega_schema())
   expect_snapshot(vega_schema("vega"))
+  expect_snapshot(vega_schema("vega_lite", major = FALSE))
+  expect_snapshot(vega_schema("vega_lite", version = "5.2.0"))
 
 })

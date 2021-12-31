@@ -186,14 +186,14 @@ pwalk(htmlwidgets_downloads, get_file, path_local_root = dir_lib)
 
 One of the purposes of this package is to provide a means to validate a spec. 
 
-```{r vegawidget-schema}
+```{r vegawidget-schema, eval = FALSE}
 dir_schema <- here("inst", "schema")
 create_clean(dir_schema)
 ```
 
 Having thought about this (perhaps too much), the only reasonable way to go for a given release to support only a single version of the javascript libraries and the schema.
 
-```{r}
+```{r eval=FALSE}
 schema <- 
   tribble(
     ~path_local,                   ~path_remote,
@@ -208,13 +208,13 @@ schema <-
 schema
 ```
 
-```{r}
+```{r eval=FALSE}
 pwalk(schema, get_file, path_local_root = dir_schema)
 ```
 
 We want to add a newline to the end of each of these files.
 
-```{r}
+```{r, eval=FALSE}
 walk(
   schema$path_local,
   ~write("\n", file = file.path(dir_schema, .x), append = TRUE)

@@ -57,6 +57,11 @@ vega_version_all()
     **[V8](https://cran.r-project.org/package=V8)** package, rather than
     depending on a local installation of nodejs.
 
+-   Compiling a spec (`vw_to_vega()`) and creating an image
+    (`vw_to_svg()` and friends) uses the
+    **[V8](https://cran.r-project.org/package=V8)** package, rather than
+    depending on a local installation of nodejs.
+
 ## Installation
 
 You can install vegawidget from CRAN with:

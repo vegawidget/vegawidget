@@ -18,6 +18,8 @@
   
   (#169)
 
+* Use Vega-Lite 5.2.0. (#183)
+
 * Remove `schema` from package files, i.e. `system.file("schema", package = "vegawidget")`. 
   Instead, you can use the `vega_schema()` function (with new optional `version`
   argument) to retrieve from Vega:

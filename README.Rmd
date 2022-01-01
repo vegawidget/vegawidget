@@ -44,19 +44,6 @@ Accordingly, this package may be useful to:
 
 ## Installation
 
-### Vega-Lite 5 version
-
-To install *this* version, which uses Vega-Lite 5:
-
-```{r gh-installation-vl5, eval=FALSE}
-# install.packages("devtools")
-devtools::install_github("vegawidget/vegawidget@vegalite-5")
-```
-
-This is an experimental feature-branch, but we'll do our best to keep it stable.
-
-### Stable versions
-
 You can install vegawidget from CRAN with:
 
 ```{r cran-installation, eval=FALSE}

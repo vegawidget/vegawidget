@@ -64,14 +64,6 @@ use_vegawidget <- function(s3_class_name = NULL) {
     You may wish to add them to this package's \"Suggests\"."
   )
 
-  # usethis::use_package("httr", type = "Suggests")      # spec
-  # usethis::use_package("knitr", type = "Suggests")     # vignettes
-  # usethis::use_package("rmarkdown", type = "Suggests")
-  # usethis::use_package("processx", type = "Suggests")  # images
-  # usethis::use_package("rsvg", type = "Suggests")
-  # usethis::use_package("png", type = "Suggests")
-  # usethis::use_package("fs", type = "Suggests")
-
   filename <- glue::glue("R/utils-vegawidget.R")
   usethis::ui_todo(
     "Remove unwanted functions from {usethis::ui_value(filename)}"

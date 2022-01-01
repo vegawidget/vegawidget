@@ -17,7 +17,6 @@ To upgrade the version of **Vega-Lite** that we support:
 ``` r
 library("fs")
 library("glue")
-library("httr")
 library("here")
 ```
 
@@ -31,10 +30,6 @@ library("dplyr")
 
     ## 
     ## Attaching package: 'dplyr'
-
-    ## The following object is masked from 'package:glue':
-    ## 
-    ##     collapse
 
     ## The following objects are masked from 'package:stats':
     ## 
@@ -122,16 +117,13 @@ vega_version_long
 ```
 
     ## $vega_lite
-    ## [1] "5.1.0"
+    ## [1] "5.2.0"
     ## 
     ## $vega
-    ## [1] "5.20.0"
+    ## [1] "5.21.0"
     ## 
     ## $vega_embed
-    ## [1] "6.17.0"
-    ## 
-    ## $vega_util
-    ## [1] "1.16.1"
+    ## [1] "6.20.2"
 
 ``` r
 # we want to remove the "-rc.2" from the end of "4.0.0-rc.2"
@@ -147,12 +139,10 @@ First, let’s create a clean directory for the htmlwidget
 dir_htmlwidgets <- here("inst", "htmlwidgets")
 dir_lib <- path(dir_htmlwidgets, "lib")
 dir_vegaembed <- path(dir_lib, "vega-embed")
-dir_vegautil <- path(dir_lib, "vega-util")
 
 create_clean(dir_htmlwidgets)
 dir_create(dir_lib)
 dir_create(dir_vegaembed)
-dir_create(dir_vegautil)
 ```
 
 ### vegawidget
@@ -199,9 +189,7 @@ htmlwidgets_downloads <-
     "vega/vega.min.js",                  "https://cdn.jsdelivr.net/npm/vega@{vega}",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
     "vega-embed/vega-embed.min.js",      "https://cdn.jsdelivr.net/npm/vega-embed@{vega_embed}",
-    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE",
-    "vega-util/vega-util.min.js",        "https://cdn.jsdelivr.net/npm/vega-util@{vega_util}",
-    "vega-util/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-util/master/LICENSE"
+    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
   ) %>%
   mutate(
     path_remote = map_chr(path_remote, ~glue_data(vega_version_long, .x))
@@ -210,17 +198,15 @@ htmlwidgets_downloads <-
 htmlwidgets_downloads
 ```
 
-    ## # A tibble: 8 × 2
+    ## # A tibble: 6 × 2
     ##   path_local                   path_remote                                      
     ##   <chr>                        <chr>                                            
-    ## 1 vega-lite/vega-lite.min.js   https://cdn.jsdelivr.net/npm/vega-lite@5.1.0     
+    ## 1 vega-lite/vega-lite.min.js   https://cdn.jsdelivr.net/npm/vega-lite@5.2.0     
     ## 2 vega-lite/LICENSE            https://raw.githubusercontent.com/vega/vega-lite…
-    ## 3 vega/vega.min.js             https://cdn.jsdelivr.net/npm/vega@5.20.0         
+    ## 3 vega/vega.min.js             https://cdn.jsdelivr.net/npm/vega@5.21.0         
     ## 4 vega/LICENSE                 https://raw.githubusercontent.com/vega/vega/mast…
-    ## 5 vega-embed/vega-embed.min.js https://cdn.jsdelivr.net/npm/vega-embed@6.17.0   
+    ## 5 vega-embed/vega-embed.min.js https://cdn.jsdelivr.net/npm/vega-embed@6.20.2   
     ## 6 vega-embed/LICENSE           https://raw.githubusercontent.com/vega/vega-embe…
-    ## 7 vega-util/vega-util.min.js   https://cdn.jsdelivr.net/npm/vega-util@1.16.1    
-    ## 8 vega-util/LICENSE            https://raw.githubusercontent.com/vega/vega-util…
 
 ``` r
 get_file <- function(path_local, path_remote, path_local_root) {
@@ -235,11 +221,7 @@ get_file <- function(path_local, path_remote, path_local_root) {
     dir_create(dir_local)
   }
   
-  resp <- httr::GET(path_remote)
-  
-  text <- httr::content(resp, type = "text", encoding = "UTF-8")
-  
-  readr::write_file(text, path_local)
+  download.file(path_remote, destfile = path_local)
   
   invisible(NULL)
 }
@@ -284,8 +266,8 @@ schema
     ## # A tibble: 2 × 2
     ##   path_local            path_remote                                        
     ##   <chr>                 <chr>                                              
-    ## 1 vega/v5.20.0.json     https://vega.github.io/schema/vega/v5.20.0.json    
-    ## 2 vega-lite/v5.1.0.json https://vega.github.io/schema/vega-lite/v5.1.0.json
+    ## 1 vega/v5.21.0.json     https://vega.github.io/schema/vega/v5.21.0.json    
+    ## 2 vega-lite/v5.2.0.json https://vega.github.io/schema/vega-lite/v5.2.0.json
 
 ``` r
 pwalk(schema, get_file, path_local_root = dir_schema)

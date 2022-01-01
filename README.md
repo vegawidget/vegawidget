@@ -31,7 +31,7 @@ Accordingly, this package may be useful to:
 
 ### New to vegawidget
 
--   vegawidget offers Vega-Lite 5.1.0 and Vega 5.20.0.
+-   vegawidget offers Vega-Lite 5.2.0 and Vega 5.21.0.
 
 -   Compiling a spec (`vw_to_vega()`) and creating an image
     (`vw_to_svg()` and friends) uses the
@@ -39,20 +39,6 @@ Accordingly, this package may be useful to:
     depending on a local installation of nodejs.
 
 ## Installation
-
-### Vega-Lite 5 version
-
-To install *this* version, which uses Vega-Lite 5:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("vegawidget/vegawidget@vegalite-5")
-```
-
-This is an experimental feature-branch, but we’ll do our best to keep it
-stable.
-
-### Stable versions
 
 You can install vegawidget from CRAN with:
 

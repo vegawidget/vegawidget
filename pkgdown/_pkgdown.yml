@@ -21,19 +21,19 @@ navbar:
     - text: "Articles"
       menu:
         - text: "Specify using vegaspec"
-          href: articles/articles/vegaspec.html
+          href: articles/vegaspec.html
         - text: "Render using vegawidget"
-          href: articles/articles/render-vegawidget.html
+          href: articles/render-vegawidget.html
         - text: "Extend using Shiny"
-          href: articles/articles/shiny.html
+          href: articles/shiny.html
         - text: "Extend using JavaScript"
-          href: articles/articles/javascript.html
+          href: articles/javascript.html
         - text: "Create Images"
-          href: articles/articles/image.html
+          href: articles/image.html
         - text: "Work with Dates and Times"
-          href: articles/articles/dates-times.html
+          href: articles/dates-times.html
         - text: "Import into Other Packages"
-          href: articles/articles/import.html
+          href: articles/import.html
   right:
     - icon: fa-github fa-lg
       href: https://github.com/vegawidget/vegawidget

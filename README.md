@@ -128,25 +128,25 @@ introduction.
 Other articles for this package:
 
 -   [Specify using
-    vegaspec](https://vegawidget.github.io/vegawidget/articles/articles/vegaspec.html):
+    vegaspec](https://vegawidget.github.io/vegawidget/articles/vegaspec.html):
     how to construct and render a vegaspec.
 -   [Render using
-    vegawidget](https://vegawidget.github.io/vegawidget/articles/articles/render-vegawidget.html):
+    vegawidget](https://vegawidget.github.io/vegawidget/articles/render-vegawidget.html):
     advanced rendering options.
 -   [Extend using
-    Shiny](https://vegawidget.github.io/vegawidget/articles/articles/shiny.html):
+    Shiny](https://vegawidget.github.io/vegawidget/articles/shiny.html):
     how to interact with Vega charts using Shiny.
 -   [Extend using
-    JavaScript](https://vegawidget.github.io/vegawidget/articles/articles/javascript.html):
+    JavaScript](https://vegawidget.github.io/vegawidget/articles/javascript.html):
     how to interact with Vega charts using JavaScript.
 -   [Create
-    Images](https://vegawidget.github.io/vegawidget/articles/articles/image.html):
+    Images](https://vegawidget.github.io/vegawidget/articles/image.html):
     how to create and save PNG or SVG images.
 -   [Work with Dates and
-    Times](https://vegawidget.github.io/vegawidget/articles/articles/dates-times.html):
+    Times](https://vegawidget.github.io/vegawidget/articles/dates-times.html):
     dates and times in Vega(-Lite) work a little differently from R.
 -   [Import into Other
-    Packages](https://vegawidget.github.io/vegawidget/articles/articles/import.html):
+    Packages](https://vegawidget.github.io/vegawidget/articles/import.html):
     how to import vegawidget functions into your package, then re-export
     them.
 

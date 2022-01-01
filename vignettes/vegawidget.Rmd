@@ -49,19 +49,19 @@ Please note that, in an effort to reduce the size of this vignette, the charts a
 
 This package is a low-level interface to Vega-Lite and the Vega ecosystem, which has a lot of powerful capabilities, highlighted in this series of articles:
 
-- [Specify using vegaspec](https://vegawidget.github.io/vegawidget/articles/articles/vegaspec.html): how to construct and render a vegaspec.
-- [Render using vegawidget](https://vegawidget.github.io/vegawidget/articles/articles/render-vegawidget.html): advanced rendering options.
-- [Extend using Shiny](https://vegawidget.github.io/vegawidget/articles/articles/shiny.html): how to interact with Vega charts using Shiny.
-- [Extend using JavaScript](https://vegawidget.github.io/vegawidget/articles/articles/javascript.html): how to interact with Vega charts using JavaScript.
-- [Create Images](https://vegawidget.github.io/vegawidget/articles/articles/image.html): how to create and save PNG or SVG images.
-- [Work with Dates and Times](https://vegawidget.github.io/vegawidget/articles/articles/dates-times.html): dates and times in Vega(-Lite) work a little differently from R.
-- [Import into Other Packages](https://vegawidget.github.io/vegawidget/articles/articles/import.html): how to import vegawidget functions into your package, then re-export them.
+- [Specify using vegaspec](https://vegawidget.github.io/vegawidget/articles/vegaspec.html): how to construct and render a vegaspec.
+- [Render using vegawidget](https://vegawidget.github.io/vegawidget/articles/render-vegawidget.html): advanced rendering options.
+- [Extend using Shiny](https://vegawidget.github.io/vegawidget/articles/shiny.html): how to interact with Vega charts using Shiny.
+- [Extend using JavaScript](https://vegawidget.github.io/vegawidget/articles/javascript.html): how to interact with Vega charts using JavaScript.
+- [Create Images](https://vegawidget.github.io/vegawidget/articles/image.html): how to create and save PNG or SVG images.
+- [Work with Dates and Times](https://vegawidget.github.io/vegawidget/articles/dates-times.html): dates and times in Vega(-Lite) work a little differently from R.
+- [Import into Other Packages](https://vegawidget.github.io/vegawidget/articles/import.html): how to import vegawidget functions into your package, then re-export them.
 
 To share your Vega(-Lite) creation on the [Blocks](https://bl.ocks.org) website, you can use the [**vegablock**](https://vegawidget.github.io/vegablock/) package.
 
 ## Integration with other packages
 
-Although there is an [article](https://vegawidget.github.io/vegawidget/articles/articles/import.html) dedicated to this aspect of the package, it warrants further emphasis. 
+Although there is an [article](https://vegawidget.github.io/vegawidget/articles/import.html) dedicated to this aspect of the package, it warrants further emphasis. 
 
 This package provides functions to render Vega(-Lite) specifications; although it provides some helpers, it does not provide higher-level functions to build specifications. Rather, this is left to other packages. Even though you can use its functions directly, you are invited to import and re-export them for use in *your* package. 
 

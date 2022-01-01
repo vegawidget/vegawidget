@@ -21,6 +21,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -33,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.3.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.3.9002</span>
       </span>
     </div>
 
@@ -87,7 +89,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/vegawidget/vegawidget">
+  <a href="https://github.com/vegawidget/vegawidget" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -108,30 +110,30 @@
       <h1 data-toc-skip>Getting Started</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/master/vignettes/vegawidget.Rmd"><code>vignettes/vegawidget.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/HEAD/vignettes/vegawidget.Rmd" class="external-link"><code>vignettes/vegawidget.Rmd</code></a></small>
       <div class="hidden name"><code>vegawidget.Rmd</code></div>
 
     </div>
 
     
     
-<p>For a comprehensive introduction to Vega-Lite, please visit the its <a href="https://vega.github.io/vega-lite/">web site</a>.</p>
+<p>For a comprehensive introduction to Vega-Lite, please visit the its <a href="https://vega.github.io/vega-lite/" class="external-link">web site</a>.</p>
 <p>Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build specifications:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/vegawidget/vegawidget">"vegawidget"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/vegawidget/vegawidget" class="external-link">"vegawidget"</a></span><span class="op">)</span>
 
 <span class="va">spec_mtcars</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     `$schema` <span class="op">=</span> <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>, <span class="co"># specifies Vega-Lite</span>
     description <span class="op">=</span> <span class="st">"An mtcars example."</span>,
-    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>,
+    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>,
     mark <span class="op">=</span> <span class="st">"point"</span>,
-    encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"wt"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,
-      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"mpg"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,
-      color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"cyl"</span>, type <span class="op">=</span> <span class="st">"nominal"</span><span class="op">)</span>
+    encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"wt"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,
+      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"mpg"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,
+      color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"cyl"</span>, type <span class="op">=</span> <span class="st">"nominal"</span><span class="op">)</span>
     <span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
+  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>The <code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; many of this package’s functions are built to support, and render, vegaspecs:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -155,44 +157,44 @@
 <li>
 <a href="https://vegawidget.github.io/vegawidget/articles/articles/import.html">Import into Other Packages</a>: how to import vegawidget functions into your package, then re-export them.</li>
 </ul>
-<p>To share your Vega(-Lite) creation on the <a href="https://bl.ocks.org">Blocks</a> website, you can use the <a href="https://vegawidget.github.io/vegablock/"><strong>vegablock</strong></a> package.</p>
-<div id="integration-with-other-packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#integration-with-other-packages" class="anchor"></a>Integration with other packages</h2>
+<p>To share your Vega(-Lite) creation on the <a href="https://bl.ocks.org" class="external-link">Blocks</a> website, you can use the <a href="https://vegawidget.github.io/vegablock/" class="external-link"><strong>vegablock</strong></a> package.</p>
+<div class="section level2">
+<h2 id="integration-with-other-packages">Integration with other packages<a class="anchor" aria-label="anchor" href="#integration-with-other-packages"></a>
+</h2>
 <p>Although there is an <a href="https://vegawidget.github.io/vegawidget/articles/articles/import.html">article</a> dedicated to this aspect of the package, it warrants further emphasis.</p>
 <p>This package provides functions to render Vega(-Lite) specifications; although it provides some helpers, it does not provide higher-level functions to build specifications. Rather, this is left to other packages. Even though you can use its functions directly, you are invited to import and re-export them for use in <em>your</em> package.</p>
-<p>Accordingly, this package offers a templating function, <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code>, to help you integrate vegawidget functions into your package. For example, it is used to import and re-export vegawidget functions for the <a href="https://vegawidget.github.io/altair/">altair</a> package.</p>
+<p>Accordingly, this package offers a templating function, <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code>, to help you integrate vegawidget functions into your package. For example, it is used to import and re-export vegawidget functions for the <a href="https://vegawidget.github.io/altair/" class="external-link">altair</a> package.</p>
 </div>
-<div id="known-limitations" class="section level2">
-<h2 class="hasAnchor">
-<a href="#known-limitations" class="anchor"></a>Known limitations</h2>
-<p>Vega(-Lite) <a href="https://vega.github.io/vega-lite/docs/field.html">interprets dots in field (variable) names</a> as an indicator of nesting. To escape this interpretation, you can escape the dot with two backslashes, <code>\\</code>, or surround the name with square brackets, <code>[]</code>. These escape-methods mess up the default axis-titles, so you may wish to set those manually.</p>
+<div class="section level2">
+<h2 id="known-limitations">Known limitations<a class="anchor" aria-label="anchor" href="#known-limitations"></a>
+</h2>
+<p>Vega(-Lite) <a href="https://vega.github.io/vega-lite/docs/field.html" class="external-link">interprets dots in field (variable) names</a> as an indicator of nesting. To escape this interpretation, you can escape the dot with two backslashes, <code>\\</code>, or surround the name with square brackets, <code>[]</code>. These escape-methods mess up the default axis-titles, so you may wish to set those manually.</p>
 <p>For example:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/vegawidget/vegawidget">"vegawidget"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/vegawidget/vegawidget" class="external-link">"vegawidget"</a></span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
   `$schema` <span class="op">=</span> <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>, 
-  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">freeny</span><span class="op">)</span>,
+  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">freeny</span><span class="op">)</span>,
   mark <span class="op">=</span> <span class="st">"point"</span>,
-  encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
       field <span class="op">=</span> <span class="st">"income\\.level"</span>, 
       type <span class="op">=</span> <span class="st">"quantitative"</span>,
-      scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>zero <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,
+      scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>zero <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,
       title <span class="op">=</span> <span class="st">"income.level"</span>
     <span class="op">)</span>,
-    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
       field <span class="op">=</span> <span class="st">"[market.potential]"</span>, 
       type <span class="op">=</span> <span class="st">"quantitative"</span>,
-      scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>zero <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,
+      scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>zero <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,
       title <span class="op">=</span> <span class="st">"market.potential"</span>
     <span class="op">)</span>
   <span class="op">)</span>
-<span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
+<span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
 <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="freeny.svg"></p>
-<p>There are limitations associated with vegaspecs that contain <a href="https://vega.github.io/vega-lite/docs/data.html#url">datasets specified using remote URLs</a>:</p>
+<p>There are limitations associated with vegaspecs that contain <a href="https://vega.github.io/vega-lite/docs/data.html#url" class="external-link">datasets specified using remote URLs</a>:</p>
 <ul>
 <li><p>The RStudio IDE may not let you access remote URLs for security reasons. A chart that accesses remote data may not render in the IDE; it <em>will</em> render in a browser window.</p></li>
 <li><p>The image functions use <strong>V8</strong> to create SVG strings. If you are accessing remote data in your chart (i.e. your spec uses an HTTP(S) URL), you will need to make sure that R has access to the remote data (i.e. if you use a proxy, it is set up in R).</p></li>
@@ -211,11 +213,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
+  <p></p>
+<p>Developed by Ian Lyttle, Vega/Vega-Lite Developers.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -223,6 +227,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.3.9002</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9000</span>
       </span>
     </div>
 
@@ -44,25 +44,25 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/articles/vegaspec.html">Specify using vegaspec</a>
+      <a href="../articles/vegaspec.html">Specify using vegaspec</a>
     </li>
     <li>
-      <a href="../articles/articles/render-vegawidget.html">Render using vegawidget</a>
+      <a href="../articles/render-vegawidget.html">Render using vegawidget</a>
     </li>
     <li>
-      <a href="../articles/articles/shiny.html">Extend using Shiny</a>
+      <a href="../articles/shiny.html">Extend using Shiny</a>
     </li>
     <li>
-      <a href="../articles/articles/javascript.html">Extend using JavaScript</a>
+      <a href="../articles/javascript.html">Extend using JavaScript</a>
     </li>
     <li>
-      <a href="../articles/articles/image.html">Create Images</a>
+      <a href="../articles/image.html">Create Images</a>
     </li>
     <li>
-      <a href="../articles/articles/dates-times.html">Work with Dates and Times</a>
+      <a href="../articles/dates-times.html">Work with Dates and Times</a>
     </li>
     <li>
-      <a href="../articles/articles/import.html">Import into Other Packages</a>
+      <a href="../articles/import.html">Import into Other Packages</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
@@ -86,7 +86,18 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="vegawidget-development-version">vegawidget (development version)<a class="anchor" aria-label="anchor" href="#vegawidget-development-version"></a></h2>
-<ul><li><p>Use Vega-Lite 5.2.0. (<a href="https://github.com/vegawidget/vegawidget/issues/183" class="external-link">#183</a>)</p></li>
+<ul><li>
+<p>vegawidget now supports the last two Vega-Lite major versions, currently versions 5 and 4.</p>
+<p>However, for a given loading of this package (or RMarkdown file), the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function can use only <em>one</em> major-version; this version is determined using the <code>$schema</code> element of the first <code>vegaspec</code> evaluated using <code><a href="../reference/vegawidget.html">vegawidget()</a></code>.</p>
+<p>This restriction does not apply to the image functions, e.g. <code><a href="../reference/image.html">vw_to_svg()</a></code>, or to the compilation function, <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code>.</p>
+<p>Functions introduced:</p>
+<ul><li>
+<code><a href="../reference/vega_version.html">vega_version_all()</a></code>: all packaged versions.</li>
+<li>
+<code><a href="../reference/vega_version.html">vega_version_available()</a></code>: available versions, subject to locking.</li>
+</ul><p>(<a href="https://github.com/vegawidget/vegawidget/issues/169" class="external-link">#169</a>)</p>
+</li>
+<li><p>Use Vega-Lite 5.2.0. (<a href="https://github.com/vegawidget/vegawidget/issues/183" class="external-link">#183</a>)</p></li>
 <li>
 <p>Remove <code>schema</code> from package files, i.e. <code>system.file("schema", package = "vegawidget")</code>. Instead, you can use the <code><a href="../reference/vega_schema.html">vega_schema()</a></code> function (with new optional <code>version</code> argument) to retrieve from Vega:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -94,7 +105,6 @@
 <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="st">"vega-lite"</span>, version <span class="op">=</span> <span class="st">"5.2.0"</span><span class="op">)</span> |&gt; <span class="fu"><a href="../reference/vw_fetch.html">vw_fetch</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>(<a href="https://github.com/vegawidget/vegawidget/issues/185" class="external-link">#185</a>)</p>
 </li>
-<li><p>Use Vega-Lite 5. (<a href="https://github.com/vegawidget/vegawidget/issues/159" class="external-link">#159</a>, with <a href="https://github.com/AliciaSchep" class="external-link">@AliciaSchep</a>)</p></li>
 <li><p>Use V8 rather than node to support image-functions and <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code>. This adds V8 as a package-dependency, but removes the system-dependency for node. As a result, remote-data loading <em>works</em> as long as you can access the data from R. (<a href="https://github.com/vegawidget/vegawidget/issues/85" class="external-link">#85</a>)</p></li>
 <li><p>Update contributor-information. (<a href="https://github.com/vegawidget/vegawidget/issues/176" class="external-link">#176</a>)</p></li>
 </ul></div>

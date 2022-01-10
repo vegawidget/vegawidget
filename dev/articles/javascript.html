@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.3.9002</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9000</span>
       </span>
     </div>
 
@@ -64,25 +64,25 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/articles/vegaspec.html">Specify using vegaspec</a>
+      <a href="../articles/vegaspec.html">Specify using vegaspec</a>
     </li>
     <li>
-      <a href="../articles/articles/render-vegawidget.html">Render using vegawidget</a>
+      <a href="../articles/render-vegawidget.html">Render using vegawidget</a>
     </li>
     <li>
-      <a href="../articles/articles/shiny.html">Extend using Shiny</a>
+      <a href="../articles/shiny.html">Extend using Shiny</a>
     </li>
     <li>
-      <a href="../articles/articles/javascript.html">Extend using JavaScript</a>
+      <a href="../articles/javascript.html">Extend using JavaScript</a>
     </li>
     <li>
-      <a href="../articles/articles/image.html">Create Images</a>
+      <a href="../articles/image.html">Create Images</a>
     </li>
     <li>
-      <a href="../articles/articles/dates-times.html">Work with Dates and Times</a>
+      <a href="../articles/dates-times.html">Work with Dates and Times</a>
     </li>
     <li>
-      <a href="../articles/articles/import.html">Import into Other Packages</a>
+      <a href="../articles/import.html">Import into Other Packages</a>
     </li>
   </ul>
 </li>
@@ -104,13 +104,13 @@
 
       
 
-      </header><script src="javascript_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="javascript_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="javascript_files/vega-5.21.0/vega.min.js"></script><script src="javascript_files/vega-lite-5.2.0/vega-lite.min.js"></script><link href="javascript_files/vega-embed-6.20.2/vega-embed.css" rel="stylesheet">
-<script src="javascript_files/vega-embed-6.20.2/vega-embed.min.js"></script><script src="javascript_files/vegawidget-binding-0.3.3.9002/vegawidget.js"></script><div class="row">
+      </header><script src="javascript_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="javascript_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="javascript_files/vega-5.21.0/vega@5.21.0.min.js"></script><script src="javascript_files/vega-lite-5.2.0/vega-lite@5.2.0.min.js"></script><link href="javascript_files/vega-embed-6.20.2/vega-embed.css" rel="stylesheet">
+<script src="javascript_files/vega-embed-6.20.2/vega-embed@6.20.2.min.js"></script><script src="javascript_files/vegawidget-vl5-binding-0.4.0.9000/vegawidget-vl5.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Extend using JavaScript</h1>
             
-            <h4 data-toc-skip class="date">2022-01-01</h4>
+            <h4 data-toc-skip class="date">2022-01-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/HEAD/vignettes/articles/javascript.Rmd" class="external-link"><code>vignettes/articles/javascript.Rmd</code></a></small>
       <div class="hidden name"><code>javascript.Rmd</code></div>
@@ -120,7 +120,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/vegawidget/vegawidget" class="external-link">"vegawidget"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget">"vegawidget"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/htmltools" class="external-link">"htmltools"</a></span><span class="op">)</span></code></pre></div>
 <p>The purpose of this article is to show how you can use JavaScript to extend Vega’s capabilities. In these examples, we use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view" class="external-link">vega-view</a> API to interact with a Vega chart using JavaScript. We explore similar ideas in an article on <a href="shiny.Rmd">extending using Shiny</a>.</p>
 <p>This article has sections on:</p>
@@ -168,7 +168,7 @@
 <p>We use the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function with an <code>elementId</code> argument, specifying the ID of the HTML element containing the chart. This allows JavaScript code we supply to know which Vega chart to modify.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_table</span>, elementId <span class="op">=</span> <span class="st">"streaming-demo"</span><span class="op">)</span></code></pre></div>
-<div id="streaming-demo" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<div id="streaming-demo" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
 <script type="application/json" data-for="streaming-demo">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -442,8 +442,8 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <p>When you click anywhere in the plotting-rectangle, the observation associated with the mark (if any) where you clicked will be printed below.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_scatterplot</span></code></pre></div>
-<div id="htmlwidget-f0f2d4d268c7d18327cb" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f0f2d4d268c7d18327cb">{"x":{
+<div id="htmlwidget-2fdc7246a96aa4c0d3d0" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2fdc7246a96aa4c0d3d0">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
@@ -1023,7 +1023,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <p><input type="range" name="bin_width" value="0" min="-1" max="1" step="0.01" style="width: 400px; margin-bottom: 10px;"></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_histogram</span></code></pre></div>
-<div id="histogram" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<div id="histogram" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
 <script type="application/json" data-for="histogram">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -36236,7 +36236,7 @@ on_bin_width()
 <p><input type="range" name="inp_angle" value="0" min="0" max="360" step="1" style="width: 400px; margin-bottom: 10px;"></p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_chart</span></code></pre></div>
-<div id="circle" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<div id="circle" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
 <script type="application/json" data-for="circle">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",

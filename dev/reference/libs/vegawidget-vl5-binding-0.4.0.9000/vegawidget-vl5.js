@@ -5,7 +5,7 @@
 // HTMLWidget factory
 HTMLWidgets.widget({
 
-  name: "vegawidget",
+  name: "vegawidget-vl5",
 
   type: "output",
 
@@ -144,12 +144,12 @@ var Vegawidget = {
       }
 
       // element is not a vegawidget
-      if (!vwEl.classList.contains("vegawidget")) {
+      if (!vwEl.classList.contains("vegawidget-vl5")) {
         reject(
           console.log(
             "Document element found using selector " +
             "'" + selector + "'" +
-            " does not have class 'vegawidget'."
+            " does not have class 'vegawidget-vl5'."
           )
         );
       }

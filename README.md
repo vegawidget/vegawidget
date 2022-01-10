@@ -31,7 +31,31 @@ Accordingly, this package may be useful to:
 
 ### New to vegawidget
 
--   vegawidget offers Vega-Lite 5.2.0 and Vega 5.21.0.
+-   vegawidget now supports the last two Vega-Lite major versions,
+    currently versions 5 and 4.
+
+    However, for a given loading of this package (or RMarkdown file),
+    the `vegawidget()` function can use only *one* major-version; this
+    version is determined using the `$schema` element of the first
+    `vegaspec` evaluated using `vegawidget()`.
+
+    This restriction does not apply to the image functions,
+    e.g. `vw_to_svg()`, or to the compilation function, `vw_to_vega()`.
+
+-   vegawidget offers the following versions:
+
+``` r
+library("vegawidget")
+
+vega_version_all()
+#>   widget vega_lite   vega vega_embed
+#> 1    vl5     5.2.0 5.21.0     6.20.2
+#> 2    vl4    4.17.0 5.17.0     6.12.2
+```
+
+-   Compiling a spec and creating an image now uses the
+    **[V8](https://cran.r-project.org/package=V8)** package, rather than
+    depending on a local installation of nodejs.
 
 -   Compiling a spec (`vw_to_vega()`) and creating an image
     (`vw_to_svg()` and friends) uses the
@@ -109,25 +133,25 @@ introduction.
 Other articles for this package:
 
 -   [Specify using
-    vegaspec](https://vegawidget.github.io/vegawidget/articles/articles/vegaspec.html):
+    vegaspec](https://vegawidget.github.io/vegawidget/articles/vegaspec.html):
     how to construct and render a vegaspec.
 -   [Render using
-    vegawidget](https://vegawidget.github.io/vegawidget/articles/articles/render-vegawidget.html):
+    vegawidget](https://vegawidget.github.io/vegawidget/articles/render-vegawidget.html):
     advanced rendering options.
 -   [Extend using
-    Shiny](https://vegawidget.github.io/vegawidget/articles/articles/shiny.html):
+    Shiny](https://vegawidget.github.io/vegawidget/articles/shiny.html):
     how to interact with Vega charts using Shiny.
 -   [Extend using
-    JavaScript](https://vegawidget.github.io/vegawidget/articles/articles/javascript.html):
+    JavaScript](https://vegawidget.github.io/vegawidget/articles/javascript.html):
     how to interact with Vega charts using JavaScript.
 -   [Create
-    Images](https://vegawidget.github.io/vegawidget/articles/articles/image.html):
+    Images](https://vegawidget.github.io/vegawidget/articles/image.html):
     how to create and save PNG or SVG images.
 -   [Work with Dates and
-    Times](https://vegawidget.github.io/vegawidget/articles/articles/dates-times.html):
+    Times](https://vegawidget.github.io/vegawidget/articles/dates-times.html):
     dates and times in Vega(-Lite) work a little differently from R.
 -   [Import into Other
-    Packages](https://vegawidget.github.io/vegawidget/articles/articles/import.html):
+    Packages](https://vegawidget.github.io/vegawidget/articles/import.html):
     how to import vegawidget functions into your package, then re-export
     them.
 

@@ -1,9 +1,9 @@
 on:
   push:
     branches:
-      - "update-183-V8"
+      - "feature-169-multiple-versions"
 
-name: "pkgdown-vegalite-5"
+name: "multiple-versions"
 
 jobs:
   pkgdown:
@@ -50,4 +50,4 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          Rscript -e 'pkgdown::deploy_to_branch(branch = "pages-vegalite-5", new_process = FALSE)'
+          Rscript -e 'pkgdown::deploy_to_branch(branch = "pages-multiple-versions", new_process = FALSE)'

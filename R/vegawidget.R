@@ -164,7 +164,6 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
   }
 
   # use internal methods here because spec has already been validated
-
   x <- list(
     chart_spec = .as_list(spec),
     embed_options = embed
@@ -172,9 +171,22 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
 
   x <- .as_json(x)
 
+  # determine widget from spec
+  spec_version <- vw_spec_version(spec)
+  widget <-
+    get_widget_string(
+      spec_version[["library"]],
+      spec_version[["version"]],
+      vega_version_available()
+    )
+
+  # lock the widget
+  vw_widget_set(widget)
+  vw_lock_set(TRUE)
+
   vegawidget <-
     htmlwidgets::createWidget(
-      "vegawidget",
+      glue::glue("vegawidget-{widget}"),
       x,
       width = width,
       height = height,
@@ -193,6 +205,10 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
       ...
     )
 
+  # insert a generic class for the benefit of as_vegaspec()
+  cls <- class(vegawidget)
+  class(vegawidget) <- c(cls[1], "vegawidget", utils::tail(cls, -1))
+
   vegawidget
 }
 
@@ -206,16 +222,31 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
 #'   string and have \code{"px"} appended. For vegawidgets, `"auto"` is useful
 #'   because, as of now, the spec determines the size of the widget, then the
 #'   widget determines the size of the container.
+#' @param widget `character`, indicating which version of libraries to use,
+#'   e.g. `"vl5"`. Normally, you should not need to set this.
+#'   See `vega_version_all()` for more information.
 #'
 #' @export
 #'
-vegawidgetOutput <- function(outputId, width = "auto", height = "auto") {
+vegawidgetOutput <- function(outputId, width = "auto", height = "auto",
+                             widget = NULL) {
 
   assert_packages("shiny")
 
+  widget <- widget %||% vega_version()[["widget"]]
+  widget_avail <- vega_version_all()[["widget"]]
+
+  assertthat::assert_that(
+    widget %in% widget_avail,
+    msg = glue::glue(
+      "widget value `{widget}` not among legal values: ",
+      "{glue::glue_collapse(widget_avail, sep = ' ')}"
+    )
+  )
+
   htmlwidgets::shinyWidgetOutput(
     outputId,
-    "vegawidget",
+    glue::glue("vegawidget-{widget}"),
     width,
     height,
     package = "vegawidget"

@@ -2,22 +2,52 @@
 % Please edit documentation in R/vega-version.R
 \name{vega_version}
 \alias{vega_version}
-\title{Determine Vega JavaScript versions}
+\alias{vega_version_all}
+\alias{vega_version_available}
+\title{Get Vega JavaScript versions}
 \usage{
 vega_version(major = FALSE)
+
+vega_version_all(major = FALSE)
+
+vega_version_available(major = FALSE)
 }
 \arguments{
 \item{major}{\code{logical} return major version-tags rather than the
 tags for the specific versions supported by this package}
 }
 \value{
-\code{list} with \code{character} elements
-named \code{vega_lite}, \code{vega}, \code{vega_embed}
+\describe{
+\item{vega_version()}{\code{list} with elements: \code{is_locked}, \code{widget},
+\code{vega_lite}, \code{vega}, \code{vega_embed}.}
+\item{vega_version_all()}{\code{data.frame} with elements: \code{widget},
+\code{vega_lite}, \code{vega}, \code{vega_embed}.}
+\item{vega_version_available()}{\code{data.frame} with elements: \code{widget},
+\code{vega_lite}, \code{vega}, \code{vega_embed}.}
+}
 }
 \description{
-Determine Vega JavaScript versions
+Use these functions to get which versions of Vega JavaScript libraries
+are available. \code{vega_version_all()} returns a data frame showing all
+versions included in this package, \code{vega_version_available()} returns
+all versions available - subject to locking,
+\code{vega_version()} shows the default version.
+}
+\details{
+This package offers multiple widgets, each corresponding to a major version
+of Vega-Lite. Only one of these widgets can be used for a given loading of
+this package. When \code{vegawidget()} is first called, the widget is "locked"
+according to the \verb{$schema} in the \code{vegaspec} used, or the default - the
+most-recent version.
+
+\describe{
+\item{\code{is_locked}}{indicates if \code{vegawidget()} is has locked the version.}
+\item{\code{widget}}{indicates which version of the widget would be used.}
+}
 }
 \examples{
   vega_version()
   vega_version(major = TRUE)
+  vega_version_all()
+  vega_version_available()
 }

@@ -35,8 +35,24 @@ vw_to_vega <- function(spec) {
 
   ct <- V8::v8()
 
-  ct$source(pkgfile("vega", "vega.min.js"))
-  ct$source(pkgfile("vega-lite", "vega-lite.min.js"))
+  # determine versions of vega, vega-lite
+  version_all <- vega_version_all()
+  spec_version <- vw_spec_version(spec)
+  widget <-
+    get_widget_string(
+      spec_version[["library"]],
+      spec_version[["version"]],
+      version_all
+    )
+
+  version_widget <- version_all[version_all[["widget"]] == widget, ]
+  version_vega <- version_widget[["vega"]]
+  version_vega_lite <- version_widget[["vega_lite"]]
+
+  ct$source(pkgfile("vega", glue::glue("vega@{version_vega}.min.js")))
+  ct$source(
+    pkgfile("vega-lite", glue::glue("vega-lite@{version_vega_lite}.min.js"))
+  )
   ct$eval(glue::glue("var vs = vegaLite.compile({vw_as_json(spec)})"))
 
   # don't let V8 convert to JSON; send as string

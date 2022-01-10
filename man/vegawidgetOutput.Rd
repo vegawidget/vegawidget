@@ -4,7 +4,7 @@
 \alias{vegawidgetOutput}
 \title{Shiny-output for vegawidget}
 \usage{
-vegawidgetOutput(outputId, width = "auto", height = "auto")
+vegawidgetOutput(outputId, width = "auto", height = "auto", widget = NULL)
 }
 \arguments{
 \item{outputId}{output variable to read from}
@@ -14,6 +14,10 @@ vegawidgetOutput(outputId, width = "auto", height = "auto")
 string and have \code{"px"} appended. For vegawidgets, \code{"auto"} is useful
 because, as of now, the spec determines the size of the widget, then the
 widget determines the size of the container.}
+
+\item{widget}{\code{character}, indicating which version of libraries to use,
+e.g. \code{"vl5"}. Normally, you should not need to set this.
+See \code{vega_version_all()} for more information.}
 }
 \description{
 Use this function in the UI part of your Shiny app.

@@ -1,5 +1,23 @@
 # vegawidget (development version)
 
+* vegawidget now supports the last two Vega-Lite major versions,
+  currently versions 5 and 4. 
+  
+  However, for a given loading of this package (or RMarkdown file), the
+  `vegawidget()` function can use only *one* major-version; this version
+  is determined using the `$schema` element of the first `vegaspec` evaluated
+  using `vegawidget()`.
+  
+  This restriction does not apply to the image functions, e.g. `vw_to_svg()`,
+  or to the compilation function, `vw_to_vega()`.
+  
+  Functions introduced:
+  
+  - `vega_version_all()`: all packaged versions.
+  - `vega_version_available()`: available versions, subject to locking.
+  
+  (#169)
+
 * Use Vega-Lite 5.2.0. (#183)
 
 * Remove `schema` from package files, i.e. `system.file("schema", package = "vegawidget")`. 
@@ -11,8 +29,6 @@
   ```
   
   (#185)
-
-* Use Vega-Lite 5. (#159, with @AliciaSchep)
 
 * Use V8 rather than node to support image-functions and `vw_to_vega()`. 
   This adds V8 as a package-dependency, but removes the system-dependency for node. 

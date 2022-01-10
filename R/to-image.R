@@ -79,7 +79,7 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
   str_spec <- vw_as_json(vega_spec, pretty = FALSE)
 
   vega <-
-    system.file("htmlwidgets", "lib", "vega", "vega.min.js", package = "vegawidget")
+    system.file("htmlwidgets", "lib", "vega", "vega@5.21.0.min.js", package = "vegawidget")
   vega_to_svg <- system.file("bin", "vega_to_svg_v8.js", package = "vegawidget")
 
   # fire up V8

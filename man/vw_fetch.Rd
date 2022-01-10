@@ -5,9 +5,9 @@
 \alias{vw_load}
 \title{Callback helpers}
 \usage{
-vw_fetch(url, options = NULL)
+vw_fetch(url, options = NULL, encoding = "UTF-8")
 
-vw_load(filename)
+vw_load(filename, encoding = "UTF-8")
 }
 \arguments{
 \item{url}{\code{character}}

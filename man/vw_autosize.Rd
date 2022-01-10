@@ -45,6 +45,6 @@ warning that there will be no effect on the specification when rendered.
   vw_autosize(spec_mtcars, width = 350, height = 350)
 }
 \seealso{
-\href{https://vegawidget.github.io/vegawidget/articles/articles/vegaspec.html#sizing}{Article on vegaspec (sizing)},
+\href{https://vegawidget.github.io/vegawidget/articles/vegaspec.html#sizing}{Article on vegaspec (sizing)},
 \href{https://vega.github.io/vega-lite/docs/size.html#autosize}{Vega documentation on sizing}
 }

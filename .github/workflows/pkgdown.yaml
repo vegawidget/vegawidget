@@ -21,8 +21,7 @@ jobs:
         # needed on Mac to for images to print
       - name: Install X11 dependencies on MacOS
         if: runner.os == 'macOS'
-        run: |
-          brew install --cask xquartz
+        run: brew install --cask xquartz
 
       - name: Query dependencies
         run: |

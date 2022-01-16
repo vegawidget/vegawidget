@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9001</span>
       </span>
     </div>
 
@@ -149,12 +149,12 @@
 <div class="section level3">
 <h3 id="vega-versions">Vega versions<a class="anchor" aria-label="anchor" href="#vega-versions"></a></h3>
 <p>To update the JavaScript files for Vega, Vega-Lite, and vega-embed, a maintainer will render the R markdown document found at <code>data-raw/infrastructure.Rmd</code>. The key parameter to adjust is <code>vega_lite_version</code>, in the YAML header:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="pp">---</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Package infrastrucure</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> github_document</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="at">  </span><span class="fu">vega_lite_version</span><span class="kw">:</span><span class="at"> </span><span class="st">"3.2.1"</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="pp">---</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Package infrastrucure</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> github_document</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">vega_lite_version</span><span class="kw">:</span><span class="at"> </span><span class="st">"3.2.1"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <p>The code in the <code>.Rmd</code> file will determine the versions of Vega and vega-embed that are concurrent with this version of Vega-Lite.</p>
 <p>When updating the Vega libraries for this package, please keep in mind that you may also have to:</p>
 <ul><li>rebuild &amp; reinstall your new version of this package</li>
@@ -177,8 +177,8 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget">"vegawidget"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">## [1] "vegaspec_unit"      "vegaspec_vega_lite" "vegaspec"          </span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co">## [4] "list"</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "vegaspec_unit"      "vegaspec_vega_lite" "vegaspec"          </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [4] "list"</span></span></code></pre></div>
 <p>We see that in addition to list we have classes for:</p>
 <ul><li>
 <code>vegaspec</code>: to include all Vega and Vega-Lite specification</li>
@@ -191,7 +191,7 @@
 <p>For Vega specifications, the situation is simpler:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="fu"><a href="reference/vw_to_vega.html">vw_to_vega</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">## [1] "vegaspec_vega" "vegaspec"      "list"</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "vegaspec_vega" "vegaspec"      "list"</span></span></code></pre></div>
 </div>
 </div>
 </div>

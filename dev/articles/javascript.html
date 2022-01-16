@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9001</span>
       </span>
     </div>
 
@@ -104,13 +104,13 @@
 
       
 
-      </header><script src="javascript_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="javascript_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="javascript_files/vega-5.21.0/vega@5.21.0.min.js"></script><script src="javascript_files/vega-lite-5.2.0/vega-lite@5.2.0.min.js"></script><link href="javascript_files/vega-embed-6.20.2/vega-embed.css" rel="stylesheet">
-<script src="javascript_files/vega-embed-6.20.2/vega-embed@6.20.2.min.js"></script><script src="javascript_files/vegawidget-vl5-binding-0.4.0.9000/vegawidget-vl5.js"></script><div class="row">
+      </header><script src="javascript_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="javascript_files/vega-5.21.0/vega@5.21.0.min.js"></script><script src="javascript_files/vega-lite-5.2.0/vega-lite@5.2.0.min.js"></script><link href="javascript_files/vega-embed-6.20.2/vega-embed.css" rel="stylesheet">
+<script src="javascript_files/vega-embed-6.20.2/vega-embed@6.20.2.min.js"></script><script src="javascript_files/vegawidget-vl5-binding-0.4.0.9001/vegawidget-vl5.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Extend using JavaScript</h1>
             
-            <h4 data-toc-skip class="date">2022-01-10</h4>
+            <h4 data-toc-skip class="date">2022-01-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/HEAD/vignettes/articles/javascript.Rmd" class="external-link"><code>vignettes/articles/javascript.Rmd</code></a></small>
       <div class="hidden name"><code>javascript.Rmd</code></div>
@@ -201,42 +201,42 @@
   }
 },"evals":[],"jsHooks":[]}</script><hr>
 <p>It remains to tell the vega-view API what to do with the chart, for this we need to use JavaScript. Accordingly, the chunk below is written in JavaScript - in the R Markdown file, this is a <a href="https://github.com/jeroen/js" class="external-link">js</a> chunk, rather than an <code>{r}</code> chunk.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">// This is a JavaScript chunk, using {js} instead of {r}</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">'#streaming-demo'</span>).<span class="at">then</span>(<span class="kw">function</span>(view) <span class="op">{</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="co">/**</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="co">   * Generates a new tuple with random walk.</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">   */</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="kw">function</span> <span class="at">newGenerator</span>() <span class="op">{</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a>      <span class="kw">var</span> counter <span class="op">=</span> <span class="dv">-1</span><span class="op">;</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>      <span class="kw">var</span> previousY <span class="op">=</span> [<span class="dv">5</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>      <span class="cf">return</span> <span class="kw">function</span> () <span class="op">{</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a>          counter<span class="op">++;</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a>          <span class="kw">var</span> newVals <span class="op">=</span> <span class="va">previousY</span>.<span class="at">map</span>(<span class="kw">function</span> (v<span class="op">,</span> c) <span class="op">{</span> <span class="cf">return</span> (<span class="op">{</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a>              <span class="dt">x</span><span class="op">:</span> counter<span class="op">,</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a>              <span class="dt">y</span><span class="op">:</span> v <span class="op">+</span> <span class="va">Math</span>.<span class="at">round</span>(<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">10</span> <span class="op">-</span> c <span class="op">*</span> <span class="dv">3</span>)<span class="op">,</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a>              <span class="dt">category</span><span class="op">:</span> c</span>
-<span id="cb4-15"><a href="#cb4-15"></a>          <span class="op">}</span>)<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a>          previousY <span class="op">=</span> <span class="va">newVals</span>.<span class="at">map</span>(<span class="kw">function</span> (v) <span class="op">{</span> <span class="cf">return</span> <span class="va">v</span>.<span class="at">y</span><span class="op">;</span> <span class="op">}</span>)<span class="op">;</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a>          <span class="cf">return</span> newVals<span class="op">;</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a>      <span class="op">};</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a>  <span class="op">}</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a></span>
-<span id="cb4-21"><a href="#cb4-21"></a>  <span class="kw">var</span> valueGenerator <span class="op">=</span> <span class="at">newGenerator</span>()<span class="op">;</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a>  <span class="kw">var</span> minimumX <span class="op">=</span> <span class="dv">-100</span><span class="op">;</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a>  <span class="va">window</span>.<span class="at">setInterval</span>(<span class="kw">function</span> () <span class="op">{</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a>      minimumX<span class="op">++;</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a>      <span class="kw">var</span> data_insert <span class="op">=</span> <span class="at">valueGenerator</span>()<span class="op">;</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a>      <span class="kw">var</span> data_remove <span class="op">=</span> <span class="kw">function</span>(data_remove) <span class="op">{</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a>        <span class="cf">return</span> (<span class="va">data_remove</span>.<span class="at">x</span> <span class="op">&lt;</span> minimumX)<span class="op">;</span></span>
-<span id="cb4-28"><a href="#cb4-28"></a>      <span class="op">};</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a>      </span>
-<span id="cb4-30"><a href="#cb4-30"></a>      <span class="kw">var</span> changeSet <span class="op">=</span> <span class="va">vega</span>.<span class="at">changeset</span>()</span>
-<span id="cb4-31"><a href="#cb4-31"></a>                          .<span class="at">insert</span>(<span class="at">valueGenerator</span>())</span>
-<span id="cb4-32"><a href="#cb4-32"></a>                          .<span class="at">remove</span>(<span class="kw">function</span> (t) <span class="op">{</span> <span class="cf">return</span> <span class="va">t</span>.<span class="at">x</span> <span class="op">&lt;</span> minimumX<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span></span>
-<span id="cb4-33"><a href="#cb4-33"></a>                          </span>
-<span id="cb4-34"><a href="#cb4-34"></a>      <span class="va">view</span>.<span class="at">change</span>(<span class="st">'table'</span><span class="op">,</span> changeSet).<span class="at">run</span>()<span class="op">;</span></span>
-<span id="cb4-35"><a href="#cb4-35"></a>  <span class="op">},</span> <span class="dv">1000</span>)<span class="op">;</span>  </span>
-<span id="cb4-36"><a href="#cb4-36"></a><span class="op">}</span>)<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// This is a JavaScript chunk, using {js} instead of {r}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Vegawidget<span class="op">.</span><span class="fu">findViewPromise</span>(<span class="st">'#streaming-demo'</span>)<span class="op">.</span><span class="fu">then</span>(<span class="kw">function</span>(view) {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">/**</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">   * Generates a new tuple with random walk.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">newGenerator</span>() {</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> counter <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> previousY <span class="op">=</span> [<span class="dv">5</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="kw">function</span> () {</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>          counter<span class="op">++;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>          <span class="kw">var</span> newVals <span class="op">=</span> previousY<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span> (v<span class="op">,</span> c) { <span class="cf">return</span> ({</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>              <span class="dt">x</span><span class="op">:</span> counter<span class="op">,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>              <span class="dt">y</span><span class="op">:</span> v <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">*</span> <span class="dv">10</span> <span class="op">-</span> c <span class="op">*</span> <span class="dv">3</span>)<span class="op">,</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>              <span class="dt">category</span><span class="op">:</span> c</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>          })<span class="op">;</span> })<span class="op">;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>          previousY <span class="op">=</span> newVals<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span> (v) { <span class="cf">return</span> v<span class="op">.</span><span class="at">y</span><span class="op">;</span> })<span class="op">;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>          <span class="cf">return</span> newVals<span class="op">;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>      }<span class="op">;</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> valueGenerator <span class="op">=</span> <span class="fu">newGenerator</span>()<span class="op">;</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> minimumX <span class="op">=</span> <span class="op">-</span><span class="dv">100</span><span class="op">;</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="bu">window</span><span class="op">.</span><span class="fu">setInterval</span>(<span class="kw">function</span> () {</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>      minimumX<span class="op">++;</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> data_insert <span class="op">=</span> <span class="fu">valueGenerator</span>()<span class="op">;</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> data_remove <span class="op">=</span> <span class="kw">function</span>(data_remove) {</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> (data_remove<span class="op">.</span><span class="at">x</span> <span class="op">&lt;</span> minimumX)<span class="op">;</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>      }<span class="op">;</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> changeSet <span class="op">=</span> vega<span class="op">.</span><span class="fu">changeset</span>()</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                          <span class="op">.</span><span class="fu">insert</span>(<span class="fu">valueGenerator</span>())</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>                          <span class="op">.</span><span class="fu">remove</span>(<span class="kw">function</span> (t) { <span class="cf">return</span> t<span class="op">.</span><span class="at">x</span> <span class="op">&lt;</span> minimumX<span class="op">;</span> })<span class="op">;</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>                          </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>      view<span class="op">.</span><span class="fu">change</span>(<span class="st">'table'</span><span class="op">,</span> changeSet)<span class="op">.</span><span class="fu">run</span>()<span class="op">;</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span>  </span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
 <script type="text/javascript">
 // This is a JavaScript chunk, using {js} instead of {r}
 Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
@@ -442,8 +442,8 @@ Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
 <p>When you click anywhere in the plotting-rectangle, the observation associated with the mark (if any) where you clicked will be printed below.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_scatterplot</span></code></pre></div>
-<div id="htmlwidget-2fdc7246a96aa4c0d3d0" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2fdc7246a96aa4c0d3d0">{"x":{
+<div id="htmlwidget-0ccb79ac9b3958160416" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0ccb79ac9b3958160416">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
@@ -36118,29 +36118,29 @@ The histogram bin-width is
 <p>In this code, we define a JavaScript function, <code>on_bin_width()</code>, that transforms the value of the input to the value of the bin-width (recall the slider has a logarithmic scale). Then, using <code>Vegawidget.findViewPromise()</code>, we <a href="https://vega.github.io/vega/docs/api/view/#view_signal" class="external-link">set the signal</a> <code>"bin_width"</code> in the Vega chart and direct the chart to re-<a href="https://github.com/vega/vega/tree/master/packages/vega-view#view_run" class="external-link">run</a>.</p>
 <p>We add an <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener" class="external-link">event listener</a> to our input-slider, specifying <code>on_bin_width()</code> to run any time the input changes.</p>
 <p>Also, we direct this <code>on_bin_width()</code> to run once at initialization.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb31-1"><a href="#cb31-1"></a><span class="co">// {js}</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="co">// Reference to the HTML element for the slider-input</span></span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="kw">var</span> inp_bin_width <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">"[name=bin_width]"</span>)<span class="op">;</span></span>
-<span id="cb31-4"><a href="#cb31-4"></a></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="co">// define function to call when input changes</span></span>
-<span id="cb31-6"><a href="#cb31-6"></a><span class="kw">function</span> <span class="at">on_bin_width</span>() <span class="op">{</span></span>
-<span id="cb31-7"><a href="#cb31-7"></a></span>
-<span id="cb31-8"><a href="#cb31-8"></a>  <span class="co">// translate the input value to a bin_width</span></span>
-<span id="cb31-9"><a href="#cb31-9"></a>  <span class="co">// our baseline bin_width is 1.0 °F</span></span>
-<span id="cb31-10"><a href="#cb31-10"></a>  <span class="kw">var</span> bin_width <span class="op">=</span> <span class="fl">1.</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">pow</span>(<span class="fl">10.</span><span class="op">,</span> <span class="va">inp_bin_width</span>.<span class="at">value</span>)<span class="op">;</span></span>
-<span id="cb31-11"><a href="#cb31-11"></a></span>
-<span id="cb31-12"><a href="#cb31-12"></a>  <span class="co">// update Vega chart</span></span>
-<span id="cb31-13"><a href="#cb31-13"></a>  <span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">"#histogram"</span>).<span class="at">then</span>(<span class="kw">function</span>(view) <span class="op">{</span></span>
-<span id="cb31-14"><a href="#cb31-14"></a>    <span class="va">view</span>.<span class="at">signal</span>(<span class="st">"bin_width"</span><span class="op">,</span> bin_width).<span class="at">run</span>()<span class="op">;</span>  </span>
-<span id="cb31-15"><a href="#cb31-15"></a>  <span class="op">}</span>)<span class="op">;</span>    </span>
-<span id="cb31-16"><a href="#cb31-16"></a></span>
-<span id="cb31-17"><a href="#cb31-17"></a><span class="op">}</span></span>
-<span id="cb31-18"><a href="#cb31-18"></a></span>
-<span id="cb31-19"><a href="#cb31-19"></a><span class="co">// connect the listener-function to the input </span></span>
-<span id="cb31-20"><a href="#cb31-20"></a><span class="va">inp_bin_width</span>.<span class="at">addEventListener</span>(<span class="st">"input"</span><span class="op">,</span> on_bin_width)<span class="op">;</span></span>
-<span id="cb31-21"><a href="#cb31-21"></a></span>
-<span id="cb31-22"><a href="#cb31-22"></a><span class="co">// run the updating function *once* to initialize the input to the chart</span></span>
-<span id="cb31-23"><a href="#cb31-23"></a><span class="at">on_bin_width</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">// {js}</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Reference to the HTML element for the slider-input</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> inp_bin_width <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">"[name=bin_width]"</span>)<span class="op">;</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co">// define function to call when input changes</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">on_bin_width</span>() {</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">// translate the input value to a bin_width</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// our baseline bin_width is 1.0 °F</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> bin_width <span class="op">=</span> <span class="fl">1.</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>(<span class="fl">10.</span><span class="op">,</span> inp_bin_width<span class="op">.</span><span class="at">value</span>)<span class="op">;</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// update Vega chart</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  Vegawidget<span class="op">.</span><span class="fu">findViewPromise</span>(<span class="st">"#histogram"</span>)<span class="op">.</span><span class="fu">then</span>(<span class="kw">function</span>(view) {</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    view<span class="op">.</span><span class="fu">signal</span>(<span class="st">"bin_width"</span><span class="op">,</span> bin_width)<span class="op">.</span><span class="fu">run</span>()<span class="op">;</span>  </span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span>    </span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="co">// connect the listener-function to the input </span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>inp_bin_width<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">"input"</span><span class="op">,</span> on_bin_width)<span class="op">;</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="co">// run the updating function *once* to initialize the input to the chart</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="fu">on_bin_width</span>()</span></code></pre></div>
 <script type="text/javascript">
 // {js}
 // Reference to the HTML element for the slider-input
@@ -36283,9 +36283,9 @@ on_bin_width()
 <pre id="output-data"></pre>
 <p>Please note that the next few code-chunks are <a href="https://github.com/jeroen/js" class="external-link">js</a> chunks rather than <code>{r}</code> chunks.</p>
 <p>Like above, we create a JavaScript variable, <code>angle</code> that refers to the input-slider.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb39-1"><a href="#cb39-1"></a><span class="co">// {js}</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a><span class="co">// Reference to our slider-input</span></span>
-<span id="cb39-3"><a href="#cb39-3"></a><span class="kw">var</span> angle <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">"[name=inp_angle]"</span>)<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">// {js}</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Reference to our slider-input</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> angle <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">"[name=inp_angle]"</span>)<span class="op">;</span></span></code></pre></div>
 <script type="text/javascript">
 // {js}
 // Reference to our slider-input
@@ -36293,23 +36293,23 @@ var angle = document.querySelector("[name=inp_angle]");
 </script><p>Next, we create a JavaScript function that, when run, reads the value of the input-slider, then updates the dataset in the Vega chart. This function has no arguments; instead, it refers-to and <em>changes</em> variables in the JavaScript environment.</p>
 <p>The first part of the function converts the value of <code>inp_angle</code> into a dataset, <code>data_new</code>, with a single observation, coordinates on the unit-circle.</p>
 <p>The second part of the function modifies the chart. Here, we create a changeset inserting <code>data_new</code>, and removing any existing data. Then we <a href="https://vega.github.io/vega/docs/api/view/#view_change" class="external-link">change</a> the view’s dataset named <code>"source"</code>, then we re-<a href="https://vega.github.io/vega/docs/api/view/#view_run" class="external-link">run</a> the view.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb40-1"><a href="#cb40-1"></a><span class="co">// {js}</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a><span class="kw">function</span> <span class="at">on_angle</span>() <span class="op">{</span></span>
-<span id="cb40-3"><a href="#cb40-3"></a></span>
-<span id="cb40-4"><a href="#cb40-4"></a>  <span class="co">// translate the input value to x-y coordinates in a new dataset</span></span>
-<span id="cb40-5"><a href="#cb40-5"></a>  <span class="kw">var</span> theta <span class="op">=</span> <span class="va">angle</span>.<span class="at">value</span> <span class="op">*</span> <span class="va">Math</span>.<span class="at">PI</span> <span class="op">/</span> <span class="dv">180</span><span class="op">;</span></span>
-<span id="cb40-6"><a href="#cb40-6"></a>  <span class="kw">var</span> data_new <span class="op">=</span> [<span class="op">{</span><span class="dt">x</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">cos</span>(theta)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="va">Math</span>.<span class="at">sin</span>(theta)<span class="op">}</span>]<span class="op">;</span></span>
-<span id="cb40-7"><a href="#cb40-7"></a></span>
-<span id="cb40-8"><a href="#cb40-8"></a>  <span class="co">// changes Vega chart</span></span>
-<span id="cb40-9"><a href="#cb40-9"></a>  <span class="va">Vegawidget</span>.<span class="at">findViewPromise</span>(<span class="st">"#circle"</span>).<span class="at">then</span>(<span class="kw">function</span>(view) <span class="op">{</span></span>
-<span id="cb40-10"><a href="#cb40-10"></a>    <span class="kw">var</span> changeSet <span class="op">=</span> <span class="va">vega</span>.<span class="at">changeset</span>()</span>
-<span id="cb40-11"><a href="#cb40-11"></a>                        .<span class="at">insert</span>(data_new)</span>
-<span id="cb40-12"><a href="#cb40-12"></a>                        .<span class="at">remove</span>(<span class="va">vega</span>.<span class="at">truthy</span>)<span class="op">;</span></span>
-<span id="cb40-13"><a href="#cb40-13"></a>                          </span>
-<span id="cb40-14"><a href="#cb40-14"></a>    <span class="va">view</span>.<span class="at">change</span>(<span class="st">"source"</span><span class="op">,</span> changeSet).<span class="at">run</span>()<span class="op">;</span>  </span>
-<span id="cb40-15"><a href="#cb40-15"></a>  <span class="op">}</span>)<span class="op">;</span>  </span>
-<span id="cb40-16"><a href="#cb40-16"></a></span>
-<span id="cb40-17"><a href="#cb40-17"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">// {js}</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">on_angle</span>() {</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// translate the input value to x-y coordinates in a new dataset</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> theta <span class="op">=</span> angle<span class="op">.</span><span class="at">value</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">180</span><span class="op">;</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> data_new <span class="op">=</span> [{<span class="dt">x</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(theta)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(theta)}]<span class="op">;</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">// changes Vega chart</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  Vegawidget<span class="op">.</span><span class="fu">findViewPromise</span>(<span class="st">"#circle"</span>)<span class="op">.</span><span class="fu">then</span>(<span class="kw">function</span>(view) {</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> changeSet <span class="op">=</span> vega<span class="op">.</span><span class="fu">changeset</span>()</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>                        <span class="op">.</span><span class="fu">insert</span>(data_new)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>                        <span class="op">.</span><span class="fu">remove</span>(vega<span class="op">.</span><span class="at">truthy</span>)<span class="op">;</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>                          </span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    view<span class="op">.</span><span class="fu">change</span>(<span class="st">"source"</span><span class="op">,</span> changeSet)<span class="op">.</span><span class="fu">run</span>()<span class="op">;</span>  </span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span>  </span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <script type="text/javascript">
 // {js}
 function on_angle() {
@@ -36330,12 +36330,12 @@ function on_angle() {
 }
 </script><p>Finally, we specify when our <code>on_angle()</code> function should run. Like above, we add an event listener to the input-slider so that <code>on_angle()</code> runs whenever <code>angle</code> changes.</p>
 <p>Lastly, we run the function <em>once</em> at initialization.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb41-1"><a href="#cb41-1"></a><span class="co">// {js}</span></span>
-<span id="cb41-2"><a href="#cb41-2"></a><span class="co">// whenever the input changes, run the updating function</span></span>
-<span id="cb41-3"><a href="#cb41-3"></a><span class="va">angle</span>.<span class="at">addEventListener</span>(<span class="st">"input"</span><span class="op">,</span> on_angle)<span class="op">;</span></span>
-<span id="cb41-4"><a href="#cb41-4"></a></span>
-<span id="cb41-5"><a href="#cb41-5"></a><span class="co">// run the updating function *once* to initialize the input to the data</span></span>
-<span id="cb41-6"><a href="#cb41-6"></a><span class="at">on_angle</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">// {js}</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">// whenever the input changes, run the updating function</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>angle<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">"input"</span><span class="op">,</span> on_angle)<span class="op">;</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co">// run the updating function *once* to initialize the input to the data</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="fu">on_angle</span>()</span></code></pre></div>
 <script type="text/javascript">
 // {js}
 // whenever the input changes, run the updating function

@@ -21,8 +21,11 @@ devtools. When the namespace of the method is reloaded by
 the old namespace. This might cause crashes because of dangling
 \code{.Call()} pointers.}
 }
+\value{
+Invisible \code{NULL}, called for side effects.
+}
 \description{
-This is a reimplementation of \code{\link[vctrs:s3_register]{vctrs::s3_register()}}, implemented here
+This is a reimplementation of \code{vctrs::s3_register()}, implemented here
 to avoid having to take a dependency on vctrs.
 }
 \keyword{internal}

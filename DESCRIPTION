@@ -76,7 +76,7 @@ Suggests:
     png,
     conflicted,
     here,
-    shiny,
+    shiny (>= 1.7.0),
     purrr,
     rsconnect,
     gapminder

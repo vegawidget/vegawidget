@@ -54,7 +54,8 @@ Imports:
     magrittr,
     htmltools,
     digest,
-    utils
+    utils,
+    lifecycle
 Suggests:
     spelling,
     knitr,
@@ -77,6 +78,7 @@ Suggests:
     here,
     shiny,
     purrr,
-    rsconnect
+    rsconnect,
+    gapminder
 Language: en-US
 Config/testthat/edition: 3

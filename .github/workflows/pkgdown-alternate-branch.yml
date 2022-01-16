@@ -1,9 +1,9 @@
 on:
   push:
     branches:
-      - "feature-169-multiple-versions"
+      - "modify-me" # set this to the branch you want to use
 
-name: "multiple-versions"
+name: "pkgdown-alternate-branch"
 
 jobs:
   pkgdown:
@@ -46,6 +46,7 @@ jobs:
       - name: Install package
         run: R CMD INSTALL .
 
+        # set branch for deployment branch
       - name: Deploy package
         run: |
           git config --local user.email "actions@github.com"

@@ -17,6 +17,8 @@
   - `vega_version_available()`: available versions, subject to locking.
   
   (#169)
+  
+* Update Actions. (#188)
 
 * Use Vega-Lite 5.2.0. (#183)
 

@@ -276,6 +276,7 @@ renderVegawidget <- function(expr, env = parent.frame(), quoted = FALSE) {
   # see https://github.com/vegawidget/vegawidget/pull/190/files#r787265907
   f <- function(x) {
 
+    # if sent a vegaspec, convert to a vegawidget
     if (inherits(x, "vegaspec")) {
       x <- vegawidget(x)
     }

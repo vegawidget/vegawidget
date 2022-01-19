@@ -18,10 +18,6 @@
   
   (#169)
   
-* Update `renderVegawidget()` to use quosures, in accordance with 
-  [Shiny 1.7.0](https://shiny.rstudio.com/reference/shiny/1.7.0/upgrade.html). 
-  This deprecates the `env` and `quoted` arguments. (#182)  
-  
 * Update Actions. (#188)
 
 * Use Vega-Lite 5.2.0. (#183)

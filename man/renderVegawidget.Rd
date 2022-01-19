@@ -4,17 +4,16 @@
 \alias{renderVegawidget}
 \title{Render shiny-output for vegawidget}
 \usage{
-renderVegawidget(expr, env, quoted)
+renderVegawidget(expr, env = parent.frame(), quoted = FALSE)
 }
 \arguments{
 \item{expr}{expression that generates a vegawidget. This can be
 a \code{vegawidget} or a \code{vegaspec}.}
 
-\item{env}{\strong{Deprecated}. The environment in which to evaluate \code{expr}.}
+\item{env}{The environment in which to evaluate \code{expr}.}
 
-\item{quoted}{\strong{Deprecated}.
-Is \code{expr} a quoted expression (with \code{quote()})?
-This is useful if you want to save an expression in a variable.}
+\item{quoted}{Is \code{expr} a quoted expression (with \code{quote()})? This
+is useful if you want to save an expression in a variable.}
 }
 \description{
 Use this function in the server part of your Shiny app.

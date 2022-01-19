@@ -259,34 +259,27 @@ vegawidgetOutput <- function(outputId, width = "auto", height = "auto",
 #'
 #' @param expr expression that generates a vegawidget. This can be
 #'   a `vegawidget` or a `vegaspec`.
-#' @param env **Deprecated**. The environment in which to evaluate \code{expr}.
-#' @param quoted **Deprecated**.
-#'   Is \code{expr} a quoted expression (with \code{quote()})?
-#'   This is useful if you want to save an expression in a variable.
+#' @param env The environment in which to evaluate \code{expr}.
+#' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
+#'   is useful if you want to save an expression in a variable.
 #'
 #' @export
 #'
-renderVegawidget <- function(expr, env, quoted) {
+renderVegawidget <- function(expr, env = parent.frame(), quoted = FALSE) {
 
   assert_packages("shiny")
-
-  if (lifecycle::is_present(env)) {
-    lifecycle::deprecate_warn("0.4", "vegawidget::renderVegawidget(env)")
-  }
-
-  if (lifecycle::is_present(quoted)) {
-    lifecycle::deprecate_warn("0.4", "vegawidget::renderVegawidget(quoted)")
-  }
 
   # if sent a vegaspec, convert to a vegawidget
   if (inherits(expr, "vegaspec")) {
     expr <- vegawidget(expr)
   }
 
+  if (!quoted) { expr <- substitute(expr) } # force quoted
+
   htmlwidgets::shinyRenderWidget(
-    rlang::quo(expr),
+    expr,
     vegawidgetOutput,
-    env = parent.frame(),
+    env,
     quoted = TRUE
   )
 }

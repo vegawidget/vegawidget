@@ -269,15 +269,23 @@ renderVegawidget <- function(expr, env = parent.frame(), quoted = FALSE) {
 
   assert_packages("shiny")
 
-  # if sent a vegaspec, convert to a vegawidget
-  if (inherits(expr, "vegaspec")) {
-    expr <- vegawidget(expr)
+  if (!quoted) {
+    expr <- substitute(expr)
   }
 
-  if (!quoted) { expr <- substitute(expr) } # force quoted
+  # see https://github.com/vegawidget/vegawidget/pull/190/files#r787265907
+  f <- function(x) {
+
+    # if sent a vegaspec, convert to a vegawidget
+    if (inherits(x, "vegaspec")) {
+      x <- vegawidget(x)
+    }
+
+    x
+  }
 
   htmlwidgets::shinyRenderWidget(
-    expr,
+    substitute(f(expr)),
     vegawidgetOutput,
     env,
     quoted = TRUE

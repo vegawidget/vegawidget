@@ -1,5 +1,5 @@
 pandoc: 2.14.2
-pkgdown: 2.0.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   dates-times: dates-times.html
@@ -10,7 +10,7 @@ articles:
   shiny: shiny.html
   vegaspec: vegaspec.html
   vegawidget: vegawidget.html
-last_built: 2022-01-16T21:07Z
+last_built: 2022-01-21T16:33Z
 urls:
   reference: https://vegawidget.github.io/vegawidget/reference
   article: https://vegawidget.github.io/vegawidget/articles

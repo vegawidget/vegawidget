@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - "modify-me" # set this to the branch you want to use
+      - "update-192-documentation" # set this to the branch you want to use
 
 name: "pkgdown-alternate-branch"
 
@@ -51,4 +51,4 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          Rscript -e 'pkgdown::deploy_to_branch(branch = "pages-multiple-versions", new_process = FALSE)'
+          Rscript -e 'pkgdown::deploy_to_branch(branch = "pkgdown-alternate", new_process = FALSE)'

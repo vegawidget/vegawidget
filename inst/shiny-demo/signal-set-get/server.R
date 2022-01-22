@@ -7,6 +7,9 @@ spec_histogram <-
     `$schema` = vega_schema(),
     width = 300,
     height = 300,
+    params = list(
+      list(name = "bin_width", value = 2) # set different to input to force signal
+    ),
     data = list(values = data_seattle_hourly),
     mark = "bar",
     encoding = list(
@@ -25,18 +28,8 @@ spec_histogram <-
   ) %>%
   as_vegaspec()
 
-# this will be patched into the compiled Vega specification
-patch <-
-  list(
-    list(
-      path = "/signals",
-      op = "add",
-      value = list(list(name = "bin_width", value = 0.5))
-    )
-  )
-
-# create the histogram, invoking the patch
-histogram <- vegawidget(spec_histogram, embed = vega_embed(patch = patch))
+# create the histogram
+histogram <- vegawidget(spec_histogram)
 
 server <- function(input, output) {
 

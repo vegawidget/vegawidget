@@ -223,15 +223,53 @@ output_datum
 
 ## Setting and getting signals {#signals}
 
-Signals are a [formal part of the Vega definition](https://vega.github.io/vega/docs/signals), but are not a part of the Vega-Lite definition. They are "dynamic variables that parameterize a visualization and can drive interactive behaviors. Signals can be used throughout a Vega specification, for example to define a mark property or data transform parameter."
+Signals are a [formal part of the **Vega** definition](https://vega.github.io/vega/docs/signals). They are "dynamic variables that parameterize a visualization and can drive interactive behaviors. Signals can be used throughout a Vega specification, for example to define a mark property or data transform parameter."
 
-Even though signals are not defined in Vega-Lite, we can still use them. Before being rendered, Vega-Lite specifications are compiled into Vega specifications. Once rendered, we can interact with the Vega signals, as long as we know what they are named.
+There is emerging support for signals in **Vega-Lite**, where they are called [parameters](https://vega.github.io/vega-lite/docs/parameter.html). 
+As of Vega-Lite version 5.20, you still need to make some workarounds.
 
-For example, signals are used to drive the behavior of Vega-Lite [selections](https://vega.github.io/vega-lite/docs/selection.html). As of the start of 2019, the Vega-Lite development team are [discussing](https://github.com/vega/vega-lite/issues/3338) if, and how, signals might be introduced, formally, to Vega-Lite.
+First, there is a top-level element called `params`, which is a list.
+Each element of this list is itself a list, with elements `name` and `value`.
+For example:
 
-For now, we can "hack" our way to a signal by using it in the Vega-Lite specification, then *defining* the signal by patching the compiled Vega specification. Vega-Lite developer Dominik Moritz demonstrates this technique in an [Observable notebook](https://beta.observablehq.com/@domoritz/rotating-earth). 
+```{r eval = FALSE}
+params = list(
+  list(name = "bin_width", value = 1),
+  list(name = "something_else", value = "some string")
+)
+```
 
-Here, we will use the same technique to create an interactive histogram. We will use the `data_seattle_hourly` dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010. In addition to the histogram, we will provide a slider-input to specify the bin-width and we will print the bin-width to an element of the HTML document.
+Then, to implement the parameters, you would substitute the value with an `expr` list. 
+For example, to set a bin width:
+
+```{r eval = FALSE}
+x = list(
+  field = "temp",
+  type = "quantitative",
+  bin = list(step = list(expr = "bin_width")),
+  axis = list(format = ".1f")
+)
+```
+
+This is the part that is not yet quite working. 
+There are places, like this, where an `expr` list should work, but doesn't.
+There is a workaround, to use `signal` instead of `expr`. For example:
+
+```{r eval = FALSE}
+x = list(
+  field = "temp",
+  type = "quantitative",
+  bin = list(step = list(signal = "bin_width")),
+  axis = list(format = ".1f")
+)
+```
+
+This works, but it violates the Vega-Lite schema. 
+There is a [pull-request](https://github.com/vega/vega-lite/pull/7463) to fix this; when released, we'll update vegawidget.
+
+Here, we use this workaround to create an interactive histogram. 
+We  use the `data_seattle_hourly` dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010. 
+In addition to the histogram, we will provide a slider-input to specify the bin-width and we will print the bin-width to an element of the HTML document.
 
 Our first step is to create a Vega-Lite specification for a [histogram](https://vega.github.io/vega-lite/examples/histogram.html).
 
@@ -241,6 +279,9 @@ spec_histogram <-
     `$schema` = vega_schema(),
     width = 300,
     height = 300,
+    params = list(
+      list(name = "bin_width", value = 1)
+    ),
     data = list(values = data_seattle_hourly),
     mark = "bar",
     encoding = list(
@@ -257,26 +298,6 @@ spec_histogram <-
     )
   ) %>%
   as_vegaspec()
-```
-
-In the Vega-Lite spec above, in the `x` `encoding`, we have defined the `bin` `step` as a `signal` named `"bin_width"`. This is not legal in Vega-Lite. To make this work, we use [vega-embed](https://github.com/vega/vega-embed#options) to patch the compiled Vega spec with a definition of the signal. From R, we can include the patch as an option to `vega_embed()`.
-
-```{r}
-patch <- 
-  list(
-    list(
-      path = "/signals",
-      op = "add",
-      value = list(list(name = "bin_width", value = 0.5))
-    )
-  )
-
-output_histogram <- 
-  vegawidget(
-    spec_histogram, 
-    embed = vega_embed(patch = patch), 
-    elementId = "histogram"
-  )
 ```
 
 Our `output_histogram` will be a vegawidget that is contained in an HTML element with an ID of `"histogram"`.
@@ -322,7 +343,7 @@ handler_bin_width <-
   )
 
 output_histogram <- 
-  output_histogram %>%
+  vegawidget(spec_histogram, elementId = "histogram") %>%
   vw_add_signal_listener("bin_width", handler_bin_width)
 ```
 

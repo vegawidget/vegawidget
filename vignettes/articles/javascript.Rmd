@@ -9,7 +9,9 @@ library("vegawidget")
 library("htmltools")
 ```
 
-The purpose of this article is to show how you can use JavaScript to extend Vega's capabilities. In these examples, we use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to interact with a Vega chart using JavaScript. We explore similar ideas in an article on [extending using Shiny](shiny.Rmd).
+You can use JavaScript to extend Vega's capabilities. 
+In these examples, we show how to use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to interact with Vega charts.
+We explore similar ideas in the [extending using Shiny](shiny.Rmd) article.
 
 This article has sections on:
 
@@ -18,15 +20,16 @@ This article has sections on:
 - setting and getting [signals](#signals), including a [demo](#demo-signals)
 - setting and getting [data](#data), including a [demo](#demo-data) 
 
-It goes without saying that you will need to be comfortable with JavaScript to take advantage of this material. It will be apparent to many of you that my (Ian's) JavaScript is far from perfect; here are a couple of resources I have used to try to build up my JS capabilities:
+Here are some resources I (Ian) have used to try to build up my JS capabilities:
 
 - [Eloquent JavaScript](https://eloquentjavascript.net), available as a free website or as a physical book; thanks to [Stuart Lee](https://github.com/sa-lee) for the tip! 
-
-- [Observable](https://beta.observablehq.com), an interactive JS coding environment that emphasizes visualization.
+- [Observable](https://www.observablehq.com), an interactive JS coding environment that emphasizes visualization.
+- [JavaScript](https://javascript.info/) really well written, focused by topic.
+- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript) really well-written, focused by function/object.
 
 ## Introduction to vega-view
 
-We can use the [vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view) to modify a chart once it has been rendered. 
+The [vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view) can modify a Vega chart once it has been rendered. 
 
 Here, we recreate this Vega-Lite [streaming demo](https://vega.github.io/vega-lite/tutorials/streaming.html).
 Our first step is to create a vegaspec. Note that we have a dataset named `"table"`, but we have not included any data.
@@ -53,7 +56,8 @@ spec_table <-
 
 ### Demo: vega-view {#demo-vega-view}
 
-We use the `vegawidget()` function with an `elementId` argument, specifying the ID of the HTML element containing the chart. This allows JavaScript code we supply to know which Vega chart to modify. 
+We use the `vegawidget()` function with `elementId` to specify the element containing the chart. 
+Here's what it does, once we have defined the JavaScript:
 
 ```{r}
 vegawidget(spec_table, elementId = "streaming-demo")
@@ -61,54 +65,90 @@ vegawidget(spec_table, elementId = "streaming-demo")
 
 ---
 
-It remains to tell the vega-view API what to do with the chart, for this we need to use JavaScript.
-Accordingly, the chunk below is written in JavaScript - in the R Markdown file, this is a `{js}` chunk, rather than an `{r}` chunk. 
+Now for the [rest of the owl](https://knowyourmeme.com/photos/572078-how-to-draw-an-owl).
+To tell vega-view what to do with the chart; we can add some JavaScript to this page, using a `{js}` block. 
+There are other ways to add JavaScript to an RMarkdown page; using a code block makes it easier to discuss the code.
+
+Please keep in mind that purpose of this example is "look at the cool stuff you can do using JavaScript", rather than "here's something you can do as you start out using JavaScript".
 
 ```{js}
-// This is a JavaScript chunk, using {js} instead of {r}
-Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
-  /**
-   * Generates a new tuple with random walk.
-   */
-  function newGenerator() {
-      var counter = -1;
-      var previousY = [5, 5, 5, 5];
-      return function () {
-          counter++;
-          var newVals = previousY.map(function (v, c) { return ({
-              x: counter,
-              y: v + Math.round(Math.random() * 10 - c * 3),
-              category: c
-          }); });
-          previousY = newVals.map(function (v) { return v.y; });
-          return newVals;
-      };
-  }
+// {js}
 
-  var valueGenerator = newGenerator();
-  var minimumX = -100;
-  window.setInterval(function () {
-      minimumX++;
-      var data_insert = valueGenerator();
-      var data_remove = function(data_remove) {
-        return (data_remove.x < minimumX);
-      };
+// find the promise to the view using the CSS selector, then
+Vegawidget.findViewPromise('#streaming-demo').then(
+
+  // when you have the view, run this function using the view
+  function(view) {
+  
+    // https://javascript.info/generators
+    valueGenerator = function*() {
+    
+      var counter = -1;
       
-      var changeSet = vega.changeset()
-                          .insert(valueGenerator())
-                          .remove(function (t) { return t.x < minimumX; });
-                          
+      // there are four elements, we will have four categories
+      var previousY = [5, 5, 5, 5];
+      
+      while(true) {
+      
+        counter++;
+        
+        const newVals = previousY.map(
+          // for each (value, index) in array, return Object
+          (value, index) => ({
+            x: counter,
+            y: value + Math.round(Math.random() * 10 - index * 3),
+            category: index
+          })
+        );
+        
+        // extract y values 
+        previousY = newVals.map(value => value.y);
+        
+        // object with elements named x, y, category
+        yield newVals;              
+      }
+    
+    }
+
+    // initialize the generator 
+    const gen = valueGenerator();
+    
+    var minimumX = -100;
+    
+    // run this function every 1000 ms
+    window.setInterval(() => {
+      minimumX++;
+      
+      // create changeset to insert the object generated, remove old data
+      const changeSet = vega
+        .changeset()
+        .insert(gen.next().value) 
+        .remove(t =>  t.x < minimumX);
+        
+      // implement changeset on dataset named `table`, run the view
       view.change('table', changeSet).run();
-  }, 1000);  
-});
+    }, 1000);
+  }
+);
 ```
 
-This package puts an object called `Vegawidget` into the top level of the rendered page's JavaScript namespace; `Vegawidget` contains a function `findViewPromise()`. The first part of the JavaScript code is a call to this function, with a single argument, a CSS `selector`, to specify the HTML element that contains the chart we wish to access. This reflects the `elementId = "streaming-demo"` in the `vegawidget()` call. 
+This package puts an object called `Vegawidget` into the top level of the rendered page's JavaScript namespace; `Vegawidget` contains a function `findViewPromise()`. 
+The first part of the JavaScript code is a call to this function, with a single argument, a CSS `selector`, to specify the HTML element that contains the chart we wish to access. 
 
-The `findVewPromise()` function returns a JavaScript [promise](https://javascript.info/promise-basics) to the chart's `view` object. The `then()` call executes once the view promise is fulfilled. It contains a function that takes a single argument, `view`, the view object on which the 
-[vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view) operates. 
+The `findVewPromise()` function returns a JavaScript [promise](https://javascript.info/promise-basics) to the chart's `view` object. 
+The `then()` call executes once the view promise is fulfilled. It contains a function that takes a single argument, `view`, the view object on which the [vega-view API](https://vega.github.io/vega/docs/api/view) operates. 
 
-Within this `then()` call, we can operate on the `view`. The rest of the code is adapted from the [original demonstration](https://vega.github.io/vega-lite/tutorials/streaming.html), where they use vega-view's [change()](https://github.com/vega/vega/tree/master/packages/vega-view#view_change) method to change the data periodically.
+Within this `then()` call, we provide a function to operate on the `view`. 
+The rest of the code is adapted from the [original demonstration](https://vega.github.io/vega-lite/tutorials/streaming.html).
+It has three components:
+
+1. A generator function that yields a new observation (row in a dataset) every time it is called.
+2. A timer that runs code every 1000 ms.
+3. Within the timer, a function that: 
+   - proposes a data [changeset](https://vega.github.io/vega/docs/api/view/#view_change).
+   - applies the changeset to the data named `table`, then runs the view.
+
+The rest of the examples will aim to be somewhat more introductory.
 
 ## Getting events {#events}
 
@@ -122,19 +162,19 @@ From an R environment, it can be difficult to write and debug JavaScript code. T
 
 ### Building handler-functions
 
-In the example we are building, we want our handler function to do two things:
+In this example, we want our handler function to do two things:
 
 - return the value of the datum (observation) associated with the event.
 - write that value into an element within the HTML document.
 
-These are two separate "things"; the first suggests code that returns a value, the second suggests code that produces a side-effect. Accordingly, this package offers a set JavaScript code-snippets that return values, and another set of JavaScript code-snippets that produce side-effects, and a means to compose them.
+These are two separate "things"; the first suggests code that returns a value, the second suggests code that produces a side-effect. Accordingly, this package offers a set JavaScript code-snippets that return values, another set of JavaScript code-snippets that produce side-effects, and a means to compose them.
 
 First, let's look at snippets that return values. Because all event-handlers take the same two arguments, `event` and `item`, we can focus only on the *body* of the handler-function. 
 
 This is the purpose of the `vw_handler_event()` function. 
 If we call it without arguments, it prints a list of event-handlers that return values:
 
-```{r}
+```{r, comment=''}
 vw_handler_event()
 ```
 

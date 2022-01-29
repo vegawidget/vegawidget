@@ -1,3 +1,5 @@
+# vegawidget (development version)
+
 # vegawidget 0.4.1
 
 * vegawidget now supports the last two Vega-Lite major versions,

@@ -118,6 +118,9 @@ The rendering of the chart above depends on where you are reading it:
     the chart is further rendered to a static SVG file, then
     incorporated into the Markdown rendering.
 
+A [learnr](https://rstudio.github.io/learnr/index.html) tutorial is
+available: `learnr::run_tutorial("overview", package = "vegawidget")`.
+
 For more, please see our [Getting
 Started](https://vegawidget.github.io/vegawidget/articles/vegawidget.html)
 article. Additionally, the [Vega-Lite

@@ -14,35 +14,34 @@ status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project
 the grammar-of-graphics, rendered in the browser with interactivity.
 
 The goal of vegawidget is to render Vega-Lite and Vega specifications as
-htmlwidgets, and to provide you a means to communicate with a Vega chart
-using JavaScript or Shiny. Its ambition is to be a *low-level* interface
-to the Vega(-Lite) API, such that other packages can build upon it to
-offer higher-level functions to compose Vega(-Lite) specifications.
+htmlwidgets, and to help you communicate with a Vega chart using
+JavaScript or Shiny. Its ambition is to be a *low-level* interface to
+the Vega(-Lite) API, so that other packages can build upon it.
 
 Accordingly, this package may be useful to:
 
 -   build (using lists of lists) re-usable Vega and Vega-Lite
     specifications for deployment elsewhere.
--   develop higher-level, user-friendly packages to build specific types
-    of plots, or even to build a general ggplot2-like framework, using
-    this package as the rendering foundation.
+-   develop higher-level, user-friendly packages to compose specific
+    types of plots, or even to build a general ggplot2-like framework,
+    using this package as the rendering foundation.
 
 ## Features
 
-### New to vegawidget
+### New to vegawidget 0.4
 
--   vegawidget now supports the last two Vega-Lite major versions,
+-   vegawidget now supports the last two Vega-Lite major-versions,
     currently versions 5 and 4.
 
-    However, for a given loading of this package (or RMarkdown file),
-    the `vegawidget()` function can use only *one* major-version; this
-    version is determined using the `$schema` element of the first
+    However, for a given R session (e.g. rendering of an RMarkdown
+    file), the `vegawidget()` function can use only *one* major-version;
+    this version is determined using the `$schema` element of the first
     `vegaspec` evaluated using `vegawidget()`.
 
     This restriction does not apply to the image functions,
     e.g. `vw_to_svg()`, or to the compilation function, `vw_to_vega()`.
 
--   vegawidget offers the following versions:
+-   use `vega_version_all()` to see the available versions:
 
 ``` r
 library("vegawidget")
@@ -54,11 +53,6 @@ vega_version_all()
 ```
 
 -   Compiling a spec and creating an image now uses the
-    **[V8](https://cran.r-project.org/package=V8)** package, rather than
-    depending on a local installation of nodejs.
-
--   Compiling a spec (`vw_to_vega()`) and creating an image
-    (`vw_to_svg()` and friends) uses the
     **[V8](https://cran.r-project.org/package=V8)** package, rather than
     depending on a local installation of nodejs.
 

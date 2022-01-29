@@ -120,7 +120,7 @@
 <p>For a comprehensive introduction to Vega-Lite, please visit the its <a href="https://vega.github.io/vega-lite/" class="external-link">web site</a>.</p>
 <p>Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build specifications:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget">"vegawidget"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span>
 
 <span class="va">spec_mtcars</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
@@ -143,19 +143,19 @@
 <p>This package is a low-level interface to Vega-Lite and the Vega ecosystem, which has a lot of powerful capabilities, highlighted in this series of articles:</p>
 <ul>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/vegaspec.html">Specify using vegaspec</a>: how to construct and render a vegaspec.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/vegaspec.html">Specify using vegaspec</a>: how to construct and render a vegaspec.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/render-vegawidget.html">Render using vegawidget</a>: advanced rendering options.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/render-vegawidget.html">Render using vegawidget</a>: advanced rendering options.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/shiny.html">Extend using Shiny</a>: how to interact with Vega charts using Shiny.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/shiny.html">Extend using Shiny</a>: how to interact with Vega charts using Shiny.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/javascript.html">Extend using JavaScript</a>: how to interact with Vega charts using JavaScript.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/javascript.html">Extend using JavaScript</a>: how to interact with Vega charts using JavaScript.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/image.html">Create Images</a>: how to create and save PNG or SVG images.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/image.html">Create Images</a>: how to create and save PNG or SVG images.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/dates-times.html">Work with Dates and Times</a>: dates and times in Vega(-Lite) work a little differently from R.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/dates-times.html">Work with Dates and Times</a>: dates and times in Vega(-Lite) work a little differently from R.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/import.html">Import into Other Packages</a>: how to import vegawidget functions into your package, then re-export them.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/import.html">Import into Other Packages</a>: how to import vegawidget functions into your package, then re-export them.</li>
 </ul>
 <p>To share your Vega(-Lite) creation on the <a href="https://bl.ocks.org" class="external-link">Blocks</a> website, you can use the <a href="https://vegawidget.github.io/vegablock/" class="external-link"><strong>vegablock</strong></a> package.</p>
 <div class="section level2">
@@ -171,7 +171,7 @@
 <p>Vega(-Lite) <a href="https://vega.github.io/vega-lite/docs/field.html" class="external-link">interprets dots in field (variable) names</a> as an indicator of nesting. To escape this interpretation, you can escape the dot with two backslashes, <code>\\</code>, or surround the name with square brackets, <code>[]</code>. These escape-methods mess up the default axis-titles, so you may wish to set those manually.</p>
 <p>For example:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget">"vegawidget"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
   `$schema` <span class="op">=</span> <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>, 

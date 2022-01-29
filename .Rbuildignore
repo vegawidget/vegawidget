@@ -4,7 +4,6 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^data-raw$
-^\.travis\.yml$
 ^docs$
 ^inst/tutorials/.*/.*\.html$
 ^inst/tutorials/.*/rsconnect/*$
@@ -12,13 +11,10 @@
 ^inst/shiny-demo/.*.dcf$
 ^pkgdown$
 ^\.V8history$
-^test_app$
 ^CODE_OF_CONDUCT\.md$
 ^CONTRIBUTING\.md$
 ^CONTRIBUTING\.Rmd$
 ^doc$
-^Meta$
-^vignettes/foo\.Rmd$
 ^revdep$
 ^CRAN-RELEASE$
 ^\.github$

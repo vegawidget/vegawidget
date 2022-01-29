@@ -1,14 +1,17 @@
-pandoc: 2.7.3
-pkgdown: 1.6.1
+pandoc: 2.14.2
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
-  articles/dates-times: dates-times.html
-  articles/image: image.html
-  articles/import: import.html
-  articles/javascript: javascript.html
-  articles/render-vegawidget: render-vegawidget.html
-  articles/shiny: shiny.html
-  articles/vegaspec: vegaspec.html
+  dates-times: dates-times.html
+  image: image.html
+  import: import.html
+  javascript: javascript.html
+  render-vegawidget: render-vegawidget.html
+  shiny: shiny.html
+  vegaspec: vegaspec.html
   vegawidget: vegawidget.html
-last_built: 2021-11-02T16:44Z
+last_built: 2022-01-29T21:06Z
+urls:
+  reference: https://vegawidget.github.io/vegawidget/reference
+  article: https://vegawidget.github.io/vegawidget/articles
 

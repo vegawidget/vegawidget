@@ -41,7 +41,7 @@
 
 * Update contributor-information. (#176)
 
-* Clean up `inst` folder: remove `shiny-test`. (#197)
+* Clean up `inst` folder: remove `test-apps`. (#197)
 
 # vegawidget 0.3.3
 

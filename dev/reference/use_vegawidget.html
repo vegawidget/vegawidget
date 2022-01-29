@@ -111,14 +111,14 @@ be coerced to a <code>vegaspec</code>; default (NULL) implies no additional clas
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p><code>use_vegawidget()</code>:</p>
+    <p><strong><code>use_vegawidget()</code></strong>:</p>
 <p>Adds vegawidget functions:</p><ul><li><p><code><a href="as_vegaspec.html">as_vegaspec()</a></code>, <code><a href="vw_as_json.html">vw_as_json()</a></code></p></li>
 <li><p><code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code>, <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>, <code>knit_print()</code></p></li>
 <li><p><code><a href="vegawidget.html">vegawidget()</a></code>, <code><a href="vega_embed.html">vega_embed()</a></code>, <code><a href="vw_set_base_url.html">vw_set_base_url()</a></code></p></li>
 <li><p><code><a href="image.html">vw_to_svg()</a></code> and other image functions</p></li>
 <li><p><code><a href="vegawidgetOutput.html">vegawidgetOutput()</a></code>, <code><a href="renderVegawidget.html">renderVegawidget()</a></code></p></li>
 </ul><p>In practical terms:</p><ul><li><p>adds <strong>vegawidget</strong> to <code>Imports</code> in your package's DESCRIPTION file.</p></li>
-<li><p>adds <strong>processx</strong>, <strong>rsvg</strong>, <strong>png</strong>, <strong>fs</strong> to <code>Suggests</code>
+<li><p>adds <strong>V8</strong>, <strong>withr</strong>, <strong>fs</strong>, <strong>rsvg</strong>, and <strong>png</strong> to <code>Suggests</code>
 in your package's DESCRIPTION file.</p></li>
 <li><p>creates <code>R/utils-vegawidget.R</code></p></li>
 <li><p>you can delete references to functions you do not want

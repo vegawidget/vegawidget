@@ -115,25 +115,25 @@
 <div class="page-header"><h1 id="vegawidget">vegawidget<a class="anchor" aria-label="anchor" href="#vegawidget"></a>
 </h1></div>
 <p><a href="https://vega.github.io/vega-lite/" class="external-link">Vega-Lite</a> is an implementation of the grammar-of-graphics, rendered in the browser with interactivity.</p>
-<p>The goal of vegawidget is to render Vega-Lite and Vega specifications as htmlwidgets, and to provide you a means to communicate with a Vega chart using JavaScript or Shiny. Its ambition is to be a <em>low-level</em> interface to the Vega(-Lite) API, such that other packages can build upon it to offer higher-level functions to compose Vega(-Lite) specifications.</p>
+<p>The goal of vegawidget is to render Vega-Lite and Vega specifications as htmlwidgets, and to help you communicate with a Vega chart using JavaScript or Shiny. Its ambition is to be a <em>low-level</em> interface to the Vega(-Lite) API, so that other packages can build upon it.</p>
 <p>Accordingly, this package may be useful to:</p>
 <ul>
 <li>build (using lists of lists) re-usable Vega and Vega-Lite specifications for deployment elsewhere.</li>
-<li>develop higher-level, user-friendly packages to build specific types of plots, or even to build a general ggplot2-like framework, using this package as the rendering foundation.</li>
+<li>develop higher-level, user-friendly packages to compose specific types of plots, or even to build a general ggplot2-like framework, using this package as the rendering foundation.</li>
 </ul>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h2>
 <div class="section level3">
-<h3 id="new-to-vegawidget">New to vegawidget<a class="anchor" aria-label="anchor" href="#new-to-vegawidget"></a>
+<h3 id="new-to-vegawidget-04">New to vegawidget 0.4<a class="anchor" aria-label="anchor" href="#new-to-vegawidget-04"></a>
 </h3>
 <ul>
 <li>
-<p>vegawidget now supports the last two Vega-Lite major versions, currently versions 5 and 4.</p>
-<p>However, for a given loading of this package (or RMarkdown file), the <code><a href="reference/vegawidget.html">vegawidget()</a></code> function can use only <em>one</em> major-version; this version is determined using the <code>$schema</code> element of the first <code>vegaspec</code> evaluated using <code><a href="reference/vegawidget.html">vegawidget()</a></code>.</p>
+<p>vegawidget now supports the last two Vega-Lite major-versions, currently versions 5 and 4.</p>
+<p>However, for a given R session (e.g. rendering of an RMarkdown file), the <code><a href="reference/vegawidget.html">vegawidget()</a></code> function can use only <em>one</em> major-version; this version is determined using the <code>$schema</code> element of the first <code>vegaspec</code> evaluated using <code><a href="reference/vegawidget.html">vegawidget()</a></code>.</p>
 <p>This restriction does not apply to the image functions, e.g. <code><a href="reference/image.html">vw_to_svg()</a></code>, or to the compilation function, <code><a href="reference/vw_to_vega.html">vw_to_vega()</a></code>.</p>
 </li>
-<li><p>vegawidget offers the following versions:</p></li>
+<li><p>use <code><a href="reference/vega_version.html">vega_version_all()</a></code> to see the available versions:</p></li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget">"vegawidget"</a></span><span class="op">)</span>
@@ -143,8 +143,7 @@
 <span class="co">#&gt; 1    vl5     5.2.0 5.21.0     6.20.2</span>
 <span class="co">#&gt; 2    vl4    4.17.0 5.17.0     6.12.2</span></code></pre></div>
 <ul>
-<li><p>Compiling a spec and creating an image now uses the <strong><a href="https://cran.r-project.org/package=V8" class="external-link">V8</a></strong> package, rather than depending on a local installation of nodejs.</p></li>
-<li><p>Compiling a spec (<code><a href="reference/vw_to_vega.html">vw_to_vega()</a></code>) and creating an image (<code><a href="reference/image.html">vw_to_svg()</a></code> and friends) uses the <strong><a href="https://cran.r-project.org/package=V8" class="external-link">V8</a></strong> package, rather than depending on a local installation of nodejs.</p></li>
+<li>Compiling a spec and creating an image now uses the <strong><a href="https://cran.r-project.org/package=V8" class="external-link">V8</a></strong> package, rather than depending on a local installation of nodejs.</li>
 </ul>
 </div>
 </div>

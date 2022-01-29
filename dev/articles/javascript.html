@@ -110,7 +110,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Extend using JavaScript</h1>
             
-            <h4 data-toc-skip class="date">2022-01-23</h4>
+            <h4 data-toc-skip class="date">2022-01-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/HEAD/vignettes/articles/javascript.Rmd" class="external-link"><code>vignettes/articles/javascript.Rmd</code></a></small>
       <div class="hidden name"><code>javascript.Rmd</code></div>
@@ -141,14 +141,14 @@
 <li>
 <a href="https://www.observablehq.com" class="external-link">Observable</a>, an interactive JS coding environment that emphasizes visualization.</li>
 <li>
-<a href="https://javascript.info/" class="external-link">JavaScript</a> really well written, focused by topic.</li>
+<a href="https://javascript.info/" class="external-link">JavaScript</a> is really well written, focused by topic.</li>
 <li>
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" class="external-link">MDN Web Docs</a> really well-written, focused by function/object.</li>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" class="external-link">MDN Web Docs</a> is really well written, focused by function/object.</li>
 </ul>
 <div class="section level2">
 <h2 id="introduction-to-vega-view">Introduction to vega-view<a class="anchor" aria-label="anchor" href="#introduction-to-vega-view"></a>
 </h2>
-<p>The <a href="https://github.com/vega/vega/tree/master/packages/vega-view" class="external-link">vega-view API</a> can modify a Vega chart once it has been rendered.</p>
+<p>Use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view" class="external-link">vega-view API</a> to modify a Vega chart once it has been rendered.</p>
 <p>Here, we recreate this Vega-Lite <a href="https://vega.github.io/vega-lite/tutorials/streaming.html" class="external-link">streaming demo</a>. Our first step is to create a vegaspec. Note that we have a dataset named <code>"table"</code>, but we have not included any data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec_table</span> <span class="op">&lt;-</span>
@@ -220,28 +220,28 @@
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    valueGenerator <span class="op">=</span> <span class="kw">function</span><span class="op">*</span>() {</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> counter <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> minX <span class="op">=</span> <span class="op">-</span><span class="dv">100</span><span class="op">;</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>      <span class="co">// there are four elements, we will have four categories</span></span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> previousY <span class="op">=</span> [<span class="dv">5</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      </span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>      <span class="cf">while</span>(<span class="kw">true</span>) {</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>      </span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        counter<span class="op">++;</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> newVals <span class="op">=</span> previousY<span class="op">.</span><span class="fu">map</span>(</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>          <span class="co">// for each (value, index) in array, return Object</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>          (value<span class="op">,</span> index) <span class="kw">=&gt;</span> ({</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> counter<span class="op">,</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> value <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">*</span> <span class="dv">10</span> <span class="op">-</span> index <span class="op">*</span> <span class="dv">3</span>)<span class="op">,</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            <span class="dt">category</span><span class="op">:</span> index</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>          })</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        )<span class="op">;</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        <span class="co">// extract y values </span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        previousY <span class="op">=</span> newVals<span class="op">.</span><span class="fu">map</span>(value <span class="kw">=&gt;</span> value<span class="op">.</span><span class="at">y</span>)<span class="op">;</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        <span class="co">// object with elements named x, y, category</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">yield</span> newVals<span class="op">;</span>              </span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        minX<span class="op">++;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> newData <span class="op">=</span> previousY<span class="op">.</span><span class="fu">map</span>(</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>          <span class="co">// for each (value, index) in array, return Object</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>          (value<span class="op">,</span> index) <span class="kw">=&gt;</span> ({</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> counter<span class="op">,</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> value <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">*</span> <span class="dv">10</span> <span class="op">-</span> index <span class="op">*</span> <span class="dv">3</span>)<span class="op">,</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>            <span class="dt">category</span><span class="op">:</span> index</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>          })</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        )<span class="op">;</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">// extract y values to use next time generator is called</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        previousY <span class="op">=</span> newData<span class="op">.</span><span class="fu">map</span>(value <span class="kw">=&gt;</span> value<span class="op">.</span><span class="at">y</span>)<span class="op">;</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">yield</span> {<span class="dt">newData</span><span class="op">:</span> newData<span class="op">,</span> <span class="dt">minX</span><span class="op">:</span> minX} <span class="op">;</span>              </span>
 <span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>      }</span>
 <span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    }</span>
@@ -249,23 +249,22 @@
 <span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">// initialize the generator </span></span>
 <span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> gen <span class="op">=</span> <span class="fu">valueGenerator</span>()<span class="op">;</span></span>
 <span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> minimumX <span class="op">=</span> <span class="op">-</span><span class="dv">100</span><span class="op">;</span></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="co">// run this function every 1000 ms</span></span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    <span class="bu">window</span><span class="op">.</span><span class="fu">setInterval</span>(() <span class="kw">=&gt;</span> {</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>      minimumX<span class="op">++;</span></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>      <span class="co">// create changeset to insert the object generated, remove old data</span></span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> changeSet <span class="op">=</span> vega</span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">changeset</span>()</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">insert</span>(gen<span class="op">.</span><span class="fu">next</span>()<span class="op">.</span><span class="at">value</span>) </span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">remove</span>(t <span class="kw">=&gt;</span>  t<span class="op">.</span><span class="at">x</span> <span class="op">&lt;</span> minimumX)<span class="op">;</span></span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>      <span class="co">// implement changeset on dataset named `table`, run the view</span></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>      view<span class="op">.</span><span class="fu">change</span>(<span class="st">'table'</span><span class="op">,</span> changeSet)<span class="op">.</span><span class="fu">run</span>()<span class="op">;</span></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">// run this function every 1000 ms</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    <span class="bu">window</span><span class="op">.</span><span class="fu">setInterval</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> newVals <span class="op">=</span> gen<span class="op">.</span><span class="fu">next</span>()<span class="op">.</span><span class="at">value</span><span class="op">;</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>      <span class="co">// create changeset to insert the object generated, remove old data</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> changeSet <span class="op">=</span> vega</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">changeset</span>()</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">insert</span>(newVals<span class="op">.</span><span class="at">newData</span>) </span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">remove</span>(t <span class="kw">=&gt;</span>  t<span class="op">.</span><span class="at">x</span> <span class="op">&lt;</span> newVals<span class="op">.</span><span class="at">minX</span>)<span class="op">;</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>      <span class="co">// implement changeset on dataset named `table`, run the view</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>      view<span class="op">.</span><span class="fu">change</span>(<span class="st">'table'</span><span class="op">,</span> changeSet)<span class="op">.</span><span class="fu">run</span>()<span class="op">;</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div>
 <script type="text/javascript">
 // {js}
 
@@ -279,15 +278,16 @@ Vegawidget.findViewPromise('#streaming-demo').then(
     valueGenerator = function*() {
     
       var counter = -1;
-      
+      var minX = -100;
       // there are four elements, we will have four categories
       var previousY = [5, 5, 5, 5];
       
       while(true) {
       
         counter++;
+        minX++;
         
-        const newVals = previousY.map(
+        const newData = previousY.map(
           // for each (value, index) in array, return Object
           (value, index) => ({
             x: counter,
@@ -296,11 +296,10 @@ Vegawidget.findViewPromise('#streaming-demo').then(
           })
         );
         
-        // extract y values 
-        previousY = newVals.map(value => value.y);
+        // extract y values to use next time generator is called
+        previousY = newData.map(value => value.y);
         
-        // object with elements named x, y, category
-        yield newVals;              
+        yield {newData: newData, minX: minX} ;              
       }
     
     }
@@ -308,17 +307,16 @@ Vegawidget.findViewPromise('#streaming-demo').then(
     // initialize the generator 
     const gen = valueGenerator();
     
-    var minimumX = -100;
-    
     // run this function every 1000 ms
     window.setInterval(() => {
-      minimumX++;
+
+      var newVals = gen.next().value;
       
       // create changeset to insert the object generated, remove old data
       const changeSet = vega
         .changeset()
-        .insert(gen.next().value) 
-        .remove(t =>  t.x < minimumX);
+        .insert(newVals.newData) 
+        .remove(t =>  t.x < newVals.minX);
         
       // implement changeset on dataset named `table`, run the view
       view.change('table', changeSet).run();
@@ -361,22 +359,22 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <p>This is the purpose of the <code><a href="../reference/vw_handler_signal.html">vw_handler_event()</a></code> function. If we call it without arguments, it prints a list of event-handlers that return values:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>arguments: event, item 
-
-  body_value: item 
-
-    // returns the item
-    return item;
-
-  body_value: datum 
-
-    // if there is no item or no datum, return null
-    if (item === null || item === undefined || item.datum === undefined) {
-      return null;
-    }
-    
-    // returns the datum behind the mark associated with the event
-    return item.datum;</code></pre>
+<pre><code><span class="co">## arguments: event, item </span>
+<span class="co">## </span>
+<span class="co">##   body_value: item </span>
+<span class="co">## </span>
+<span class="co">##     // returns the item</span>
+<span class="co">##     return item;</span>
+<span class="co">## </span>
+<span class="co">##   body_value: datum </span>
+<span class="co">## </span>
+<span class="co">##     // if there is no item or no datum, return null</span>
+<span class="co">##     if (item === null || item === undefined || item.datum === undefined) {</span>
+<span class="co">##       return null;</span>
+<span class="co">##     }</span>
+<span class="co">##     </span>
+<span class="co">##     // returns the datum behind the mark associated with the event</span>
+<span class="co">##     return item.datum;</span></code></pre>
 <p>If we want to use a certain handler, we use its only argument: <code>body_value</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span></code></pre></div>
@@ -504,8 +502,8 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <p>When you click anywhere in the plotting-rectangle, the observation associated with the mark (if any) where you clicked will be printed below.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output_scatterplot</span></code></pre></div>
-<div id="htmlwidget-e05b29dfe714f1398d5b" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e05b29dfe714f1398d5b">{"x":{
+<div id="htmlwidget-f370816ea4521b93a797" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f370816ea4521b93a797">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
@@ -36228,7 +36226,8 @@ inp_bin_width.addEventListener("input", on_bin_width);
 
 // run the updating function *once* to initialize the input to the chart
 on_bin_width()
-</script><p>Opinion time: admittedly, there are improvements that can be made, both to the visualization and input themselves, and to process by which we connect everything using R. Shiny seems like a fairly attractive option, in comparison. Hopefully, by taking a few tentative steps with JavaScript, and by exposing them to the development community, we can work towards cleaner implementations.</p>
+</script><p>Opinion time: admittedly, there are improvements that can be made, both to the visualization and input themselves, and to process by which we connect everything using R. Shiny seems like a fairly attractive option, in comparison.<br>
+Hopefully, by taking a few tentative steps with JavaScript, and by exposing them to the development community, we can work towards cleaner implementations.</p>
 </div>
 </div>
 <div class="section level2">

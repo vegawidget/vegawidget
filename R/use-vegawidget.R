@@ -4,7 +4,7 @@
 #' functions in your package. For more detail, please see
 #' [this article](https://vegawidget.github.io/vegawidget/articles/import.html).
 #'
-#'  `use_vegawidget()`:
+#' **`use_vegawidget()`**:
 #'
 #' Adds vegawidget functions:
 #'  - [as_vegaspec()], [vw_as_json()]
@@ -15,7 +15,7 @@
 #'
 #' In practical terms:
 #' - adds **vegawidget** to `Imports` in your package's DESCRIPTION file.
-#' - adds **processx**, **rsvg**, **png**, **fs** to `Suggests`
+#' - adds **V8**, **withr**, **fs**, **rsvg**, and **png** to `Suggests`
 #'   in your package's DESCRIPTION file.
 #' - creates `R/utils-vegawidget.R`
 #' - you can delete references to functions you do not want

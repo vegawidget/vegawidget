@@ -9,7 +9,9 @@ library("vegawidget")
 library("htmltools")
 ```
 
-The purpose of this article is to show how you can use JavaScript to extend Vega's capabilities. In these examples, we use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to interact with a Vega chart using JavaScript. We explore similar ideas in an article on [extending using Shiny](shiny.Rmd).
+You can use JavaScript to extend Vega's capabilities. 
+In these examples, we show how to use the [vega-view](https://github.com/vega/vega/tree/master/packages/vega-view) API to interact with Vega charts.
+We explore similar ideas in the [extending using Shiny](shiny.Rmd) article.
 
 This article has sections on:
 
@@ -18,15 +20,16 @@ This article has sections on:
 - setting and getting [signals](#signals), including a [demo](#demo-signals)
 - setting and getting [data](#data), including a [demo](#demo-data) 
 
-It goes without saying that you will need to be comfortable with JavaScript to take advantage of this material. It will be apparent to many of you that my (Ian's) JavaScript is far from perfect; here are a couple of resources I have used to try to build up my JS capabilities:
+Here are some resources I (Ian) have used to try to build up my JS capabilities:
 
 - [Eloquent JavaScript](https://eloquentjavascript.net), available as a free website or as a physical book; thanks to [Stuart Lee](https://github.com/sa-lee) for the tip! 
-
-- [Observable](https://beta.observablehq.com), an interactive JS coding environment that emphasizes visualization.
+- [Observable](https://www.observablehq.com), an interactive JS coding environment that emphasizes visualization.
+- [JavaScript](https://javascript.info/) is really well written, focused by topic.
+- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript) is really well written, focused by function/object.
 
 ## Introduction to vega-view
 
-We can use the [vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view) to modify a chart once it has been rendered. 
+Use the [vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view) to modify a Vega chart once it has been rendered. 
 
 Here, we recreate this Vega-Lite [streaming demo](https://vega.github.io/vega-lite/tutorials/streaming.html).
 Our first step is to create a vegaspec. Note that we have a dataset named `"table"`, but we have not included any data.
@@ -53,7 +56,8 @@ spec_table <-
 
 ### Demo: vega-view {#demo-vega-view}
 
-We use the `vegawidget()` function with an `elementId` argument, specifying the ID of the HTML element containing the chart. This allows JavaScript code we supply to know which Vega chart to modify. 
+We use the `vegawidget()` function with `elementId` to specify the element containing the chart. 
+Here's what it does, once we have defined the JavaScript:
 
 ```{r}
 vegawidget(spec_table, elementId = "streaming-demo")
@@ -61,58 +65,94 @@ vegawidget(spec_table, elementId = "streaming-demo")
 
 ---
 
-It remains to tell the vega-view API what to do with the chart, for this we need to use JavaScript.
-Accordingly, the chunk below is written in JavaScript - in the R Markdown file, this is a `{js}` chunk, rather than an `{r}` chunk. 
+Now for the [rest of the owl](https://knowyourmeme.com/photos/572078-how-to-draw-an-owl).
+To tell vega-view what to do with the chart; we can add some JavaScript to this page, using a `{js}` block. 
+There are other ways to add JavaScript to an RMarkdown page; using a code block makes it easier to discuss the code.
+
+Please keep in mind that purpose of this example is "look at the cool stuff you can do using JavaScript", rather than "here's something you can do as you start out using JavaScript".
 
 ```{js}
-// This is a JavaScript chunk, using {js} instead of {r}
-Vegawidget.findViewPromise('#streaming-demo').then(function(view) {
-  /**
-   * Generates a new tuple with random walk.
-   */
-  function newGenerator() {
-      var counter = -1;
-      var previousY = [5, 5, 5, 5];
-      return function () {
-          counter++;
-          var newVals = previousY.map(function (v, c) { return ({
-              x: counter,
-              y: v + Math.round(Math.random() * 10 - c * 3),
-              category: c
-          }); });
-          previousY = newVals.map(function (v) { return v.y; });
-          return newVals;
-      };
-  }
+// {js}
 
-  var valueGenerator = newGenerator();
-  var minimumX = -100;
-  window.setInterval(function () {
-      minimumX++;
-      var data_insert = valueGenerator();
-      var data_remove = function(data_remove) {
-        return (data_remove.x < minimumX);
-      };
+// find the promise to the view using the CSS selector, then
+Vegawidget.findViewPromise('#streaming-demo').then(
+
+  // when you have the view, run this function using the view
+  function(view) {
+  
+    // https://javascript.info/generators
+    valueGenerator = function*() {
+    
+      var counter = -1;
+      var minX = -100;
+      // there are four elements, we will have four categories
+      var previousY = [5, 5, 5, 5];
       
-      var changeSet = vega.changeset()
-                          .insert(valueGenerator())
-                          .remove(function (t) { return t.x < minimumX; });
-                          
+      while(true) {
+      
+        counter++;
+        minX++;
+        
+        const newData = previousY.map(
+          // for each (value, index) in array, return Object
+          (value, index) => ({
+            x: counter,
+            y: value + Math.round(Math.random() * 10 - index * 3),
+            category: index
+          })
+        );
+        
+        // extract y values to use next time generator is called
+        previousY = newData.map(value => value.y);
+        
+        yield {newData: newData, minX: minX} ;              
+      }
+    
+    }
+
+    // initialize the generator 
+    const gen = valueGenerator();
+    
+    // run this function every 1000 ms
+    window.setInterval(() => {
+
+      var newVals = gen.next().value;
+      
+      // create changeset to insert the object generated, remove old data
+      const changeSet = vega
+        .changeset()
+        .insert(newVals.newData) 
+        .remove(t =>  t.x < newVals.minX);
+        
+      // implement changeset on dataset named `table`, run the view
       view.change('table', changeSet).run();
-  }, 1000);  
-});
+    }, 1000);
+  }
+);
 ```
 
-This package puts an object called `Vegawidget` into the top level of the rendered page's JavaScript namespace; `Vegawidget` contains a function `findViewPromise()`. The first part of the JavaScript code is a call to this function, with a single argument, a CSS `selector`, to specify the HTML element that contains the chart we wish to access. This reflects the `elementId = "streaming-demo"` in the `vegawidget()` call. 
+This package puts an object called `Vegawidget` into the top level of the rendered page's JavaScript namespace; `Vegawidget` contains a function `findViewPromise()`. 
+The first part of the JavaScript code is a call to this function, with a single argument, a CSS `selector`, to specify the HTML element that contains the chart we wish to access. 
 
-The `findVewPromise()` function returns a JavaScript [promise](https://javascript.info/promise-basics) to the chart's `view` object. The `then()` call executes once the view promise is fulfilled. It contains a function that takes a single argument, `view`, the view object on which the 
-[vega-view API](https://github.com/vega/vega/tree/master/packages/vega-view) operates. 
+The `findVewPromise()` function returns a JavaScript [promise](https://javascript.info/promise-basics) to the chart's `view` object. 
+The `then()` call executes once the view promise is fulfilled. It contains a function that takes a single argument, `view`, the view object on which the [vega-view API](https://vega.github.io/vega/docs/api/view) operates. 
 
-Within this `then()` call, we can operate on the `view`. The rest of the code is adapted from the [original demonstration](https://vega.github.io/vega-lite/tutorials/streaming.html), where they use vega-view's [change()](https://github.com/vega/vega/tree/master/packages/vega-view#view_change) method to change the data periodically.
+Within this `then()` call, we provide a function to operate on the `view`. 
+The rest of the code is adapted from the [original demonstration](https://vega.github.io/vega-lite/tutorials/streaming.html).
+It has three components:
+
+1. A generator function that yields a new observation (row in a dataset) every time it is called.
+2. A timer that runs code every 1000 ms.
+3. Within the timer, a function that: 
+   - proposes a data [changeset](https://vega.github.io/vega/docs/api/view/#view_change).
+   - applies the changeset to the data named `table`, then runs the view.
+
+The rest of the examples will aim to be somewhat more introductory.
 
 ## Getting events {#events}
 
-Event streams are [used extensively within Vega](https://vega.github.io/vega/docs/event-streams), enabling interactivity. By [adding event-listners](https://vega.github.io/vega/docs/api/view/#view_addEventListener) to the `view`, we can specify actions to be taken in response to a particular type of event, such as `"mouseover"`, `"click"`, `"keypress"`, etc.
+Event streams are [used extensively within Vega](https://vega.github.io/vega/docs/event-streams), enabling interactivity. 
+By [adding event-listners](https://vega.github.io/vega/docs/api/view/#view_addEventListener) to the `view`, we can specify actions to be taken in response to a particular type of event, such as `"mouseover"`, `"click"`, `"keypress"`, etc.
 
 In this section, we will make a "clickable" scatterplot; when we click on a point in the scatterplot, we will print the data-observation (datum) associated with that point. The rest of this section will be devoted to how we tell our `view` what to do in response to a `"click"`.
 
@@ -122,14 +162,16 @@ From an R environment, it can be difficult to write and debug JavaScript code. T
 
 ### Building handler-functions
 
-In the example we are building, we want our handler function to do two things:
+In this example, we want our handler function to do two things:
 
 - return the value of the datum (observation) associated with the event.
 - write that value into an element within the HTML document.
 
-These are two separate "things"; the first suggests code that returns a value, the second suggests code that produces a side-effect. Accordingly, this package offers a set JavaScript code-snippets that return values, and another set of JavaScript code-snippets that produce side-effects, and a means to compose them.
+These are two separate "things"; the first suggests code that returns a value, the second suggests code that produces a side-effect. 
+Accordingly, this package offers a set JavaScript code-snippets that return values, another set of JavaScript code-snippets that produce side-effects, and a means to compose them.
 
-First, let's look at snippets that return values. Because all event-handlers take the same two arguments, `event` and `item`, we can focus only on the *body* of the handler-function. 
+First, let's look at snippets that return values. 
+Because all event-handlers take the same two arguments, `event` and `item`, we can focus only on the *body* of the handler-function. 
 
 This is the purpose of the `vw_handler_event()` function. 
 If we call it without arguments, it prints a list of event-handlers that return values:
@@ -144,13 +186,17 @@ If we want to use a certain handler, we use its only argument: `body_value`.
 vw_handler_event("datum")
 ```
 
-The handler has a print method that shows the arguments and the function body. If you want to supply a custom handler, you can provide your own function body. For example, this handler-function will be less-robust than the `"datum"` function from the "library":
+The handler has a print method that shows the arguments and the function body. 
+If you want to supply a custom handler, you can provide your own function body. 
+For example, this handler-function will be less-robust than the `"datum"` function from the "library":
 
 ```{r}
 vw_handler_event("return item.datum;")
 ```
 
-We're halfway there - we have a function that will return a value, but not yet a function that will produce an effect. To add an effect to our function, we can use the function `vw_handler_add_effect()`. Calling it without arguments will list the available effect-handlers.
+We're halfway there - we have a function that will return a value, but not yet a function that will produce an effect. 
+To add an effect to our function, we can use the function `vw_handler_add_effect()`. 
+Calling it without arguments will list the available effect-handlers.
 
 ```{r}
 vw_handler_add_effect()
@@ -158,7 +204,9 @@ vw_handler_add_effect()
 
 The effect-handlers are designed to be JavaScript code-snippets that work with a single variable, `x`, representing the value returned from the value-handler. 
 
-We want to print the value to an HTML element, so we will use provided snippet called `"element_text"`. Note that there two parameters that we can supply, `selector`, to identify the HTML element, and `expr`, the JavaScript expression to use. The `selector` parameter is required; the `expr` parameter defaults to `"x"`, the value.
+We want to print the value to an HTML element, so we will use provided snippet called `"element_text"`. 
+Note that there two parameters that we can supply, `selector`, to identify the HTML element, and `expr`, the JavaScript expression to use. 
+The `selector` parameter is required; the `expr` parameter defaults to `"x"`, the value.
 
 We supply the parameters as additional arguments to `vw_handler_add_effect()`:
 
@@ -167,7 +215,9 @@ vw_handler_event("datum") %>%
   vw_handler_add_effect("element_text", selector = "#output-datum")
 ```
 
-The R functions interpolate the parameters into the JavaScript code-snippet. If we were to use this `body_effect` as is, the text that appears in the HTML element would be `[object Object]`, which is not very informative. Instead, we will use the `expr` parameter to insert an expression to convert the JavaScript object to JSON text:
+The R functions interpolate the parameters into the JavaScript code-snippet. 
+If we were to use this `body_effect` as is, the text that appears in the HTML element would be `[object Object]`, which is not very informative.
+Instead, we will use the `expr` parameter to insert an expression to convert the JavaScript object to JSON text:
 
 ```{r}
 handler_event <- 
@@ -223,15 +273,55 @@ output_datum
 
 ## Setting and getting signals {#signals}
 
-Signals are a [formal part of the Vega definition](https://vega.github.io/vega/docs/signals), but are not a part of the Vega-Lite definition. They are "dynamic variables that parameterize a visualization and can drive interactive behaviors. Signals can be used throughout a Vega specification, for example to define a mark property or data transform parameter."
+Signals are a [formal part of the **Vega** definition](https://vega.github.io/vega/docs/signals). 
+They are "dynamic variables that parameterize a visualization and can drive interactive behaviors. 
+Signals can be used throughout a Vega specification, for example to define a mark property or data transform parameter."
 
-Even though signals are not defined in Vega-Lite, we can still use them. Before being rendered, Vega-Lite specifications are compiled into Vega specifications. Once rendered, we can interact with the Vega signals, as long as we know what they are named.
+There is emerging support for signals in **Vega-Lite**, where they are called [parameters](https://vega.github.io/vega-lite/docs/parameter.html). 
+As of Vega-Lite version 5.20, you still need to make some workarounds.
 
-For example, signals are used to drive the behavior of Vega-Lite [selections](https://vega.github.io/vega-lite/docs/selection.html). As of the start of 2019, the Vega-Lite development team are [discussing](https://github.com/vega/vega-lite/issues/3338) if, and how, signals might be introduced, formally, to Vega-Lite.
+First, there is a top-level element called `params`, which is a list.
+Each element of this list is itself a list, with elements `name` and `value`.
+For example:
 
-For now, we can "hack" our way to a signal by using it in the Vega-Lite specification, then *defining* the signal by patching the compiled Vega specification. Vega-Lite developer Dominik Moritz demonstrates this technique in an [Observable notebook](https://beta.observablehq.com/@domoritz/rotating-earth). 
+```{r eval = FALSE}
+params = list(
+  list(name = "bin_width", value = 1),
+  list(name = "something_else", value = "some string")
+)
+```
 
-Here, we will use the same technique to create an interactive histogram. We will use the `data_seattle_hourly` dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010. In addition to the histogram, we will provide a slider-input to specify the bin-width and we will print the bin-width to an element of the HTML document.
+Then, to implement the parameters, you would substitute the value with an `expr` list. 
+For example, to set a bin width:
+
+```{r eval = FALSE}
+x = list(
+  field = "temp",
+  type = "quantitative",
+  bin = list(step = list(expr = "bin_width")),
+  axis = list(format = ".1f")
+)
+```
+
+This is the part that is not yet quite working. 
+There are places, like this, where an `expr` list should work, but doesn't.
+There is a workaround, to use `signal` instead of `expr`. For example:
+
+```{r eval = FALSE}
+x = list(
+  field = "temp",
+  type = "quantitative",
+  bin = list(step = list(signal = "bin_width")),
+  axis = list(format = ".1f")
+)
+```
+
+This works, but it violates the Vega-Lite schema. 
+There is a [pull-request](https://github.com/vega/vega-lite/pull/7463) to fix this; when released, we'll update vegawidget.
+
+Here, we use this workaround to create an interactive histogram. 
+We  use the `data_seattle_hourly` dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010. 
+In addition to the histogram, we will provide a slider-input to specify the bin-width and we will print the bin-width to an element of the HTML document.
 
 Our first step is to create a Vega-Lite specification for a [histogram](https://vega.github.io/vega-lite/examples/histogram.html).
 
@@ -241,6 +331,9 @@ spec_histogram <-
     `$schema` = vega_schema(),
     width = 300,
     height = 300,
+    params = list(
+      list(name = "bin_width", value = 1)
+    ),
     data = list(values = data_seattle_hourly),
     mark = "bar",
     encoding = list(
@@ -259,30 +352,11 @@ spec_histogram <-
   as_vegaspec()
 ```
 
-In the Vega-Lite spec above, in the `x` `encoding`, we have defined the `bin` `step` as a `signal` named `"bin_width"`. This is not legal in Vega-Lite. To make this work, we use [vega-embed](https://github.com/vega/vega-embed#options) to patch the compiled Vega spec with a definition of the signal. From R, we can include the patch as an option to `vega_embed()`.
-
-```{r}
-patch <- 
-  list(
-    list(
-      path = "/signals",
-      op = "add",
-      value = list(list(name = "bin_width", value = 0.5))
-    )
-  )
-
-output_histogram <- 
-  vegawidget(
-    spec_histogram, 
-    embed = vega_embed(patch = patch), 
-    elementId = "histogram"
-  )
-```
-
 Our `output_histogram` will be a vegawidget that is contained in an HTML element with an ID of `"histogram"`.
 
-The next step is to use the `tags` environment from the **htmltools** package to create a range input that we can use to specify the bin-width. The input will work logarithmically, where the center of the range will correspond to zero, or a baseline bin-width. The range of the input is from -1 to 1, which will correspond to one decade below the baseline
-bin-width, and one decade above.
+The next step is to use the `tags` environment from the **htmltools** package to create a range input that we can use to specify the bin-width. 
+The input will work logarithmically, where the center of the range will correspond to zero, or a baseline bin-width. 
+The range of the input is from -1 to 1, which will correspond to one decade below the baseline bin-width, and one decade above.
 
 ```{r}
 input_bin_width <- 
@@ -297,7 +371,8 @@ input_bin_width <-
   )
 ```
 
-We also define an output element to tell us the bin-width that Vega is using. We seed it with some dummy-text; we will connect it to the Vega chart using a [signal-listener](https://vega.github.io/vega/docs/api/view/#view_addSignalListener).
+We also define an output element to tell us the bin-width that Vega is using. 
+We seed it with some dummy-text; we will connect it to the Vega chart using a [signal-listener](https://vega.github.io/vega/docs/api/view/#view_addSignalListener).
 
 ```{r}
 output_bin_width <-
@@ -310,7 +385,9 @@ output_bin_width <-
 
 Like the event-listener above, we have to supply a signal-handler to the signal-listener.
 
-A signal-handler is a JavaScript function that takes two arguments, the `name` of the signal and the `value` of the signal. Like the example above, we define a signal-handler to return the value of the signal, then put the value into the HTML element with ID `"output-bin-width"`, as its text. Note that we are using the `expr` parameter to specify that we want only three decimal places.
+A signal-handler is a JavaScript function that takes two arguments, the `name` of the signal and the `value` of the signal. 
+Like the example above, we define a signal-handler to return the value of the signal, then put the value into the HTML element with ID `"output-bin-width"`, as its text. 
+Note that we are using the `expr` parameter to specify that we want only three decimal places.
 
 ```{r}
 handler_bin_width <-
@@ -322,17 +399,19 @@ handler_bin_width <-
   )
 
 output_histogram <- 
-  output_histogram %>%
+  vegawidget(spec_histogram, elementId = "histogram") %>%
   vw_add_signal_listener("bin_width", handler_bin_width)
 ```
 
-We use the function `vw_add_signal_listener()` to add the signal-listener to the vegawidget. We specify that whenever the value of the `"bin-width"` signal changes, Vega will call the signal-handler function, which will update the text in `output_bin_width`.
+We use the function `vw_add_signal_listener()` to add the signal-listener to the vegawidget. 
+We specify that whenever the value of the `"bin-width"` signal changes, Vega will call the signal-handler function, which will update the text in `output_bin_width`.
 
 We can print the HTML elements to the document; these are "live", but it remains to define the actions that connect `input_bin_width` to the Vega histogram.
 
 ### Demo: signals {#demo-signals}
 
-You can use the slider to adjust the bin-width for the histogram of temperature observations in Seattle. The slider works on a logarithmic scale; the baseline bin-width is 1.0 °F, its range is from 0.1 °F to 10.0 °F.
+You can use the slider to adjust the bin-width for the histogram of temperature observations in Seattle. 
+The slider works on a logarithmic scale; the baseline bin-width is 1.0 °F, its range is from 0.1 °F to 10.0 °F.
 
 The value of the bin-width is printed to as text below the histogram.
 
@@ -348,9 +427,11 @@ output_bin_width
 
 To connect the input-slider to the histogram, we need to provide a JavaScript function that will run whenever the input-slider changes. 
 
-In R Markdown, we can specify JavaScript chunks using `{js}` just like we specify R chunks using `{r}`. This is what we do in the code-chunk below.
+In R Markdown, we can specify JavaScript chunks using `{js}` just like we specify R chunks using `{r}`. 
+This is what we do in the code-chunk below.
 
-In this code, we define a JavaScript function, `on_bin_width()`, that transforms the value of the input to the value of the bin-width (recall the slider has a logarithmic scale). Then, using `Vegawidget.findViewPromise()`, we [set the signal](https://vega.github.io/vega/docs/api/view/#view_signal) `"bin_width"` in the Vega chart and direct the chart to re-[run](https://github.com/vega/vega/tree/master/packages/vega-view#view_run).
+In this code, we define a JavaScript function, `on_bin_width()`, that transforms the value of the input to the value of the bin-width (recall the slider has a logarithmic scale). 
+Then, using `Vegawidget.findViewPromise()`, we [set the signal](https://vega.github.io/vega/docs/api/view/#view_signal) `"bin_width"` in the Vega chart and direct the chart to re-[run](https://github.com/vega/vega/tree/master/packages/vega-view#view_run).
 
 We add an [event listener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) to our input-slider, specifying `on_bin_width()` to run any time the input changes. 
 
@@ -382,15 +463,20 @@ inp_bin_width.addEventListener("input", on_bin_width);
 on_bin_width()
 ```
 
-Opinion time: admittedly, there are improvements that can be made, both to the visualization and input themselves, and to process by which we connect everything using R. Shiny seems like a fairly attractive option, in comparison.  Hopefully, by taking a few tentative steps with JavaScript, and by exposing them to the development community, we can work towards cleaner implementations. 
+Opinion time: admittedly, there are improvements that can be made, both to the visualization and input themselves, and to process by which we connect everything using R. 
+Shiny seems like a fairly attractive option, in comparison.  
+Hopefully, by taking a few tentative steps with JavaScript, and by exposing them to the development community, we can work towards cleaner implementations. 
 
 ## Setting data {#data}
 
-[Vega](https://vega.github.io/vega/docs/data/) and [Vega-Lite](https://vega.github.io/vega-lite/docs/data.html#named) both offer the ability to name datasets within a specification. We can use the vega-view API to [change a dataset](https://vega.github.io/vega/docs/api/view/#view_change), as was done in the [first example](#demo-vega-view) in this article. 
+[Vega](https://vega.github.io/vega/docs/data/) and [Vega-Lite](https://vega.github.io/vega-lite/docs/data.html#named) both offer the ability to name datasets within a specification. 
+We can use the vega-view API to [change a dataset](https://vega.github.io/vega/docs/api/view/#view_change), as was done in the [first example](#demo-vega-view) in this article. 
 
-Let's consider an example with a dataset that has a single observation, and that observation falls on the unit-circle. We will use an input-slider to change the angle of the observation. 
+Let's consider an example with a dataset that has a single observation, and that observation falls on the unit-circle. 
+We will use an input-slider to change the angle of the observation. 
 
-First, we create a range-input that to specify an angle - in our case 0 to 360 degrees. In the HTML document, our input is named `"inp_angle"`.
+First, we create a range-input that to specify an angle - in our case 0 to 360 degrees. 
+In the HTML document, our input is named `"inp_angle"`.
 
 ```{r}
 input_angle <- 
@@ -405,7 +491,9 @@ input_angle <-
   )
 ```
 
-Next, we define our data-output and the data-handler. For the output, we provide an `id`, `"output-data"`, to identify where in this document to write the data. Our handler function the data set to it, convert it to JSON (with a little formatting), then put the JSON string into our output element named `"output-data"`. 
+Next, we define our data-output and the data-handler. 
+For the output, we provide an `id`, `"output-data"`, to identify where in this document to write the data. 
+Our handler function the data set to it, convert it to JSON (with a little formatting), then put the JSON string into our output element named `"output-data"`. 
 
 ```{r}
 output_data <- tags$pre(id = "output-data")
@@ -458,7 +546,8 @@ We can print out our HTML elements to the document, then, like in the signal-exa
 
 ### Demo: data {#demo-data}
 
-A dataset has a single observation, bound to the unit circle. You can use the input-slider to specify the angle of the observation; you will see the JSON representation of the dataset below the chart.
+A dataset has a single observation, bound to the unit circle. 
+You can use the input-slider to specify the angle of the observation; you will see the JSON representation of the dataset below the chart.
 
 ```{r}
 input_angle
@@ -478,11 +567,13 @@ Like above, we create a JavaScript variable, `angle` that refers to the input-sl
 var angle = document.querySelector("[name=inp_angle]");
 ```
 
-Next, we create a JavaScript function that, when run, reads the value of the input-slider, then updates the dataset in the Vega chart. This function has no arguments; instead, it refers-to and *changes* variables in the JavaScript environment.
+Next, we create a JavaScript function that, when run, reads the value of the input-slider, then updates the dataset in the Vega chart. 
+This function has no arguments; instead, it refers-to and *changes* variables in the JavaScript environment.
 
 The first part of the function converts the value of `inp_angle` into a dataset, `data_new`, with a single observation, coordinates on the unit-circle. 
 
-The second part of the function modifies the chart. Here, we create a changeset inserting `data_new`, and removing any existing data.  Then we [change](https://vega.github.io/vega/docs/api/view/#view_change) the view's dataset named `"source"`, then we re-[run](https://vega.github.io/vega/docs/api/view/#view_run) the view.
+The second part of the function modifies the chart. 
+Here, we create a changeset inserting `data_new`, and removing any existing data.  Then we [change](https://vega.github.io/vega/docs/api/view/#view_change) the view's dataset named `"source"`, then we re-[run](https://vega.github.io/vega/docs/api/view/#view_run) the view.
 
 ```{js}
 // {js}
@@ -504,7 +595,8 @@ function on_angle() {
 }
 ```
 
-Finally, we specify when our `on_angle()` function should run. Like above, we add an event listener to the input-slider so that `on_angle()` runs whenever `angle` changes.
+Finally, we specify when our `on_angle()` function should run. 
+Like above, we add an event listener to the input-slider so that `on_angle()` runs whenever `angle` changes.
 
 Lastly, we run the function *once* at initialization. 
 

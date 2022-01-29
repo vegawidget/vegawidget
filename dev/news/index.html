@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9004</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9005</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@
 <li><p>Use Vega-Lite 5.2.0. (<a href="https://github.com/vegawidget/vegawidget/issues/183" class="external-link">#183</a>)</p></li>
 <li><p>Update <code><a href="../reference/s3_register.html">s3_register()</a></code>. (<a href="https://github.com/vegawidget/vegawidget/issues/193" class="external-link">#193</a>)</p></li>
 <li>
-<p>Remove <code>schema</code> from package files, i.e. <code>system.file("schema", package = "vegawidget")</code>. Instead, you can use the <code><a href="../reference/vega_schema.html">vega_schema()</a></code> function (with new optional <code>version</code> argument) to retrieve from Vega:</p>
+<p>Deprecated <code>schema</code> folder from package files, i.e. <code>system.file("schema", package = "vegawidget")</code>. This folder will be removed at the release following v0.4.1. Instead, you can use the <code><a href="../reference/vega_schema.html">vega_schema()</a></code> function (with new optional <code>version</code> argument) to retrieve from Vega:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="st">"vega-lite"</span>, version <span class="op">=</span> <span class="st">"5.2.0"</span><span class="op">)</span> |&gt; <span class="fu"><a href="../reference/vw_fetch.html">vw_fetch</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -109,6 +109,7 @@
 </li>
 <li><p>Use V8 rather than node to support image-functions and <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code>. This adds V8 as a package-dependency, but removes the system-dependency for node. As a result, remote-data loading <em>works</em> as long as you can access the data from R. (<a href="https://github.com/vegawidget/vegawidget/issues/85" class="external-link">#85</a>)</p></li>
 <li><p>Update contributor-information. (<a href="https://github.com/vegawidget/vegawidget/issues/176" class="external-link">#176</a>)</p></li>
+<li><p>Clean up <code>inst</code> folder: remove <code>test-apps</code>. (<a href="https://github.com/vegawidget/vegawidget/issues/197" class="external-link">#197</a>)</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.3" id="vegawidget-033">vegawidget 0.3.3<small>2021-11-02</small><a class="anchor" aria-label="anchor" href="#vegawidget-033"></a></h2>

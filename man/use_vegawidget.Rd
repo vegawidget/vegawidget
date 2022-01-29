@@ -22,7 +22,7 @@ functions in your package. For more detail, please see
 \href{https://vegawidget.github.io/vegawidget/articles/import.html}{this article}.
 }
 \details{
-\code{use_vegawidget()}:
+\strong{\code{use_vegawidget()}}:
 
 Adds vegawidget functions:
 \itemize{
@@ -36,7 +36,7 @@ Adds vegawidget functions:
 In practical terms:
 \itemize{
 \item adds \strong{vegawidget} to \code{Imports} in your package's DESCRIPTION file.
-\item adds \strong{processx}, \strong{rsvg}, \strong{png}, \strong{fs} to \code{Suggests}
+\item adds \strong{V8}, \strong{withr}, \strong{fs}, \strong{rsvg}, and \strong{png} to \code{Suggests}
 in your package's DESCRIPTION file.
 \item creates \code{R/utils-vegawidget.R}
 \item you can delete references to functions you do not want

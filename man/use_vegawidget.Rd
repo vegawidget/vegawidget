@@ -19,7 +19,7 @@ invisible \code{NULL}, called for side effects
 \description{
 These functions are offered to help you import and re-export vegawidget
 functions in your package. For more detail, please see
-\href{https://vegawidget.github.io/vegawidget/articles/import.html}{this article}.
+\href{https://vegawidget.github.io/vegawidget/articles/articles/import.html}{this article}.
 }
 \details{
 \strong{\code{use_vegawidget()}}:

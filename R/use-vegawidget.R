@@ -2,7 +2,7 @@
 #'
 #' These functions are offered to help you import and re-export vegawidget
 #' functions in your package. For more detail, please see
-#' [this article](https://vegawidget.github.io/vegawidget/articles/import.html).
+#' [this article](https://vegawidget.github.io/vegawidget/articles/articles/import.html).
 #'
 #' **`use_vegawidget()`**:
 #'

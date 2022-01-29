@@ -375,7 +375,7 @@ Run the code; your chart should look like the chart above.
 bar_chart <- 
   list(
     `$schema` = vega_schema(),
-    data = list(values = ...),
+    data = list(values = "..."),
     mark = "...",
     encoding = list(
       x = list(field = "...", type = "..."),

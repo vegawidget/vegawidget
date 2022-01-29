@@ -24,7 +24,8 @@
 
 * Update `s3_register()`. (#193)
 
-* Remove `schema` from package files, i.e. `system.file("schema", package = "vegawidget")`. 
+* Deprecated `schema` folder from package files, i.e. `system.file("schema", package = "vegawidget")`. 
+  This folder will be removed at the release following v0.4.1.
   Instead, you can use the `vega_schema()` function (with new optional `version`
   argument) to retrieve from Vega:
   
@@ -39,6 +40,8 @@
   As a result, remote-data loading *works* as long as you can access the data from R. (#85)
 
 * Update contributor-information. (#176)
+
+* Clean up `inst` folder: remove `shiny-test`. (#197)
 
 # vegawidget 0.3.3
 

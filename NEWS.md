@@ -1,6 +1,6 @@
 # vegawidget (development version)
 
-* Update Actions (#209)
+* Update Actions. (#209)
 
 # vegawidget 0.4.1
 

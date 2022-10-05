@@ -24,7 +24,7 @@ library("glue")
 library("here")
 ```
 
-    ## here() starts at /Users/ijlyttle/Documents/repos/public/vegawidget/vegawidget
+    ## here() starts at /Users/ijlyttle/repos/public/vegawidget/vegawidget
 
 ``` r
 library("purrr")
@@ -124,7 +124,7 @@ vega_version_all
     ## # A tibble: 2 × 4
     ##   widget vega_lite vega   vega_embed
     ##   <chr>  <chr>     <chr>  <chr>     
-    ## 1 vl5    5.2.0     5.21.0 6.20.2    
+    ## 1 vl5    5.5.0     5.22.0 6.20.8    
     ## 2 vl4    4.17.0    5.17.0 6.12.2
 
 ``` r
@@ -140,7 +140,7 @@ vega_version_short_all
     ## # A tibble: 2 × 4
     ##   widget vega_lite vega   vega_embed
     ##   <chr>  <chr>     <chr>  <chr>     
-    ## 1 vl5    5.2.0     5.21.0 6.20.2    
+    ## 1 vl5    5.5.0     5.22.0 6.20.8    
     ## 2 vl4    4.17.0    5.17.0 6.12.2
 
 ``` r
@@ -213,9 +213,9 @@ licences.
 license_downloads <- 
     tribble(
     ~path_local,                         ~path_remote,
-    "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/master/LICENSE",
+    "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/next/LICENSE",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
-    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
+    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/next/LICENSE"
   )
 
 license_downloads
@@ -224,9 +224,9 @@ license_downloads
     ## # A tibble: 3 × 2
     ##   path_local         path_remote                                                
     ##   <chr>              <chr>                                                      
-    ## 1 vega-lite/LICENSE  https://raw.githubusercontent.com/vega/vega-lite/master/LI…
+    ## 1 vega-lite/LICENSE  https://raw.githubusercontent.com/vega/vega-lite/next/LICE…
     ## 2 vega/LICENSE       https://raw.githubusercontent.com/vega/vega/master/LICENSE 
-    ## 3 vega-embed/LICENSE https://raw.githubusercontent.com/vega/vega-embed/master/L…
+    ## 3 vega-embed/LICENSE https://raw.githubusercontent.com/vega/vega-embed/next/LIC…
 
 ``` r
 downloads_template <- 
@@ -258,9 +258,9 @@ htmlwidgets_downloads_all
     ## # A tibble: 6 × 2
     ##   path_local                          path_remote                               
     ##   <chr>                               <chr>                                     
-    ## 1 vega-lite/vega-lite@5.2.0.min.js    https://cdn.jsdelivr.net/npm/vega-lite@5.…
-    ## 2 vega/vega@5.21.0.min.js             https://cdn.jsdelivr.net/npm/vega@5.21.0  
-    ## 3 vega-embed/vega-embed@6.20.2.min.js https://cdn.jsdelivr.net/npm/vega-embed@6…
+    ## 1 vega-lite/vega-lite@5.5.0.min.js    https://cdn.jsdelivr.net/npm/vega-lite@5.…
+    ## 2 vega/vega@5.22.0.min.js             https://cdn.jsdelivr.net/npm/vega@5.22.0  
+    ## 3 vega-embed/vega-embed@6.20.8.min.js https://cdn.jsdelivr.net/npm/vega-embed@6…
     ## 4 vega-lite/vega-lite@4.17.0.min.js   https://cdn.jsdelivr.net/npm/vega-lite@4.…
     ## 5 vega/vega@5.17.0.min.js             https://cdn.jsdelivr.net/npm/vega@5.17.0  
     ## 6 vega-embed/vega-embed@6.12.2.min.js https://cdn.jsdelivr.net/npm/vega-embed@6…
@@ -400,6 +400,5 @@ usethis::use_data(
 )
 ```
 
-    ## ✓ Setting active project to '/Users/ijlyttle/Documents/repos/public/vegawidget/vegawidget'
-
-    ## ✓ Saving '.vega_version_all', '.widget_default', '.vw_handler_library' to 'R/sysdata.rda'
+    ## ✔ Setting active project to '/Users/ijlyttle/repos/public/vegawidget/vegawidget'
+    ## ✔ Saving '.vega_version_all', '.widget_default', '.vw_handler_library' to 'R/sysdata.rda'

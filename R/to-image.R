@@ -68,6 +68,10 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
 
   assert_packages(c("V8", "fs", "withr"))
 
+  pkgfile <- function(...) {
+    system.file("htmlwidgets", "lib", ..., package = "vegawidget")
+  }
+
   # set defaults
   base_url <-
     base_url %||% getOption("vega.embed")[["loader"]][["baseURL"]] %||% ""
@@ -78,14 +82,24 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
   vega_spec <- vw_to_vega(spec)
   str_spec <- vw_as_json(vega_spec, pretty = FALSE)
 
-  vega <-
-    system.file("htmlwidgets", "lib", "vega", "vega@5.21.0.min.js", package = "vegawidget")
-  vega_to_svg <- system.file("bin", "vega_to_svg_v8.js", package = "vegawidget")
+  # determine versions of vega, vega-lite
+  version_all <- vega_version_all()
+  spec_version <- vw_spec_version(spec)
+  widget <-
+    get_widget_string(
+      spec_version[["library"]],
+      spec_version[["version"]],
+      version_all
+    )
+
+  version_widget <- version_all[version_all[["widget"]] == widget, ]
+  version_vega <- version_widget[["vega"]]
+  version_vega_lite <- version_widget[["vega_lite"]]
 
   # fire up V8
   ct <- V8::v8()
-  ct$source(vega)
-  ct$source(vega_to_svg)
+  ct$source(pkgfile("vega", glue::glue("vega@{version_vega}.min.js")))
+  ct$source(system.file("bin", "vega_to_svg_v8.js", package = "vegawidget"))
 
   # send arguments
   ct$assign("spec", V8::JS(str_spec)) # send as JSON text to avoid jsonlite defaults

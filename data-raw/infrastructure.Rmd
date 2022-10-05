@@ -4,7 +4,7 @@ output: github_document
 params:
   versions: 
     value:
-      vl5: "5.2.0"
+      vl5: "5.5.0"
       vl4: "4.17.0"
   widget_default: "vl5"
 ---
@@ -170,9 +170,9 @@ Here's where we download the libraries themselves, along with the licences.
 license_downloads <- 
     tribble(
     ~path_local,                         ~path_remote,
-    "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/master/LICENSE",
+    "vega-lite/LICENSE",                 "https://raw.githubusercontent.com/vega/vega-lite/next/LICENSE",
     "vega/LICENSE",                      "https://raw.githubusercontent.com/vega/vega/master/LICENSE",
-    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/master/LICENSE"
+    "vega-embed/LICENSE",                "https://raw.githubusercontent.com/vega/vega-embed/next/LICENSE"
   )
 
 license_downloads

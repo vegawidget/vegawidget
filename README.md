@@ -5,7 +5,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project.org/package=vegawidget)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![R-CMD-check](https://github.com/vegawidget/vegawidget/workflows/R-CMD-check/badge.svg)](https://github.com/vegawidget/vegawidget/actions)
+[![R-CMD-check](https://github.com/vegawidget/vegawidget/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/vegawidget/vegawidget/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # vegawidget

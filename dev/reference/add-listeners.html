@@ -19,7 +19,7 @@ run whenever a certain signal changes or an event fires."><meta name="robots" co
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9001</span>
       </span>
     </div>
 
@@ -40,7 +40,7 @@ run whenever a certain signal changes or an event fires."><meta name="robots" co
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -94,30 +94,41 @@ run whenever a certain signal changes or an event fires.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vw_add_signal_listener</span><span class="op">(</span><span class="va">x</span>, <span class="va">name</span>, <span class="va">handler_body</span><span class="op">)</span>
-
-<span class="fu">vw_add_data_listener</span><span class="op">(</span><span class="va">x</span>, <span class="va">name</span>, <span class="va">handler_body</span><span class="op">)</span>
-
-<span class="fu">vw_add_event_listener</span><span class="op">(</span><span class="va">x</span>, <span class="va">event</span>, <span class="va">handler_body</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vw_add_signal_listener</span><span class="op">(</span><span class="va">x</span>, <span class="va">name</span>, <span class="va">handler_body</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vw_add_data_listener</span><span class="op">(</span><span class="va">x</span>, <span class="va">name</span>, <span class="va">handler_body</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vw_add_event_listener</span><span class="op">(</span><span class="va">x</span>, <span class="va">event</span>, <span class="va">handler_body</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>vegawidget object to be monitored</p></dd>
+
+
 <dt>name</dt>
 <dd><p><code>character</code>, name of the signal or dataset to be monitored</p></dd>
+
+
 <dt>handler_body</dt>
 <dd><p><code>character</code> or <code>JS_EVAL</code>, text of the body of
 the JavaScript handler-function to be called when the signal or dataset
 changes, or the event fires</p></dd>
+
+
 <dt>event</dt>
 <dd><p><code>character</code>, name of the type of event to be monitored,
 e.g. <code>"click"</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>modified copy of vegawidget object <code>x</code></p>
+    
+
+<p>modified copy of vegawidget object <code>x</code></p>
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -149,7 +160,7 @@ and <code><a href="vw_handler_signal.html">vw_handler_event()</a></code>. You ca
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

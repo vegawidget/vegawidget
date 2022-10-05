@@ -20,7 +20,7 @@ JSON, and character strings to vegaspec."><meta name="robots" content="noindex">
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9001</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@ JSON, and character strings to vegaspec."><meta name="robots" content="noindex">
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -96,39 +96,48 @@ JSON, and character strings to <code>vegaspec</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for vegaspec</span>
-<span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for list</span>
-<span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for json</span>
-<span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for character</span>
-<span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, encoding <span class="op">=</span> <span class="st">"UTF-8"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for vegawidget</span>
-<span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for vegaspec</span></span>
+<span><span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for list</span></span>
+<span><span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for json</span></span>
+<span><span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for character</span></span>
+<span><span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, encoding <span class="op">=</span> <span class="st">"UTF-8"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for vegawidget</span></span>
+<span><span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>spec</dt>
 <dd><p>An object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments (attempt to future-proof)</p></dd>
+
+
 <dt>encoding</dt>
 <dd><p><code>character</code>, if spec is a file or a URL, specifies the encoding.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object with S3 class <code>vegaspec</code></p>
+    
+
+<p>An object with S3 class <code>vegaspec</code></p>
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -150,23 +159,23 @@ Vega-Lite or Vega. You can use <code><a href="vw_to_vega.html">vw_to_vega()</a><
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in">  <span class="va">spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">    `$schema` <span class="op">=</span> <span class="fu"><a href="vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>,</span>
-<span class="r-in">    mark <span class="op">=</span> <span class="st">"point"</span>,</span>
-<span class="r-in">    encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"wt"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,</span>
-<span class="r-in">      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"mpg"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,</span>
-<span class="r-in">      color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"cyl"</span>, type <span class="op">=</span> <span class="st">"nominal"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="co"># requires network-access</span></span>
-<span class="r-in">    <span class="fu">as_vegaspec</span><span class="op">(</span><span class="st">"https://vega.github.io/vega-lite/examples/specs/bar.vl.json"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="va">spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    `$schema` <span class="op">=</span> <span class="fu"><a href="vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    mark <span class="op">=</span> <span class="st">"point"</span>,</span></span>
+<span class="r-in"><span>    encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"wt"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"mpg"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"cyl"</span>, type <span class="op">=</span> <span class="st">"nominal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="fu">as_vegaspec</span><span class="op">(</span><span class="va">spec</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co"># requires network-access</span></span></span>
+<span class="r-in"><span>    <span class="fu">as_vegaspec</span><span class="op">(</span><span class="st">"https://vega.github.io/vega-lite/examples/specs/bar.vl.json"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -181,7 +190,7 @@ Vega-Lite or Vega. You can use <code><a href="vw_to_vega.html">vw_to_vega()</a><
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9001</span>
       </span>
     </div>
 
@@ -38,7 +38,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -90,48 +90,55 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vega_schema</span><span class="op">(</span>
-  library <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vega_lite"</span>, <span class="st">"vega"</span><span class="op">)</span>,
-  version <span class="op">=</span> <span class="cn">NULL</span>,
-  major <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">version</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vega_schema</span><span class="op">(</span></span>
+<span>  library <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vega_lite"</span>, <span class="st">"vega"</span><span class="op">)</span>,</span>
+<span>  version <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  major <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">version</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>library</dt>
 <dd><p><code>character</code>, either <code>"vega"</code> or <code>"vega_lite"</code></p></dd>
+
+
 <dt>version</dt>
 <dd><p><code>character</code>, version of library, e.g. <code>"5.2.0"</code>;
 if <code>version</code> is provided, <code>major</code> defaults to <code>FALSE</code>.</p></dd>
+
+
 <dt>major</dt>
 <dd><p><code>logical</code> return major version-tags rather than the
 tags for the specific versions supported by this package</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>character</code> URL for schema</p>
+    
+
+<p><code>character</code> URL for schema</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in">  <span class="fu">vega_schema</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="fu">vega_schema</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://vega.github.io/schema/vega-lite/v5.json"</span>
-<span class="r-in">  <span class="fu">vega_schema</span><span class="op">(</span><span class="st">"vega"</span>, major <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span>  <span class="fu">vega_schema</span><span class="op">(</span><span class="st">"vega"</span>, major <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://vega.github.io/schema/vega/v5.21.0.json"</span>
-<span class="r-in">  <span class="fu">vega_schema</span><span class="op">(</span><span class="st">"vega_lite"</span>, version <span class="op">=</span> <span class="st">"5.2.0"</span><span class="op">)</span></span>
+<span class="r-in"><span>  <span class="fu">vega_schema</span><span class="op">(</span><span class="st">"vega_lite"</span>, version <span class="op">=</span> <span class="st">"5.2.0"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://vega.github.io/schema/vega-lite/v5.2.0.json"</span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># creating a spec by hand</span></span>
-<span class="r-in">  <span class="va">spec</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">      `$schema` <span class="op">=</span> <span class="fu">vega_schema</span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">      width <span class="op">=</span> <span class="fl">300</span>,</span>
-<span class="r-in">      height <span class="op">=</span> <span class="fl">300</span></span>
-<span class="r-in">      <span class="co"># and so on</span></span>
-<span class="r-in">    <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">    <span class="fu"><a href="as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># creating a spec by hand</span></span></span>
+<span class="r-in"><span>  <span class="va">spec</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      `$schema` <span class="op">=</span> <span class="fu">vega_schema</span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      width <span class="op">=</span> <span class="fl">300</span>,</span></span>
+<span class="r-in"><span>      height <span class="op">=</span> <span class="fl">300</span></span></span>
+<span class="r-in"><span>      <span class="co"># and so on</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -146,7 +153,7 @@ tags for the specific versions supported by this package</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

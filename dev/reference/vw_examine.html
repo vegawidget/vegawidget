@@ -18,7 +18,7 @@ use to interactively examine a Vega or Vega-Lite specification."><meta name="rob
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9001</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@ use to interactively examine a Vega or Vega-Lite specification."><meta name="rob
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -92,51 +92,68 @@ use to interactively examine a Vega or Vega-Lite specification.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vw_examine</span><span class="op">(</span>
-  <span class="va">spec</span>,
-  mode <span class="op">=</span> <span class="st">"view"</span>,
-  modes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"view"</span>, <span class="st">"code"</span>, <span class="st">"form"</span>, <span class="st">"text"</span>, <span class="st">"tree"</span><span class="op">)</span>,
-  <span class="va">...</span>,
-  width <span class="op">=</span> <span class="cn">NULL</span>,
-  height <span class="op">=</span> <span class="cn">NULL</span>,
-  elementId <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vw_examine</span><span class="op">(</span></span>
+<span>  <span class="va">spec</span>,</span>
+<span>  mode <span class="op">=</span> <span class="st">"view"</span>,</span>
+<span>  modes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"view"</span>, <span class="st">"code"</span>, <span class="st">"form"</span>, <span class="st">"text"</span>, <span class="st">"tree"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  elementId <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>spec</dt>
 <dd><p>An object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></dd>
+
+
 <dt>mode</dt>
 <dd><p><code>string</code> for the initial view from modes.
 <code>'view'</code> is the default.</p></dd>
+
+
 <dt>modes</dt>
 <dd><p>string <code>c('view','code', 'form', 'text', 'tree')</code>
 will be the default, since these are all the modes
 currently supported by <strong><code>jsoneditor</code></strong>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p><code>list</code> of other options for <code>jsoneditor</code>.  This is a temporary way
 of trying other options in <code>jsoneditor</code>.  In the future, this will be eliminated
 in favor of specific, more self-documenting and helpful arguments.</p></dd>
+
+
 <dt>width</dt>
 <dd><p>integer in pixels defining the width of the <code>div</code> container.</p></dd>
+
+
 <dt>height</dt>
 <dd><p>integer in pixels defining the height of the <code>div</code> container.</p></dd>
+
+
 <dt>elementId</dt>
 <dd><p>character to specify valid <code>CSS</code> id of the
 htmlwidget for special situations in which you want a non-random
 identifier.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>S3 object of class <code>jsonedit</code> and <code>htmlwidget</code></p>
+    
+
+<p>S3 object of class <code>jsonedit</code> and <code>htmlwidget</code></p>
+
+
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in">  <span class="fu">vw_examine</span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span></span>
-<div id="htmlwidget-ed7e97613cfe239b6b08" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ed7e97613cfe239b6b08">{"x":{"data":{
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="fu">vw_examine</span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span></span></span>
+<div id="htmlwidget-3a29211fd76cbf1ae91a" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3a29211fd76cbf1ae91a">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 300,
   "height": 300,
@@ -608,14 +625,14 @@ identifier.</p></dd>
       "type": "nominal"
     }
   }
-},"options":{"mode":"view","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script><span class="r-in"></span>
-<span class="r-in">  <span class="va">spec_mtcars_autosize</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="va">spec_mtcars</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">    <span class="fu"><a href="vw_autosize.html">vw_autosize</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">300</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="fu">vw_examine</span><span class="op">(</span><span class="va">spec_mtcars_autosize</span><span class="op">)</span></span>
-<div id="htmlwidget-e9968d7f4a9b5b800924" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e9968d7f4a9b5b800924">{"x":{"data":{
+},"options":{"mode":"view","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script><span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">spec_mtcars_autosize</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="va">spec_mtcars</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="vw_autosize.html">vw_autosize</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">300</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="fu">vw_examine</span><span class="op">(</span><span class="va">spec_mtcars_autosize</span><span class="op">)</span></span></span>
+<div id="htmlwidget-25c6fa99f859ad20b497" style="width:700px;height:432.632880098888px;" class="jsonedit html-widget"></div>
+<script type="application/json" data-for="htmlwidget-25c6fa99f859ad20b497">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 300,
   "height": 300,
@@ -1111,7 +1128,7 @@ identifier.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

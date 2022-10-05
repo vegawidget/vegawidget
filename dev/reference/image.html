@@ -23,7 +23,7 @@ png packages."><meta name="robots" content="noindex"><!-- mathjax --><script src
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9001</span>
       </span>
     </div>
 
@@ -44,7 +44,7 @@ png packages."><meta name="robots" content="noindex"><!-- mathjax --><script src
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -102,44 +102,61 @@ the <strong><a href="https://CRAN.R-project.org/package=rsvg" class="external-li
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vw_to_svg</span><span class="op">(</span><span class="va">spec</span>, width <span class="op">=</span> <span class="cn">NULL</span>, height <span class="op">=</span> <span class="cn">NULL</span>, base_url <span class="op">=</span> <span class="cn">NULL</span>, seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="fu">vw_to_bitmap</span><span class="op">(</span><span class="va">spec</span>, scale <span class="op">=</span> <span class="fl">1</span>, width <span class="op">=</span> <span class="cn">NULL</span>, height <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">vw_write_svg</span><span class="op">(</span><span class="va">spec</span>, <span class="va">path</span>, width <span class="op">=</span> <span class="cn">NULL</span>, height <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">vw_write_png</span><span class="op">(</span><span class="va">spec</span>, <span class="va">path</span>, scale <span class="op">=</span> <span class="fl">1</span>, width <span class="op">=</span> <span class="cn">NULL</span>, height <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vw_to_svg</span><span class="op">(</span><span class="va">spec</span>, width <span class="op">=</span> <span class="cn">NULL</span>, height <span class="op">=</span> <span class="cn">NULL</span>, base_url <span class="op">=</span> <span class="cn">NULL</span>, seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vw_to_bitmap</span><span class="op">(</span><span class="va">spec</span>, scale <span class="op">=</span> <span class="fl">1</span>, width <span class="op">=</span> <span class="cn">NULL</span>, height <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vw_write_svg</span><span class="op">(</span><span class="va">spec</span>, <span class="va">path</span>, width <span class="op">=</span> <span class="cn">NULL</span>, height <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vw_write_png</span><span class="op">(</span><span class="va">spec</span>, <span class="va">path</span>, scale <span class="op">=</span> <span class="fl">1</span>, width <span class="op">=</span> <span class="cn">NULL</span>, height <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>spec</dt>
 <dd><p>An object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></dd>
+
+
 <dt>width</dt>
 <dd><p><code>integer</code>, if specified, the total rendered width (in pixels)
 of the chart - valid only for single-view charts and layered charts;
 the default is to use the width in the chart specification</p></dd>
+
+
 <dt>height</dt>
 <dd><p><code>integer</code>, if specified, the total rendered height (in pixels)
 of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification</p></dd>
+
+
 <dt>base_url</dt>
 <dd><p><code>character</code>, the base URL for a data file, useful for
 specifying a local directory; defaults to an empty string</p></dd>
+
+
 <dt>seed</dt>
 <dd><p><code>integer</code>, the random seed for a Vega specification,
 defaults to a "random" integer</p></dd>
+
+
 <dt>scale</dt>
 <dd><p><code>numeric</code>, useful for specifying larger images supporting the
 increased-resolution of retina displays</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments passed to <code>vw_to_svg()</code></p></dd>
+
+
 <dt>path</dt>
 <dd><p><code>character</code>, local path to which to write the file</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <dl><dt><code>vw_to_svg()</code></dt>
+    
+
+<dl><dt><code>vw_to_svg()</code></dt>
 <dd><p><code>character</code>, SVG string</p></dd>
 
 <dt><code>vw_to_bitmap()</code></dt>
@@ -167,31 +184,31 @@ a <code>vegaspec</code>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in">  <span class="co"># call any of these functions using either a vegaspec or a vegawidget</span></span>
-<span class="r-in">  <span class="va">svg</span> <span class="op">&lt;-</span> <span class="fu">vw_to_svg</span><span class="op">(</span><span class="fu"><a href="vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">bmp</span> <span class="op">&lt;-</span> <span class="fu">vw_to_bitmap</span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">vw_write_png</span><span class="op">(</span><span class="va">spec_mtcars</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"temp.png"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">vw_write_svg</span><span class="op">(</span><span class="va">spec_mtcars</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"temp.svg"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># To specify the path to a local file, use base_url</span></span>
-<span class="r-in">  <span class="va">spec_precip</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">      `$schema` <span class="op">=</span> <span class="fu"><a href="vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">      data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>url <span class="op">=</span> <span class="st">"seattle-weather.csv"</span><span class="op">)</span>,</span>
-<span class="r-in">      mark <span class="op">=</span> <span class="st">"tick"</span>,</span>
-<span class="r-in">      encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">        x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"precipitation"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span></span>
-<span class="r-in">      <span class="op">)</span></span>
-<span class="r-in">    <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">    <span class="fu"><a href="as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">data_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example-data/"</span>, package <span class="op">=</span> <span class="st">"vegawidget"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">vw_write_png</span><span class="op">(</span></span>
-<span class="r-in">    <span class="va">spec_precip</span>,</span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"temp-local.png"</span><span class="op">)</span>,</span>
-<span class="r-in">    base_url <span class="op">=</span> <span class="va">data_dir</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="co"># call any of these functions using either a vegaspec or a vegawidget</span></span></span>
+<span class="r-in"><span>  <span class="va">svg</span> <span class="op">&lt;-</span> <span class="fu">vw_to_svg</span><span class="op">(</span><span class="fu"><a href="vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">bmp</span> <span class="op">&lt;-</span> <span class="fu">vw_to_bitmap</span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">vw_write_png</span><span class="op">(</span><span class="va">spec_mtcars</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"temp.png"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">vw_write_svg</span><span class="op">(</span><span class="va">spec_mtcars</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"temp.svg"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># To specify the path to a local file, use base_url</span></span></span>
+<span class="r-in"><span>  <span class="va">spec_precip</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      `$schema` <span class="op">=</span> <span class="fu"><a href="vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>url <span class="op">=</span> <span class="st">"seattle-weather.csv"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      mark <span class="op">=</span> <span class="st">"tick"</span>,</span></span>
+<span class="r-in"><span>      encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"precipitation"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">data_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example-data/"</span>, package <span class="op">=</span> <span class="st">"vegawidget"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">vw_write_png</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">spec_precip</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"temp-local.png"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    base_url <span class="op">=</span> <span class="va">data_dir</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -206,7 +223,7 @@ a <code>vegaspec</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

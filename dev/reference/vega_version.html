@@ -21,7 +21,7 @@ vega_version() shows the default version."><meta name="robots" content="noindex"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9001</span>
       </span>
     </div>
 
@@ -42,7 +42,7 @@ vega_version() shows the default version."><meta name="robots" content="noindex"
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -98,11 +98,11 @@ all versions available - subject to locking,
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vega_version</span><span class="op">(</span>major <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">vega_version_all</span><span class="op">(</span>major <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">vega_version_available</span><span class="op">(</span>major <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vega_version</span><span class="op">(</span>major <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vega_version_all</span><span class="op">(</span>major <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vega_version_available</span><span class="op">(</span>major <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -110,10 +110,13 @@ all versions available - subject to locking,
     <dl><dt>major</dt>
 <dd><p><code>logical</code> return major version-tags rather than the
 tags for the specific versions supported by this package</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <dl><dt>vega_version()</dt>
+    
+
+<dl><dt>vega_version()</dt>
 <dd><p><code>list</code> with elements: <code>is_locked</code>, <code>widget</code>,
 <code>vega_lite</code>, <code>vega</code>, <code>vega_embed</code>.</p></dd>
 
@@ -145,7 +148,7 @@ most-recent version.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in">  <span class="fu">vega_version</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="fu">vega_version</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $widget</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "vl5"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -161,7 +164,7 @@ most-recent version.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $is_locked</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in">  <span class="fu">vega_version</span><span class="op">(</span>major <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span>  <span class="fu">vega_version</span><span class="op">(</span>major <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $widget</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "vl5"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -177,11 +180,11 @@ most-recent version.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $is_locked</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in">  <span class="fu">vega_version_all</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span>  <span class="fu">vega_version_all</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   widget vega_lite   vega vega_embed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    vl5     5.2.0 5.21.0     6.20.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    vl4    4.17.0 5.17.0     6.12.2</span>
-<span class="r-in">  <span class="fu">vega_version_available</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span>  <span class="fu">vega_version_available</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   widget vega_lite   vega vega_embed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    vl5     5.2.0 5.21.0     6.20.2</span>
 </code></pre></div>
@@ -198,7 +201,7 @@ most-recent version.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

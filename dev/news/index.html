@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9001</span>
       </span>
     </div>
 
@@ -38,7 +38,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -86,9 +86,9 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="vegawidget-development-version">vegawidget (development version)<a class="anchor" aria-label="anchor" href="#vegawidget-development-version"></a></h2>
-</div>
+<ul><li>Update Actions. (<a href="https://github.com/vegawidget/vegawidget/issues/209" class="external-link">#209</a>)</li></ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.4.1" id="vegawidget-041">vegawidget 0.4.1<a class="anchor" aria-label="anchor" href="#vegawidget-041"></a></h2>
+<h2 class="page-header" data-toc-text="0.4.1" id="vegawidget-041">vegawidget 0.4.1<small>2022-01-29</small><a class="anchor" aria-label="anchor" href="#vegawidget-041"></a></h2>
 <ul><li>
 <p>vegawidget now supports the last two Vega-Lite major versions, currently versions 5 and 4.</p>
 <p>However, for a given loading of this package (or RMarkdown file), the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function can use only <em>one</em> major-version; this version is determined using the <code>$schema</code> element of the first <code>vegaspec</code> evaluated using <code><a href="../reference/vegawidget.html">vegawidget()</a></code>.</p>
@@ -106,8 +106,8 @@
 <li>
 <p>Deprecated <code>schema</code> folder from package files, i.e. <code>system.file("schema", package = "vegawidget")</code>. This folder will be removed at the release following v0.4.1. Instead, you can use the <code><a href="../reference/vega_schema.html">vega_schema()</a></code> function (with new optional <code>version</code> argument) to retrieve from Vega:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="st">"vega-lite"</span>, version <span class="op">=</span> <span class="st">"5.2.0"</span><span class="op">)</span> |&gt; <span class="fu"><a href="../reference/vw_fetch.html">vw_fetch</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="st">"vega-lite"</span>, version <span class="op">=</span> <span class="st">"5.2.0"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/vw_fetch.html">vw_fetch</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>(<a href="https://github.com/vegawidget/vegawidget/issues/185" class="external-link">#185</a>)</p>
 </li>
 <li><p>Use V8 rather than node to support image-functions and <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code>. This adds V8 as a package-dependency, but removes the system-dependency for node. As a result, remote-data loading <em>works</em> as long as you can access the data from R. (<a href="https://github.com/vegawidget/vegawidget/issues/85" class="external-link">#85</a>)</p></li>
@@ -121,8 +121,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.2" id="vegawidget-032">vegawidget 0.3.2<small>2021-01-12</small><a class="anchor" aria-label="anchor" href="#vegawidget-032"></a></h2>
-<ul><li>Upgrade to Vega-Lite 4.17.0, Vega 5.17.0, vega-embed 6.12.2.</li>
-</ul><div class="section level3">
+<ul><li>Upgrade to Vega-Lite 4.17.0, Vega 5.17.0, vega-embed 6.12.2.</li></ul><div class="section level3">
 <h3 id="new-features-0-3-2">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-2"></a></h3>
 <ul><li>
 <p>New function <code><a href="../reference/vw_set_base_url.html">vw_set_base_url()</a></code>:</p>
@@ -152,11 +151,9 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.1" id="vegawidget-021">vegawidget 0.2.1<small>2019-06-24</small><a class="anchor" aria-label="anchor" href="#vegawidget-021"></a></h2>
-<ul><li>Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0. This is supported by all modern browsers and RStudio IDE 1.2.</li>
-</ul><div class="section level3">
+<ul><li>Upgrade to Vega-Lite 3.3.0, Vega 5.4.0, vega-embed 4.2.0. This is supported by all modern browsers and RStudio IDE 1.2.</li></ul><div class="section level3">
 <h3 id="new-features-0-2-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-1"></a></h3>
-<ul><li>Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.2.1. Add functions to support <code>addDataListener()</code> method offered by <a href="https://github.com/vega/vega-view#view_addDataListener" class="external-link">vega-view</a>, use <code>vw_shiny_demo("data-set-get")</code> for more information. (<a href="https://github.com/vegawidget/vegawidget/issues/65" class="external-link">#65</a>)</li>
-</ul></div>
+<ul><li>Update Vega and Vega-Lite libraries to be consistent with Vega-Lite v3.2.1. Add functions to support <code>addDataListener()</code> method offered by <a href="https://github.com/vega/vega-view#view_addDataListener" class="external-link">vega-view</a>, use <code>vw_shiny_demo("data-set-get")</code> for more information. (<a href="https://github.com/vegawidget/vegawidget/issues/65" class="external-link">#65</a>)</li></ul></div>
 <div class="section level3">
 <h3 id="improvements-and-fixes-0-2-1">Improvements and fixes<a class="anchor" aria-label="anchor" href="#improvements-and-fixes-0-2-1"></a></h3>
 <ul><li><p>Modify <code>knit_print()</code> to handle non-HTML formats. Instead of using the <a href="https://github.com/wch/webshot" class="external-link">webshot</a> package, the <code>knit_print()</code> function converts charts to either <code>png</code>, <code>svg</code> (useful for <code>github_document</code>), or <code>pdf</code> (useful for <code>pdf_document</code>) format. (<a href="https://github.com/vegawidget/vegawidget/issues/44" class="external-link">#44</a>, <a href="https://github.com/AliciaSchep" class="external-link">@AliciaSchep</a>)</p></li>
@@ -169,13 +166,11 @@
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.0" id="vegawidget-010">vegawidget 0.1.0<small>2019-01-30</small><a class="anchor" aria-label="anchor" href="#vegawidget-010"></a></h2>
-<ul><li>CRAN release</li>
-</ul></div>
+<ul><li>CRAN release</li></ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.7.9000" id="vegawidget-0079000">vegawidget 0.0.7.9000<a class="anchor" aria-label="anchor" href="#vegawidget-0079000"></a></h2>
 <ul><li>changes API and implementation for “image” functions: <code><a href="../reference/image.html">vw_to_svg()</a></code>, <code><a href="../reference/image.html">vw_to_bitmap()</a></code>, <code><a href="../reference/image.html">vw_write_svg()</a></code> , and <code><a href="../reference/image.html">vw_write_png()</a></code> - these functions require that you have <a href="https://nodejs.org/en/" class="external-link">node</a> installed on your computer, and the <a href="https://CRAN.R-project.org/package=rsvg" class="external-link">rsvg</a> package, to use <code><a href="../reference/image.html">vw_to_bitmap()</a></code> and <code><a href="../reference/image.html">vw_write_png()</a></code>
-</li>
-</ul></div>
+</li></ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.6.9000" id="vegawidget-0069000">vegawidget 0.0.6.9000<a class="anchor" aria-label="anchor" href="#vegawidget-0069000"></a></h2>
 <ul><li><p>adds <code>elementId</code> argument to <code><a href="../reference/vegawidget.html">vegawidget()</a></code>; had been available as part of <code>...</code> passed to <code><a href="https://rdrr.io/pkg/htmlwidgets/man/createWidget.html" class="external-link">htmlwidgets::createWidget()</a></code></p></li>
@@ -196,8 +191,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.4" id="vegawidget-004">vegawidget 0.0.4<a class="anchor" aria-label="anchor" href="#vegawidget-004"></a></h2>
-<ul><li>updates to Vega-Lite 2.6.0, Vega 4.0.0-rc.3, vega-embed 3.16.0.</li>
-</ul></div>
+<ul><li>updates to Vega-Lite 2.6.0, Vega 4.0.0-rc.3, vega-embed 3.16.0.</li></ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.3" id="vegawidget-003">vegawidget 0.0.3<a class="anchor" aria-label="anchor" href="#vegawidget-003"></a></h2>
 <ul><li><p>adds function <code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code> to help format dates and datetimes in data frames (<a href="https://github.com/vegawidget/vegawidget/issues/33" class="external-link">#33</a>)</p></li>
@@ -238,8 +232,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.2" id="vegawidget-002">vegawidget 0.0.2<a class="anchor" aria-label="anchor" href="#vegawidget-002"></a></h2>
-<ul><li>adds a <code>NEWS.md</code> file to track changes to the package</li>
-</ul></div>
+<ul><li>adds a <code>NEWS.md</code> file to track changes to the package</li></ul></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -254,7 +247,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

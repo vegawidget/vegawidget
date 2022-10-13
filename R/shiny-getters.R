@@ -69,7 +69,6 @@
 #' @param body_value `character` or `JS_EVAL`, the **body** of a JavaScript
 #'   function that Vega will use to handle the signal or event; this function
 #'   must return a value
-#' @param id `character`, optional module id
 #'
 #' @return [shiny::reactive()] function that returns the value returned by
 #'  `body_value`
@@ -80,29 +79,31 @@
 #'     [addEventListener()](https://github.com/vega/vega/tree/master/packages/vega-view#view_addEventListener)
 #' @export
 #'
-vw_shiny_get_signal <-
-  function(outputId, name, body_value = "value", id = NULL) {
+vw_shiny_get_signal <- function(outputId, name, body_value = "value") {
 
   assert_packages("shiny")
 
   session <- shiny::getDefaultReactiveDomain()
-  ns <- shiny::NS(id)
-  inputId <- glue::glue("{outputId}_signal_{name}")
+  inputId <- ""
 
   # set up an observer to run *once* to add the listener
   shiny::observe({
 
     shiny::isolate({
 
+      # create unique inputId
+      inputId_proposed <- glue::glue("{outputId}_signal_{name}")
+      inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
+
       # compose_handler_body
       handler_body <-
         vw_handler_signal(body_value) %>%
-        vw_handler_add_effect("shiny_input", inputId = ns(inputId)) %>%
+        vw_handler_add_effect("shiny_input", inputId = session$ns(inputId)) %>%
         vw_handler_body_compose(n_indent = 0L)
 
       # add listener
       vw_shiny_msg_addSignalListener(
-        ns(outputId),
+        outputId,
         name = name,
         handlerBody = handler_body
       )
@@ -119,28 +120,31 @@ vw_shiny_get_signal <-
 #' @name shiny-getters
 #' @export
 #'
-vw_shiny_get_data <- function(outputId, name, body_value = "value", id = NULL) {
+vw_shiny_get_data <- function(outputId, name, body_value = "value") {
 
   assert_packages("shiny")
 
   session <- shiny::getDefaultReactiveDomain()
-  ns <- shiny::NS(id)
-  inputId <- glue::glue("{outputId}_data_{name}")
+  inputId <- ""
 
   # set up an observer to run *once* to add the listener
   shiny::observe({
 
     shiny::isolate({
 
+      # create unique inputId
+      inputId_proposed <- glue::glue("{outputId}_data_{name}")
+      inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
+
       # compose_handler_body
       handler_body <-
         vw_handler_data(body_value) %>%
-        vw_handler_add_effect("shiny_input", inputId = ns(inputId)) %>%
+        vw_handler_add_effect("shiny_input", inputId = session$ns(inputId)) %>%
         vw_handler_body_compose(n_indent = 0L)
 
       # add listener
       vw_shiny_msg_addDataListener(
-        ns(outputId),
+        outputId,
         name = name,
         handlerBody = handler_body
       )
@@ -167,29 +171,31 @@ vw_shiny_get_data <- function(outputId, name, body_value = "value", id = NULL) {
 #'   [Vega Event-Stream reference](https://vega.github.io/vega/docs/event-streams/)
 #' @export
 #'
-vw_shiny_get_event <-
-  function(outputId, event, body_value = "datum", id = NULL) {
+vw_shiny_get_event <- function(outputId, event, body_value = "datum") {
 
   assert_packages("shiny")
 
   session <- shiny::getDefaultReactiveDomain()
-  ns <- shiny::NS(id)
-  inputId <- glue::glue("{outputId}_event_{event}")
+  inputId <- ""
 
   # set up an observer to run *once* to add the listener
   shiny::observe({
 
     shiny::isolate({
 
+      # create unique inputId
+      inputId_proposed <- glue::glue("{outputId}_event_{event}")
+      inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
+
       # compose handler_body
       handler_body <-
         vw_handler_event(body_value) %>%
-        vw_handler_add_effect("shiny_input", inputId = ns(inputId)) %>%
+        vw_handler_add_effect("shiny_input", inputId = session$ns(inputId)) %>%
         vw_handler_body_compose(n_indent = 0L)
 
       # add listener
       vw_shiny_msg_addEventListener(
-        ns(outputId),
+        outputId,
         event = event,
         handlerBody = handler_body
       )
@@ -201,4 +207,16 @@ vw_shiny_get_event <-
   shiny::reactive({
     session$input[[inputId]]
   })
+  }
+
+get_unique_inputId <- function(inputId, names_input) {
+
+  # compile proposed inputId with names of existing inputs
+  input_names <- c(names_input, inputId)
+
+  # make input_names unique
+  input_names_new <- make.unique(input_names, sep = "_")
+
+  # return first element, corresponds to `inputId`
+  input_names_new[[1]]
 }

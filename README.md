@@ -5,7 +5,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/vegawidget)](https://cran.r-project.org/package=vegawidget)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![R-CMD-check](https://github.com/vegawidget/vegawidget/workflows/R-CMD-check/badge.svg)](https://github.com/vegawidget/vegawidget/actions)
+[![R-CMD-check](https://github.com/vegawidget/vegawidget/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/vegawidget/vegawidget/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # vegawidget
@@ -48,7 +48,7 @@ library("vegawidget")
 
 vega_version_all()
 #>   widget vega_lite   vega vega_embed
-#> 1    vl5     5.2.0 5.21.0     6.20.2
+#> 1    vl5     5.5.0 5.22.0     6.20.8
 #> 2    vl4    4.17.0 5.17.0     6.12.2
 ```
 

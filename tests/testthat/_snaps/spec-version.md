@@ -17,7 +17,7 @@
     Code
       vega_schema("vega_lite", major = FALSE)
     Output
-      [1] "https://vega.github.io/schema/vega-lite/v5.2.0.json"
+      [1] "https://vega.github.io/schema/vega-lite/v5.5.0.json"
 
 ---
 

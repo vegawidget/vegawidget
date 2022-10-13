@@ -21,14 +21,20 @@ in specs using the relative path from the base.
 For example, this
 \href{https://vega.github.io/vega-lite/examples/point_2d.html}{Vega-Lite example}
 uses the base URL \verb{https://cdn.jsdelivr.net/npm/vega-datasets@2}. In a spec,
-instead of specifying:\preformatted{data = "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/cars.json"
-}
+instead of specifying:
 
-You can call:\preformatted{vw_set_base_url("https://cdn.jsdelivr.net/npm/vega-datasets@2")
-}
+\if{html}{\out{<div class="sourceCode">}}\preformatted{data = "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/cars.json"
+}\if{html}{\out{</div>}}
 
-Then specify:\preformatted{data = "data/cars.json"
-}
+You can call:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{vw_set_base_url("https://cdn.jsdelivr.net/npm/vega-datasets@2")
+}\if{html}{\out{</div>}}
+
+Then specify:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{data = "data/cars.json"
+}\if{html}{\out{</div>}}
 
 This function sets the value of \code{getOption("vega-embed")$loader$baseURL}.
 You need set it only once in a session or RMarkdown file.

@@ -91,6 +91,7 @@ vw_shiny_get_signal <- function(outputId, name, body_value = "value") {
   shiny::observe({
 
     shiny::isolate({
+
       # create unique inputId (set in enclosing environment)
       inputId_proposed <- glue::glue("{outputId}_signal_{name}")
       inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
@@ -98,7 +99,7 @@ vw_shiny_get_signal <- function(outputId, name, body_value = "value") {
       # compose_handler_body
       handler_body <-
         vw_handler_signal(body_value) %>%
-        vw_handler_add_effect("shiny_input", inputId = inputId) %>%
+        vw_handler_add_effect("shiny_input", inputId = session$ns(inputId)) %>%
         vw_handler_body_compose(n_indent = 0L)
 
       # add listener
@@ -132,13 +133,15 @@ vw_shiny_get_data <- function(outputId, name, body_value = "value") {
   shiny::observe({
 
     shiny::isolate({
+
       # create unique inputId (set in enclosing environment)
       inputId_proposed <- glue::glue("{outputId}_data_{name}")
       inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
+
       # compose_handler_body
       handler_body <-
         vw_handler_data(body_value) %>%
-        vw_handler_add_effect("shiny_input", inputId = inputId) %>%
+        vw_handler_add_effect("shiny_input", inputId = session$ns(inputId)) %>%
         vw_handler_body_compose(n_indent = 0L)
 
       # add listener
@@ -182,6 +185,7 @@ vw_shiny_get_event <- function(outputId, event, body_value = "datum") {
   shiny::observe({
 
     shiny::isolate({
+
       # create unique inputId (set in enclosing environment)
       inputId_proposed <- glue::glue("{outputId}_event_{event}")
       inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
@@ -189,7 +193,7 @@ vw_shiny_get_event <- function(outputId, event, body_value = "datum") {
       # compose handler_body
       handler_body <-
         vw_handler_event(body_value) %>%
-        vw_handler_add_effect("shiny_input", inputId = inputId) %>%
+        vw_handler_add_effect("shiny_input", inputId = session$ns(inputId)) %>%
         vw_handler_body_compose(n_indent = 0L)
 
       # add listener
@@ -211,12 +215,11 @@ vw_shiny_get_event <- function(outputId, event, body_value = "datum") {
 get_unique_inputId <- function(inputId, names_input) {
 
   # compile proposed inputId with names of existing inputs
-  input_names <- c(inputId, names_input)
+  input_names <- c(names_input, inputId)
 
   # make input_names unique
   input_names_new <- make.unique(input_names, sep = "_")
 
-  # return first element, corresponds to `inputId`
-  input_names_new[[1]]
+  # return last element, corresponds to `inputId`
+  utils::tail(input_names_new, 1)
 }
-

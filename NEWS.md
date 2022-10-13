@@ -4,6 +4,8 @@
 
 * Update Actions. (#209)
 
+* Add module support to vw_shiny_get_* functions. (#203, @rhenkin)
+
 # vegawidget 0.4.1
 
 * vegawidget now supports the last two Vega-Lite major versions,

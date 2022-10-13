@@ -220,6 +220,6 @@ get_unique_inputId <- function(inputId, names_input) {
   # make input_names unique
   input_names_new <- make.unique(input_names, sep = "_")
 
-  # return first element, corresponds to `inputId`
-  input_names_new[[1]]
+  # return last element, corresponds to `inputId`
+  utils::tail(input_names_new, 1)
 }

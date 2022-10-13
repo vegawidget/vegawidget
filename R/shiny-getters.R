@@ -84,6 +84,7 @@ vw_shiny_get_signal <- function(outputId, name, body_value = "value") {
   assert_packages("shiny")
 
   session <- shiny::getDefaultReactiveDomain()
+
   inputId <- ""
 
   # set up an observer to run *once* to add the listener
@@ -91,7 +92,7 @@ vw_shiny_get_signal <- function(outputId, name, body_value = "value") {
 
     shiny::isolate({
 
-      # create unique inputId
+      # create unique inputId (set in enclosing environment)
       inputId_proposed <- glue::glue("{outputId}_signal_{name}")
       inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
 
@@ -125,6 +126,7 @@ vw_shiny_get_data <- function(outputId, name, body_value = "value") {
   assert_packages("shiny")
 
   session <- shiny::getDefaultReactiveDomain()
+
   inputId <- ""
 
   # set up an observer to run *once* to add the listener
@@ -132,7 +134,7 @@ vw_shiny_get_data <- function(outputId, name, body_value = "value") {
 
     shiny::isolate({
 
-      # create unique inputId
+      # create unique inputId (set in enclosing environment)
       inputId_proposed <- glue::glue("{outputId}_data_{name}")
       inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
 
@@ -176,6 +178,7 @@ vw_shiny_get_event <- function(outputId, event, body_value = "datum") {
   assert_packages("shiny")
 
   session <- shiny::getDefaultReactiveDomain()
+
   inputId <- ""
 
   # set up an observer to run *once* to add the listener
@@ -183,7 +186,7 @@ vw_shiny_get_event <- function(outputId, event, body_value = "datum") {
 
     shiny::isolate({
 
-      # create unique inputId
+      # create unique inputId (set in enclosing environment)
       inputId_proposed <- glue::glue("{outputId}_event_{event}")
       inputId <<- get_unique_inputId(inputId_proposed, names(session$input))
 
@@ -207,7 +210,7 @@ vw_shiny_get_event <- function(outputId, event, body_value = "datum") {
   shiny::reactive({
     session$input[[inputId]]
   })
-  }
+}
 
 get_unique_inputId <- function(inputId, names_input) {
 

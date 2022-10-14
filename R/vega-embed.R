@@ -55,7 +55,7 @@
 #' @param patch	`JS` function, `list` or `character`, A function to modify the
 #'   Vega specification before it is parsed. Alternatively, an `list` that,
 #'   when compiled to JSON, will meet
-#'   [JSON-Patch RFC6902](https://tools.ietf.org/html/rfc6902).
+#'   [JSON-Patch RFC6902](https://www.rfc-editor.org/rfc/rfc6902).
 #'   If you use Vega-Lite, the compiled Vega will be patched.
 #'   Alternatively to the function or the `list`, a URL string from which to
 #'   load the patch can be provided. This URL will be subject to standard

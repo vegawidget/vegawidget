@@ -1,6 +1,17 @@
+## Note
+
+This is an email-change:
+
+   New maintainer:
+     Ian Lyttle <ijlyttle@me.com>
+   Old maintainer(s):
+     Ian Lyttle <ian.lyttle@se.com>
+
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes 
+0 errors | 0 warnings | 1 note 
+
+(new maintainter)
 
 ## revdepcheck results
 

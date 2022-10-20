@@ -1,4 +1,4 @@
-# vegawidget (development version)
+# vegawidget 0.4.2
 
 * Use Vega-Lite 5.5.0. (#208)
 

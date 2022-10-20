@@ -18,7 +18,7 @@ to avoid having to take a dependency on vctrs."><!-- mathjax --><script src="htt
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@ to avoid having to take a dependency on vctrs."><!-- mathjax --><script src="htt
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -92,15 +92,19 @@ to avoid having to take a dependency on vctrs.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">s3_register</span><span class="op">(</span><span class="va">generic</span>, <span class="va">class</span>, method <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">s3_register</span><span class="op">(</span><span class="va">generic</span>, <span class="va">class</span>, method <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>generic</dt>
 <dd><p>Name of the generic in the form <code>pkg::generic</code>.</p></dd>
+
+
 <dt>class</dt>
 <dd><p>Name of the class</p></dd>
+
+
 <dt>method</dt>
 <dd><p>Optionally, the implementation of the method. By default,
 this will be found by looking for a function called <code>generic.class</code>
@@ -110,10 +114,13 @@ devtools. When the namespace of the method is reloaded by
 <code>devtools::load_all()</code>, the function will keep inheriting from
 the old namespace. This might cause crashes because of dangling
 <code><a href="https://rdrr.io/r/base/CallExternal.html" class="external-link">.Call()</a></code> pointers.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Invisible <code>NULL</code>, called for side effects.</p>
+    
+
+<p>Invisible <code>NULL</code>, called for side effects.</p>
     </div>
 
   </div>
@@ -128,7 +135,7 @@ the old namespace. This might cause crashes because of dangling
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

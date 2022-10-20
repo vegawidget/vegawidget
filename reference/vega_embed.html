@@ -20,7 +20,7 @@ library, which ultimately renders the chart specification as HTML."><!-- mathjax
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@ library, which ultimately renders the chart specification as HTML."><!-- mathjax
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -96,15 +96,15 @@ library, which ultimately renders the chart specification as HTML.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vega_embed</span><span class="op">(</span>
-  renderer <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"canvas"</span>, <span class="st">"svg"</span><span class="op">)</span>,
-  actions <span class="op">=</span> <span class="cn">NULL</span>,
-  defaultStyle <span class="op">=</span> <span class="cn">TRUE</span>,
-  config <span class="op">=</span> <span class="cn">NULL</span>,
-  patch <span class="op">=</span> <span class="cn">NULL</span>,
-  bind <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vega_embed</span><span class="op">(</span></span>
+<span>  renderer <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"canvas"</span>, <span class="st">"svg"</span><span class="op">)</span>,</span>
+<span>  actions <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  defaultStyle <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  config <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  patch <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bind <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -114,6 +114,8 @@ library, which ultimately renders the chart specification as HTML.</p>
 One of <code>"canvas"</code> (default) or <code>"svg"</code>.
 See <a href="https://vega.github.io/vega/docs/api/view/#view_renderer" class="external-link">Vega docs</a>
 for details.</p></dd>
+
+
 <dt>actions</dt>
 <dd><p><code>logical</code> or named vector of logicals, determines if action links
 ("Export as PNG/SVG", "View Source", "Open in Vega Editor")
@@ -127,11 +129,15 @@ and <code>editor</code> are <code>TRUE</code> and <code>compiled</code> is <code
 can be overridden. For example, if <code>actions</code> is
 <code>list(export =  FALSE, source = TRUE)</code>, the embedded visualization will
 have two links – "View Source" and "Open in Vega Editor".</p></dd>
+
+
 <dt>defaultStyle</dt>
 <dd><p><code>logical</code> or <code>character</code>
 default stylesheet for embed actions. If set to <code>TRUE</code> (default),
 the embed actions are shown in a menu. Set to <code>FALSE</code> to use simple links.
 Provide a <code>character</code> string to set the style sheet.</p></dd>
+
+
 <dt>config</dt>
 <dd><p><code>character</code> or <code>list</code>, a URL string from which to load
 a Vega/Vega-Lite or Vega-Lite configuration file, or a <code>list</code> of
@@ -139,25 +145,34 @@ Vega/Vega-Lite configurations to override the default configuration
 options. If <code>config</code> is a URL, it will be subject to standard browser
 security restrictions. Typically this URL will point to a file on the same
 host and port number as the web page itself.</p></dd>
+
+
 <dt>patch</dt>
 <dd><p><code>JS</code> function, <code>list</code> or <code>character</code>, A function to modify the
 Vega specification before it is parsed. Alternatively, an <code>list</code> that,
 when compiled to JSON, will meet
-<a href="https://tools.ietf.org/html/rfc6902" class="external-link">JSON-Patch RFC6902</a>.
+<a href="https://www.rfc-editor.org/rfc/rfc6902" class="external-link">JSON-Patch RFC6902</a>.
 If you use Vega-Lite, the compiled Vega will be patched.
 Alternatively to the function or the <code>list</code>, a URL string from which to
 load the patch can be provided. This URL will be subject to standard
 browser security restrictions. Typically this URL will point to a file
 on the same host and port number as the web page itself.</p></dd>
+
+
 <dt>bind</dt>
 <dd><p><code>character</code></p></dd>
+
+
 <dt>...</dt>
 <dd><p>other named items, outlined in
 <a href="https://github.com/vega/vega-embed" class="external-link">vega-embed</a> options.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>list</code> to to be used with vega-embed JavaScript library</p>
+    
+
+<p><code>list</code> to to be used with vega-embed JavaScript library</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -184,14 +199,14 @@ by the value in the chart specification.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">vega_embed</span><span class="op">(</span>renderer <span class="op">=</span> <span class="st">"svg"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">vega_embed</span><span class="op">(</span>renderer <span class="op">=</span> <span class="st">"svg"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $renderer</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "svg"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $defaultStyle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -206,7 +221,7 @@ by the value in the chart specification.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

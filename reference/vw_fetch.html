@@ -18,7 +18,7 @@ so that external data can be accessed."><!-- mathjax --><script src="https://cdn
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@ so that external data can be accessed."><!-- mathjax --><script src="https://cdn
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -92,23 +92,30 @@ so that external data can be accessed.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vw_fetch</span><span class="op">(</span><span class="va">url</span>, options <span class="op">=</span> <span class="cn">NULL</span>, encoding <span class="op">=</span> <span class="st">"UTF-8"</span><span class="op">)</span>
-
-<span class="fu">vw_load</span><span class="op">(</span><span class="va">filename</span>, encoding <span class="op">=</span> <span class="st">"UTF-8"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vw_fetch</span><span class="op">(</span><span class="va">url</span>, options <span class="op">=</span> <span class="cn">NULL</span>, encoding <span class="op">=</span> <span class="st">"UTF-8"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vw_load</span><span class="op">(</span><span class="va">filename</span>, encoding <span class="op">=</span> <span class="st">"UTF-8"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>url</dt>
 <dd><p><code>character</code></p></dd>
+
+
 <dt>options</dt>
 <dd><p>named <code>list</code>, not yet implemented</p></dd>
+
+
 <dt>filename</dt>
 <dd><p><code>character</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>character</code> contents of the file or URL</p>
+    
+
+<p><code>character</code> contents of the file or URL</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -127,7 +134,7 @@ so that external data can be accessed.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

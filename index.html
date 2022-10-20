@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -59,7 +59,7 @@
   <a href="news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -135,15 +135,13 @@
 <li><p>use <code><a href="reference/vega_version.html">vega_version_all()</a></code> to see the available versions:</p></li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span>
-
-<span class="fu"><a href="reference/vega_version.html">vega_version_all</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt;   widget vega_lite   vega vega_embed</span>
-<span class="co">#&gt; 1    vl5     5.2.0 5.21.0     6.20.2</span>
-<span class="co">#&gt; 2    vl4    4.17.0 5.17.0     6.12.2</span></code></pre></div>
-<ul>
-<li>Compiling a spec and creating an image now uses the <strong><a href="https://cran.r-project.org/package=V8" class="external-link">V8</a></strong> package, rather than depending on a local installation of nodejs.</li>
-</ul>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/vega_version.html">vega_version_all</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   widget vega_lite   vega vega_embed</span></span>
+<span><span class="co">#&gt; 1    vl5     5.5.0 5.22.0     6.20.8</span></span>
+<span><span class="co">#&gt; 2    vl4    4.17.0 5.17.0     6.12.2</span></span></code></pre></div>
+<ul><li>Compiling a spec and creating an image now uses the <strong><a href="https://cran.r-project.org/package=V8" class="external-link">V8</a></strong> package, rather than depending on a local installation of nodejs.</li></ul>
 </div>
 </div>
 <div class="section level2">
@@ -151,11 +149,11 @@
 </h2>
 <p>You can install vegawidget from CRAN with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"vegawidget"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"vegawidget"</span><span class="op">)</span></span></code></pre></div>
 <p>The development version of vegawidget is available from GitHub with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"vegawidget/vegawidget"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"vegawidget/vegawidget"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Note:</strong> There are documentation websites for both the <a href="https://vegawidget.github.io/vegawidget/">CRAN version</a> and the <a href="https://vegawidget.github.io/vegawidget/dev/">development version</a> of this package.</p>
 </div>
 <div class="section level2">
@@ -163,24 +161,24 @@
 </h2>
 <p>Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build specifications:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span>
-
-<span class="va">spec_mtcars</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-    `$schema` <span class="op">=</span> <span class="fu"><a href="reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>, <span class="co"># specifies Vega-Lite</span>
-    description <span class="op">=</span> <span class="st">"An mtcars example."</span>,
-    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>,
-    mark <span class="op">=</span> <span class="st">"point"</span>,
-    encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"wt"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,
-      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"mpg"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,
-      color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"cyl"</span>, type <span class="op">=</span> <span class="st">"nominal"</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">spec_mtcars</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    `$schema` <span class="op">=</span> <span class="fu"><a href="reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>, <span class="co"># specifies Vega-Lite</span></span>
+<span>    description <span class="op">=</span> <span class="st">"An mtcars example."</span>,</span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>,</span>
+<span>    mark <span class="op">=</span> <span class="st">"point"</span>,</span>
+<span>    encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"wt"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,</span>
+<span>      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"mpg"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,</span>
+<span>      color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"cyl"</span>, type <span class="op">=</span> <span class="st">"nominal"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The <code><a href="reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; many of this package’s functions are built to support, and render, vegaspecs:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">spec_mtcars</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">spec_mtcars</span></span></code></pre></div>
 <p><img src="reference/figures/README-vegawidget-1.svg"><!-- --></p>
 <p>The rendering of the chart above depends on where you are reading it:</p>
 <ul>
@@ -274,14 +272,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=vegawidget" class="external-link"><img src="https://www.r-pkg.org/badges/version/vegawidget" alt="CRAN status"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#maturing" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
-<li><a href="https://github.com/vegawidget/vegawidget/actions" class="external-link"><img src="https://github.com/vegawidget/vegawidget/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-</ul>
-</div>
+
 
   </div>
 </div>
@@ -294,7 +285,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

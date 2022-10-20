@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -108,7 +108,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Import into other packages</h1>
             
-            <h4 data-toc-skip class="date">2022-01-29</h4>
+            <h4 data-toc-skip class="date">2022-10-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/HEAD/vignettes/articles/import.Rmd" class="external-link"><code>vignettes/articles/import.Rmd</code></a></small>
       <div class="hidden name"><code>import.Rmd</code></div>
@@ -165,7 +165,7 @@
 <p>The <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> function makes a couple of related assumptions about your package. It assumes that your package builds Vega and Vega-Lite specifications, and that the object that you use to contain a specification may be an object with an S3 class. In the case of altair, the name of this S3 class is <code>"altair.vegalite.v4.api.TopLevelMixin"</code>.</p>
 <p>The first step is generic. In your package-project, your R working directory is the package’s root directory. When you run <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code>, you can provide the name of the S3 class. In the case of altair, we run:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">vegawidget</span><span class="fu">::</span><span class="fu"><a href="../reference/use_vegawidget.html">use_vegawidget</a></span><span class="op">(</span><span class="st">"altair.vegalite.v4.api.TopLevelMixin"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">vegawidget</span><span class="fu">::</span><span class="fu"><a href="../reference/use_vegawidget.html">use_vegawidget</a></span><span class="op">(</span><span class="st">"altair.vegalite.v4.api.TopLevelMixin"</span><span class="op">)</span></span></code></pre></div>
 <p>Like the <code><a href="https://usethis.r-lib.org/reference/use_pipe.html" class="external-link">usethis::use_pipe()</a></code> example, this call does two things:</p>
 <ul>
 <li>adds the <strong>vegawidget</strong> package to the “Imports” section of the package’s DESCRIPTION file</li>
@@ -174,35 +174,35 @@
 <p>However, you have a little bit more work to do before you’re done. You need to edit your new copy of <code>utils-vegawidget-altair.vegalite.v4.api.TopLevelMixin</code> to tell it how to convert your S3 class to a <code>vegaspec</code>. The part of the file that you need to edit is at the very top.</p>
 <p>In the case of altair, the name of the function is <code>as_vegaspec.altair.vegalite.v4.api.TopLevelMixin()</code>; the <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code> function has already named it using the class-name provided.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">as_vegaspec.altair.vegalite.v4.api.TopLevelMixin</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-
-  <span class="co"># TODO: if needed, insert code to convert your object to</span>
-  <span class="co"># something that can be coerced to a vegaspec.</span>
-  <span class="co">#</span>
-  <span class="co"># e.g.:</span>
-  <span class="co"># spec &lt;- spec$to_json()</span>
-
-  <span class="fu">vegawidget</span><span class="fu">::</span><span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">as_vegaspec.altair.vegalite.v4.api.TopLevelMixin</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="co"># TODO: if needed, insert code to convert your object to</span></span>
+<span>  <span class="co"># something that can be coerced to a vegaspec.</span></span>
+<span>  <span class="co">#</span></span>
+<span>  <span class="co"># e.g.:</span></span>
+<span>  <span class="co"># spec &lt;- spec$to_json()</span></span>
+<span></span>
+<span>  <span class="fu">vegawidget</span><span class="fu">::</span><span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>Here, the commented example code is exactly what is needed. The altair “chart” object, <code>altair.vegalite.v4.api.TopLevelMixin</code>, has a method, <code>to_json()</code> to write out the specification to JSON. The vegawidget <code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code> generic has a method for JSON-formatted strings (it also has a method for lists). So our “finished” product looks like:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">as_vegaspec.altair.vegalite.v4.api.TopLevelMixin</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-
-  <span class="va">spec</span> <span class="op">&lt;-</span> <span class="va">spec</span><span class="op">$</span><span class="fu">to_json</span><span class="op">(</span><span class="op">)</span>
-
-  <span class="fu">vegawidget</span><span class="fu">::</span><span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
-<p>One last thing, to enable knit-printing of your class, you should have some code like this in an <code><a href="https://rdrr.io/r/base/ns-hooks.html" class="external-link">.onLoad()</a></code> function, usually kept in a file called <code>zzz.R</code>:</p>
+<code class="sourceCode R"><span><span class="va">as_vegaspec.altair.vegalite.v4.api.TopLevelMixin</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="va">spec</span> <span class="op">&lt;-</span> <span class="va">spec</span><span class="op">$</span><span class="fu">to_json</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">vegawidget</span><span class="fu">::</span><span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="va">spec</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>One last thing, to enable knit-printing of your class, you should have some code like this in an <code>.onLoad()</code> function, usually kept in a file called <code>zzz.R</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">.onLoad</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">libname</span>, <span class="va">pkgname</span><span class="op">)</span> <span class="op">{</span>
-
-  <span class="co"># you might have other code here, too</span>
-
-  <span class="fu">vegawidget</span><span class="fu">::</span><span class="fu"><a href="../reference/s3_register.html">s3_register</a></span><span class="op">(</span>
-    <span class="st">"knitr::knit_print"</span>,
-    <span class="st">"altair.vegalite.v4.api.TopLevelMixin"</span>
-  <span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">.onLoad</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">libname</span>, <span class="va">pkgname</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="co"># you might have other code here, too</span></span>
+<span></span>
+<span>  <span class="fu">vegawidget</span><span class="fu">::</span><span class="fu"><a href="../reference/s3_register.html">s3_register</a></span><span class="op">(</span></span>
+<span>    <span class="st">"knitr::knit_print"</span>,</span>
+<span>    <span class="st">"altair.vegalite.v4.api.TopLevelMixin"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>The function <code><a href="../reference/s3_register.html">vegawidget::s3_register()</a></code> is copied from <code><a href="https://vctrs.r-lib.org/reference/s3_register.html" class="external-link">vctrs::s3_register()</a></code>; for more details please see its <a href="https://vctrs.r-lib.org/reference/s3_register.html" class="external-link">documentation</a>.</p>
 <p>At this point, once you document and re-build the package, vegawidget is fully integrated into it.</p>
 </div>
@@ -225,7 +225,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

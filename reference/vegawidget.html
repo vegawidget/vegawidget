@@ -4,7 +4,7 @@ which is also an htmlwidget. This function builds a vegawidget
 using a vegaspec."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- dependencies from examples --><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/vega-5.21.0/vega%405.21.0.min.js"></script><script src="libs/vega-lite-5.2.0/vega-lite%405.2.0.min.js"></script><link href="libs/vega-embed-6.20.2/vega-embed.css" rel="stylesheet"><script src="libs/vega-embed-6.20.2/vega-embed%406.20.2.min.js"></script><script src="libs/vegawidget-vl5-binding-0.4.1/vegawidget-vl5.js"></script><link id="data-fe4446d11609146234a49085dc284285-1-attachment" rel="attachment" href="libs/data-fe4446d11609146234a49085dc284285-0.0.0/seattle-weather.csv"></head><body data-spy="scroll" data-target="#toc">
+<![endif]--><!-- dependencies from examples --><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/vega-5.22.0/vega%405.22.0.min.js"></script><script src="libs/vega-lite-5.5.0/vega-lite%405.5.0.min.js"></script><link href="libs/vega-embed-6.20.8/vega-embed.css" rel="stylesheet"><script src="libs/vega-embed-6.20.8/vega-embed%406.20.8.min.js"></script><script src="libs/vegawidget-vl5-binding-0.4.2/vegawidget-vl5.js"></script><link id="data-fe4446d11609146234a49085dc284285-1-attachment" rel="attachment" href="libs/data-fe4446d11609146234a49085dc284285-0.0.0/seattle-weather.csv"></head><body data-spy="scroll" data-target="#toc">
     
 
     <div class="container template-reference-topic">
@@ -19,7 +19,7 @@ using a vegaspec."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aja
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -40,7 +40,7 @@ using a vegaspec."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aja
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -94,37 +94,47 @@ using a <code>vegaspec</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vegawidget</span><span class="op">(</span>
-  <span class="va">spec</span>,
-  embed <span class="op">=</span> <span class="cn">NULL</span>,
-  width <span class="op">=</span> <span class="cn">NULL</span>,
-  height <span class="op">=</span> <span class="cn">NULL</span>,
-  elementId <span class="op">=</span> <span class="cn">NULL</span>,
-  base_url <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vegawidget</span><span class="op">(</span></span>
+<span>  <span class="va">spec</span>,</span>
+<span>  embed <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  elementId <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  base_url <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>spec</dt>
 <dd><p>An object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></dd>
+
+
 <dt>embed</dt>
 <dd><p><code>list</code> to specify
 <a href="https://github.com/vega/vega-embed#options" class="external-link">vega-embed</a> options,
 see <strong>Details</strong> on how this is set if <code>NULL</code>.</p></dd>
+
+
 <dt>width</dt>
 <dd><p><code>integer</code>, if specified, the total rendered width (in pixels)
 of the chart - valid only for single-view charts and layered charts;
 the default is to use the width in the chart specification</p></dd>
+
+
 <dt>height</dt>
 <dd><p><code>integer</code>, if specified, the total rendered height (in pixels)
 of the chart - valid only for single-view charts and layered charts;
 the default is to use the height in the chart specification</p></dd>
+
+
 <dt>elementId</dt>
 <dd><p><code>character</code>, explicit element ID for the vegawidget,
 useful if you have other JavaScript that needs to explicitly
 discover and interact with a specific vegawidget</p></dd>
+
+
 <dt>base_url</dt>
 <dd><p><code>character</code>, the base URL to prepend to data-URL elements
 in the vegaspec. This could be the path
@@ -133,12 +143,19 @@ It could be the base for a remote URL. Please note that by specifying
 the <code>base_url</code> here, you will override any <code>loader</code> that you specify
 using <code><a href="vega_embed.html">vega_embed()</a></code>. Please note that this does not work with
 <code>knitr</code>. See examples.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other arguments passed to <code><a href="https://rdrr.io/pkg/htmlwidgets/man/createWidget.html" class="external-link">htmlwidgets::createWidget()</a></code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>S3 object of class <code>vegawidget</code> and <code>htmlwidget</code></p>
+    
+
+<p>S3 object of class <code>vegawidget</code> and <code>htmlwidget</code></p>
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -170,9 +187,9 @@ browser, it should render properly.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in">  <span class="fu">vegawidget</span><span class="op">(</span><span class="va">spec_mtcars</span>, width <span class="op">=</span> <span class="fl">350</span>, height <span class="op">=</span> <span class="fl">350</span><span class="op">)</span></span>
-<div id="htmlwidget-51a087face92552b3a55" style="width:33600px;height:33600px;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-51a087face92552b3a55">{"x":{
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="fu">vegawidget</span><span class="op">(</span><span class="va">spec_mtcars</span>, width <span class="op">=</span> <span class="fl">350</span>, height <span class="op">=</span> <span class="fl">350</span><span class="op">)</span></span></span>
+<div id="htmlwidget-abcb97ab0250fd5447e8" style="width:350px;height:350px;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-abcb97ab0250fd5447e8">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 350,
@@ -660,26 +677,26 @@ browser, it should render properly.</p>
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><span class="r-in"></span>
-<span class="r-in">  <span class="co"># vegaspec with a data URL</span></span>
-<span class="r-in">  <span class="va">spec_precip</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">      `$schema` <span class="op">=</span> <span class="fu"><a href="vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">      data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>url <span class="op">=</span> <span class="st">"seattle-weather.csv"</span><span class="op">)</span>,</span>
-<span class="r-in">      mark <span class="op">=</span> <span class="st">"tick"</span>,</span>
-<span class="r-in">      encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">        x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"precipitation"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span></span>
-<span class="r-in">      <span class="op">)</span></span>
-<span class="r-in">    <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">    <span class="fu"><a href="as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># define local path to file</span></span>
-<span class="r-in">  <span class="va">path_local</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example-data"</span>, package <span class="op">=</span> <span class="st">"vegawidget"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># render using local path (does not work with knitr)</span></span>
-<span class="r-in">  <span class="fu">vegawidget</span><span class="op">(</span><span class="va">spec_precip</span>, base_url <span class="op">=</span> <span class="va">path_local</span><span class="op">)</span></span>
-<div id="htmlwidget-aa9d28433dfbebd8e3bb" style="width:700px;height:432.632880098888px;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-aa9d28433dfbebd8e3bb">{"x":{
+},"evals":[],"jsHooks":[]}</script><span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># vegaspec with a data URL</span></span></span>
+<span class="r-in"><span>  <span class="va">spec_precip</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      `$schema` <span class="op">=</span> <span class="fu"><a href="vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>url <span class="op">=</span> <span class="st">"seattle-weather.csv"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      mark <span class="op">=</span> <span class="st">"tick"</span>,</span></span>
+<span class="r-in"><span>      encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"precipitation"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># define local path to file</span></span></span>
+<span class="r-in"><span>  <span class="va">path_local</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example-data"</span>, package <span class="op">=</span> <span class="st">"vegawidget"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># render using local path (does not work with knitr)</span></span></span>
+<span class="r-in"><span>  <span class="fu">vegawidget</span><span class="op">(</span><span class="va">spec_precip</span>, base_url <span class="op">=</span> <span class="va">path_local</span><span class="op">)</span></span></span>
+<div id="htmlwidget-e0dbc13eb148cb9ca791" style="width:700px;height:432.632880098888px;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e0dbc13eb148cb9ca791">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
@@ -700,17 +717,17 @@ browser, it should render properly.</p>
       "baseURL": "lib/data-fe4446d11609146234a49085dc284285-0.0.0/"
     }
   }
-},"evals":[],"jsHooks":[]}</script><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="co"># requires network-access</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># define remote path to file</span></span>
-<span class="r-in">  <span class="va">url_remote</span> <span class="op">&lt;-</span> <span class="st">"https://vega.github.io/vega-datasets/data"</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># render using remote path</span></span>
-<span class="r-in">  <span class="co"># note: does not render in RStudio IDE; open using browser</span></span>
-<span class="r-in">  <span class="fu">vegawidget</span><span class="op">(</span><span class="va">spec_precip</span>, base_url <span class="op">=</span> <span class="va">url_remote</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+},"evals":[],"jsHooks":[]}</script><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># requires network-access</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># define remote path to file</span></span></span>
+<span class="r-in"><span>  <span class="va">url_remote</span> <span class="op">&lt;-</span> <span class="st">"https://vega.github.io/vega-datasets/data"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># render using remote path</span></span></span>
+<span class="r-in"><span>  <span class="co"># note: does not render in RStudio IDE; open using browser</span></span></span>
+<span class="r-in"><span>  <span class="fu">vegawidget</span><span class="op">(</span><span class="va">spec_precip</span>, base_url <span class="op">=</span> <span class="va">url_remote</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -725,7 +742,7 @@ browser, it should render properly.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

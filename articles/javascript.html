@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -103,13 +103,13 @@
 
       
 
-      </header><script src="javascript_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="javascript_files/vega-5.21.0/vega@5.21.0.min.js"></script><script src="javascript_files/vega-lite-5.2.0/vega-lite@5.2.0.min.js"></script><link href="javascript_files/vega-embed-6.20.2/vega-embed.css" rel="stylesheet">
-<script src="javascript_files/vega-embed-6.20.2/vega-embed@6.20.2.min.js"></script><script src="javascript_files/vegawidget-vl5-binding-0.4.1/vegawidget-vl5.js"></script><div class="row">
+      </header><script src="javascript_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="javascript_files/vega-5.22.0/vega@5.22.0.min.js"></script><script src="javascript_files/vega-lite-5.5.0/vega-lite@5.5.0.min.js"></script><link href="javascript_files/vega-embed-6.20.8/vega-embed.css" rel="stylesheet">
+<script src="javascript_files/vega-embed-6.20.8/vega-embed@6.20.8.min.js"></script><script src="javascript_files/vegawidget-vl5-binding-0.4.2/vegawidget-vl5.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Extend using JavaScript</h1>
             
-            <h4 data-toc-skip class="date">2022-01-29</h4>
+            <h4 data-toc-skip class="date">2022-10-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/HEAD/vignettes/articles/javascript.Rmd" class="external-link"><code>vignettes/articles/javascript.Rmd</code></a></small>
       <div class="hidden name"><code>javascript.Rmd</code></div>
@@ -119,8 +119,8 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/htmltools" class="external-link">"htmltools"</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/htmltools" class="external-link">"htmltools"</a></span><span class="op">)</span></span></code></pre></div>
 <p>You can use JavaScript to extend Vega’s capabilities. In these examples, we show how to use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view" class="external-link">vega-view</a> API to interact with Vega charts. We explore similar ideas in the <a href="shiny.Rmd">extending using Shiny</a> article.</p>
 <p>This article has sections on:</p>
 <ul>
@@ -150,29 +150,29 @@
 <p>Use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view" class="external-link">vega-view API</a> to modify a Vega chart once it has been rendered.</p>
 <p>Here, we recreate this Vega-Lite <a href="https://vega.github.io/vega-lite/tutorials/streaming.html" class="external-link">streaming demo</a>. Our first step is to create a vegaspec. Note that we have a dataset named <code>"table"</code>, but we have not included any data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">spec_table</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-    `$schema` <span class="op">=</span> <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,
-    width <span class="op">=</span> <span class="fl">400</span>,
-    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"table"</span><span class="op">)</span>,
-    mark <span class="op">=</span> <span class="st">"line"</span>,
-    encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-        field <span class="op">=</span> <span class="st">"x"</span>, 
-        type <span class="op">=</span> <span class="st">"quantitative"</span>,
-        scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>zero <span class="op">=</span>  <span class="cn">FALSE</span><span class="op">)</span>
-      <span class="op">)</span>,
-      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"y"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,
-      color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"category"</span>, type <span class="op">=</span> <span class="st">"nominal"</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">spec_table</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    `$schema` <span class="op">=</span> <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">400</span>,</span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"table"</span><span class="op">)</span>,</span>
+<span>    mark <span class="op">=</span> <span class="st">"line"</span>,</span>
+<span>    encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        field <span class="op">=</span> <span class="st">"x"</span>, </span>
+<span>        type <span class="op">=</span> <span class="st">"quantitative"</span>,</span>
+<span>        scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>zero <span class="op">=</span>  <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"y"</span>, type <span class="op">=</span> <span class="st">"quantitative"</span><span class="op">)</span>,</span>
+<span>      color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>field <span class="op">=</span> <span class="st">"category"</span>, type <span class="op">=</span> <span class="st">"nominal"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="demo-vega-view">Demo: vega-view<a class="anchor" aria-label="anchor" href="#demo-vega-view"></a>
 </h3>
 <p>We use the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function with <code>elementId</code> to specify the element containing the chart. Here’s what it does, once we have defined the JavaScript:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_table</span>, elementId <span class="op">=</span> <span class="st">"streaming-demo"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_table</span>, elementId <span class="op">=</span> <span class="st">"streaming-demo"</span><span class="op">)</span></span></code></pre></div>
 <div id="streaming-demo" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
 <script type="application/json" data-for="streaming-demo">{"x":{
   "chart_spec": {
@@ -357,130 +357,130 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <p>First, let’s look at snippets that return values. Because all event-handlers take the same two arguments, <code>event</code> and <code>item</code>, we can focus only on the <em>body</em> of the handler-function.</p>
 <p>This is the purpose of the <code><a href="../reference/vw_handler_signal.html">vw_handler_event()</a></code> function. If we call it without arguments, it prints a list of event-handlers that return values:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## arguments: event, item </span>
-<span class="co">## </span>
-<span class="co">##   body_value: item </span>
-<span class="co">## </span>
-<span class="co">##     // returns the item</span>
-<span class="co">##     return item;</span>
-<span class="co">## </span>
-<span class="co">##   body_value: datum </span>
-<span class="co">## </span>
-<span class="co">##     // if there is no item or no datum, return null</span>
-<span class="co">##     if (item === null || item === undefined || item.datum === undefined) {</span>
-<span class="co">##       return null;</span>
-<span class="co">##     }</span>
-<span class="co">##     </span>
-<span class="co">##     // returns the datum behind the mark associated with the event</span>
-<span class="co">##     return item.datum;</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## arguments: event, item </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##   body_value: item </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     // returns the item</span></span>
+<span><span class="co">##     return item;</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##   body_value: datum </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     // if there is no item or no datum, return null</span></span>
+<span><span class="co">##     if (item === null || item === undefined || item.datum === undefined) {</span></span>
+<span><span class="co">##       return null;</span></span>
+<span><span class="co">##     }</span></span>
+<span><span class="co">##     </span></span>
+<span><span class="co">##     // returns the datum behind the mark associated with the event</span></span>
+<span><span class="co">##     return item.datum;</span></span></code></pre>
 <p>If we want to use a certain handler, we use its only argument: <code>body_value</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## arguments: event, item </span>
-<span class="co">## </span>
-<span class="co">## body_value:</span>
-<span class="co">##   // if there is no item or no datum, return null</span>
-<span class="co">##   if (item === null || item === undefined || item.datum === undefined) {</span>
-<span class="co">##     return null;</span>
-<span class="co">##   }</span>
-<span class="co">##   </span>
-<span class="co">##   // returns the datum behind the mark associated with the event</span>
-<span class="co">##   return item.datum;</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## arguments: event, item </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## body_value:</span></span>
+<span><span class="co">##   // if there is no item or no datum, return null</span></span>
+<span><span class="co">##   if (item === null || item === undefined || item.datum === undefined) {</span></span>
+<span><span class="co">##     return null;</span></span>
+<span><span class="co">##   }</span></span>
+<span><span class="co">##   </span></span>
+<span><span class="co">##   // returns the datum behind the mark associated with the event</span></span>
+<span><span class="co">##   return item.datum;</span></span></code></pre>
 <p>The handler has a print method that shows the arguments and the function body. If you want to supply a custom handler, you can provide your own function body. For example, this handler-function will be less-robust than the <code>"datum"</code> function from the “library”:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"return item.datum;"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## arguments: event, item </span>
-<span class="co">## </span>
-<span class="co">## body_value:</span>
-<span class="co">##   return item.datum;</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"return item.datum;"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## arguments: event, item </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## body_value:</span></span>
+<span><span class="co">##   return item.datum;</span></span></code></pre>
 <p>We’re halfway there - we have a function that will return a value, but not yet a function that will produce an effect. To add an effect to our function, we can use the function <code><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect()</a></code>. Calling it without arguments will list the available effect-handlers.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## arguments: x </span>
-<span class="co">## </span>
-<span class="co">##   body_effect: shiny_input </span>
-<span class="co">##     params: inputId = NULL, expr = "x" </span>
-<span class="co">## </span>
-<span class="co">##     // sets the Shiny-input named `inputId` to `expr` (default "x")</span>
-<span class="co">##     Shiny.setInputValue('${inputId}', ${expr});</span>
-<span class="co">## </span>
-<span class="co">##   body_effect: console </span>
-<span class="co">##     params: label = "", expr = "x" </span>
-<span class="co">## </span>
-<span class="co">##     // if `label` is non-trivial, prints it to the JS console</span>
-<span class="co">##     '${label}'.length &gt; 0 ? console.log('${label}') : null;</span>
-<span class="co">##     // prints `expr` (default "x") to the JS console</span>
-<span class="co">##     console.log(${expr});</span>
-<span class="co">## </span>
-<span class="co">##   body_effect: element_text </span>
-<span class="co">##     params: selector = NULL, expr = "x" </span>
-<span class="co">## </span>
-<span class="co">##     // to element `selector`, adds text `expr` (default "x")</span>
-<span class="co">##     document.querySelector('${selector}').innerText = ${expr}</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## arguments: x </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##   body_effect: shiny_input </span></span>
+<span><span class="co">##     params: inputId = NULL, expr = "x" </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     // sets the Shiny-input named `inputId` to `expr` (default "x")</span></span>
+<span><span class="co">##     Shiny.setInputValue('${inputId}', ${expr});</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##   body_effect: console </span></span>
+<span><span class="co">##     params: label = "", expr = "x" </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     // if `label` is non-trivial, prints it to the JS console</span></span>
+<span><span class="co">##     '${label}'.length &gt; 0 ? console.log('${label}') : null;</span></span>
+<span><span class="co">##     // prints `expr` (default "x") to the JS console</span></span>
+<span><span class="co">##     console.log(${expr});</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##   body_effect: element_text </span></span>
+<span><span class="co">##     params: selector = NULL, expr = "x" </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     // to element `selector`, adds text `expr` (default "x")</span></span>
+<span><span class="co">##     document.querySelector('${selector}').innerText = ${expr}</span></span></code></pre>
 <p>The effect-handlers are designed to be JavaScript code-snippets that work with a single variable, <code>x</code>, representing the value returned from the value-handler.</p>
 <p>We want to print the value to an HTML element, so we will use provided snippet called <code>"element_text"</code>. Note that there two parameters that we can supply, <code>selector</code>, to identify the HTML element, and <code>expr</code>, the JavaScript expression to use. The <code>selector</code> parameter is required; the <code>expr</code> parameter defaults to <code>"x"</code>, the value.</p>
 <p>We supply the parameters as additional arguments to <code><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect()</a></code>:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span><span class="st">"element_text"</span>, selector <span class="op">=</span> <span class="st">"#output-datum"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## arguments: event, item </span>
-<span class="co">## </span>
-<span class="co">## body_value:</span>
-<span class="co">##   // if there is no item or no datum, return null</span>
-<span class="co">##   if (item === null || item === undefined || item.datum === undefined) {</span>
-<span class="co">##     return null;</span>
-<span class="co">##   }</span>
-<span class="co">##   </span>
-<span class="co">##   // returns the datum behind the mark associated with the event</span>
-<span class="co">##   return item.datum;</span>
-<span class="co">## body_effect:</span>
-<span class="co">##   // to element `selector`, adds text `expr` (default "x")</span>
-<span class="co">##   document.querySelector('#output-datum').innerText = x</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span><span class="st">"element_text"</span>, selector <span class="op">=</span> <span class="st">"#output-datum"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## arguments: event, item </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## body_value:</span></span>
+<span><span class="co">##   // if there is no item or no datum, return null</span></span>
+<span><span class="co">##   if (item === null || item === undefined || item.datum === undefined) {</span></span>
+<span><span class="co">##     return null;</span></span>
+<span><span class="co">##   }</span></span>
+<span><span class="co">##   </span></span>
+<span><span class="co">##   // returns the datum behind the mark associated with the event</span></span>
+<span><span class="co">##   return item.datum;</span></span>
+<span><span class="co">## body_effect:</span></span>
+<span><span class="co">##   // to element `selector`, adds text `expr` (default "x")</span></span>
+<span><span class="co">##   document.querySelector('#output-datum').innerText = x</span></span></code></pre>
 <p>The R functions interpolate the parameters into the JavaScript code-snippet. If we were to use this <code>body_effect</code> as is, the text that appears in the HTML element would be <code>[object Object]</code>, which is not very informative. Instead, we will use the <code>expr</code> parameter to insert an expression to convert the JavaScript object to JSON text:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">handler_event</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>    
-  <span class="fu"><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span>
-    <span class="st">"element_text"</span>, 
-    selector <span class="op">=</span> <span class="st">"#output-datum"</span>,
-    expr <span class="op">=</span> <span class="st">"JSON.stringify(x, null, '  ');"</span>
-  <span class="op">)</span>
-
-<span class="va">handler_event</span></code></pre></div>
-<pre><code><span class="co">## arguments: event, item </span>
-<span class="co">## </span>
-<span class="co">## body_value:</span>
-<span class="co">##   // if there is no item or no datum, return null</span>
-<span class="co">##   if (item === null || item === undefined || item.datum === undefined) {</span>
-<span class="co">##     return null;</span>
-<span class="co">##   }</span>
-<span class="co">##   </span>
-<span class="co">##   // returns the datum behind the mark associated with the event</span>
-<span class="co">##   return item.datum;</span>
-<span class="co">## body_effect:</span>
-<span class="co">##   // to element `selector`, adds text `expr` (default "x")</span>
-<span class="co">##   document.querySelector('#output-datum').innerText = JSON.stringify(x, null, '  ');</span></code></pre>
+<code class="sourceCode R"><span><span class="va">handler_event</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>    </span>
+<span>  <span class="fu"><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span></span>
+<span>    <span class="st">"element_text"</span>, </span>
+<span>    selector <span class="op">=</span> <span class="st">"#output-datum"</span>,</span>
+<span>    expr <span class="op">=</span> <span class="st">"JSON.stringify(x, null, '  ');"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">handler_event</span></span></code></pre></div>
+<pre><code><span><span class="co">## arguments: event, item </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## body_value:</span></span>
+<span><span class="co">##   // if there is no item or no datum, return null</span></span>
+<span><span class="co">##   if (item === null || item === undefined || item.datum === undefined) {</span></span>
+<span><span class="co">##     return null;</span></span>
+<span><span class="co">##   }</span></span>
+<span><span class="co">##   </span></span>
+<span><span class="co">##   // returns the datum behind the mark associated with the event</span></span>
+<span><span class="co">##   return item.datum;</span></span>
+<span><span class="co">## body_effect:</span></span>
+<span><span class="co">##   // to element `selector`, adds text `expr` (default "x")</span></span>
+<span><span class="co">##   document.querySelector('#output-datum').innerText = JSON.stringify(x, null, '  ');</span></span></code></pre>
 <p>One last note on the effect-handlers: you can add as many (or as few) as you like to a handler-function by piping successive calls to <code>vw_handler_add_event()</code>.</p>
 <p>If we want to look at what the composed handler-function looks like, you can use the <code><a href="../reference/vw_handler_body_compose.html">vw_handler_compose()</a></code> function:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vw_handler_body_compose.html">vw_handler_compose</a></span><span class="op">(</span><span class="va">handler_event</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## function (event, item) {</span>
-<span class="co">##   (function (x) {</span>
-<span class="co">##     // to element `selector`, adds text `expr` (default "x")</span>
-<span class="co">##     document.querySelector('#output-datum').innerText = JSON.stringify(x, null, '  ');</span>
-<span class="co">##   })(</span>
-<span class="co">##     (function () {</span>
-<span class="co">##       // if there is no item or no datum, return null</span>
-<span class="co">##       if (item === null || item === undefined || item.datum === undefined) {</span>
-<span class="co">##         return null;</span>
-<span class="co">##       }</span>
-<span class="co">##       </span>
-<span class="co">##       // returns the datum behind the mark associated with the event</span>
-<span class="co">##       return item.datum;</span>
-<span class="co">##     })()</span>
-<span class="co">##   )</span>
-<span class="co">## }</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_body_compose.html">vw_handler_compose</a></span><span class="op">(</span><span class="va">handler_event</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## function (event, item) {</span></span>
+<span><span class="co">##   (function (x) {</span></span>
+<span><span class="co">##     // to element `selector`, adds text `expr` (default "x")</span></span>
+<span><span class="co">##     document.querySelector('#output-datum').innerText = JSON.stringify(x, null, '  ');</span></span>
+<span><span class="co">##   })(</span></span>
+<span><span class="co">##     (function () {</span></span>
+<span><span class="co">##       // if there is no item or no datum, return null</span></span>
+<span><span class="co">##       if (item === null || item === undefined || item.datum === undefined) {</span></span>
+<span><span class="co">##         return null;</span></span>
+<span><span class="co">##       }</span></span>
+<span><span class="co">##       </span></span>
+<span><span class="co">##       // returns the datum behind the mark associated with the event</span></span>
+<span><span class="co">##       return item.datum;</span></span>
+<span><span class="co">##     })()</span></span>
+<span><span class="co">##   )</span></span>
+<span><span class="co">## }</span></span></code></pre>
 <p>In practice, you are not compelled to use either this function or its friend, <code><a href="../reference/vw_handler_body_compose.html">vw_handler_body_compose()</a></code>; the listener functions will know what to do.</p>
 </div>
 <div class="section level3">
@@ -488,21 +488,21 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 </h3>
 <p>We create our vegawidget, then attach our handler, specifying that we want to listen to <code>"click"</code> events, and respond to them using our event-handler:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">output_scatterplot</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/add-listeners.html">vw_add_event_listener</a></span><span class="op">(</span><span class="st">"click"</span>, handler_body <span class="op">=</span> <span class="va">handler_event</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">output_scatterplot</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add-listeners.html">vw_add_event_listener</a></span><span class="op">(</span><span class="st">"click"</span>, handler_body <span class="op">=</span> <span class="va">handler_event</span><span class="op">)</span></span></code></pre></div>
 <p>We create our element that will contain the output of the event-handler:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">output_datum</span> <span class="op">&lt;-</span> <span class="va">tags</span><span class="op">$</span><span class="fu">pre</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"output-datum"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">output_datum</span> <span class="op">&lt;-</span> <span class="va">tags</span><span class="op">$</span><span class="fu">pre</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"output-datum"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="demo-events">Demo: events<a class="anchor" aria-label="anchor" href="#demo-events"></a>
 </h3>
 <p>When you click anywhere in the plotting-rectangle, the observation associated with the mark (if any) where you clicked will be printed below.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">output_scatterplot</span></code></pre></div>
-<div id="htmlwidget-a2320b20baa60e843ca4" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a2320b20baa60e843ca4">{"x":{
+<code class="sourceCode R"><span><span class="va">output_scatterplot</span></span></code></pre></div>
+<div id="htmlwidget-b9951b93cff1169835a3" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b9951b93cff1169835a3">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
@@ -981,8 +981,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(
     "defaultStyle": true
   }
 },"evals":[],"jsHooks":{"render":[{"code":"function(el, x) {\n  this.viewPromise.then(function(view) {\n    view.addEventListener('click', function(event, item) {\n      (function (x) {\n        // to element `selector`, adds text `expr` (default \"x\")\n        document.querySelector('#output-datum').innerText = JSON.stringify(x, null, '  ');\n      })(\n        (function () {\n          // if there is no item or no datum, return null\n          if (item === null || item === undefined || item.datum === undefined) {\n            return null;\n          }\n          \n          // returns the datum behind the mark associated with the event\n          return item.datum;\n        })()\n      )\n    });\n  });\n}","data":null}]}}</script><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">output_datum</span></code></pre></div>
-<p></p>
+<code class="sourceCode R"><span><span class="va">output_datum</span></span></code></pre></div>
 <pre id="output-datum"></pre>
 <hr>
 </div>
@@ -994,89 +993,89 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <p>There is emerging support for signals in <strong>Vega-Lite</strong>, where they are called <a href="https://vega.github.io/vega-lite/docs/parameter.html" class="external-link">parameters</a>. As of Vega-Lite version 5.20, you still need to make some workarounds.</p>
 <p>First, there is a top-level element called <code>params</code>, which is a list. Each element of this list is itself a list, with elements <code>name</code> and <code>value</code>. For example:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"bin_width"</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"something_else"</span>, value <span class="op">=</span> <span class="st">"some string"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"bin_width"</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"something_else"</span>, value <span class="op">=</span> <span class="st">"some string"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Then, to implement the parameters, you would substitute the value with an <code>expr</code> list. For example, to set a bin width:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-  field <span class="op">=</span> <span class="st">"temp"</span>,
-  type <span class="op">=</span> <span class="st">"quantitative"</span>,
-  bin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>step <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>expr <span class="op">=</span> <span class="st">"bin_width"</span><span class="op">)</span><span class="op">)</span>,
-  axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">".1f"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  field <span class="op">=</span> <span class="st">"temp"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"quantitative"</span>,</span>
+<span>  bin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>step <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>expr <span class="op">=</span> <span class="st">"bin_width"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">".1f"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>This is the part that is not yet quite working. There are places, like this, where an <code>expr</code> list should work, but doesn’t. There is a workaround, to use <code>signal</code> instead of <code>expr</code>. For example:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-  field <span class="op">=</span> <span class="st">"temp"</span>,
-  type <span class="op">=</span> <span class="st">"quantitative"</span>,
-  bin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>step <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>signal <span class="op">=</span> <span class="st">"bin_width"</span><span class="op">)</span><span class="op">)</span>,
-  axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">".1f"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  field <span class="op">=</span> <span class="st">"temp"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"quantitative"</span>,</span>
+<span>  bin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>step <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>signal <span class="op">=</span> <span class="st">"bin_width"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">".1f"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>This works, but it violates the Vega-Lite schema. There is a <a href="https://github.com/vega/vega-lite/pull/7463" class="external-link">pull-request</a> to fix this; when released, we’ll update vegawidget.</p>
 <p>Here, we use this workaround to create an interactive histogram. We use the <code>data_seattle_hourly</code> dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010. In addition to the histogram, we will provide a slider-input to specify the bin-width and we will print the bin-width to an element of the HTML document.</p>
 <p>Our first step is to create a Vega-Lite specification for a <a href="https://vega.github.io/vega-lite/examples/histogram.html" class="external-link">histogram</a>.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">spec_histogram</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-    `$schema` <span class="op">=</span> <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,
-    width <span class="op">=</span> <span class="fl">300</span>,
-    height <span class="op">=</span> <span class="fl">300</span>,
-    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"bin_width"</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-    <span class="op">)</span>,
-    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">data_seattle_hourly</span><span class="op">)</span>,
-    mark <span class="op">=</span> <span class="st">"bar"</span>,
-    encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-        field <span class="op">=</span> <span class="st">"temp"</span>,
-        type <span class="op">=</span> <span class="st">"quantitative"</span>,
-        bin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>step <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>signal <span class="op">=</span> <span class="st">"bin_width"</span><span class="op">)</span><span class="op">)</span>,
-        axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">".1f"</span><span class="op">)</span>
-      <span class="op">)</span>,
-      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-        aggregate <span class="op">=</span> <span class="st">"count"</span>,
-        type <span class="op">=</span> <span class="st">"quantitative"</span>
-      <span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">spec_histogram</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    `$schema` <span class="op">=</span> <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>    height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"bin_width"</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">data_seattle_hourly</span><span class="op">)</span>,</span>
+<span>    mark <span class="op">=</span> <span class="st">"bar"</span>,</span>
+<span>    encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        field <span class="op">=</span> <span class="st">"temp"</span>,</span>
+<span>        type <span class="op">=</span> <span class="st">"quantitative"</span>,</span>
+<span>        bin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>step <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>signal <span class="op">=</span> <span class="st">"bin_width"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">".1f"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        aggregate <span class="op">=</span> <span class="st">"count"</span>,</span>
+<span>        type <span class="op">=</span> <span class="st">"quantitative"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Our <code>output_histogram</code> will be a vegawidget that is contained in an HTML element with an ID of <code>"histogram"</code>.</p>
 <p>The next step is to use the <code>tags</code> environment from the <strong>htmltools</strong> package to create a range input that we can use to specify the bin-width. The input will work logarithmically, where the center of the range will correspond to zero, or a baseline bin-width. The range of the input is from -1 to 1, which will correspond to one decade below the baseline bin-width, and one decade above.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">input_bin_width</span> <span class="op">&lt;-</span> 
-  <span class="va">tags</span><span class="op">$</span><span class="fu">input</span><span class="op">(</span>
-    type <span class="op">=</span> <span class="st">"range"</span>, 
-    name <span class="op">=</span> <span class="st">"bin_width"</span>, 
-    value <span class="op">=</span> <span class="fl">0</span>, 
-    min <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, 
-    max <span class="op">=</span> <span class="fl">1</span>,
-    step <span class="op">=</span> <span class="fl">0.01</span>,
-    style <span class="op">=</span> <span class="st">"width: 400px; margin-bottom: 10px;"</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">input_bin_width</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">input</span><span class="op">(</span></span>
+<span>    type <span class="op">=</span> <span class="st">"range"</span>, </span>
+<span>    name <span class="op">=</span> <span class="st">"bin_width"</span>, </span>
+<span>    value <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>    min <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, </span>
+<span>    max <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    step <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<span>    style <span class="op">=</span> <span class="st">"width: 400px; margin-bottom: 10px;"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p>We also define an output element to tell us the bin-width that Vega is using. We seed it with some dummy-text; we will connect it to the Vega chart using a <a href="https://vega.github.io/vega/docs/api/view/#view_addSignalListener" class="external-link">signal-listener</a>.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">output_bin_width</span> <span class="op">&lt;-</span>
-  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>
-    <span class="st">"The histogram bin-width is "</span>,
-    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"output-bin-width"</span>, <span class="st">"foo"</span><span class="op">)</span>,
-    <span class="st">" °F."</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">output_bin_width</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
+<span>    <span class="st">"The histogram bin-width is "</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"output-bin-width"</span>, <span class="st">"foo"</span><span class="op">)</span>,</span>
+<span>    <span class="st">" °F."</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p>Like the event-listener above, we have to supply a signal-handler to the signal-listener.</p>
 <p>A signal-handler is a JavaScript function that takes two arguments, the <code>name</code> of the signal and the <code>value</code> of the signal. Like the example above, we define a signal-handler to return the value of the signal, then put the value into the HTML element with ID <code>"output-bin-width"</code>, as its text. Note that we are using the <code>expr</code> parameter to specify that we want only three decimal places.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">handler_bin_width</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_signal</a></span><span class="op">(</span><span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span>
-    <span class="st">"element_text"</span>,
-    selector <span class="op">=</span> <span class="st">"#output-bin-width"</span>,
-    expr <span class="op">=</span> <span class="st">"x.toFixed(3)"</span>
-  <span class="op">)</span>
-
-<span class="va">output_histogram</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_histogram</span>, elementId <span class="op">=</span> <span class="st">"histogram"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/add-listeners.html">vw_add_signal_listener</a></span><span class="op">(</span><span class="st">"bin_width"</span>, <span class="va">handler_bin_width</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">handler_bin_width</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_signal</a></span><span class="op">(</span><span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span></span>
+<span>    <span class="st">"element_text"</span>,</span>
+<span>    selector <span class="op">=</span> <span class="st">"#output-bin-width"</span>,</span>
+<span>    expr <span class="op">=</span> <span class="st">"x.toFixed(3)"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">output_histogram</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_histogram</span>, elementId <span class="op">=</span> <span class="st">"histogram"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add-listeners.html">vw_add_signal_listener</a></span><span class="op">(</span><span class="st">"bin_width"</span>, <span class="va">handler_bin_width</span><span class="op">)</span></span></code></pre></div>
 <p>We use the function <code><a href="../reference/add-listeners.html">vw_add_signal_listener()</a></code> to add the signal-listener to the vegawidget. We specify that whenever the value of the <code>"bin-width"</code> signal changes, Vega will call the signal-handler function, which will update the text in <code>output_bin_width</code>.</p>
 <p>We can print the HTML elements to the document; these are “live”, but it remains to define the actions that connect <code>input_bin_width</code> to the Vega histogram.</p>
 <div class="section level3">
@@ -1085,10 +1084,9 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <p>You can use the slider to adjust the bin-width for the histogram of temperature observations in Seattle. The slider works on a logarithmic scale; the baseline bin-width is 1.0 °F, its range is from 0.1 °F to 10.0 °F.</p>
 <p>The value of the bin-width is printed to as text below the histogram.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">input_bin_width</span></code></pre></div>
-<p><input type="range" name="bin_width" value="0" min="-1" max="1" step="0.01" style="width: 400px; margin-bottom: 10px;"></p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">output_histogram</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">input_bin_width</span></span></code></pre></div>
+<input type="range" name="bin_width" value="0" min="-1" max="1" step="0.01" style="width: 400px; margin-bottom: 10px;"><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">output_histogram</span></span></code></pre></div>
 <div id="histogram" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
 <script type="application/json" data-for="histogram">{"x":{
   "chart_spec": {
@@ -36166,7 +36164,7 @@ Vegawidget.findViewPromise('#streaming-demo').then(
     "defaultStyle": true
   }
 },"evals":[],"jsHooks":{"render":[{"code":"function(el, x) {\n  this.viewPromise.then(function(view) {\n    view.addSignalListener('bin_width', function(name, value) {\n      (function (x) {\n        // to element `selector`, adds text `expr` (default \"x\")\n        document.querySelector('#output-bin-width').innerText = x.toFixed(3)\n      })(\n        (function () {\n          // returns the value of the signal\n          return value;\n        })()\n      )\n    });\n  });\n}","data":null}]}}</script><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">output_bin_width</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">output_bin_width</span></span></code></pre></div>
 <p>
 The histogram bin-width is 
 <span id="output-bin-width">foo</span>
@@ -36236,67 +36234,66 @@ Hopefully, by taking a few tentative steps with JavaScript, and by exposing them
 <p>Let’s consider an example with a dataset that has a single observation, and that observation falls on the unit-circle. We will use an input-slider to change the angle of the observation.</p>
 <p>First, we create a range-input that to specify an angle - in our case 0 to 360 degrees. In the HTML document, our input is named <code>"inp_angle"</code>.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">input_angle</span> <span class="op">&lt;-</span> 
-  <span class="va">tags</span><span class="op">$</span><span class="fu">input</span><span class="op">(</span>
-    type <span class="op">=</span> <span class="st">"range"</span>, 
-    name <span class="op">=</span> <span class="st">"inp_angle"</span>, 
-    value <span class="op">=</span> <span class="fl">0</span>, 
-    min <span class="op">=</span> <span class="fl">0</span>, 
-    max <span class="op">=</span> <span class="fl">360</span>, 
-    step <span class="op">=</span> <span class="fl">1</span>,
-    style <span class="op">=</span> <span class="st">"width: 400px; margin-bottom: 10px;"</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">input_angle</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">input</span><span class="op">(</span></span>
+<span>    type <span class="op">=</span> <span class="st">"range"</span>, </span>
+<span>    name <span class="op">=</span> <span class="st">"inp_angle"</span>, </span>
+<span>    value <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>    min <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>    max <span class="op">=</span> <span class="fl">360</span>, </span>
+<span>    step <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    style <span class="op">=</span> <span class="st">"width: 400px; margin-bottom: 10px;"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p>Next, we define our data-output and the data-handler. For the output, we provide an <code>id</code>, <code>"output-data"</code>, to identify where in this document to write the data. Our handler function the data set to it, convert it to JSON (with a little formatting), then put the JSON string into our output element named <code>"output-data"</code>.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">output_data</span> <span class="op">&lt;-</span> <span class="va">tags</span><span class="op">$</span><span class="fu">pre</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"output-data"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">output_data</span> <span class="op">&lt;-</span> <span class="va">tags</span><span class="op">$</span><span class="fu">pre</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"output-data"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">handler_data</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_data</a></span><span class="op">(</span><span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span>
-    <span class="st">"element_text"</span>,
-    selector <span class="op">=</span> <span class="st">"#output-data"</span>,
-    expr <span class="op">=</span> <span class="st">"JSON.stringify(x, null, '  ');"</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">handler_data</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_data</a></span><span class="op">(</span><span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span></span>
+<span>    <span class="st">"element_text"</span>,</span>
+<span>    selector <span class="op">=</span> <span class="st">"#output-data"</span>,</span>
+<span>    expr <span class="op">=</span> <span class="st">"JSON.stringify(x, null, '  ');"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p>Finally, we create a specification, use it to create a vegawidget with an <code>elementId</code> of <code>"circle"</code>, then and add our data-listener to it.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">spec_circle</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-    `$schema` <span class="op">=</span> <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,
-    width <span class="op">=</span> <span class="fl">300</span>,
-    height <span class="op">=</span> <span class="fl">300</span>,
-    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-      values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
-      name <span class="op">=</span> <span class="st">"source"</span>
-    <span class="op">)</span>,
-    mark <span class="op">=</span> <span class="st">"point"</span>,
-    encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-        field <span class="op">=</span> <span class="st">"x"</span>, 
-        type <span class="op">=</span> <span class="st">"quantitative"</span>, 
-        scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-      <span class="op">)</span>,
-      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-        field <span class="op">=</span> <span class="st">"y"</span>, 
-        type <span class="op">=</span> <span class="st">"quantitative"</span>, 
-        scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-      <span class="op">)</span>     
-    <span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">output_chart</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_circle</span>, elementId <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/add-listeners.html">vw_add_data_listener</a></span><span class="op">(</span><span class="st">"source"</span>, <span class="va">handler_data</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">spec_circle</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    `$schema` <span class="op">=</span> <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>    height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>      name <span class="op">=</span> <span class="st">"source"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    mark <span class="op">=</span> <span class="st">"point"</span>,</span>
+<span>    encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        field <span class="op">=</span> <span class="st">"x"</span>, </span>
+<span>        type <span class="op">=</span> <span class="st">"quantitative"</span>, </span>
+<span>        scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        field <span class="op">=</span> <span class="st">"y"</span>, </span>
+<span>        type <span class="op">=</span> <span class="st">"quantitative"</span>, </span>
+<span>        scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>     </span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">output_chart</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_circle</span>, elementId <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add-listeners.html">vw_add_data_listener</a></span><span class="op">(</span><span class="st">"source"</span>, <span class="va">handler_data</span><span class="op">)</span></span></code></pre></div>
 <p>We can print out our HTML elements to the document, then, like in the signal-example, we will add some JavaScript to define the interactions.</p>
 <div class="section level3">
 <h3 id="demo-data">Demo: data<a class="anchor" aria-label="anchor" href="#demo-data"></a>
 </h3>
 <p>A dataset has a single observation, bound to the unit circle. You can use the input-slider to specify the angle of the observation; you will see the JSON representation of the dataset below the chart.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">input_angle</span></code></pre></div>
-<p><input type="range" name="inp_angle" value="0" min="0" max="360" step="1" style="width: 400px; margin-bottom: 10px;"></p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">output_chart</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">input_angle</span></span></code></pre></div>
+<input type="range" name="inp_angle" value="0" min="0" max="360" step="1" style="width: 400px; margin-bottom: 10px;"><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">output_chart</span></span></code></pre></div>
 <div id="circle" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
 <script type="application/json" data-for="circle">{"x":{
   "chart_spec": {
@@ -36339,8 +36336,7 @@ Hopefully, by taking a few tentative steps with JavaScript, and by exposing them
     "defaultStyle": true
   }
 },"evals":[],"jsHooks":{"render":[{"code":"function(el, x) {\n  this.viewPromise.then(function(view) {\n    view.addDataListener('source', function(name, value) {\n      (function (x) {\n        // to element `selector`, adds text `expr` (default \"x\")\n        document.querySelector('#output-data').innerText = JSON.stringify(x, null, '  ');\n      })(\n        (function () {\n          // returns the value of the signal\n          return value;\n        })()\n      )\n    });\n  });\n}","data":null}]}}</script><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">output_data</span></code></pre></div>
-<p></p>
+<code class="sourceCode R"><span><span class="va">output_data</span></span></code></pre></div>
 <pre id="output-data"></pre>
 <p>Please note that the next few code-chunks are <a href="https://github.com/jeroen/js" class="external-link">js</a> chunks rather than <code>{r}</code> chunks.</p>
 <p>Like above, we create a JavaScript variable, <code>angle</code> that refers to the input-slider.</p>
@@ -36426,7 +36422,7 @@ on_angle()
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

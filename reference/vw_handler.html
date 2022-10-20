@@ -19,7 +19,7 @@ vw_handler_add_effect()."><!-- mathjax --><script src="https://cdnjs.cloudflare.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -40,7 +40,7 @@ vw_handler_add_effect()."><!-- mathjax --><script src="https://cdnjs.cloudflare.
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -94,21 +94,30 @@ vw_handler_add_effect()."><!-- mathjax --><script src="https://cdnjs.cloudflare.
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vw_handler</span><span class="op">(</span><span class="va">args</span>, <span class="va">body_value</span>, <span class="va">body_effect</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vw_handler</span><span class="op">(</span><span class="va">args</span>, <span class="va">body_value</span>, <span class="va">body_effect</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>args</dt>
 <dd><p><code>character</code>, vector of names for the arguments for the handler</p></dd>
+
+
 <dt>body_value</dt>
 <dd><p><code>character</code>, body of the <em>value</em> part of the handler</p></dd>
+
+
 <dt>body_effect</dt>
 <dd><p><code>character</code>, body of the <em>effect</em> part of the handler</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>object with S3 class <code>vw_handler</code></p>
+    
+
+<p>object with S3 class <code>vw_handler</code></p>
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -135,7 +144,7 @@ side-effect</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

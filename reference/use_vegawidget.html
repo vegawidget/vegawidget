@@ -19,7 +19,7 @@ this article."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -40,7 +40,7 @@ this article."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -94,9 +94,9 @@ functions in your package. For more detail, please see
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">use_vegawidget</span><span class="op">(</span>s3_class_name <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="fu">use_vegawidget_interactive</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">use_vegawidget</span><span class="op">(</span>s3_class_name <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">use_vegawidget_interactive</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,10 +104,13 @@ functions in your package. For more detail, please see
     <dl><dt>s3_class_name</dt>
 <dd><p><code>character</code>, name of an S3 class for object to
 be coerced to a <code>vegaspec</code>; default (NULL) implies no additional class</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>invisible <code>NULL</code>, called for side effects</p>
+    
+
+<p>invisible <code>NULL</code>, called for side effects</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -127,7 +130,7 @@ to re-export.</p></li>
 argument. You will have to edit <code>R/utils-vegawidget-&lt;s3_class_name&gt;.R</code>:</p><ul><li><p>add the code within your class's method for
 to coerce your object to a <code>vegaspec</code>.</p></li>
 </ul><p>To permit knit-printing of your custom class, you will have to add some code
-to your package's <code><a href="https://rdrr.io/r/base/ns-hooks.html" class="external-link">.onLoad()</a></code> function.</p>
+to your package's <code>.onLoad()</code> function.</p>
 <p><strong><code>use_vegawidget_interactive()</code></strong>:</p>
 <p>If you want to add the JavaScript and Shiny functions,
 use this after running <code>use_vegawidget()</code>. It adds:</p><ul><li><p><code><a href="add-listeners.html">vw_add_data_listener()</a></code> and other listener-functions.</p></li>
@@ -152,7 +155,7 @@ to re-export.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -5,14 +5,14 @@ in specs using the relative path from the base.
 For example, this
 Vega-Lite example
 uses the base URL https://cdn.jsdelivr.net/npm/vega-datasets@2. In a spec,
-instead of specifying:data = "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/cars.json"
+instead of specifying:
+data = "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/cars.json"
 
+You can call:
+vw_set_base_url("https://cdn.jsdelivr.net/npm/vega-datasets@2")
 
-You can call:vw_set_base_url("https://cdn.jsdelivr.net/npm/vega-datasets@2")
-
-
-Then specify:data = "data/cars.json"
-
+Then specify:
+data = "data/cars.json"
 
 This function sets the value of getOption("vega-embed")$loader$baseURL.
 You need set it only once in a session or RMarkdown file.'><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -33,7 +33,7 @@ You need set it only once in a session or RMarkdown file.'><!-- mathjax --><scri
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -54,7 +54,7 @@ You need set it only once in a session or RMarkdown file.'><!-- mathjax --><scri
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -108,38 +108,41 @@ in specs using the relative path from the base.</p>
 <p>For example, this
 <a href="https://vega.github.io/vega-lite/examples/point_2d.html" class="external-link">Vega-Lite example</a>
 uses the base URL <code>https://cdn.jsdelivr.net/npm/vega-datasets@2</code>. In a spec,
-instead of specifying:</p><div class="sourceCode"><pre><code><span class="va">data</span> <span class="op">=</span> <span class="st">"https://cdn.jsdelivr.net/npm/vega-datasets@2/data/cars.json"</span></code></pre></div>
-
-<p>You can call:</p><div class="sourceCode"><pre><code><span class="fu"><a href="../reference/vw_set_base_url.html">vw_set_base_url</a></span><span class="op">(</span><span class="st">"https://cdn.jsdelivr.net/npm/vega-datasets@2"</span><span class="op">)</span></code></pre></div>
-
-<p>Then specify:</p><div class="sourceCode"><pre><code><span class="va">data</span> <span class="op">=</span> <span class="st">"data/cars.json"</span></code></pre></div>
-
+instead of specifying:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="st">"https://cdn.jsdelivr.net/npm/vega-datasets@2/data/cars.json"</span></span></code></pre><p></p></div>
+<p>You can call:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vw_set_base_url</span>(<span class="st">"https://cdn.jsdelivr.net/npm/vega-datasets@2"</span>)</span></code></pre><p></p></div>
+<p>Then specify:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="st">"data/cars.json"</span></span></code></pre><p></p></div>
 <p>This function sets the value of <code>getOption("vega-embed")$loader$baseURL</code>.
 You need set it only once in a session or RMarkdown file.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vw_set_base_url</span><span class="op">(</span><span class="va">url</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vw_set_base_url</span><span class="op">(</span><span class="va">url</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>url</dt>
 <dd><p><code>character</code> URL to use as the base URL.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>character</code> called for side effects, it returns the previous value
+    
+
+<p><code>character</code> called for side effects, it returns the previous value
 invisibly.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"> <span class="co"># this is the URL used for Vega datasets</span></span>
-<span class="r-in"> <span class="va">previous</span> <span class="op">&lt;-</span> <span class="fu">vw_set_base_url</span><span class="op">(</span><span class="st">"https://cdn.jsdelivr.net/npm/vega-datasets@2"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"> <span class="co"># reset to previous value</span></span>
-<span class="r-in"> <span class="fu">vw_set_base_url</span><span class="op">(</span><span class="va">previous</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span> <span class="co"># this is the URL used for Vega datasets</span></span></span>
+<span class="r-in"><span> <span class="va">previous</span> <span class="op">&lt;-</span> <span class="fu">vw_set_base_url</span><span class="op">(</span><span class="st">"https://cdn.jsdelivr.net/npm/vega-datasets@2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span> <span class="co"># reset to previous value</span></span></span>
+<span class="r-in"><span> <span class="fu">vw_set_base_url</span><span class="op">(</span><span class="va">previous</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -154,7 +157,7 @@ invisibly.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

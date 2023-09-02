@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
+          - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
@@ -29,12 +29,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: actions/checkout@v2
-
-      # needed on Mac to for images to print
-      - name: Install X11 dependencies on MacOS
-        if: runner.os == 'macOS'
-        run: brew install --cask xquartz
+      - uses: actions/checkout@v3
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -48,13 +43,6 @@ jobs:
         with:
           extra-packages: any::rcmdcheck
           needs: check
-
-      # just to be sure on V8
-      - name: Check V8 engine
-        run: |
-          utils::packageVersion("V8")
-          V8::engine_info()
-        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
         with:

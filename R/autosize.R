@@ -55,29 +55,30 @@ vw_autosize <- function(spec, width = NULL, height = NULL) {
     call. = FALSE)
 }
 
-.autosize.vegaspec_hconcat <- function(spec, width = NULL, height = NULL) {
+.autosize.vegaspec_hconcat <- function(spec, width = NULL, height = NULL, ...) {
   # the message that used to be here, and in the other autosize methods,
   # seemed too chatty
   NextMethod()
 }
 
-.autosize.vegaspec_vconcat <- function(spec, width = NULL, height = NULL) {
+.autosize.vegaspec_vconcat <- function(spec, width = NULL, height = NULL, ...) {
   NextMethod()
 }
 
-.autosize.vegaspec_concat <- function(spec, width = NULL, height = NULL) {
+.autosize.vegaspec_concat <- function(spec, width = NULL, height = NULL, ...) {
   NextMethod()
 }
 
-.autosize.vegaspec_facet <- function(spec, width = NULL, height = NULL) {
+.autosize.vegaspec_facet <- function(spec, width = NULL, height = NULL, ...) {
   NextMethod()
 }
 
-.autosize.vegaspec_repeat <- function(spec, width = NULL, height = NULL) {
+.autosize.vegaspec_repeat <- function(spec, width = NULL, height = NULL, ...) {
   NextMethod()
 }
 
-.autosize.vegaspec_vega_lite <- function(spec, width = NULL, height = NULL) {
+.autosize.vegaspec_vega_lite <- function(spec, width = NULL, height = NULL,
+                                         ...) {
 
   if (is.null(c(width, height))) {
     # nothing to do here
@@ -104,7 +105,7 @@ vw_autosize <- function(spec, width = NULL, height = NULL) {
   spec
 }
 
-.autosize.vegaspec_vega <- function(spec, width = NULL, height = NULL) {
+.autosize.vegaspec_vega <- function(spec, width = NULL, height = NULL, ...) {
 
   if (is.null(c(width, height))) {
     # nothing to do here

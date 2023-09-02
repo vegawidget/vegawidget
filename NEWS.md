@@ -1,4 +1,4 @@
-# vegawidget (development version)
+# vegawidget 0.4.3
 
 * Update method signatures of internal function for autosizing (#225)
 

@@ -146,8 +146,13 @@ get_major <- function(x) {
 #'
 get_candidate <- function(version, candidates) {
 
-  major <- function(x) {
+  # package_version needs to be vectorized
+  package_major <- function(x) {
     package_version(x)$major
+  }
+
+  major <- function(x) {
+    vapply(x, package_major, numeric(1), USE.NAMES = FALSE)
   }
 
   # need to save original for message
@@ -157,10 +162,6 @@ get_candidate <- function(version, candidates) {
   if (!grepl("\\.", version)) {
     version <- glue::glue("{version}.0")
   }
-
-  # cast as numeric versions
-  version <- numeric_version(version)
-  candidates <- numeric_version(candidates)
 
   # if version smaller than smallest candidate, use smallest candidate
   if (major(version) < min(major(candidates))) {

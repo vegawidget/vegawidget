@@ -1,5 +1,7 @@
 # vegawidget (development version)
 
+* Update vega_version() internals to comport with R 4.4 (#220)
+
 * Update GitHub Actions, Roxygen (#221)
 
 # vegawidget 0.4.2

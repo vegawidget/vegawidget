@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.2.9001</span>
       </span>
     </div>
 
@@ -104,13 +104,13 @@
 
       
 
-      </header><script src="javascript_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="javascript_files/vega-5.22.0/vega@5.22.0.min.js"></script><script src="javascript_files/vega-lite-5.5.0/vega-lite@5.5.0.min.js"></script><link href="javascript_files/vega-embed-6.20.8/vega-embed.css" rel="stylesheet">
-<script src="javascript_files/vega-embed-6.20.8/vega-embed@6.20.8.min.js"></script><script src="javascript_files/vegawidget-vl5-binding-0.4.2.9000/vegawidget-vl5.js"></script><div class="row">
+      </header><script src="javascript_files/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="javascript_files/vega-5.22.0/vega@5.22.0.min.js"></script><script src="javascript_files/vega-lite-5.5.0/vega-lite@5.5.0.min.js"></script><link href="javascript_files/vega-embed-6.20.8/vega-embed.css" rel="stylesheet">
+<script src="javascript_files/vega-embed-6.20.8/vega-embed@6.20.8.min.js"></script><script src="javascript_files/vegawidget-vl5-binding-0.4.2.9001/vegawidget-vl5.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Extend using JavaScript</h1>
             
-            <h4 data-toc-skip class="date">2022-10-20</h4>
+            <h4 data-toc-skip class="date">2023-09-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/HEAD/vignettes/articles/javascript.Rmd" class="external-link"><code>vignettes/articles/javascript.Rmd</code></a></small>
       <div class="hidden name"><code>javascript.Rmd</code></div>
@@ -122,10 +122,13 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/htmltools" class="external-link">"htmltools"</a></span><span class="op">)</span></span></code></pre></div>
-<p>You can use JavaScript to extend Vega’s capabilities. In these examples, we show how to use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view" class="external-link">vega-view</a> API to interact with Vega charts. We explore similar ideas in the <a href="shiny.Rmd">extending using Shiny</a> article.</p>
+<p>You can use JavaScript to extend Vega’s capabilities. In these
+examples, we show how to use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view" class="external-link">vega-view</a>
+API to interact with Vega charts. We explore similar ideas in the <a href="shiny.Rmd">extending using Shiny</a> article.</p>
 <p>This article has sections on:</p>
 <ul>
-<li>an <a href="#introduction">introduction</a> to vega-view, including a <a href="#demo-vega-view">demo</a>
+<li>an <a href="#introduction">introduction</a> to vega-view, including
+a <a href="#demo-vega-view">demo</a>
 </li>
 <li>getting <a href="#events">events</a>, including a <a href="#demo-events">demo</a>
 </li>
@@ -134,22 +137,31 @@
 <li>setting and getting <a href="#data">data</a>, including a <a href="#demo-data">demo</a>
 </li>
 </ul>
-<p>Here are some resources I (Ian) have used to try to build up my JS capabilities:</p>
+<p>Here are some resources I (Ian) have used to try to build up my JS
+capabilities:</p>
 <ul>
 <li>
-<a href="https://eloquentjavascript.net" class="external-link">Eloquent JavaScript</a>, available as a free website or as a physical book; thanks to <a href="https://github.com/sa-lee" class="external-link">Stuart Lee</a> for the tip!</li>
+<a href="https://eloquentjavascript.net" class="external-link">Eloquent JavaScript</a>,
+available as a free website or as a physical book; thanks to <a href="https://github.com/sa-lee" class="external-link">Stuart Lee</a> for the tip!</li>
 <li>
-<a href="https://www.observablehq.com" class="external-link">Observable</a>, an interactive JS coding environment that emphasizes visualization.</li>
+<a href="https://www.observablehq.com" class="external-link">Observable</a>, an
+interactive JS coding environment that emphasizes visualization.</li>
 <li>
-<a href="https://javascript.info/" class="external-link">JavaScript</a> is really well written, focused by topic.</li>
+<a href="https://javascript.info/" class="external-link">JavaScript</a> is really well
+written, focused by topic.</li>
 <li>
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" class="external-link">MDN Web Docs</a> is really well written, focused by function/object.</li>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" class="external-link">MDN Web
+Docs</a> is really well written, focused by function/object.</li>
 </ul>
 <div class="section level2">
 <h2 id="introduction-to-vega-view">Introduction to vega-view<a class="anchor" aria-label="anchor" href="#introduction-to-vega-view"></a>
 </h2>
-<p>Use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view" class="external-link">vega-view API</a> to modify a Vega chart once it has been rendered.</p>
-<p>Here, we recreate this Vega-Lite <a href="https://vega.github.io/vega-lite/tutorials/streaming.html" class="external-link">streaming demo</a>. Our first step is to create a vegaspec. Note that we have a dataset named <code>"table"</code>, but we have not included any data.</p>
+<p>Use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view" class="external-link">vega-view
+API</a> to modify a Vega chart once it has been rendered.</p>
+<p>Here, we recreate this Vega-Lite <a href="https://vega.github.io/vega-lite/tutorials/streaming.html" class="external-link">streaming
+demo</a>. Our first step is to create a vegaspec. Note that we have a
+dataset named <code>"table"</code>, but we have not included any
+data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec_table</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -171,10 +183,12 @@
 <div class="section level3">
 <h3 id="demo-vega-view">Demo: vega-view<a class="anchor" aria-label="anchor" href="#demo-vega-view"></a>
 </h3>
-<p>We use the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function with <code>elementId</code> to specify the element containing the chart. Here’s what it does, once we have defined the JavaScript:</p>
+<p>We use the <code><a href="../reference/vegawidget.html">vegawidget()</a></code> function with
+<code>elementId</code> to specify the element containing the chart.
+Here’s what it does, once we have defined the JavaScript:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_table</span>, elementId <span class="op">=</span> <span class="st">"streaming-demo"</span><span class="op">)</span></span></code></pre></div>
-<div id="streaming-demo" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<div id="streaming-demo" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
 <script type="application/json" data-for="streaming-demo">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -206,8 +220,14 @@
     "defaultStyle": true
   }
 },"evals":[],"jsHooks":[]}</script><hr>
-<p>Now for the <a href="https://knowyourmeme.com/photos/572078-how-to-draw-an-owl" class="external-link">rest of the owl</a>. To tell vega-view what to do with the chart; we can add some JavaScript to this page, using a <a href="https://github.com/jeroen/js" class="external-link">js</a> block. There are other ways to add JavaScript to an RMarkdown page; using a code block makes it easier to discuss the code.</p>
-<p>Please keep in mind that purpose of this example is “look at the cool stuff you can do using JavaScript”, rather than “here’s something you can do as you start out using JavaScript”.</p>
+<p>Now for the <a href="https://knowyourmeme.com/photos/572078-how-to-draw-an-owl" class="external-link">rest of
+the owl</a>. To tell vega-view what to do with the chart; we can add
+some JavaScript to this page, using a <a href="https://github.com/jeroen/js" class="external-link">js</a> block. There are
+other ways to add JavaScript to an RMarkdown page; using a code block
+makes it easier to discuss the code.</p>
+<p>Please keep in mind that purpose of this example is “look at the cool
+stuff you can do using JavaScript”, rather than “here’s something you
+can do as you start out using JavaScript”.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// {js}</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">// find the promise to the view using the CSS selector, then</span></span>
@@ -265,7 +285,7 @@
 <span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span></span>
 <span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div>
-<script type="text/javascript">
+<script>
 // {js}
 
 // find the promise to the view using the CSS selector, then
@@ -323,40 +343,82 @@ Vegawidget.findViewPromise('#streaming-demo').then(
     }, 1000);
   }
 );
-</script><p>This package puts an object called <code>Vegawidget</code> into the top level of the rendered page’s JavaScript namespace; <code>Vegawidget</code> contains a function <code>findViewPromise()</code>. The first part of the JavaScript code is a call to this function, with a single argument, a CSS <code>selector</code>, to specify the HTML element that contains the chart we wish to access.</p>
-<p>The <code>findVewPromise()</code> function returns a JavaScript <a href="https://javascript.info/promise-basics" class="external-link">promise</a> to the chart’s <code>view</code> object. The <code>then()</code> call executes once the view promise is fulfilled. It contains a function that takes a single argument, <code>view</code>, the view object on which the <a href="https://vega.github.io/vega/docs/api/view" class="external-link">vega-view API</a> operates.</p>
-<p>Within this <code>then()</code> call, we provide a function to operate on the <code>view</code>. The rest of the code is adapted from the <a href="https://vega.github.io/vega-lite/tutorials/streaming.html" class="external-link">original demonstration</a>. It has three components:</p>
+</script><p>This package puts an object called <code>Vegawidget</code> into the
+top level of the rendered page’s JavaScript namespace;
+<code>Vegawidget</code> contains a function
+<code>findViewPromise()</code>. The first part of the JavaScript code is
+a call to this function, with a single argument, a CSS
+<code>selector</code>, to specify the HTML element that contains the
+chart we wish to access.</p>
+<p>The <code>findVewPromise()</code> function returns a JavaScript <a href="https://javascript.info/promise-basics" class="external-link">promise</a> to the chart’s
+<code>view</code> object. The <code>then()</code> call executes once the
+view promise is fulfilled. It contains a function that takes a single
+argument, <code>view</code>, the view object on which the <a href="https://vega.github.io/vega/docs/api/view" class="external-link">vega-view API</a>
+operates.</p>
+<p>Within this <code>then()</code> call, we provide a function to
+operate on the <code>view</code>. The rest of the code is adapted from
+the <a href="https://vega.github.io/vega-lite/tutorials/streaming.html" class="external-link">original
+demonstration</a>. It has three components:</p>
 <ol style="list-style-type: decimal">
-<li>A generator function that yields a new observation (row in a dataset) every time it is called.</li>
+<li>A generator function that yields a new observation (row in a
+dataset) every time it is called.</li>
 <li>A timer that runs code every 1000 ms.</li>
 <li>Within the timer, a function that:
 <ul>
 <li>proposes a data <a href="https://vega.github.io/vega/docs/api/view/#view_change" class="external-link">changeset</a>.</li>
-<li>applies the changeset to the data named <code>table</code>, then runs the view.</li>
+<li>applies the changeset to the data named <code>table</code>, then
+runs the view.</li>
 </ul>
 </li>
 </ol>
-<p>The rest of the examples will aim to be somewhat more introductory.</p>
+<p>The rest of the examples will aim to be somewhat more
+introductory.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="events">Getting events<a class="anchor" aria-label="anchor" href="#events"></a>
 </h2>
-<p>Event streams are <a href="https://vega.github.io/vega/docs/event-streams" class="external-link">used extensively within Vega</a>, enabling interactivity. By <a href="https://vega.github.io/vega/docs/api/view/#view_addEventListener" class="external-link">adding event-listners</a> to the <code>view</code>, we can specify actions to be taken in response to a particular type of event, such as <code>"mouseover"</code>, <code>"click"</code>, <code>"keypress"</code>, etc.</p>
-<p>In this section, we will make a “clickable” scatterplot; when we click on a point in the scatterplot, we will print the data-observation (datum) associated with that point. The rest of this section will be devoted to how we tell our <code>view</code> what to do in response to a <code>"click"</code>.</p>
-<p>Vega’s <a href="https://vega.github.io/vega/docs/api/view/#view_addEventListener" class="external-link">event-listener documentation</a> specifies that we supply a handler function to be “invoked with two arguments: the <code>event</code> instance and the currently active scenegraph <code>item</code> (which is <code>null</code> if the event target is the view component itself).”</p>
-<p>From an R environment, it can be difficult to write and debug JavaScript code. To make this a little easier, this package offers functions to compose JavaScript handler-functions.</p>
+<p>Event streams are <a href="https://vega.github.io/vega/docs/event-streams" class="external-link">used extensively
+within Vega</a>, enabling interactivity. By <a href="https://vega.github.io/vega/docs/api/view/#view_addEventListener" class="external-link">adding
+event-listners</a> to the <code>view</code>, we can specify actions to
+be taken in response to a particular type of event, such as
+<code>"mouseover"</code>, <code>"click"</code>, <code>"keypress"</code>,
+etc.</p>
+<p>In this section, we will make a “clickable” scatterplot; when we
+click on a point in the scatterplot, we will print the data-observation
+(datum) associated with that point. The rest of this section will be
+devoted to how we tell our <code>view</code> what to do in response to a
+<code>"click"</code>.</p>
+<p>Vega’s <a href="https://vega.github.io/vega/docs/api/view/#view_addEventListener" class="external-link">event-listener
+documentation</a> specifies that we supply a handler function to be
+“invoked with two arguments: the <code>event</code> instance and the
+currently active scenegraph <code>item</code> (which is
+<code>null</code> if the event target is the view component
+itself).”</p>
+<p>From an R environment, it can be difficult to write and debug
+JavaScript code. To make this a little easier, this package offers
+functions to compose JavaScript handler-functions.</p>
 <div class="section level3">
 <h3 id="building-handler-functions">Building handler-functions<a class="anchor" aria-label="anchor" href="#building-handler-functions"></a>
 </h3>
 <p>In this example, we want our handler function to do two things:</p>
 <ul>
-<li>return the value of the datum (observation) associated with the event.</li>
+<li>return the value of the datum (observation) associated with the
+event.</li>
 <li>write that value into an element within the HTML document.</li>
 </ul>
-<p>These are two separate “things”; the first suggests code that returns a value, the second suggests code that produces a side-effect. Accordingly, this package offers a set JavaScript code-snippets that return values, another set of JavaScript code-snippets that produce side-effects, and a means to compose them.</p>
-<p>First, let’s look at snippets that return values. Because all event-handlers take the same two arguments, <code>event</code> and <code>item</code>, we can focus only on the <em>body</em> of the handler-function.</p>
-<p>This is the purpose of the <code><a href="../reference/vw_handler_signal.html">vw_handler_event()</a></code> function. If we call it without arguments, it prints a list of event-handlers that return values:</p>
+<p>These are two separate “things”; the first suggests code that returns
+a value, the second suggests code that produces a side-effect.
+Accordingly, this package offers a set JavaScript code-snippets that
+return values, another set of JavaScript code-snippets that produce
+side-effects, and a means to compose them.</p>
+<p>First, let’s look at snippets that return values. Because all
+event-handlers take the same two arguments, <code>event</code> and
+<code>item</code>, we can focus only on the <em>body</em> of the
+handler-function.</p>
+<p>This is the purpose of the <code><a href="../reference/vw_handler_signal.html">vw_handler_event()</a></code> function.
+If we call it without arguments, it prints a list of event-handlers that
+return values:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## arguments: event, item </span></span>
@@ -375,7 +437,8 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <span><span class="co">##     </span></span>
 <span><span class="co">##     // returns the datum behind the mark associated with the event</span></span>
 <span><span class="co">##     return item.datum;</span></span></code></pre>
-<p>If we want to use a certain handler, we use its only argument: <code>body_value</code>.</p>
+<p>If we want to use a certain handler, we use its only argument:
+<code>body_value</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## arguments: event, item </span></span>
@@ -388,14 +451,22 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <span><span class="co">##   </span></span>
 <span><span class="co">##   // returns the datum behind the mark associated with the event</span></span>
 <span><span class="co">##   return item.datum;</span></span></code></pre>
-<p>The handler has a print method that shows the arguments and the function body. If you want to supply a custom handler, you can provide your own function body. For example, this handler-function will be less-robust than the <code>"datum"</code> function from the “library”:</p>
+<p>The handler has a print method that shows the arguments and the
+function body. If you want to supply a custom handler, you can provide
+your own function body. For example, this handler-function will be
+less-robust than the <code>"datum"</code> function from the
+“library”:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"return item.datum;"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## arguments: event, item </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## body_value:</span></span>
 <span><span class="co">##   return item.datum;</span></span></code></pre>
-<p>We’re halfway there - we have a function that will return a value, but not yet a function that will produce an effect. To add an effect to our function, we can use the function <code><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect()</a></code>. Calling it without arguments will list the available effect-handlers.</p>
+<p>We’re halfway there - we have a function that will return a value,
+but not yet a function that will produce an effect. To add an effect to
+our function, we can use the function
+<code><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect()</a></code>. Calling it without arguments will
+list the available effect-handlers.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## arguments: x </span></span>
@@ -419,9 +490,17 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <span><span class="co">## </span></span>
 <span><span class="co">##     // to element `selector`, adds text `expr` (default "x")</span></span>
 <span><span class="co">##     document.querySelector('${selector}').innerText = ${expr}</span></span></code></pre>
-<p>The effect-handlers are designed to be JavaScript code-snippets that work with a single variable, <code>x</code>, representing the value returned from the value-handler.</p>
-<p>We want to print the value to an HTML element, so we will use provided snippet called <code>"element_text"</code>. Note that there two parameters that we can supply, <code>selector</code>, to identify the HTML element, and <code>expr</code>, the JavaScript expression to use. The <code>selector</code> parameter is required; the <code>expr</code> parameter defaults to <code>"x"</code>, the value.</p>
-<p>We supply the parameters as additional arguments to <code><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect()</a></code>:</p>
+<p>The effect-handlers are designed to be JavaScript code-snippets that
+work with a single variable, <code>x</code>, representing the value
+returned from the value-handler.</p>
+<p>We want to print the value to an HTML element, so we will use
+provided snippet called <code>"element_text"</code>. Note that there two
+parameters that we can supply, <code>selector</code>, to identify the
+HTML element, and <code>expr</code>, the JavaScript expression to use.
+The <code>selector</code> parameter is required; the <code>expr</code>
+parameter defaults to <code>"x"</code>, the value.</p>
+<p>We supply the parameters as additional arguments to
+<code><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect()</a></code>:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/vw_handler_add_effect.html">vw_handler_add_effect</a></span><span class="op">(</span><span class="st">"element_text"</span>, selector <span class="op">=</span> <span class="st">"#output-datum"</span><span class="op">)</span></span></code></pre></div>
@@ -438,7 +517,12 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <span><span class="co">## body_effect:</span></span>
 <span><span class="co">##   // to element `selector`, adds text `expr` (default "x")</span></span>
 <span><span class="co">##   document.querySelector('#output-datum').innerText = x</span></span></code></pre>
-<p>The R functions interpolate the parameters into the JavaScript code-snippet. If we were to use this <code>body_effect</code> as is, the text that appears in the HTML element would be <code>[object Object]</code>, which is not very informative. Instead, we will use the <code>expr</code> parameter to insert an expression to convert the JavaScript object to JSON text:</p>
+<p>The R functions interpolate the parameters into the JavaScript
+code-snippet. If we were to use this <code>body_effect</code> as is, the
+text that appears in the HTML element would be
+<code>[object Object]</code>, which is not very informative. Instead, we
+will use the <code>expr</code> parameter to insert an expression to
+convert the JavaScript object to JSON text:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">handler_event</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="st">"datum"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>    </span>
@@ -462,8 +546,11 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <span><span class="co">## body_effect:</span></span>
 <span><span class="co">##   // to element `selector`, adds text `expr` (default "x")</span></span>
 <span><span class="co">##   document.querySelector('#output-datum').innerText = JSON.stringify(x, null, '  ');</span></span></code></pre>
-<p>One last note on the effect-handlers: you can add as many (or as few) as you like to a handler-function by piping successive calls to <code>vw_handler_add_event()</code>.</p>
-<p>If we want to look at what the composed handler-function looks like, you can use the <code><a href="../reference/vw_handler_body_compose.html">vw_handler_compose()</a></code> function:</p>
+<p>One last note on the effect-handlers: you can add as many (or as few)
+as you like to a handler-function by piping successive calls to
+<code>vw_handler_add_event()</code>.</p>
+<p>If we want to look at what the composed handler-function looks like,
+you can use the <code><a href="../reference/vw_handler_body_compose.html">vw_handler_compose()</a></code> function:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_body_compose.html">vw_handler_compose</a></span><span class="op">(</span><span class="va">handler_event</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## function (event, item) {</span></span>
@@ -482,28 +569,35 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <span><span class="co">##     })()</span></span>
 <span><span class="co">##   )</span></span>
 <span><span class="co">## }</span></span></code></pre>
-<p>In practice, you are not compelled to use either this function or its friend, <code><a href="../reference/vw_handler_body_compose.html">vw_handler_body_compose()</a></code>; the listener functions will know what to do.</p>
+<p>In practice, you are not compelled to use either this function or its
+friend, <code><a href="../reference/vw_handler_body_compose.html">vw_handler_body_compose()</a></code>; the listener functions
+will know what to do.</p>
 </div>
 <div class="section level3">
 <h3 id="building-the-interactive-elements">Building the interactive elements<a class="anchor" aria-label="anchor" href="#building-the-interactive-elements"></a>
 </h3>
-<p>We create our vegawidget, then attach our handler, specifying that we want to listen to <code>"click"</code> events, and respond to them using our event-handler:</p>
+<p>We create our vegawidget, then attach our handler, specifying that we
+want to listen to <code>"click"</code> events, and respond to them using
+our event-handler:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_scatterplot</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_mtcars</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add-listeners.html">vw_add_event_listener</a></span><span class="op">(</span><span class="st">"click"</span>, handler_body <span class="op">=</span> <span class="va">handler_event</span><span class="op">)</span></span></code></pre></div>
-<p>We create our element that will contain the output of the event-handler:</p>
+<p>We create our element that will contain the output of the
+event-handler:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_datum</span> <span class="op">&lt;-</span> <span class="va">tags</span><span class="op">$</span><span class="fu">pre</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"output-datum"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="demo-events">Demo: events<a class="anchor" aria-label="anchor" href="#demo-events"></a>
 </h3>
-<p>When you click anywhere in the plotting-rectangle, the observation associated with the mark (if any) where you clicked will be printed below.</p>
+<p>When you click anywhere in the plotting-rectangle, the observation
+associated with the mark (if any) where you clicked will be printed
+below.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_scatterplot</span></span></code></pre></div>
-<div id="htmlwidget-c5e4b322fad239138593" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c5e4b322fad239138593">{"x":{
+<div id="htmlwidget-bfe9f282da2422e66628" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-bfe9f282da2422e66628">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 300,
@@ -990,15 +1084,25 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <div class="section level2">
 <h2 id="signals">Setting and getting signals<a class="anchor" aria-label="anchor" href="#signals"></a>
 </h2>
-<p>Signals are a <a href="https://vega.github.io/vega/docs/signals" class="external-link">formal part of the <strong>Vega</strong> definition</a>. They are “dynamic variables that parameterize a visualization and can drive interactive behaviors. Signals can be used throughout a Vega specification, for example to define a mark property or data transform parameter.”</p>
-<p>There is emerging support for signals in <strong>Vega-Lite</strong>, where they are called <a href="https://vega.github.io/vega-lite/docs/parameter.html" class="external-link">parameters</a>. As of Vega-Lite version 5.20, you still need to make some workarounds.</p>
-<p>First, there is a top-level element called <code>params</code>, which is a list. Each element of this list is itself a list, with elements <code>name</code> and <code>value</code>. For example:</p>
+<p>Signals are a <a href="https://vega.github.io/vega/docs/signals" class="external-link">formal part of the
+<strong>Vega</strong> definition</a>. They are “dynamic variables that
+parameterize a visualization and can drive interactive behaviors.
+Signals can be used throughout a Vega specification, for example to
+define a mark property or data transform parameter.”</p>
+<p>There is emerging support for signals in <strong>Vega-Lite</strong>,
+where they are called <a href="https://vega.github.io/vega-lite/docs/parameter.html" class="external-link">parameters</a>.
+As of Vega-Lite version 5.20, you still need to make some
+workarounds.</p>
+<p>First, there is a top-level element called <code>params</code>, which
+is a list. Each element of this list is itself a list, with elements
+<code>name</code> and <code>value</code>. For example:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"bin_width"</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"something_else"</span>, value <span class="op">=</span> <span class="st">"some string"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Then, to implement the parameters, you would substitute the value with an <code>expr</code> list. For example, to set a bin width:</p>
+<p>Then, to implement the parameters, you would substitute the value
+with an <code>expr</code> list. For example, to set a bin width:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  field <span class="op">=</span> <span class="st">"temp"</span>,</span>
@@ -1006,7 +1110,10 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <span>  bin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>step <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>expr <span class="op">=</span> <span class="st">"bin_width"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">".1f"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>This is the part that is not yet quite working. There are places, like this, where an <code>expr</code> list should work, but doesn’t. There is a workaround, to use <code>signal</code> instead of <code>expr</code>. For example:</p>
+<p>This is the part that is not yet quite working. There are places,
+like this, where an <code>expr</code> list should work, but doesn’t.
+There is a workaround, to use <code>signal</code> instead of
+<code>expr</code>. For example:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  field <span class="op">=</span> <span class="st">"temp"</span>,</span>
@@ -1014,8 +1121,14 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <span>  bin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>step <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>signal <span class="op">=</span> <span class="st">"bin_width"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">".1f"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>This works, but it violates the Vega-Lite schema. There is a <a href="https://github.com/vega/vega-lite/pull/7463" class="external-link">pull-request</a> to fix this; when released, we’ll update vegawidget.</p>
-<p>Here, we use this workaround to create an interactive histogram. We use the <code>data_seattle_hourly</code> dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010. In addition to the histogram, we will provide a slider-input to specify the bin-width and we will print the bin-width to an element of the HTML document.</p>
+<p>This works, but it violates the Vega-Lite schema. There is a <a href="https://github.com/vega/vega-lite/pull/7463" class="external-link">pull-request</a> to
+fix this; when released, we’ll update vegawidget.</p>
+<p>Here, we use this workaround to create an interactive histogram. We
+use the <code>data_seattle_hourly</code> dataset, included with this
+package, to look at the distribution of temperatures in Seattle in 2010.
+In addition to the histogram, we will provide a slider-input to specify
+the bin-width and we will print the bin-width to an element of the HTML
+document.</p>
 <p>Our first step is to create a Vega-Lite specification for a <a href="https://vega.github.io/vega-lite/examples/histogram.html" class="external-link">histogram</a>.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec_histogram</span> <span class="op">&lt;-</span> </span>
@@ -1042,8 +1155,14 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Our <code>output_histogram</code> will be a vegawidget that is contained in an HTML element with an ID of <code>"histogram"</code>.</p>
-<p>The next step is to use the <code>tags</code> environment from the <strong>htmltools</strong> package to create a range input that we can use to specify the bin-width. The input will work logarithmically, where the center of the range will correspond to zero, or a baseline bin-width. The range of the input is from -1 to 1, which will correspond to one decade below the baseline bin-width, and one decade above.</p>
+<p>Our <code>output_histogram</code> will be a vegawidget that is
+contained in an HTML element with an ID of <code>"histogram"</code>.</p>
+<p>The next step is to use the <code>tags</code> environment from the
+<strong>htmltools</strong> package to create a range input that we can
+use to specify the bin-width. The input will work logarithmically, where
+the center of the range will correspond to zero, or a baseline
+bin-width. The range of the input is from -1 to 1, which will correspond
+to one decade below the baseline bin-width, and one decade above.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">input_bin_width</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">input</span><span class="op">(</span></span>
@@ -1055,7 +1174,9 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <span>    step <span class="op">=</span> <span class="fl">0.01</span>,</span>
 <span>    style <span class="op">=</span> <span class="st">"width: 400px; margin-bottom: 10px;"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>We also define an output element to tell us the bin-width that Vega is using. We seed it with some dummy-text; we will connect it to the Vega chart using a <a href="https://vega.github.io/vega/docs/api/view/#view_addSignalListener" class="external-link">signal-listener</a>.</p>
+<p>We also define an output element to tell us the bin-width that Vega
+is using. We seed it with some dummy-text; we will connect it to the
+Vega chart using a <a href="https://vega.github.io/vega/docs/api/view/#view_addSignalListener" class="external-link">signal-listener</a>.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_bin_width</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
@@ -1063,8 +1184,15 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"output-bin-width"</span>, <span class="st">"foo"</span><span class="op">)</span>,</span>
 <span>    <span class="st">" °F."</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>Like the event-listener above, we have to supply a signal-handler to the signal-listener.</p>
-<p>A signal-handler is a JavaScript function that takes two arguments, the <code>name</code> of the signal and the <code>value</code> of the signal. Like the example above, we define a signal-handler to return the value of the signal, then put the value into the HTML element with ID <code>"output-bin-width"</code>, as its text. Note that we are using the <code>expr</code> parameter to specify that we want only three decimal places.</p>
+<p>Like the event-listener above, we have to supply a signal-handler to
+the signal-listener.</p>
+<p>A signal-handler is a JavaScript function that takes two arguments,
+the <code>name</code> of the signal and the <code>value</code> of the
+signal. Like the example above, we define a signal-handler to return the
+value of the signal, then put the value into the HTML element with ID
+<code>"output-bin-width"</code>, as its text. Note that we are using the
+<code>expr</code> parameter to specify that we want only three decimal
+places.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">handler_bin_width</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_signal</a></span><span class="op">(</span><span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1077,18 +1205,28 @@ Vegawidget.findViewPromise('#streaming-demo').then(
 <span><span class="va">output_histogram</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_histogram</span>, elementId <span class="op">=</span> <span class="st">"histogram"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add-listeners.html">vw_add_signal_listener</a></span><span class="op">(</span><span class="st">"bin_width"</span>, <span class="va">handler_bin_width</span><span class="op">)</span></span></code></pre></div>
-<p>We use the function <code><a href="../reference/add-listeners.html">vw_add_signal_listener()</a></code> to add the signal-listener to the vegawidget. We specify that whenever the value of the <code>"bin-width"</code> signal changes, Vega will call the signal-handler function, which will update the text in <code>output_bin_width</code>.</p>
-<p>We can print the HTML elements to the document; these are “live”, but it remains to define the actions that connect <code>input_bin_width</code> to the Vega histogram.</p>
+<p>We use the function <code><a href="../reference/add-listeners.html">vw_add_signal_listener()</a></code> to add the
+signal-listener to the vegawidget. We specify that whenever the value of
+the <code>"bin-width"</code> signal changes, Vega will call the
+signal-handler function, which will update the text in
+<code>output_bin_width</code>.</p>
+<p>We can print the HTML elements to the document; these are “live”, but
+it remains to define the actions that connect
+<code>input_bin_width</code> to the Vega histogram.</p>
 <div class="section level3">
 <h3 id="demo-signals">Demo: signals<a class="anchor" aria-label="anchor" href="#demo-signals"></a>
 </h3>
-<p>You can use the slider to adjust the bin-width for the histogram of temperature observations in Seattle. The slider works on a logarithmic scale; the baseline bin-width is 1.0 °F, its range is from 0.1 °F to 10.0 °F.</p>
-<p>The value of the bin-width is printed to as text below the histogram.</p>
+<p>You can use the slider to adjust the bin-width for the histogram of
+temperature observations in Seattle. The slider works on a logarithmic
+scale; the baseline bin-width is 1.0 °F, its range is from 0.1 °F to
+10.0 °F.</p>
+<p>The value of the bin-width is printed to as text below the
+histogram.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">input_bin_width</span></span></code></pre></div>
 <input type="range" name="bin_width" value="0" min="-1" max="1" step="0.01" style="width: 400px; margin-bottom: 10px;"><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_histogram</span></span></code></pre></div>
-<div id="histogram" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<div id="histogram" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
 <script type="application/json" data-for="histogram">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -36172,11 +36310,22 @@ The histogram bin-width is
  °F.
 </p>
 <hr>
-<p>To connect the input-slider to the histogram, we need to provide a JavaScript function that will run whenever the input-slider changes.</p>
-<p>In R Markdown, we can specify JavaScript chunks using <a href="https://github.com/jeroen/js" class="external-link">js</a> just like we specify R chunks using <code>{r}</code>. This is what we do in the code-chunk below.</p>
-<p>In this code, we define a JavaScript function, <code>on_bin_width()</code>, that transforms the value of the input to the value of the bin-width (recall the slider has a logarithmic scale). Then, using <code>Vegawidget.findViewPromise()</code>, we <a href="https://vega.github.io/vega/docs/api/view/#view_signal" class="external-link">set the signal</a> <code>"bin_width"</code> in the Vega chart and direct the chart to re-<a href="https://github.com/vega/vega/tree/master/packages/vega-view#view_run" class="external-link">run</a>.</p>
-<p>We add an <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener" class="external-link">event listener</a> to our input-slider, specifying <code>on_bin_width()</code> to run any time the input changes.</p>
-<p>Also, we direct this <code>on_bin_width()</code> to run once at initialization.</p>
+<p>To connect the input-slider to the histogram, we need to provide a
+JavaScript function that will run whenever the input-slider changes.</p>
+<p>In R Markdown, we can specify JavaScript chunks using
+<a href="https://github.com/jeroen/js" class="external-link">js</a> just like we specify R chunks using <code>{r}</code>.
+This is what we do in the code-chunk below.</p>
+<p>In this code, we define a JavaScript function,
+<code>on_bin_width()</code>, that transforms the value of the input to
+the value of the bin-width (recall the slider has a logarithmic scale).
+Then, using <code>Vegawidget.findViewPromise()</code>, we <a href="https://vega.github.io/vega/docs/api/view/#view_signal" class="external-link">set the
+signal</a> <code>"bin_width"</code> in the Vega chart and direct the
+chart to re-<a href="https://github.com/vega/vega/tree/master/packages/vega-view#view_run" class="external-link">run</a>.</p>
+<p>We add an <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener" class="external-link">event
+listener</a> to our input-slider, specifying <code>on_bin_width()</code>
+to run any time the input changes.</p>
+<p>Also, we direct this <code>on_bin_width()</code> to run once at
+initialization.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">// {js}</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Reference to the HTML element for the slider-input</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> inp_bin_width <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">"[name=bin_width]"</span>)<span class="op">;</span></span>
@@ -36200,7 +36349,7 @@ The histogram bin-width is
 <span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="co">// run the updating function *once* to initialize the input to the chart</span></span>
 <span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="fu">on_bin_width</span>()</span></code></pre></div>
-<script type="text/javascript">
+<script>
 // {js}
 // Reference to the HTML element for the slider-input
 var inp_bin_width = document.querySelector("[name=bin_width]");
@@ -36224,16 +36373,29 @@ inp_bin_width.addEventListener("input", on_bin_width);
 
 // run the updating function *once* to initialize the input to the chart
 on_bin_width()
-</script><p>Opinion time: admittedly, there are improvements that can be made, both to the visualization and input themselves, and to process by which we connect everything using R. Shiny seems like a fairly attractive option, in comparison.<br>
-Hopefully, by taking a few tentative steps with JavaScript, and by exposing them to the development community, we can work towards cleaner implementations.</p>
+</script><p>Opinion time: admittedly, there are improvements that can be made,
+both to the visualization and input themselves, and to process by which
+we connect everything using R. Shiny seems like a fairly attractive
+option, in comparison.<br>
+Hopefully, by taking a few tentative steps with JavaScript, and by
+exposing them to the development community, we can work towards cleaner
+implementations.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="data">Setting data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h2>
-<p><a href="https://vega.github.io/vega/docs/data/" class="external-link">Vega</a> and <a href="https://vega.github.io/vega-lite/docs/data.html#named" class="external-link">Vega-Lite</a> both offer the ability to name datasets within a specification. We can use the vega-view API to <a href="https://vega.github.io/vega/docs/api/view/#view_change" class="external-link">change a dataset</a>, as was done in the <a href="#demo-vega-view">first example</a> in this article.</p>
-<p>Let’s consider an example with a dataset that has a single observation, and that observation falls on the unit-circle. We will use an input-slider to change the angle of the observation.</p>
-<p>First, we create a range-input that to specify an angle - in our case 0 to 360 degrees. In the HTML document, our input is named <code>"inp_angle"</code>.</p>
+<p><a href="https://vega.github.io/vega/docs/data/" class="external-link">Vega</a> and <a href="https://vega.github.io/vega-lite/docs/data.html#named" class="external-link">Vega-Lite</a>
+both offer the ability to name datasets within a specification. We can
+use the vega-view API to <a href="https://vega.github.io/vega/docs/api/view/#view_change" class="external-link">change a
+dataset</a>, as was done in the <a href="#demo-vega-view">first
+example</a> in this article.</p>
+<p>Let’s consider an example with a dataset that has a single
+observation, and that observation falls on the unit-circle. We will use
+an input-slider to change the angle of the observation.</p>
+<p>First, we create a range-input that to specify an angle - in our case
+0 to 360 degrees. In the HTML document, our input is named
+<code>"inp_angle"</code>.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">input_angle</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">input</span><span class="op">(</span></span>
@@ -36245,7 +36407,12 @@ Hopefully, by taking a few tentative steps with JavaScript, and by exposing them
 <span>    step <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    style <span class="op">=</span> <span class="st">"width: 400px; margin-bottom: 10px;"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>Next, we define our data-output and the data-handler. For the output, we provide an <code>id</code>, <code>"output-data"</code>, to identify where in this document to write the data. Our handler function the data set to it, convert it to JSON (with a little formatting), then put the JSON string into our output element named <code>"output-data"</code>.</p>
+<p>Next, we define our data-output and the data-handler. For the output,
+we provide an <code>id</code>, <code>"output-data"</code>, to identify
+where in this document to write the data. Our handler function the data
+set to it, convert it to JSON (with a little formatting), then put the
+JSON string into our output element named
+<code>"output-data"</code>.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_data</span> <span class="op">&lt;-</span> <span class="va">tags</span><span class="op">$</span><span class="fu">pre</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"output-data"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
@@ -36256,7 +36423,9 @@ Hopefully, by taking a few tentative steps with JavaScript, and by exposing them
 <span>    selector <span class="op">=</span> <span class="st">"#output-data"</span>,</span>
 <span>    expr <span class="op">=</span> <span class="st">"JSON.stringify(x, null, '  ');"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>Finally, we create a specification, use it to create a vegawidget with an <code>elementId</code> of <code>"circle"</code>, then and add our data-listener to it.</p>
+<p>Finally, we create a specification, use it to create a vegawidget
+with an <code>elementId</code> of <code>"circle"</code>, then and add
+our data-listener to it.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec_circle</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -36286,16 +36455,20 @@ Hopefully, by taking a few tentative steps with JavaScript, and by exposing them
 <span><span class="va">output_chart</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/vegawidget.html">vegawidget</a></span><span class="op">(</span><span class="va">spec_circle</span>, elementId <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add-listeners.html">vw_add_data_listener</a></span><span class="op">(</span><span class="st">"source"</span>, <span class="va">handler_data</span><span class="op">)</span></span></code></pre></div>
-<p>We can print out our HTML elements to the document, then, like in the signal-example, we will add some JavaScript to define the interactions.</p>
+<p>We can print out our HTML elements to the document, then, like in the
+signal-example, we will add some JavaScript to define the
+interactions.</p>
 <div class="section level3">
 <h3 id="demo-data">Demo: data<a class="anchor" aria-label="anchor" href="#demo-data"></a>
 </h3>
-<p>A dataset has a single observation, bound to the unit circle. You can use the input-slider to specify the angle of the observation; you will see the JSON representation of the dataset below the chart.</p>
+<p>A dataset has a single observation, bound to the unit circle. You can
+use the input-slider to specify the angle of the observation; you will
+see the JSON representation of the dataset below the chart.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">input_angle</span></span></code></pre></div>
 <input type="range" name="inp_angle" value="0" min="0" max="360" step="1" style="width: 400px; margin-bottom: 10px;"><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_chart</span></span></code></pre></div>
-<div id="circle" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<div id="circle" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
 <script type="application/json" data-for="circle">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -36339,18 +36512,29 @@ Hopefully, by taking a few tentative steps with JavaScript, and by exposing them
 },"evals":[],"jsHooks":{"render":[{"code":"function(el, x) {\n  this.viewPromise.then(function(view) {\n    view.addDataListener('source', function(name, value) {\n      (function (x) {\n        // to element `selector`, adds text `expr` (default \"x\")\n        document.querySelector('#output-data').innerText = JSON.stringify(x, null, '  ');\n      })(\n        (function () {\n          // returns the value of the signal\n          return value;\n        })()\n      )\n    });\n  });\n}","data":null}]}}</script><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_data</span></span></code></pre></div>
 <pre id="output-data"></pre>
-<p>Please note that the next few code-chunks are <a href="https://github.com/jeroen/js" class="external-link">js</a> chunks rather than <code>{r}</code> chunks.</p>
-<p>Like above, we create a JavaScript variable, <code>angle</code> that refers to the input-slider.</p>
+<p>Please note that the next few code-chunks are <a href="https://github.com/jeroen/js" class="external-link">js</a>
+chunks rather than <code>{r}</code> chunks.</p>
+<p>Like above, we create a JavaScript variable, <code>angle</code> that
+refers to the input-slider.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">// {js}</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Reference to our slider-input</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> angle <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">"[name=inp_angle]"</span>)<span class="op">;</span></span></code></pre></div>
-<script type="text/javascript">
+<script>
 // {js}
 // Reference to our slider-input
 var angle = document.querySelector("[name=inp_angle]");
-</script><p>Next, we create a JavaScript function that, when run, reads the value of the input-slider, then updates the dataset in the Vega chart. This function has no arguments; instead, it refers-to and <em>changes</em> variables in the JavaScript environment.</p>
-<p>The first part of the function converts the value of <code>inp_angle</code> into a dataset, <code>data_new</code>, with a single observation, coordinates on the unit-circle.</p>
-<p>The second part of the function modifies the chart. Here, we create a changeset inserting <code>data_new</code>, and removing any existing data. Then we <a href="https://vega.github.io/vega/docs/api/view/#view_change" class="external-link">change</a> the view’s dataset named <code>"source"</code>, then we re-<a href="https://vega.github.io/vega/docs/api/view/#view_run" class="external-link">run</a> the view.</p>
+</script><p>Next, we create a JavaScript function that, when run, reads the value
+of the input-slider, then updates the dataset in the Vega chart. This
+function has no arguments; instead, it refers-to and <em>changes</em>
+variables in the JavaScript environment.</p>
+<p>The first part of the function converts the value of
+<code>inp_angle</code> into a dataset, <code>data_new</code>, with a
+single observation, coordinates on the unit-circle.</p>
+<p>The second part of the function modifies the chart. Here, we create a
+changeset inserting <code>data_new</code>, and removing any existing
+data. Then we <a href="https://vega.github.io/vega/docs/api/view/#view_change" class="external-link">change</a>
+the view’s dataset named <code>"source"</code>, then we re-<a href="https://vega.github.io/vega/docs/api/view/#view_run" class="external-link">run</a> the
+view.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">// {js}</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">on_angle</span>() {</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -36368,7 +36552,7 @@ var angle = document.querySelector("[name=inp_angle]");
 <span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span>  </span>
 <span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<script type="text/javascript">
+<script>
 // {js}
 function on_angle() {
 
@@ -36386,7 +36570,9 @@ function on_angle() {
   });  
 
 }
-</script><p>Finally, we specify when our <code>on_angle()</code> function should run. Like above, we add an event listener to the input-slider so that <code>on_angle()</code> runs whenever <code>angle</code> changes.</p>
+</script><p>Finally, we specify when our <code>on_angle()</code> function should
+run. Like above, we add an event listener to the input-slider so that
+<code>on_angle()</code> runs whenever <code>angle</code> changes.</p>
 <p>Lastly, we run the function <em>once</em> at initialization.</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">// {js}</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co">// whenever the input changes, run the updating function</span></span>
@@ -36394,7 +36580,7 @@ function on_angle() {
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co">// run the updating function *once* to initialize the input to the data</span></span>
 <span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">on_angle</span>()</span></code></pre></div>
-<script type="text/javascript">
+<script>
 // {js}
 // whenever the input changes, run the updating function
 angle.addEventListener("input", on_angle);
@@ -36423,7 +36609,7 @@ on_angle()
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

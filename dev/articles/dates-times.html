@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.2.9001</span>
       </span>
     </div>
 
@@ -104,13 +104,13 @@
 
       
 
-      </header><script src="dates-times_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="dates-times_files/vega-5.22.0/vega@5.22.0.min.js"></script><script src="dates-times_files/vega-lite-5.5.0/vega-lite@5.5.0.min.js"></script><link href="dates-times_files/vega-embed-6.20.8/vega-embed.css" rel="stylesheet">
-<script src="dates-times_files/vega-embed-6.20.8/vega-embed@6.20.8.min.js"></script><script src="dates-times_files/vegawidget-vl5-binding-0.4.2.9000/vegawidget-vl5.js"></script><div class="row">
+      </header><script src="dates-times_files/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="dates-times_files/vega-5.22.0/vega@5.22.0.min.js"></script><script src="dates-times_files/vega-lite-5.5.0/vega-lite@5.5.0.min.js"></script><link href="dates-times_files/vega-embed-6.20.8/vega-embed.css" rel="stylesheet">
+<script src="dates-times_files/vega-embed-6.20.8/vega-embed@6.20.8.min.js"></script><script src="dates-times_files/vegawidget-vl5-binding-0.4.2.9001/vegawidget-vl5.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Work with dates and times</h1>
             
-            <h4 data-toc-skip class="date">2022-10-20</h4>
+            <h4 data-toc-skip class="date">2023-09-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/HEAD/vignettes/articles/dates-times.Rmd" class="external-link"><code>vignettes/articles/dates-times.Rmd</code></a></small>
       <div class="hidden name"><code>dates-times.Rmd</code></div>
@@ -121,40 +121,80 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://conflicted.r-lib.org" class="external-link">"conflicted"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://conflicted.r-lib.org/" class="external-link">"conflicted"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://lubridate.tidyverse.org" class="external-link">"lubridate"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://readr.tidyverse.org" class="external-link">"readr"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://dplyr.tidyverse.org" class="external-link">"dplyr"</a></span><span class="op">)</span></span></code></pre></div>
-<p>Dates and times can be tricky, even within the familiar confines of R. Vega and Vega-Lite are run in JavaScript, which has its own philosophy for dates and times. In R, we have access to the entire time-zone database; in JavaScript, using the <code>Date</code> object, there are only <em>two</em> time zones available: the local time zone used by the client browser and UTC.</p>
-<p>If you are working with time-based data, this mismatch of capabilities introduces a lot of “opportunities” to create Vega(-Lite) visualizations that do not behave as intended. The purposes of this article are</p>
+<p>Dates and times can be tricky, even within the familiar confines of
+R. Vega and Vega-Lite are run in JavaScript, which has its own
+philosophy for dates and times. In R, we have access to the entire
+time-zone database; in JavaScript, using the <code>Date</code> object,
+there are only <em>two</em> time zones available: the local time zone
+used by the client browser and UTC.</p>
+<p>If you are working with time-based data, this mismatch of
+capabilities introduces a lot of “opportunities” to create Vega(-Lite)
+visualizations that do not behave as intended. The purposes of this
+article are</p>
 <ul>
-<li>to walk through the pit-falls of translating dates and times from R to JavaScript.</li>
+<li>to walk through the pit-falls of translating dates and times from R
+to JavaScript.</li>
 <li>to describe the in-and-outs of Vega-Lite <a href="https://vega.github.io/vega-lite/docs/timeunit.html" class="external-link">time-units</a>.</li>
-<li>to show some (hopefully) useful practices for staying out of trouble.</li>
+<li>to show some (hopefully) useful practices for staying out of
+trouble.</li>
 </ul>
-<p>The documentation for the Altair Python package includes an <a href="https://altair-viz.github.io/user_guide/times_and_dates.html" class="external-link">article on times and dates</a> with very clear explanations; it is hoped that this article can be similarly clear.</p>
+<p>The documentation for the Altair Python package includes an <a href="https://altair-viz.github.io/user_guide/times_and_dates.html" class="external-link">article
+on times and dates</a> with very clear explanations; it is hoped that
+this article can be similarly clear.</p>
 <div class="section level2">
 <h2 id="time-zones">Time zones<a class="anchor" aria-label="anchor" href="#time-zones"></a>
 </h2>
-<p>Things happen at fixed instants in time; we use time zones to describe those fixed instants using a local context. Consider that Neil Armstrong’s first step on the moon happened at <code>1969-07-21T02:56:15Z</code>, represented here as an <a href="https://en.wikipedia.org/wiki/ISO_8601" class="external-link">ISO-8601</a> string.</p>
-<p>All ISO-8601 strings refer unambiguously to UTC, the globally-recognized standard reference-frame; it is the standard way to communicate time-stamps. However, it lacks context for someone who may remember an instant from Chicago, or another who may remember the <em>same</em> instant from Paris.</p>
-<p>In the context of Chicago, the first-step happened at <code>1969-07-20 21:56:15</code>; in the context of Paris, it happened at <code>1969-07-21 03:56:15</code>. We use a system of time zones to provide this context. The standard representation of time zones is IANA (also known as Olson) <a href="https://en.wikipedia.org/wiki/Tz_database" class="external-link">time-zones</a>. These are each associated with a given geographic region, such as <code>"America/Chicago"</code> or <code>"Europe/Paris"</code>; a time zone is used to determine the offset to UTC, given an instant expressed in UTC.</p>
-<p>High level-programming languages, such as R, have access to the full IANA time-zone database. However, the JavaScript <code>Date</code> object has access to only two time zones: the timezone of the local browser, and UTC. JavaScript-based visualization systems, including d3, Plotly, and Vega, are constrained by this limitation because they depend on the JavaScript <code>Date</code> object.</p>
+<p>Things happen at fixed instants in time; we use time zones to
+describe those fixed instants using a local context. Consider that Neil
+Armstrong’s first step on the moon happened at
+<code>1969-07-21T02:56:15Z</code>, represented here as an <a href="https://en.wikipedia.org/wiki/ISO_8601" class="external-link">ISO-8601</a> string.</p>
+<p>All ISO-8601 strings refer unambiguously to UTC, the
+globally-recognized standard reference-frame; it is the standard way to
+communicate time-stamps. However, it lacks context for someone who may
+remember an instant from Chicago, or another who may remember the
+<em>same</em> instant from Paris.</p>
+<p>In the context of Chicago, the first-step happened at
+<code>1969-07-20 21:56:15</code>; in the context of Paris, it happened
+at <code>1969-07-21 03:56:15</code>. We use a system of time zones to
+provide this context. The standard representation of time zones is IANA
+(also known as Olson) <a href="https://en.wikipedia.org/wiki/Tz_database" class="external-link">time-zones</a>. These
+are each associated with a given geographic region, such as
+<code>"America/Chicago"</code> or <code>"Europe/Paris"</code>; a time
+zone is used to determine the offset to UTC, given an instant expressed
+in UTC.</p>
+<p>High level-programming languages, such as R, have access to the full
+IANA time-zone database. However, the JavaScript <code>Date</code>
+object has access to only two time zones: the timezone of the local
+browser, and UTC. JavaScript-based visualization systems, including d3,
+Plotly, and Vega, are constrained by this limitation because they depend
+on the JavaScript <code>Date</code> object.</p>
 <div class="section level3">
 <h3 id="vega-lite-examples">Vega-Lite examples<a class="anchor" aria-label="anchor" href="#vega-lite-examples"></a>
 </h3>
-<p>Let’s look at an example using one of the datasets included in this package: <code>data_seattle_hourly</code>, adapted from <a href="https://github.com/vega/vega-datasets" class="external-link">vega-datasets</a>:</p>
+<p>Let’s look at an example using one of the datasets included in this
+package: <code>data_seattle_hourly</code>, adapted from <a href="https://github.com/vega/vega-datasets" class="external-link">vega-datasets</a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">data_seattle_hourly</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Rows: 8,759</span></span>
 <span><span class="co">## Columns: 2</span></span>
 <span><span class="co">## $ date <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span> 2010-01-01 01:00:00, 2010-01-01 02:00:00, 2010-01-01 03:00:00, 2…</span></span>
 <span><span class="co">## $ temp <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2, …</span></span></code></pre>
-<p>This dataset contains hourly observations of Seattle temperature (°F) for the year 2010. Let’s inspect the time zone of the <code>date</code> variable:</p>
+<p>This dataset contains hourly observations of Seattle temperature (°F)
+for the year 2010. Let’s inspect the time zone of the <code>date</code>
+variable:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/tz.html" class="external-link">tz</a></span><span class="op">(</span><span class="va">data_seattle_hourly</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "America/Los_Angeles"</span></span></code></pre>
-<p>We see that the <code>date</code> variable uses the <code>"America/Los_Angeles"</code> time zone, which is what we would expect for Seattle. This means that the values for <code>date</code> are displayed above as local time. To make the following demonstrations a little lighter, we will use an shortened version of this dataset, one that uses only 2010-01-01:</p>
+<p>We see that the <code>date</code> variable uses the
+<code>"America/Los_Angeles"</code> time zone, which is what we would
+expect for Seattle. This means that the values for <code>date</code> are
+displayed above as local time. To make the following demonstrations a
+little lighter, we will use an shortened version of this dataset, one
+that uses only 2010-01-01:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_seattle_hourly_short</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">data_seattle_hourly</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -190,8 +230,8 @@
 <span>  <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">spec_local</span></span></code></pre></div>
-<div id="htmlwidget-c2dad7825afafb64f194" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c2dad7825afafb64f194">{"x":{
+<div id="htmlwidget-86ef90e4a47a37582a27" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-86ef90e4a47a37582a27">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
@@ -314,25 +354,60 @@
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>Our goal is to show the times in the chart using the local time-zone; in this case, we have succeeded. Good news, but let’s have a closer look at what’s going on.</p>
-<p>Here are the first couple of observations in the data frame, rendered as JSON (using the same settings for datetimes as we use when render the entire vegaspec to JSON):</p>
+},"evals":[],"jsHooks":[]}</script><p>Our goal is to show the times in the chart using the local time-zone;
+in this case, we have succeeded. Good news, but let’s have a closer look
+at what’s going on.</p>
+<p>Here are the first couple of observations in the data frame, rendered
+as JSON (using the same settings for datetimes as we use when render the
+entire vegaspec to JSON):</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_seattle_hourly_short</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [{"date":"2010-01-01 01:00:00","temp":4},{"date":"2010-01-01 02:00:00","temp":3.9}]</span></span></code></pre>
-<p>We see that date-times are <em>not</em> formatted using ISO-8601 formatting - the times are serialized to JSON using the local context. When Vega-Lite <a href="https://vega.github.io/vega-lite/docs/timeunit.html#utc" class="external-link">parses this data</a>, it recognizes that this is a datetime and that the format is <em>not</em> ISO-8601. As such, these times will be parsed, interpreted, and displayed as local times:</p>
+<p>We see that date-times are <em>not</em> formatted using ISO-8601
+formatting - the times are serialized to JSON using the local context.
+When Vega-Lite <a href="https://vega.github.io/vega-lite/docs/timeunit.html#utc" class="external-link">parses
+this data</a>, it recognizes that this is a datetime and that the format
+is <em>not</em> ISO-8601. As such, these times will be parsed,
+interpreted, and displayed as local times:</p>
 <blockquote>
 <ol style="list-style-type: decimal">
-<li>Times are parsed as UTC time if the date strings are in ISO format. Note that in JavaScript date strings without time are interpreted as UTC but but date strings with time and without timezone as local.</li>
-<li>If that is not the case, by default, times are assumed to be local.</li>
+<li>Times are parsed as UTC time if the date strings are in ISO format.
+Note that in JavaScript date strings without time are interpreted as UTC
+but but date strings with time and without timezone as local.</li>
+<li>If that is not the case, by default, times are assumed to be
+local.</li>
 </ol>
 </blockquote>
-<p>This is what we intended to demonstrate, but you should be aware of some “gotchas” due to daylight-saving time:</p>
+<p>This is what we intended to demonstrate, but you should be aware of
+some “gotchas” due to daylight-saving time:</p>
 <ul>
-<li><p>In Seattle in 2010, the <em>local</em> time represented by <code>"2010-03-14 02:00:00"</code> does not exist; the local time represented by <code>"2010-11-07 01:00:00"</code> occurs twice. This is the reason that the dataset has 8759 observations rather than our expectation of 8760: the “repeated” hour has only one observation. This is one of the fragilities of storing datetimes using local time rather than UTC.</p></li>
-<li><p>In 2010, in Europe, the daylight-saving time transitions happened on different dates from the USA - in Europe this happened on <code>"2010-03-28"</code> and <code>"2010-10-31"</code>. This means that there are local times represented in this dataset that do not exist in <em>local</em> time in Europe, so they will not be parsed, interpreted, or displayed properly.</p></li>
+<li><p>In Seattle in 2010, the <em>local</em> time represented by
+<code>"2010-03-14 02:00:00"</code> does not exist; the local time
+represented by <code>"2010-11-07 01:00:00"</code> occurs twice. This is
+the reason that the dataset has 8759 observations rather than our
+expectation of 8760: the “repeated” hour has only one observation. This
+is one of the fragilities of storing datetimes using local time rather
+than UTC.</p></li>
+<li><p>In 2010, in Europe, the daylight-saving time transitions happened
+on different dates from the USA - in Europe this happened on
+<code>"2010-03-28"</code> and <code>"2010-10-31"</code>. This means that
+there are local times represented in this dataset that do not exist in
+<em>local</em> time in Europe, so they will not be parsed, interpreted,
+or displayed properly.</p></li>
 </ul>
-<p>This is why it is a best-practice in R (and elsewhere) to serialize datetimes using the ISO-8601 format, then to treat the local time-zone, in this case <code>"America/Los_Angeles"</code>, as metadata. However, for the reasons outlined in at the beginning of this article, we cannot get this to work using Vega(-Lite). What follows are two different ways that Vega-Lite works with UTC times, <em>neither of which is likely what you want</em>.</p>
-<p>This package has a function, <code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code>, to serialize dates and times in a data frame. It has an argument to specify a format for dates, <code>iso_date</code>, and an option to specify a format for datetimes, <code>iso_dttm</code>. We set the <code>iso_dttm</code> argument to <code>TRUE</code> to serialize our datetimes using ISO-8601 format:</p>
+<p>This is why it is a best-practice in R (and elsewhere) to serialize
+datetimes using the ISO-8601 format, then to treat the local time-zone,
+in this case <code>"America/Los_Angeles"</code>, as metadata. However,
+for the reasons outlined in at the beginning of this article, we cannot
+get this to work using Vega(-Lite). What follows are two different ways
+that Vega-Lite works with UTC times, <em>neither of which is likely what
+you want</em>.</p>
+<p>This package has a function, <code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code>, to
+serialize dates and times in a data frame. It has an argument to specify
+a format for dates, <code>iso_date</code>, and an option to specify a
+format for datetimes, <code>iso_dttm</code>. We set the
+<code>iso_dttm</code> argument to <code>TRUE</code> to serialize our
+datetimes using ISO-8601 format:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_seattle_hourly_short_iso</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">data_seattle_hourly_short</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -342,11 +417,15 @@
 <span><span class="co">## Columns: 2</span></span>
 <span><span class="co">## $ date <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2010-01-01T09:00:00.000Z", "2010-01-01T10:00:00.000Z", "2010-01-…</span></span>
 <span><span class="co">## $ temp <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 4.0, 3.9, 3.8, 3.8, 3.7, 3.7, 3.7, 3.7, 4.0, 4.5, 5.2, 5.8, 6.2, …</span></span></code></pre>
-<p>You can see that we have changed the <code>date</code> variable from a datetime to a character string. Its values show <code>date</code>:</p>
+<p>You can see that we have changed the <code>date</code> variable from
+a datetime to a character string. Its values show <code>date</code>:</p>
 <ul>
-<li>in the ISO-8601 format (according to the <code>iso_dttm</code> argument).</li>
-<li>ISO-8601 implies using UTC (at this time, 8 hours ahead of Seattle).</li>
-<li>to millisecond precision (matching JavaScript’s time-resolution).</li>
+<li>in the ISO-8601 format (according to the <code>iso_dttm</code>
+argument).</li>
+<li>ISO-8601 implies using UTC (at this time, 8 hours ahead of
+Seattle).</li>
+<li>to millisecond precision (matching JavaScript’s
+time-resolution).</li>
 </ul>
 <p>Let’s see what our chart looks like, using this data:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
@@ -355,8 +434,8 @@
 <span><span class="va">spec_iso_local</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">values</span> <span class="op">&lt;-</span> <span class="va">data_seattle_hourly_short_iso</span></span>
 <span></span>
 <span><span class="va">spec_iso_local</span></span></code></pre></div>
-<div id="htmlwidget-fa71876fe4c64c61bc95" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fa71876fe4c64c61bc95">{"x":{
+<div id="htmlwidget-2dd1858398ecf5d778cb" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-2dd1858398ecf5d778cb">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
@@ -479,16 +558,28 @@
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>If the browser you are using to view this page is in the <code>"America/Los_Angeles"</code> time zone, this chart will appear identical to the first chart. However, if your browser is not “in” this time-zone, the axis labels for <code>date</code> are now not what we might expect. Vega-Lite parses and interprets the <code>date</code> values as UTC, but displays the <code>date</code> using the <em>browser’s</em> local time-zone. I (Ian) am in the <code>"America/Chicago"</code> time zone, so the axis, for me, begins at 02:00. This is consistent with <em>my</em> time zone being two hours ahead of <code>"America/Los_Angeles"</code>.</p>
-<p>As noted above, the JavaScript <code>Date</code> object knows two time-zones: the browser’s and UTC. Our other option is to direct Vega-Lite to <a href="https://vega.github.io/vega-lite/docs/timeunit.html#output" class="external-link">display the time as UTC</a>:</p>
+},"evals":[],"jsHooks":[]}</script><p>If the browser you are using to view this page is in the
+<code>"America/Los_Angeles"</code> time zone, this chart will appear
+identical to the first chart. However, if your browser is not “in” this
+time-zone, the axis labels for <code>date</code> are now not what we
+might expect. Vega-Lite parses and interprets the <code>date</code>
+values as UTC, but displays the <code>date</code> using the
+<em>browser’s</em> local time-zone. I (Ian) am in the
+<code>"America/Chicago"</code> time zone, so the axis, for me, begins at
+02:00. This is consistent with <em>my</em> time zone being two hours
+ahead of <code>"America/Los_Angeles"</code>.</p>
+<p>As noted above, the JavaScript <code>Date</code> object knows two
+time-zones: the browser’s and UTC. Our other option is to direct
+Vega-Lite to <a href="https://vega.github.io/vega-lite/docs/timeunit.html#output" class="external-link">display
+the time as UTC</a>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec_iso_utc</span> <span class="op">&lt;-</span> <span class="va">spec_iso_local</span></span>
 <span></span>
 <span><span class="va">spec_iso_utc</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"utc"</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="va">spec_iso_utc</span></span></code></pre></div>
-<div id="htmlwidget-cde4389574eeeb0bf7d8" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cde4389574eeeb0bf7d8">{"x":{
+<div id="htmlwidget-c7548a52298b9ad4c325" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-c7548a52298b9ad4c325">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
@@ -614,30 +705,74 @@
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>Here, the <code>date</code> axis begins at 08:00, which is the UTC time when it was midnight in Seattle.</p>
+},"evals":[],"jsHooks":[]}</script><p>Here, the <code>date</code> axis begins at 08:00, which is the UTC
+time when it was midnight in Seattle.</p>
 </div>
 <div class="section level3">
 <h3 id="datetime-compromise">Datetime compromise<a class="anchor" aria-label="anchor" href="#datetime-compromise"></a>
 </h3>
-<p>Because of the time-zone limitations of the JavaScript <code>Date</code> object, we are forced to make a compromise.</p>
-<p>If we serialize datetimes using the local (to the data) time-zone, using a non-ISO-8601 format:</p>
+<p>Because of the time-zone limitations of the JavaScript
+<code>Date</code> object, we are forced to make a compromise.</p>
+<p>If we serialize datetimes using the local (to the data) time-zone,
+using a non-ISO-8601 format:</p>
 <ul>
-<li>Vega-Lite parses, interprets, and displays the datetimes as if they are local times in the browser’s time zone.</li>
-<li>Different application of daylight-saving time across different time zones is a potential source of error in the visualization.</li>
-<li>The data, as sent to the browser, is incomplete because we have “lost” the link to the actual instants-in-time that the data represents.</li>
+<li>Vega-Lite parses, interprets, and displays the datetimes as if they
+are local times in the browser’s time zone.</li>
+<li>Different application of daylight-saving time across different time
+zones is a potential source of error in the visualization.</li>
+<li>The data, as sent to the browser, is incomplete because we have
+“lost” the link to the actual instants-in-time that the data
+represents.</li>
 </ul>
-<p>If we serialize datetime data using the ISO-8601 format, the instants are parsed and interpreted correctly. However, we have the option to display using only the time zone of the browser or UTC. It is entirely likely that the context (time zone) of our data is different from the context of our browser - in which case we are unable to make an effective visualization.</p>
-<p>Faced with this choice, it seems the first option – serializing our data using the data’s local time-zone – is the least-bad option, as it gives us the opportunity to present the data using its own context. That being said, we need to be mindful of the daylight-saving pitfalls, and warn our users accordingly. Further, we have to recognize (and possibly note to our users) that the data inside the visualization is compromised.</p>
-<p>In other situations, the best-practice for serializing datetimes is to use ISO-8601 formatting and to keep the time zone as metadata. This allows us to refer, unambiguously, to the actual instants-in-time. It would be great if this were “baked into” Vega(-Lite), but it seems the limitation is fundamentally in the JavaScript <code>Date</code> object, suggesting that it would be a heavy lift to implement a comprehensive solution.</p>
+<p>If we serialize datetime data using the ISO-8601 format, the instants
+are parsed and interpreted correctly. However, we have the option to
+display using only the time zone of the browser or UTC. It is entirely
+likely that the context (time zone) of our data is different from the
+context of our browser - in which case we are unable to make an
+effective visualization.</p>
+<p>Faced with this choice, it seems the first option – serializing our
+data using the data’s local time-zone – is the least-bad option, as it
+gives us the opportunity to present the data using its own context. That
+being said, we need to be mindful of the daylight-saving pitfalls, and
+warn our users accordingly. Further, we have to recognize (and possibly
+note to our users) that the data inside the visualization is
+compromised.</p>
+<p>In other situations, the best-practice for serializing datetimes is
+to use ISO-8601 formatting and to keep the time zone as metadata. This
+allows us to refer, unambiguously, to the actual instants-in-time. It
+would be great if this were “baked into” Vega(-Lite), but it seems the
+limitation is fundamentally in the JavaScript <code>Date</code> object,
+suggesting that it would be a heavy lift to implement a comprehensive
+solution.</p>
 </div>
 <div class="section level3">
 <h3 id="notes-on-dates">Notes on dates<a class="anchor" aria-label="anchor" href="#notes-on-dates"></a>
 </h3>
-<p>In R, we have different types for date (<code>Date</code>) vs. datetimes (<code>POSIXct</code>). This can be a useful distinction, as using dates makes it easier for us to compare a day in New York with a day in Brisbane.</p>
-<p>In JavaScript, we have a single type, <code>Date</code>, to represent both dates and datetimes; the convention is to treat dates as the datetimes at the <em>start</em> of that day. For a given situation, it remains to determine which time zone to use: UTC or local time.</p>
-<p>In my opinion, this choice would depend on the larger context of the data. If working with a dataset where a date is used in association with datetimes in the same time-zone context, e.g. all associated with a single factory, then it might make more sense to think of both the date and datetimes in the same time-zone context. However, if working with a dataset with dates associated with locations in different time-zones, e.g. New York and Brisbane, it might make more sense to parse these dates using a neutral context, like UTC.</p>
-<p>In Vega, the <a href="https://vega.github.io/vega-lite/docs/timeunit.html#utc" class="external-link">parsing default</a> for datetimes is that if the data is formatted using ISO-8601, then it is parsed as UTC. To be clear, what an R user might think of as a date string: <code>"2001-01-01"</code>, is in ISO-8601 format; accordingly, by default, it is parsed as a JavaScript <code>Date</code> object in the UTC context.</p>
-<p>Let’s consider the dataset <code>data_seattle_daily</code>, where we have daily observations of Seattle weather over the course of four years:</p>
+<p>In R, we have different types for date (<code>Date</code>)
+vs. datetimes (<code>POSIXct</code>). This can be a useful distinction,
+as using dates makes it easier for us to compare a day in New York with
+a day in Brisbane.</p>
+<p>In JavaScript, we have a single type, <code>Date</code>, to represent
+both dates and datetimes; the convention is to treat dates as the
+datetimes at the <em>start</em> of that day. For a given situation, it
+remains to determine which time zone to use: UTC or local time.</p>
+<p>In my opinion, this choice would depend on the larger context of the
+data. If working with a dataset where a date is used in association with
+datetimes in the same time-zone context, e.g. all associated with a
+single factory, then it might make more sense to think of both the date
+and datetimes in the same time-zone context. However, if working with a
+dataset with dates associated with locations in different time-zones,
+e.g. New York and Brisbane, it might make more sense to parse these
+dates using a neutral context, like UTC.</p>
+<p>In Vega, the <a href="https://vega.github.io/vega-lite/docs/timeunit.html#utc" class="external-link">parsing
+default</a> for datetimes is that if the data is formatted using
+ISO-8601, then it is parsed as UTC. To be clear, what an R user might
+think of as a date string: <code>"2001-01-01"</code>, is in ISO-8601
+format; accordingly, by default, it is parsed as a JavaScript
+<code>Date</code> object in the UTC context.</p>
+<p>Let’s consider the dataset <code>data_seattle_daily</code>, where we
+have daily observations of Seattle weather over the course of four
+years:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">data_seattle_daily</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Rows: 1,461</span></span>
@@ -648,7 +783,10 @@
 <span><span class="co">## $ temp_min      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, -1.1, …</span></span>
 <span><span class="co">## $ wind          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, 5.1, 1…</span></span>
 <span><span class="co">## $ weather       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "drizzle", "rain", "rain", "rain", "rain", "rain", "rain…</span></span></code></pre>
-<p>The default JSON-serializer for dates uses the ISO-8601 format for dates. If we wanted to use a non-ISO-8601 format, we could use <code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code> using <code>iso_date = FALSE</code>:</p>
+<p>The default JSON-serializer for dates uses the ISO-8601 format for
+dates. If we wanted to use a non-ISO-8601 format, we could use
+<code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code> using
+<code>iso_date = FALSE</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_seattle_daily</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/vw_serialize_data.html">vw_serialize_data</a></span><span class="op">(</span>iso_date <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -661,7 +799,9 @@
 <span><span class="co">## $ temp_min      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 5.0, 2.8, 7.2, 5.6, 2.8, 2.2, 2.8, 2.8, 5.0, 0.6, -1.1, …</span></span>
 <span><span class="co">## $ wind          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 4.7, 4.5, 2.3, 4.7, 6.1, 2.2, 2.3, 2.0, 3.4, 3.4, 5.1, 1…</span></span>
 <span><span class="co">## $ weather       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "drizzle", "rain", "rain", "rain", "rain", "rain", "rain…</span></span></code></pre>
-<p>For the purpose of making some examples of how to work with UTC dates, let’s filter the original dataset, with ISO-8601 formatting, keeping the first month:</p>
+<p>For the purpose of making some examples of how to work with UTC
+dates, let’s filter the original dataset, with ISO-8601 formatting,
+keeping the first month:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_seattle_daily_short</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">data_seattle_daily</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -701,8 +841,8 @@
 <span>  <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">spec_tempmax_local</span></span></code></pre></div>
-<div id="htmlwidget-9eca9a493f3c25d5647c" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9eca9a493f3c25d5647c">{"x":{
+<div id="htmlwidget-2d4ab770979f2c3796a0" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-2d4ab770979f2c3796a0">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
@@ -982,8 +1122,17 @@
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>If you are in a timezone that is different from UTC (sorry UK), you will see that the points that make up the line are not aligned with the grid. This is another effect of time zones - Vega has parsed and interpreted the <code>date</code> as UTC, but its default is to display it to us using the local time-zone of our browser. For me, near Chicago, the days are “starting” six hours early. You can verify this by using the tooltips, which show the <code>date</code> with the time attached.</p>
-<p>In this situation, we wish to keep the UTC interpretation throughout the visualization. We can do this by using a UTC scale-specification for the x-axis (and the tooltip):</p>
+},"evals":[],"jsHooks":[]}</script><p>If you are in a timezone that is different from UTC (sorry UK), you
+will see that the points that make up the line are not aligned with the
+grid. This is another effect of time zones - Vega has parsed and
+interpreted the <code>date</code> as UTC, but its default is to display
+it to us using the local time-zone of our browser. For me, near Chicago,
+the days are “starting” six hours early. You can verify this by using
+the tooltips, which show the <code>date</code> with the time
+attached.</p>
+<p>In this situation, we wish to keep the UTC interpretation throughout
+the visualization. We can do this by using a UTC scale-specification for
+the x-axis (and the tooltip):</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec_tempmax_utc</span> <span class="op">&lt;-</span> <span class="va">spec_tempmax_local</span></span>
 <span></span>
@@ -991,8 +1140,8 @@
 <span><span class="va">spec_tempmax_utc</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"utc"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">spec_tempmax_utc</span></span></code></pre></div>
-<div id="htmlwidget-ee05eb3ac46f47655d0e" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ee05eb3ac46f47655d0e">{"x":{
+<div id="htmlwidget-3ad02a4715e4d3f2e202" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-3ad02a4715e4d3f2e202">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
@@ -1278,7 +1427,9 @@
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>When using UTC dates (and datetimes), be mindful that you may also have to set the scales to UTC, so that the axis and tooltips behave similarly, and properly, for everyone.</p>
+},"evals":[],"jsHooks":[]}</script><p>When using UTC dates (and datetimes), be mindful that you may also
+have to set the scales to UTC, so that the axis and tooltips behave
+similarly, and properly, for everyone.</p>
 </div>
 <div class="section level3">
 <h3 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
@@ -1286,7 +1437,8 @@
 <div class="section level4">
 <h4 id="parsing">Parsing<a class="anchor" aria-label="anchor" href="#parsing"></a>
 </h4>
-<p>When Vega(-Lite) parses values for dates and times, it checks whether the string is formatted using <a href="https://en.wikipedia.org/wiki/ISO_8601" class="external-link">ISO-8601</a>.</p>
+<p>When Vega(-Lite) parses values for dates and times, it checks whether
+the string is formatted using <a href="https://en.wikipedia.org/wiki/ISO_8601" class="external-link">ISO-8601</a>.</p>
 <p>Here are some examples of ISO-8601 strings:</p>
 <pre><code>2001-01-01T19:34:05Z
 2001-01-01T19:34:05+05:00
@@ -1295,32 +1447,70 @@
 <pre><code>2001-01-01 19:34:05
 Jan-01-2001 19:34:05
 2001/01/01 </code></pre>
-<p>By default, if the format is ISO-8601, Vega will parse the string as UTC. Similarly, by default, if the format is non-ISO-8601, Vega will parse the string as local time. You can override the default by providing a <a href="https://vega.github.io/vega-lite/docs/data.html#format" class="external-link">parsing directive</a> in the specification. If you wish to change how dates and times are serialized, you can use the <code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code> function.</p>
+<p>By default, if the format is ISO-8601, Vega will parse the string as
+UTC. Similarly, by default, if the format is non-ISO-8601, Vega will
+parse the string as local time. You can override the default by
+providing a <a href="https://vega.github.io/vega-lite/docs/data.html#format" class="external-link">parsing
+directive</a> in the specification. If you wish to change how dates and
+times are serialized, you can use the <code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code>
+function.</p>
 </div>
 <div class="section level4">
 <h4 id="datetimes">Datetimes<a class="anchor" aria-label="anchor" href="#datetimes"></a>
 </h4>
-<p>It is likely that you wish to show datetime values using the context of the data, e.g. you want to look at the temperatures in Seattle using in the context of Seattle. From R, assuming that your datetimes are using the data-local timezone, e.g. <code>"America/Los_Angeles"</code>, the least-bad way to do this is to serialize your datetime values using data-local time, rather than using UTC; this will happen by default. Although this will let you display the data as you intend, there are a couple of important points to keep in mind:</p>
+<p>It is likely that you wish to show datetime values using the context
+of the data, e.g. you want to look at the temperatures in Seattle using
+in the context of Seattle. From R, assuming that your datetimes are
+using the data-local timezone, e.g. <code>"America/Los_Angeles"</code>,
+the least-bad way to do this is to serialize your datetime values using
+data-local time, rather than using UTC; this will happen by default.
+Although this will let you display the data as you intend, there are a
+couple of important points to keep in mind:</p>
 <ul>
-<li><p>Weird things may happen at the daylight-saving time transition-points; this problem is compounded if the transition points are different in the data than they are in the user’s browser, e.g. the data’s context is in the US and the user’s browser is in Europe.</p></li>
-<li><p>Your data is now compromised as your datetime strings no longer unambiguously identify the instants in time. Because Vega does not have access to the full list of time-zones, anyone who extracts the data from the Vega specification will be lacking the time-zone context.</p></li>
+<li><p>Weird things may happen at the daylight-saving time
+transition-points; this problem is compounded if the transition points
+are different in the data than they are in the user’s browser, e.g. the
+data’s context is in the US and the user’s browser is in
+Europe.</p></li>
+<li><p>Your data is now compromised as your datetime strings no longer
+unambiguously identify the instants in time. Because Vega does not have
+access to the full list of time-zones, anyone who extracts the data from
+the Vega specification will be lacking the time-zone context.</p></li>
 </ul>
-<p>If you wish for Vega to parse your datetimes using UTC, you can serialize your datetimes using the function <code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code> using <code>iso_dttm = TRUE</code>.</p>
+<p>If you wish for Vega to parse your datetimes using UTC, you can
+serialize your datetimes using the function
+<code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code> using <code>iso_dttm = TRUE</code>.</p>
 </div>
 <div class="section level4">
 <h4 id="dates">Dates<a class="anchor" aria-label="anchor" href="#dates"></a>
 </h4>
-<p>Date and datetimes are the same type in JavaScript; a date is just a datetime at the start of a day.</p>
-<p>Depending on your situation, you may wish to interpret a date using UTC or using the local time-zone of the browser.</p>
+<p>Date and datetimes are the same type in JavaScript; a date is just a
+datetime at the start of a day.</p>
+<p>Depending on your situation, you may wish to interpret a date using
+UTC or using the local time-zone of the browser.</p>
 <ul>
-<li><p>If you are comparing dates from different time-zones, e.g. Beijing and London, it may make sense for you, conceptually, to use a single “neutral” time-zone, UTC. In this case you can use the default serialization for dates, the ISO-8601 format, i.e. <code>"2001-01-01"</code>; Vega will parse this as UTC. However, you will have to adjust the scales in your visualization to use UTC.</p></li>
-<li><p>If your dataset(s) have datetimes and dates from a single time-zone, e.g. a facility in <code>"America/Chicago"</code>, it may be useful to display them using the same (local) time-zone context. Here, you can use the <code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code> function with <code>iso_date = FALSE</code>, such that Vega will parse the dates using the local time-zone.</p></li>
+<li><p>If you are comparing dates from different time-zones,
+e.g. Beijing and London, it may make sense for you, conceptually, to use
+a single “neutral” time-zone, UTC. In this case you can use the default
+serialization for dates, the ISO-8601 format,
+i.e. <code>"2001-01-01"</code>; Vega will parse this as UTC. However,
+you will have to adjust the scales in your visualization to use
+UTC.</p></li>
+<li><p>If your dataset(s) have datetimes and dates from a single
+time-zone, e.g. a facility in <code>"America/Chicago"</code>, it may be
+useful to display them using the same (local) time-zone context. Here,
+you can use the <code><a href="../reference/vw_serialize_data.html">vw_serialize_data()</a></code> function with
+<code>iso_date = FALSE</code>, such that Vega will parse the dates using
+the local time-zone.</p></li>
 </ul>
 </div>
 <div class="section level4">
 <h4 id="scales">Scales<a class="anchor" aria-label="anchor" href="#scales"></a>
 </h4>
-<p>In Vega-Lite, displaying temporal-values on a scale is separate from parsing temporal-values. Regardless of the parsing behavior, Vega-Lite’s default temporal-scale uses the browser’s local time-zone. You can specify a scale in an encoding, for example:</p>
+<p>In Vega-Lite, displaying temporal-values on a scale is separate from
+parsing temporal-values. Regardless of the parsing behavior, Vega-Lite’s
+default temporal-scale uses the browser’s local time-zone. You can
+specify a scale in an encoding, for example:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="va">...</span>,</span>
@@ -1336,8 +1526,14 @@ Jan-01-2001 19:34:05
 <div class="section level2">
 <h2 id="vega-lite-time-unit">Vega-Lite time unit<a class="anchor" aria-label="anchor" href="#vega-lite-time-unit"></a>
 </h2>
-<p>For an interactive version of this section on time units, please see this <a href="https://beta.observablehq.com/@ijlyttle/vega-lite-timeunit" class="external-link">Observable notebook</a>.</p>
-<p>Let’s say you have daily weather data for, say, Seattle over the course of four years. In this case, we want to load the data into vega using a URL, making <em>this</em> page a little lighter by not carrying all the data around in each of the following charts. Let’s have a look at the first few lines:</p>
+<p>For an interactive version of this section on time units, please see
+this <a href="https://beta.observablehq.com/@ijlyttle/vega-lite-timeunit" class="external-link">Observable
+notebook</a>.</p>
+<p>Let’s say you have daily weather data for, say, Seattle over the
+course of four years. In this case, we want to load the data into vega
+using a URL, making <em>this</em> page a little lighter by not carrying
+all the data around in each of the following charts. Let’s have a look
+at the first few lines:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">url_seattle_daily</span> <span class="op">&lt;-</span> <span class="st">"https://vega.github.io/vega-datasets/data/seattle-weather.csv"</span></span>
 <span></span>
@@ -1350,13 +1546,23 @@ Jan-01-2001 19:34:05
 <span><span class="co">## [4] "2012-01-03,0.8,11.7,7.2,2.3,rain"                 </span></span>
 <span><span class="co">## [5] "2012-01-04,20.3,12.2,5.6,4.7,rain"                </span></span>
 <span><span class="co">## [6] "2012-01-05,1.3,8.9,2.8,6.1,rain"</span></span></code></pre>
-<p>As above, this is daily data covering the years 2012-2015 inclusive. Our goal in this section is to show how Vega-Lite time units work by creating charts that:</p>
+<p>As above, this is daily data covering the years 2012-2015 inclusive.
+Our goal in this section is to show how Vega-Lite time units work by
+creating charts that:</p>
 <ul>
 <li>aggregate the data by month</li>
 <li>compare the behavior among the years</li>
 </ul>
-<p>To be clear, you could prepare such variables in a pre-processing step, creating new variables in R, using <strong>dplyr</strong> and <strong>lubridate</strong>. You can also do this in Vega-Lite, using <strong>time unit</strong>, a transformation mechanism for temporal values.</p>
-<p>Let’s start specification for a time-based scatterplot for the daily maximum-temperature, showing every observation in the dataset. For purposes of illustrating how to work with UTC values, we parse the dates as UTC. In the vegaspec below, note the <code>format</code> entry: <code>parse = list(date = "utc:'%Y/%m/%d'")</code>:</p>
+<p>To be clear, you could prepare such variables in a pre-processing
+step, creating new variables in R, using <strong>dplyr</strong> and
+<strong>lubridate</strong>. You can also do this in Vega-Lite, using
+<strong>time unit</strong>, a transformation mechanism for temporal
+values.</p>
+<p>Let’s start specification for a time-based scatterplot for the daily
+maximum-temperature, showing every observation in the dataset. For
+purposes of illustrating how to work with UTC values, we parse the dates
+as UTC. In the vegaspec below, note the <code>format</code> entry:
+<code>parse = list(date = "utc:'%Y/%m/%d'")</code>:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec_daily</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -1396,8 +1602,8 @@ Jan-01-2001 19:34:05
 <span>  <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">spec_daily</span></span></code></pre></div>
-<div id="htmlwidget-c8d028dec36a4e5a3738" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c8d028dec36a4e5a3738">{"x":{
+<div id="htmlwidget-d8314e61187447d63046" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-d8314e61187447d63046">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
@@ -1450,8 +1656,13 @@ Jan-01-2001 19:34:05
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>We use point-marks here not because it is optimal for the visualization (it probably isn’t), but because it may help make clearer what is happening behind the scenes. Seeing what Vega-Lite <em>actually</em> does can help us to understand its time-unit API.</p>
-<p>Let’s say we want to look at the maximum temperature for each year-month in the dataset - 48 months in all. If we were to do this in R, we might make a preprocessing step like this:</p>
+},"evals":[],"jsHooks":[]}</script><p>We use point-marks here not because it is optimal for the
+visualization (it probably isn’t), but because it may help make clearer
+what is happening behind the scenes. Seeing what Vega-Lite
+<em>actually</em> does can help us to understand its time-unit API.</p>
+<p>Let’s say we want to look at the maximum temperature for each
+year-month in the dataset - 48 months in all. If we were to do this in
+R, we might make a preprocessing step like this:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_seattle_daily</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>yearmonth <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html" class="external-link">floor_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"month"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1462,7 +1673,10 @@ Jan-01-2001 19:34:05
 <span><span class="co">## Columns: 2</span></span>
 <span><span class="co">## $ yearmonth <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2012-01-01, 2012-02-01, 2012-03-01, 2012-04-01, 2012-05-01,…</span></span>
 <span><span class="co">## $ temp_max  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 12.8, 16.1, 15.6, 23.3, 26.7, 24.4, 28.3, 34.4, 32.2, 23.9, …</span></span></code></pre>
-<p>We could then plot this data. However, we can make these data transformations within Vega-Lite. We will show this as a series of steps; the first step is to map the values of <code>date</code> to the beginning of the month.</p>
+<p>We could then plot this data. However, we can make these data
+transformations within Vega-Lite. We will show this as a series of
+steps; the first step is to map the values of <code>date</code> to the
+beginning of the month.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># copy the previous spec</span></span>
 <span><span class="va">spec_yearmonth</span> <span class="op">&lt;-</span> <span class="va">spec_daily</span></span>
@@ -1489,8 +1703,8 @@ Jan-01-2001 19:34:05
 <span></span>
 <span></span>
 <span><span class="va">spec_yearmonth</span></span></code></pre></div>
-<div id="htmlwidget-d16c9ee91a941462f4e3" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d16c9ee91a941462f4e3">{"x":{
+<div id="htmlwidget-7e57f2f1d24e6f54975d" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-7e57f2f1d24e6f54975d">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
@@ -1548,16 +1762,34 @@ Jan-01-2001 19:34:05
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>The main change we made to the specification was to tweak the x-encoding: removing the UTC <code>scale</code> and adding a <code>timeUnit</code>, setting it to <code>"utcyearmonth"</code>. The specification of a time unit did three things:</p>
+},"evals":[],"jsHooks":[]}</script><p>The main change we made to the specification was to tweak the
+x-encoding: removing the UTC <code>scale</code> and adding a
+<code>timeUnit</code>, setting it to <code>"utcyearmonth"</code>. The
+specification of a time unit did three things:</p>
 <ul>
-<li><p>It binned the <code>date</code> variable by truncating the time to include the year and month, hence the <code>"yearmonth"</code> part of the directive. This is equivalent to the dplyr expression <code>mutate(yearmonth = floor_date(date, "month"))</code>.</p></li>
-<li><p>Because we parsed <code>date</code> as UTC, we used the UTC context to determine “when” each month starts. This is why the time-unit directive starts with <code>"utc"</code>.</p></li>
-<li><p>It changed the default formatting for the axes to reflect that we have truncated <code>date</code> to its year-month.</p></li>
+<li><p>It binned the <code>date</code> variable by truncating the time
+to include the year and month, hence the <code>"yearmonth"</code> part
+of the directive. This is equivalent to the dplyr expression
+<code>mutate(yearmonth = floor_date(date, "month"))</code>.</p></li>
+<li><p>Because we parsed <code>date</code> as UTC, we used the UTC
+context to determine “when” each month starts. This is why the time-unit
+directive starts with <code>"utc"</code>.</p></li>
+<li><p>It changed the default formatting for the axes to reflect that we
+have truncated <code>date</code> to its year-month.</p></li>
 </ul>
-<p>For me, the essence of the concept is that a <strong>time unit defines a mapping of an existing temporal-variable to a new temporal-variable</strong>; it is a <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code> that returns another datetime.</p>
-<p>We removed the UTC scale from the x-encoding because this is taken care-of with the specification of <code>"utc"</code> within the time unit. If we were to <a href="https://vega.github.io/vega-lite/docs/timeunit.html#output" class="external-link">specify it twice</a>, the UTC-offset would be applied twice.</p>
-<p>We modified the tooltip to demonstrate that we have the same underlying data. On the x-axis, we use the “mutated” year-month rather than the date.</p>
-<p>The next step is to apply the Vega-Lite equivalents to dplyr’s <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise()</a></code> operations.</p>
+<p>For me, the essence of the concept is that a <strong>time unit
+defines a mapping of an existing temporal-variable to a new
+temporal-variable</strong>; it is a <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code> that
+returns another datetime.</p>
+<p>We removed the UTC scale from the x-encoding because this is taken
+care-of with the specification of <code>"utc"</code> within the time
+unit. If we were to <a href="https://vega.github.io/vega-lite/docs/timeunit.html#output" class="external-link">specify
+it twice</a>, the UTC-offset would be applied twice.</p>
+<p>We modified the tooltip to demonstrate that we have the same
+underlying data. On the x-axis, we use the “mutated” year-month rather
+than the date.</p>
+<p>The next step is to apply the Vega-Lite equivalents to dplyr’s
+<code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise()</a></code> operations.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># copy the previous spec</span></span>
 <span><span class="va">spec_yearmonth_aggregate</span> <span class="op">&lt;-</span> <span class="va">spec_yearmonth</span></span>
@@ -1570,8 +1802,8 @@ Jan-01-2001 19:34:05
 <span><span class="va">spec_yearmonth_aggregate</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">aggregate</span> <span class="op">&lt;-</span> <span class="st">"max"</span></span>
 <span></span>
 <span><span class="va">spec_yearmonth_aggregate</span></span></code></pre></div>
-<div id="htmlwidget-00ac30930ae98c575a17" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-00ac30930ae98c575a17">{"x":{
+<div id="htmlwidget-7b265de7ee3d664827b4" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-7b265de7ee3d664827b4">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
@@ -1622,9 +1854,21 @@ Jan-01-2001 19:34:05
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>These two operations are undertaken by adding a single specification: the y-encoding directive <code>aggregate = "max"</code>. Vega-Lite carries out an implied <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> on all the encodings are not aggregated. In this case, y (<code>temp_max</code>) is aggregated; we group by our remaining encoding, x, which is now the “year-month”.</p>
-<p>Also, note that we need to take care with our tooltip definitions. Tooltips are encodings, so the aggregation rule applies to tooltip encodings no different that it applies to other encodings. If something “weird” happens when building a chart that uses implicit aggregation, it can be useful to check the tooltip-definitions for encodings and aggregations that are inconsistent with the rest of the encodings (ask me how I found this out).</p>
-<p>We can add an color-encoding for the year, again using a time-unit:</p>
+},"evals":[],"jsHooks":[]}</script><p>These two operations are undertaken by adding a single specification:
+the y-encoding directive <code>aggregate = "max"</code>. Vega-Lite
+carries out an implied <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> on all the encodings are
+not aggregated. In this case, y (<code>temp_max</code>) is aggregated;
+we group by our remaining encoding, x, which is now the
+“year-month”.</p>
+<p>Also, note that we need to take care with our tooltip definitions.
+Tooltips are encodings, so the aggregation rule applies to tooltip
+encodings no different that it applies to other encodings. If something
+“weird” happens when building a chart that uses implicit aggregation, it
+can be useful to check the tooltip-definitions for encodings and
+aggregations that are inconsistent with the rest of the encodings (ask
+me how I found this out).</p>
+<p>We can add an color-encoding for the year, again using a
+time-unit:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># copy previous spec</span></span>
 <span><span class="va">spec_yearmonth_aggregate_color</span> <span class="op">&lt;-</span> <span class="va">spec_yearmonth_aggregate</span></span>
@@ -1651,8 +1895,8 @@ Jan-01-2001 19:34:05
 <span></span>
 <span></span>
 <span><span class="va">spec_yearmonth_aggregate_color</span></span></code></pre></div>
-<div id="htmlwidget-a90fd30c7a7045f51b17" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a90fd30c7a7045f51b17">{"x":{
+<div id="htmlwidget-ba0d3f7f8b25999b52b0" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-ba0d3f7f8b25999b52b0">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
@@ -1715,9 +1959,18 @@ Jan-01-2001 19:34:05
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>Again, this is another intermediate step; creating a new internal variable using a <code>"utcyear"</code> time-unit. We see that Vega-Lite does the “right” thing with the color-legend. Using the tooltip, we also see that the values of <code>year</code> are the datetimes corresponding to the first instant in a given year.</p>
-<p>In the previous chart, we noted that Vega-Lite will group-by any encoded variable that is not aggregated, then perform the aggregations. In this case, we are grouping by “year” and “year-month”, so the end-result of the groupings is the same as the previous example.</p>
-<p>Our final chart in this series of examples will be to put each of the years on the same scale; we do this by using a time-unit of <code>"utcmonth"</code> for the x-encoding.</p>
+},"evals":[],"jsHooks":[]}</script><p>Again, this is another intermediate step; creating a new internal
+variable using a <code>"utcyear"</code> time-unit. We see that Vega-Lite
+does the “right” thing with the color-legend. Using the tooltip, we also
+see that the values of <code>year</code> are the datetimes corresponding
+to the first instant in a given year.</p>
+<p>In the previous chart, we noted that Vega-Lite will group-by any
+encoded variable that is not aggregated, then perform the aggregations.
+In this case, we are grouping by “year” and “year-month”, so the
+end-result of the groupings is the same as the previous example.</p>
+<p>Our final chart in this series of examples will be to put each of the
+years on the same scale; we do this by using a time-unit of
+<code>"utcmonth"</code> for the x-encoding.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec_month_aggregate_color</span> <span class="op">&lt;-</span> <span class="va">spec_yearmonth_aggregate_color</span></span>
 <span></span>
@@ -1726,8 +1979,8 @@ Jan-01-2001 19:34:05
 <span><span class="va">spec_month_aggregate_color</span><span class="op">$</span><span class="va">encoding</span><span class="op">$</span><span class="va">tooltip</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">timeUnit</span> <span class="op">&lt;-</span> <span class="st">"utcmonth"</span></span>
 <span></span>
 <span><span class="va">spec_month_aggregate_color</span></span></code></pre></div>
-<div id="htmlwidget-7f7d1a0714170599d7a9" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7f7d1a0714170599d7a9">{"x":{
+<div id="htmlwidget-0cb3e0852832dc9a7b09" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-0cb3e0852832dc9a7b09">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 600,
@@ -1790,23 +2043,46 @@ Jan-01-2001 19:34:05
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>Looking at the chart itself, we can see that it is has now “arrived” at our destination: we can more-easily compare years because the months are on the same scale. Using the tooltip, you can see that the time-unit <code>"utcmonth"</code> has projected all of the different years into the year 1900. We are showing this projected year on the x-axis, but the axis labels indicate only the month. The specification of the <code>"utcmonth"</code> time-unit did four things:</p>
+},"evals":[],"jsHooks":[]}</script><p>Looking at the chart itself, we can see that it is has now “arrived”
+at our destination: we can more-easily compare years because the months
+are on the same scale. Using the tooltip, you can see that the time-unit
+<code>"utcmonth"</code> has projected all of the different years into
+the year 1900. We are showing this projected year on the x-axis, but the
+axis labels indicate only the month. The specification of the
+<code>"utcmonth"</code> time-unit did four things:</p>
 <ul>
-<li><p>It binned the <code>date</code> variable by truncating (flooring) the time to the least-significant unit of the time-unit directive: in this case, month.</p></li>
-<li><p>It projected the binned <code>date</code> using the most-significant units <strong>not</strong> in the time-unit directive: in this case, year.</p></li>
-<li><p>Because we parsed <code>date</code> as UTC, we should the UTC context to determine “when” each month starts. This is why the time-unit directive starts with <code>"utc"</code>.</p></li>
-<li><p>It changed the default formatting for the axes to reflect that we have transformed <code>date</code> such that its only significant unit is month.</p></li>
+<li><p>It binned the <code>date</code> variable by truncating (flooring)
+the time to the least-significant unit of the time-unit directive: in
+this case, month.</p></li>
+<li><p>It projected the binned <code>date</code> using the
+most-significant units <strong>not</strong> in the time-unit directive:
+in this case, year.</p></li>
+<li><p>Because we parsed <code>date</code> as UTC, we should the UTC
+context to determine “when” each month starts. This is why the time-unit
+directive starts with <code>"utc"</code>.</p></li>
+<li><p>It changed the default formatting for the axes to reflect that we
+have transformed <code>date</code> such that its only significant unit
+is month.</p></li>
 </ul>
 <div class="section level3">
 <h3 id="summary-1">Summary<a class="anchor" aria-label="anchor" href="#summary-1"></a>
 </h3>
-<p>A Vega-Lite <a href="https://vega.github.io/vega-lite/docs/timeunit.html" class="external-link"><code>timeUnit</code></a> maps a datetime to another datetime.</p>
-<p>There are a lot of choices among time units; each choice, e.g. <code>"monthdate"</code>, <code>"utcyear"</code>, etc., has two dimensions:</p>
+<p>A Vega-Lite <a href="https://vega.github.io/vega-lite/docs/timeunit.html" class="external-link"><code>timeUnit</code></a>
+maps a datetime to another datetime.</p>
+<p>There are a lot of choices among time units; each choice,
+e.g. <code>"monthdate"</code>, <code>"utcyear"</code>, etc., has two
+dimensions:</p>
 <ul>
-<li><p>to use (or not) the UTC context, indicated by the <code>"utc"</code> prefix</p></li>
-<li><p>the range of time units to keep, e.g. <code>"monthdate"</code>. In this case, time units smaller than <em>date</em>, such as hours, minutes and seconds are truncated; a “flooring” datetime to the date. In this case, time units larger than <em>month</em> are projected into a prototype year, in this case 1900.</p></li>
+<li><p>to use (or not) the UTC context, indicated by the
+<code>"utc"</code> prefix</p></li>
+<li><p>the range of time units to keep, e.g. <code>"monthdate"</code>.
+In this case, time units smaller than <em>date</em>, such as hours,
+minutes and seconds are truncated; a “flooring” datetime to the date. In
+this case, time units larger than <em>month</em> are projected into a
+prototype year, in this case 1900.</p></li>
 </ul>
-<p>Finally, a <code>timeUnit</code> specification will set the default formatting (used for axes) for that variable.</p>
+<p>Finally, a <code>timeUnit</code> specification will set the default
+formatting (used for axes) for that variable.</p>
 </div>
 </div>
   </div>
@@ -1828,7 +2104,7 @@ Jan-01-2001 19:34:05
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

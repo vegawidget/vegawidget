@@ -1,5 +1,5 @@
 Package: vegawidget
-Version: 0.4.2.9000
+Version: 0.4.2.9001
 Title: 'Htmlwidget' for 'Vega' and 'Vega-Lite'
 Description: 'Vega' and 'Vega-Lite' parse text in 'JSON' notation to render 
   chart-specifications into 'HTML'. This package is used to facilitate the 
@@ -41,7 +41,7 @@ ByteCompile: true
 URL: https://vegawidget.github.io/vegawidget/
 BugReports: https://github.com/vegawidget/vegawidget/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 Depends:
     R (>= 2.10)

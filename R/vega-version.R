@@ -146,8 +146,9 @@ get_major <- function(x) {
 #'
 get_candidate <- function(version, candidates) {
 
+  # package_version needs to be vectorized
   major <- function(x) {
-    package_version(x)$major
+    vapply(x, function(x) package_version(x)$major, numeric(1), USE.NAMES = FALSE)
   }
 
   # need to save original for message

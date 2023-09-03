@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3</span>
       </span>
     </div>
 
@@ -116,8 +116,10 @@
 
     
     
-<p>For a comprehensive introduction to Vega-Lite, please visit the its <a href="https://vega.github.io/vega-lite/" class="external-link">web site</a>.</p>
-<p>Vega(-Lite) specifications are just text, formatted as JSON. However, in R, we can use lists to build specifications:</p>
+<p>For a comprehensive introduction to Vega-Lite, please visit the its
+<a href="https://vega.github.io/vega-lite/" class="external-link">web site</a>.</p>
+<p>Vega(-Lite) specifications are just text, formatted as JSON. However,
+in R, we can use lists to build specifications:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span></span>
 <span></span>
@@ -134,40 +136,71 @@
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>The <code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into a <em>vegaspec</em>; many of this package’s functions are built to support, and render, vegaspecs:</p>
+<p>The <code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code> function is used to turn the list into
+a <em>vegaspec</em>; many of this package’s functions are built to
+support, and render, vegaspecs:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec_mtcars</span></span></code></pre></div>
 <p><img src="mtcars.svg"></p>
-<p>Please note that, in an effort to reduce the size of this vignette, the charts are displayed as SVG files rather than using native Vega.</p>
-<p>This package is a low-level interface to Vega-Lite and the Vega ecosystem, which has a lot of powerful capabilities, highlighted in this series of articles:</p>
+<p>Please note that, in an effort to reduce the size of this vignette,
+the charts are displayed as SVG files rather than using native Vega.</p>
+<p>This package is a low-level interface to Vega-Lite and the Vega
+ecosystem, which has a lot of powerful capabilities, highlighted in this
+series of articles:</p>
 <ul>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/articles/vegaspec.html">Specify using vegaspec</a>: how to construct and render a vegaspec.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/vegaspec.html">Specify
+using vegaspec</a>: how to construct and render a vegaspec.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/articles/render-vegawidget.html">Render using vegawidget</a>: advanced rendering options.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/render-vegawidget.html">Render
+using vegawidget</a>: advanced rendering options.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/articles/shiny.html">Extend using Shiny</a>: how to interact with Vega charts using Shiny.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/shiny.html">Extend
+using Shiny</a>: how to interact with Vega charts using Shiny.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/articles/javascript.html">Extend using JavaScript</a>: how to interact with Vega charts using JavaScript.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/javascript.html">Extend
+using JavaScript</a>: how to interact with Vega charts using
+JavaScript.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/articles/image.html">Create Images</a>: how to create and save PNG or SVG images.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/image.html">Create
+Images</a>: how to create and save PNG or SVG images.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/articles/dates-times.html">Work with Dates and Times</a>: dates and times in Vega(-Lite) work a little differently from R.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/dates-times.html">Work
+with Dates and Times</a>: dates and times in Vega(-Lite) work a little
+differently from R.</li>
 <li>
-<a href="https://vegawidget.github.io/vegawidget/articles/articles/import.html">Import into Other Packages</a>: how to import vegawidget functions into your package, then re-export them.</li>
+<a href="https://vegawidget.github.io/vegawidget/articles/articles/import.html">Import
+into Other Packages</a>: how to import vegawidget functions into your
+package, then re-export them.</li>
 </ul>
-<p>To share your Vega(-Lite) creation on the <a href="https://bl.ocks.org" class="external-link">Blocks</a> website, you can use the <a href="https://vegawidget.github.io/vegablock/" class="external-link"><strong>vegablock</strong></a> package.</p>
+<p>To share your Vega(-Lite) creation on the <a href="https://bl.ocks.org" class="external-link">Blocks</a> website, you can use the <a href="https://vegawidget.github.io/vegablock/" class="external-link"><strong>vegablock</strong></a>
+package.</p>
 <div class="section level2">
 <h2 id="integration-with-other-packages">Integration with other packages<a class="anchor" aria-label="anchor" href="#integration-with-other-packages"></a>
 </h2>
-<p>Although there is an <a href="https://vegawidget.github.io/vegawidget/articles/import.html">article</a> dedicated to this aspect of the package, it warrants further emphasis.</p>
-<p>This package provides functions to render Vega(-Lite) specifications; although it provides some helpers, it does not provide higher-level functions to build specifications. Rather, this is left to other packages. Even though you can use its functions directly, you are invited to import and re-export them for use in <em>your</em> package.</p>
-<p>Accordingly, this package offers a templating function, <code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code>, to help you integrate vegawidget functions into your package. For example, it is used to import and re-export vegawidget functions for the <a href="https://vegawidget.github.io/altair/" class="external-link">altair</a> package.</p>
+<p>Although there is an <a href="https://vegawidget.github.io/vegawidget/articles/import.html">article</a>
+dedicated to this aspect of the package, it warrants further
+emphasis.</p>
+<p>This package provides functions to render Vega(-Lite) specifications;
+although it provides some helpers, it does not provide higher-level
+functions to build specifications. Rather, this is left to other
+packages. Even though you can use its functions directly, you are
+invited to import and re-export them for use in <em>your</em>
+package.</p>
+<p>Accordingly, this package offers a templating function,
+<code><a href="../reference/use_vegawidget.html">use_vegawidget()</a></code>, to help you integrate vegawidget
+functions into your package. For example, it is used to import and
+re-export vegawidget functions for the <a href="https://vegawidget.github.io/altair/" class="external-link">altair</a> package.</p>
 </div>
 <div class="section level2">
 <h2 id="known-limitations">Known limitations<a class="anchor" aria-label="anchor" href="#known-limitations"></a>
 </h2>
-<p>Vega(-Lite) <a href="https://vega.github.io/vega-lite/docs/field.html" class="external-link">interprets dots in field (variable) names</a> as an indicator of nesting. To escape this interpretation, you can escape the dot with two backslashes, <code>\\</code>, or surround the name with square brackets, <code>[]</code>. These escape-methods mess up the default axis-titles, so you may wish to set those manually.</p>
+<p>Vega(-Lite) <a href="https://vega.github.io/vega-lite/docs/field.html" class="external-link">interprets dots
+in field (variable) names</a> as an indicator of nesting. To escape this
+interpretation, you can escape the dot with two backslashes,
+<code>\\</code>, or surround the name with square brackets,
+<code>[]</code>. These escape-methods mess up the default axis-titles,
+so you may wish to set those manually.</p>
 <p>For example:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span></span>
@@ -193,10 +226,16 @@
 <span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span><span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="freeny.svg"></p>
-<p>There are limitations associated with vegaspecs that contain <a href="https://vega.github.io/vega-lite/docs/data.html#url" class="external-link">datasets specified using remote URLs</a>:</p>
+<p>There are limitations associated with vegaspecs that contain <a href="https://vega.github.io/vega-lite/docs/data.html#url" class="external-link">datasets
+specified using remote URLs</a>:</p>
 <ul>
-<li><p>The RStudio IDE may not let you access remote URLs for security reasons. A chart that accesses remote data may not render in the IDE; it <em>will</em> render in a browser window.</p></li>
-<li><p>The image functions use <strong>V8</strong> to create SVG strings. If you are accessing remote data in your chart (i.e. your spec uses an HTTP(S) URL), you will need to make sure that R has access to the remote data (i.e. if you use a proxy, it is set up in R).</p></li>
+<li><p>The RStudio IDE may not let you access remote URLs for security
+reasons. A chart that accesses remote data may not render in the IDE; it
+<em>will</em> render in a browser window.</p></li>
+<li><p>The image functions use <strong>V8</strong> to create SVG
+strings. If you are accessing remote data in your chart (i.e. your spec
+uses an HTTP(S) URL), you will need to make sure that R has access to
+the remote data (i.e. if you use a proxy, it is set up in R).</p></li>
 </ul>
 </div>
   </div>
@@ -218,7 +257,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

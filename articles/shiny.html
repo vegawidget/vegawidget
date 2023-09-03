@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3</span>
       </span>
     </div>
 
@@ -108,7 +108,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Extend using Shiny</h1>
             
-            <h4 data-toc-skip class="date">2022-10-20</h4>
+            <h4 data-toc-skip class="date">2023-09-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/HEAD/vignettes/articles/shiny.Rmd" class="external-link"><code>vignettes/articles/shiny.Rmd</code></a></small>
       <div class="hidden name"><code>shiny.Rmd</code></div>
@@ -119,37 +119,63 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span></span></code></pre></div>
-<p>The purpose of this article is to show how you can use Shiny to extend Vega’s capabilities. In these examples, we use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view" class="external-link">vega-view</a> API to interact with a Vega chart using Shiny We explore similar ideas in an article on <a href="javascript.html">extending using JavaScript</a>.</p>
-<p>Because this article is an HTML document (as opposed to a Shiny app), we cannot show the app directly in this document. However, this package offers a function <code><a href="../reference/vw_shiny_demo.html">vw_shiny_demo()</a></code> that, when called without arguments, lists all of the demonstration apps included with this package; to run a particular app, simply use its name as the argument:</p>
+<p>The purpose of this article is to show how you can use Shiny to
+extend Vega’s capabilities. In these examples, we use the <a href="https://github.com/vega/vega/tree/master/packages/vega-view" class="external-link">vega-view</a>
+API to interact with a Vega chart using Shiny We explore similar ideas
+in an article on <a href="javascript.html">extending using
+JavaScript</a>.</p>
+<p>Because this article is an HTML document (as opposed to a Shiny app),
+we cannot show the app directly in this document. However, this package
+offers a function <code><a href="../reference/vw_shiny_demo.html">vw_shiny_demo()</a></code> that, when called without
+arguments, lists all of the demonstration apps included with this
+package; to run a particular app, simply use its name as the
+argument:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_shiny_demo.html">vw_shiny_demo</a></span><span class="op">(</span><span class="st">"data-set-get"</span><span class="op">)</span></span></code></pre></div>
-<p>Once a Vega chart is built, there are three things you can access through Shiny:</p>
+<p>Once a Vega chart is built, there are three things you can access
+through Shiny:</p>
 <ul>
 <li>
-<a href="https://vega.github.io/vega/docs/api/view/#event-handling" class="external-link">events</a>: using <code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code>
+<a href="https://vega.github.io/vega/docs/api/view/#event-handling" class="external-link">events</a>:
+using <code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code>
 </li>
 <li>
-<a href="https://vega.github.io/vega/docs/api/view/#signals" class="external-link">signals</a>: using <code><a href="../reference/shiny-getters.html">vw_shiny_get_signal()</a></code> and <code><a href="../reference/shiny-setters.html">vw_shiny_set_signal()</a></code>
+<a href="https://vega.github.io/vega/docs/api/view/#signals" class="external-link">signals</a>:
+using <code><a href="../reference/shiny-getters.html">vw_shiny_get_signal()</a></code> and
+<code><a href="../reference/shiny-setters.html">vw_shiny_set_signal()</a></code>
 </li>
 <li>
-<a href="https://vega.github.io/vega/docs/api/view/#data-and-scales" class="external-link">data</a>: using <code><a href="../reference/shiny-getters.html">vw_shiny_get_data()</a></code> and <code><a href="../reference/shiny-setters.html">vw_shiny_set_data()</a></code>
+<a href="https://vega.github.io/vega/docs/api/view/#data-and-scales" class="external-link">data</a>:
+using <code><a href="../reference/shiny-getters.html">vw_shiny_get_data()</a></code> and
+<code><a href="../reference/shiny-setters.html">vw_shiny_set_data()</a></code>
 </li>
 </ul>
 <p>As we go through the examples, please keep in mind:</p>
 <ul>
-<li>the <code>vw_shiny_get_*()</code> functions <strong>return reactive expressions</strong>; these reactives return values.</li>
-<li>the <code>vw_shiny_set_*()</code> functions <strong>act as Shiny observers</strong>; these observers carry out side-effects.</li>
+<li>the <code>vw_shiny_get_*()</code> functions <strong>return reactive
+expressions</strong>; these reactives return values.</li>
+<li>the <code>vw_shiny_set_*()</code> functions <strong>act as Shiny
+observers</strong>; these observers carry out side-effects.</li>
 </ul>
 <div class="section level2">
 <h2 id="events">Getting events<a class="anchor" aria-label="anchor" href="#events"></a>
 </h2>
-<p>This is a shortened version of the <a href="javascript.html#events">events section</a> in the <a href="javascript.Rmd">JavaScript article</a>; the concepts are the same, but the implementation is far simpler using Shiny.</p>
-<p>Event streams are <a href="https://vega.github.io/vega/docs/event-streams" class="external-link">used extensively within Vega</a>, enabling interactivity. By <a href="https://vega.github.io/vega/docs/api/view/#view_addEventListener" class="external-link">adding event-listeners</a> to the <code>view</code>, we can specify actions to be taken in response to a particular type of event, such as <code>"mouseover"</code>, <code>"click"</code>, <code>"keypress"</code>, etc.</p>
-<p>The Shiny demo for events features a scatterplot. When a mark on the chart is clicked, it returns to Shiny the data observation (datum) associated with that mark.</p>
+<p>This is a shortened version of the <a href="javascript.html#events">events section</a> in the <a href="javascript.Rmd">JavaScript article</a>; the concepts are the same,
+but the implementation is far simpler using Shiny.</p>
+<p>Event streams are <a href="https://vega.github.io/vega/docs/event-streams" class="external-link">used extensively
+within Vega</a>, enabling interactivity. By <a href="https://vega.github.io/vega/docs/api/view/#view_addEventListener" class="external-link">adding
+event-listeners</a> to the <code>view</code>, we can specify actions to
+be taken in response to a particular type of event, such as
+<code>"mouseover"</code>, <code>"click"</code>, <code>"keypress"</code>,
+etc.</p>
+<p>The Shiny demo for events features a scatterplot. When a mark on the
+chart is clicked, it returns to Shiny the data observation (datum)
+associated with that mark.</p>
 <p>You can see this in action by running:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_shiny_demo.html">vw_shiny_demo</a></span><span class="op">(</span><span class="st">"event-get"</span><span class="op">)</span></span></code></pre></div>
-<p>The operative function in the <code>server()</code> function is <code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code>:</p>
+<p>The operative function in the <code>server()</code> function is
+<code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the event returns the backing-data as a list</span></span>
 <span><span class="va">rct_list_click</span> <span class="op">&lt;-</span></span>
@@ -157,16 +183,29 @@
 <p>The function is called with three arguments:</p>
 <ul>
 <li>
-<code>outputId</code>, the scatterplot has the outputId <code>"chart"</code>
+<code>outputId</code>, the scatterplot has the outputId
+<code>"chart"</code>
 </li>
 <li>
-<code>event</code>, we want to respond to <code>"click"</code> events on the scatterplot</li>
+<code>event</code>, we want to respond to <code>"click"</code>
+events on the scatterplot</li>
 <li>
 <code>body_value</code>, please see the following text…</li>
 </ul>
-<p>The vega-view API requires that you supply a handler-function when you <a href="https://vega.github.io/vega/docs/api/view/#view_addEventListener" class="external-link">add an event listener</a>. Inconveniently for R users, this handler-function has to be JavaScript. This package does a few things to make working with JavaScript handlers a little easier.</p>
-<p>An event-handler function is expected to have two arguments, <code>event</code> instance and the scenegraph <code>item</code>. Because all possible event-handlers will have the same arguments, we need specify only the <em>body</em> of the function in <code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code>.</p>
-<p>Instead of specifying the entire body of a JavaScript function, this package provides a library of bodies of (what we think are) commonly-used handler functions. To see the available event-handlers, call <code><a href="../reference/vw_handler_signal.html">vw_handler_event()</a></code> without arguments:</p>
+<p>The vega-view API requires that you supply a handler-function when
+you <a href="https://vega.github.io/vega/docs/api/view/#view_addEventListener" class="external-link">add
+an event listener</a>. Inconveniently for R users, this handler-function
+has to be JavaScript. This package does a few things to make working
+with JavaScript handlers a little easier.</p>
+<p>An event-handler function is expected to have two arguments,
+<code>event</code> instance and the scenegraph <code>item</code>.
+Because all possible event-handlers will have the same arguments, we
+need specify only the <em>body</em> of the function in
+<code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code>.</p>
+<p>Instead of specifying the entire body of a JavaScript function, this
+package provides a library of bodies of (what we think are)
+commonly-used handler functions. To see the available event-handlers,
+call <code><a href="../reference/vw_handler_signal.html">vw_handler_event()</a></code> without arguments:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_handler_signal.html">vw_handler_event</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## arguments: event, item </span></span>
@@ -185,7 +224,12 @@
 <span><span class="co">##     </span></span>
 <span><span class="co">##     // returns the datum behind the mark associated with the event</span></span>
 <span><span class="co">##     return item.datum;</span></span></code></pre>
-<p>We wish to return the data-observation behind the mark associated with the event, so we can specify to use <code>"datum"</code> handler. The <code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code> function knows to check the library first, so you can either supply the entire body of a JavaScript handler-function, or you can supply the name of a handler-function in the library.</p>
+<p>We wish to return the data-observation behind the mark associated
+with the event, so we can specify to use <code>"datum"</code> handler.
+The <code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code> function knows to check the
+library first, so you can either supply the entire body of a JavaScript
+handler-function, or you can supply the name of a handler-function in
+the library.</p>
 <p>As such, the following calls are equivalent:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># name of a body in the event-handler library</span></span>
@@ -193,41 +237,88 @@
 <span></span>
 <span><span class="co"># body of a JavaScript function</span></span>
 <span><span class="fu"><a href="../reference/shiny-getters.html">vw_shiny_get_event</a></span><span class="op">(</span><span class="va">...</span>, body_value <span class="op">=</span> <span class="st">"return item;"</span><span class="op">)</span> </span></code></pre></div>
-<p>The code supplied for <code>body_value</code> need only return a <em>value</em> - the <code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code> function will take care of composing this with additional code that will make that <em>value</em> available to Shiny.</p>
-<p>Finally, the <code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code> function returns a reactive expression that evaluates to the latest <em>value</em> returned from the event-handler.</p>
-<p>To see the same logic implemented in pure JavaScript, see the <a href="javascript.html#demo-events">events demo</a> of the JavaScript article.</p>
+<p>The code supplied for <code>body_value</code> need only return a
+<em>value</em> - the <code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code> function will
+take care of composing this with additional code that will make that
+<em>value</em> available to Shiny.</p>
+<p>Finally, the <code><a href="../reference/shiny-getters.html">vw_shiny_get_event()</a></code> function returns a
+reactive expression that evaluates to the latest <em>value</em> returned
+from the event-handler.</p>
+<p>To see the same logic implemented in pure JavaScript, see the <a href="javascript.html#demo-events">events demo</a> of the JavaScript
+article.</p>
 </div>
 <div class="section level2">
 <h2 id="setting-and-getting-signals">Setting and getting signals<a class="anchor" aria-label="anchor" href="#setting-and-getting-signals"></a>
 </h2>
 <p>As with the events section, this is a shortened version of the <a href="javascript.html#signals">signals section</a> in the <a href="JavaScript">JavaScript article</a>.</p>
-<p>Signals are a <a href="https://vega.github.io/vega/docs/signals" class="external-link">formal part of the Vega specification</a>, but not officially a part of the Vega-Lite specification. They are “dynamic variables that parameterize a visualization and can drive interactive behaviors. Signals can be used throughout a Vega specification, for example to define a mark property or data transform parameter.”</p>
-<p>Even though signals are not defined in Vega-Lite, this does not mean that we cannot use them. Before being rendered, Vega-Lite specifications are compiled into Vega specifications. Once rendered, we can interact with the Vega signals, as long as we know what they are named.</p>
-<p>For example, signals are used to drive the behavior of Vega-Lite <a href="https://vega.github.io/vega-lite/docs/selection.html" class="external-link">selections</a>. As of the start of 2019, the Vega-Lite development team are <a href="https://github.com/vega/vega-lite/issues/3338" class="external-link">discussing</a> if, and how, signals might be introduced to Vega-Lite.</p>
-<p>One way we can “hack” our way to a signal is to use the signal the Vega-Lite specification, then <em>define</em> the signal by patching the compiled Vega specification. Vega-Lite developer Dominik Moritz demonstrates this technique in an <a href="https://beta.observablehq.com/@domoritz/rotating-earth" class="external-link">Observable notebook</a>.</p>
-<p>Here, we will use the same technique to create an interactive histogram. As you know, whenever you create a histogram it is a good idea to experiment with different bin-widths, to give yourself a chance to see all of the interesting structure in the data. We will use the <code>data_seattle_hourly</code> dataset, included with this package, to look at the distribution of temperatures in Seattle in 2010.</p>
+<p>Signals are a <a href="https://vega.github.io/vega/docs/signals" class="external-link">formal part of the Vega
+specification</a>, but not officially a part of the Vega-Lite
+specification. They are “dynamic variables that parameterize a
+visualization and can drive interactive behaviors. Signals can be used
+throughout a Vega specification, for example to define a mark property
+or data transform parameter.”</p>
+<p>Even though signals are not defined in Vega-Lite, this does not mean
+that we cannot use them. Before being rendered, Vega-Lite specifications
+are compiled into Vega specifications. Once rendered, we can interact
+with the Vega signals, as long as we know what they are named.</p>
+<p>For example, signals are used to drive the behavior of Vega-Lite <a href="https://vega.github.io/vega-lite/docs/selection.html" class="external-link">selections</a>.
+As of the start of 2019, the Vega-Lite development team are <a href="https://github.com/vega/vega-lite/issues/3338" class="external-link">discussing</a> if,
+and how, signals might be introduced to Vega-Lite.</p>
+<p>One way we can “hack” our way to a signal is to use the signal the
+Vega-Lite specification, then <em>define</em> the signal by patching the
+compiled Vega specification. Vega-Lite developer Dominik Moritz
+demonstrates this technique in an <a href="https://beta.observablehq.com/@domoritz/rotating-earth" class="external-link">Observable
+notebook</a>.</p>
+<p>Here, we will use the same technique to create an interactive
+histogram. As you know, whenever you create a histogram it is a good
+idea to experiment with different bin-widths, to give yourself a chance
+to see all of the interesting structure in the data. We will use the
+<code>data_seattle_hourly</code> dataset, included with this package, to
+look at the distribution of temperatures in Seattle in 2010.</p>
 <p>You can see this in action by running:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_shiny_demo.html">vw_shiny_demo</a></span><span class="op">(</span><span class="st">"signal-set-get"</span><span class="op">)</span></span></code></pre></div>
-<p>Using the display mode of the app you can see the R code used to build it. In the Vega-Lite spec, in the <code>x</code> <code>encoding</code>, we have defined the <code>bin</code> <code>step</code> as a <code>signal</code> named <code>"bin_width"</code>. This is not legal in Vega-Lite. To make this work, we have to patch the compiled Vega spec with a definition of the signal. We can include the patch as an option to <code><a href="../reference/vega_embed.html">vega_embed()</a></code>.</p>
-<p>You also see in the code that we transform the value returned by the input, which varies between -1 and 1, to the bin-width which varies between 0.1 °F and 10.0 °F.</p>
-<p>To set the value of the signal in the Vega chart, we call the function <code><a href="../reference/shiny-setters.html">vw_shiny_set_signal()</a></code>. In the context of this app:</p>
+<p>Using the display mode of the app you can see the R code used to
+build it. In the Vega-Lite spec, in the <code>x</code>
+<code>encoding</code>, we have defined the <code>bin</code>
+<code>step</code> as a <code>signal</code> named
+<code>"bin_width"</code>. This is not legal in Vega-Lite. To make this
+work, we have to patch the compiled Vega spec with a definition of the
+signal. We can include the patch as an option to
+<code><a href="../reference/vega_embed.html">vega_embed()</a></code>.</p>
+<p>You also see in the code that we transform the value returned by the
+input, which varies between -1 and 1, to the bin-width which varies
+between 0.1 °F and 10.0 °F.</p>
+<p>To set the value of the signal in the Vega chart, we call the
+function <code><a href="../reference/shiny-setters.html">vw_shiny_set_signal()</a></code>. In the context of this
+app:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this sets the bin-width signal in the chart</span></span>
 <span><span class="fu"><a href="../reference/shiny-setters.html">vw_shiny_set_signal</a></span><span class="op">(</span><span class="st">"chart"</span>, name <span class="op">=</span> <span class="st">"bin_width"</span>, value <span class="op">=</span> <span class="fu">rct_bin_width_in</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>
-<code>outputId</code>, the histogram has the outputId <code>"chart"</code>
+<code>outputId</code>, the histogram has the outputId
+<code>"chart"</code>
 </li>
 <li>
-<code>name</code>, the Vega signal we want to set has the name <code>"bin_width"</code>
+<code>name</code>, the Vega signal we want to set has the name
+<code>"bin_width"</code>
 </li>
 <li>
-<code>value</code>, we want to set the Vega signal to this value</li>
+<code>value</code>, we want to set the Vega signal to this
+value</li>
 </ul>
-<p>Note that we are supplying a reactive expression to the <code>value</code> argument. Internally, <code><a href="../reference/shiny-setters.html">vw_shiny_set_signal()</a></code> observes this value, then changes the signal in the Vega chart in response to changes in <code>value</code>. Accordingly, you should think of <code><a href="../reference/shiny-setters.html">vw_shiny_set_signal()</a></code> as equivalent to the <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">shiny::observeEvent()</a></code> function.</p>
-<p>Getting the value of the signal in a Vega chart is very similar to getting the information from an event, as described above.</p>
-<p>The operative function in the <code>server()</code> function is <code><a href="../reference/shiny-getters.html">vw_shiny_get_signal()</a></code>. Here it is in the context of the app:</p>
+<p>Note that we are supplying a reactive expression to the
+<code>value</code> argument. Internally,
+<code><a href="../reference/shiny-setters.html">vw_shiny_set_signal()</a></code> observes this value, then changes the
+signal in the Vega chart in response to changes in <code>value</code>.
+Accordingly, you should think of <code><a href="../reference/shiny-setters.html">vw_shiny_set_signal()</a></code> as
+equivalent to the <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">shiny::observeEvent()</a></code> function.</p>
+<p>Getting the value of the signal in a Vega chart is very similar to
+getting the information from an event, as described above.</p>
+<p>The operative function in the <code>server()</code> function is
+<code><a href="../reference/shiny-getters.html">vw_shiny_get_signal()</a></code>. Here it is in the context of the
+app:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the signal returns the bin-width from the chart</span></span>
 <span><span class="va">rct_bin_width_out</span> <span class="op">&lt;-</span> </span>
@@ -235,50 +326,91 @@
 <p>The function is called with three arguments:</p>
 <ul>
 <li>
-<code>outputId</code>, the scatterplot has the outputId <code>"chart"</code>
+<code>outputId</code>, the scatterplot has the outputId
+<code>"chart"</code>
 </li>
 <li>
-<code>name</code>, we want to access the signal named <code>"bin_width"</code>
+<code>name</code>, we want to access the signal named
+<code>"bin_width"</code>
 </li>
 <li>
-<code>body_value</code>, like with the events, this is a little-bit involved…</li>
+<code>body_value</code>, like with the events, this is a little-bit
+involved…</li>
 </ul>
-<p>To get a signal from Vega we add a signal listener. This includes a signal-handler, a JavaScript function that Vega runs whenever the value of the signal changes. This is very similar to an event-handler.</p>
-<p>For a signal-handler, the arguments are the <code>name</code> of the signal and the <code>value</code> of the signal. To make things simpler, the <code><a href="../reference/shiny-getters.html">vw_shiny_get_signal()</a></code> function asks for the body of a (JavaScript) function that returns the value that you want sent back to Shiny. You need only worry about returning a <em>value</em>, <code><a href="../reference/shiny-getters.html">vw_shiny_get_signal()</a></code> takes care of sending the <em>value</em> back to Shiny.</p>
-<p>To make things even simpler, <code>body_value</code> can also be the name of a signal-handler in this package’s handler-library. You can see all the available signal-handlers by calling <code><a href="../reference/vw_handler_signal.html">vw_handler_signal()</a></code> without arguments.</p>
-<p>Finally, the <code><a href="../reference/shiny-getters.html">vw_shiny_get_signal()</a></code> function returns a reactive expression that evaluates to the latest <em>value</em> returned from the signal-handler.</p>
-<p>To see the same logic implemented in pure JavaScript, see the <a href="javascript.html#demo-signals">signals demo</a> of the JavaScript article.</p>
+<p>To get a signal from Vega we add a signal listener. This includes a
+signal-handler, a JavaScript function that Vega runs whenever the value
+of the signal changes. This is very similar to an event-handler.</p>
+<p>For a signal-handler, the arguments are the <code>name</code> of the
+signal and the <code>value</code> of the signal. To make things simpler,
+the <code><a href="../reference/shiny-getters.html">vw_shiny_get_signal()</a></code> function asks for the body of a
+(JavaScript) function that returns the value that you want sent back to
+Shiny. You need only worry about returning a <em>value</em>,
+<code><a href="../reference/shiny-getters.html">vw_shiny_get_signal()</a></code> takes care of sending the
+<em>value</em> back to Shiny.</p>
+<p>To make things even simpler, <code>body_value</code> can also be the
+name of a signal-handler in this package’s handler-library. You can see
+all the available signal-handlers by calling
+<code><a href="../reference/vw_handler_signal.html">vw_handler_signal()</a></code> without arguments.</p>
+<p>Finally, the <code><a href="../reference/shiny-getters.html">vw_shiny_get_signal()</a></code> function returns a
+reactive expression that evaluates to the latest <em>value</em> returned
+from the signal-handler.</p>
+<p>To see the same logic implemented in pure JavaScript, see the <a href="javascript.html#demo-signals">signals demo</a> of the JavaScript
+article.</p>
 </div>
 <div class="section level2">
 <h2 id="setting-and-getting-data">Setting and getting data<a class="anchor" aria-label="anchor" href="#setting-and-getting-data"></a>
 </h2>
-<p>As with events and signals, you can <a href="https://vega.github.io/vega/docs/api/view/#view_change" class="external-link">change datasets</a> in a Vega chart. In a future version of this package, you will also be able to retrieve datasets from a Vega chart.</p>
-<p>Again, we will follow the example used in the <a href="javascript.html#signals">data section</a> of the JavaScript article. Let’s consider an example with a dataset that has a single observation, a point constrained to the unit-circle. We use a Shiny input to change then angle of the observation.</p>
+<p>As with events and signals, you can <a href="https://vega.github.io/vega/docs/api/view/#view_change" class="external-link">change
+datasets</a> in a Vega chart. In a future version of this package, you
+will also be able to retrieve datasets from a Vega chart.</p>
+<p>Again, we will follow the example used in the <a href="javascript.html#signals">data section</a> of the JavaScript
+article. Let’s consider an example with a dataset that has a single
+observation, a point constrained to the unit-circle. We use a Shiny
+input to change then angle of the observation.</p>
 <p>To run the demonstration:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_shiny_demo.html">vw_shiny_demo</a></span><span class="op">(</span><span class="st">"data-set-get"</span><span class="op">)</span></span></code></pre></div>
-<p>To be able to access a dataset in Vega(-Lite), it has to be <strong>named</strong> in the specification. For more information on naming datasets, please see the <a href="https://vega.github.io/vega/docs/data" class="external-link">Vega</a> and <a href="https://vega.github.io/vega-lite/docs/data.html#named" class="external-link">Vega-Lite</a> documentation on datasets.</p>
-<p>In our <code>server()</code> function, we have a reactive expression, <code>rct_data()</code>, which takes the value of the slider-input and transforms it into a data frame containing a set of coordinates on the unit-circle.</p>
-<p>To change the data in the Vega chart, we call the function <code><a href="../reference/shiny-setters.html">vw_shiny_set_data()</a></code>. In the context of this app:</p>
+<p>To be able to access a dataset in Vega(-Lite), it has to be
+<strong>named</strong> in the specification. For more information on
+naming datasets, please see the <a href="https://vega.github.io/vega/docs/data" class="external-link">Vega</a> and <a href="https://vega.github.io/vega-lite/docs/data.html#named" class="external-link">Vega-Lite</a>
+documentation on datasets.</p>
+<p>In our <code>server()</code> function, we have a reactive expression,
+<code>rct_data()</code>, which takes the value of the slider-input and
+transforms it into a data frame containing a set of coordinates on the
+unit-circle.</p>
+<p>To change the data in the Vega chart, we call the function
+<code><a href="../reference/shiny-setters.html">vw_shiny_set_data()</a></code>. In the context of this app:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># whenever rct_data() changes, the chart will be updated</span></span>
 <span><span class="fu"><a href="../reference/shiny-setters.html">vw_shiny_set_data</a></span><span class="op">(</span><span class="st">"chart"</span>, name <span class="op">=</span> <span class="st">"source"</span>, value <span class="op">=</span> <span class="fu">rct_data</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>
-<code>outputId</code>, the chart has the outputId <code>"chart"</code>
+<code>outputId</code>, the chart has the outputId
+<code>"chart"</code>
 </li>
 <li>
-<code>name</code>, the Vega dataset we want to change has the name <code>"source"</code>
+<code>name</code>, the Vega dataset we want to change has the name
+<code>"source"</code>
 </li>
 <li>
-<code>value</code>, we want to set the Vega dataset to this value</li>
+<code>value</code>, we want to set the Vega dataset to this
+value</li>
 </ul>
-<p>Note that we are supplying a reactive expression to the <code>value</code> argument. Internally, <code><a href="../reference/shiny-setters.html">vw_shiny_set_data()</a></code> observes this value, then changes the dataset in the Vega chart in response to changes in <code>value</code>. Accordingly, you should think of <code><a href="../reference/shiny-setters.html">vw_shiny_set_data()</a></code> as equivalent to the <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">shiny::observeEvent()</a></code> function.</p>
-<p>To get a reactive copy of a named dataset from Vega, we can use the <code><a href="../reference/shiny-getters.html">vw_shiny_get_data()</a></code> function. When that named dataset changes in Vega, it will update the reactive returned by this function. In the context of this app:</p>
+<p>Note that we are supplying a reactive expression to the
+<code>value</code> argument. Internally,
+<code><a href="../reference/shiny-setters.html">vw_shiny_set_data()</a></code> observes this value, then changes the
+dataset in the Vega chart in response to changes in <code>value</code>.
+Accordingly, you should think of <code><a href="../reference/shiny-setters.html">vw_shiny_set_data()</a></code> as
+equivalent to the <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">shiny::observeEvent()</a></code> function.</p>
+<p>To get a reactive copy of a named dataset from Vega, we can use the
+<code><a href="../reference/shiny-getters.html">vw_shiny_get_data()</a></code> function. When that named dataset
+changes in Vega, it will update the reactive returned by this function.
+In the context of this app:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># returns the dataset in `"chart"` named `"source"`</span></span>
 <span><span class="va">rct_data_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/shiny-getters.html">vw_shiny_get_data</a></span><span class="op">(</span><span class="st">"chart"</span>, name <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
-<p>To see the same logic implemented in pure JavaScript, see the <a href="javascript.html#demo-data">data demo</a> of the JavaScript article.</p>
+<p>To see the same logic implemented in pure JavaScript, see the <a href="javascript.html#demo-data">data demo</a> of the JavaScript
+article.</p>
 </div>
   </div>
 
@@ -299,7 +431,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegawidget</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3</span>
       </span>
     </div>
 
@@ -103,14 +103,14 @@
 
       
 
-      </header><script src="vegaspec_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="vegaspec_files/vega-5.22.0/vega@5.22.0.min.js"></script><script src="vegaspec_files/vega-lite-5.5.0/vega-lite@5.5.0.min.js"></script><link href="vegaspec_files/vega-embed-6.20.8/vega-embed.css" rel="stylesheet">
-<script src="vegaspec_files/vega-embed-6.20.8/vega-embed@6.20.8.min.js"></script><script src="vegaspec_files/vegawidget-vl5-binding-0.4.2/vegawidget-vl5.js"></script><link href="vegaspec_files/jsoneditor-5.25.6/jsoneditor.min.css" rel="stylesheet">
+      </header><script src="vegaspec_files/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="vegaspec_files/vega-5.22.0/vega@5.22.0.min.js"></script><script src="vegaspec_files/vega-lite-5.5.0/vega-lite@5.5.0.min.js"></script><link href="vegaspec_files/vega-embed-6.20.8/vega-embed.css" rel="stylesheet">
+<script src="vegaspec_files/vega-embed-6.20.8/vega-embed@6.20.8.min.js"></script><script src="vegaspec_files/vegawidget-vl5-binding-0.4.3/vegawidget-vl5.js"></script><link href="vegaspec_files/jsoneditor-5.25.6/jsoneditor.min.css" rel="stylesheet">
 <script src="vegaspec_files/jsoneditor-5.25.6/jsoneditor.min.js"></script><script src="vegaspec_files/jsonedit-binding-3.0.0/jsonedit.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Specify using vegaspec</h1>
             
-            <h4 data-toc-skip class="date">2022-10-20</h4>
+            <h4 data-toc-skip class="date">2023-09-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vegawidget/vegawidget/blob/HEAD/vignettes/articles/vegaspec.Rmd" class="external-link"><code>vignettes/articles/vegaspec.Rmd</code></a></small>
       <div class="hidden name"><code>vegaspec.Rmd</code></div>
@@ -119,7 +119,10 @@
 
     
     
-<p>The central <em>object</em> of this package is a <em>vegaspec</em>, short for “Vega specification”. This can refer to either a Vega or Vega-Lite specification; in our examples, we work almost exclusively with Vega-Lite.</p>
+<p>The central <em>object</em> of this package is a <em>vegaspec</em>,
+short for “Vega specification”. This can refer to either a Vega or
+Vega-Lite specification; in our examples, we work almost exclusively
+with Vega-Lite.</p>
 <p>This article will showcase functions that:</p>
 <ul>
 <li>build a vegaspec: <code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code>
@@ -133,13 +136,20 @@
 <li>compile a Vega-Lite spec to Vega: <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code>
 </li>
 </ul>
-<p>The article ends with some “gotchas” (please contribute more as you find them).</p>
+<p>The article ends with some “gotchas” (please contribute more as you
+find them).</p>
 <div class="section level2">
 <h2 id="building">Building<a class="anchor" aria-label="anchor" href="#building"></a>
 </h2>
-<p>A vegaspec is created using the constructor <code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code>, which takes a <code>list</code>, <code>character</code> or a <strong>jsonlite</strong> <code>json</code> object.</p>
-<p>Vega and Vega-Lite expect JSON. Because it is easier, in R, to work with lists, a vegaspec “lives” as a list, and then is coerced to JSON when rendered as a vegawidget.</p>
-<p>Let’s start with a bar-chart example. The <code>data_category</code> object is a sample dataset included in this package:</p>
+<p>A vegaspec is created using the constructor
+<code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code>, which takes a <code>list</code>,
+<code>character</code> or a <strong>jsonlite</strong> <code>json</code>
+object.</p>
+<p>Vega and Vega-Lite expect JSON. Because it is easier, in R, to work
+with lists, a vegaspec “lives” as a list, and then is coerced to JSON
+when rendered as a vegawidget.</p>
+<p>Let’s start with a bar-chart example. The <code>data_category</code>
+object is a sample dataset included in this package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://vegawidget.github.io/vegawidget/">"vegawidget"</a></span><span class="op">)</span></span>
 <span></span>
@@ -156,8 +166,8 @@
 <span>  <span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">spec_category</span></span></code></pre></div>
-<div id="htmlwidget-938ccfdf163254974c0b" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-938ccfdf163254974c0b">{"x":{
+<div id="htmlwidget-eaf3270bc043f62e1f15" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-eaf3270bc043f62e1f15">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
@@ -220,7 +230,8 @@
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>Looking at the structure of <code>spec_category</code>, we see that the <code>vegaspec</code> S3 class inherits from <code>list</code>.</p>
+},"evals":[],"jsHooks":[]}</script><p>Looking at the structure of <code>spec_category</code>, we see that
+the <code>vegaspec</code> S3 class inherits from <code>list</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">spec_category</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## List of 4</span></span>
@@ -238,16 +249,20 @@
 <span><span class="co">##   .. ..$ field: chr "number"</span></span>
 <span><span class="co">##   .. ..$ type : chr "quantitative"</span></span>
 <span><span class="co">##  - attr(*, "class")= chr [1:4] "vegaspec_unit" "vegaspec_vega_lite" "vegaspec" "list"</span></span></code></pre>
-<p>You can use the helper function <code><a href="../reference/vega_schema.html">vega_schema()</a></code> to generate the string for the <code>$schema</code> element, which can be useful if you are writing a vegaspec manually.</p>
+<p>You can use the helper function <code><a href="../reference/vega_schema.html">vega_schema()</a></code> to
+generate the string for the <code>$schema</code> element, which can be
+useful if you are writing a vegaspec manually.</p>
 </div>
 <div class="section level2">
 <h2 id="examining">Examining<a class="anchor" aria-label="anchor" href="#examining"></a>
 </h2>
-<p>We also have a function, <code><a href="../reference/vw_examine.html">vw_examine()</a></code>, that you can use to, well, examine a vegaspec. This is a thin wrapper around the <code><a href="https://rdrr.io/pkg/listviewer/man/jsonedit.html" class="external-link">listviewer::jsonedit()</a></code> function:</p>
+<p>We also have a function, <code><a href="../reference/vw_examine.html">vw_examine()</a></code>, that you can use
+to, well, examine a vegaspec. This is a thin wrapper around the
+<code><a href="https://rdrr.io/pkg/listviewer/man/jsonedit.html" class="external-link">listviewer::jsonedit()</a></code> function:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_examine.html">vw_examine</a></span><span class="op">(</span><span class="va">spec_category</span>, mode <span class="op">=</span> <span class="st">"code"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-53640ea65ff4ce38e216" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-53640ea65ff4ce38e216">{"x":{"data":{
+<div class="jsonedit html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2c86c91259ecbd8b5976" style="width:100%;height:432.632880098888px;"></div>
+<script type="application/json" data-for="htmlwidget-2c86c91259ecbd8b5976">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "data": {
     "values": [
@@ -304,13 +319,21 @@
       "type": "quantitative"
     }
   }
-},"options":{"mode":"code","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script><p>You might note that, using <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code>, the <code>data$values</code> element of the vegaspec has a column-major format. In R, data frames are lists of vectors; each of the columns is a vector. In the Vega framework, data sets have a row-major format. When rendering, this package converts data-frames automatically to row-major data.</p>
+},"options":{"mode":"code","modes":["view","code","form","text","tree"]}},"evals":[],"jsHooks":[]}</script><p>You might note that, using <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code>, the
+<code>data$values</code> element of the vegaspec has a column-major
+format. In R, data frames are lists of vectors; each of the columns is a
+vector. In the Vega framework, data sets have a row-major format. When
+rendering, this package converts data-frames automatically to row-major
+data.</p>
 </div>
 <div class="section level2">
 <h2 id="sizing">Sizing<a class="anchor" aria-label="anchor" href="#sizing"></a>
 </h2>
 <p>Sizing can be a tricky issue in Vega-Lite.</p>
-<p>The first thing to keep in mind is that the default interpretation of width and height refers to the dimensions of the data rectangle. For example, we can set <code>width</code> and <code>height</code> of our example spec:</p>
+<p>The first thing to keep in mind is that the default interpretation of
+width and height refers to the dimensions of the data rectangle. For
+example, we can set <code>width</code> and <code>height</code> of our
+example spec:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec_category_size</span> <span class="op">&lt;-</span> <span class="va">spec_category</span></span>
 <span></span>
@@ -318,8 +341,8 @@
 <span><span class="va">spec_category_size</span><span class="op">$</span><span class="va">height</span> <span class="op">&lt;-</span> <span class="fl">300</span></span>
 <span></span>
 <span><span class="va">spec_category_size</span></span></code></pre></div>
-<div id="htmlwidget-8074eb13bec308d13d35" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8074eb13bec308d13d35">{"x":{
+<div id="htmlwidget-b73b7d41b0b9bc108d14" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-b73b7d41b0b9bc108d14">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
@@ -384,11 +407,21 @@
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>Here, the data rectangle is 300 <span class="math inline">\(\times\)</span> 300 pixels, according to our specification.</p>
+},"evals":[],"jsHooks":[]}</script><p>Here, the data rectangle is 300 <span class="math inline">\(\times\)</span> 300 pixels, according to our
+specification.</p>
 <p><img src="autosize-off.png" width="710"></p>
-<p>As you can see above, Vega adds on more “room” for axes, labels, legends, etc., so that the entire chart is 349 <span class="math inline">\(\times\)</span> 343 pixels.</p>
-<p>If we want to specify the dimensions of the entire chart, we can use the <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code> function. The term “autosize” is taken directly from the Vega <a href="https://vega.github.io/vega-lite/docs/size.html#autosize" class="external-link">documentation</a> for sizing. In this context, the term “autosize” does <strong>not</strong> mean that Vega will try to find the optimal sizing for your chart.</p>
-<p>Instead, it means that if you have a requirement for the dimensions of the entire chart, Vega will try to adjust the chart to meet these sizing requirements. The <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code> function modifies the vegaspec to provide Vega these instructions.</p>
+<p>As you can see above, Vega adds on more “room” for axes, labels,
+legends, etc., so that the entire chart is 349 <span class="math inline">\(\times\)</span> 343 pixels.</p>
+<p>If we want to specify the dimensions of the entire chart, we can use
+the <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code> function. The term “autosize” is taken
+directly from the Vega <a href="https://vega.github.io/vega-lite/docs/size.html#autosize" class="external-link">documentation</a>
+for sizing. In this context, the term “autosize” does
+<strong>not</strong> mean that Vega will try to find the optimal sizing
+for your chart.</p>
+<p>Instead, it means that if you have a requirement for the dimensions
+of the entire chart, Vega will try to adjust the chart to meet these
+sizing requirements. The <code><a href="../reference/vw_autosize.html">vw_autosize()</a></code> function modifies
+the vegaspec to provide Vega these instructions.</p>
 <p>Here’s an example:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec_category_autosize</span> <span class="op">&lt;-</span> </span>
@@ -396,8 +429,8 @@
 <span>  <span class="fu"><a href="../reference/vw_autosize.html">vw_autosize</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">300</span>, height <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">spec_category_autosize</span></span></code></pre></div>
-<div id="htmlwidget-ab2ef3ba1fd1ccb27828" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ab2ef3ba1fd1ccb27828">{"x":{
+<div id="htmlwidget-b77a40f125f494b1b3f3" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-b77a40f125f494b1b3f3">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
@@ -472,23 +505,39 @@
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>In this context, the <code>width</code> and <code>height</code> are defined as the dimensions of the entire plot including axes, labels, padding, etc. Here, we have specified the overall dimensions to be 300 <span class="math inline">\(\times\)</span> 300 pixels:</p>
+},"evals":[],"jsHooks":[]}</script><p>In this context, the <code>width</code> and <code>height</code> are
+defined as the dimensions of the entire plot including axes, labels,
+padding, etc. Here, we have specified the overall dimensions to be 300
+<span class="math inline">\(\times\)</span> 300 pixels:</p>
 <p><img src="autosize-on.png" width="710"></p>
-<p>As you can see above, Vega takes into account the “room” needed for axes, labels, legends, etc., so that the data rectangle is 251 <span class="math inline">\(\times\)</span> 257 pixels.</p>
-<p>There are limitations to autosizing; the most prominent is that specifying width and height is <a href="https://vega.github.io/vega-lite/docs/size.html#limitations" class="external-link">effective only for single-view and layered specifications</a>. It will not work for specifications with multiple views (e.g. <code>hconcat</code>, <code>vconcat</code>, <code>facet</code>, <code>`repeat`</code>); there will be no effect on the rendered chart.</p>
+<p>As you can see above, Vega takes into account the “room” needed for
+axes, labels, legends, etc., so that the data rectangle is 251 <span class="math inline">\(\times\)</span> 257 pixels.</p>
+<p>There are limitations to autosizing; the most prominent is that
+specifying width and height is <a href="https://vega.github.io/vega-lite/docs/size.html#limitations" class="external-link">effective
+only for single-view and layered specifications</a>. It will not work
+for specifications with multiple views (e.g. <code>hconcat</code>,
+<code>vconcat</code>, <code>facet</code>, <code>`repeat`</code>); there
+will be no effect on the rendered chart.</p>
 <p>For more information, see the Vega-Lite documentation on <a href="https://vega.github.io/vega-lite/docs/size.html#autosize" class="external-link">autosizing</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="compile-to-vega">Compile to Vega<a class="anchor" aria-label="anchor" href="#compile-to-vega"></a>
 </h2>
-<p>When rendering a Vega-Lite specification, the vega-lite JavaScript library will compile the Vega-Lite specification into Vega. If you have the <a href="https://CRAN.R-project.org/package=V8" class="external-link"><strong>V8</strong></a> package installed, you can compile a Vega-Lite specification to Vega using the <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code> function.</p>
-<p>To be clear, if you are using only Vega-Lite, this is not something you should ever need to do. This may be useful if you need to design a specification using Vega, and you want get things started using a Vega-Lite specification.</p>
+<p>When rendering a Vega-Lite specification, the vega-lite JavaScript
+library will compile the Vega-Lite specification into Vega. If you have
+the <a href="https://CRAN.R-project.org/package=V8" class="external-link"><strong>V8</strong></a>
+package installed, you can compile a Vega-Lite specification to Vega
+using the <code><a href="../reference/vw_to_vega.html">vw_to_vega()</a></code> function.</p>
+<p>To be clear, if you are using only Vega-Lite, this is not something
+you should ever need to do. This may be useful if you need to design a
+specification using Vega, and you want get things started using a
+Vega-Lite specification.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec_category_vega</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vw_to_vega.html">vw_to_vega</a></span><span class="op">(</span><span class="va">spec_category</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">spec_category_vega</span></span></code></pre></div>
-<div id="htmlwidget-dbb6403c53cf1d9d0a12" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dbb6403c53cf1d9d0a12">{"x":{
+<div id="htmlwidget-157a7d6e04a9006fbf20" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget "></div>
+<script type="application/json" data-for="htmlwidget-157a7d6e04a9006fbf20">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega/v5.json",
     "background": "white",
@@ -699,7 +748,8 @@
     "renderer": "canvas",
     "defaultStyle": true
   }
-},"evals":[],"jsHooks":[]}</script><p>We can use the <code><a href="../reference/vw_spec_version.html">vw_spec_version()</a></code> function to check the version of the specification:</p>
+},"evals":[],"jsHooks":[]}</script><p>We can use the <code><a href="../reference/vw_spec_version.html">vw_spec_version()</a></code> function to check the
+version of the specification:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_spec_version.html">vw_spec_version</a></span><span class="op">(</span><span class="va">spec_category_vega</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $library</span></span>
@@ -707,11 +757,12 @@
 <span><span class="co">## </span></span>
 <span><span class="co">## $version</span></span>
 <span><span class="co">## [1] "5"</span></span></code></pre>
-<p>You can examine the result to see how much-more verbose is the Vega specification, compared to the Vega-Lite specification.</p>
+<p>You can examine the result to see how much-more verbose is the Vega
+specification, compared to the Vega-Lite specification.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vw_examine.html">vw_examine</a></span><span class="op">(</span><span class="va">spec_category_vega</span>, mode <span class="op">=</span> <span class="st">"code"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-8216903fec4be6a48904" style="width:100%;height:432.632880098888px;" class="jsonedit html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8216903fec4be6a48904">{"x":{"data":{
+<div class="jsonedit html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4371778c006e35cfb84a" style="width:100%;height:432.632880098888px;"></div>
+<script type="application/json" data-for="htmlwidget-4371778c006e35cfb84a">{"x":{"data":{
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "background": "white",
   "padding": 5,
@@ -921,10 +972,14 @@
 <div class="section level2">
 <h2 id="gotchas">Gotchas<a class="anchor" aria-label="anchor" href="#gotchas"></a>
 </h2>
-<p>There are a few things to keep your eyes open-for if you are building vegaspec:</p>
+<p>There are a few things to keep your eyes open-for if you are building
+vegaspec:</p>
 <ul>
-<li><p>If the JSON needs a <code>null</code>, supply a <code>NULL</code> from R.</p></li>
-<li><p>If the JSON needs an element called <code>repeat</code>, keep in mind that this is a reserved word in R. You can specify such an element using backticks, e.g. <code>list(`repeat` =  ...)</code>.</p></li>
+<li><p>If the JSON needs a <code>null</code>, supply a <code>NULL</code>
+from R.</p></li>
+<li><p>If the JSON needs an element called <code>repeat</code>, keep in
+mind that this is a reserved word in R. You can specify such an element
+using backticks, e.g. <code>list(`repeat` =  ...)</code>.</p></li>
 </ul>
 </div>
   </div>
@@ -946,7 +1001,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

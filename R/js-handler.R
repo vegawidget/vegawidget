@@ -233,7 +233,7 @@ vw_handler_add_effect <- function(vw_handler, body_effect, ...) {
 
   # mix in the parameters
   handler_text <-
-    do.call(glue_js, c(as.list(body_effect$text), list(.envir = params)))
+    glue::glue_data(.x = params, body_effect$text, .open = "${", .sep = "\n")
 
   # append the new effect
   vw_handler$body_effect <- c(vw_handler$body_effect, handler_text)

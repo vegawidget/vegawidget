@@ -1,5 +1,10 @@
 # vegawidget (development version)
 
+## Fixes
+
+* Update `vw_handler_add_effect()` to be compliant with upcoming changes in 
+  {glue} (#227)
+
 # vegawidget 0.4.3
 
 * Update method signatures of internal function for autosizing (#225)

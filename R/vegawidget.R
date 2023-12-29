@@ -194,7 +194,7 @@ vegawidget <- function(spec, embed = NULL, width = NULL, height = NULL,
       sizingPolicy = htmlwidgets::sizingPolicy(
         defaultWidth = "auto",
         defaultHeight = "auto",
-        viewer.fill = FALSE,
+        viewer.fill = TRUE,
         knitr.figure = FALSE
       ),
       elementId = elementId,

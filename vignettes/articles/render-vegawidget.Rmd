@@ -23,6 +23,9 @@ These methods are listed in order of precedence; the `embed` argument to the `ve
 
 These options make the most sense if you are rendering an HTML document. If you are rendering to a non-HTML format, this package's image-writing functions will conspire to try to do the right thing.
 
+Please note that automatic conversion to `vegawidget` works only for objects with class `vegaspec`. 
+If you are working a `promise`, such a promise will have to return a `vegawdget`.
+
 ## Using vegawidget arguments
 
 When you print a `vegaspec`, its print method calls `vegawidget()`.

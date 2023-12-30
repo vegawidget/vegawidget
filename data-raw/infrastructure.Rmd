@@ -254,6 +254,7 @@ To remove the polyfill:
   - remove entries from `data-raw/templates/vegawidget-all.yaml`
   - remove `data-raw/templates/polyfill-structuredClone.js`
   - remove this section of this RMarkdown file
+  - remove call to polyfill in `R/to-vega.R`, in `.vw_to_vega.vegaspec_vega_lite()`
   
 Rerun this RMarkdown file.
 

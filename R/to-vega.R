@@ -50,7 +50,11 @@ vw_to_vega <- function(spec) {
   version_vega_lite <- version_widget[["vega_lite"]]
 
   # polyfill structuredClone, ref: https://stackoverflow.com/questions/73607410
-  # ct$eval("global.structuredClone = (val) => JSON.parse(JSON.stringify(val))")
+  # I think that because Vega(-Lite) specs are designed to be JSON, the
+  # "stringify/parse" method will be sufficient.
+  #
+  # TODO: remove this block of code when {v8} supports structuredClone
+  #
   ct$source(
     pkgfile("polyfill-structuredClone", "polyfill-structuredClone.js")
   )

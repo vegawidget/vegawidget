@@ -1,5 +1,9 @@
 # vegawidget (development version)
 
+## Features
+
+* Update Vega-Lite version to 5.16.3 (#29)
+
 ## Fixes
 
 * Update `vw_handler_add_effect()` to be compliant with upcoming changes in 

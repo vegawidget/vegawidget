@@ -50,7 +50,10 @@ vw_to_vega <- function(spec) {
   version_vega_lite <- version_widget[["vega_lite"]]
 
   # polyfill structuredClone, ref: https://stackoverflow.com/questions/73607410
-  ct$eval("global.structuredClone = (val) => JSON.parse(JSON.stringify(val))")
+  # ct$eval("global.structuredClone = (val) => JSON.parse(JSON.stringify(val))")
+  ct$source(
+    pkgfile("polyfill-structuredClone", "polyfill-structuredClone.js")
+  )
 
   ct$source(pkgfile("vega", glue::glue("vega@{version_vega}.min.js")))
   ct$source(

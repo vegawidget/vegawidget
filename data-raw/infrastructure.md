@@ -53,7 +53,7 @@ library("vegawidget")
 conflict_prefer("filter", "dplyr")
 ```
 
-    ## [conflicted] Will prefer dplyr::filter over any other package
+    ## [conflicted] Will prefer dplyr::filter over any other package.
 
 ## Infrastructure
 
@@ -124,7 +124,7 @@ vega_version_all
     ## # A tibble: 2 × 4
     ##   widget vega_lite vega   vega_embed
     ##   <chr>  <chr>     <chr>  <chr>     
-    ## 1 vl5    5.5.0     5.22.0 6.20.8    
+    ## 1 vl5    5.16.3    5.24.0 6.22.2    
     ## 2 vl4    4.17.0    5.17.0 6.12.2
 
 ``` r
@@ -140,7 +140,7 @@ vega_version_short_all
     ## # A tibble: 2 × 4
     ##   widget vega_lite vega   vega_embed
     ##   <chr>  <chr>     <chr>  <chr>     
-    ## 1 vl5    5.5.0     5.22.0 6.20.8    
+    ## 1 vl5    5.16.3    5.24.0 6.22.2    
     ## 2 vl4    4.17.0    5.17.0 6.12.2
 
 ``` r
@@ -258,9 +258,9 @@ htmlwidgets_downloads_all
     ## # A tibble: 6 × 2
     ##   path_local                          path_remote                               
     ##   <chr>                               <chr>                                     
-    ## 1 vega-lite/vega-lite@5.5.0.min.js    https://cdn.jsdelivr.net/npm/vega-lite@5.…
-    ## 2 vega/vega@5.22.0.min.js             https://cdn.jsdelivr.net/npm/vega@5.22.0  
-    ## 3 vega-embed/vega-embed@6.20.8.min.js https://cdn.jsdelivr.net/npm/vega-embed@6…
+    ## 1 vega-lite/vega-lite@5.16.3.min.js   https://cdn.jsdelivr.net/npm/vega-lite@5.…
+    ## 2 vega/vega@5.24.0.min.js             https://cdn.jsdelivr.net/npm/vega@5.24.0  
+    ## 3 vega-embed/vega-embed@6.22.2.min.js https://cdn.jsdelivr.net/npm/vega-embed@6…
     ## 4 vega-lite/vega-lite@4.17.0.min.js   https://cdn.jsdelivr.net/npm/vega-lite@4.…
     ## 5 vega/vega@5.17.0.min.js             https://cdn.jsdelivr.net/npm/vega@5.17.0  
     ## 6 vega-embed/vega-embed@6.12.2.min.js https://cdn.jsdelivr.net/npm/vega-embed@6…

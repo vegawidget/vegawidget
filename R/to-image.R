@@ -68,10 +68,6 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
 
   assert_packages(c("V8", "fs", "withr"))
 
-  pkgfile <- function(...) {
-    system.file("htmlwidgets", "lib", ..., package = "vegawidget")
-  }
-
   # set defaults
   base_url <-
     base_url %||% getOption("vega.embed")[["loader"]][["baseURL"]] %||% ""
@@ -98,8 +94,8 @@ vw_to_svg <- function(spec, width = NULL, height = NULL, base_url = NULL,
 
   # fire up V8
   ct <- V8::v8()
-  ct$source(pkgfile("vega", glue::glue("vega@{version_vega}.min.js")))
-  ct$source(system.file("bin", "vega_to_svg_v8.js", package = "vegawidget"))
+  ct$source(widgetlib_file("vega", glue::glue("vega@{version_vega}.min.js")))
+  ct$source(bin_file("vega_to_svg_v8.js"))
 
   # send arguments
   ct$assign("spec", V8::JS(str_spec)) # send as JSON text to avoid jsonlite defaults

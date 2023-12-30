@@ -60,3 +60,11 @@ indent <- function(x, n = 0L) {
   x
 }
 
+# helpers to find JavaScript files for v8
+widgetlib_file <- function(...) {
+  system.file("htmlwidgets", "lib", ..., package = "vegawidget")
+}
+
+bin_file <- function(...) {
+  system.file("bin", ..., package = "vegawidget")
+}

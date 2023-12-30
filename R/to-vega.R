@@ -27,13 +27,7 @@ vw_to_vega <- function(spec) {
 
 .vw_to_vega.vegaspec_vega_lite <- function(spec, ...) {
 
-  pkgfile <- function(...) {
-    system.file("htmlwidgets", "lib", ..., package = "vegawidget")
-  }
-
   assert_packages("V8")
-
-  ct <- V8::v8()
 
   # determine versions of vega, vega-lite
   version_all <- vega_version_all()
@@ -49,20 +43,23 @@ vw_to_vega <- function(spec) {
   version_vega <- version_widget[["vega"]]
   version_vega_lite <- version_widget[["vega_lite"]]
 
+  # fire up v8
+  ct <- V8::v8()
+
   # polyfill structuredClone, ref: https://stackoverflow.com/questions/73607410
   # I think that because Vega(-Lite) specs are designed to be JSON, the
   # "stringify/parse" method will be sufficient.
   #
   # TODO: remove this block of code when {v8} supports structuredClone
   #
+  ct$source(bin_file("polyfill-structuredClone.js"))
+
+  ct$source(widgetlib_file("vega", glue::glue("vega@{version_vega}.min.js")))
   ct$source(
-    system.file("bin", "polyfill-structuredClone.js", package = "vegawidget")
+    widgetlib_file("vega-lite", glue::glue("vega-lite@{version_vega_lite}.min.js"))
   )
 
-  ct$source(pkgfile("vega", glue::glue("vega@{version_vega}.min.js")))
-  ct$source(
-    pkgfile("vega-lite", glue::glue("vega-lite@{version_vega_lite}.min.js"))
-  )
+  # convert to vega
   ct$eval(glue::glue("var vs = vegaLite.compile({vw_as_json(spec)})"))
 
   # don't let V8 convert to JSON; send as string

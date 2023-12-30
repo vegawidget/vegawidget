@@ -56,7 +56,7 @@ vw_to_vega <- function(spec) {
   # TODO: remove this block of code when {v8} supports structuredClone
   #
   ct$source(
-    pkgfile("polyfill-structuredClone", "polyfill-structuredClone.js")
+    system.file("bin", "polyfill-structuredClone.js", package = "vegawidget")
   )
 
   ct$source(pkgfile("vega", glue::glue("vega@{version_vega}.min.js")))

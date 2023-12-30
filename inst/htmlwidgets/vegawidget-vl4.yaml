@@ -16,9 +16,3 @@ dependencies:
       - "vega-embed@6.12.2.min.js"
     style:
       - vega-embed.css
-  # TODO: remove when v8 package has structuredClone
-  - name: polyfill-structuredClone
-    version: "0.0.1"
-    src: htmlwidgets/lib/polyfill-structuredClone
-    script:
-      - "polyfill-structuredClone.js"

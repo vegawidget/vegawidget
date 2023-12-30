@@ -234,30 +234,6 @@ pwalk(license_downloads, get_file, path_local_root = dir_lib)
 pwalk(htmlwidgets_downloads_all, get_file, path_local_root = dir_lib)
 ```
 
-### Polyfill for `structuredClone`
-
-The current version of {v8} does not have `structuredClone`, which is used in the Vega node-scripts.
-Hence, we need to polyfill - for the time being.
-
-```{r}
-dir_polyfill <- path(dir_lib, "polyfill-structuredClone")
-dir_create(dir_polyfill)
-
-fs::file_copy(
-  fs::path(dir_templates, "polyfill-structuredClone.js"), 
-  fs::path(dir_polyfill, "polyfill-structuredClone.js")
-)
-```
-
-To remove the polyfill:
-
-  - remove entries from `data-raw/templates/vegawidget-all.yaml`
-  - remove `data-raw/templates/polyfill-structuredClone.js`
-  - remove this section of this RMarkdown file
-  - remove call to polyfill in `R/to-vega.R`, in `.vw_to_vega.vegaspec_vega_lite()`
-  
-Rerun this RMarkdown file.
-
 ### Versions
 
 We use this to support the `vega_version()` function.

@@ -78,6 +78,5 @@ Suggests:
     shiny,
     purrr,
     rsconnect
-Remotes: tidyverse/glue
 Language: en-US
 Config/testthat/edition: 3

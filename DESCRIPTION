@@ -1,5 +1,5 @@
 Package: vegawidget
-Version: 0.4.3.9004
+Version: 0.4.3.9005
 Title: 'Htmlwidget' for 'Vega' and 'Vega-Lite'
 Description: 'Vega' and 'Vega-Lite' parse text in 'JSON' notation to render 
   chart-specifications into 'HTML'. This package is used to facilitate the 
@@ -78,5 +78,6 @@ Suggests:
     shiny,
     purrr,
     rsconnect
+Remotes: tidyverse/glue
 Language: en-US
 Config/testthat/edition: 3

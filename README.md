@@ -48,7 +48,7 @@ library("vegawidget")
 
 vega_version_all()
 #>   widget vega_lite   vega vega_embed
-#> 1    vl5     5.5.0 5.22.0     6.20.8
+#> 1    vl5    5.16.3 5.24.0     6.22.2
 #> 2    vl4    4.17.0 5.17.0     6.12.2
 ```
 

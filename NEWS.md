@@ -1,4 +1,4 @@
-# vegawidget (development version)
+# vegawidget 0.5.0
 
 ## Features
 
